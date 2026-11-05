@@ -1,0 +1,19 @@
+PROBE BLOCK-003 slash, filters and keyboard cursor insertion: fourteen native types and values persist after reload at 1440px
+NAV-006 touch create, type, insert and drag persisted
+BLOCK-012 columns insert, desktop drag and touch layout passed at 1440px
+PROBE COMM-002 acceptance 1–2: native comment controls and HTTP at 1440px -> two authors edit/delete; cross-author and owner override 403; edited times, two in-place tombstones and six activities survive replay/reload
+NAV-006 touch comment and resolve persisted
+WEB-006 native unpublish response {"width":1440,"elapsedMs":610}
+NAV-006 touch workspace publication and sharing persisted
+PAGE-007 Details, replay and edit-only refusal passed at 1440px
+NAV-006 touch Search, Inbox, My tasks, requested reviews and verification health passed
+Chat docs dimensions { width: 1440, height: 5213 }
+✔ real core-wiki and touch-member journeys at 1440px (510618.204124ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 530504.639337

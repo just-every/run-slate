@@ -1,0 +1,1996 @@
+{
+  "ref": "HEAD",
+  "total": 207,
+  "sites": 203,
+  "unresolved": [],
+  "perFile": [
+    {
+      "file": "tests/base-proof/provenance.test.mjs",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 49,
+          "name": "\"native Base provenance authenticates exact copies and refuses every forged or missing origin\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/docs/docs-dev-sync.test.mjs",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 27,
+          "name": "\"the docs plugin follows edits to Markdown and docs/site.json in a running dev server\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/docs/docs-site.test.mjs",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 22,
+          "name": "\"docs build renders declared pages and refuses invalid manifests, markup, links and images\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/e2e/auth-paths.test.js",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 5,
+          "name": "\"local sign-in admits only loopback hosts and keeps next paths inside the operator app\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/e2e/databases/record-templates.test.ts",
+      "total": 2,
+      "sites": 2,
+      "registrations": [
+        {
+          "line": 15,
+          "name": "'DB-015'",
+          "count": 1
+        },
+        {
+          "line": 99,
+          "name": "'record templates show each database viewer only the page mention titles they can open'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/e2e/docs.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 20,
+          "name": "\"public docs serve declared pages with accessible navigation and refuse unknown routes\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/e2e/editor/provider-embeds.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 11,
+          "name": "'EMBED-003'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/e2e/editor/tables.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 11,
+          "name": "'BLOCK-014'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/e2e/foundation-runtime.test.mjs",
+      "total": 2,
+      "sites": 2,
+      "registrations": [
+        {
+          "line": 19,
+          "name": "\"the development Worker serves the Start documents and the Hono families\"",
+          "count": 1
+        },
+        {
+          "line": 153,
+          "name": "\"native outbox sign-in preserves custom and retained Aurora workspaces\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/e2e/imports/archive-safety.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 9,
+          "name": "\"archive and markup admission refuses unsafe paths, payloads, declarations and expansion\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/e2e/imports/blog-posts.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 23,
+          "name": "'CONT-010 — a Confluence Cloud blog post imports as a post with its date and author, and undo removes it'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/e2e/imports/drive-sharepoint-import.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 9,
+          "name": "'IMP-009'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/e2e/imports/inflate-bounds.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 4,
+          "name": "\"nested compressed bombs are rejected before large decoder allocations\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/e2e/imports/mapping-regressions.test.ts",
+      "total": 2,
+      "sites": 2,
+      "registrations": [
+        {
+          "line": 39,
+          "name": "\"a gzipped Confluence table member is inflated against a budget, so a nested bomb is refused\"",
+          "count": 1
+        },
+        {
+          "line": 52,
+          "name": "\"incumbent export mappings preserve content, identities, relationships and reports\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/e2e/imports/page-lock.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 9,
+          "name": "'PAGE-015 — staged import classifies a racing lock without masking an intervening edit'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/e2e/imports/parsers.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 6,
+          "name": "\"explicit import formats preserve their content and relationships\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/e2e/imports/preview-undo.test.ts",
+      "total": 2,
+      "sites": 2,
+      "registrations": [
+        {
+          "line": 135,
+          "name": "'reviews, applies and reverses real Notion and Confluence content without losing native edits'",
+          "count": 1
+        },
+        {
+          "line": 217,
+          "name": "'erases historical and shared imported people through confirmed native removal, atomically retires custody and keeps unrelated Undo'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/e2e/imports/readable-comments.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 10,
+          "name": "'PORT-008'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/e2e/imports/real-exports.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 63,
+          "name": "\"incumbent-produced archives preserve pages, relationships, media and explicit losses\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/e2e/imports/undo-cross-references.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 11,
+          "name": "'Undo removes unedited and merely shared imported pages and keeps an edited page with every page and file it needs'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/e2e/imports/word-export.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 12,
+          "name": "'PORT-010'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/e2e/knowledge-model.test.mjs",
+      "total": 3,
+      "sites": 3,
+      "registrations": [
+        {
+          "line": 54,
+          "name": "\"the eight policies default to Notion and accept every alternative without a model migration\"",
+          "count": 1
+        },
+        {
+          "line": 86,
+          "name": "\"current authority controls page grants, external access and operation replay\"",
+          "count": 1
+        },
+        {
+          "line": 180,
+          "name": "\"revision text normalizes Unicode and whitespace before SHA-256\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/e2e/landing-styles.test.mjs",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 17,
+          "name": "\"landing styles preserve the light palette, same-origin resources and reduced-motion access\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/e2e/landing.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 45,
+          "name": "\"installed lobby and public landing preserve owner configuration, navigation and privacy\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/e2e/local-outbox.node.test.mts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 76,
+          "name": "\"native local mail sign-in and invitations preserve identity, delivery and scoped authority\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/e2e/navigation/create-in-place.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 9,
+          "name": "'TREE-005'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/e2e/navigation/global-create.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 8,
+          "name": "'NAV-005'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/e2e/navigation/shared-navigation.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 9,
+          "name": "'TREE-003'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/e2e/navigation/tree-filter.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 8,
+          "name": "'TREE-004'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/e2e/notifications/chat.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 18,
+          "name": "\"NOTIF-007 — chat admission requires fresh authority and keeps link-only delivery inside the current audience\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/e2e/notifications/destinations.test.ts",
+      "total": 3,
+      "sites": 3,
+      "registrations": [
+        {
+          "line": 22,
+          "name": "\"CHAT-001 — Owners connect several chat destinations, each with its own event selection, and every destination sends one link-only message, fails and disconnects on its own\"",
+          "count": 1
+        },
+        {
+          "line": 320,
+          "name": "\"CHAT-001 — grouped delivery and withdrawal keep each original channel audience current\"",
+          "count": 1
+        },
+        {
+          "line": 416,
+          "name": "\"CHAT-001 — Nook channel changes are refused before custody changes while rotation and independent destinations work\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/e2e/pages/analytics.test.ts",
+      "total": 2,
+      "sites": 2,
+      "registrations": [
+        {
+          "line": 10,
+          "name": "'PAGE-013'",
+          "count": 1
+        },
+        {
+          "line": 57,
+          "name": "'ADMIN-004'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/e2e/pages/display-options.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 10,
+          "name": "'PAGE-012'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/e2e/pages/presentation.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 9,
+          "name": "'PAGE-011'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/e2e/pages/reactions.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 9,
+          "name": "'PAGE-014'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/e2e/pages/starter-templates.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 11,
+          "name": "'TMPL-007'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/e2e/platform-adapters.test.ts",
+      "total": 4,
+      "sites": 4,
+      "registrations": [
+        {
+          "line": 8,
+          "name": "\"R2 blob store keeps access-neutral metadata and rejects unsafe keys\"",
+          "count": 1
+        },
+        {
+          "line": 32,
+          "name": "\"queue dispatcher reports only accepted jobs and validates message envelopes\"",
+          "count": 1
+        },
+        {
+          "line": 43,
+          "name": "\"dependency health probes observable dependencies and propagates an unreachable dependency\"",
+          "count": 1
+        },
+        {
+          "line": 72,
+          "name": "\"Resend adapter sends a real provider-shaped request and surfaces provider failures\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/e2e/production-artifact.test.mjs",
+      "total": 2,
+      "sites": 2,
+      "registrations": [
+        {
+          "line": 70,
+          "name": "\"emitted bundles keep server internals and Markdown tooling off the client\"",
+          "count": 1
+        },
+        {
+          "line": 136,
+          "name": "\"emitted Worker admission serves configured public doors and protects native owner access\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/e2e/public-api/contract.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 10,
+          "name": "'personal API tokens run the published HTTP contract with member parity, task effects and immediate authority loss'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/e2e/review/review-access.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 8,
+          "name": "'Needs review and the people directory expose only readable work, with live access, expertise choices and explicit review routing'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/e2e/review/verification-flow.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 13,
+          "name": "'Verifying offers 7, 30 or 90 days, a date or none, only on the opened revision, and an edit makes it not current'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/e2e/review/verification-rules.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 12,
+          "name": "'STAT-007'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/e2e/review/verification-upgrade.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 11,
+          "name": "'Existing verifications and member profiles upgrade in place without losing populated work or lapse notices'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/e2e/runtime-config.test.js",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 6,
+          "name": "\"runtime configuration admits explicit local origins and providers and refuses unsafe deployments\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/e2e/saving/failed-writes.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 8,
+          "name": "'SAVE-002'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/e2e/scim/contract.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 10,
+          "name": "'SCIM RFC7643/7644 HTTP sequence uses native invitations, Members, groups and revocation authority'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/e2e/search/fts-permissions.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 6,
+          "name": "'Indexed search uses current native authority for literal matches, totals, facets and cursors'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/e2e/search/fts-upgrade.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 9,
+          "name": "'Prior-data search upgrade backfills existing text, preserves pending work and rebuilds from canonical content'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/e2e/search/search-location.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 6,
+          "name": "\"submitted search locations round-trip refinements while keeping unsubmitted state and authority separate\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/e2e/setup/fixtures.test.ts",
+      "total": 2,
+      "sites": 2,
+      "registrations": [
+        {
+          "line": 27,
+          "name": "\"deployment ownership fixtures retain authenticated identity, page foreign keys, membership and grants\"",
+          "count": 1
+        },
+        {
+          "line": 132,
+          "name": "\"deployment session fixtures retain hashed tokens, expiry and revocation\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/e2e/webhooks/deliveries.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 10,
+          "name": "'owner webhook subscriptions sign current readable events, persist backoff, replay and disable once without following refused destinations'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/e2e/workspace/health.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 14,
+          "name": "\"BASE-OPS-001\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/flagship/content/http.test.ts",
+      "total": 4,
+      "sites": 4,
+      "registrations": [
+        {
+          "line": 184,
+          "name": "\"content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state\"",
+          "count": 1
+        },
+        {
+          "line": 260,
+          "name": "\"publication, human verification and media enforce current reader authority\"",
+          "count": 1
+        },
+        {
+          "line": 377,
+          "name": "\"native collaboration sockets deliver durable edits and retain shared cursors across refreshes\"",
+          "count": 1
+        },
+        {
+          "line": 402,
+          "name": "'idle sockets close within five seconds after direct-grant revocation or session expiry'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/flagship/content/mention-access.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 15,
+          "name": "'LINK-004 — a mentioned page title reaches a reader through no door once their access is removed or expired'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/flagship/content/preview.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 2,
+          "name": "'rejects private origins before the first fetch and every redirect and accepts bounded HTML only'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/flagship/content/repair.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 10,
+          "name": "\"content structure, task attribution, privacy and activity retain exact revisions\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/flagship/core/access.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 33,
+          "name": "'page viewing applies current grants, private scopes, guest vetoes and restricted ancestry'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/flagship/core/erasure.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 7,
+          "name": "'BASE-DATA-003 member erasure removes private personal bodies and R2 content while keeping anonymous audit'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/flagship/core/identity-upgrade.test.ts",
+      "total": 2,
+      "sites": 2,
+      "registrations": [
+        {
+          "line": 41,
+          "name": "'published v0.1.0 members, groups, guests and live sessions keep identity, access and authority through Base sign-in adoption'",
+          "count": 1
+        },
+        {
+          "line": 236,
+          "name": "'ADMIN-001'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/flagship/core/identity.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 13,
+          "name": "\"native authentication, invitations and secret custody preserve current authority\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/flagship/core/mail.node.test.mts",
+      "total": 2,
+      "sites": 2,
+      "registrations": [
+        {
+          "line": 29,
+          "name": "\"native mail and invitations retain migration, first-run and provider custody\"",
+          "count": 1
+        },
+        {
+          "line": 99,
+          "name": "'MAIL-002 emitted Worker sends Managed sign-in and safely handles relay redirect, rate limit and credential refusal'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/flagship/core/mail.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 34,
+          "name": "\"identity mail preserves durable retry, recovery, authentication and provider custody\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/flagship/core/preview-owner-signin.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 37,
+          "name": "\"preview and bootstrap owner sign-in preserve identity and single-use authority\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/flagship/core/security.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 14,
+          "name": "\"first-run, operation replay, atomic rollback and membership policies preserve authority\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/flagship/discovery/blog.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 8,
+          "name": "'CONT-010 — a post is a dated page that reaches followers once and lists only for its readers'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/flagship/discovery/following.test.ts",
+      "total": 2,
+      "sites": 2,
+      "registrations": [
+        {
+          "line": 9,
+          "name": "'PAGE-016 — authoring watches respect durable unwatch, personal overrides and workspace defaults'",
+          "count": 1
+        },
+        {
+          "line": 46,
+          "name": "'CONT-012 — a watched container delivers creation, two edit sessions and a comment once each, nothing for restricted or draft pages, one item when the page is also watched, and rechecks moves, lifecycle and access'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/flagship/discovery/group-mentions.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 9,
+          "name": "'BLOCK-020 — group mentions preview and notify only readers once, with owner-controlled administrator bounds'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/flagship/discovery/space-hub.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 17,
+          "name": "\"CONT-011 — space homes and curated hubs retain revision and reader authority\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/flagship/federation/federation.test.ts",
+      "total": 2,
+      "sites": 2,
+      "registrations": [
+        {
+          "line": 25,
+          "name": "\"imports, source authority and portable archives persist exactly through failure and recovery\"",
+          "count": 1
+        },
+        {
+          "line": 107,
+          "name": "'PORT-009'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/flagship/federation/oauth-return.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 32,
+          "name": "'connecting Slack from local dev returns the owner signed in with Slack connected'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/flagship/intelligence/authority.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 7,
+          "name": "\"source disclosure, citations, run budgets and decisions preserve current authority\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/flagship/intelligence/effects.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 7,
+          "name": "\"external and native effects preserve reconciliation, grant revocation and exactly-once recovery\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/flagship/intelligence/inquiry.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 4,
+          "name": "\"inquiry hypotheses, outcomes and historical cutoffs retain evidence boundaries\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/flagship/intelligence/lifecycle.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 21,
+          "name": "\"run lifecycle, source claims, native proposals, external-agent reads and reservations preserve current authority\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/flagship/intelligence/native-transport.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 6,
+          "name": "\"native transport refuses credential redirects and preserves exact bounded timestamps\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/flagship/intelligence/skills.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 5,
+          "name": "\"pinned skills, evaluation cutoffs and retained learning preserve admission boundaries\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/flagship/intelligence/trial-boundaries.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 13,
+          "name": "\"trial disclosure, exposure, measurement and dispatch preserve stop and revocation boundaries\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/flagship/release-clauses/authority/agent-revocation.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 13,
+          "name": "\"AGENT-001 — exact credentials and effect grants fence replay, dispatch and local-session revocation\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/flagship/release-clauses/authority/impact-scope.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 12,
+          "name": "\"EFFECT-003 — scoped rehearsal and pinned maintenance require exact current authority\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/flagship/release-clauses/authority/inquiry-custody.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 10,
+          "name": "\"EFFECT-002 — inquiry custody and article publication preserve separate operational authority\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/flagship/release-clauses/federation/connector-disclosure.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 9,
+          "name": "'SOURCE-001 — connector list binds current native identity and explicitly reports unavailable authority after identity failure'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/flagship/release-clauses/federation/exact-passages.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 12,
+          "name": "\"SOURCE-002 — passages stay revision-pinned and content-free after source or connection revocation\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/flagship/release-clauses/inquiry/ambient-authority.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 65,
+          "name": "\"INQ-004 — scheduled assessments preserve route, source, audience, semantic and audit authority\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/flagship/release-clauses/inquiry/bounded-allocation.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 24,
+          "name": "\"INQ-003 — persisted allocations expose exhaustive optimum, capacity sensitivity and invalid input atomicity\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/flagship/release-clauses/inquiry/durable-branches.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 13,
+          "name": "\"INQ-001 — partially admitted rival branches retain interim findings, unavailable reasons and replayed durable stop\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/flagship/release-clauses/inquiry/replay-analysis.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 9,
+          "name": "\"INQ-002 — durable numerical replay separates observation, assumption, deduction and refused business authority\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/flagship/release-clauses/portability/owner-views.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 53,
+          "name": "\"AGENT-002 — private and restored owner views retain exact lineage, history and originals\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/flagship/release-clauses/portability/profile-retention.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 88,
+          "name": "\"FLAG-001 — core profile gates preserve pages, portable history and disabled restored execution\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/flagship/release-clauses/portability/staged-recovery.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 37,
+          "name": "\"FLAG-002 — staged restore retains atomic emptiness, current owner authority and complete recovery\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/flagship/release-clauses/suggestions/anchors.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 20,
+          "name": "\"SUG-001 — a proposal stays on its published revision and current access controls its read\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/flagship/release-clauses/suggestions/resolution.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 27,
+          "name": "\"SUG-002 — native acceptance is atomic and replayable; rejection history survives an empty migrated restore\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/flagship/release-clauses/trials/exposure-safety.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 14,
+          "name": "\"TRIAL-002 — uncertain exposure and revoked grants preserve dispatch truth and block unsent work\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/flagship/release-clauses/trials/learning-provenance.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 20,
+          "name": "'TRIAL-004 — native restore retains learned forecast and falsification while stale sources and old grants cannot activate it'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/flagship/release-clauses/trials/outcomes.test.ts",
+      "total": 2,
+      "sites": 2,
+      "registrations": [
+        {
+          "line": 24,
+          "name": "'TRIAL-003 — persisted conclusions use collected fields and independently checked precision'",
+          "count": 1
+        },
+        {
+          "line": 56,
+          "name": "'TRIAL-003 — missing exposure, empty measurements and changed instrumentation remain inconclusive despite the declared hash'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/flagship/release-clauses/trials/predeclaration.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 14,
+          "name": "\"TRIAL-001 — immutable plans require exact approval and constrain treatment content\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/flagship/release-clauses/value/comparison-integrity.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 13,
+          "name": "\"FLAG-003 — comparison arms preserve equal inputs, current grants and attributable costs\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/flagship/structured/automation-repairs.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 18,
+          "name": "\"automation admission, resumed effects and schedules preserve current scope and exactly-once recovery\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/flagship/structured/http.test.ts",
+      "total": 2,
+      "sites": 2,
+      "registrations": [
+        {
+          "line": 61,
+          "name": "\"Worker HTTP rejects missing expired revoked and denied sessions and persists authorized input\"",
+          "count": 1
+        },
+        {
+          "line": 193,
+          "name": "\"database file references list only attachments the reader could open\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/flagship/structured/structured.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 111,
+          "name": "\"structured records, computation, readers, templates, automation, policies and views retain durable semantics\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/flagship/structured/template-permissions.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 9,
+          "name": "\"template management, application, shipped copies and guest destinations preserve exact current capabilities\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/flagship/structured/template-repairs.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 13,
+          "name": "\"template snapshots, privacy and typed repairs preserve immutable definitions\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/flagship/structured/typed-repairs.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 11,
+          "name": "\"typed relation, aggregate and formula repairs preserve current source authority\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/flagship/structured/values.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 11,
+          "name": "\"typed values, summaries, filters and formula validation preserve their boundaries\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/installer/settings.test.mjs",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 14,
+          "name": "\"private local settings retain custody across loads, build failures and unsafe origins\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/local-journey/cli.test.mjs",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 18,
+          "name": "'fresh README CLI setup, native sign-in at both widths, custody, transfer and reset'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/local-journey/owner-removal-restore.test.mjs",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 23,
+          "name": "'a restore never brings a removed setup owner back'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/local-journey/populated-restore.test.mjs",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 22,
+          "name": "'a populated installation comes back on fresh authority under a different owner'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/portability/restore-identities.test.mjs",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 60,
+          "name": "\"restore admission accepts pristine bootstrap targets and preserves every retained identity and record\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/portability/roundtrip.test.mjs",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 14,
+          "name": "'BASE-DATA-001 PORT-001 PORT-002 PORT-003 PORT-005 — native ZIP backup, failed restore, retry and backup preserve populated D1 and original R2 bytes in a separate empty deployment'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/profile/first-run-shell.worker.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 11,
+          "name": "\"the first-run page shows the card mark beside the owner's name for the product and the signed-in owner's address\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/profile/profile.node.tsx",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 10,
+          "name": "\"FLAG-001 — core wiki defaults, route boundaries and controls require explicit flagship opt-in\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/profile/profile.worker.test.ts",
+      "total": 4,
+      "sites": 4,
+      "registrations": [
+        {
+          "line": 24,
+          "name": "\"FLAG-001 — core wiki public doors retain native content while flagship routes and queued work require opt-in\"",
+          "count": 1
+        },
+        {
+          "line": 106,
+          "name": "'BLOCK-015 — a task assigned to a member without access prompts a share, notifies its assignee once, reassigns without notifying the previous assignee and records completion'",
+          "count": 1
+        },
+        {
+          "line": 110,
+          "name": "'NOTIF-004 — page, task and date-mention reminders arrive once at local time in three time zones and not after access is revoked'",
+          "count": 1
+        },
+        {
+          "line": 114,
+          "name": "'BLOCK-016 — a task report shows each reader only the tasks they can read and completes a task on its page'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/qualification/authority/atomic-recovery.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 6,
+          "name": "'PORT-006 — a late D1 restore failure rolls back prior records and staged R2 originals, then the exact archive retries successfully'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/qualification/authority/decision-authority.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 11,
+          "name": "\"SOURCE-003 \\u2014 decision authority and exact historical prose retain current citation boundaries through review and restore\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/qualification/authority/disconnect.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 11,
+          "name": "\"SOURCE-006 \\u2014 OAuth redirects preserve authorization codes and disconnect withdraws executable authority without reactivation\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/qualification/authority/import-safety.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 7,
+          "name": "'IMP-004 — persistent HTML import never fetches missing remote attachments and sanitizes executable markup'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/qualification/authority/learned-provenance.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 14,
+          "name": "\"INQ-005 \\u2014 learned provenance and published inquiry references preserve exact disclosed sources\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/qualification/authority/native-boundaries.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 9,
+          "name": "'SOURCE-004 — typed native article receipt binds exact publication audience and rejects invalid observation time without dispatch'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/qualification/authority/recovery.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 9,
+          "name": "'FLAG-004 — real D1 and R2 archive restore retains evaluated history while all executable authority stays inactive'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/qualification/authority/skill-disclosure.test.ts",
+      "total": 4,
+      "sites": 4,
+      "registrations": [
+        {
+          "line": 17,
+          "name": "\"SKILL-001 \\u2014 method disclosure and portable snapshots retain exact source, audience and attachment boundaries\"",
+          "count": 1
+        },
+        {
+          "line": 77,
+          "name": "'SKILL-003 — exact continuation authority cannot disclose revoked dependencies outside the run subset'",
+          "count": 1
+        },
+        {
+          "line": 87,
+          "name": "'SKILL-002 — held-out evaluation admission rechecks full draft definition beyond frozen case refs'",
+          "count": 1
+        },
+        {
+          "line": 95,
+          "name": "'SOURCE-005 — complete archive refuses retained skill prose when its source authority has been erased'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/qualification/core/audit-content.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 5,
+          "name": "'ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/qualification/erasure-metadata/atomic-custody.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 13,
+          "name": "\"Erasure ARCH-006 BASE-DATA-003 PORT-001 PORT-002: atomic page and member custody erasure survives cleanup failure, restore and re-export\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/qualification/policies/invitations.test.ts",
+      "total": 2,
+      "sites": 2,
+      "registrations": [
+        {
+          "line": 12,
+          "name": "'ADMIN-003 — HTTP guest policy, default expiry and bulk revocation; SHARE-006 SHARE-001 SHARE-007: pending guest invitation grants no access, local provider double captures exact acceptance token, revoke invalidates pending grant'",
+          "count": 1
+        },
+        {
+          "line": 90,
+          "name": "'native member invitations preserve uniform admission, lifetime and current inviter authority'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/qualification/publication-relocation/authority.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 11,
+          "name": "\"Relocation publication review, release and replay preserve current audience authority and atomic subtree state\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/qualification/release-integration-repairs/branch-migration.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 6,
+          "name": "'Forward branch admission migration preserves native prior inquiry findings and leaves unknown history unknown'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/qualification/release-integration-repairs/branch-portability.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 20,
+          "name": "'Unavailable branch admission survives stop, export, fresh restore and re-export without inventing a run'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/qualification/release-restore-authority/restored-effects.test.ts",
+      "total": 5,
+      "sites": 5,
+      "registrations": [
+        {
+          "line": 16,
+          "name": "\"FLAG-004 PORT-005 EFFECT-001 — restored authority fences replay and reconciliation even after diagnostic clearing while preserving exact history\"",
+          "count": 1
+        },
+        {
+          "line": 59,
+          "name": "\"EFFECT-001 \\u2014 current grants dispatch once with receipt replay while revoked grants deny without mutations\"",
+          "count": 1
+        },
+        {
+          "line": 81,
+          "name": "'PORT-005 — missing and revoked actors are rejected before restored history or effect authority is disclosed'",
+          "count": 1
+        },
+        {
+          "line": 99,
+          "name": "'FLAG-004 EFFECT-001 — a live grant cannot override either durable-marker or legacy-reason restore fence'",
+          "count": 1
+        },
+        {
+          "line": 116,
+          "name": "'AI-006 — non-restored paused, cancelled and completed runs retain the existing stopped-run conflict'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/qualification/release-shell/console-regression.test.mjs",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 10,
+          "name": "'WORK-013 SEARCH-001 WORK-011 — core-wiki native pages remain free of browser console and uncaught errors'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/qualification/release-shell/native-shell.test.mjs",
+      "total": 2,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 13,
+          "name": "`${profile}: current identity, required first use, returning search and keyboard history`",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "file": "tests/qualification/ui-convergence/access-expiry.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 20,
+          "name": "\"access expiry round-trips rendered input, rejects invalid dates and clears optional values\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/qualification/ui-convergence/ask-draft.test.ts",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 5,
+          "name": "'Ask drafts survive remounts, are scoped to workspace/member/page and clear when erased'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/qualification/ui-convergence/journeys.test.mjs",
+      "total": 29,
+      "sites": 27,
+      "registrations": [
+        {
+          "line": 83,
+          "name": "`real core-wiki and touch-member journeys at ${width}px`",
+          "count": 2
+        },
+        {
+          "line": 132,
+          "name": "`provider embeds load only on interaction and [EMBED-004] files respect reader access at ${width}px`",
+          "count": 1
+        },
+        {
+          "line": 138,
+          "name": "`space tree title filtering preserves ancestors, access and expansion at ${width}px`",
+          "count": 1
+        },
+        {
+          "line": 150,
+          "name": "`spreadsheet tables merge, sort and round-trip through edited database records at ${width}px`",
+          "count": 1
+        },
+        {
+          "line": 165,
+          "name": "`shared page invitations name their space and disappear on revocation at ${width}px`",
+          "count": 1
+        },
+        {
+          "line": 177,
+          "name": "`SEARCH-011 — verified, unverified and lapsed pages rank in order with badges, near-duplicates collapse and published views carry no trust at ${width}px`",
+          "count": 1
+        },
+        {
+          "line": 186,
+          "name": "`named review request, reviewer queue, exact verify and overdue escalation at ${width}px`",
+          "count": 1
+        },
+        {
+          "line": 199,
+          "name": "`TMPL-007 starter templates are found by category; touch spaces, templates, archive and workspace settings work at ${width}px`",
+          "count": 1
+        },
+        {
+          "line": 213,
+          "name": "`two people edit at once, lose access mid-edit and restore history at ${width}px`",
+          "count": 1
+        },
+        {
+          "line": 226,
+          "name": "`readable exports retain discussions through HTML and Markdown re-import at ${width}px`",
+          "count": 1
+        },
+        {
+          "line": 238,
+          "name": "`global create names destinations for every content kind at ${width}px`",
+          "count": 1
+        },
+        {
+          "line": 255,
+          "name": "`BLOCK-016 — task reports, My tasks and typed assignments preserve reader access and completion at ${width}px`",
+          "count": 1
+        },
+        {
+          "line": 279,
+          "name": "`page creation destinations and editor locks preserve readable content at ${width}px`",
+          "count": 1
+        },
+        {
+          "line": 293,
+          "name": "`DB-015 — a database's Templates tab says a schedule runs as its last saver, and a re-save hands it over at ${width}px`",
+          "count": 1
+        },
+        {
+          "line": 302,
+          "name": "`SAML sign-in verifies the domain and signatures while preserving guest and designated-owner access at ${width}px`",
+          "count": 1
+        },
+        {
+          "line": 311,
+          "name": "`editable space home and curated company hub for a new member at ${width}px`",
+          "count": 1
+        },
+        {
+          "line": 320,
+          "name": "`page and space readership show people, author views and inclusive dates at ${width}px`",
+          "count": 1
+        },
+        {
+          "line": 329,
+          "name": "`group mentions preview readers and refuse oversized groups at ${width}px`",
+          "count": 1
+        },
+        {
+          "line": 338,
+          "name": "`CONT-012 a watched space's create, edit sessions and comment appear once each in Home's Following at ${width}px`",
+          "count": 1
+        },
+        {
+          "line": 347,
+          "name": "`space blog post reaches a follower's inbox and Home at ${width}px`",
+          "count": 1
+        },
+        {
+          "line": 356,
+          "name": "`rejected writes retain drafts and require explicit retry at ${width}px`",
+          "count": 1
+        },
+        {
+          "line": 365,
+          "name": "`page and comment reactions identify people without notifications or views at ${width}px`",
+          "count": 1
+        },
+        {
+          "line": 374,
+          "name": "`flagship no-provider Ask retains a page-scoped draft at ${width}px`",
+          "count": 1
+        },
+        {
+          "line": 384,
+          "name": "`presentation paginates read-only slides; touch history, details and exports work at ${width}px`",
+          "count": 1
+        },
+        {
+          "line": 394,
+          "name": "`page display settings are shared and survive export and import at ${width}px`",
+          "count": 1
+        },
+        {
+          "line": 403,
+          "name": "`page outline follows headings and navigates long pages at ${width}px`",
+          "count": 1
+        },
+        {
+          "line": 416,
+          "name": "`BLOCK-010 — native content queries retain criteria and current-reader results at ${width}px`",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "file": "tests/qualification/ui-convergence/reachability.test.mjs",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 8,
+          "name": "\"the live UI import graph resolves runtime imports and rejects unreachable modules\"",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/release/fixture-policy.test.mjs",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 77,
+          "name": "'public fixture policy preserves every reviewed archive'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/release/source.test.mjs",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 4,
+          "name": "'operations inspect input readiness without claiming provider readiness'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/rer/editor.test.mjs",
+      "total": 2,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 6,
+          "name": "`native owner editor mount, CSP and revocation at ${width}`",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "file": "tests/typegen-operations.test.mjs",
+      "total": 2,
+      "sites": 2,
+      "registrations": [
+        {
+          "line": 6,
+          "name": "'local deployment validation names missing mail provider and selected key'",
+          "count": 1
+        },
+        {
+          "line": 19,
+          "name": "'operation checker rejects missing scripts for pnpm run and pnpm shorthand'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/typegen.test.mjs",
+      "total": 1,
+      "sites": 1,
+      "registrations": [
+        {
+          "line": 9,
+          "name": "'binding check rejects stale declarations without overwriting them'",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/ui/polish-journeys.test.mjs",
+      "total": 4,
+      "sites": 4,
+      "registrations": [
+        {
+          "line": 18,
+          "name": "`insertion recovery preserves later saved content at ${width}px`",
+          "count": 1
+        },
+        {
+          "line": 26,
+          "name": "`visible Slate polish and genuine failure/retry at ${width}px`",
+          "count": 1
+        },
+        {
+          "line": 46,
+          "name": "`genuine insertion focus lifecycle at ${width}px`",
+          "count": 1
+        },
+        {
+          "line": 92,
+          "name": "`visible Slate polish and genuine failure/retry at ${width}px`",
+          "count": 1
+        }
+      ]
+    }
+  ]
+}

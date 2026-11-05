@@ -1,0 +1,341 @@
+{
+  "head": "ba27af82aef127ae754b77dcb8493c7d2eb84758",
+  "captures": [
+    {
+      "state": "keyboard basic insert menu",
+      "artifact": {
+        "schema": 1,
+        "commit": "ba27af82aef127ae754b77dcb8493c7d2eb84758",
+        "tree": "93938f0c2e4f3eb2b39cbc202fb96b030dcd423d",
+        "sourceSha256": "46ed92e9526b2d36feb7924aa5e61f20b60cd36a5b3a3d9622fda619dcc81ff0",
+        "lockSha256": "a8c892b074c43ac452b1e25bd91d8ec479af9661ca5eaf67ee4e74cf76b37032",
+        "outputSha256": "82627d00ffc93092ccca5e74094a770b39d764062d52070f867279f2ac3cbab4"
+      },
+      "geometry": {
+        "viewport": {
+          "width": 1440,
+          "height": 1000
+        },
+        "documentWidth": 1440,
+        "body": {
+          "x": 372,
+          "y": 193.390625,
+          "width": 880,
+          "height": 176,
+          "top": 193.390625,
+          "right": 1252,
+          "bottom": 369.390625,
+          "left": 372
+        },
+        "toolbar": [
+          {
+            "x": 1102.0625,
+            "y": 9.5,
+            "width": 67.28125,
+            "height": 36,
+            "top": 9.5,
+            "right": 1169.34375,
+            "bottom": 45.5,
+            "left": 1102.0625
+          },
+          {
+            "x": 1177.34375,
+            "y": 9.5,
+            "width": 36,
+            "height": 36,
+            "top": 9.5,
+            "right": 1213.34375,
+            "bottom": 45.5,
+            "left": 1177.34375
+          },
+          {
+            "x": 1221.34375,
+            "y": 9.5,
+            "width": 36,
+            "height": 36,
+            "top": 9.5,
+            "right": 1257.34375,
+            "bottom": 45.5,
+            "left": 1221.34375
+          },
+          {
+            "x": 1265.34375,
+            "y": 9.5,
+            "width": 36,
+            "height": 36,
+            "top": 9.5,
+            "right": 1301.34375,
+            "bottom": 45.5,
+            "left": 1265.34375
+          },
+          {
+            "x": 1309.34375,
+            "y": 9.5,
+            "width": 106.65625,
+            "height": 36,
+            "top": 9.5,
+            "right": 1416,
+            "bottom": 45.5,
+            "left": 1309.34375
+          }
+        ]
+      },
+      "serious_or_critical_violations": [],
+      "image": "browser/keyboard-menu-1440.png",
+      "image_sha256": "006064df406f7cefc6f74617e09de9e92fa46f3b87014d55e3e84efe926ba58a",
+      "source_capture": "017-1440-keyboard-basic-insert-menu.json"
+    },
+    {
+      "state": "keyboard inserted basic catalog",
+      "artifact": {
+        "schema": 1,
+        "commit": "ba27af82aef127ae754b77dcb8493c7d2eb84758",
+        "tree": "93938f0c2e4f3eb2b39cbc202fb96b030dcd423d",
+        "sourceSha256": "46ed92e9526b2d36feb7924aa5e61f20b60cd36a5b3a3d9622fda619dcc81ff0",
+        "lockSha256": "a8c892b074c43ac452b1e25bd91d8ec479af9661ca5eaf67ee4e74cf76b37032",
+        "outputSha256": "82627d00ffc93092ccca5e74094a770b39d764062d52070f867279f2ac3cbab4"
+      },
+      "geometry": {
+        "viewport": {
+          "width": 1440,
+          "height": 1000
+        },
+        "documentWidth": 1440,
+        "body": {
+          "x": 372,
+          "y": 259.390625,
+          "width": 880,
+          "height": 2336.125,
+          "top": 259.390625,
+          "right": 1252,
+          "bottom": 2595.515625,
+          "left": 372
+        },
+        "toolbar": [
+          {
+            "x": 1102.0625,
+            "y": 9.5,
+            "width": 67.28125,
+            "height": 36,
+            "top": 9.5,
+            "right": 1169.34375,
+            "bottom": 45.5,
+            "left": 1102.0625
+          },
+          {
+            "x": 1177.34375,
+            "y": 9.5,
+            "width": 36,
+            "height": 36,
+            "top": 9.5,
+            "right": 1213.34375,
+            "bottom": 45.5,
+            "left": 1177.34375
+          },
+          {
+            "x": 1221.34375,
+            "y": 9.5,
+            "width": 36,
+            "height": 36,
+            "top": 9.5,
+            "right": 1257.34375,
+            "bottom": 45.5,
+            "left": 1221.34375
+          },
+          {
+            "x": 1265.34375,
+            "y": 9.5,
+            "width": 36,
+            "height": 36,
+            "top": 9.5,
+            "right": 1301.34375,
+            "bottom": 45.5,
+            "left": 1265.34375
+          },
+          {
+            "x": 1309.34375,
+            "y": 9.5,
+            "width": 106.65625,
+            "height": 36,
+            "top": 9.5,
+            "right": 1416,
+            "bottom": 45.5,
+            "left": 1309.34375
+          }
+        ]
+      },
+      "serious_or_critical_violations": [],
+      "image": "browser/keyboard-page-1440.png",
+      "image_sha256": "77240092e448916902d828eac070466b1000f3a44481ad92070134cbca1bebb6",
+      "source_capture": "018-1440-keyboard-inserted-basic-catalog.json"
+    },
+    {
+      "state": "touch basic insert menu",
+      "artifact": {
+        "schema": 1,
+        "commit": "ba27af82aef127ae754b77dcb8493c7d2eb84758",
+        "tree": "93938f0c2e4f3eb2b39cbc202fb96b030dcd423d",
+        "sourceSha256": "46ed92e9526b2d36feb7924aa5e61f20b60cd36a5b3a3d9622fda619dcc81ff0",
+        "lockSha256": "a8c892b074c43ac452b1e25bd91d8ec479af9661ca5eaf67ee4e74cf76b37032",
+        "outputSha256": "82627d00ffc93092ccca5e74094a770b39d764062d52070f867279f2ac3cbab4"
+      },
+      "geometry": {
+        "viewport": {
+          "width": 390,
+          "height": 520
+        },
+        "documentWidth": 390,
+        "body": {
+          "x": 19.5,
+          "y": 218,
+          "width": 351,
+          "height": 206,
+          "top": 218,
+          "right": 370.5,
+          "bottom": 424,
+          "left": 19.5
+        },
+        "toolbar": [
+          {
+            "x": 140.0625,
+            "y": 1,
+            "width": 67.28125,
+            "height": 44,
+            "top": 1,
+            "right": 207.34375,
+            "bottom": 45,
+            "left": 140.0625
+          },
+          {
+            "x": 215.34375,
+            "y": 1,
+            "width": 44,
+            "height": 44,
+            "top": 1,
+            "right": 259.34375,
+            "bottom": 45,
+            "left": 215.34375
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 267.34375,
+            "y": 1,
+            "width": 106.65625,
+            "height": 44,
+            "top": 1,
+            "right": 374,
+            "bottom": 45,
+            "left": 267.34375
+          }
+        ]
+      },
+      "serious_or_critical_violations": [],
+      "image": "browser/touch-menu-390.png",
+      "image_sha256": "465be50c3cbc147769639ed7ca7da6d72461760186e4aad0cc0e3038b9194bdf",
+      "source_capture": "019-390-touch-basic-insert-menu.json"
+    },
+    {
+      "state": "touch inserted basic catalog",
+      "artifact": {
+        "schema": 1,
+        "commit": "ba27af82aef127ae754b77dcb8493c7d2eb84758",
+        "tree": "93938f0c2e4f3eb2b39cbc202fb96b030dcd423d",
+        "sourceSha256": "46ed92e9526b2d36feb7924aa5e61f20b60cd36a5b3a3d9622fda619dcc81ff0",
+        "lockSha256": "a8c892b074c43ac452b1e25bd91d8ec479af9661ca5eaf67ee4e74cf76b37032",
+        "outputSha256": "82627d00ffc93092ccca5e74094a770b39d764062d52070f867279f2ac3cbab4"
+      },
+      "geometry": {
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "documentWidth": 390,
+        "body": {
+          "x": 19.5,
+          "y": 131,
+          "width": 351,
+          "height": 3388.40625,
+          "top": 131,
+          "right": 370.5,
+          "bottom": 3519.40625,
+          "left": 19.5
+        },
+        "toolbar": [
+          {
+            "x": 140.0625,
+            "y": -156,
+            "width": 67.28125,
+            "height": 44,
+            "top": -156,
+            "right": 207.34375,
+            "bottom": -112,
+            "left": 140.0625
+          },
+          {
+            "x": 215.34375,
+            "y": -156,
+            "width": 44,
+            "height": 44,
+            "top": -156,
+            "right": 259.34375,
+            "bottom": -112,
+            "left": 215.34375
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 267.34375,
+            "y": -156,
+            "width": 106.65625,
+            "height": 44,
+            "top": -156,
+            "right": 374,
+            "bottom": -112,
+            "left": 267.34375
+          }
+        ]
+      },
+      "serious_or_critical_violations": [],
+      "image": "browser/touch-page-390.png",
+      "image_sha256": "e11b58bf387ccf068e97de6bbf450cb54395fffa86bff7954d48ef18d4906591",
+      "source_capture": "020-390-touch-inserted-basic-catalog.json"
+    }
+  ]
+}

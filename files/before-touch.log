@@ -1,0 +1,35 @@
+Journey failure context {
+  "rejected": [],
+  "consoleErrors": []
+}
+file:///home/agent/rer-consolidation/work/sd-slate-c-f167/run-slate/tests/qualification/ui-convergence/insert-menu-journey.mjs:170
+    } catch(cause) {throw new Error(`${touch?'Touch':'Keyboard'} insert ${entry.kind} failed`,{cause});}
+                          ^
+
+Error: Touch insert text failed
+    at runInsertMenuJourney (file:///home/agent/rer-consolidation/work/sd-slate-c-f167/run-slate/tests/qualification/ui-convergence/insert-menu-journey.mjs:170:27)
+    at async insertMenuJourney (file:///home/agent/rer-consolidation/work/sd-slate-c-f167/run-slate/tests/qualification/ui-convergence/insert-menu-journey.mjs:65:18)
+    ... 2 lines matching cause stack trace ...
+    at async file:///tmp/sd-slate-c-f167-probe.mjs:5:1 {
+  [cause]: AssertionError [ERR_ASSERTION]: The source keeps the text before the insertion cursor.
+  + actual - expected
+  
+  + 'synthetic-slate-left-0 synthetic-slate-right-0'
+  - 'synthetic-slate-left-0 '
+                            ^
+  
+      at runInsertMenuJourney (file:///home/agent/rer-consolidation/work/sd-slate-c-f167/run-slate/tests/qualification/ui-convergence/insert-menu-journey.mjs:166:14)
+      at async insertMenuJourney (file:///home/agent/rer-consolidation/work/sd-slate-c-f167/run-slate/tests/qualification/ui-convergence/insert-menu-journey.mjs:65:18)
+      at async file:///tmp/sd-slate-c-f167-probe.mjs:9:78
+      at async withWorkspace (file:///home/agent/rer-consolidation/work/sd-slate-c-f167/run-slate/tests/qualification/ui-convergence/browser-support.mjs:188:7)
+      at async file:///tmp/sd-slate-c-f167-probe.mjs:5:1 {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'synthetic-slate-left-0 synthetic-slate-right-0',
+    expected: 'synthetic-slate-left-0 ',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+}
+
+Node.js v24.19.0

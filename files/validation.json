@@ -1,0 +1,120 @@
+{
+  "schema": 1,
+  "repository": "just-every/run-slate",
+  "head": "ba27af82aef127ae754b77dcb8493c7d2eb84758",
+  "branch": "cloud/sd-slate-c-f167",
+  "clause": {
+    "id": "BLOCK-003",
+    "before": "partial",
+    "after": "partial"
+  },
+  "counts_before": {
+    "done": 57,
+    "partial": 240,
+    "missing": 41
+  },
+  "counts_after": {
+    "done": 57,
+    "partial": 240,
+    "missing": 41
+  },
+  "registrations_before": 207,
+  "registrations_after": 207,
+  "status_rows_before": 338,
+  "status_rows_after": 338,
+  "baseline": {
+    "product_head": "2913d9124f3788df6e7b682a4406a240e79abcb2",
+    "build": "predecessor product build; uncommitted touch-cursor assertion",
+    "exit": 1,
+    "test": "Touch insert text failed",
+    "failure": "The source keeps the text before the insertion cursor.",
+    "log": "before-touch.log"
+  },
+  "checks": [
+    {
+      "command": "npx -y @runeditrun/rer build",
+      "exit": 0,
+      "log": "build-candidate.log"
+    },
+    {
+      "command": "pnpm typecheck",
+      "exit": 0,
+      "log": "typecheck-final.log"
+    },
+    {
+      "command": "npx -y @runeditrun/rer check --profile first-party",
+      "exit": 0,
+      "log": "first-party-final.log"
+    },
+    {
+      "command": "node --test --test-concurrency=1 --test-name-pattern='^real core-wiki and touch-member journeys at 1440px$' tests/qualification/ui-convergence/journeys.test.mjs",
+      "exit": 0,
+      "passed": 1,
+      "duration_ms": 510618.204124,
+      "log": "core-1440.log"
+    },
+    {
+      "command": "node --test --test-concurrency=1 --test-name-pattern='^real core-wiki and touch-member journeys at 390px$' tests/qualification/ui-convergence/journeys.test.mjs",
+      "exit": 0,
+      "passed": 1,
+      "duration_ms": 634652.857447,
+      "log": "core-390.log"
+    },
+    {
+      "command": "node --test --test-concurrency=1 --test-name-pattern='^(insertion recovery|genuine insertion focus)' tests/ui/polish-journeys.test.mjs",
+      "exit": 0,
+      "passed": 2,
+      "log": "insertion-regression.log"
+    },
+    {
+      "command": "pnpm test:release-source",
+      "exit": 0,
+      "passed": 2,
+      "log": "release-source.log"
+    },
+    {
+      "command": "node src/base/runtime/contract-docs.mjs write then check; restore generated views from origin/main",
+      "exit": 0,
+      "log": "views-final.log"
+    },
+    {
+      "command": "pnpm source:lock then pnpm source:check",
+      "exit": 0,
+      "log": "source-check-final.log"
+    }
+  ],
+  "browser_receipt": "browser-receipt.json",
+  "build_provenance": "build-provenance.json",
+  "migration_ledger": "not applicable; no migration changed",
+  "ci": {
+    "candidate": {
+      "run_id": 42126975454,
+      "event": "push",
+      "head_sha": "ba27af82aef127ae754b77dcb8493c7d2eb84758",
+      "status": "completed",
+      "conclusion": "failure",
+      "allowed_generated_view_exception": true,
+      "root_job_id": 127593588458,
+      "root_step": "Run node src/base/runtime/contract-docs.mjs check",
+      "root_error": "ACCEPTANCE.md: generated content differs; run contract-docs write.",
+      "dependent_aggregate_job_id": 127593818378,
+      "product_shards": "skipped after app failure; no CI browser pass claimed",
+      "failed_job_logs_read_once": true,
+      "log_receipts": [
+        "ci-app-failure-receipt.json",
+        "ci-aggregate-failure-receipt.json"
+      ]
+    },
+    "main": "ci-main.json"
+  },
+  "publication_scan": "not run in cloud; guarded lander required",
+  "landing": "not performed",
+  "github_api_calls": 5,
+  "restored_generated_view_check": {
+    "command": "node src/base/runtime/contract-docs.mjs check",
+    "exit": 1,
+    "expected": true,
+    "log": "restored-view-check.log"
+  },
+  "custody": "READY under the explicit generated-view-only exception; no main landing or DONE count claimed"
+}

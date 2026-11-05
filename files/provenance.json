@@ -1,0 +1,25 @@
+{
+  "repository": "just-every/run-slate",
+  "branch": "cloud/sd-slate-c-f167",
+  "head": "ba27af82aef127ae754b77dcb8493c7d2eb84758",
+  "parent": "ccd646a0d07579d0bedaef7c9d7a28ab6934d03e",
+  "main_at_merge": "51162d87a91a4556ab68fdee79caa26e1b747a29",
+  "requested_base": "2913d9124f3788df6e7b682a4406a240e79abcb2",
+  "build": {
+    "schema": 1,
+    "commit": "ba27af82aef127ae754b77dcb8493c7d2eb84758",
+    "tree": "93938f0c2e4f3eb2b39cbc202fb96b030dcd423d",
+    "sourceSha256": "46ed92e9526b2d36feb7924aa5e61f20b60cd36a5b3a3d9622fda619dcc81ff0",
+    "lockSha256": "a8c892b074c43ac452b1e25bd91d8ec479af9661ca5eaf67ee4e74cf76b37032",
+    "outputSha256": "82627d00ffc93092ccca5e74094a770b39d764062d52070f867279f2ac3cbab4"
+  },
+  "registrations": 207,
+  "status_counts": {
+    "done": 57,
+    "partial": 240,
+    "missing": 41
+  },
+  "status_rows": 338,
+  "generated_views_committed": false,
+  "github_api_calls_so_far": 5
+}

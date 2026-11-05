@@ -1,0 +1,20 @@
+PROBE BLOCK-003 grouping: slash and focused Add block -> the same fourteen selected Basic choices, with Basic, Media and Advanced group headings.
+PROBE BLOCK-003 filtering: actual mixed-case name, description, shortcut and no-match input -> exact matching sets; no-match Enter inserts nothing; closing retains source text and focus.
+PROBE BLOCK-003 keyboard: slash, both arrow directions and Enter without a pointer -> each selected basic choice stays visible and receives editor focus.
+PROBE BLOCK-003 touch: ordinary member, focused 390px editor, labeled control and real taps -> every selected choice wholly inside the reduced visual viewport.
+PROBE BLOCK-003 cursor: paragraph text on both sides, then an earlier paragraph with many following blocks -> exact retained text, later identities, content and relative order.
+PROBE BLOCK-003 reload: native page API and rendered block identifiers -> complete committed selected types, content, parents, order and positions retained.
+PROBE BLOCK-003 text: real keyboard selection at 1440 and touch selection at 390 -> native paragraph text persisted after reload.
+PROBE BLOCK-003 heading-1: real keyboard selection at 1440 and touch selection at 390 -> native heading level 1 persisted after reload.
+PROBE BLOCK-003 heading-2: real keyboard selection at 1440 and touch selection at 390 -> native heading level 2 persisted after reload.
+PROBE BLOCK-003 heading-3: real keyboard selection at 1440 and touch selection at 390 -> native heading level 3 persisted after reload.
+PROBE BLOCK-003 bulleted-list: real keyboard selection at 1440 and touch selection at 390 -> native list variant bulleted persisted after reload.
+PROBE BLOCK-003 numbered-list: real keyboard selection at 1440 and touch selection at 390 -> native list variant numbered persisted after reload.
+PROBE BLOCK-003 toggle-list: real keyboard selection at 1440 and touch selection at 390 -> native list variant toggle persisted after reload.
+PROBE BLOCK-003 task: real keyboard selection at 1440 and touch selection at 390 -> native unchecked task persisted after reload.
+PROBE BLOCK-003 quote: real keyboard selection at 1440 and touch selection at 390 -> native quote text persisted after reload.
+PROBE BLOCK-003 divider: real keyboard selection at 1440 and touch selection at 390 -> native divider with empty content and editor focus persisted after reload.
+PROBE BLOCK-003 callout: real keyboard selection at 1440 and touch selection at 390 -> native neutral callout text persisted after reload.
+PROBE BLOCK-003 expandable: real keyboard selection at 1440 and touch selection at 390 -> native open expandable section with summary and detail persisted after reload.
+PROBE BLOCK-003 table: real keyboard selection at 1440 and touch selection at 390 -> native table with header and body cell persisted after reload.
+PROBE BLOCK-003 code: real keyboard selection at 1440 and touch selection at 390 -> native text-language code content persisted after reload.

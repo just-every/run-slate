@@ -1,0 +1,11 @@
+{
+  "command": "gh run view 42126975454 --repo just-every/run-slate --job 127593588458 --log-failed",
+  "exit": 0,
+  "log": "ci-app-failure.log",
+  "sanitized": true,
+  "sanitization": [
+    "Injected credential values and URL queries masked",
+    "CI environment blocks omitted"
+  ],
+  "environment_lines_omitted": 2
+}

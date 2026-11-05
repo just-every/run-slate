@@ -1,0 +1,8 @@
+{
+  "path": "/home/agent/rer-consolidation/work/sd-slate-c-f167/candidate.bundle",
+  "head": "ba27af82aef127ae754b77dcb8493c7d2eb84758",
+  "sha256": "6ba78522ed3befe17691401850bc304a65767bcd3c59d23392439cdc0740c01e",
+  "bytes": 22210,
+  "verified": true,
+  "scope": "origin/main..HEAD; requires the documented main prerequisite"
+}

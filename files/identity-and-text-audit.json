@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "candidate_commits": [
+    "ba27af82aef127ae754b77dcb8493c7d2eb84758",
+    "ccd646a0d07579d0bedaef7c9d7a28ab6934d03e",
+    "2913d9124f3788df6e7b682a4406a240e79abcb2",
+    "1526245c18ae5bd61ca98fc1207050e0908487bd",
+    "76dd1bdb88d37f4e0b5b378281b68555a62391d6",
+    "bf95b5f25e0feddb77e54e523184f34930bc82e2"
+  ],
+  "authors_and_committers": "fleet identity",
+  "coauthor_cleanup": "no OpenAI or Codex trailers",
+  "added_email_shaped_strings": [],
+  "unresolved_repository_shaped_tokens": []
+}
