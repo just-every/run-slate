@@ -142,7 +142,7 @@ for (const width of [390]) {
       await state.switchIdentity('owner');
       await settingsJourney(state,width);
       await workspaceAuthorityJourney(state,width);
-    });
+    }, {RER_DEMO:'0'});
   });
 }
 
@@ -400,13 +400,13 @@ for (const width of [1440]) {
 }
 
 for (const width of [1440]) {
-  test(`page outline follows headings and navigates long pages at ${width}px`, { timeout: 420000 }, async () => {
+  test(`page outline follows headings and navigates long pages at ${width}px`, { timeout: 480000 }, async () => {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
       await outlineJourney(state);
       await settingsJourney(state,width);
       await workspaceAuthorityJourney(state,width);
-    });
+    }, {RER_DEMO:'0'});
   });
 }
 

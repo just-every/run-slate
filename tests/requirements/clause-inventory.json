@@ -1027,7 +1027,7 @@
       "id": "CONT-007",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of CONT-007 — External-access switches. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Native external switches are exercised by guestScopeJourney in the existing responsive settings registrations: independent workspace-owner and container-administrator controls, ordinary-member and personal-container refusals, persisted settings, current effective vetoes, retained public addresses and timed guest page, tree, search, inbox and editor removal with unsaved text. Inherited AI-answer removal through SHARE-007 remains unproven under ADMIN-007 and the shared company-policy prerequisites; no general grant-narrowing scope ruling or release is claimed.",
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",

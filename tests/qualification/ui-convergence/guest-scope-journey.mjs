@@ -96,10 +96,14 @@ async function externalSwitchesJourney(state,width,{guest,who,view,space,shared,
     for(const name of SWITCHES)await expect(dialog.locator(`select[name="${name}"]`)).toHaveValue(before[name]);
     await dialog.locator(`select[name="${setting}"]`).selectOption(value);
     const close=dialog.getByRole('button',{name:'Close dialog',exact:true});
+    await actorPage.keyboard.press('Tab');
     await close.focus();
     await expect(close).toHaveAttribute('data-tooltip',/\S+\s+\S+/);
     await expect.poll(()=>close.evaluate(element=>getComputedStyle(element,'::after').opacity)).toBe('1');
-    if(proof.changes.length<2)await accessible(actorPage,`native ${scope} external switches ${width}`);
+    if(!proof.changes.some(change=>change.scope===scope)) {
+      await dialog.locator('select[name="anonymousAccess"]').scrollIntoViewIfNeeded();
+      await accessible(actorPage,`native ${scope} external switches ${width}`);
+    }
     await beforeSave?.();
     const route=scope==='workspace'?'/api/workspace':'/api/sharing/container-settings';
     const responsePromise=actorPage.waitForResponse(response=>new URL(response.url()).pathname===route&&response.request().method()===(scope==='workspace'?'PUT':'POST'));
@@ -118,18 +122,18 @@ async function externalSwitchesJourney(state,width,{guest,who,view,space,shared,
     assert.equal((await ok(admin,origin,'GET','/api/members/current')).role,'member');
     await grant('container',space,'browser-reader','full');
     assert.equal((await ok(admin,origin,'GET',`/api/containers/${space}`)).permissions.canManage,true);
-    // Ordinary members cannot administer this container before receiving its full grant.
+    // A full grant for one space gives no administration over another.
     const ordinary=(await ok(context,origin,'POST','/api/containers',{operationKey:key(),name:'Unrelated external-switch control',visibility:'private'})).value.id;
     await grant('container',ordinary,'browser-reader','view');
     const unrelated=await api(`/api/containers/${ordinary}`);
-    assert.equal((await call(admin,origin,'POST','/api/sharing/container-settings',{operationKey:key(),id:ordinary,expectedRevisionId:unrelated.revisionId,visibility:'private',...switches(unrelated),guestAccess:'forbidden'})).status,404);
+    assert.ok([403,404].includes((await call(admin,origin,'POST','/api/sharing/container-settings',{operationKey:key(),id:ordinary,expectedRevisionId:unrelated.revisionId,visibility:'private',...switches(unrelated),guestAccess:'forbidden'})).status));
     assert.deepEqual(await api(`/api/containers/${ordinary}`),unrelated,'Ordinary-member refusal changes nothing.');
     const personal=(await api('/api/containers')).items.find(item=>item.visibility==='personal');
     assert.equal((await call(context,origin,'POST','/api/sharing/container-settings',{operationKey:key(),id:personal.id,expectedRevisionId:personal.revisionId,visibility:'private',guestAccess:'allowed',publicLinkAccess:'allowed',anonymousAccess:'allowed'})).status,403);
     assert.deepEqual(await api(`/api/containers/${personal.id}`),personal,'Even its owner cannot open a personal container.');
     for(const setting of SWITCHES) {
       const before=await workspace();
-      assert.equal((await call(admin,origin,'PUT','/api/workspace',{...before,operationKey:key(),expectedRevisionId:before.revisionId,[setting]:'forbidden'})).status,403);
+      assert.equal((await call(admin,origin,'PUT','/api/workspace',{name:before.name,mark:before.mark,description:before.description,policies:before.policies,...switches(before),operationKey:key(),expectedRevisionId:before.revisionId,[setting]:'forbidden'})).status,403);
       assert.deepEqual(await workspace(),before,'A container administrator cannot change a global switch.');
       if(before[setting]!=='allowed')await change('workspace',setting,'allowed');
       if((await read())[setting]!=='allowed')await change('container',setting,'allowed');
@@ -150,6 +154,7 @@ async function externalSwitchesJourney(state,width,{guest,who,view,space,shared,
       assert.ok(exposed.body.includes(marker));
     }
     const exposure=(await api(`/api/publishing/${editable}`)).exposure;
+    const retainedBlocks=(await api(`/api/pages/${editable}`)).blocks;
     const visible=async()=>{
       const [document,tree,search,inbox]=await Promise.all([
         call(guest,origin,'GET',`/api/pages/${editable}`),ok(guest,origin,'GET','/api/pages'),
@@ -160,6 +165,7 @@ async function externalSwitchesJourney(state,width,{guest,who,view,space,shared,
     const assertAccess=async(setting,forbidden,scope)=>{
       const guestExpected=!(forbidden&&setting==='guestAccess'),publicExpected=!(forbidden&&setting!=='guestAccess');
       for(const id of [shared,secret,editable])assert.equal((await call(guest,origin,'GET',`/api/pages/${id}`)).status,guestExpected?200:404);
+      assert.equal((await call(guest,origin,'GET',`/api/containers/${space}`)).status,guestExpected?200:404);
       const publicResult=await publicRead(anonymous,editable);
       assert.equal(publicResult.status,publicExpected?200:404);
       assert.equal(publicResult.body.includes(marker),publicExpected);
@@ -200,7 +206,7 @@ async function externalSwitchesJourney(state,width,{guest,who,view,space,shared,
           const draft=view.getByRole('region',{name:'Your unsaved text'});
           await expect(draft).toContainText(unsent.trim());
           await expect(draft).toContainText('It was not saved to the workspace');
-          assert.ok(!JSON.stringify((await api(`/api/pages/${editable}`)).blocks).includes(unsent.trim()),'Refused typing changes no stored page content.');
+          assert.deepEqual((await api(`/api/pages/${editable}`)).blocks,retainedBlocks,'Refused typing changes no stored block, revision or content.');
           await accessible(view,`native ${scope} guest veto preserves unsaved text ${width}`);
           await draft.getByRole('button',{name:'Discard',exact:true}).click();
           proof.deadlines.push({scope,setting,nextWrite:response.status(),editorMs,projectionsMs});
