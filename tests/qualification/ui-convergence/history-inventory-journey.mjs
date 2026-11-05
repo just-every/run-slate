@@ -10,7 +10,12 @@ export async function historyRows(page, items, labelled) {
   await expect(rows).toHaveCount(items.length);
   for (const [index, item] of items.entries()) {
     const row = rows.nth(index);
-    await expect(row.locator('time').first()).toHaveAttribute('datetime', item.createdAt);
+    const time = row.locator('time').first();
+    await expect(time).toHaveAttribute('datetime', item.createdAt);
+    const visibleTime = await page.evaluate(value => new Intl.DateTimeFormat('en-GB', {
+      day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit',
+    }).format(new Date(value)), item.createdAt);
+    await expect(time).toHaveText(visibleTime);
     await expect(row).toContainText(item.authorDisplayName);
     await expect(row).toContainText(item.origin);
     if (labelled && item.ordinal) await expect(row).toContainText(`Version ${item.ordinal}`);
@@ -79,6 +84,8 @@ export async function historyInventoryJourney(state, people) {
         }
         await alice.page.goto(`${origin}${route}?detail=history`, {waitUntil: 'networkidle'});
         await historyRows(alice.page, history, policy === 'labelled');
+        await alice.page.reload({waitUntil: 'networkidle'});
+        await historyRows(alice.page, history, policy === 'labelled');
         await shot('alice', `${family} ${policy} full newest-first history`);
         // Published-only readers can reopen both permitted snapshots after reload.
         await grant(alice.context, origin, pageId, bob.id, 'view', {id: allowed.value.id});
@@ -98,11 +105,16 @@ export async function historyInventoryJourney(state, people) {
         await latest.click();
         await expect(preview).toContainText(`Current ${family} history body`);
         await expect(preview).not.toContainText(`Original ${family} history body`);
+        await bob.page.goto(`${origin}${route}?detail=history&revision=${second.receipt.revisionId}`, {waitUntil: 'networkidle'});
+        await bob.page.reload({waitUntil: 'networkidle'});
+        await historyRows(bob.page, visible, policy === 'labelled');
+        await expect(preview).toContainText(`Current ${family} history body`);
+        await expect(preview).not.toContainText(`Original ${family} history body`);
         await shot('bob', `${family} ${policy} complete history after reload`);
         await accessible(bob.page, `REV-002 ${family} ${policy} history`);
         const before = await native('GET', historyPath);
-        for (const method of ['PATCH', 'PUT']) {
-          const refused = await call(alice.context, origin, method, `${historyPath}/${first.receipt.revisionId}`, {operationKey: randomUUID(), blocks: [], properties: {title: 'Rewritten history'}, authorMemberId: bob.id, createdAt: '2000-01-01T00:00:00.000Z', origin: 'publish', ordinal: 99, label: 'Rewritten history'});
+        for (const actor of [alice, bob]) for (const method of ['PATCH', 'PUT', 'POST']) {
+          const refused = await call(actor.context, origin, method, `${historyPath}/${first.receipt.revisionId}`, {operationKey: randomUUID(), blocks: [], properties: {title: 'Rewritten history'}, authorMemberId: bob.id, createdAt: '2000-01-01T00:00:00.000Z', origin: 'publish', ordinal: 99, label: 'Rewritten history'});
           assert.equal(refused.status, 404);
           assert.deepEqual(await native('GET', historyPath), before);
           const snapshot = await native('GET', `${historyPath}/${first.receipt.revisionId}`);
@@ -120,7 +132,7 @@ export async function historyInventoryJourney(state, people) {
         await expect(refusedScreen).toBeVisible();
         await expect(bob.page.locator('.history-list, .revision-preview')).toHaveCount(0);
         await expect(bob.page.locator('main')).not.toContainText(`Original ${family} history body`);
-        record(`history-${policy}-${family}`, {receipts, committed, visible, revoked: 404});
+        record(`history-${policy}-${family}`, {receipts, committed, visible, editorReload: true, publishedReload: [first.receipt.revisionId, second.receipt.revisionId], refusedRewrites: {actors: ['full', 'view'], methods: ['PATCH', 'PUT', 'POST']}, revoked: 404});
         console.log(`PROBE REV-002 ${policy} ${family}: native commits -> ${history.length} exact rows and snapshots; visible actor, time, origin and labels; reader reload and revoked refusal passed`);
       }
     }
