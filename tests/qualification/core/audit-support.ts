@@ -93,6 +93,7 @@ export async function nativeReplayInventory(workspaceId:string) {
   comments:'SELECT c.* FROM comments c JOIN comment_threads t ON t.id=c.thread_id WHERE t.workspace_id=? ORDER BY c.id',
   grants:'SELECT g.* FROM page_grants g JOIN pages p ON p.id=g.page_id WHERE p.workspace_id=? ORDER BY g.id',
   identityRevisions:'SELECT * FROM core_entity_revisions WHERE workspace_id=? ORDER BY id',
+  recordRevisions:'SELECT * FROM record_revisions WHERE workspace_id=? ORDER BY id',
   notifications:'SELECT * FROM notifications WHERE workspace_id=? ORDER BY id',
   outbox:'SELECT * FROM notification_outbox WHERE workspace_id=? ORDER BY id',
   receipts:'SELECT * FROM operation_receipts WHERE workspace_id=? ORDER BY id',

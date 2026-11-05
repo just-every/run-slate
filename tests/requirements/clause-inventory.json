@@ -224,7 +224,7 @@
       "id": "SAVE-005",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of SAVE-005 — Operation keys. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Native cookie-session supporting evidence covers page creation, title changes, body changes, comment creation and page grants under concurrent identical requests, immediate and original-expiry replay, exact response bytes and receipts, changed-body refusal, populated canonical inventories and current-authority refusals. Other mutation families and requirement-wide every-mutation coverage remain unproved, including publish, import and AI-run outcomes. ADMIN-007 and shared company-policy prerequisites remain authoritative; this inventory does not certify complete acceptance.",
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",

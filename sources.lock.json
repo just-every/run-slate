@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "fb28d2bde5e2c155c31059c8427daf87715443ffae27db31e268cbc8d3c64903",
+      "sha256": "39d6757f5a93d03c9928d1c32341d6fe16c854e56e44386f43d6722d046ddd08",
       "executable": false
     },
     "DEMO.md": {
@@ -10860,7 +10860,7 @@
       "executable": false
     },
     "tests/flagship/content/operation-replay.case.ts": {
-      "sha256": "af08730c460057e7ae2ecea5ac93ec287abc7cc31f24b9c7fe9312bf940e96a9",
+      "sha256": "a6a3e3b2233836bbe4618805d9a232f4a83a5fb1984cea83c68816d763a76731",
       "executable": false
     },
     "tests/flagship/content/preview.test.ts": {
@@ -11548,7 +11548,7 @@
       "executable": false
     },
     "tests/qualification/core/audit-support.ts": {
-      "sha256": "e658f788264fdd37129658e06e168c49002040eae25af1185eb4c78a753292fd",
+      "sha256": "5afe67daecd7c15f2a017780e577dba88264956d92394e2517fdb71e0f391d0c",
       "executable": false
     },
     "tests/qualification/core/baseline.mjs": {
@@ -12404,11 +12404,11 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "d8ad0100fa08c30858cf5893e13ccdd87e45f3ef2df4e1db12a3c58be489b4ae",
+      "sha256": "fbc2fb2232b6c4ee68635f8253e3638e165562e07c08ca459f4eba97b5c085aa",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
-      "sha256": "1bba214e8e1ff07ec8370bb6059586e18567259f2f16456c958fcb8960b073d3",
+      "sha256": "49f56d29c215768cb7cde87392c0714bc7e2c9acb7a78f7f6c7e984dbea0bec1",
       "executable": false
     },
     "tests/requirements/count-registrations.mjs": {
@@ -12420,7 +12420,7 @@
       "executable": false
     },
     "tests/requirements/test-evidence.json": {
-      "sha256": "b0e4e7212c33ea023f6639517ba5549cdf95ad583cdd877ccff8b893ee4d13f2",
+      "sha256": "872eed26ecfcae777e9fb54912729694d4c1f8d9418461b22419e615dbd32d4b",
       "executable": false
     },
     "tests/rer/editor.test.mjs": {

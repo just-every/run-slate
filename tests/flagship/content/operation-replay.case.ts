@@ -26,7 +26,8 @@ export async function operationReplayCase() {
   await ok('PUT','/api/navigation/container-watches',{operationKey:createUlid(),containerId:f.containerId,enabled:true},f.ownerId);
   const initial=await nativeReplayInventory(f.workspaceId);
   const records:{family:string;method:string;path:string;input:any;changed:any;response:any;createdAt:number}[]=[];
-  let pageId='',blockId=createUlid();
+  let pageId='';
+  const blockId=createUlid();
   const snapshot=async()=>({
    canonical:await nativeReplayInventory(f.workspaceId),
    document:pageId?(await ok('GET',`/api/pages/${pageId}`,undefined,f.ownerId)).data:null,
@@ -54,8 +55,13 @@ export async function operationReplayCase() {
    const activity=after.activity.filter((row:any)=>row.operation_key===input.operationKey);
    expect(activity).toHaveLength(1);
    expect(activity[0]).toMatchObject({id:response.data.receipt.activityId,actor_member_id:writer,occurred_at:response.data.receipt.committedAt});
-   expect(after.notifications.length,`${family}: a real recipient received the event`).toBeGreaterThan(before.notifications.length);
+   const delivered=after.notifications.filter(row=>!before.notifications.some(old=>old.id===row.id));
+   expect(delivered,`${family}: exactly one delivery to the real watcher`).toHaveLength(1);
+   expect(delivered[0]).toMatchObject({recipient_member_id:f.ownerId});
    expect(after.outbox.length-before.outbox.length,`${family}: one notification origin`).toBe(1);
+   expect(after.pageRevisions.length-before.pageRevisions.length,`${family}: page revision inventory`).toBe(['page creation','title changes','body changes'].includes(family)?1:0);
+   expect(after.recordRevisions.length-before.recordRevisions.length,`${family}: comment revision inventory`).toBe(family==='comment creation'?1:0);
+   expect(after.identityRevisions.length-before.identityRevisions.length,`${family}: grant revision inventory`).toBe(family==='page grants'?1:0);
    const retained=await snapshot();
    expect(await ok(method,path,input),`${family}: immediate exact replay`).toEqual(response);
    expect(await snapshot(),`${family}: immediate replay changes nothing`).toEqual(retained);
@@ -87,7 +93,8 @@ export async function operationReplayCase() {
   expect(inventory.pages.length-initial.pages.length).toBe(1);expect(inventory.blocks.length-initial.blocks.length).toBe(1);
   expect(inventory.pageRevisions.length-initial.pageRevisions.length).toBe(3);expect(inventory.comments.length-initial.comments.length).toBe(1);
   expect(inventory.threads.length-initial.threads.length).toBe(1);expect(inventory.grants.length-initial.grants.length).toBe(1);
-  expect(inventory.grants.find(row=>row.id===granted.value.id)).toMatchObject({id:granted.value.id});
+  expect(inventory.grants.find(row=>row.id===granted.value.id)).toMatchObject({id:granted.value.id,principal_kind:'member',principal_id:f.ownerId,level:'view'});
+  expect(JSON.parse(String(inventory.comments.find(row=>row.author_member_id===writer)!.body_json))).toEqual([{text:'synthetic-slate-comment'}]);
   expect(inventory.pages.find(row=>row.id===pageId)).toMatchObject({id:pageId,title:'synthetic-slate-renamed'});
   expect(JSON.parse(String(inventory.blocks.find(row=>row.id===blockId)!.content_json))).toEqual({text:[{text:'synthetic-slate-edited-body'}]});
   const canonical=await nativeReplayInventory(f.workspaceId);
