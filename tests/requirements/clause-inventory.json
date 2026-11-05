@@ -1753,11 +1753,15 @@
       "id": "LINK-002",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of LINK-002 — Tombstones. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Supporting native page and page-revision erasure journeys compare tombstone kind and exact deletion time with the committed deletion and activity, refuse readers without current access, and retain no erased content in those projections. Deleted-but-not-erased outcomes and database, record, container, comment-thread, template, decision and other record-kind URLs remain unproven. CONTRACT.md retains full acceptance and partial status.",
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
           "testName": "content durable HTTP content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state"
+        },
+        {
+          "file": "tests/e2e/review/verification-flow.test.ts",
+          "testName": "Verifying offers 7, 30 or 90 days, a date or none, only on the opened revision, and an edit makes it not current"
         }
       ]
     },
