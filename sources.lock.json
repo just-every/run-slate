@@ -960,7 +960,7 @@
       "executable": false
     },
     "ACCEPTANCE.md": {
-      "sha256": "f6a0a168b6d0a65582876a0bbe94ea455319e25d5a9073918def7806b50260e1",
+      "sha256": "b91eeabd060a21153368980e6f16e49ae80495cd2249a941dcc11d2ae3abd927",
       "executable": false
     },
     "AGENTS.consumer.md": {
@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "fb28d2bde5e2c155c31059c8427daf87715443ffae27db31e268cbc8d3c64903",
+      "sha256": "24ecd29ed031f9fa7e2627cf408431d863d4aad9bc32e1cd5f7b0aa524e9a29e",
       "executable": false
     },
     "DEMO.md": {
@@ -10531,6 +10531,10 @@
       "sha256": "06b5b8a10ac872b9156ceb16ce93b7ff6d6eb170fd41cbba02ed0c110113cfab",
       "executable": false
     },
+    "tests/e2e/imports/page-erasure-journey.ts": {
+      "sha256": "465c52b1b874251aa759256d81f38d55a24ca1917598c81606f9e5d5c32fc0b8",
+      "executable": false
+    },
     "tests/e2e/imports/page-lock.test.ts": {
       "sha256": "4ff9999fca1fb4bc9384fcd0c54385ecd1e08703862a02d85ecf37aa79a0cc9b",
       "executable": false
@@ -10539,8 +10543,12 @@
       "sha256": "dfeaeb267a3c512d913e766d2e552c6545f3ca23881ccb06fdbb232217d8cd0e",
       "executable": false
     },
+    "tests/e2e/imports/partial-undo-journey.ts": {
+      "sha256": "ed02ba1786555b079b9d5edb80d23d263aadec117d86e500a1553efa5ffdff61",
+      "executable": false
+    },
     "tests/e2e/imports/preview-undo.test.ts": {
-      "sha256": "c05092805601031de1f28996443cad0f866308a0d09b8ed5bbe081702a153f5a",
+      "sha256": "1f44d26e35437975269da5644c8d4c304d9de38c9f9ddc46e18547054201f0b6",
       "executable": false
     },
     "tests/e2e/imports/provider-folder-journey.ts": {
@@ -12400,7 +12408,7 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "d8ad0100fa08c30858cf5893e13ccdd87e45f3ef2df4e1db12a3c58be489b4ae",
+      "sha256": "234a80f3a47934d296e2a954af2fad6efd52f665adec79ea65a5f5aed1b4d036",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
@@ -12416,7 +12424,7 @@
       "executable": false
     },
     "tests/requirements/test-evidence.json": {
-      "sha256": "b0e4e7212c33ea023f6639517ba5549cdf95ad583cdd877ccff8b893ee4d13f2",
+      "sha256": "c7160beecb314840b57ad1a0be0f34c8ff009752d151b083936bd25b0e08aacc",
       "executable": false
     },
     "tests/rer/editor.test.mjs": {
