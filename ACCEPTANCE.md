@@ -8,10 +8,10 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 57 | 240 | 35 | 332 |
+| Core | 58 | 239 | 35 | 332 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 57 | 240 | 41 | 338 |
+| Full target | 58 | 239 | 41 | 338 |
 
 Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e6612` (29 October 2026); SEARCH-001 native source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. DB-012 record-detail proof reviewed from source `63a0e8f` (31 October 2026); its exact candidate and Verify are named by the branch handoff. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
@@ -1731,7 +1731,7 @@ Core · published · **done** · Cites BASE-OPS-004
 
 #### AUTO-004 — Loops are bounded
 
-Core · published · **partial**
+Core · published · **done**
 
 **Requirement.** A rule never triggers itself, a chain of rules stops at the depth in `seed.json → limits`, and a run that would exceed the workspace's rate limit is throttled and logged rather than dropped silently.
 
@@ -1739,8 +1739,8 @@ Core · published · **partial**
 1. A rule never triggers itself, a chain of rules stops at the depth in `seed.json → limits`, and a run that would exceed the workspace's rate limit is throttled and logged rather than dropped silently.
 2. Self-trigger is impossible, chains stop at the declared depth and throttling is logged.
 
-**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
-**Gap.** No validated CI-run proof for this acceptance point: "A rule never triggers itself, a chain of rules stops at the depth in `seed.json → limits`, and a run that would exceed the workspace's rate limit is throttled and logged rather than dropped silently."
+**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.<br>`tests/flagship/structured/automation-repairs.test.ts` — automation admission, resumed effects and schedules preserve current scope and exactly-once recovery; automationBoundsJourney covers acceptance 1 and 2 through native HTTP, committed outbox, causal D1 read-back and unchanged replay under source, container and site scopes. `tests/qualification/ui-convergence/touch-database-tools-journey.mjs` — automationBoundsBrowserJourney, loaded by the existing desktop spreadsheet database and phone core-wiki registrations in `tests/qualification/ui-convergence/journeys.test.mjs`, shows retained self-trigger and workspace-rate reasons after native execution and reload.
+**Gap.** None.
 
 #### AUTO-005 — Automation profile
 
