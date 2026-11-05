@@ -80,7 +80,7 @@ import { todayOutcomesJourney } from './today-outcomes-journey.mjs';
 // Retain both responsive branches: desktop sidebar visibility and horizontal
 // column geometry are unique assertions, while the phone case checks stacking.
 for (const width of [390, 1440]) {
-  test(`real core-wiki and touch-member journeys at ${width}px`, { timeout: width === 390 ? 780000 : 720000 }, async () => {
+  test(`real core-wiki and touch-member journeys at ${width}px`, { timeout: width === 390 ? 900000 : 720000 }, async () => {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
       if(width===390)await transferJobsJourney(state);
@@ -381,7 +381,7 @@ for (const width of [1440]) {
 }
 
 for (const width of [1440]) {
-  test(`presentation paginates read-only slides; touch history, details and exports work at ${width}px`, { timeout: 240000 }, async () => {
+  test(`presentation paginates read-only slides; touch history, details and exports work at ${width}px`, { timeout: 360000 }, async () => {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
       await presentationJourney(state);

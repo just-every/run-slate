@@ -11860,7 +11860,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/archive-retention-journey.mjs": {
-      "sha256": "1b35308c61ad0784fd9249fc7b151c2cce939d43eea83ed96387ad6252ae51d6",
+      "sha256": "a571a00d99c1e6c406f7196760e3114b2f3120f640837f89bb2d2809d4c8e2a8",
       "executable": false
     },
     "tests/qualification/ui-convergence/ask-draft.test.ts": {
@@ -12108,7 +12108,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
-      "sha256": "54f5a16f7a582bb67bb18ceac1a31c13b07a4858d9d1bf9a1bd5e02fe80bff1a",
+      "sha256": "951234c744336225474580fa43992477c7fcf133ee2a71b0e2cfa10569cbcfe5",
       "executable": false
     },
     "tests/qualification/ui-convergence/link-access-journey.mjs": {
