@@ -960,7 +960,7 @@
       "executable": false
     },
     "ACCEPTANCE.md": {
-      "sha256": "f6a0a168b6d0a65582876a0bbe94ea455319e25d5a9073918def7806b50260e1",
+      "sha256": "c01511974d66d110ce96f2bf1c7508e222ece3582bc9faa82ac5d9ee35ef9aba",
       "executable": false
     },
     "AGENTS.consumer.md": {
@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "fb28d2bde5e2c155c31059c8427daf87715443ffae27db31e268cbc8d3c64903",
+      "sha256": "76adec9ccb732e5b5acecadd2ad6dc26b0422a47f09d086219c6e709cd649309",
       "executable": false
     },
     "DEMO.md": {
@@ -6204,11 +6204,11 @@
       "executable": false
     },
     "src/core/features/containers/ui/workspace/ContainerSettings.tsx": {
-      "sha256": "57d772e4fcb9db22b89452e4bd3ccfc2c68c546ae568b267d31334e92b7a32ca",
+      "sha256": "8f0cffe328ffa168c08fcddd980735224e30ae72b4cfe9a47bc6afd643c9047d",
       "executable": false
     },
     "src/core/features/containers/ui/workspace/ContainerSharing.tsx": {
-      "sha256": "d0acc268133c8f2a15955d083a43bbc0fd132d0a60ea4e84060fe66c25a12e3d",
+      "sha256": "d91941791fa90fb104fcbd6eee5a2ab9aa0a2d8ef6dc3fc2e3119404b2a66e81",
       "executable": false
     },
     "src/core/features/containers/ui/workspace/ContainerWatch.tsx": {
@@ -9376,7 +9376,7 @@
       "executable": false
     },
     "src/core/features/sharing/listing.ts": {
-      "sha256": "c70bfb41ecb96f8ef8ba5bf397a4de323791302775eb191c62e1dfdd31dcd496",
+      "sha256": "d87bb1b59c4529471329ccc87f711d883fc6cc4a3a7c01d9be48d85916ca34c1",
       "executable": false
     },
     "src/core/features/sharing/recipients.ts": {
@@ -11915,6 +11915,10 @@
       "sha256": "dc70ca58e6c469eb47e699a33874a4a566b65bde18098fec475d107891fb9b7d",
       "executable": false
     },
+    "tests/qualification/ui-convergence/container-access-profile-journey.mjs": {
+      "sha256": "54fce55df38fbc54478ed4cec5d69babf9731fb54a5d0fb76743234f256cf837",
+      "executable": false
+    },
     "tests/qualification/ui-convergence/container-grants-journey.mjs": {
       "sha256": "0641ae2b335aa196fdeac89119f75ab024136ce9d1709b43c77696104be75df7",
       "executable": false
@@ -12184,7 +12188,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/reading-journeys.mjs": {
-      "sha256": "5c2fa29b1e0efecc4738bf62564d0f5c9f2bbe3ceb68125ecd46681545d0a4c4",
+      "sha256": "f4e840912131be8b247bc2a924b5e224b294b374ed94c4975c7f1efb74abb1ad",
       "executable": false
     },
     "tests/qualification/ui-convergence/record-detail-journey.mjs": {
@@ -12400,7 +12404,7 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "d8ad0100fa08c30858cf5893e13ccdd87e45f3ef2df4e1db12a3c58be489b4ae",
+      "sha256": "4db892a5f2bd09e89d063d2e8d31820511dccb4878be8a8f06f183ca5e848c07",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
