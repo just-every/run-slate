@@ -27,8 +27,23 @@ export async function commitOperation<T>(ctx: FeatureContext, input: {
   const authorizationEpoch=ctx.authorizationEpoch;
   const hash=await requestHash({action:input.action,request:input.request});
   if (previous) { if(input.action!=='pages.open')await refreshAfterCommit(ctx); return replay(previous); }
+  const recoverReplay = async () => {
+    const raced = await lookup();
+    if (!raced) return;
+    await input.authorize();
+    if(input.action!=='pages.open')await refreshAfterCommit(ctx);
+    return replay(raced);
+  };
   const revisionId = createUlid(), activityId = createUlid();
-  const plan = await input.prepare({revisionId,activityId});
+  let plan: MutationPlan<T>;
+  try {
+    plan = await input.prepare({revisionId,activityId});
+  } catch (cause) {
+    // A concurrent copy can commit after lookup but before preparation reads its revision.
+    const recovered = await recoverReplay();
+    if (recovered) return recovered;
+    throw cause;
+  }
   const receipt: MutationReceipt = {operationKey:input.operationKey,entity:plan.entity,revisionId:plan.entity.revisionId,activityId:plan.noChange?null:activityId,committedAt:ctx.now,...(plan.noChange?{unchanged:true as const}:{})};
   const result = {value:plan.value,receipt};
   const detail = plan.detail === undefined || (plan.detail && typeof plan.detail === 'object' && !Array.isArray(plan.detail))
@@ -48,7 +63,7 @@ export async function commitOperation<T>(ctx: FeatureContext, input: {
   try {
     await (input.commit ?? (statements=>ctx.db.batch(statements)))(statements);
   } catch (cause) {
-    const raced = await lookup(); if (raced) { await input.authorize(); if(input.action!=='pages.open')await refreshAfterCommit(ctx); return replay(raced); }
+    const recovered = await recoverReplay(); if (recovered) return recovered;
     if (String(cause).includes('core_write_guards') || String(cause).includes('CHECK constraint')) {
       if (await rejectedByPageLock(ctx, statements)) throw new ApiProblem(409,'PAGE_LOCKED','This page is locked. Unlock it before editing.');
       throw new ApiProblem(409,'REVISION_CONFLICT','The record changed. Reload before saving.');

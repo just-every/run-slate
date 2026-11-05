@@ -104,3 +104,43 @@ export async function nativeReplayInventory(workspaceId:string) {
  const results=await env.DB.batch(names.map(name=>env.DB.prepare(selects[name]).bind(workspaceId)));
  return Object.fromEntries(names.map((name,index)=>[name,results[index]!.results])) as Record<keyof typeof selects,Record<string,unknown>[]>;
 }
+
+/** Hold a real read while a competing native HTTP request commits, without changing its result. */
+export function holdOperationRead(database:D1Database,operationKey:string,afterAuthorizationPageId?:string) {
+ let signal!:()=>void,release!:()=>void,held=false;
+ const reached=new Promise<void>(resolve=>{signal=resolve;});
+ const resume=new Promise<void>(resolve=>{release=resolve;});
+ const lookups=new WeakSet<D1PreparedStatement>(),pages=new WeakSet<D1PreparedStatement>();
+ const db=new Proxy(database,{get(target,key){
+  if(key==='prepare')return(sql:string)=>{
+   const statement=target.prepare(sql);
+   const receipt=sql.startsWith('SELECT request_hash,response_json,expires_at FROM operation_receipts');
+   const page=!!afterAuthorizationPageId&&sql.startsWith('SELECT * FROM pages WHERE id=');
+   if(!receipt&&!page)return statement;
+   return new Proxy(statement,{get(prepared,property){
+    if(property==='bind')return(...values:unknown[])=>{
+     const bound=prepared.bind(...values);
+     if(receipt&&values[2]===operationKey)lookups.add(bound);
+     if(page&&values[0]===afterAuthorizationPageId)pages.add(bound);
+     return bound;
+    };
+    const value=Reflect.get(prepared,property,prepared);return typeof value==='function'?value.bind(prepared):value;
+   }});
+  };
+  if(key==='withSession')return(constraint?:D1SessionBookmark|D1SessionConstraint)=>{
+   const session=target.withSession(constraint);
+   return new Proxy(session,{get(current,property){
+    if(property==='batch')return async(statements:D1PreparedStatement[])=>{
+     const results=await current.batch(statements);
+     if(!held&&statements.some((statement,index)=>afterAuthorizationPageId?pages.has(statement):lookups.has(statement)&&results[index]!.results.length===0)){
+      held=true;signal();await resume;
+     }
+     return results;
+    };
+    const value=Reflect.get(current,property,current);return typeof value==='function'?value.bind(current):value;
+   }});
+  };
+  const value=Reflect.get(target,key,target);return typeof value==='function'?value.bind(target):value;
+ }});
+ return {db,reached,release};
+}

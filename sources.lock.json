@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "39d6757f5a93d03c9928d1c32341d6fe16c854e56e44386f43d6722d046ddd08",
+      "sha256": "248469a1e09ae66bbe58d16f5b85be17394604b45a7292cba257c5ab0f792859",
       "executable": false
     },
     "DEMO.md": {
@@ -5284,7 +5284,7 @@
       "executable": false
     },
     "src/core/app/operations.ts": {
-      "sha256": "c14fc46ce4993fe7f24168bb9ee30c66e78ba2a05960c19c6db953b59a93d939",
+      "sha256": "358c9c0cc9d40adf04ba7a1b361e23f6282341f0c5ffdac52e237ec631635320",
       "executable": false
     },
     "src/core/app/operator-document-gate.ts": {
@@ -10860,7 +10860,7 @@
       "executable": false
     },
     "tests/flagship/content/operation-replay.case.ts": {
-      "sha256": "a6a3e3b2233836bbe4618805d9a232f4a83a5fb1984cea83c68816d763a76731",
+      "sha256": "929f185165b16857a19e9b3f142d70d0f3c2a5b542c5e73e12b34cd065045e9c",
       "executable": false
     },
     "tests/flagship/content/preview.test.ts": {
@@ -11548,7 +11548,7 @@
       "executable": false
     },
     "tests/qualification/core/audit-support.ts": {
-      "sha256": "5afe67daecd7c15f2a017780e577dba88264956d92394e2517fdb71e0f391d0c",
+      "sha256": "51cb297675611448cf5854f4dfbb43f022973c6586980151ff7f07a6c95523ae",
       "executable": false
     },
     "tests/qualification/core/baseline.mjs": {
@@ -12404,11 +12404,11 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "fbc2fb2232b6c4ee68635f8253e3638e165562e07c08ca459f4eba97b5c085aa",
+      "sha256": "a6a8eb829d52c19c454abd025305d5814b27c7f6b10aad2136dc822ca9ce256b",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
-      "sha256": "49f56d29c215768cb7cde87392c0714bc7e2c9acb7a78f7f6c7e984dbea0bec1",
+      "sha256": "8f1110ecc1f78843590b2fb35941e6e9bf5dc2f0d1620c4d0fa4720c8fa16477",
       "executable": false
     },
     "tests/requirements/count-registrations.mjs": {
@@ -12420,7 +12420,7 @@
       "executable": false
     },
     "tests/requirements/test-evidence.json": {
-      "sha256": "872eed26ecfcae777e9fb54912729694d4c1f8d9418461b22419e615dbd32d4b",
+      "sha256": "37aa0a8314b3852d2ba27e4560cd1b7b3efb02fdd7d9052edfe841496b5abd70",
       "executable": false
     },
     "tests/rer/editor.test.mjs": {

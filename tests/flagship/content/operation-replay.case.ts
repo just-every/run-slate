@@ -1,6 +1,6 @@
 import {env} from 'cloudflare:test';
 import {expect,vi} from 'vitest';
-import {auditFixture,nativeReplayInventory} from '../../qualification/core/audit-support';
+import {auditFixture,nativeReplayInventory,holdOperationRead} from '../../qualification/core/audit-support';
 import {createUlid} from '../../../src/core/shared/ulid';
 
 /** Native cookie sessions and independent canonical inventories; no successful response is faked. */
@@ -10,8 +10,8 @@ export async function operationReplayCase() {
  try {
   const f=await auditFixture(),writer=f.readerId;
   const origin=new URL(String(env.APP_URL)).origin;
-  const request=async(method:string,path:string,input?:unknown,actor=writer)=>{
-   const response=await f.api.request(origin+path,{method,headers:{cookie:f.cookies[actor]!,origin,'content-type':'application/json'},body:input===undefined?undefined:JSON.stringify(input)},env);
+  const request=async(method:string,path:string,input?:unknown,actor=writer,db=env.DB)=>{
+   const response=await f.api.request(origin+path,{method,headers:{cookie:f.cookies[actor]!,origin,'content-type':'application/json'},body:input===undefined?undefined:JSON.stringify(input)},{...env,DB:db});
    const body=await response.text();
    return {status:response.status,data:JSON.parse(body),body};
   };
@@ -102,6 +102,33 @@ export async function operationReplayCase() {
   for(const record of records){
    expect(await ok(record.method,record.path,record.input),`${record.family}: replay after later writes`).toEqual(record.response);
    expect(await nativeReplayInventory(f.workspaceId)).toEqual(canonical);
+  }
+  // A retry may observe no receipt, then resume preparation after the first write commits.
+  // Delay only the actual D1 read delivery; both requests still use native sessions and writes.
+  for(const scenario of ['identical','changed body','lost authority'] as const){
+   vi.setSystemTime(start+(records.length+1)*6*60*1000);
+   const current=(await ok('GET',`/api/pages/${pageId}`)).data;
+   const overlapInput={operationKey:createUlid(),expectedRevisionId:current.blocks[0].revisionId,content:{text:[{text:`synthetic-slate-overlap-${scenario}`}]}};
+   const retryInput=scenario==='changed body'?{...overlapInput,content:{text:[{text:'synthetic-slate-conflicting-overlap'}]}}:overlapInput;
+   const gate=holdOperationRead(env.DB,overlapInput.operationKey,scenario==='identical'?undefined:pageId);
+   const pending=request('PATCH',`/api/pages/${pageId}/blocks/${blockId}`,retryInput,writer,gate.db);
+   let winner:any,retained:any,resumed:any;
+   const before=await nativeReplayInventory(f.workspaceId);
+   try {
+    await gate.reached;
+    winner=await ok('PATCH',`/api/pages/${pageId}/blocks/${blockId}`,overlapInput);
+    const committed=await nativeReplayInventory(f.workspaceId);
+    expect(committed.pageRevisions.length-before.pageRevisions.length).toBe(1);
+    expect(committed.receipts.length-before.receipts.length).toBe(1);
+    expect(committed.activity.length-before.activity.length).toBe(1);
+    if(scenario==='lost authority')await ok('POST','/api/sharing',{operationKey:createUlid(),...grantInput,id:authority.data.value.id,level:'view'},f.ownerId);
+    retained=await snapshot();
+   } finally {gate.release();resumed=await pending;}
+   if(scenario==='identical')expect(resumed,'overlapping retry after the first commit returns the original response').toEqual(winner);
+   else expect(resumed).toMatchObject({status:scenario==='changed body'?409:404,data:{code:scenario==='changed body'?'OPERATION_KEY_CONFLICT':'NOT_FOUND'}});
+   expect(await snapshot(),`${scenario}: overlapping retry changes nothing`).toEqual(retained);
+   if(scenario==='lost authority')await ok('POST','/api/sharing',{operationKey:createUlid(),...grantInput,id:authority.data.value.id},f.ownerId);
+   console.info(`PROBE SAVE-005 overlapping ${scenario}: native HTTP retry resumes after a competing commit -> ${resumed.status}; exact committed inventories unchanged`);
   }
   for(const record of records){
    vi.setSystemTime(record.createdAt+24*60*60*1000-1);
