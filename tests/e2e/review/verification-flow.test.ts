@@ -190,6 +190,8 @@ async function citationJourney(f: Awaited<ReturnType<typeof reviewFixture>>) {
     expect(expired.status).toBe(404);
     expect(expired.text).not.toContain('Committed citation body.');
   } finally { vi.useRealTimers(); }
+  // Restoring the real clock precedes the temporary grant's expiry: revoke it natively.
+  await share('reader','view',{id:readerGrant.value.id,revoke:true});
   expect((await request('anonymous','GET',`/api/revisions/${id}/${snapshot}`)).status).toBe(401);
   expect((await request('anonymous','GET',`/p/cited-handbook?revision=${snapshot}`)).status).toBe(404);
   const current=await success('owner','GET',`/api/pages/${id}`);
@@ -258,13 +260,25 @@ async function citationJourney(f: Awaited<ReturnType<typeof reviewFixture>>) {
   expect((await success('owner','GET',`/api/revisions/${id}/${snapshot}`)).blocks).toEqual(exact.blocks);
   await success('owner','POST',`/api/archive/${id}`,{operationKey:op(),expectedRevisionId:current.page.revisionId,action:'trash'});
   const deletion={operationKey:op(),confirmedPageIds:[id]};
-  expect((await success('owner','POST',`/api/archive/${id}/permanent-delete`,deletion)).value.deletedPageIds).toEqual([id]);
-  await success('owner','POST',`/api/archive/${id}/permanent-delete`,deletion);
+  const erased=await success('owner','POST',`/api/archive/${id}/permanent-delete`,deletion);
+  expect(erased.value.deletedPageIds).toEqual([id]);
+  expect(await success('owner','POST',`/api/archive/${id}/permanent-delete`,deletion)).toEqual(erased);
+  const committed=await env.DB.prepare('SELECT p.page_kind AS kind,t.deleted_at AS deletedAt FROM content_tombstones t JOIN pages p ON p.id=t.page_id WHERE t.page_id=?').bind(id).first();
+  expect(committed).toEqual({kind:'page',deletedAt:erased.receipt.committedAt});
+  const events=(await success('owner','GET','/api/activity?action=archive.permanent-delete&limit=100')).items.filter((item:any)=>item.operationKey===deletion.operationKey);
+  expect(events).toHaveLength(1);
+  expect(events[0]).toMatchObject({id:erased.receipt.activityId,occurredAt:committed!.deletedAt,target:{kind:committed!.kind,id},actor:null,deleted:true,context:{}});
   for(const path of [`/api/pages/${id}`,`/api/revisions/${id}/${snapshot}`,`/api/pages/${id}/link-card?revision=${snapshot}`]) {
     const tombstone=await request('owner','GET',path);
     expect(tombstone.status).toBe(404);
-    expect(tombstone.data).toEqual({code:'PAGE_ERASED',message:'This record was permanently deleted.',details:{kind:'page',deletedAt:expect.any(String)}});
+    expect(tombstone.data).toEqual({code:'PAGE_ERASED',message:'This record was permanently deleted.',details:committed});
     expect(Number.isFinite(Date.parse(tombstone.data.details.deletedAt))).toBe(true);
+    for(const actor of ['reader','denied']) {
+      const refused=await request(actor,'GET',path);
+      expect(refused.status).toBe(404);
+      expect(refused.data).toEqual({code:'NOT_FOUND',message:'Not found.'});
+    }
+    for(const text of ['Cited handbook','Working-only private title','Committed citation body.','owner_member_id','author_member_id']) expect(tombstone.text).not.toContain(text);
   }
   const replay=await request('owner','PATCH',`/api/pages/${id}`,{operationKey:op(),expectedRevisionId:working,properties:{title:'Resurrected content'}});
   expect(replay.status).toBe(404);

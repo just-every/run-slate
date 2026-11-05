@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "fb28d2bde5e2c155c31059c8427daf87715443ffae27db31e268cbc8d3c64903",
+      "sha256": "16d02504705f57cdcdd823234c1c4db3feb875ee90a5b22319c0a5f224d29bdb",
       "executable": false
     },
     "DEMO.md": {
@@ -10700,7 +10700,7 @@
       "executable": false
     },
     "tests/e2e/review/verification-flow.test.ts": {
-      "sha256": "40dabaa48a221c1a2152135427c90ac27cd9ebcae0e2139190b2537a53eb06da",
+      "sha256": "b6d496ae496d4dd57644ad3baad1095e4c8a7bc9f0c2fc7e95e2b5f9b318e8b2",
       "executable": false
     },
     "tests/e2e/review/verification-rules.test.ts": {
@@ -12108,7 +12108,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
-      "sha256": "1bf1e2874f1f778023c17441c56163abe243bba86b206e5b20c2357071fafd6e",
+      "sha256": "a49da8f42410bd604afc42e05e055a108042c72119b2558ba8a044a60379aaa3",
       "executable": false
     },
     "tests/qualification/ui-convergence/link-access-journey.mjs": {
@@ -12340,7 +12340,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/two-people-history.mjs": {
-      "sha256": "0a07892e70c48f4b595b06bab940af57001d397e9c8e2b770a00d6d3efd8e63c",
+      "sha256": "fda230f16268dd8b89d386b189611febde489fd45fce904549e014f31510c5c6",
       "executable": false
     },
     "tests/qualification/ui-convergence/two-people-support.mjs": {
@@ -12400,11 +12400,11 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "d8ad0100fa08c30858cf5893e13ccdd87e45f3ef2df4e1db12a3c58be489b4ae",
+      "sha256": "38e2a478068b48a644fe1ee8bfa65a7d3b5f46e4a45e4041747a39e74793e618",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
-      "sha256": "1bba214e8e1ff07ec8370bb6059586e18567259f2f16456c958fcb8960b073d3",
+      "sha256": "29f1bf109e8330a70933e0e1ee1f47fec6b363166e9b0191ba955f4d515560ef",
       "executable": false
     },
     "tests/requirements/count-registrations.mjs": {
@@ -12416,7 +12416,7 @@
       "executable": false
     },
     "tests/requirements/test-evidence.json": {
-      "sha256": "b0e4e7212c33ea023f6639517ba5549cdf95ad583cdd877ccff8b893ee4d13f2",
+      "sha256": "bdd583cc7797815647f530639506168b13269cffb3690470ace938af9c2bc937",
       "executable": false
     },
     "tests/rer/editor.test.mjs": {

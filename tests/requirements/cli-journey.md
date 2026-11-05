@@ -217,3 +217,19 @@ Functional assertions run at 1440px. The existing 390px core-wiki registration s
 AUTO-003 run history uses `automationRunLogCase` in `tests/flagship/structured/automation-run-log.case.ts`, invoked by the existing automation recovery Workers registration. Native authenticated rule and run HTTP reads observe every named state from real rule configuration and committed record events, including queued and running at their actual storage transitions. A real D1 trigger aborts comment writes; durable retries reach terminal failure and the production repeated-failure threshold, preserving exactly-once receipts and activity. Native events also reach the production rate boundary. Current-access loss removes touched titles, trigger record references and target receipts from the projection.
 
 `automationRunLogJourney` in `tests/qualification/ui-convergence/automation-run-log-journey.mjs` runs through the existing desktop database-tools caller and phone core caller. It reads the real emitted Worker, checks trigger, actor, record link, recorded time and action receipt, then induces native storage failures and advances only the durable retry clock. Error and failure appear beside the rule before opening its log; repeated failures persist the disabled reason across navigation and a later event. Browser captures use the existing evidence helper at 1440 and 390. No run row or successful application response is fabricated, and no test registration is added.
+
+The existing desktop two-person history journey retains every citation, publication,
+revocation and expiry assertion and calls `erasedPageLinksJourney` in
+`tests/qualification/ui-convergence/two-people-history.mjs`. The existing 390px
+core-wiki caller invokes that focused helper too, with no new registration. It
+creates a restricted native page with body text and a stored comment, copies its
+plain URL through Share, obtains its exact revision URL, confirms native erasure,
+and follows both addresses after reload. The rendered kind and exact deletion
+time agree with the receipt and retained activity; both tombstones omit title,
+body, quote and personal target metadata. A formerly admitted reader with a
+revoked grant receives an opaque API refusal and an access-needed screen with no
+target details. Replay retains one deletion event and an attempted restore cannot
+resurrect content. `tests/e2e/review/verification-flow.test.ts` reconciles the same
+native read projections with the committed D1 tombstone. These are supporting
+LINK-002 acceptance 1–2 assertions only: deleted-but-not-erased outcomes and all
+other record-kind URLs remain open under the complete contract requirement.

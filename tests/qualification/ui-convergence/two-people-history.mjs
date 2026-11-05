@@ -251,5 +251,84 @@ export async function historyJourney(state, people) {
   await expect(stranger.locator('body')).not.toContainText('Write the review within a day.');
   await anonymous.close();
   await saveWorkspace({publicLinkAccess:workspace.publicLinkAccess,anonymousAccess:workspace.anonymousAccess,policies:workspace.policies});
+  await erasedPageLinksJourney(state, people);
   record('history', { restoredFrom: target.revisionId, newRevision: after.revision, revisionsBefore: before.history, revisionsAfter: after.history, activity: { action: activity.action, actor: alice.name, restoredRevisionId: activity.context.revisionId } });
+}
+
+/** LINK-002 supporting slice: copied native page and exact-revision URLs after erasure. */
+export async function erasedPageLinksJourney(state, people) {
+  const {origin} = state, {alice, bob, shot, record} = people;
+  const tag = randomUUID();
+  const title = `Erased handbook ${tag}`, body = `Private instructions ${tag}`, quote = `Private quotation ${tag}`;
+  const {pageId, blockIds:[blockId]} = await restrictedPage({context:alice.context,origin}, title, [body]);
+  const readerGrant = await grant(alice.context,origin,pageId,bob.id,'view');
+  const document = await ok(alice.context,origin,'GET',`/api/pages/${pageId}`);
+  const revision = document.workingRevisionId;
+  await ok(alice.context,origin,'POST',`/api/comments/page/${pageId}`,{
+    operationKey:randomUUID(),body:[{text:quote}],kind:'page',
+  });
+  const comments = await ok(alice.context,origin,'GET',`/api/comments/page/${pageId}`);
+  assert.ok(JSON.stringify(comments).includes(quote), 'The erased quote was genuinely stored.');
+  await alice.page.goto(`${origin}/app/pages/${pageId}`,{waitUntil:'networkidle'});
+  await alice.page.getByRole('button',{name:'Share',exact:true}).click();
+  await alice.page.getByRole('button',{name:'Copy page link',exact:true}).click();
+  await expect(alice.page.getByRole('button',{name:'Link copied',exact:true})).toBeVisible();
+  const plain = await alice.page.evaluate(() => navigator.clipboard.readText());
+  assert.equal(plain, `${origin}/app/pages/${pageId}`);
+  const card = await ok(alice.context,origin,'GET',`/api/pages/${pageId}/link-card?revision=${revision}`);
+  const citation = new URL(card.href,origin).href;
+  assert.equal(new URL(citation).searchParams.get('revision'),revision);
+  assert.equal((await ok(bob.context,origin,'GET',`/api/revisions/${pageId}/${revision}`)).blocks[0].content.text[0].text,body);
+  await grant(alice.context,origin,pageId,bob.id,'view',{id:readerGrant.value.id,revoke:true});
+  // Erasure replay retains the original committed time and a single event.
+  const trash = await ok(alice.context,origin,'POST',`/api/archive/${pageId}`,{
+    operationKey:randomUUID(),expectedRevisionId:document.page.revisionId,action:'trash',
+  });
+  const deletion = {operationKey:randomUUID(),confirmedPageIds:[pageId]};
+  const erased = await ok(alice.context,origin,'POST',`/api/archive/${pageId}/permanent-delete`,deletion);
+  assert.deepEqual(erased.value.deletedPageIds,[pageId]);
+  assert.deepEqual(await ok(alice.context,origin,'POST',`/api/archive/${pageId}/permanent-delete`,deletion),erased);
+  const expected = {kind:'page',deletedAt:erased.receipt.committedAt};
+  const entries = (await ok(alice.context,origin,'GET','/api/activity?action=archive.permanent-delete&limit=100')).items.filter(item=>item.operationKey===deletion.operationKey);
+  assert.equal(entries.length,1);
+  assert.equal(entries[0].id,erased.receipt.activityId);
+  assert.equal(entries[0].occurredAt,expected.deletedAt);
+  assert.deepEqual(entries[0].target,{kind:expected.kind,id:pageId});
+  assert.equal(entries[0].deleted,true);
+  assert.equal(entries[0].actor,null);
+  assert.deepEqual(entries[0].context,{});
+  const snapshots = [];
+  for (const [url,route] of [[plain,`/api/pages/${pageId}`],[citation,`/api/revisions/${pageId}/${revision}`]]) {
+    const read = await call(alice.context,origin,'GET',route);
+    assert.deepEqual(read,{status:404,body:{code:'PAGE_ERASED',message:'This record was permanently deleted.',details:expected}});
+    await alice.page.goto(url,{waitUntil:'networkidle'});
+    await alice.page.reload({waitUntil:'networkidle'});
+    const tombstone = alice.page.getByRole('article',{name:'Deleted record',exact:true});
+    await expect(tombstone.getByRole('heading')).toHaveText(`Deleted ${expected.kind}`);
+    await expect(tombstone.locator('time')).toHaveAttribute('datetime',expected.deletedAt);
+    const displayedTime = await alice.page.evaluate(at=>new Date(at).toLocaleString(),expected.deletedAt);
+    await expect(tombstone.locator('time')).toHaveText(displayedTime);
+    for (const text of [title,body,quote,alice.name,bob.name,blockId]) await expect(tombstone).not.toContainText(text);
+    for (const text of [title,body,quote]) await expect(alice.page.getByRole('main')).not.toContainText(text);
+    await expect(alice.page.locator('.revision-preview, [data-page-editor]')).toHaveCount(0);
+    await shot('alice',url===plain?'copied page after erasure':'revision link after erasure');
+    await accessible(alice.page,url===plain?'erased native page':'erased native revision');
+    const refused = await call(bob.context,origin,'GET',route);
+    assert.deepEqual(refused,{status:404,body:{code:'NOT_FOUND',message:'Not found.'}});
+    await bob.page.goto(url,{waitUntil:'networkidle'});
+    await bob.page.reload({waitUntil:'networkidle'});
+    await expect(bob.page.getByRole('heading',{name:'Access needed',exact:true})).toBeVisible();
+    await expect(bob.page.getByRole('article',{name:'Deleted record',exact:true})).toHaveCount(0);
+    const refusedText = await bob.page.getByRole('main').innerText();
+    for (const text of [title,body,quote,alice.name,expected.deletedAt,'Deleted page','Permanently deleted']) assert.ok(!refusedText.includes(text),`Refused reader learns no target detail: ${text}`);
+    snapshots.push({url,read,refused,refusedText});
+    await shot('bob',url===plain?'copied page without current access':'revision without current access');
+  }
+  assert.ok(!(await ok(bob.context,origin,'GET','/api/activity?action=archive.permanent-delete&limit=100')).items.some(item=>item.target.id===pageId));
+  const resurrect = await call(alice.context,origin,'POST',`/api/archive/${pageId}`,{operationKey:randomUUID(),expectedRevisionId:trash.receipt.revisionId,action:'restore'});
+  assert.equal(resurrect.status,404);
+  assert.equal((await call(alice.context,origin,'GET',`/api/pages/${pageId}`)).body.details.deletedAt,expected.deletedAt);
+  record('erasedNativeLinks',{pageId,revision,deletion:erased,activity:entries[0],snapshots});
+  console.log(`PROBE LINK-002 1: copied page and pre-erasure revision URLs after confirmed deletion and reload -> Deleted page at ${expected.deletedAt}, matching receipt and activity`);
+  console.log('PROBE LINK-002 2: authorized and revoked-reader native URLs -> content-free tombstones and opaque NOT_FOUND; deletion replay leaves one event and restore refuses');
 }
