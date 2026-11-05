@@ -167,7 +167,8 @@ async function citationJourney(f: Awaited<ReturnType<typeof reviewFixture>>) {
   revision=published.receipt.revisionId;
   const snapshot=(await success('owner','GET',`/api/pages/${id}`)).publishedRevisionId;
   const readerGrant=await share('reader','view');
-  const changed=await success('owner','PATCH',`/api/pages/${id}`,{operationKey:op(),expectedRevisionId:revision,properties:{title:'Working-only private title'}});
+  const capturedEdit={operationKey:op(),expectedRevisionId:revision,properties:{title:'Working-only private title'}};
+  const changed=await success('owner','PATCH',`/api/pages/${id}`,capturedEdit);
   const working=changed.value.revisionId;
   const card=await success('owner','GET',`/api/pages/${id}/link-card?revision=${snapshot}`);
   expect(card).toMatchObject({href:`/app/pages/${id}?revision=${snapshot}`,title:'Cited handbook'});
@@ -280,6 +281,9 @@ async function citationJourney(f: Awaited<ReturnType<typeof reviewFixture>>) {
     }
     for(const text of ['Cited handbook','Working-only private title','Committed citation body.','owner_member_id','author_member_id']) expect(tombstone.text).not.toContain(text);
   }
+  const capturedReplay=await request('owner','PATCH',`/api/pages/${id}`,capturedEdit);
+  expect(capturedReplay.status).toBe(404);
+  expect(capturedReplay.data).toEqual({code:'NOT_FOUND',message:'Not found.'});
   const replay=await request('owner','PATCH',`/api/pages/${id}`,{operationKey:op(),expectedRevisionId:working,properties:{title:'Resurrected content'}});
   expect(replay.status).toBe(404);
   expect((await request('denied','GET',`/api/revisions/${id}/${snapshot}`)).data.code).toBe('NOT_FOUND');

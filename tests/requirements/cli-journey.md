@@ -222,13 +222,14 @@ The existing desktop two-person history journey retains every citation, publicat
 revocation and expiry assertion and calls `erasedPageLinksJourney` in
 `tests/qualification/ui-convergence/two-people-history.mjs`. The existing 390px
 core-wiki caller invokes that focused helper too, with no new registration. It
-creates a restricted native page with body text and a stored comment, copies its
+creates a restricted native page with body text and a stored inline quote and comment, copies its
 plain URL through Share, obtains its exact revision URL, confirms native erasure,
 and follows both addresses after reload. The rendered kind and exact deletion
 time agree with the receipt and retained activity; both tombstones omit title,
 body, quote and personal target metadata. A formerly admitted reader with a
 revoked grant receives an opaque API refusal and an access-needed screen with no
-target details. Replay retains one deletion event and an attempted restore cannot
+target details. A captured successful comment request refuses after erasure without exposing its old receipt.
+Replay retains one deletion event and an attempted restore cannot
 resurrect content. `tests/e2e/review/verification-flow.test.ts` reconciles the same
 native read projections with the committed D1 tombstone. These are supporting
 LINK-002 acceptance 1–2 assertions only: deleted-but-not-erased outcomes and all

@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "16d02504705f57cdcdd823234c1c4db3feb875ee90a5b22319c0a5f224d29bdb",
+      "sha256": "8fa23297a79ae7fdc27dca65a7f40380e8d3b50e1da5c8399713be61dc9a77fc",
       "executable": false
     },
     "DEMO.md": {
@@ -10700,7 +10700,7 @@
       "executable": false
     },
     "tests/e2e/review/verification-flow.test.ts": {
-      "sha256": "b6d496ae496d4dd57644ad3baad1095e4c8a7bc9f0c2fc7e95e2b5f9b318e8b2",
+      "sha256": "dd1fe8dfbf4eaa352c5f50403d220fbfa4f78a0a5c1a6c5ae51321d6acecfb85",
       "executable": false
     },
     "tests/e2e/review/verification-rules.test.ts": {
@@ -12340,7 +12340,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/two-people-history.mjs": {
-      "sha256": "fda230f16268dd8b89d386b189611febde489fd45fce904549e014f31510c5c6",
+      "sha256": "7c8b46aae72200dcc90443c6efec1d4d5cb21c0dcf630f7edd213d39c8f8830e",
       "executable": false
     },
     "tests/qualification/ui-convergence/two-people-support.mjs": {
@@ -12404,7 +12404,7 @@
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
-      "sha256": "29f1bf109e8330a70933e0e1ee1f47fec6b363166e9b0191ba955f4d515560ef",
+      "sha256": "e64e076a598a28c591f6195664f662097dbae277fdb0068f7e99beca8d75b246",
       "executable": false
     },
     "tests/requirements/count-registrations.mjs": {
