@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "90c09f2211a07bf8650cae78792be9b14d2ae97f355f6c6ef4077cbc73ce6cea",
+      "sha256": "93b459e481b7169a7cc94645dbe13194837eb8c31d7323d276bae931afdf33f0",
       "executable": false
     },
     "DEMO.md": {
@@ -6908,7 +6908,7 @@
       "executable": false
     },
     "src/core/features/editor/ui/blocks/SyncedBlock.tsx": {
-      "sha256": "88d38b1519aa90245168a61c4529926b70f16ab17b2b858a81a20118cbd8a33b",
+      "sha256": "108afb2ee541a5aa983660d6078a42022060db7ac2ed019ea53334036c60e231",
       "executable": false
     },
     "src/core/features/editor/ui/blocks/TableBlock.tsx": {
@@ -10440,7 +10440,7 @@
       "executable": false
     },
     "tests/e2e/editor/synced-case.ts": {
-      "sha256": "7e24d3dbd833060f5d2047628e759d8a1ef70ddac59694565d50128e687f25cd",
+      "sha256": "0a32dc2a94316391cbda7f7e49d2ec156c8e914cb82f64cfb552dabbdf72871e",
       "executable": false
     },
     "tests/e2e/editor/tables.test.ts": {
@@ -12244,7 +12244,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/synced-journey.mjs": {
-      "sha256": "b5ad8a4ff8d1823901556a584c2f7043c3111b2bc64b91a19f725d25a25f5bc5",
+      "sha256": "28d8052252e838c0fd47c985b7a81f6e36fdfde8f4ab8c6641a94a1b5811f762",
       "executable": false
     },
     "tests/qualification/ui-convergence/synced-refresh.mjs": {
@@ -12400,7 +12400,7 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "6cd6b3208ea5fea88673d3e07f64acfb3ec526470e8499c84bb8a0f755aa2e40",
+      "sha256": "d1bf737200ea6b2e57cb78ee613850d528cf88f262c0715fd234d9a52f4cf769",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
@@ -12416,7 +12416,7 @@
       "executable": false
     },
     "tests/requirements/test-evidence.json": {
-      "sha256": "31fee2180c0a7e0afd67d3e24db6aef60a4bd50108ed5b72e024e26bb1d4fca5",
+      "sha256": "e4d45169a7b7b737328c3c5f6330393b56be9d7d0f5c547b6599a31fff953ca2",
       "executable": false
     },
     "tests/rer/editor.test.mjs": {

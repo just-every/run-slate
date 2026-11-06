@@ -1,7 +1,8 @@
 import assert from 'node:assert/strict';
 import {randomUUID} from 'node:crypto';
 import {expect} from '@playwright/test';
-import {ok} from './two-people-support.mjs';
+import {call,ok} from './two-people-support.mjs';
+import {mkdir} from 'node:fs/promises';
 import {tap,type,checkpoint} from './touch-controls.mjs';
 import {saveAndMeasureSyncedCopy} from './synced-refresh.mjs';
 export async function syncedJourney(state,width){
@@ -26,6 +27,29 @@ export async function syncedJourney(state,width){
   const readerId=(await context.request.get(origin+'/api/members')).json().then(body=>body.items.find(m=>m.displayName==='Morgan Reader').id);
   const grant=(await ok(context,origin,'POST','/api/sharing',{operationKey:key(),targetKind:'page',targetId:copies[0],principalKind:'member',principalId:await readerId,level:'edit'})).value.id;
   await reader.addCookies([{name:'slate_session',value:state.readerCookie.split('=')[1],url:origin}]);const denied=await reader.newPage();await denied.goto(`${origin}/app/pages/${copies[0]}`,{waitUntil:'networkidle'});await expect(denied.getByRole('complementary',{name:'Access needed',exact:true})).toBeVisible();await expect(denied.locator('body')).not.toContainText(changed);await expect(denied.locator('body')).not.toContainText(title);await checkpoint(denied,'synced source access needed');
+  const access=denied.getByRole('complementary',{name:'Access needed',exact:true}),requestButton=access.getByRole('button',{name:'Request access',exact:true});
+  await expect(access.getByRole('link')).toHaveCount(0);await expect(access.locator('img')).toHaveCount(0);await expect(access).not.toContainText('Alex Owner');
+  const beforeRequests=await Promise.all([api(`/api/pages/${source}`),api(`/api/pages/${copies[0]}`),api(`/api/sharing/pages/${source}`),api(`/api/sharing/pages/${copies[0]}`)]);
+  const pending=denied.waitForResponse(response=>new URL(response.url()).pathname===`/api/sharing/pages/${source}/request-access`);
+  await tap(requestButton);const requested=await pending;assert.equal(requested.status(),202);assert.deepEqual(await requested.json(),{accepted:true});
+  await expect(denied.getByRole('status').filter({hasText:'Access request received'})).toBeVisible();
+  const submitted=requested.request().postDataJSON();
+  for(const [id,operationKey] of [[source,submitted.operationKey],[key(),key()]]){
+   const replay=await call(reader,origin,'POST',`/api/sharing/pages/${id}/request-access`,{operationKey});assert.equal(replay.status,202);assert.deepEqual(replay.body,{accepted:true});
+  }
+  assert.deepEqual(await Promise.all([api(`/api/pages/${source}`),api(`/api/pages/${copies[0]}`),api(`/api/sharing/pages/${source}`),api(`/api/sharing/pages/${copies[0]}`)]),beforeRequests,'Requests leave source, copy and grants unchanged.');
+  const ownerId=(await api('/api/session')).member.id;
+  const notice=(await api('/api/notifications')).items.filter(item=>item.event==='access-requested'&&item.pageId===source);assert.equal(notice.length,1);assert.deepEqual(notice[0].detail,{requesterMemberId:await readerId});
+  assert.equal((await call(reader,origin,'GET',`/api/pages/${source}`)).status,404);
+  await denied.reload({waitUntil:'networkidle'});await expect(access).toBeVisible();await expect(denied.locator('body')).not.toContainText(changed);await expect(denied.locator('body')).not.toContainText(title);
+  await checkpoint(denied,'synced access request received');
+  const evidence=`.artifacts/ui-convergence/synced-request/${width}`;await mkdir(evidence,{recursive:true});await denied.screenshot({path:`${evidence}/access-needed.png`,fullPage:true});
+  const sourceGrant=(await ok(context,origin,'POST','/api/sharing',{operationKey:key(),targetKind:'page',targetId:source,principalKind:'member',principalId:await readerId,level:'view'})).value.id;
+  await denied.reload({waitUntil:'networkidle'});await expect(denied.locator('[aria-label="Synced copy"]')).toContainText(changed);await expect(denied.locator('[aria-label="Synced copy"]')).toContainText(title);await expect(access).toHaveCount(0);await expect(denied.getByRole('button',{name:'Save synced block',exact:true})).toHaveCount(0);
+  await checkpoint(denied,'explicit grant reveals live synced source');await denied.screenshot({path:`${evidence}/granted-source.png`,fullPage:true});
+  await ok(context,origin,'POST','/api/sharing',{operationKey:key(),id:sourceGrant,targetKind:'page',targetId:source,principalKind:'member',principalId:await readerId,level:'view',revoke:true});
+  await denied.reload({waitUntil:'networkidle'});await expect(access).toBeVisible();await expect(denied.locator('body')).not.toContainText(changed);await expect(denied.locator('body')).not.toContainText(title);
+  console.log(`PROBE BLOCK-011 access request: native reader -> generic receipt; replay -> one current grantor notice (${ownerId}); grants and content unchanged; explicit grant -> live source; revocation -> access needed at ${width}px`);
   await denied.goto(origin+'/app',{waitUntil:'networkidle'});await ok(context,origin,'POST','/api/sharing',{operationKey:key(),id:grant,targetKind:'page',targetId:copies[0],principalKind:'member',principalId:await readerId,level:'edit',revoke:true});
   const doc=await api(`/api/pages/${source}`);await ok(context,origin,'POST',`/api/archive/${source}`,{operationKey:key(),expectedRevisionId:doc.page.revisionId,action:'trash'});
   await page.goto(origin+'/app/archive',{waitUntil:'networkidle'});await tap(page.getByRole('group',{name:'Archive and trash',exact:true}).getByRole('button',{name:'Trash',exact:true}));const row=page.locator('.archive-list li').filter({has:page.getByRole('heading',{name:title,exact:true})});await tap(row.getByRole('button',{name:'Delete permanently',exact:true}));
