@@ -5243,6 +5243,10 @@
       "sha256": "41b91659bb8a25428b7c599f400492556a736b033036bde797748d4115a39dbf",
       "executable": false
     },
+    "src/core/app/guard-diagnostics.ts": {
+      "sha256": "4e590d2b0b75b6754fac2e0e371469ecc548d5420cfb3a291c84c01b7066c3c8",
+      "executable": false
+    },
     "src/core/app/health-response.ts": {
       "sha256": "0da19252f69827e58d6454977c636d9e1f668ac35064fbc3bf111b35f6f004bd",
       "executable": false
@@ -5284,7 +5288,7 @@
       "executable": false
     },
     "src/core/app/operations.ts": {
-      "sha256": "c14fc46ce4993fe7f24168bb9ee30c66e78ba2a05960c19c6db953b59a93d939",
+      "sha256": "273a855fbcf6ad95472af49575e083f05985e24dfe2953c482043e2ee1c21bdb",
       "executable": false
     },
     "src/core/app/operator-document-gate.ts": {
@@ -8324,7 +8328,7 @@
       "executable": false
     },
     "src/core/features/pages/open.ts": {
-      "sha256": "c9266e73c978dab5ee7ca51748985be842e8b8447e03b1ba432fc024a0c19a5c",
+      "sha256": "4dee20ce128a65aec56510dce511ba37eec3cb845eb30631478660bf40bce4ca",
       "executable": false
     },
     "src/core/features/pages/policy.ts": {
@@ -10695,6 +10699,10 @@
       "sha256": "693afad822d1f99adb20445261a8943f81ce80eb89ab38f00e3fedaec779b9c0",
       "executable": false
     },
+    "tests/e2e/review/open-guard-cases.ts": {
+      "sha256": "33b03fbc464ea4cfa81fcec6e7ac045935df3c02eb63af973920201919b18df8",
+      "executable": false
+    },
     "tests/e2e/review/people-case.ts": {
       "sha256": "c2d4b1f9bafdd2798435927b3209fc54c59ca557ecec8b2b3f6fb5e4ebf8dd25",
       "executable": false
@@ -10704,7 +10712,7 @@
       "executable": false
     },
     "tests/e2e/review/verification-flow.test.ts": {
-      "sha256": "40dabaa48a221c1a2152135427c90ac27cd9ebcae0e2139190b2537a53eb06da",
+      "sha256": "599e295559618ef5727d220a44a36842b58e99c4784c92e0d1fae779808902c0",
       "executable": false
     },
     "tests/e2e/review/verification-rules.test.ts": {
@@ -11904,7 +11912,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/browser-support.mjs": {
-      "sha256": "58b767178e50bf9c1a7f52bf53615282022edfaf7795a1ed572aed58fbe0bbfd",
+      "sha256": "2d29e29c76065f6e5200e31c68ee89561dfc3a9cfd2058bf5b7892bc0a68b140",
       "executable": false
     },
     "tests/qualification/ui-convergence/chat-journey.mjs": {
@@ -11961,6 +11969,10 @@
     },
     "tests/qualification/ui-convergence/embed-timeout-journey.mjs": {
       "sha256": "0b7fd34774321767263b99c59d31ad26af8db2a22282c30773c1a4c601ecf71e",
+      "executable": false
+    },
+    "tests/qualification/ui-convergence/error-diagnostics.mjs": {
+      "sha256": "026b55091b30ac8e53e59c9fc7585d40bf0dd29545e6c0c483f0c73829e03fdc",
       "executable": false
     },
     "tests/qualification/ui-convergence/evidence/chat-1440-channel-blocked.png": {
@@ -12360,7 +12372,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/two-people-support.mjs": {
-      "sha256": "8d0880c6adad3f66b63c9c66314ed5ddd6f3d1bcbd0ff8350c7fd64dd2c71bdf",
+      "sha256": "3a731197af9a6a8977c9e2aa5e2b775dd7a2ddd6859f55f403724f3731417351",
       "executable": false
     },
     "tests/qualification/ui-convergence/typed-shortcuts-journey.mjs": {
