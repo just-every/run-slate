@@ -96,22 +96,34 @@ export async function shareJourney(state, pageId) {
   await publicPageJourney(state, pageId);
   await grantCorpusJourney(state);
   await inheritanceChainJourney(state);
+  await permissionLevelsJourney(state, { extended: false });
 }
 
 /** Independent published pages keep level semantics separate from grant narrowing. */
-export async function permissionLevelsJourney(state) {
-  const { context, origin, api } = state, width = state.page.viewportSize().width;
+export async function permissionLevelsJourney(state, { extended = true } = {}) {
+  const { context, origin } = state, width = state.page.viewportSize().width;
+  // Complete diagnostic inventories are much more read-heavy than a person.
+  // Pace those reads while retaining real production limits and every assertion.
+  let nextRead = 0;
+  const api = async (...args) => {
+    const delay = nextRead - Date.now();
+    if (delay > 0) await new Promise(resolve => setTimeout(resolve, delay));
+    nextRead = Date.now() + (extended ? 125 : 0);
+    return state.api(...args);
+  };
   const records = [], refusals = [];
   const configuration = await api('/api/sharing/configuration');
   assert.deepEqual(new Set(configuration.levels), new Set(['full', 'edit', 'comment', 'view']));
-  // First-run already admitted this ordinary member through a real invitation.
-  // Sharing to a third person proves an effective access change, not a redundant
-  // grant to the page's author or to the actor who already retains full access.
-  const recipient = (await api('/api/members')).items.find(item => item.id !== 'browser-owner' && item.id !== 'browser-reader' && item.role === 'member');
-  assert.ok(recipient, 'A separately admitted ordinary member receives the new grant.');
-  const recipientSession = await signInWithOutbox(origin, recipient.email);
-  const recipientContext = await context.browser().newContext();
-  await recipientContext.addCookies([{ name: 'slate_session', value: recipientSession.cookie.split('=')[1], url: origin }]);
+  // First-run already admitted the extended matrix's recipient natively.
+  // Keep the original selected matrix intact in both responsive core callers.
+  let recipient = { id: 'browser-owner' }, recipientContext;
+  if (extended) {
+    recipient = (await api('/api/members')).items.find(item => item.id !== 'browser-owner' && item.id !== 'browser-reader' && item.role === 'member');
+    assert.ok(recipient, 'A separately admitted ordinary member receives the new grant.');
+    const recipientSession = await signInWithOutbox(origin, recipient.email);
+    recipientContext = await context.browser().newContext();
+    await recipientContext.addCookies([{ name: 'slate_session', value: recipientSession.cookie.split('=')[1], url: origin }]);
+  }
   try { await withSecondPerson(state, width, async ({ bob }) => {
     const member = (await ok(bob.context, origin, 'GET', '/api/session')).member;
     assert.equal(member.id, 'browser-reader');
@@ -136,7 +148,9 @@ export async function permissionLevelsJourney(state) {
       assert.equal(current.permissions.canShare, canShare);
       assert.equal(current.page.title, initialTitle);
       assert.equal(current.blocks.find(block => block.id === blockId).content.text.map(span => span.text).join(''), initialBody);
-      assert.equal((await ok(bob.context, origin, 'GET', commentsRoute)).comments[0].id, ownerComment);
+      const memberDiscussion = await ok(bob.context, origin, 'GET', commentsRoute);
+      assert.equal(memberDiscussion.comments[0].id, ownerComment);
+      records.push({ level, pageId, read: { document: current, discussion: memberDiscussion } });
 
       const snapshot = async () => ({
         document: await api(route),
@@ -156,6 +170,8 @@ export async function permissionLevelsJourney(state) {
       };
       const committed = async (method, target, action, perform) => {
         const before = await snapshot();
+        const opened = action === 'pages.update' || action === 'pages.block.update'
+          ? bob.page.waitForResponse(response => new URL(response.url()).pathname === `${route}/open` && response.request().method() === 'POST') : null;
         const pending = bob.page.waitForResponse(response => new URL(response.url()).pathname === target && response.request().method() === method);
         await perform();
         const response = await pending;
@@ -163,6 +179,11 @@ export async function permissionLevelsJourney(state) {
         const input = response.request().postDataJSON(), result = await response.json();
         assert.equal(result.receipt.operationKey, input.operationKey);
         assert.equal(result.receipt.revisionId, result.receipt.entity.revisionId);
+        if (opened) {
+          const rendered = await opened;
+          assert.equal(rendered.status(), 200, await rendered.text());
+          assert.equal((await rendered.json()).receipt.revisionId, result.receipt.revisionId, 'The browser commits its read of the edited revision before replay is measured.');
+        }
         await bob.page.waitForLoadState('networkidle');
         const after = await snapshot();
         const added = after.activity.filter(item => !before.activity.some(previous => previous.id === item.id) && item.action !== 'pages.open');
@@ -277,31 +298,34 @@ export async function permissionLevelsJourney(state) {
         await expect(view.locator('.right')).toContainText('Read-only discussion.');
       }
       await accessible(view, `${level} member discussion after reload`);
-      await permissionDiscussionMatrix({ view, api, level, pageId, ownerComment, memberComment, committed, refuse });
+      if (extended) await permissionDiscussionMatrix({ view, api, level, pageId, ownerComment, memberComment, committed, refuse });
       await closeDetails(view);
       await view.getByRole('button', { name: 'Share', exact: true }).click();
       const panel = view.locator('.right'), invite = panel.getByRole('combobox', { name: 'Invite someone', exact: true });
       if (canShare) {
         await expect(invite).toBeVisible();
-        assert.equal((await call(recipientContext, origin, 'GET', route)).status, 404, 'The recipient initially has no access to this restricted page.');
+        if (extended) assert.equal((await call(recipientContext, origin, 'GET', route)).status, 404, 'The recipient initially has no access to this restricted page.');
         await invite.selectOption(`member:${recipient.id}`);
         await panel.getByRole('combobox', { name: 'Permission', exact: true }).selectOption('view');
         const shared = await committed('POST', '/api/sharing', 'sharing.grant', () => panel.getByRole('button', { name: 'Share page', exact: true }).click());
         const row = panel.locator(`[data-grant-id="${shared.value.id}"]`);
         await expect(row.getByRole('combobox')).toHaveValue('view');
-        assert.equal((await ok(recipientContext, origin, 'GET', route)).permissions.level, 'view');
+        if (extended) assert.equal((await ok(recipientContext, origin, 'GET', route)).permissions.level, 'view');
         const changes = [];
-        for (const changedLevel of ['comment', 'edit', 'full', 'view']) {
+        for (const changedLevel of extended ? ['comment', 'edit', 'full', 'view'] : ['comment']) {
           changes.push(await committed('POST', '/api/sharing', 'sharing.grant', () => row.getByRole('combobox').selectOption(changedLevel)));
           await view.reload({ waitUntil: 'networkidle' });
           if (!await panel.isVisible()) await view.getByRole('button', { name: 'Share', exact: true }).click();
           await expect(row.getByRole('combobox')).toHaveValue(changedLevel);
           assert.equal((await api(`/api/sharing/pages/${pageId}`)).items.find(item => item.id === shared.value.id).level, changedLevel);
-          const received = await ok(recipientContext, origin, 'GET', route);
-          assert.equal(received.permissions.level, changedLevel);
-          assert.equal(received.permissions.canEdit, changedLevel === 'full' || changedLevel === 'edit');
-          assert.equal(received.permissions.canShare, changedLevel === 'full');
+          if (extended) {
+            const received = await ok(recipientContext, origin, 'GET', route);
+            assert.equal(received.permissions.level, changedLevel);
+            assert.equal(received.permissions.canEdit, changedLevel === 'full' || changedLevel === 'edit');
+            assert.equal(received.permissions.canShare, changedLevel === 'full');
+          }
         }
+        if (extended) {
         await row.locator('details > summary').click();
         const revoked = await committed('POST', '/api/sharing', 'sharing.grant', () => row.getByRole('button', { name: 'Remove access', exact: true }).click());
         await view.reload({ waitUntil: 'networkidle' });
@@ -322,6 +346,12 @@ export async function permissionLevelsJourney(state) {
           assert.deepEqual((await ok(bob.context, origin, captured.method, captured.target, captured.input)).receipt, result.receipt);
           assert.deepEqual(await snapshot(), retained, 'Replaying a former grant creation or level change cannot revive a revoked grant.');
         }
+        } else {
+          const grants = await api(`/api/sharing/pages/${pageId}`);
+          assert.equal(grants.items.length, 3);
+          assert.equal(grants.items.find(item => item.id === shared.value.id).level, 'comment');
+          assert.equal(grants.items.find(item => item.id === readerGrant).level, 'full');
+        }
       } else {
         await expect(invite).toHaveCount(0);
         await expect(panel.getByRole('combobox')).toHaveCount(0);
@@ -329,12 +359,13 @@ export async function permissionLevelsJourney(state) {
         await expect(panel.getByRole('button', { name: 'Remove access', exact: true })).toHaveCount(0);
         const input = { targetKind: 'page', targetId: pageId, principalKind: 'member', principalId: member.id, level: 'full' };
         await refuse('POST', '/api/sharing', { ...input, operationKey: randomUUID() });
-        for (const changedLevel of ['full', 'edit', 'comment', 'view']) {
+        for (const changedLevel of extended ? ['full', 'edit', 'comment', 'view'] : ['full']) {
           await refuse('POST', '/api/sharing', { ...input, id: readerGrant, level: changedLevel, operationKey: randomUUID() });
         }
-        await refuse('POST', '/api/sharing', { ...input, id: readerGrant, level, revoke: true, operationKey: randomUUID() });
+        if (extended) await refuse('POST', '/api/sharing', { ...input, id: readerGrant, level, revoke: true, operationKey: randomUUID() });
       }
       await accessible(view, `${level} member sharing after reload`);
+      if (extended) {
       const captures = records.filter(item => item.level === level && item.method);
       const retained = await snapshot();
       for (const captured of captures) {
@@ -354,13 +385,14 @@ export async function permissionLevelsJourney(state) {
       const visible = await view.locator('.content-frame').innerText();
       for (const content of [initialTitle, initialBody, `Member revised ${level} guide`, `Owner context for ${level}.`]) assert.ok(!visible.includes(content), 'Revocation exposes no prior title, body or discussion.');
       await accessible(view, `${level} revoked member cannot recover prior content`);
+      }
       records.push({ level, pageId, blockId, readerGrant, final: await snapshot() });
-      console.log(`PROBE SHARE-002 ${level}: native member reads, title, body, discussion, reactions and direct grants; revoked reads and captures refused; ${refusals.filter(item => item.level === level).length} refused requests preserve inventories at ${width}px`);
+      console.log(`PROBE SHARE-002 ${level}: ${extended ? 'expanded discussion, reactions, effective grants and revoked captures' : 'selected reads, title, body, comment and direct grants'}; ${refusals.filter(item => item.level === level).length} refused requests preserve inventories at ${width}px`);
     }
-  }); } finally { await recipientContext.close(); }
+  }); } finally { await recipientContext?.close(); }
   const directory = path.join(root, '.artifacts/ui-convergence/permission-levels', String(width));
   await mkdir(directory, { recursive: true });
-  await writeFile(path.join(directory, 'matrix.json'), JSON.stringify({ width, configuration, records, refusals }, null, 2));
+  await writeFile(path.join(directory, 'matrix.json'), JSON.stringify({ width, extended, configuration, records, refusals }, null, 2));
 }
 
 /** Native grants, rather than seeded ACL rows, drive the loaded Share panel. */
