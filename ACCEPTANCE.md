@@ -2279,8 +2279,8 @@ Core · published · **partial** · From IMP-003 · Cites BASE-INPUT-001, BASE-I
 6. No import publishes an anonymous page.
 7. A general grant is container-scoped, never workspace-wide (`SHARE-005`), and a personal container carries no general grant (`SHARE-004`).
 
-**Evidence.** `tests/e2e/imports/real-exports.test.ts`
-**Gap.** Missing a public reviewed-mapping journey that applies active and unresolved restrictions and tries unsafe principal mapping without widening; the cited incumbent-export test reads parsed source restrictions only.
+**Evidence.** `tests/e2e/imports/preview-undo.test.ts` — reviews, applies and reverses real Notion and Confluence content without losing native edits, including reviewedPrincipalsJourney for acceptance 2, 3, 5 and 6; `tests/qualification/ui-convergence/journeys.test.mjs` — existing responsive Settings callers with importReviewJourney; `tests/e2e/imports/real-exports.test.ts` — incumbent-produced archives preserve pages, relationships, media and explicit losses.
+**Gap.** Acceptance 1's complete content, tree, labels, versions, comments, ordinals, status, publication, links and named user and group restriction matrix; acceptance 4's complete empty, unknown and unmapped restriction and recovery-access matrix; and acceptance 7's complete general-grant and personal-space matrix remain unproven. The genuine incumbent fixture lacks the missing cases; synthetic parser cases do not replace them. ADMIN-007 and shared company-policy, IMP-001, full PORT-004 and imported-record SEARCH-001 through SEARCH-006 prerequisites remain unchanged.
 
 #### IMP-004 — Import safety
 
