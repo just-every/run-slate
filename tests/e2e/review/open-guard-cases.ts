@@ -63,8 +63,10 @@ export async function openGuardCases(f: Awaited<ReturnType<typeof reviewFixture>
   expect(await env.DB.prepare('SELECT 1 FROM content_page_opens WHERE page_id=?').bind(created.value.pageId).first()).toBeNull();
 
   const captured = await read();
-  beforeCommit = change;
+  const capturedEpoch = await epoch();
+  beforeCommit = async () => { await ok('POST', path + '/lock', { operationKey: key(), expectedRevisionId: captured.page.revisionId }); };
   await open(captured.workingRevisionId, 'revision_tuple');
+  expect(await epoch()).toBe(capturedEpoch);
 
   // Both grant and workspace-policy changes advance the workspace-wide epoch
   // without replacing this page's content revision.
