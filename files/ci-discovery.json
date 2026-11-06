@@ -1,0 +1,1 @@
+{"total_count":1,"workflow_runs":[{"conclusion":null,"created_at":"2026-11-06T00:22:46Z","event":"push","head_sha":"ab95639f06e310076505972d0bf548861af80ba4","html_url":"https://github.com/just-every/run-slate/actions/runs/42136380673","id":42136380673,"name":"Verify Slate","status":"in_progress"}]}

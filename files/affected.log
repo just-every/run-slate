@@ -1,0 +1,27 @@
+▲ [WARNING] Proxy environment variables detected. We'll use your proxy for fetch requests.
+
+
+▲ [WARNING] Proxy environment variables detected. We'll use your proxy for fetch requests.
+
+
+(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:
+  - import "./source-fixtures" without a file extension (scripts/import-scale/generate-server-dc.ts:2:91). Add the file extension
+  - import "./types" without a file extension (scripts/import-scale/generate-server-dc.ts:3:82). Add the file extension
+  - import "./source-fixtures" without a file extension (scripts/import-scale/generate-server-dc.ts:4:22). Add the file extension
+  - import "./csv" without a file extension (scripts/import-scale/source-fixtures.ts:4:46). Add the file extension
+Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.
+
+ RUN  v4.1.11 /workspace/run-slate-repair
+
+exception = workerd/api/unsafe.c++:229: failed: jsg.Error: Application called deleteAllDurableObjects().
+stack: /workspace/run-slate-repair/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@381fda0 /workspace/run-slate-repair/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@24274b0 /workspace/run-slate-repair/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@588570a /workspace/run-slate-repair/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@5a392a8 /workspace/run-slate-repair/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@5884dd0 /workspace/run-slate-repair/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@359b5a0 /workspace/run-slate-repair/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@359bac0 /workspace/run-slate-repair/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@3418c70 /workspace/run-slate-repair/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@3419026 /workspace/run-slate-repair/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@5a392a8 /workspace/run-slate-repair/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@3183fc1 /workspace/run-slate-repair/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@318449e
+exception = kj/compat/http.c++:4798: disconnected: other end of WebSocketPipe was destroyed
+stack: /workspace/run-slate-repair/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@5897d6a /workspace/run-slate-repair/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@589b959 /workspace/run-slate-repair/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@35ebf3d /workspace/run-slate-repair/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@5a3e640 /workspace/run-slate-repair/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@2673d30
+exception = kj/compat/http.c++:4798: disconnected: other end of WebSocketPipe was destroyed
+stack: /workspace/run-slate-repair/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@5897d6a /workspace/run-slate-repair/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@589b959 /workspace/run-slate-repair/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@35ebf3d /workspace/run-slate-repair/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@5a3e640 /workspace/run-slate-repair/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@2673d30
+
+ Test Files  4 passed (4)
+      Tests  7 passed (7)
+   Start at  00:19:11
+   Duration  48.55s (transform 5.82s, setup 1.70s, import 20.13s, tests 24.73s, environment 0ms)
+

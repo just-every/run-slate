@@ -1,0 +1,58 @@
+[
+  {
+    "call": 1,
+    "epoch": 1793924595.2528167,
+    "time": "2026-11-06T00:23:15.253067+00:00",
+    "command": [
+      "gh",
+      "api",
+      "repos/just-every/run-slate/actions/runs?head_sha=ab95639f06e310076505972d0bf548861af80ba4&per_page=100",
+      "--jq",
+      "{workflow_runs:[.workflow_runs[] | {id,name,status,conclusion,head_sha,event,html_url,created_at}],total_count}"
+    ],
+    "watcher": true,
+    "exit": 0
+  },
+  {
+    "call": 2,
+    "epoch": 1793924896.2849298,
+    "time": "2026-11-06T00:28:16.285099+00:00",
+    "command": [
+      "gh",
+      "api",
+      "repos/just-every/run-slate/actions/runs/42136380673",
+      "--jq",
+      "{status,conclusion,head_sha,html_url}"
+    ],
+    "watcher": true,
+    "exit": 0
+  },
+  {
+    "call": 3,
+    "epoch": 1793925197.314204,
+    "time": "2026-11-06T00:33:17.314489+00:00",
+    "command": [
+      "gh",
+      "api",
+      "repos/just-every/run-slate/actions/runs/42136380673",
+      "--jq",
+      "{status,conclusion,head_sha,html_url}"
+    ],
+    "watcher": true,
+    "exit": 0
+  },
+  {
+    "call": 4,
+    "epoch": 1793925498.3491824,
+    "time": "2026-11-06T00:38:18.349361+00:00",
+    "command": [
+      "gh",
+      "api",
+      "repos/just-every/run-slate/actions/runs/42136380673",
+      "--jq",
+      "{status,conclusion,head_sha,html_url}"
+    ],
+    "watcher": true,
+    "exit": 0
+  }
+]

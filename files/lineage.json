@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repository": "just-every/run-slate",
+  "tag": "sd-slate-c-f160-response-repair-1",
+  "branch": "cloud/sd-slate-c-f160-response-repair-1",
+  "head": "ab95639f06e310076505972d0bf548861af80ba4",
+  "freshMain": "51162d87a91a4556ab68fdee79caa26e1b747a29",
+  "originalHead": "52b6d73b83c0cf8c326a104ff052c95e8aa0ca4a",
+  "guardedOriginalFinal": "0573a4c6c54e2e89bf714fd848b8a8e948ff03dd",
+  "causalOriginalCommit": "981debabad2b11bf5914c8346c9d9642944e6275",
+  "causalOriginalParent": "51162d87a91a4556ab68fdee79caa26e1b747a29",
+  "originalVerifyRun": 42121393981,
+  "originalVerifyAttempt": 1,
+  "originalRefusedRouteBlob": "84b4fbb21adf2aac3315c165fc20644f6672f4a2",
+  "sourceBlobs": {
+    "src/core/features/pages/routes.ts": "84b4fbb21adf2aac3315c165fc20644f6672f4a2",
+    "src/core/features/pages/service.ts": "826ab2188effe8a9229f4375ffbf58d93018fe69",
+    "src/core/app/operations.ts": "a13489201219a8aa1e4e2c7d319ce6aec464d870"
+  }
+}

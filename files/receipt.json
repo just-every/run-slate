@@ -1,0 +1,158 @@
+{
+  "schema": 1,
+  "repository": "just-every/run-slate",
+  "tag": "sd-slate-c-f160-response-repair-1",
+  "head": "ab95639f06e310076505972d0bf548861af80ba4",
+  "branch": "cloud/sd-slate-c-f160-response-repair-1",
+  "recordedAt": "2026-11-06T00:24:41.892160+00:00",
+  "localChecks": [
+    {
+      "command": "pnpm exec vitest run tests/e2e/pages/display-options.test.ts tests/flagship/content/http.test.ts tests/qualification/core/audit-content.test.ts tests/flagship/core/security.test.ts",
+      "exit": 0,
+      "testFilesPassed": 4,
+      "testsPassed": 7,
+      "node": "22.20.0",
+      "log": "affected.log",
+      "cloud_run": true
+    },
+    {
+      "command": "pnpm typecheck",
+      "exit": 0,
+      "log": "typecheck.log",
+      "cloud_run": true
+    },
+    {
+      "command": "npx -y @runeditrun/rer check --profile first-party",
+      "exit": 0,
+      "log": "first-party.log",
+      "note": "CLI completed successfully with no stdout/stderr",
+      "cloud_run": true
+    },
+    {
+      "command": "node src/base/runtime/contract-docs.mjs write",
+      "exit": 0,
+      "log": "contract-write.log",
+      "documentsWritten": 0,
+      "cloud_run": false
+    },
+    {
+      "command": "node src/base/runtime/contract-docs.mjs check",
+      "exit": 0,
+      "log": "contract-check.log",
+      "cloud_run": false
+    },
+    {
+      "command": "pnpm integration:sync",
+      "exit": 0,
+      "log": "integration.log",
+      "cloud_run": false
+    },
+    {
+      "command": "pnpm source:lock",
+      "exit": 0,
+      "log": "source-lock.log",
+      "order": "last source-generation step; intended files already staged",
+      "cloud_run": false
+    },
+    {
+      "command": "pnpm source:check",
+      "exit": 0,
+      "log": "source-check.log",
+      "cloud_run": false
+    },
+    {
+      "command": "git diff --cached --check",
+      "exit": 0,
+      "cloud_run": false
+    },
+    {
+      "command": "git diff --exit-code origin/main -- CONTRACT.md ACCEPTANCE.md docs/CLAIMS.md",
+      "exit": 0,
+      "note": "Fresh-main bytes preserved; generated views restored whole from origin/main",
+      "cloud_run": false
+    }
+  ],
+  "productPush": {
+    "entrypoint": "python3 $HOME/rer-consolidation/.tools/cloud-push.py origin cloud/sd-slate-c-f160-response-repair-1",
+    "command": "git push --porcelain origin HEAD:refs/heads/cloud/sd-slate-c-f160-response-repair-1",
+    "exit": 0,
+    "attempts": 1,
+    "observedRemoteHead": "ab95639f06e310076505972d0bf548861af80ba4"
+  },
+  "allCandidateIdentityAndTrailerCheck": {
+    "command": "git log origin/main..HEAD --format=\"%an <%ae>%n%cn <%ce>%n%(trailers:only,unfold)\"",
+    "candidateCommits": 1,
+    "authorsAndCommitters": "Run Edit Run fleet <fleet@runeditrun.com>",
+    "trailers": [],
+    "messagesInspected": true
+  },
+  "ci": {
+    "conclusion": null,
+    "head_sha": "ab95639f06e310076505972d0bf548861af80ba4",
+    "html_url": "https://github.com/just-every/run-slate/actions/runs/42136380673",
+    "status": "in_progress"
+  },
+  "clauseChanges": [],
+  "registrationDelta": 0,
+  "publicationScope": "Only product/contract/docs changes requested by the brief may enter product history; packet is evidence-only. Full-history publication scan is owned by the fleet.",
+  "unmetDependencies": [
+    "Independent affected qualification of this changed protected source remains owed; no gate/judge spawned.",
+    "REV006 job 127575623740 requires original verified-app-build artifact 13458407198 from SAME MAIN/FV custody and supported transport; not substituted or claimed passed."
+  ],
+  "holdsRetained": [
+    "Original refused result / Verify 42121393981 attempt 1",
+    "Frozen rubric and original lifetime counts",
+    "All original source/review/stack holds",
+    "Other mutation families, publish/import/AI and requirement-wide every-mutation coverage",
+    "ADMIN007/companypolicy",
+    "SAVE003 DEFER"
+  ],
+  "exactSourceReceipt": "source-receipt.json",
+  "fullPlan": "PLAN.md",
+  "beforeAfterCounts": "counts.json",
+  "retainedFailure": "RETAINED-FAILURE.md",
+  "cleanupBeforePublication": {
+    "ownedServerOrBrowserProcessesRunning": false,
+    "note": "All cloud_run setup/test/typecheck processes completed; no dev server or browser was started for this API repair. Disposable clone deletion follows successful evidence publication."
+  },
+  "ciObservations": [
+    {
+      "total_count": 1,
+      "workflow_runs": [
+        {
+          "conclusion": null,
+          "created_at": "2026-11-06T00:22:46Z",
+          "event": "push",
+          "head_sha": "ab95639f06e310076505972d0bf548861af80ba4",
+          "html_url": "https://github.com/just-every/run-slate/actions/runs/42136380673",
+          "id": 42136380673,
+          "name": "Verify Slate",
+          "status": "in_progress"
+        }
+      ]
+    },
+    {
+      "conclusion": null,
+      "head_sha": "ab95639f06e310076505972d0bf548861af80ba4",
+      "html_url": "https://github.com/just-every/run-slate/actions/runs/42136380673",
+      "status": "in_progress"
+    },
+    {
+      "conclusion": null,
+      "head_sha": "ab95639f06e310076505972d0bf548861af80ba4",
+      "html_url": "https://github.com/just-every/run-slate/actions/runs/42136380673",
+      "status": "in_progress"
+    },
+    {
+      "conclusion": null,
+      "head_sha": "ab95639f06e310076505972d0bf548861af80ba4",
+      "html_url": "https://github.com/just-every/run-slate/actions/runs/42136380673",
+      "status": "in_progress"
+    }
+  ],
+  "ciCallsSoFar": 4,
+  "productCustody": "PUSHED",
+  "readyClaimed": false,
+  "ciObservationPolicy": "One watcher, four successful REST reads (discovery plus three status reads), each at least 300 seconds apart. Bounded observation ended after approximately 15 minutes; no extended polling, workflow dispatch or retry.",
+  "updatedAt": "2026-11-06T00:39:10.019052+00:00"
+}

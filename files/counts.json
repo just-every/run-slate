@@ -1,0 +1,64 @@
+{
+  "schema": 1,
+  "countsBefore": {
+    "done": 57,
+    "partial": 240,
+    "missing": 41,
+    "total": 338
+  },
+  "countsAfter": {
+    "done": 57,
+    "partial": 240,
+    "missing": 41,
+    "total": 338
+  },
+  "contractBytesEqual": true,
+  "affectedRegistrations": [
+    {
+      "file": "tests/e2e/pages/display-options.test.ts",
+      "before": 1,
+      "after": 1
+    },
+    {
+      "file": "tests/flagship/content/http.test.ts",
+      "before": 4,
+      "after": 4
+    },
+    {
+      "file": "tests/qualification/core/audit-content.test.ts",
+      "before": 1,
+      "after": 1
+    },
+    {
+      "file": "tests/flagship/core/security.test.ts",
+      "before": 1,
+      "after": 1
+    },
+    {
+      "file": "tests/qualification/core/audit-support.ts",
+      "before": 0,
+      "after": 0
+    },
+    {
+      "file": "tests/flagship/content/operation-replay.case.ts",
+      "before": 0,
+      "after": 0
+    }
+  ],
+  "beforeRegistrations": 7,
+  "afterRegistrations": 7,
+  "testBudget": {
+    "defaultCap": 200,
+    "registrations": 205,
+    "scope": "Expanded TypeScript-AST inventory of every seed-owned test/it, contract and journeyTest registration under tests/, including nested t.test and every generated for-of/test.each case, including existing planned-clause todos; describe groups and generic wrapper implementation sites are excluded. Vendored modules are excluded. The legacy call-site-only convention is reported separately.",
+    "reason": "Preserves current main flagship and c2 pruning, and replays qualification scenario folds without dropping assertions: expanded seed registrations fall from 241 to 205 (181 ordinary tests and 24 release-wall clause registrations over 24 ids). Qualification registrations fall from 92 to 56. Both core responsive cases remain because desktop sidebar visibility and horizontal column geometry are unique assertions; the ordinary cap remains 200.",
+    "dropCandidates": [
+      {
+        "file": "tests/flagship/intelligence/native-transport.test.ts",
+        "registration": "Native timestamps preserve valid ISO instants and normalize bounded Unix milliseconds",
+        "uniqueAssertion": "Rejects invalid native timestamp values and normalizes bounded milliseconds",
+        "reason": "Kept: no other registration asserts the exact valid ISO/bounded-millisecond normalization and invalid native timestamp refusal matrix. No assertion removed."
+      }
+    ]
+  }
+}

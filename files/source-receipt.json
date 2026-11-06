@@ -1,0 +1,39 @@
+{
+  "head": "ab95639f06e310076505972d0bf548861af80ba4",
+  "testedFilesMatchCommit": true,
+  "files": {
+    "sources.lock.json": {
+      "sha256": "2f09328edb3e9f0d495f645d62bc29d80b331e4c9582b1ca9b16db02670a50c5",
+      "gitBlob": "f44a22c98606524707e8e90c0d8d3ff812de6d71"
+    },
+    "src/core/app/operations.ts": {
+      "sha256": "23ecae7506214eca08d03f4d0214fb9a62cec4d1939a0eaa5012d700a47b4918",
+      "gitBlob": "a13489201219a8aa1e4e2c7d319ce6aec464d870"
+    },
+    "src/core/features/pages/routes.ts": {
+      "sha256": "50cfa330da0d5173e3c063a355491a3293d799beaed89de9f5ea24bca942048f",
+      "gitBlob": "84b4fbb21adf2aac3315c165fc20644f6672f4a2"
+    },
+    "src/core/features/pages/service.ts": {
+      "sha256": "a30163e9228584ff02901907fb182e78219cdbac69cdc9276f0ffcc5fa2dd2b3",
+      "gitBlob": "826ab2188effe8a9229f4375ffbf58d93018fe69"
+    },
+    "tests/e2e/pages/display-options.test.ts": {
+      "sha256": "135e122494f8b3c174f7701c6fbd13b0253128faaa869e0846212bd236cbb533",
+      "gitBlob": "300e043bcbf9aba0e14768def23be173627b5fc8"
+    },
+    "tests/flagship/content/http.test.ts": {
+      "sha256": "096a51a75119de0797e7ad14eb6ea9da9351ccee9494e461140ab8aaab80c9c9",
+      "gitBlob": "1b049ff2a6863a8a69bec5abb71647790695bd10"
+    },
+    "tests/flagship/content/operation-replay.case.ts": {
+      "sha256": "572fb48edd569561e6be16b3f9b9b02482fc5182d51dfc01559c978410c4df84",
+      "gitBlob": "ff6a3eb14049e785a96210907229f70908ca7d1a"
+    },
+    "tests/qualification/core/audit-support.ts": {
+      "sha256": "5afe67daecd7c15f2a017780e577dba88264956d92394e2517fdb71e0f391d0c",
+      "gitBlob": "b74f088744bfa9e9e315c7c76b6b4651689c2cac"
+    }
+  },
+  "indexClean": true
+}

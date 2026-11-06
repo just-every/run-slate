@@ -1,0 +1,142 @@
+{
+  "files": [
+    {
+      "blob": "710e46aa22a768ab34b6624ebb0353d7f57beafc",
+      "bytes": 2341,
+      "path": "PLAN.md",
+      "sha256": "574955ba1b4b4fd7a89c0cfdfa3bba327be557b180b7b158446b2ebc92e757c9"
+    },
+    {
+      "blob": "4ebedd6f3656ed58337f4fc75aee57ed9d82bde1",
+      "bytes": 8747,
+      "path": "REPORT.md",
+      "sha256": "8170e364475d369b51482b501da42f2ee3102e6fde56265f3ed4f890c13b6a13"
+    },
+    {
+      "blob": "50abe34dc756d9b7f385cb2f1afd8d80db929df0",
+      "bytes": 1564,
+      "path": "RETAINED-FAILURE.md",
+      "sha256": "1d018c3d29d0f228c8d3c8bde03b23cded7b2263d383346a70b77c3ed432e9d9"
+    },
+    {
+      "blob": "129c47a910fb9caf8f1db2c2ca041a6ddf61bd9c",
+      "bytes": 4764,
+      "path": "affected.log",
+      "sha256": "faee52957cd655ce7216bec52ac24c0449b03fc4d15b41cda8be85146505f0f3"
+    },
+    {
+      "blob": "b4749955279da35bda6bc25d6cad6fef28375ad8",
+      "bytes": 184,
+      "path": "candidate-commits.txt",
+      "sha256": "584751c040febbc707877d4c1488f70cad298938ca42b4a12ba3fa603b7b3698"
+    },
+    {
+      "blob": "9aab7a75dc26deff78078b487f6cbc4b1185b534",
+      "bytes": 36296,
+      "path": "candidate.diff",
+      "sha256": "cbddade5c3fec1616bf39b241135ed0399ff50a0a547dbb8febeb6b19181df10"
+    },
+    {
+      "blob": "4c9b602368f3c2777c10573e6421bc62c4c4b44e",
+      "bytes": 301,
+      "path": "ci-discovery.json",
+      "sha256": "e40973aad1d3492dbd24d7e11f73ee69d2c50074d438be6219e97712ada3636b"
+    },
+    {
+      "blob": "d05aca8f95e98b18d91b30bd13db7455acd76bb0",
+      "bytes": 175,
+      "path": "ci-status-1.json",
+      "sha256": "b31d3362bfc651fb6d78311102cdbaa6dd6d80e133c73f6347c7abc6913e51b8"
+    },
+    {
+      "blob": "d05aca8f95e98b18d91b30bd13db7455acd76bb0",
+      "bytes": 175,
+      "path": "ci-status-2.json",
+      "sha256": "b31d3362bfc651fb6d78311102cdbaa6dd6d80e133c73f6347c7abc6913e51b8"
+    },
+    {
+      "blob": "d05aca8f95e98b18d91b30bd13db7455acd76bb0",
+      "bytes": 175,
+      "path": "ci-status-3.json",
+      "sha256": "b31d3362bfc651fb6d78311102cdbaa6dd6d80e133c73f6347c7abc6913e51b8"
+    },
+    {
+      "blob": "ae869b2fafd3acf46a2dc6ce35ec869497ae9cfb",
+      "bytes": 32,
+      "path": "contract-check.log",
+      "sha256": "c21aae40192141751d6d5c7a3a1d0eb701a6852f305d592d77b4dcab9c2536ab"
+    },
+    {
+      "blob": "58dd21c218846e90dd798f1845377f7422e45cac",
+      "bytes": 28,
+      "path": "contract-write.log",
+      "sha256": "14cee29b7bd19487e15f4013d4fb85016e022ef21d230676971a6490c88436d2"
+    },
+    {
+      "blob": "f428d820ac18af1a6fd81a0a7765ae680ebe30f7",
+      "bytes": 2423,
+      "path": "counts.json",
+      "sha256": "2b3dc727269ccf3737b7e0079a8b3bfef7d8d2812ee167f729c5fce0f2b77d96"
+    },
+    {
+      "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "bytes": 0,
+      "path": "first-party.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "blob": "799f8dd44acdb5a51fb58d6b67dfa3da67a96d66",
+      "bytes": 1367,
+      "path": "github-calls.json",
+      "sha256": "dd09c393a28125a07aadcad4c9a388e0502e7877425c2519dbdb777cd6884645"
+    },
+    {
+      "blob": "3aa85a49630a427425e50c3ac883a9cc46a9f113",
+      "bytes": 166,
+      "path": "integration.log",
+      "sha256": "85ca6f47b43368b4a91c4c47b9466c5e7e85428e5cfbc68295d4d44243a3ede1"
+    },
+    {
+      "blob": "cd1dd1a13f88ae5a06e337244fa0036ffc98a059",
+      "bytes": 956,
+      "path": "lineage.json",
+      "sha256": "a10c8c7845ecf549d2eaa558234303e959e06074e1af217cc029722aa7781ff5"
+    },
+    {
+      "blob": "f5c137ebf6fc6b4bbf09a3ba5f72754b027000d6",
+      "bytes": 5812,
+      "path": "receipt.json",
+      "sha256": "d9d28a64faba927fcfc2dd104c1ad7f3dc1f82fdb649b678305d17133fc65156"
+    },
+    {
+      "blob": "a512bc26f00fa7a6413164044bbedb29e891f5d0",
+      "bytes": 540627,
+      "path": "source-check.log",
+      "sha256": "64765395d41743cb880798730d49362f6ceab73ed94aa6767ed66730e46eb5dd"
+    },
+    {
+      "blob": "a4447377d5aecdd31405cc2bf314b914a91e157b",
+      "bytes": 540505,
+      "path": "source-lock.log",
+      "sha256": "45de29d426e9e12713c01c29e891530fd0d40e00833c31b8945a7fe18276c934"
+    },
+    {
+      "blob": "885f89bcf35047b0529adebe9837fd170c484611",
+      "bytes": 1690,
+      "path": "source-receipt.json",
+      "sha256": "21c2b9b325b4dc8618d2b56903fcb53e6f839c0557ef8e650cd32c4a5a16ea3f"
+    },
+    {
+      "blob": "080f05b4f3fda7fd2a85ae2c6a7591101e3f554a",
+      "bytes": 69,
+      "path": "typecheck.log",
+      "sha256": "b08aa9ee05d328fd36baac191d09093d2445f278fc7ca476d5953d266d996fc4"
+    }
+  ],
+  "product_branch": "cloud/sd-slate-c-f160-response-repair-1",
+  "product_head": "ab95639f06e310076505972d0bf548861af80ba4",
+  "ref": "refs/heads/evidence/sd-slate-c-f160-response-repair-1",
+  "repository": "just-every/run-slate",
+  "schema": 1,
+  "tag": "sd-slate-c-f160-response-repair-1"
+}
