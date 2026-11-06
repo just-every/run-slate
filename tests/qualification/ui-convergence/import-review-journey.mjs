@@ -86,6 +86,10 @@ export async function importReviewJourney(state,width) {
  }finally{
   await state.switchIdentity('owner');
   await state.atRest("UPDATE members SET member_kind='member',guest_expires_at=NULL WHERE id='browser-reader'");
+  // Restoring membership must not revive the old authority-bound session.
+  await state.refreshReaderIdentity();await state.switchIdentity('reader');
+  try{assert.equal((await api('/api/members/current')).id,'browser-reader');}
+  finally{await state.switchIdentity('owner');}
  }
  console.log('IMPORT_BROWSER_RECEIPT '+JSON.stringify({width,jobId:id,state:completed.state,mappings:completed.report.mappings,access:completed.report.access,pages:pages.map(item=>({id:item.targetId,title:item.label,anonymousNative:401,anonymousPublished:404})),unavailableTargetShown:true,retainedMappingUnchanged:true}));
  console.log(`PROBE IMP-016 Settings ${width}: genuine archive upload, explicit mapping, Apply and reload -> completed; reviewed member and historical people displayed; conversion retained; ${pages.length} restricted reader pages and no anonymous page`);
