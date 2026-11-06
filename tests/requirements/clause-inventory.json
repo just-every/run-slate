@@ -3227,8 +3227,13 @@
       "id": "AUTO-008",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No validated CI-run proof for this acceptance point: \"a Workers journey kills a job mid-run and finds it resumed once with no duplicate effect.\"<br>No validated CI-run proof for this acceptance point: \"A forced failure appears on the owner's Home, and stopping a queued job cancels its pending sends.\"",
-      "supportingTests": []
+      "unmetReason": "Native automation-rule acceptance 1 is exercised by automationRestartJourney through the existing desktop database run-log caller: a genuinely killed emitted Worker, same persistent store, genuine lease boundary, canonical record, comment and inbox effects, receipt and activity reconciliation and replay. The existing automation-repairs Workers registration retains supporting exception recovery and authority checks. Other background-job families, owner Home failure and stuck projection, explicit stop and cancellation, complete accountable follow-through and message, record and issue deduplication remain unproven. Connector, agent, provider, ADMIN-007 and shared company-policy prerequisites remain authoritative. CONTRACT.md owns the partial judgment; exact candidate Verify and guarded landing remain required.",
+      "supportingTests": [
+        {
+          "file": "tests/flagship/structured/automation-repairs.test.ts",
+          "testName": "automation admission, resumed effects and schedules preserve current scope and exactly-once recovery"
+        }
+      ]
     },
     {
       "id": "IMP-006",
