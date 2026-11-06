@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "93b459e481b7169a7cc94645dbe13194837eb8c31d7323d276bae931afdf33f0",
+      "sha256": "9b99279e9578bb81694e0f7e231dd834ce9b3f21bafa3917c604d61bfeebf57d",
       "executable": false
     },
     "DEMO.md": {
@@ -10440,7 +10440,7 @@
       "executable": false
     },
     "tests/e2e/editor/synced-case.ts": {
-      "sha256": "0a32dc2a94316391cbda7f7e49d2ec156c8e914cb82f64cfb552dabbdf72871e",
+      "sha256": "c59b269beb6b538219e457b0f12c409d0e606989ab3f567c1531c68b566280bb",
       "executable": false
     },
     "tests/e2e/editor/tables.test.ts": {
@@ -12240,7 +12240,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/synced-custody.mjs": {
-      "sha256": "84977cce91f6d3f21fcebfb7e60561cbae2620ac2962fcb2c9fe97aad1fbcf40",
+      "sha256": "7a7cb9c89e53c890eb036f659df704ad5cdaaacdf84c4dd8c00cfff38b4f654f",
       "executable": false
     },
     "tests/qualification/ui-convergence/synced-journey.mjs": {
