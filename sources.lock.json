@@ -11900,7 +11900,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/chat-journey.mjs": {
-      "sha256": "06f823a4a1cdb62da3d1fbb553e7014d5ce92a2145411a236c24bc1e3a47e69d",
+      "sha256": "5714e3e0558b6951c3a68a2579256b83b67d00d95cfcccdba9a929f39df0e29d",
       "executable": false
     },
     "tests/qualification/ui-convergence/columns-journey.mjs": {
@@ -12412,7 +12412,7 @@
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
-      "sha256": "6a338abad61675e313d0f4d2ff56a923168a9335ee102bbd59fafaf4a71e8bbb",
+      "sha256": "377a1df58b1e63766360b8df453ac8ed719b9062aabec0f07fd93d97e192d707",
       "executable": false
     },
     "tests/requirements/count-registrations.mjs": {
