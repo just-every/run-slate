@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "0711ceb5cd846cea6f350134c1a04d836bdbf6aa8d93b3ac1b295beaf53f297f",
+      "sha256": "aff189a82dd7b5e04d27042e8ac888bce33aa338e0e5c6e42cf76a95af2133c2",
       "executable": false
     },
     "DEMO.md": {
@@ -11432,7 +11432,7 @@
       "executable": false
     },
     "tests/portability/equivalence.mjs": {
-      "sha256": "1c95984c1fb5241987e3f9eaaeed534542cb3f74cf4f3b71bd013e3b356d7abe",
+      "sha256": "ee4c577e21e77f0f3ad59235bd631b062b95aa6e66196b556536fa676adf3197",
       "executable": false
     },
     "tests/portability/fixture.mjs": {
@@ -11452,7 +11452,7 @@
       "executable": false
     },
     "tests/portability/runtime.mjs": {
-      "sha256": "e340bbb76ca3db87ebdab0b0d17b6b4fb5dda40c3e94414d32379ff84a4521a8",
+      "sha256": "36a024d3699aa242c2f3ab3dbaa0d046aa7a607f24a63bec3c0eb151fdc75741",
       "executable": false
     },
     "tests/profile/body-blocks-journey.ts": {
@@ -12204,7 +12204,11 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/referential-restore-journey.mjs": {
-      "sha256": "35c373bc9013e49c1fe7dee3394ac46d7ff54d1da779518254756d5529bc655c",
+      "sha256": "2ad96182f81373458fe9e1984fc4a220adb3f5a4743797eaad3ed8be3c48b391",
+      "executable": false
+    },
+    "tests/qualification/ui-convergence/restore-records-journey.mjs": {
+      "sha256": "d19a4ea7ce321d03a06d2fc919f19f1153705709541544b42e6cf5a931a7beb4",
       "executable": false
     },
     "tests/qualification/ui-convergence/review-request-journey.mjs": {
@@ -12332,7 +12336,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/transfer-jobs-journey.mjs": {
-      "sha256": "c9ff97766867e489b1eae976ff5e6bebd1deeab2fc95708142ff259b688290f9",
+      "sha256": "72a4f285d3571db3bf63e110fae575a261bc8307c8e09287bb6831c341d2923a",
       "executable": false
     },
     "tests/qualification/ui-convergence/tree-filter-journey.mjs": {
@@ -12412,11 +12416,11 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "d52402a5c5d901a253e5fd7e6913eae9202f6005944515e4ead4b8951cc9fee6",
+      "sha256": "cf70d7f3952a26a4510ce2d9c68b92dba13293c02871eee19e4f974bb6562b01",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
-      "sha256": "a30f39c811760ba1381aee43d37782fd72129002e0de29daf48d8bc270656056",
+      "sha256": "8fcff8fbe1c4c64f1d75d4f31146d2289a359d1497d83842d7068d04511eac26",
       "executable": false
     },
     "tests/requirements/count-registrations.mjs": {

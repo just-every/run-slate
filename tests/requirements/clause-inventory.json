@@ -1659,7 +1659,7 @@
       "id": "PORT-002",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Selected ordinary subtree native restore proof is loaded by the existing Node browser callers described in tests/requirements/cli-journey.md, outside this Workers-only registry. Every other record family, unselected link, mention, anchor and file form, public slugs, complete principal, revision and grant inventories, imported-original custody and universal same-record resolution remain unproven; CONTRACT.md retains PARTIAL.",
+      "unmetReason": "Selected ordinary subtree native restore proof is loaded by the existing Node browser callers described in tests/requirements/cli-journey.md, outside this Workers-only registry. Native Node browser proof now includes selected mentions, public address custody, typed record links, populated archive inventories and retained originals. Other record families and unselected forms, requirement-wide inventories, remaining imported-original custody paths and universal same-record resolution remain unproven; CONTRACT.md retains PARTIAL.",
       "supportingTests": [
         {
           "file": "tests/flagship/federation/federation.test.ts",

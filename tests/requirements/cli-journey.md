@@ -266,3 +266,32 @@ revision and grant inventories, imported-original custody and universal
 same-record resolution remain unproven. PORT-003, PORT-006 and PORT-007 scopes
 and all privacy, erasure, import and search prerequisites remain unchanged;
 ADMIN-007 and shared company-policy prerequisites remain authoritative.
+
+
+### Extended native restore readback
+
+The same registered transfer journey now verifies the selected page mention by
+following it, reads the retained person and group labels, and reloads those
+screens. A separate native database, updated record with retained earlier field
+values, and captured page template have source projections compared with the
+restored projections. Original links in the group checklist open their retained
+addresses and each screen reloads. The focused implementation is
+`./tests/qualification/ui-convergence/restore-records-journey.mjs`.
+
+The actual downloaded source ZIP and a native destination export are compared
+through `equivalent` in `./tests/portability/equivalence.mjs`: every populated
+row and retained column, with only explicitly checked recovery-custody changes,
+and every original R2 object, including retained importer custody. This does
+not claim coverage for a record family absent from the populated source.
+
+The source publication host is configured independently of the destination app
+origin through the existing public-host setting in the portability test runtime.
+A retained public host and slug return an anonymous 404 after restore. An edit
+member cannot re-enable them or change retained data. The owner explicitly
+re-enables the existing exposure through the native Public access control; it
+reuses every original setting and resolves to the retained published page.
+
+No acceptance sentence or test registration changes. PORT-002 remains partial:
+other record families, unselected forms, requirement-wide inventories, remaining
+imported-original custody paths and universal same-record resolution are still
+unproven. All existing privacy and other clause prerequisites remain in force.

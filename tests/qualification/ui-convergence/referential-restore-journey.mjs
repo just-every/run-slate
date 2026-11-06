@@ -4,9 +4,12 @@ import {readFile,writeFile} from 'node:fs/promises';
 import path from 'node:path';
 import {expect} from '@playwright/test';
 import {inbox,newOutboxLink,signInWithOutbox} from '../../e2e/outbox-auth.mjs';
-import {unpack} from '../../portability/equivalence.mjs';
+import {unpack,equivalent} from '../../portability/equivalence.mjs';
+import {requestWithHost} from '../../e2e/runtime-harness.mjs';
 import {call,ok,editable,grant} from './two-people-support.mjs';
-import {openNavigation} from './browser-support.mjs';
+import {openNavigation,openPageAction} from './browser-support.mjs';
+
+import {prepareRestoreRecords,proveRestoreRecords} from './restore-records-journey.mjs';
 
 const key=()=>randomUUID();
 const hash=bytes=>createHash('sha256').update(bytes).digest('hex');
@@ -58,7 +61,7 @@ export async function prepareReferentialRestore(state,evidence) {
       originals.push({id:(await upload.json()).value.id,pageId:item.id,name,bytes});
     }
     const current=await ok(context,origin,'GET',`/api/pages/${parent.id}`);
-    await ok(context,origin,'PATCH',`/api/pages/${parent.id}/blocks/${parent.blockId}`,{operationKey:key(),expectedRevisionId:current.blocks[0].revisionId,content:{text:[{text:bodyText},{text:'. '},{text:'Open member appendix',link:{href:pagePath(direct.id)}},{text:' · '},{text:direct.title,mention:{kind:'page',id:direct.id,label:direct.title}}]}});
+    await ok(context,origin,'PATCH',`/api/pages/${parent.id}/blocks/${parent.blockId}`,{operationKey:key(),expectedRevisionId:current.blocks[0].revisionId,content:{text:[{text:bodyText},{text:'. '},{text:'Open member appendix',link:{href:pagePath(direct.id)}},{text:' · '},{text:direct.title,mention:{kind:'page',id:direct.id,label:direct.title}},{text:' · '},{text:reader.displayName,mention:{kind:'person',id:reader.id,label:reader.displayName}},{text:' · '},{text:'Transfer reviewers',mention:{kind:'group',id:groupId,label:'Transfer reviewers'}}]}});
     await page.goto(origin+pagePath(parent.id),{waitUntil:'networkidle'});
     await editable(page,parent.blockId).focus();
     await page.keyboard.press('ControlOrMeta+Home');
@@ -74,13 +77,24 @@ export async function prepareReferentialRestore(state,evidence) {
     const comment=discussion.comments.find(item=>item.threadId===thread.id);
     assert.ok(comment);
     await ok(context,origin,'POST',`/api/pages/${parent.id}/expansion`,{operationKey:key(),expanded:true});
-    const fixture={containerId,groupId,ownerId:owner.id,readerId:reader.id,pages,parent,direct,denied,groupChild,revision,threadId:thread.id,commentId:comment.id,originals};
+    const live=await ok(context,origin,'GET',`/api/pages/${parent.id}`);
+    if(live.publishedRevisionId!==live.workingRevisionId)await ok(context,origin,'POST',`/api/pages/${parent.id}/publish`,{operationKey:key(),expectedRevisionId:live.page.revisionId});
+    const publication=await ok(context,origin,'GET',`/api/pages/${parent.id}`);
+    const publicInput={host:new URL(origin).host,slug:'synthetic-slate-restore-guide',theme:'dark',indexable:false,socialPreview:{title:'Transfer guide preview',description:'Retained source publication'}};
+    await ok(context,origin,'POST',`/api/publishing/${parent.id}`,{operationKey:key(),expectedRevisionId:publication.page.revisionId,...publicInput});
+    const sourcePublic=await requestWithHost(origin,`/p/${publicInput.slug}`,publicInput.host);
+    assert.equal(sourcePublic.status,200);assert.match(sourcePublic.body,new RegExp(bodyText));
+    const exposure=(await ok(context,origin,'GET',`/api/publishing/${parent.id}`)).exposure;
+    assert.equal(exposure.revokedAt,null);
+    const fixture={containerId,groupId,ownerId:owner.id,readerId:reader.id,readerName:reader.displayName,pages,parent,direct,denied,groupChild,revision,threadId:thread.id,commentId:comment.id,originals,publicInput,exposure};
+    fixture.records=await prepareRestoreRecords(state,fixture);
     fixture.sourceSessions=[(await context.cookies(origin)).find(item=>item.name==='slate_session').value,state.readerCookie.split('=')[1]];
     fixture.source=await snapshot(context,origin,fixture);
     fixture.sourceAccess=await access(readerContext,origin,fixture);
     assert.deepEqual(fixture.sourceAccess.levels,['edit','view','edit']);
     assert.equal(fixture.sourceAccess.denied.status,404);
     await treeScreen(page,origin,fixture,evidence,'source');
+    await mentionScreen(page,origin,fixture,evidence,'source');
     return fixture;
   } finally {await readerContext.close();}
 }
@@ -139,6 +153,63 @@ async function treeScreen(page,origin,fixture,evidence,label) {
   await page.screenshot({path:path.join(evidence,`${page.viewportSize().width}-${label}-tree.png`),fullPage:true});
 }
 
+/** Follow the native page mention and read the person and group labels after reload. */
+async function mentionScreen(page,origin,fixture,evidence,label) {
+  await page.goto(origin+pagePath(fixture.parent.id),{waitUntil:'networkidle'});
+  const block=page.locator(`[data-block-id="${fixture.parent.blockId}"]`);
+  const mention=block.locator('[data-mention-kind="page"]').getByRole('link',{name:fixture.direct.title,exact:true});
+  await expect(mention).toHaveAttribute('href',pagePath(fixture.direct.id));
+  await expect(block.locator('[data-mention-kind="person"]')).toHaveText('@'+fixture.readerName);
+  await expect(block.locator('[data-mention-kind="group"]')).toHaveText('@Transfer reviewers');
+  await mention.click();
+  await expect(page).toHaveURL(origin+pagePath(fixture.direct.id));
+  await expect(page.getByRole('textbox',{name:'Page title',exact:true})).toHaveValue(fixture.direct.title);
+  await page.reload({waitUntil:'networkidle'});
+  await expect(page.locator(`[data-block-id="${fixture.direct.blockId}"]`)).toContainText('direct member appendix');
+  await page.goto(origin+pagePath(fixture.parent.id),{waitUntil:'networkidle'});
+  await page.reload({waitUntil:'networkidle'});
+  await expect(mention).toHaveAttribute('href',pagePath(fixture.direct.id));
+  await expect(block.locator('[data-mention-kind="person"]')).toHaveText('@'+fixture.readerName);
+  await expect(block.locator('[data-mention-kind="group"]')).toHaveText('@Transfer reviewers');
+  await page.screenshot({path:path.join(evidence,`${page.viewportSize().width}-${label}-mentions.png`),fullPage:true});
+}
+
+/** Inert restored public custody preserves the address until an authorized explicit action. */
+async function publicReadback(state,fixture,evidence,readerContext) {
+  const {context,page,origin}=state;
+  const read=async()=>(await ok(context,origin,'GET',`/api/publishing/${fixture.parent.id}`)).exposure;
+  const exposure=await read();
+  assert.ok(exposure.revokedAt,'Restore deactivates the retained exposure.');
+  assert.deepEqual({...exposure,revokedAt:null},fixture.exposure,'Every original public address and setting remains retained.');
+  const address=`/p/${exposure.slug}`;
+  const anonymous=()=>requestWithHost(origin,address,exposure.host);
+  const inactive=await anonymous();
+  assert.equal(inactive.status,404);assert.doesNotMatch(inactive.body,new RegExp(bodyText));
+  const document=await ok(context,origin,'GET',`/api/pages/${fixture.parent.id}`);
+  const before=await snapshot(context,origin,fixture);
+  const denied=await call(readerContext,origin,'POST',`/api/publishing/${fixture.parent.id}`,{operationKey:key(),expectedRevisionId:document.page.revisionId,...fixture.publicInput});
+  assert.equal(denied.status,404,'Inherited edit access cannot reactivate a public exposure.');
+  assert.deepEqual(await read(),exposure);
+  assert.deepEqual(await snapshot(context,origin,fixture),before,'A refused public action changes no page, history, grant or discussion.');
+  assert.equal((await anonymous()).status,404);
+  await page.goto(origin+pagePath(fixture.parent.id),{waitUntil:'networkidle'});
+  await openPageAction(page,'Public access');
+  const toggle=page.getByRole('switch',{name:'Public link',exact:true});
+  await expect(toggle).not.toBeChecked();
+  const committed=page.waitForResponse(response=>new URL(response.url()).pathname===`/api/publishing/${fixture.parent.id}`&&response.request().method()==='POST');
+  await toggle.click();
+  const response=await committed;assert.equal(response.status(),200,await response.text());
+  await expect(toggle).toBeChecked();
+  assert.deepEqual(await read(),fixture.exposure,'Explicit re-enablement reuses the exact original host, slug and settings.');
+  const enabled=await anonymous();
+  assert.equal(enabled.status,200);assert.match(enabled.body,new RegExp(bodyText));
+  assert.match(enabled.body,/Transfer guide/);assert.doesNotMatch(enabled.body,/owner-only annex/);
+  await page.reload({waitUntil:'networkidle'});
+  await expect(toggle).toBeChecked();
+  await page.screenshot({path:path.join(evidence,`${page.viewportSize().width}-restored-public-address.png`),fullPage:true});
+  return {exposure,inactiveStatus:inactive.status,refusedStatus:denied.status,enabled:await read(),enabledStatus:enabled.status};
+}
+
 /** Retained addresses, exact history, selected text and originals through a fresh restored session. */
 export async function proveReferentialRestore(state,target,fixture,archive,evidence,transfer) {
   const {context,page,origin}=state,width=page.viewportSize().width;
@@ -165,14 +236,22 @@ export async function proveReferentialRestore(state,target,fixture,archive,evide
   assert.deepEqual(ownerReadback,fixture.source,'Fresh restored owner reads the same selected documents, full page history, tree, grants, group and anchored discussion.');
   const out=path.join(path.dirname(target.persist),'selected-restored.zip');
   const cookie=(await context.cookies(origin)).find(item=>item.name==='slate_session');
-  await target.cli('export',out,`slate_session=${cookie.value}`);
+  const destinationExport=await target.cli('export',out,`slate_session=${cookie.value}`);
   const destinationBytes=await readFile(out),destination=unpack(destinationBytes);
   assert.deepEqual(selected(destination,fixture),before,'The destination native export retains every selected archived field.');
+  const previousActivity=new Set(archive.manifest.tables.activity_entries.map(row=>row.id));
+  const bootstrapAudit=destination.manifest.tables.activity_entries.filter(row=>!previousActivity.has(row.id)&&row.action==='auth.sign-in'&&row.actor_member_id===fixture.ownerId);
+  for(const row of bootstrapAudit){
+    assert.equal(row.feature,'auth');assert.equal(row.target_kind,'member');assert.equal(row.target_id,fixture.ownerId);
+    assert.equal(row.detail_json,'{}');assert.ok(row.id.startsWith('signin:'));
+  }
+  const inventory=equivalent(archive,destination,target.email,destinationExport.id,bootstrapAudit);
   for(const original of fixture.originals) {
     const file=destination.manifest.tables.files.find(row=>row.id===original.id);
     const blob=destination.manifest.blobs.find(row=>row.key===file.storage_key);
     assert.deepEqual(Buffer.from(destination.entries[blob.entry]),original.bytes,'A new destination export still holds the exact original.');
   }
+  const recordProof=await proveRestoreRecords(state,fixture,evidence);
   const stale=await context.browser().newContext();
   const sessionRefusals=[];
   try {
@@ -184,6 +263,7 @@ export async function proveReferentialRestore(state,target,fixture,archive,evide
     }
   } finally {await stale.close();}
   await treeScreen(page,origin,fixture,evidence,'restored');
+  await mentionScreen(page,origin,fixture,evidence,'restored-owner');
   for(const item of fixture.pages) {
     await page.goto(origin+pagePath(item.id),{waitUntil:'networkidle'});
     await expect(page.getByRole('textbox',{name:'Page title',exact:true})).toHaveValue(item.title);
@@ -209,6 +289,8 @@ export async function proveReferentialRestore(state,target,fixture,archive,evide
     assert.equal(current.id,fixture.readerId);assert.equal(current.role,'member');
     const restoredAccess=await access(invited,origin,fixture);
     assert.deepEqual(restoredAccess,fixture.sourceAccess,'Restored direct, inherited group, revoked and refused access matches the source.');
+    await mentionScreen(memberPage,origin,fixture,evidence,'restored-member');
+    const publicProof=await publicReadback(state,fixture,evidence,invited);
     // Every selected original is read by the owner; the member also reads the allowed file and is refused the annex.
     for(const original of fixture.originals) {
       const response=await context.request.get(origin+`/api/media/${original.id}`);
@@ -249,8 +331,10 @@ export async function proveReferentialRestore(state,target,fixture,archive,evide
     await expect(memberPage.locator('body')).not.toContainText('owner-only annex');
     await memberPage.screenshot({path:path.join(evidence,`${width}-restored-refusal.png`),fullPage:true});
     assert.deepEqual(await snapshot(context,origin,fixture),ownerReadback,'Following retained addresses and refused member mutations leave the selected documents, histories, grants, group and discussion unchanged.');
-    await writeFile(path.join(evidence,`${width}-referential-restore.json`),JSON.stringify({width,transfer,destinationArchive:{bytes:destinationBytes.length,sha256:hash(destinationBytes)},source:fixture.source,archive:before,destination:ownerReadback,restoredArchive:selected(destination,fixture),sourceAccess:fixture.sourceAccess,restoredAccess,sessionRefusals,files:fixture.originals.map(({bytes,...item})=>({...item,bytes:bytes.length,sha256:hash(bytes)})),retainedAddresses:{pages:fixture.pages.map(item=>pagePath(item.id)),revision:pagePath(fixture.parent.id)+`?revision=${fixture.revision}`,discussion:pagePath(fixture.parent.id)+`?thread=${fixture.threadId}&comment=${fixture.commentId}`}},null,2));
+    await writeFile(path.join(evidence,`${width}-referential-restore.json`),JSON.stringify({width,transfer,destinationArchive:{bytes:destinationBytes.length,sha256:hash(destinationBytes)},inventory,recordProof,source:fixture.source,archive:before,destination:ownerReadback,restoredArchive:selected(destination,fixture),sourceAccess:fixture.sourceAccess,restoredAccess,sessionRefusals,publicProof,files:fixture.originals.map(({bytes,...item})=>({...item,bytes:bytes.length,sha256:hash(bytes)})),retainedAddresses:{pages:fixture.pages.map(item=>pagePath(item.id)),revision:pagePath(fixture.parent.id)+`?revision=${fixture.revision}`,discussion:pagePath(fixture.parent.id)+`?thread=${fixture.threadId}&comment=${fixture.commentId}`}},null,2));
     console.log(`PROBE PORT-002 1: downloaded Settings ZIP -> native empty restore; four retained page IDs, exact history, ordered siblings, direct and group grants, internal page link, selected discussion anchor and original bytes match source`);
+    console.log(`PROBE PORT-002 inventory: native destination export -> ${inventory.records} retained rows across ${inventory.tables} declared tables and ${inventory.attachments} original objects agree with the actual downloaded source ZIP, with explicit safe restored custody`);
+    console.log(`PROBE PORT-002 mentions and public slug: restored page mention opens the retained record; person and group labels survive reload; original public host and slug return 404 until explicit owner re-enablement; member attempt refused unchanged`);
     console.log(`PROBE PORT-002 2: fresh restored owner and invited member at ${width}px -> retained links, exact earlier version and anchor survive reload; revoked page, history, comments and original refused; view-only write 404 with unchanged content`);
   } finally {await invited.close();}
 }

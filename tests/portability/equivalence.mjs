@@ -25,6 +25,15 @@ export function equivalent(before,after,ownerEmail,newExportId,bootstrapAuditRow
     assert.deepEqual(after.entries[restoredBlob.entry],before.entries[originalBlob.entry],`Exact original bytes ${file.original_name}.`);
     assert.equal(createHash('sha256').update(after.entries[restoredBlob.entry]).digest('hex'),originalBlob.hash);
   }
+  // Retained importer custody can include the original uploaded archive and
+  // member data alongside ordinary files. It remains at its retained key.
+  for(const original of a.blobs){
+    const restored=b.blobs.find(blob=>blob.key===(blobKeys.get(original.key)??original.key));
+    assert.ok(restored,'Every retained original has a destination object.');
+    assert.equal(restored.hash,original.hash);assert.equal(restored.size,original.size);
+    assert.deepEqual(after.entries[restored.entry],before.entries[original.entry],'Every retained import and upload object preserves its exact bytes.');
+    assert.equal(createHash('sha256').update(after.entries[restored.entry]).digest('hex'),original.hash);
+  }
   assert.equal(b.blobs.length,a.blobs.length,'No originals omitted or added.');
   let compared=0;
   for(const [table,rows]of Object.entries(a.tables)){
@@ -40,6 +49,11 @@ export function equivalent(before,after,ownerEmail,newExportId,bootstrapAuditRow
         const restored=actual.find(row=>row.id===expected.id);assert.ok(restored);
         assert.match(restored.revoked_at,/^\d{4}-\d{2}-\d{2}T/,'Restored public link is explicitly revoked.');
         expected.revoked_at=original.revoked_at??restored.revoked_at;
+      }
+      if(table==='notification_outbox'){
+        const restored=actual.find(row=>row.id===expected.id);assert.ok(restored);
+        assert.ok(Number.isFinite(Date.parse(restored.processed_at)),'Restored notification delivery stays inert.');
+        expected.processed_at=restored.processed_at;
       }
       if(table==='federation_exports'){
         expected.archive_key=null;if(['queued','running'].includes(expected.state))expected.state='failed';

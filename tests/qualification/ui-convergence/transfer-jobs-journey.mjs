@@ -146,7 +146,7 @@ export async function transferJobsJourney(state) {
   const scratch=await mkdtemp(path.join(root,'.artifacts/transfer-target-'));
   let target,context;
   try {
-    target=await runtime(scratch,{email:owner.email});
+    target=await runtime(scratch,{email:owner.email,publicHost:referential.publicInput.host});
     const [empty]=await target.sql('SELECT (SELECT COUNT(*) FROM pages) AS pages,(SELECT COUNT(*) FROM containers) AS containers');
     assert.deepEqual(empty.results,[{pages:0,containers:0}]);
     await target.start();
