@@ -69,6 +69,7 @@ export async function templateScopeJourney(state) {
     async function readerAddress(label, allowed) {
       const route = `/api/templates/${movable.id}`;
       const read = await call(bob.context, origin, 'GET', route);
+      let refusedReplay;
       assert.equal(read.status, allowed ? 200 : 404);
       if (allowed) {
         assert.equal(read.body.id, original.id);
@@ -78,6 +79,13 @@ export async function templateScopeJourney(state) {
         assert.equal(read.body.title, undefined);
         assert.equal(read.body.snapshot, undefined);
         assert.ok(!JSON.stringify(read.body).includes(movable.title));
+        const captured = receipts.at(-1);
+        const before = await api(route);
+        const activity = await api('/api/activity?action=templates.move&limit=100');
+        refusedReplay = await call(bob.context, origin, 'POST', captured.route, captured.request);
+        assert.equal(refusedReplay.status, 404, 'A captured move cannot bypass current private-space authority.');
+        assert.deepEqual(await api(route), before, 'The refused capture leaves the complete template unchanged.');
+        assert.deepEqual(await api('/api/activity?action=templates.move&limit=100'), activity, 'The refused capture creates no move activity.');
       }
       for (const open of [() => bob.page.goto(address, { waitUntil: 'networkidle' }), () => bob.page.reload({ waitUntil: 'networkidle' })]) {
         await open();
@@ -92,7 +100,7 @@ export async function templateScopeJourney(state) {
           await expect(bob.page.locator('body')).not.toContainText('Retained scope snapshot');
         }
       }
-      readbacks.push({ label, readerStatus: read.status, path: new URL(address).pathname });
+      readbacks.push({ label, readerStatus: read.status, refusedReplayStatus: refusedReplay?.status, path: new URL(address).pathname });
     }
     async function mutation(route, submit) {
       const pending = page.waitForResponse(response => response.request().method() === 'POST' && new URL(response.url()).pathname === route);
@@ -100,12 +108,25 @@ export async function templateScopeJourney(state) {
       const response = await pending;
       assert.equal(response.status(), route === '/api/templates' ? 201 : 200, await response.text());
       const receipt = await response.json();
+      const submitted = response.request().postDataJSON();
       assert.equal(receipt.value.id, original.id);
       assert.notEqual(receipt.value.revisionId, revisionId);
       assert.ok(receipt.receipt.operationKey);
+      assert.equal(receipt.receipt.operationKey, submitted.operationKey);
       assert.equal(receipt.receipt.revisionId, receipt.value.revisionId);
+      assert.deepEqual(receipt.receipt.entity, { kind: 'template', id: original.id, revisionId: receipt.value.revisionId });
+      assert.ok(receipt.receipt.activityId);
+      const committed = await api(`/api/templates/${movable.id}`);
+      const replay = await ok(context, origin, 'POST', route, submitted);
+      assert.deepEqual(replay, receipt, 'The same native request returns the committed receipt.');
+      assert.deepEqual(await api(`/api/templates/${movable.id}`), committed, 'Retrying cannot change the template or issue another revision.');
+      const action = route === '/api/templates' ? 'templates.save' : `templates.${submitted.action}`;
+      const activity = (await api(`/api/activity?action=${action}&limit=100`)).items.filter(item => item.operationKey === submitted.operationKey);
+      assert.equal(activity.length, 1, 'Each committed template mutation has one activity entry after replay.');
+      assert.equal(activity[0].id, receipt.receipt.activityId);
+      assert.deepEqual(activity[0].target, { kind: 'template', id: original.id });
       revisionId = receipt.value.revisionId;
-      receipts.push({ route, status: response.status(), ...receipt });
+      receipts.push({ route, status: response.status(), request: submitted, ...receipt, activity: activity[0] });
       return receipt;
     }
     const alphabetic = items => [...items].sort((a, b) => a.title < b.title ? -1 : a.title > b.title ? 1 : a.id.localeCompare(b.id));
@@ -155,6 +176,7 @@ export async function templateScopeJourney(state) {
     await expect(update).toBeHidden();
     movable.title = 'A renamed workspace movable';
     await retainedAddress('Renamed through Update from a page');
+    await readerAddress('Renamed workspace address', true);
     await reconcile('Renamed');
     console.log('PROBE TMPL-006 scope: two readable container Templates tabs and workspace collection -> exact ordered lists, own scope first and other scope absent after reload');
     const requests = [];

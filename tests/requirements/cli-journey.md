@@ -226,6 +226,7 @@ The matching Workers registration in `tests/e2e/imports/preview-undo.test.ts` ru
 The same native journey also expires a mapped guest after request validation and before the actual Apply transaction: the transaction refuses and the selected native state remains unchanged. The same responsive Settings journey expires its reviewed destination after completion, shows that the mapped principal is no longer available while retaining the exact source-ID choice, and refuses that person's native page reads before restoring the identity fixture. No registration or prior assertion is removed or narrowed.
 
 Changing the reviewed destination's membership invalidates its old native session. The browser fixture therefore obtains a fresh native sign-in after restoring membership, updates its retained reader cookie, and verifies the restored reader through the current-member route. It never clears a session revocation or rewinds the membership authority version. Following Settings and authority journeys retain their original assertions and use the fresh session.
+
 ## Retained authored-template address
 
 LINK-001 supporting proof extends `templateScopeJourney` in
@@ -245,3 +246,9 @@ open for the current workspace reader. Browser captures and bounded native
 receipts remain outside product source. Other record kinds, reference forms,
 transitions and profiles remain unproven; the clause stays partial and no other
 template or page clause is promoted.
+
+The same journey replays each native template request and reconciles its
+unchanged receipt, full template readback and single activity entry. A reader
+without the private space's authority cannot replay the captured move: the
+native route refuses it and preserves both the template and move activity.
+The current workspace reader also reopens the renamed address before any move.

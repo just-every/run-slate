@@ -1746,7 +1746,7 @@
       "id": "LINK-001",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "The existing desktop starter-template and phone core-wiki registrations invoke templateScopeJourney in tests/qualification/ui-convergence/template-scope-journey.mjs. Supporting native authored-template proof retains one address through Update from a page, workspace to private container and back, archive and archived-gallery restore, with repeated document loads, complete snapshots, native receipts, exact inventories and current-reader refusal. Other record kinds, reference forms, transitions and profiles remain unproven; CONTRACT.md retains the partial judgment and owns exact-candidate proof.",
+      "unmetReason": "The existing desktop starter-template and phone core-wiki registrations invoke templateScopeJourney in tests/qualification/ui-convergence/template-scope-journey.mjs. Supporting native authored-template proof retains one address through Update from a page, workspace to private container and back, archive and archived-gallery restore, with repeated document loads, complete snapshots, native receipts, exact inventories, current-reader refusal and duplicate-safe native retries. A captured move cannot bypass current private-space authority or change the template and its activity. Other record kinds, reference forms, transitions and profiles remain unproven; CONTRACT.md retains the partial judgment and owns exact-candidate proof.",
       "supportingTests": []
     },
     {
