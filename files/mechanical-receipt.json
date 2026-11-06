@@ -1,0 +1,83 @@
+{
+  "head": "59c012c6c25ba3a5f7e96c1fb45512abbc9cb90f",
+  "checks": [
+    {
+      "name": "typecheck",
+      "command": [
+        "pnpm",
+        "typecheck"
+      ],
+      "exit": 0,
+      "seconds": 19.31
+    },
+    {
+      "name": "first-party",
+      "command": [
+        "python3",
+        "/tmp/rer-reap.py",
+        "npx",
+        "-y",
+        "@runeditrun/rer",
+        "check",
+        "--profile",
+        "first-party"
+      ],
+      "exit": 0,
+      "seconds": 1.27
+    },
+    {
+      "name": "views-write",
+      "command": [
+        "node",
+        "src/base/runtime/contract-docs.mjs",
+        "write"
+      ],
+      "exit": 0,
+      "seconds": 0.17
+    },
+    {
+      "name": "views-check",
+      "command": [
+        "node",
+        "src/base/runtime/contract-docs.mjs",
+        "check"
+      ],
+      "exit": 0,
+      "seconds": 0.18
+    },
+    {
+      "name": "restore-generated",
+      "command": [
+        "git",
+        "checkout",
+        "origin/main",
+        "--",
+        "ACCEPTANCE.md",
+        "docs/CLAIMS.md"
+      ],
+      "exit": 0,
+      "seconds": 0.01
+    },
+    {
+      "name": "lock-check",
+      "command": [
+        "node",
+        "scripts/edition-authoring/cli.mjs",
+        "check"
+      ],
+      "exit": 0,
+      "seconds": 0.31
+    },
+    {
+      "name": "integration-check",
+      "command": [
+        "node",
+        "scripts/sync-integration.mjs",
+        "--check"
+      ],
+      "exit": 0,
+      "seconds": 0.25
+    }
+  ],
+  "migrationLedger": "not applicable; no migration changed"
+}

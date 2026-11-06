@@ -1,0 +1,875 @@
+{
+  "sessions": [
+    {
+      "id": "browser-owner",
+      "role": "owner"
+    },
+    {
+      "id": "browser-reader",
+      "role": "member"
+    },
+    {
+      "id": "01M6RAF1EKMYC3TJ554WBCHJYT",
+      "role": "member",
+      "nativeInvitationAccepted": true,
+      "erased": true
+    }
+  ],
+  "captures": [
+    {
+      "pageId": "01M6RAF1GDSCFANXGT29QFJBZ8",
+      "receipt": {
+        "value": {
+          "sent": 2,
+          "grantIds": [
+            "01M6RAF48YF3509KNMAM5ZJF2F"
+          ]
+        },
+        "receipt": {
+          "operationKey": "645cf75e-b44f-42b7-b301-ed56b1e82865",
+          "entity": {
+            "kind": "page",
+            "id": "01M6RAF1GDSCFANXGT29QFJBZ8",
+            "revisionId": "01M6RAF1K1HQCWRH69588SKT2T"
+          },
+          "revisionId": "01M6RAF1K1HQCWRH69588SKT2T",
+          "activityId": "01M6RAF48QSA1DHJNG6QPVQTZS",
+          "committedAt": "2026-11-06T11:38:54.101Z"
+        }
+      },
+      "interruptedReceipt": {
+        "value": {
+          "sent": 2,
+          "grantIds": [
+            "01M6RAF48YF3509KNMAM5ZJF2F"
+          ]
+        },
+        "receipt": {
+          "operationKey": "645cf75e-b44f-42b7-b301-ed56b1e82865",
+          "entity": {
+            "kind": "page",
+            "id": "01M6RAF1GDSCFANXGT29QFJBZ8",
+            "revisionId": "01M6RAF1K1HQCWRH69588SKT2T"
+          },
+          "revisionId": "01M6RAF1K1HQCWRH69588SKT2T",
+          "activityId": "01M6RAF48QSA1DHJNG6QPVQTZS",
+          "committedAt": "2026-11-06T11:38:54.101Z"
+        }
+      },
+      "firstCapture": {
+        "memberIds": [
+          "01M6RAF1EKMYC3TJ554WBCHJYT",
+          "browser-reader"
+        ],
+        "message": "Please review this handover.\n<plain text> & keep the page unchanged.",
+        "operationKey": "645cf75e-b44f-42b7-b301-ed56b1e82865",
+        "grantMemberIds": [
+          "01M6RAF1EKMYC3TJ554WBCHJYT"
+        ]
+      },
+      "retryCapture": {
+        "memberIds": [
+          "01M6RAF1EKMYC3TJ554WBCHJYT",
+          "browser-reader"
+        ],
+        "message": "Please review this handover.\n<plain text> & keep the page unchanged.",
+        "operationKey": "645cf75e-b44f-42b7-b301-ed56b1e82865",
+        "grantMemberIds": [
+          "01M6RAF1EKMYC3TJ554WBCHJYT"
+        ]
+      },
+      "beforeRetry": {
+        "grants": {
+          "items": [
+            {
+              "id": "01M6RAF1H1V8KSC0Q68MCR7QVA",
+              "principalKind": "member",
+              "principalId": "browser-owner",
+              "level": "full",
+              "expiresAt": null,
+              "revokedAt": null,
+              "invitationId": null,
+              "invitationEmail": null,
+              "invitationExpiresAt": null,
+              "invitationRevokedAt": null,
+              "principalLabel": "Alex Owner",
+              "origin": {
+                "kind": "page",
+                "id": "01M6RAF1GDSCFANXGT29QFJBZ8",
+                "name": "Published message recipient guide"
+              },
+              "inherited": false,
+              "status": "active",
+              "effective": true
+            },
+            {
+              "id": "01M6RAF1KZ5XPVJZ5PEKPJX0ZA",
+              "principalKind": "member",
+              "principalId": "browser-reader",
+              "level": "view",
+              "expiresAt": null,
+              "revokedAt": null,
+              "invitationId": null,
+              "invitationEmail": null,
+              "invitationExpiresAt": null,
+              "invitationRevokedAt": null,
+              "principalLabel": "Morgan Reader",
+              "origin": {
+                "kind": "page",
+                "id": "01M6RAF1GDSCFANXGT29QFJBZ8",
+                "name": "Published message recipient guide"
+              },
+              "inherited": false,
+              "status": "active",
+              "effective": true
+            },
+            {
+              "id": "01M6RAF48YF3509KNMAM5ZJF2F",
+              "principalKind": "member",
+              "principalId": "01M6RAF1EKMYC3TJ554WBCHJYT",
+              "level": "view",
+              "expiresAt": null,
+              "revokedAt": null,
+              "invitationId": null,
+              "invitationEmail": null,
+              "invitationExpiresAt": null,
+              "invitationRevokedAt": null,
+              "principalLabel": "Casey Member",
+              "origin": {
+                "kind": "page",
+                "id": "01M6RAF1GDSCFANXGT29QFJBZ8",
+                "name": "Published message recipient guide"
+              },
+              "inherited": false,
+              "status": "active",
+              "effective": true
+            }
+          ],
+          "inheritedItems": [],
+          "effectiveItems": [
+            {
+              "id": "01M6RAF1H1V8KSC0Q68MCR7QVA",
+              "principalKind": "member",
+              "principalId": "browser-owner",
+              "level": "full",
+              "expiresAt": null,
+              "revokedAt": null,
+              "invitationId": null,
+              "invitationEmail": null,
+              "invitationExpiresAt": null,
+              "invitationRevokedAt": null,
+              "principalLabel": "Alex Owner",
+              "origin": {
+                "kind": "page",
+                "id": "01M6RAF1GDSCFANXGT29QFJBZ8",
+                "name": "Published message recipient guide"
+              },
+              "inherited": false,
+              "status": "active",
+              "effective": true
+            },
+            {
+              "id": "01M6RAF1KZ5XPVJZ5PEKPJX0ZA",
+              "principalKind": "member",
+              "principalId": "browser-reader",
+              "level": "view",
+              "expiresAt": null,
+              "revokedAt": null,
+              "invitationId": null,
+              "invitationEmail": null,
+              "invitationExpiresAt": null,
+              "invitationRevokedAt": null,
+              "principalLabel": "Morgan Reader",
+              "origin": {
+                "kind": "page",
+                "id": "01M6RAF1GDSCFANXGT29QFJBZ8",
+                "name": "Published message recipient guide"
+              },
+              "inherited": false,
+              "status": "active",
+              "effective": true
+            },
+            {
+              "id": "01M6RAF48YF3509KNMAM5ZJF2F",
+              "principalKind": "member",
+              "principalId": "01M6RAF1EKMYC3TJ554WBCHJYT",
+              "level": "view",
+              "expiresAt": null,
+              "revokedAt": null,
+              "invitationId": null,
+              "invitationEmail": null,
+              "invitationExpiresAt": null,
+              "invitationRevokedAt": null,
+              "principalLabel": "Casey Member",
+              "origin": {
+                "kind": "page",
+                "id": "01M6RAF1GDSCFANXGT29QFJBZ8",
+                "name": "Published message recipient guide"
+              },
+              "inherited": false,
+              "status": "active",
+              "effective": true
+            }
+          ],
+          "levels": [
+            "full",
+            "edit",
+            "comment",
+            "view"
+          ],
+          "container": {
+            "id": "01M6RAF1FWVDJJ9Q3EBK1M0SY0",
+            "name": "Message sharing team"
+          },
+          "restricted": true,
+          "restriction": {
+            "scope": "page",
+            "id": "01M6RAF1GDSCFANXGT29QFJBZ8",
+            "name": "Published message recipient guide"
+          }
+        },
+        "reader": {
+          "items": [
+            {
+              "id": "01M6RAF48YZDBZM6XAH5B0ZN5P:browser-reader",
+              "event": "share-message",
+              "pageId": "01M6RAF1GDSCFANXGT29QFJBZ8",
+              "containerId": null,
+              "commentId": null,
+              "title": "Published message recipient guide",
+              "detail": {
+                "shareMessage": {
+                  "message": "Please review this handover.\n<plain text> & keep the page unchanged.",
+                  "sender": {
+                    "id": "browser-owner",
+                    "displayName": "Alex Owner"
+                  }
+                }
+              },
+              "createdAt": "2026-11-06T11:38:54.101Z",
+              "readAt": null,
+              "audience": "direct",
+              "href": "/app/pages/01M6RAF1GDSCFANXGT29QFJBZ8",
+              "period": "2026-11-06"
+            },
+            {
+              "id": "01M6RAF1M2A70M43XW02M8TXA8:browser-reader",
+              "event": "access-granted",
+              "pageId": "01M6RAF1GDSCFANXGT29QFJBZ8",
+              "containerId": null,
+              "commentId": null,
+              "title": "Published message recipient guide",
+              "detail": {},
+              "createdAt": "2026-11-06T11:38:51.388Z",
+              "readAt": null,
+              "audience": "direct",
+              "href": "/app/pages/01M6RAF1GDSCFANXGT29QFJBZ8",
+              "period": "2026-11-06"
+            },
+            {
+              "id": "01M6RAF1BMETBGE4CXCDZV4PRX:browser-reader",
+              "event": "access-granted",
+              "pageId": "01M6RAEBCX50KFJBQ5BMHBZPAP",
+              "containerId": null,
+              "commentId": null,
+              "title": "Chain F",
+              "detail": {},
+              "createdAt": "2026-11-06T11:38:51.118Z",
+              "readAt": null,
+              "audience": "direct",
+              "href": "/app/pages/01M6RAEBCX50KFJBQ5BMHBZPAP",
+              "period": "2026-11-06"
+            },
+            {
+              "id": "01M6RAF16A6QPBV9X57ZYYG6TB:browser-reader",
+              "event": "access-granted",
+              "pageId": "01M6RAEB5ZE933HMXQMK07K6R2",
+              "containerId": null,
+              "commentId": null,
+              "title": "Chain root",
+              "detail": {},
+              "createdAt": "2026-11-06T11:38:50.947Z",
+              "readAt": null,
+              "audience": "direct",
+              "href": "/app/pages/01M6RAEB5ZE933HMXQMK07K6R2",
+              "period": "2026-11-06"
+            },
+            {
+              "id": "01M6RAEZGDMR1QP1XAK2WN4A19:browser-reader",
+              "event": "access-granted",
+              "pageId": "01M6RAEB5ZE933HMXQMK07K6R2",
+              "containerId": null,
+              "commentId": null,
+              "title": "Chain root",
+              "detail": {},
+              "createdAt": "2026-11-06T11:38:49.214Z",
+              "readAt": null,
+              "audience": "direct",
+              "href": "/app/pages/01M6RAEB5ZE933HMXQMK07K6R2",
+              "period": "2026-11-06"
+            },
+            {
+              "id": "01M6RAEB6NBKDKQYYQ5WTSDG20:browser-reader",
+              "event": "access-granted",
+              "pageId": "01M6RAEB5ZE933HMXQMK07K6R2",
+              "containerId": null,
+              "commentId": null,
+              "title": "Chain root",
+              "detail": {},
+              "createdAt": "2026-11-06T11:38:28.431Z",
+              "readAt": null,
+              "audience": "direct",
+              "href": "/app/pages/01M6RAEB5ZE933HMXQMK07K6R2",
+              "period": "2026-11-06"
+            },
+            {
+              "id": "01M6RADDB2YF5EFREQBY3390HQ:browser-reader",
+              "event": "access-granted",
+              "pageId": "01M6RAD97N6NF77TZGK0W84PXY",
+              "containerId": null,
+              "commentId": null,
+              "title": "Public indexing guide",
+              "detail": {},
+              "createdAt": "2026-11-06T11:37:57.850Z",
+              "readAt": null,
+              "audience": "direct",
+              "href": "/app/pages/01M6RAD97N6NF77TZGK0W84PXY",
+              "period": "2026-11-06"
+            },
+            {
+              "id": "01M6RACETEFVYR78NGDX215T5P:browser-reader",
+              "event": "access-granted",
+              "pageId": "01M6RACEPN7W028ZJPBZXDKXTQ",
+              "containerId": null,
+              "commentId": null,
+              "title": "Comment handover",
+              "detail": {},
+              "createdAt": "2026-11-06T11:37:26.596Z",
+              "readAt": null,
+              "audience": "direct",
+              "href": "/app/pages/01M6RACEPN7W028ZJPBZXDKXTQ",
+              "period": "2026-11-06"
+            }
+          ],
+          "unreadCount": 8
+        },
+        "third": {
+          "items": [
+            {
+              "id": "01M6RAF48YZDBZM6XAH5B0ZN5P:01M6RAF1EKMYC3TJ554WBCHJYT",
+              "event": "share-message",
+              "pageId": "01M6RAF1GDSCFANXGT29QFJBZ8",
+              "containerId": null,
+              "commentId": null,
+              "title": "Published message recipient guide",
+              "detail": {
+                "shareMessage": {
+                  "message": "Please review this handover.\n<plain text> & keep the page unchanged.",
+                  "sender": {
+                    "id": "browser-owner",
+                    "displayName": "Alex Owner"
+                  }
+                }
+              },
+              "createdAt": "2026-11-06T11:38:54.101Z",
+              "readAt": null,
+              "audience": "direct",
+              "href": "/app/pages/01M6RAF1GDSCFANXGT29QFJBZ8",
+              "period": "2026-11-06"
+            }
+          ],
+          "unreadCount": 1
+        },
+        "activity": [
+          {
+            "id": "01M6RAF48QSA1DHJNG6QPVQTZS",
+            "actor": {
+              "id": "browser-owner",
+              "displayName": "Alex Owner"
+            },
+            "feature": "sharing",
+            "action": "sharing.message",
+            "target": {
+              "kind": "page",
+              "id": "01M6RAF1GDSCFANXGT29QFJBZ8"
+            },
+            "occurredAt": "2026-11-06T11:38:54.101Z",
+            "operationKey": "645cf75e-b44f-42b7-b301-ed56b1e82865",
+            "automationRunId": null,
+            "aiRunId": null,
+            "deleted": false,
+            "context": {
+              "pageId": "01M6RAF1GDSCFANXGT29QFJBZ8",
+              "revisionId": "01M6RAF1K1HQCWRH69588SKT2T"
+            },
+            "shareMessage": "Please review this handover.\n<plain text> & keep the page unchanged."
+          }
+        ]
+      },
+      "grantsBefore": {
+        "items": [
+          {
+            "id": "01M6RAF1H1V8KSC0Q68MCR7QVA",
+            "principalKind": "member",
+            "principalId": "browser-owner",
+            "level": "full",
+            "expiresAt": null,
+            "revokedAt": null,
+            "invitationId": null,
+            "invitationEmail": null,
+            "invitationExpiresAt": null,
+            "invitationRevokedAt": null,
+            "principalLabel": "Alex Owner",
+            "origin": {
+              "kind": "page",
+              "id": "01M6RAF1GDSCFANXGT29QFJBZ8",
+              "name": "Published message recipient guide"
+            },
+            "inherited": false,
+            "status": "active",
+            "effective": true
+          },
+          {
+            "id": "01M6RAF1KZ5XPVJZ5PEKPJX0ZA",
+            "principalKind": "member",
+            "principalId": "browser-reader",
+            "level": "view",
+            "expiresAt": null,
+            "revokedAt": null,
+            "invitationId": null,
+            "invitationEmail": null,
+            "invitationExpiresAt": null,
+            "invitationRevokedAt": null,
+            "principalLabel": "Morgan Reader",
+            "origin": {
+              "kind": "page",
+              "id": "01M6RAF1GDSCFANXGT29QFJBZ8",
+              "name": "Published message recipient guide"
+            },
+            "inherited": false,
+            "status": "active",
+            "effective": true
+          }
+        ],
+        "inheritedItems": [],
+        "effectiveItems": [
+          {
+            "id": "01M6RAF1H1V8KSC0Q68MCR7QVA",
+            "principalKind": "member",
+            "principalId": "browser-owner",
+            "level": "full",
+            "expiresAt": null,
+            "revokedAt": null,
+            "invitationId": null,
+            "invitationEmail": null,
+            "invitationExpiresAt": null,
+            "invitationRevokedAt": null,
+            "principalLabel": "Alex Owner",
+            "origin": {
+              "kind": "page",
+              "id": "01M6RAF1GDSCFANXGT29QFJBZ8",
+              "name": "Published message recipient guide"
+            },
+            "inherited": false,
+            "status": "active",
+            "effective": true
+          },
+          {
+            "id": "01M6RAF1KZ5XPVJZ5PEKPJX0ZA",
+            "principalKind": "member",
+            "principalId": "browser-reader",
+            "level": "view",
+            "expiresAt": null,
+            "revokedAt": null,
+            "invitationId": null,
+            "invitationEmail": null,
+            "invitationExpiresAt": null,
+            "invitationRevokedAt": null,
+            "principalLabel": "Morgan Reader",
+            "origin": {
+              "kind": "page",
+              "id": "01M6RAF1GDSCFANXGT29QFJBZ8",
+              "name": "Published message recipient guide"
+            },
+            "inherited": false,
+            "status": "active",
+            "effective": true
+          }
+        ],
+        "levels": [
+          "full",
+          "edit",
+          "comment",
+          "view"
+        ],
+        "container": {
+          "id": "01M6RAF1FWVDJJ9Q3EBK1M0SY0",
+          "name": "Message sharing team"
+        },
+        "restricted": true,
+        "restriction": {
+          "scope": "page",
+          "id": "01M6RAF1GDSCFANXGT29QFJBZ8",
+          "name": "Published message recipient guide"
+        }
+      },
+      "grantsAfter": {
+        "items": [
+          {
+            "id": "01M6RAF1H1V8KSC0Q68MCR7QVA",
+            "principalKind": "member",
+            "principalId": "browser-owner",
+            "level": "full",
+            "expiresAt": null,
+            "revokedAt": null,
+            "invitationId": null,
+            "invitationEmail": null,
+            "invitationExpiresAt": null,
+            "invitationRevokedAt": null,
+            "principalLabel": "Alex Owner",
+            "origin": {
+              "kind": "page",
+              "id": "01M6RAF1GDSCFANXGT29QFJBZ8",
+              "name": "Published message recipient guide"
+            },
+            "inherited": false,
+            "status": "active",
+            "effective": true
+          },
+          {
+            "id": "01M6RAF1KZ5XPVJZ5PEKPJX0ZA",
+            "principalKind": "member",
+            "principalId": "browser-reader",
+            "level": "view",
+            "expiresAt": null,
+            "revokedAt": null,
+            "invitationId": null,
+            "invitationEmail": null,
+            "invitationExpiresAt": null,
+            "invitationRevokedAt": null,
+            "principalLabel": "Morgan Reader",
+            "origin": {
+              "kind": "page",
+              "id": "01M6RAF1GDSCFANXGT29QFJBZ8",
+              "name": "Published message recipient guide"
+            },
+            "inherited": false,
+            "status": "active",
+            "effective": true
+          },
+          {
+            "id": "01M6RAF48YF3509KNMAM5ZJF2F",
+            "principalKind": "member",
+            "principalId": "01M6RAF1EKMYC3TJ554WBCHJYT",
+            "level": "view",
+            "expiresAt": null,
+            "revokedAt": null,
+            "invitationId": null,
+            "invitationEmail": null,
+            "invitationExpiresAt": null,
+            "invitationRevokedAt": null,
+            "principalLabel": "Casey Member",
+            "origin": {
+              "kind": "page",
+              "id": "01M6RAF1GDSCFANXGT29QFJBZ8",
+              "name": "Published message recipient guide"
+            },
+            "inherited": false,
+            "status": "active",
+            "effective": true
+          }
+        ],
+        "inheritedItems": [],
+        "effectiveItems": [
+          {
+            "id": "01M6RAF1H1V8KSC0Q68MCR7QVA",
+            "principalKind": "member",
+            "principalId": "browser-owner",
+            "level": "full",
+            "expiresAt": null,
+            "revokedAt": null,
+            "invitationId": null,
+            "invitationEmail": null,
+            "invitationExpiresAt": null,
+            "invitationRevokedAt": null,
+            "principalLabel": "Alex Owner",
+            "origin": {
+              "kind": "page",
+              "id": "01M6RAF1GDSCFANXGT29QFJBZ8",
+              "name": "Published message recipient guide"
+            },
+            "inherited": false,
+            "status": "active",
+            "effective": true
+          },
+          {
+            "id": "01M6RAF1KZ5XPVJZ5PEKPJX0ZA",
+            "principalKind": "member",
+            "principalId": "browser-reader",
+            "level": "view",
+            "expiresAt": null,
+            "revokedAt": null,
+            "invitationId": null,
+            "invitationEmail": null,
+            "invitationExpiresAt": null,
+            "invitationRevokedAt": null,
+            "principalLabel": "Morgan Reader",
+            "origin": {
+              "kind": "page",
+              "id": "01M6RAF1GDSCFANXGT29QFJBZ8",
+              "name": "Published message recipient guide"
+            },
+            "inherited": false,
+            "status": "active",
+            "effective": true
+          },
+          {
+            "id": "01M6RAF48YF3509KNMAM5ZJF2F",
+            "principalKind": "member",
+            "principalId": "01M6RAF1EKMYC3TJ554WBCHJYT",
+            "level": "view",
+            "expiresAt": null,
+            "revokedAt": null,
+            "invitationId": null,
+            "invitationEmail": null,
+            "invitationExpiresAt": null,
+            "invitationRevokedAt": null,
+            "principalLabel": "Casey Member",
+            "origin": {
+              "kind": "page",
+              "id": "01M6RAF1GDSCFANXGT29QFJBZ8",
+              "name": "Published message recipient guide"
+            },
+            "inherited": false,
+            "status": "active",
+            "effective": true
+          }
+        ],
+        "levels": [
+          "full",
+          "edit",
+          "comment",
+          "view"
+        ],
+        "container": {
+          "id": "01M6RAF1FWVDJJ9Q3EBK1M0SY0",
+          "name": "Message sharing team"
+        },
+        "restricted": true,
+        "restriction": {
+          "scope": "page",
+          "id": "01M6RAF1GDSCFANXGT29QFJBZ8",
+          "name": "Published message recipient guide"
+        }
+      },
+      "activity": [
+        {
+          "id": "01M6RAF48QSA1DHJNG6QPVQTZS",
+          "actor": {
+            "id": "browser-owner",
+            "displayName": "Alex Owner"
+          },
+          "feature": "sharing",
+          "action": "sharing.message",
+          "target": {
+            "kind": "page",
+            "id": "01M6RAF1GDSCFANXGT29QFJBZ8"
+          },
+          "occurredAt": "2026-11-06T11:38:54.101Z",
+          "operationKey": "645cf75e-b44f-42b7-b301-ed56b1e82865",
+          "automationRunId": null,
+          "aiRunId": null,
+          "deleted": false,
+          "context": {
+            "pageId": "01M6RAF1GDSCFANXGT29QFJBZ8",
+            "revisionId": "01M6RAF1K1HQCWRH69588SKT2T"
+          },
+          "shareMessage": "Please review this handover.\n<plain text> & keep the page unchanged."
+        }
+      ],
+      "notifications": {
+        "reader": {
+          "items": [
+            {
+              "id": "01M6RAF48YZDBZM6XAH5B0ZN5P:browser-reader",
+              "event": "share-message",
+              "pageId": "01M6RAF1GDSCFANXGT29QFJBZ8",
+              "containerId": null,
+              "commentId": null,
+              "title": "Published message recipient guide",
+              "detail": {
+                "shareMessage": {
+                  "message": "Please review this handover.\n<plain text> & keep the page unchanged.",
+                  "sender": {
+                    "id": "browser-owner",
+                    "displayName": "Alex Owner"
+                  }
+                }
+              },
+              "createdAt": "2026-11-06T11:38:54.101Z",
+              "readAt": null,
+              "audience": "direct",
+              "href": "/app/pages/01M6RAF1GDSCFANXGT29QFJBZ8",
+              "period": "2026-11-06"
+            },
+            {
+              "id": "01M6RAF1M2A70M43XW02M8TXA8:browser-reader",
+              "event": "access-granted",
+              "pageId": "01M6RAF1GDSCFANXGT29QFJBZ8",
+              "containerId": null,
+              "commentId": null,
+              "title": "Published message recipient guide",
+              "detail": {},
+              "createdAt": "2026-11-06T11:38:51.388Z",
+              "readAt": null,
+              "audience": "direct",
+              "href": "/app/pages/01M6RAF1GDSCFANXGT29QFJBZ8",
+              "period": "2026-11-06"
+            },
+            {
+              "id": "01M6RAF1BMETBGE4CXCDZV4PRX:browser-reader",
+              "event": "access-granted",
+              "pageId": "01M6RAEBCX50KFJBQ5BMHBZPAP",
+              "containerId": null,
+              "commentId": null,
+              "title": "Chain F",
+              "detail": {},
+              "createdAt": "2026-11-06T11:38:51.118Z",
+              "readAt": null,
+              "audience": "direct",
+              "href": "/app/pages/01M6RAEBCX50KFJBQ5BMHBZPAP",
+              "period": "2026-11-06"
+            },
+            {
+              "id": "01M6RAF16A6QPBV9X57ZYYG6TB:browser-reader",
+              "event": "access-granted",
+              "pageId": "01M6RAEB5ZE933HMXQMK07K6R2",
+              "containerId": null,
+              "commentId": null,
+              "title": "Chain root",
+              "detail": {},
+              "createdAt": "2026-11-06T11:38:50.947Z",
+              "readAt": null,
+              "audience": "direct",
+              "href": "/app/pages/01M6RAEB5ZE933HMXQMK07K6R2",
+              "period": "2026-11-06"
+            },
+            {
+              "id": "01M6RAEZGDMR1QP1XAK2WN4A19:browser-reader",
+              "event": "access-granted",
+              "pageId": "01M6RAEB5ZE933HMXQMK07K6R2",
+              "containerId": null,
+              "commentId": null,
+              "title": "Chain root",
+              "detail": {},
+              "createdAt": "2026-11-06T11:38:49.214Z",
+              "readAt": null,
+              "audience": "direct",
+              "href": "/app/pages/01M6RAEB5ZE933HMXQMK07K6R2",
+              "period": "2026-11-06"
+            },
+            {
+              "id": "01M6RAEB6NBKDKQYYQ5WTSDG20:browser-reader",
+              "event": "access-granted",
+              "pageId": "01M6RAEB5ZE933HMXQMK07K6R2",
+              "containerId": null,
+              "commentId": null,
+              "title": "Chain root",
+              "detail": {},
+              "createdAt": "2026-11-06T11:38:28.431Z",
+              "readAt": null,
+              "audience": "direct",
+              "href": "/app/pages/01M6RAEB5ZE933HMXQMK07K6R2",
+              "period": "2026-11-06"
+            },
+            {
+              "id": "01M6RADDB2YF5EFREQBY3390HQ:browser-reader",
+              "event": "access-granted",
+              "pageId": "01M6RAD97N6NF77TZGK0W84PXY",
+              "containerId": null,
+              "commentId": null,
+              "title": "Public indexing guide",
+              "detail": {},
+              "createdAt": "2026-11-06T11:37:57.850Z",
+              "readAt": null,
+              "audience": "direct",
+              "href": "/app/pages/01M6RAD97N6NF77TZGK0W84PXY",
+              "period": "2026-11-06"
+            },
+            {
+              "id": "01M6RACETEFVYR78NGDX215T5P:browser-reader",
+              "event": "access-granted",
+              "pageId": "01M6RACEPN7W028ZJPBZXDKXTQ",
+              "containerId": null,
+              "commentId": null,
+              "title": "Comment handover",
+              "detail": {},
+              "createdAt": "2026-11-06T11:37:26.596Z",
+              "readAt": null,
+              "audience": "direct",
+              "href": "/app/pages/01M6RACEPN7W028ZJPBZXDKXTQ",
+              "period": "2026-11-06"
+            }
+          ],
+          "unreadCount": 8
+        },
+        "addedMember": {
+          "items": [
+            {
+              "id": "01M6RAF48YZDBZM6XAH5B0ZN5P:01M6RAF1EKMYC3TJ554WBCHJYT",
+              "event": "share-message",
+              "pageId": "01M6RAF1GDSCFANXGT29QFJBZ8",
+              "containerId": null,
+              "commentId": null,
+              "title": "Published message recipient guide",
+              "detail": {
+                "shareMessage": {
+                  "message": "Please review this handover.\n<plain text> & keep the page unchanged.",
+                  "sender": {
+                    "id": "browser-owner",
+                    "displayName": "Alex Owner"
+                  }
+                }
+              },
+              "createdAt": "2026-11-06T11:38:54.101Z",
+              "readAt": "2026-11-06T11:38:58.972Z",
+              "audience": "direct",
+              "href": "/app/pages/01M6RAF1GDSCFANXGT29QFJBZ8",
+              "period": "2026-11-06"
+            }
+          ],
+          "unreadCount": 0
+        }
+      }
+    }
+  ],
+  "secondReceipt": {
+    "value": {
+      "sent": 1,
+      "grantIds": [
+        "01M6RAFEE3VK7SA1E2N9TSZ1BV"
+      ]
+    },
+    "receipt": {
+      "operationKey": "eb0a878d-5f59-4cf6-82bd-498a8f4c7aa0",
+      "entity": {
+        "kind": "page",
+        "id": "01M6RAFBTMHWHGVPE9W8JMN03V",
+        "revisionId": "01M6RAFBXGCWT9FR4P7ASJ3M23"
+      },
+      "revisionId": "01M6RAFBXGCWT9FR4P7ASJ3M23",
+      "activityId": "01M6RAFEDY2TPH7XMPQWZZ0SE0",
+      "committedAt": "2026-11-06T11:39:04.506Z"
+    }
+  },
+  "probes": [
+    "PROBE SHARE-009 consent: native review, cancel and unaccepted grant -> no grant, message or activity; over-limit send -> 400",
+    "PROBE SHARE-009 transport-replay: lose the real committed response, then retry in Share -> same capture and receipt; no duplicate grant, inbox item or activity",
+    "PROBE SHARE-009 1: native published-page Share -> readable Morgan and unreadable Casey reviewed; explicit consent commits only Casey View grant",
+    "PROBE SHARE-009 2-inbox: native inbox and reload -> exactly one plain-text message per recipient with sender, page title and link; unchanged page body",
+    "PROBE SHARE-009 3: add-grant confirmation and exact capture replay -> one accepted grant, one item per recipient and one sender activity",
+    "PROBE SHARE-009 current-access: revoke Casey then replay -> grant remains revoked and inbox empty; read-only send -> 404",
+    "PROBE SHARE-009 recipient-drift: native access lost after review -> 409 with no grant, notice or activity; fresh review requires explicit View consent",
+    "PROBE SHARE-009 erasure-and-authority: full-member send succeeds; revoked sender replay -> 404 unchanged; erased sender replay -> 401 and recipient message removed"
+  ]
+}

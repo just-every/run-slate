@@ -1,0 +1,26 @@
+NAV-006 touch create, type, insert and drag persisted
+BLOCK-012 columns insert, desktop drag and touch layout passed at 1440px
+PROBE COMM-002 acceptance 1–2: native comment controls and HTTP at 1440px -> two authors edit/delete; cross-author and owner override 403; edited times, two in-place tombstones and six activities survive replay/reload
+NAV-006 touch comment and resolve persisted
+WEB-006 native unpublish response {"width":1440,"elapsedMs":650}
+PROBE SHARE-009 consent: native review, cancel and unaccepted grant -> no grant, message or activity; over-limit send -> 400
+PROBE SHARE-009 transport-replay: lose the real committed response, then retry in Share -> same capture and receipt; no duplicate grant, inbox item or activity
+PROBE SHARE-009 1: native published-page Share -> readable Morgan and unreadable Casey reviewed; explicit consent commits only Casey View grant
+PROBE SHARE-009 2-inbox: native inbox and reload -> exactly one plain-text message per recipient with sender, page title and link; unchanged page body
+PROBE SHARE-009 3: add-grant confirmation and exact capture replay -> one accepted grant, one item per recipient and one sender activity
+PROBE SHARE-009 current-access: revoke Casey then replay -> grant remains revoked and inbox empty; read-only send -> 404
+PROBE SHARE-009 recipient-drift: native access lost after review -> 409 with no grant, notice or activity; fresh review requires explicit View consent
+PROBE SHARE-009 erasure-and-authority: full-member send succeeds; revoked sender replay -> 404 unchanged; erased sender replay -> 401 and recipient message removed
+NAV-006 touch workspace publication and sharing persisted
+PAGE-007 Details, replay and edit-only refusal passed at 1440px
+NAV-006 touch Search, Inbox, My tasks, requested reviews and verification health passed
+Chat docs dimensions { width: 1440, height: 5213 }
+✔ real core-wiki and touch-member journeys at 1440px (441357.39323ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 458849.405565

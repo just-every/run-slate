@@ -1,0 +1,30 @@
+[
+  {
+    "metadata": "screens/047-1440-share-message-reviewed-before-explicit-consent.json",
+    "image": "screens/047-1440-share-message-reviewed-before-explicit-consent.png",
+    "state": "share message reviewed before explicit consent",
+    "width": 1440,
+    "head": "59c012c6c25ba3a5f7e96c1fb45512abbc9cb90f"
+  },
+  {
+    "metadata": "screens/048-1440-share-message-accepted-grant-inbox.json",
+    "image": "screens/048-1440-share-message-accepted-grant-inbox.png",
+    "state": "share message accepted grant inbox",
+    "width": 1440,
+    "head": "59c012c6c25ba3a5f7e96c1fb45512abbc9cb90f"
+  },
+  {
+    "metadata": "screens/049-390-share-message-phone-review-on-independent-published-page.json",
+    "image": "screens/049-390-share-message-phone-review-on-independent-published-page.png",
+    "state": "share message phone review on independent published page",
+    "width": 390,
+    "head": "59c012c6c25ba3a5f7e96c1fb45512abbc9cb90f"
+  },
+  {
+    "metadata": "screens/050-390-share-message-phone-inbox-readback-on-independent-published-page.json",
+    "image": "screens/050-390-share-message-phone-inbox-readback-on-independent-published-page.png",
+    "state": "share message phone inbox readback on independent published page",
+    "width": 390,
+    "head": "59c012c6c25ba3a5f7e96c1fb45512abbc9cb90f"
+  }
+]

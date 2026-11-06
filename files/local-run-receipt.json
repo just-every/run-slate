@@ -1,0 +1,18 @@
+{
+  "head": "59c012c6c25ba3a5f7e96c1fb45512abbc9cb90f",
+  "build": {
+    "command": "cloud_run npx -y @runeditrun/rer build",
+    "exit": 0,
+    "artifact": "build-source.json"
+  },
+  "journey": {
+    "command": "cloud_run env SLATE_CHROMIUM_PATH=/usr/bin/chromium timeout 1200 node --test --test-name-pattern='real core-wiki and touch-member journeys at 1440px' tests/qualification/ui-convergence/journeys.test.mjs",
+    "exit": 0,
+    "passed": 1,
+    "failed": 0,
+    "durationMs": 458849.405565,
+    "log": "candidate-journey.log"
+  },
+  "scope": "Existing desktop core registration, including shareMessageJourney; responsive readback captures at 1440 and 390.",
+  "recordedAt": "2026-11-06T11:43:18Z"
+}

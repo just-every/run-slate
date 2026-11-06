@@ -1,0 +1,348 @@
+Using project Node 22.20.0 (current Node 24.19.0).
+Heavy job admitted: Slate build:workflow [e87ff9f07ac8]
+Checking pinned pnpm
+10.12.4
+Building your application
+Building Slate
+▲ [WARNING] Proxy environment variables detected. We'll use your proxy for fetch requests.
+
+
+vite v8.2.2 building client environment for production...
+transforming...
+[plugin tanstack-start-core::server-fn:client] [REDACTED]/src/core/app/loaders.ts:18:30 createServerFn().inputValidator() is deprecated. Use createServerFn().validator() instead.
+[plugin tanstack-start-core::server-fn:client] [REDACTED]/src/core/features/session/loader.ts:7:39 createServerFn().inputValidator() is deprecated. Use createServerFn().validator() instead.
+Found 1 warning while optimizing generated CSS:
+
+│   text-underline-offset: 3px;
+│ }
+│ ::highlight(search-match), .slate-app mark {
+┆             ^-- 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+┆
+│   background: var(--slate-hl-yellow);
+│   color: var(--slate-ink);
+
+Found 1 warning while optimizing generated CSS:
+
+│   text-underline-offset: 3px;
+│ }
+│ ::highlight(search-match), .slate-app mark {
+┆             ^-- 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+┆
+│   background: var(--slate-hl-yellow);
+│   color: var(--slate-ink);
+
+✓ 2693 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/client/.assetsignore                                       0.02 kB
+dist/client/assets/workspace-D7kMICc8.css                       0.45 kB │ gzip:   0.27 kB
+dist/client/assets/PaperPage-ilT0URn_.css                       7.77 kB │ gzip:   2.19 kB
+dist/client/assets/DocsPage-BkpFQFI8.css                       41.38 kB │ gzip:   8.92 kB
+dist/client/assets/styles-BhZD8XRw.css                        131.02 kB │ gzip:  23.25 kB
+dist/client/assets/app.decisions.index-Cyowz2zg.js              0.18 kB │ gzip:   0.16 kB
+dist/client/assets/unit-B35GDXnE.js                             0.26 kB │ gzip:   0.20 kB
+dist/client/assets/docs._slug-CA-4LRXc.js                       0.30 kB │ gzip:   0.22 kB
+dist/client/assets/docs.index-CAV_87bg.js                       0.30 kB │ gzip:   0.22 kB
+dist/client/assets/app.templates._templateId-xaIU0XG9.js        0.31 kB │ gzip:   0.24 kB
+dist/client/assets/app.containers._containerId-B1fysKrP.js      0.31 kB │ gzip:   0.23 kB
+dist/client/assets/app.decisions._decisionId-Kiag-5UC.js        0.32 kB │ gzip:   0.24 kB
+dist/client/assets/rolldown-runtime-8BhlS34s.js                 0.80 kB │ gzip:   0.47 kB
+dist/client/assets/app.runs._runId-CpuFg-U4.js                  0.96 kB │ gzip:   0.56 kB
+dist/client/assets/index-BTx5Nbqd.js                            1.07 kB │ gzip:   0.69 kB
+dist/client/assets/getting-started-CAWbdiXe.js                  1.82 kB │ gzip:   0.92 kB
+dist/client/assets/CreateDatabaseDialog-CNpscJM2.js             1.94 kB │ gzip:   1.00 kB
+dist/client/assets/_virtual_slate-docs-CWLSZqXT.js              3.19 kB │ gzip:   1.11 kB
+dist/client/assets/TreeMoveDialog-DCysEMdn.js                   3.45 kB │ gzip:   1.45 kB
+dist/client/assets/PaperPage-BiRKGcZp.js                        3.90 kB │ gzip:   1.56 kB
+dist/client/assets/WorkspaceTransferJobs-CrljOPMT.js            5.03 kB │ gzip:   1.98 kB
+dist/client/assets/DecisionWorkspace-DbgJtc4_.js                5.52 kB │ gzip:   1.89 kB
+dist/client/assets/page-fRbjSqvJ.js                             6.04 kB │ gzip:   2.54 kB
+dist/client/assets/app.tasks-BMzGlmyi.js                        7.59 kB │ gzip:   2.91 kB
+dist/client/assets/move-from-notion-DkHO5reU.js                 7.81 kB │ gzip:   2.90 kB
+dist/client/assets/api-QSAbp_U_.js                              7.91 kB │ gzip:   3.31 kB
+dist/client/assets/cloudflare-footprint-C8wpghdA.js             9.71 kB │ gzip:   3.54 kB
+dist/client/assets/setup-CU9YQ1hw.js                            9.76 kB │ gzip:   3.40 kB
+dist/client/assets/move-from-confluence-Cya7o7kH.js            10.66 kB │ gzip:   3.65 kB
+dist/client/assets/install-CbKoLGR3.js                         10.85 kB │ gzip:   4.18 kB
+dist/client/assets/trustworthy-handbook-CRuVZ5Db.js            11.14 kB │ gzip:   4.21 kB
+dist/client/assets/moving-in-DT92wBBT.js                       11.23 kB │ gzip:   4.20 kB
+dist/client/assets/chat-notifications-6Sg6TwUP.js              11.28 kB │ gzip:   4.13 kB
+dist/client/assets/email-delivery-Ctjbh8mU.js                  11.45 kB │ gzip:   4.30 kB
+dist/client/assets/DocsPage-3lWzsvlU.js                        11.82 kB │ gzip:   4.14 kB
+dist/client/assets/backup-Yh8s8FN5.js                          12.64 kB │ gzip:   4.79 kB
+dist/client/assets/signin-DZ1HY3XR.js                          12.73 kB │ gzip:   4.41 kB
+dist/client/assets/app.inquiries._inquiryId-DXlFOSWG.js        15.15 kB │ gzip:   4.87 kB
+dist/client/assets/AutomationWorkspace-R6VMeWs7.js             18.00 kB │ gzip:   5.35 kB
+dist/client/assets/app.databases._databaseId-YlRzaUYe.js       76.53 kB │ gzip:  22.11 kB
+dist/client/assets/app.settings._section-DZq8KXlC.js          112.44 kB │ gzip:  29.45 kB
+dist/client/assets/workspace-CWBIDIp8.js                    1,487.61 kB │ gzip: 457.85 kB
+
+[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+[INEFFECTIVE_DYNAMIC_IMPORT] src/core/features/pages/ui/workspace/PageTransferDialog.tsx is dynamically imported by src/core/app/ui/PublicDuplicate.tsx but also statically imported by src/core/features/pages/ui/workspace/PageActionDialogs.tsx, dynamic import will not move module into another chunk.
+
+✓ built in 9.78s
+[PLUGIN_TIMINGS] JavaScript callbacks ran for 9.3s of this 9.8s build (95%).
+The slowest callbacks, timed inside each callback (the wait before a callback starts is excluded, the time it awaits is included):
+  - plugin tanstack-start-core::server-fn:client transform (87%, 8.5s, 18 calls)
+Additional callback time came from the callbacks below and from callbacks under 1s.
+3 callbacks are listed without a time. Their calls overlapped, so the time inside one call includes work from other calls. To find their cost, profile the build with `node --cpu-prof`:
+  - plugin tanstack-start-core:import-protection resolveId (8526 calls)
+  - plugin @tailwindcss/vite:generate:build transform (19 calls)
+  - plugin vite:asset load (2 calls)
+See https://rolldown.rs/reference/InputOptions.checks#bundlertimings for more details.
+
+vite v8.2.2 building ssr environment for production...
+transforming...
+[plugin tanstack-start-core::server-fn:ssr] [REDACTED]/src/core/features/session/loader.ts?tss-serverfn-split:7:39 createServerFn().inputValidator() is deprecated. Use createServerFn().validator() instead.
+[plugin tanstack-start-core::server-fn:ssr] [REDACTED]/src/core/app/loaders.ts?tss-serverfn-split:18:30 createServerFn().inputValidator() is deprecated. Use createServerFn().validator() instead.
+[plugin tanstack-start-core::server-fn:ssr] [REDACTED]/src/core/features/session/loader.ts:7:39 createServerFn().inputValidator() is deprecated. Use createServerFn().validator() instead.
+[plugin tanstack-start-core::server-fn:ssr] [REDACTED]/src/core/app/loaders.ts:18:30 createServerFn().inputValidator() is deprecated. Use createServerFn().validator() instead.
+Found 1 warning while optimizing generated CSS:
+
+│   text-underline-offset: 3px;
+│ }
+│ ::highlight(search-match), .slate-app mark {
+┆             ^-- 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+┆
+│   background: var(--slate-hl-yellow);
+│   color: var(--slate-ink);
+
+Found 1 warning while optimizing generated CSS:
+
+│   text-underline-offset: 3px;
+│ }
+│ ::highlight(search-match), .slate-app mark {
+┆             ^-- 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+┆
+│   background: var(--slate-hl-yellow);
+│   color: var(--slate-ink);
+
+✓ 4039 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/server/wrangler.json                                       2.07 kB │ gzip:     1.00 kB
+dist/server/.vite/manifest.json                                77.26 kB │ gzip:     8.64 kB
+dist/server/assets/PageWorkspace-D7kMICc8.css                   0.45 kB │ gzip:     0.27 kB
+dist/server/assets/PaperPage-ilT0URn_.css                       7.77 kB │ gzip:     2.19 kB
+dist/server/assets/DocsPage-BkpFQFI8.css                       41.38 kB │ gzip:     8.92 kB
+dist/server/assets/styles-BhZD8XRw.css                        131.02 kB │ gzip:    23.25 kB
+dist/server/assets/bindings.server-7dsm7436.js                  0.09 kB │ gzip:     0.09 kB
+dist/server/assets/dev-admission-DK0yvQV6.js                    0.09 kB │ gzip:     0.10 kB
+dist/server/assets/app.containers-BKLk8g0V.js                   0.19 kB │ gzip:     0.15 kB
+dist/server/assets/config-ZBu216_T.js                           0.20 kB │ gzip:     0.17 kB
+dist/server/assets/app.decisions.index-Csit3IzC.js              0.23 kB │ gzip:     0.16 kB
+dist/server/assets/app.containers.index-BZgNI52d.js             0.23 kB │ gzip:     0.16 kB
+dist/server/assets/root-BkKgunb-.js                             0.25 kB │ gzip:     0.18 kB
+dist/server/assets/coerce-B25KHhEy.js                           0.26 kB │ gzip:     0.20 kB
+dist/server/assets/storage-BVGNuykA.js                          0.26 kB │ gzip:     0.22 kB
+dist/server/assets/vocabulary-DratPG6b.js                       0.26 kB │ gzip:     0.19 kB
+dist/server/assets/app.review-CRtCclf2.js                       0.27 kB │ gzip:     0.18 kB
+dist/server/assets/empty-plugin-adapters-D_0twvAa.js            0.28 kB │ gzip:     0.18 kB
+dist/server/assets/start-CPlDLBhF.js                            0.28 kB │ gzip:     0.20 kB
+dist/server/assets/app.archive-DHW14Wwr.js                      0.28 kB │ gzip:     0.19 kB
+dist/server/assets/app.templates.index-k0t9yMuq.js              0.30 kB │ gzip:     0.19 kB
+dist/server/assets/types-B7gXyLPI.js                            0.33 kB │ gzip:     0.21 kB
+dist/server/assets/chevron-left-DjZ2zMmn.js                     0.38 kB │ gzip:     0.28 kB
+dist/server/assets/search-D0aKglzK.js                           0.43 kB │ gzip:     0.30 kB
+dist/server/assets/PageTitle-rCAMuB-R.js                        0.44 kB │ gzip:     0.31 kB
+dist/server/assets/createServerRpc-BBdIRULl.js                  0.44 kB │ gzip:     0.29 kB
+dist/server/assets/start-request-dy2HcyLL.js                    0.45 kB │ gzip:     0.28 kB
+dist/server/assets/problems-BI7gw2CV.js                         0.45 kB │ gzip:     0.28 kB
+dist/server/assets/preview-CN7N4YjL.js                          0.49 kB │ gzip:     0.31 kB
+dist/server/assets/app.decisions._decisionId-Cev7T9D7.js        0.53 kB │ gzip:     0.30 kB
+dist/server/assets/bell-DT2A1QJR.js                             0.54 kB │ gzip:     0.37 kB
+dist/server/assets/app.pages._pageId-caDQduKr.js                0.54 kB │ gzip:     0.32 kB
+dist/server/assets/unit-Bm8FTi9W.js                             0.54 kB │ gzip:     0.31 kB
+dist/server/assets/triangle-alert-Cb2j45gT.js                   0.55 kB │ gzip:     0.35 kB
+dist/server/assets/app.templates._templateId-V9NhefJw.js        0.57 kB │ gzip:     0.32 kB
+dist/server/assets/docs._slug-D3s0Gs-R.js                       0.58 kB │ gzip:     0.36 kB
+dist/server/assets/createSsrRpc-Dbggtde2.js                     0.58 kB │ gzip:     0.35 kB
+dist/server/assets/SectionLabel-Cw_XodZz.js                     0.59 kB │ gzip:     0.36 kB
+dist/server/assets/app.containers._containerId-p63jX9S0.js      0.60 kB │ gzip:     0.32 kB
+dist/server/assets/docs.index-CeX6K9lj.js                       0.65 kB │ gzip:     0.41 kB
+dist/server/assets/tree-position-CPgYSsVH.js                    0.71 kB │ gzip:     0.39 kB
+dist/server/assets/ScheduledPublication-M3G8HF8u.js             0.74 kB │ gzip:     0.40 kB
+dist/server/assets/workspace-location-BtzTsyc9.js               0.75 kB │ gzip:     0.41 kB
+dist/server/assets/recordDates-BNyE_RS1.js                      0.81 kB │ gzip:     0.42 kB
+dist/server/assets/react-CotyEOmH.js                            0.86 kB │ gzip:     0.47 kB
+dist/server/assets/schedule-view-xQga-vDS.js                    0.87 kB │ gzip:     0.52 kB
+dist/server/assets/paths-B_TzMklU.js                            0.89 kB │ gzip:     0.52 kB
+dist/server/assets/addresses-Dt2fvJSE.js                        0.91 kB │ gzip:     0.42 kB
+dist/server/assets/useLocation-DIxLKE2N.js                      0.91 kB │ gzip:     0.51 kB
+dist/server/assets/formatSelection-BAWYKpim.js                  0.94 kB │ gzip:     0.44 kB
+dist/server/assets/not-found-DhdZhR3a.js                        0.94 kB │ gzip:     0.51 kB
+dist/server/assets/table-of-contents-2TR4dgCa.js                0.95 kB │ gzip:     0.52 kB
+dist/server/assets/installation-loader-DwvbWM0W.js              0.96 kB │ gzip:     0.50 kB
+dist/server/assets/server-CFXLqJe9.js                           0.96 kB │ gzip:     0.42 kB
+dist/server/assets/load-B7p6WdDp.js                             0.99 kB │ gzip:     0.57 kB
+dist/server/assets/loaders-BKrbkIKP.js                          1.04 kB │ gzip:     0.61 kB
+dist/server/assets/reads-gRY9P083.js                            1.07 kB │ gzip:     0.56 kB
+dist/server/assets/IconAction-DKVeL8BB.js                       1.16 kB │ gzip:     0.49 kB
+dist/server/assets/launch-profile-E1mbX9_B.js                   1.20 kB │ gzip:     0.64 kB
+dist/server/assets/evaluation-scheduler-CKV2BaDI.js             1.25 kB │ gzip:     0.67 kB
+dist/server/assets/person-identity-C2lwwKDo.js                  1.26 kB │ gzip:     0.59 kB
+dist/server/assets/pageDestination-CILFF49E.js                  1.30 kB │ gzip:     0.74 kB
+dist/server/assets/app--djVF8FY.js                              1.40 kB │ gzip:     0.68 kB
+dist/server/assets/guided-scheduler-CqEDw4qa.js                 1.40 kB │ gzip:     0.77 kB
+dist/server/assets/TopBar-GC2OI8Vz.js                           1.41 kB │ gzip:     0.63 kB
+dist/server/assets/rolldown-runtime-DC62tzP2.js                 1.44 kB │ gzip:     0.67 kB
+dist/server/assets/jsx-runtime-CP3z03QQ.js                      1.48 kB │ gzip:     0.67 kB
+dist/server/assets/service-Ci_B6Zep.js                          1.49 kB │ gzip:     0.74 kB
+dist/server/assets/displayDate-CNsYrWkN.js                      1.52 kB │ gzip:     0.74 kB
+dist/server/assets/useMatch-C4PWLbuU.js                         1.52 kB │ gzip:     0.71 kB
+dist/server/assets/SlateMark-BPuTT8vB.js                        1.59 kB │ gzip:     0.81 kB
+dist/server/assets/paths-Csgn59p8.js                            1.67 kB │ gzip:     0.78 kB
+dist/server/assets/loader-C__M4t6W.js                           1.71 kB │ gzip:     0.78 kB
+dist/server/assets/profile-name-CITSMXp3.js                     1.71 kB │ gzip:     0.88 kB
+dist/server/assets/redirect-BDbpra0T.js                         1.75 kB │ gzip:     0.85 kB
+dist/server/assets/scanner-vipKXEBb.js                          1.79 kB │ gzip:     0.86 kB
+dist/server/assets/app.runs._runId-JglhGr0Z.js                  1.79 kB │ gzip:     0.76 kB
+dist/server/assets/LaunchProfile-CnpLc1XH.js                    1.87 kB │ gzip:     0.74 kB
+dist/server/assets/read-batches-y0L5GArY.js                     1.87 kB │ gzip:     0.82 kB
+dist/server/assets/getting-started-DvV-LyMK.js                  1.89 kB │ gzip:     0.91 kB
+dist/server/assets/scheduler-CQYmle3g.js                        2.02 kB │ gzip:     0.93 kB
+dist/server/assets/service-CUdmVX-h.js                          2.08 kB │ gzip:     0.91 kB
+dist/server/assets/capabilities-iM7mw_4e.js                     2.13 kB │ gzip:     0.88 kB
+dist/server/assets/maintenance-r70Gu-ep.js                      2.21 kB │ gzip:     1.00 kB
+dist/server/assets/plus-D2APOftd.js                             2.24 kB │ gzip:     0.64 kB
+dist/server/assets/config-CQ8eh5KY.js                           2.29 kB │ gzip:     0.90 kB
+dist/server/assets/runtime-gate-Bpr603QC.js                     2.41 kB │ gzip:     1.07 kB
+dist/server/assets/PostList-CSskdOq9.js                         2.43 kB │ gzip:     0.89 kB
+dist/server/assets/PageAppearance-CYyaiFjI.js                   2.47 kB │ gzip:     1.02 kB
+dist/server/assets/disclosure-BEUlCb5T.js                       2.47 kB │ gzip:     1.01 kB
+dist/server/assets/scheduler-Br-Ne3n1.js                        2.54 kB │ gzip:     1.18 kB
+dist/server/assets/_virtual_slate-docs-DV_5FKc1.js              2.72 kB │ gzip:     0.92 kB
+dist/server/assets/disclosure-BZWHGLhc.js                       2.76 kB │ gzip:     1.10 kB
+dist/server/assets/prepared-integrity-CRX3G8b6.js               2.92 kB │ gzip:     1.15 kB
+dist/server/assets/useNavigate-N5c43lEh.js                      2.95 kB │ gzip:     1.21 kB
+dist/server/assets/definitions-B3qefMzS.js                      3.01 kB │ gzip:     1.28 kB
+dist/server/assets/ActionDialog-BVqAYhra.js                     3.08 kB │ gzip:     1.12 kB
+dist/server/assets/content-BSyXHlNW.js                          3.29 kB │ gzip:     1.19 kB
+dist/server/assets/measurement-CFNYoreI.js                      3.36 kB │ gzip:     1.37 kB
+dist/server/assets/service-i62W137h.js                          3.36 kB │ gzip:     1.22 kB
+dist/server/assets/FilterMenu-DILisyau.js                       3.49 kB │ gzip:     1.39 kB
+dist/server/assets/CreateDatabaseDialog-CrxAarrh.js             3.56 kB │ gzip:     1.30 kB
+dist/server/assets/WorkspaceContext-DCLlvxbl.js                 3.57 kB │ gzip:     1.21 kB
+dist/server/assets/providers-BYDa5pVV.js                        3.58 kB │ gzip:     1.29 kB
+dist/server/assets/addresses-DvitnpTb.js                        3.67 kB │ gzip:     1.45 kB
+dist/server/assets/useResource-idClXq1K.js                      3.74 kB │ gzip:     1.22 kB
+dist/server/assets/ambient-result-BSLG98DJ.js                   3.84 kB │ gzip:     1.63 kB
+dist/server/assets/_tanstack-start-manifest_v-DhKmxaXY.js       4.00 kB │ gzip:     0.94 kB
+dist/server/assets/loaders-B255ysO0.js                          4.10 kB │ gzip:     1.73 kB
+dist/server/assets/useCreatePage-C4OV2952.js                    4.34 kB │ gzip:     1.55 kB
+dist/server/assets/RequestState-BxzIkQx3.js                     4.48 kB │ gzip:     1.75 kB
+dist/server/assets/profile-KvK8nOFQ.js                          4.50 kB │ gzip:     1.75 kB
+dist/server/assets/hash-BPR5Unc8.js                             4.70 kB │ gzip:     2.16 kB
+dist/server/assets/path-E273zKfp.js                             4.87 kB │ gzip:     1.88 kB
+dist/server/assets/useInferredSpace-BOELsXvT.js                 4.93 kB │ gzip:     2.03 kB
+dist/server/assets/ambient-scheduler-BWBUE334.js                4.93 kB │ gzip:     1.90 kB
+dist/server/assets/execution-DJ8wTz8V.js                        4.98 kB │ gzip:     2.01 kB
+dist/server/assets/admission-bDRw32ze.js                        4.99 kB │ gzip:     1.64 kB
+dist/server/assets/grants-DwAFJToK.js                           5.45 kB │ gzip:     1.99 kB
+dist/server/assets/createLucideIcon-DvteLNRX.js                 5.51 kB │ gzip:     1.38 kB
+dist/server/assets/settings-BFlnbp2U.js                         5.55 kB │ gzip:     1.85 kB
+dist/server/assets/TreeMoveDialog-DPAj9hky.js                   5.56 kB │ gzip:     1.73 kB
+dist/server/assets/health-response-CVKQPDoH.js                  6.06 kB │ gzip:     2.39 kB
+dist/server/assets/page-CLyyN2R9.js                             6.27 kB │ gzip:     2.55 kB
+dist/server/assets/initial-resources.server-BJFaEpMP.js         6.41 kB │ gzip:     2.09 kB
+dist/server/assets/WorkspaceArchive-Cg6CjUd3.js                 6.44 kB │ gzip:     1.97 kB
+dist/server/assets/preferences-B88G9b4W.js                      6.46 kB │ gzip:     2.13 kB
+dist/server/assets/react-dom-DwXgNc7G.js                        6.67 kB │ gzip:     1.96 kB
+dist/server/assets/bootstrap-CNKKW9Yb.js                        7.05 kB │ gzip:     2.29 kB
+dist/server/assets/PaperPage-BilOhxuZ.js                        7.17 kB │ gzip:     2.27 kB
+dist/server/assets/acceptance-DxcCPS12.js                       7.21 kB │ gzip:     2.63 kB
+dist/server/assets/app.inbox-CZ9uTrYO.js                        7.26 kB │ gzip:     2.17 kB
+dist/server/assets/demo-CUEBhj7m.js                             7.26 kB │ gzip:     3.07 kB
+dist/server/assets/link-BkbCunlD.js                             7.35 kB │ gzip:     2.69 kB
+dist/server/assets/planner-DRNcmWiD.js                          7.68 kB │ gzip:     2.84 kB
+dist/server/assets/service-Cupja-oq.js                          8.04 kB │ gzip:     2.32 kB
+dist/server/assets/api-D9YyP3zn.js                              8.07 kB │ gzip:     3.32 kB
+dist/server/assets/move-from-notion-z04MvPct.js                 8.14 kB │ gzip:     2.92 kB
+dist/server/assets/repository-jT-Cb9c3.js                       8.39 kB │ gzip:     2.69 kB
+dist/server/assets/runtime-O9Qcdo1y.js                          8.43 kB │ gzip:     2.65 kB
+dist/server/assets/invariant-B8Adqqro.js                        8.44 kB │ gzip:     3.53 kB
+dist/server/assets/WorkspaceTransferJobs-CAYknqfn.js            9.30 kB │ gzip:     2.59 kB
+dist/server/assets/PageTree-CKQoK8aR.js                         9.41 kB │ gzip:     2.79 kB
+dist/server/assets/cloudflare-footprint-CfY4rBVh.js            10.09 kB │ gzip:     3.57 kB
+dist/server/assets/DecisionWorkspace-DOdvLCQD.js               10.47 kB │ gzip:     2.46 kB
+dist/server/assets/lazyRouteComponent-BTOFtgGt.js              10.55 kB │ gzip:     2.81 kB
+dist/server/assets/effects-DxXqyT0I.js                         10.83 kB │ gzip:     4.07 kB
+dist/server/assets/move-from-confluence-CUpGYN7G.js            11.07 kB │ gzip:     3.67 kB
+dist/server/assets/service-C4jKzMgb.js                         11.11 kB │ gzip:     3.50 kB
+dist/server/assets/install-Yn9__rzM.js                         11.13 kB │ gzip:     4.20 kB
+dist/server/index.js                                           11.45 kB │ gzip:     4.04 kB
+dist/server/assets/store-DLV5sjYS.js                           11.48 kB │ gzip:     3.97 kB
+dist/server/assets/trustworthy-handbook-B7wRTIP3.js            11.51 kB │ gzip:     4.22 kB
+dist/server/assets/chat-notifications-BHzW_rms.js              11.53 kB │ gzip:     4.15 kB
+dist/server/assets/moving-in-DxCpI3yx.js                       11.54 kB │ gzip:     4.23 kB
+dist/server/assets/email-delivery-DbI8B9lv.js                  11.85 kB │ gzip:     4.33 kB
+dist/server/assets/effects-CrsKmSbF.js                         11.86 kB │ gzip:     3.80 kB
+dist/server/assets/members-DxArsZ8R.js                         12.35 kB │ gzip:     3.17 kB
+dist/server/assets/backup-B5uAJefY.js                          13.05 kB │ gzip:     4.82 kB
+dist/server/assets/service-BvEb8tXT.js                         13.48 kB │ gzip:     4.31 kB
+dist/server/assets/service-BDb1IDfd.js                         13.50 kB │ gzip:     4.15 kB
+dist/server/assets/signin-7o1TgU6u.js                          13.56 kB │ gzip:     3.77 kB
+dist/server/assets/demo-BP_PUzPc.js                            14.65 kB │ gzip:     5.30 kB
+dist/server/assets/PageTransferDialog-IBnEeKLT.js              15.10 kB │ gzip:     4.21 kB
+dist/server/assets/live-edit-runtime-DqhKYdbL.js               15.40 kB │ gzip:     4.72 kB
+dist/server/assets/app.tasks-CqOxS9U6.js                       15.54 kB │ gzip:     4.24 kB
+dist/server/assets/current-access-4KkBCbEj.js                  15.65 kB │ gzip:     4.52 kB
+dist/server/assets/react-DHExF-kG.js                           15.74 kB │ gzip:     4.30 kB
+dist/server/assets/DocsPage-DQfHj9Pn.js                        16.85 kB │ gzip:     3.90 kB
+dist/server/assets/setup-BRleY1ae.js                           19.75 kB │ gzip:     4.73 kB
+dist/server/assets/service-C7yh_6fv.js                         21.14 kB │ gzip:     5.41 kB
+dist/server/assets/auth-4SjCG9i4.js                            21.23 kB │ gzip:     6.35 kB
+dist/server/assets/TemplatesWorkspace-D-Zd4JVz.js              21.48 kB │ gzip:     4.96 kB
+dist/server/assets/PageDecisions-UpPmKuB1.js                   24.16 kB │ gzip:     5.18 kB
+dist/server/assets/WorkspaceGate-B2op-k7t.js                   24.36 kB │ gzip:     7.70 kB
+dist/server/assets/app.index-BEBOUNv0.js                       24.61 kB │ gzip:     5.08 kB
+dist/server/assets/ReviewQueue-BfyMSxaO.js                     27.65 kB │ gzip:     6.12 kB
+dist/server/assets/app.inquiries._inquiryId-BlXMyuFM.js        27.68 kB │ gzip:     5.80 kB
+dist/server/assets/app.search-D2jZXuAi.js                      32.05 kB │ gzip:     7.69 kB
+dist/server/assets/AutomationWorkspace-CLZWCq8K.js             32.44 kB │ gzip:     6.86 kB
+dist/server/assets/grants-2EWwN10j.js                          32.60 kB │ gzip:     8.04 kB
+dist/server/assets/operations-1g252DiL.js                      33.95 kB │ gzip:    10.74 kB
+dist/server/assets/tasks-zjrw48Mi.js                           35.09 kB │ gzip:     9.11 kB
+dist/server/assets/app-BpVmSi_3.js                             47.85 kB │ gzip:    11.56 kB
+dist/server/assets/service-6ryqohs8.js                         52.30 kB │ gzip:    13.92 kB
+dist/server/assets/ContainerWorkspace-C8Tch4aH.js              53.03 kB │ gzip:    10.57 kB
+dist/server/assets/request-handler-BEfOYZOw.js                 53.07 kB │ gzip:    16.89 kB
+dist/server/assets/RunPanel-Dmi3HjIL.js                        57.23 kB │ gzip:    10.78 kB
+dist/server/assets/service-CboW109l.js                         57.90 kB │ gzip:    14.97 kB
+dist/server/assets/sender-BTKVnP5x.js                          65.21 kB │ gzip:    16.29 kB
+dist/server/assets/request-access-CAv15fL2.js                  69.13 kB │ gzip:    18.95 kB
+dist/server/assets/background-qZv8igjc.js                      81.98 kB │ gzip:    21.14 kB
+dist/server/assets/home-CXDKcYkh.js                            86.66 kB │ gzip:    22.63 kB
+dist/server/assets/BlockView-D5HjkHpa.js                      144.74 kB │ gzip:    31.69 kB
+dist/server/assets/app.databases._databaseId-B5Ub1BNT.js      155.41 kB │ gzip:    32.84 kB
+dist/server/assets/dist-Br1sMHMZ.js                           160.50 kB │ gzip:    36.54 kB
+dist/server/assets/service-BQ_HVst1.js                        191.21 kB │ gzip:    46.20 kB
+dist/server/assets/app.settings._section-DW5i7X4w.js          203.14 kB │ gzip:    35.35 kB
+dist/server/assets/service-DgWmUuJl.js                        218.27 kB │ gzip:    57.56 kB
+dist/server/assets/router-DGC_wByP.js                         221.79 kB │ gzip:    70.19 kB
+dist/server/assets/operator-auth-EA5IXqVs.js                  230.55 kB │ gzip:    56.81 kB
+dist/server/assets/ui-PcrdLx-Q.js                             265.36 kB │ gzip:    52.66 kB
+dist/server/assets/model-policy-C5LtXBn4.js                   319.32 kB │ gzip:    69.62 kB
+dist/server/assets/PageWorkspace-Cy6lTsIy.js                  357.96 kB │ gzip:    73.49 kB
+dist/server/assets/notice-BHAWMqJ3.js                         518.69 kB │ gzip:   122.03 kB
+dist/server/assets/erasure-CdqnHEUS.js                        816.18 kB │ gzip:   205.07 kB
+dist/server/assets/server-jDN59a5I.js                         859.38 kB │ gzip:   184.80 kB
+dist/server/assets/hono-DILh2Qii.js                         5,268.82 kB │ gzip: 1,806.44 kB
+
+[INEFFECTIVE_DYNAMIC_IMPORT] src/core/features/skills/evaluation-workflow.ts is dynamically imported by src/core/features/skills/evaluations.ts, src/core/features/skills/prepared-integrity.ts but also statically imported by src/core/features/ai/integration.ts, src/core/features/ai/routes.ts, src/core/features/skills/evaluation-scheduler.ts, src/core/features/skills/listing.ts, src/core/features/skills/routes.ts, dynamic import will not move module into another chunk.
+
+✓ built in 9.71s
+[PLUGIN_TIMINGS] JavaScript callbacks ran for 9.1s of this 9.7s build (94%).
+4 callbacks are listed without a time. Their calls overlapped, so the time inside one call includes work from other calls. To find their cost, profile the build with `node --cpu-prof`:
+  - plugin tanstack-start-core:import-protection resolveId (13988 calls)
+  - plugin @tailwindcss/vite:generate:build transform (19 calls)
+  - plugin tanstack-start-core::server-fn:ssr transform (24 calls)
+  … and 1 more
+See https://rolldown.rs/reference/InputOptions.checks#bundlertimings for more details.
+
+Your application is built
+build: complete (exit 0)

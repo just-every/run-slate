@@ -1,0 +1,28 @@
+{
+  "repository": "just-every/run-slate",
+  "branch": "cloud/sd-slate-c-f193",
+  "head": "59c012c6c25ba3a5f7e96c1fb45512abbc9cb90f",
+  "base": "9167d6df3012153be7636fc77d29a7b0ad2f6f5e",
+  "mainAtIntegration": "bc567c9b6f6b25c98cb6fa05b9ab0fe37628a547",
+  "commit": "Prove page-message recovery after an interrupted response",
+  "countsBefore": {
+    "done": 57,
+    "partial": 240,
+    "missing": 41
+  },
+  "countsAfter": {
+    "done": 57,
+    "partial": 240,
+    "missing": 41
+  },
+  "statusRowsBefore": 338,
+  "statusRowsAfter": 338,
+  "allTableRowsBefore": 698,
+  "allTableRowsAfter": 698,
+  "productPush": {
+    "exit": 0,
+    "attempt": 1
+  },
+  "publicationScan": "guarded lander; not run in cloud",
+  "pr": null
+}
