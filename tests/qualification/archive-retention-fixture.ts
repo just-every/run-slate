@@ -23,8 +23,11 @@ export async function retentionFixture(door:RetentionDoor) {
     return response.data.value;
   };
   const paragraph=(text:string)=>({id:randomUUID(),blockType:'paragraph',treePosition:'1',content:{text:[{text}]}});
-  const root=await write('/api/pages',{containerId:door.containerId,title:'Retained archive tree',blocks:[paragraph('Historical retained body')]});
-  const child=await write('/api/pages',{containerId:door.containerId,parentPageId:root.pageId,title:'Retained child',blocks:[paragraph('Child retained body')]});
+  const parent=await write('/api/pages',{containerId:door.containerId,title:'Retention parent',treePosition:'m'});
+  const earlier=await write('/api/pages',{containerId:door.containerId,parentPageId:parent.pageId,title:'Before retained tree',treePosition:'a'});
+  const later=await write('/api/pages',{containerId:door.containerId,parentPageId:parent.pageId,title:'After retained tree',treePosition:'z'});
+  const root=await write('/api/pages',{containerId:door.containerId,parentPageId:parent.pageId,treePosition:'m',title:'Retained archive tree',blocks:[paragraph('Historical retained body')]});
+  const child=await write('/api/pages',{containerId:door.containerId,parentPageId:root.pageId,title:'Retained child',treePosition:'a',blocks:[paragraph('Child retained body')]});
   const database=await write('/api/databases',{containerId:door.containerId,parentPageId:root.pageId,title:'Retained database'});
   const field={id:randomUUID(),name:'Retention notes',type:'text',config:{},position:0};
   const definition=await write(`/api/databases/${database.id}/fields`,{expectedRevisionId:database.revisionId,field});
@@ -38,9 +41,17 @@ export async function retentionFixture(door:RetentionDoor) {
   await write(`/api/pages/${root.pageId}/blocks`,{expectedRevisionId:root.revisionId,blocks},'PUT');
   await write(`/api/comments/page/${root.pageId}`,{body:[{text:'Retained discussion'}]});
   await write('/api/sharing',{targetKind:'page',targetId:root.pageId,principalKind:'member',principalId:door.memberId,level:'full'});
+  for(const pageId of [child.pageId,database.pageId,record.pageId])await write('/api/sharing',{targetKind:'page',targetId:pageId,principalKind:'member',principalId:door.memberId,level:'full'});
   await write('/api/status',{key:'retention-review',label:'Retention review',color:'#225588',requiresVerification:false});
   await write(`/api/status/page/${root.pageId}`,{expectedRevisionId:(await read(`/api/pages/${root.pageId}`)).page.revisionId,statusKey:'retention-review'});
   const ids=[root.pageId,child.pageId,database.pageId,record.pageId];
+  const inventoryIds=[parent.pageId,earlier.pageId,later.pageId,...ids];
+  const inventory=async()=>(await read(`/api/pages?containerId=${door.containerId}`)).items
+    .filter((item:any)=>inventoryIds.includes(item.id))
+    .map(({id,containerId,parentPageId,treePosition}:any)=>({id,containerId,parentPageId,treePosition}));
+  const originalInventory=await inventory();
+  assert.deepEqual(originalInventory.filter((item:any)=>item.parentPageId===parent.pageId).map((item:any)=>item.id),[earlier.pageId,root.pageId,later.pageId]);
+  assert.deepEqual(new Set(originalInventory.map((item:any)=>item.id)),new Set(inventoryIds));
   const snapshot=async()=>{
     const pages=[];
     for(const id of ids) {
@@ -63,5 +74,5 @@ export async function retentionFixture(door:RetentionDoor) {
   assert.equal(before.structured.fields[0].name,'Retention notes');
   assert.equal(before.record.values[field.id],'Structured retained value');
   assert.deepEqual(before.bytes,[...bytes]);
-  return {root,child,database,record,file,ids,before,read,write,snapshot};
+  return {root,child,database,record,file,ids,before,read,write,snapshot,parent,earlier,later,inventory,originalInventory};
 }

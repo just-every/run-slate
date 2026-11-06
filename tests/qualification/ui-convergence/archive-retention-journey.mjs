@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import {trashListJourney} from './trash-list-journey.mjs';
 import {randomUUID} from 'node:crypto';
 import {expect} from '@playwright/test';
 import {retentionFixture} from '../archive-retention-fixture.ts';
@@ -42,6 +43,7 @@ export async function archiveRetentionJourney(state,touch) {
   await page.goto(`${origin}/app/pages/${f.root.pageId}`,{waitUntil:'networkidle'});
   await expect(page.getByText('Current retained body',{exact:true})).toBeVisible();
   await checkpoint(page,'retained archive restored');
+  await trashListJourney(state,touch,f);
   const doc=await f.read(`/api/pages/${f.root.pageId}`);
   await ok(context,origin,'POST',`/api/archive/${f.root.pageId}`,{operationKey:randomUUID(),expectedRevisionId:doc.page.revisionId,action:'trash'});
   await page.goto(origin+'/app/archive',{waitUntil:'networkidle'});

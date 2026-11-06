@@ -947,7 +947,7 @@
       "id": "ARCH-005",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of ARCH-005 — Trash. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "The existing audit registration calls archiveRetentionProof and trashRetentionProof for native subtree deletion provenance, prior placement, actual aged-trash scheduling and restoration, preserving all unsafe-erasure refusals. Existing responsive archiveRetentionJourney callers load trashListJourney for exact search and filter membership and visible provenance at 1440 and 390. These are supporting native proofs; complete absence from every other surface and inherited ADMIN-007 and company-policy prerequisites remain unproven. CONTRACT.md retains the partial judgment.",
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",

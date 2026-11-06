@@ -55,6 +55,7 @@ test('ACT-002 BASE-OPS-005 audit content, publication, archive and version mutat
  expect(tombstone).toMatchObject({deletedByMemberId:f.ownerId,deletedByDisplayName:'Core owner',deletedAt:deletion.receipt.committedAt});
  expect((await f.request('GET',`/api/revisions/${p.id}/${initial}`)).data).toMatchObject({deleted:true,deletedAt:deletion.receipt.committedAt});
 }
-await auditExportProof(f);
+// Exercise the native scheduler before the audit-stream scenario installs its receiver.
 await archiveRetentionProof(f);
+await auditExportProof(f);
 });

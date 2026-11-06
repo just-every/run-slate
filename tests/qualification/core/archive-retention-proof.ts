@@ -1,4 +1,5 @@
 import {expect} from 'vitest';
+import {trashRetentionProof} from './trash-retention-proof';
 import {retentionFixture} from '../archive-retention-fixture';
 import {env,createUlid,auditFixture} from './audit-support';
 import {captureMail} from '../../e2e/helpers/mail-edge';
@@ -68,6 +69,7 @@ export async function archiveRetentionProof(f:Awaited<ReturnType<typeof auditFix
     rows.bytes=bytes?[...new Uint8Array(await bytes.arrayBuffer())]:null;
     return rows;
   };
+  await trashRetentionProof(f,fixture,stored);
   const destroy=(confirmedPageIds:string[],actor=f.ownerId)=>f.request('POST',`/api/archive/${root.pageId}/permanent-delete`,{operationKey:createUlid(),confirmedPageIds},actor);
   let retained=await stored();
   expect((await destroy(ids)).data.code).toBe('NOT_TRASHED');

@@ -13,11 +13,24 @@ interface Archived {
   archivedAt: string | null;
   trashedAt: string | null;
   reason: string | null;
+  occurredAt: string | null;
+  actorMemberId: string | null;
+  actorDisplayName: string | null;
+  priorContainerId: string | null;
+  priorContainerName: string | null;
+  priorParentId: string | null;
+  priorParentTitle: string | null;
+  priorPosition: string | null;
 }
 /** `embedded` puts the list inside a space's Trash tab, which already has its own top bar and title. */
 export function WorkspaceArchive({containerId,embedded}:{containerId?:string;embedded?:boolean}={}) {
   const resource = useResource<{ items: Archived[] }>("/api/archive");
   const [tab, setTab] = useState(containerId?"trash":"archive");
+  const [query, setQuery] = useState("");
+  const [actor, setActor] = useState("");
+  const [space, setSpace] = useState("");
+  const [after, setAfter] = useState("");
+  const [before, setBefore] = useState("");
   const [selected, setSelected] = useState<Archived>();
   const [error, setError] = useState<unknown>();
   async function restore(item: Archived) {
@@ -32,6 +45,17 @@ export function WorkspaceArchive({containerId,embedded}:{containerId?:string;emb
       setError(cause);
     }
   }
+  const items = (resource.data?.items ?? []).filter(item =>
+    (!containerId || item.containerId === containerId) && (tab === "trash" ? item.trashedAt : !item.trashedAt));
+  const shown = tab === "trash" ? items.filter(item => {
+    const day = item.trashedAt?.slice(0, 10) ?? "";
+    const text = [item.title, item.actorDisplayName, item.priorContainerName, item.priorParentTitle].join(" ").toLocaleLowerCase();
+    return text.includes(query.trim().toLocaleLowerCase()) && (!actor || item.actorMemberId === actor)
+      && (!space || item.priorContainerId === space) && (!after || day >= after) && (!before || day <= before);
+  }) : items;
+  const actors = [...new Map(items.map(item => [item.actorMemberId, item.actorDisplayName])).entries()].filter(([id]) => id);
+  const spaces = [...new Map(items.filter(item => item.priorContainerName).map(item => [item.priorContainerId, item.priorContainerName])).entries()];
+  function clearFilters() { setQuery(""); setActor(""); setSpace(""); setAfter(""); setBefore(""); }
   const tabs = (
     <div className="tabs" role="group" aria-label="Archive and trash">
       <button type="button" aria-pressed={tab === "archive"} onClick={() => setTab("archive")}>
@@ -48,16 +72,29 @@ export function WorkspaceArchive({containerId,embedded}:{containerId?:string;emb
           error={resource.error}
           retry={resource.reload}
         >
+          {tab === "trash" ? <div className="trash-filters">
+            <label>Search trash<input type="search" value={query} onChange={event => setQuery(event.target.value)} /></label>
+            <label>Deleted by<select value={actor} onChange={event => setActor(event.target.value)}>
+              <option value="">Anyone</option>{actors.map(([id, name]) => <option key={id} value={id!}>{name ?? "Former member"}</option>)}
+            </select></label>
+            {!containerId ? <label>Prior space<select value={space} onChange={event => setSpace(event.target.value)}>
+              <option value="">All spaces</option>{spaces.map(([id, name]) => <option key={id} value={id!}>{name}</option>)}
+            </select></label> : null}
+            <label>Deleted after<input type="date" value={after} onChange={event => setAfter(event.target.value)} /></label>
+            <label>Deleted before<input type="date" value={before} onChange={event => setBefore(event.target.value)} /></label>
+            <button className="secondary-button" type="button" onClick={clearFilters}>Clear filters</button>
+          </div> : null}
           <ul className="archive-list">
-            {resource.data?.items
-              .filter((item) =>
-                (!containerId||item.containerId===containerId) && (tab === "trash" ? item.trashedAt : !item.trashedAt),
-              )
-              .map((item) => (
-                <li key={item.id}>
+            {shown.map((item) => (
+                <li key={item.id} data-page-id={item.id}>
                   <div>
                     <h2>{item.title}</h2>
-                    <p>{item.reason}</p>
+                    {item.reason ? <p>{item.reason}</p> : null}
+                    <p className="muted">{item.trashedAt ? "Deleted" : "Archived"} by {item.actorDisplayName ?? "Former member"}
+                      {item.occurredAt ? <> · <time dateTime={item.occurredAt}>{new Date(item.occurredAt).toLocaleString()}</time></> : null}
+                    </p>
+                    <p className="muted">Prior place: {item.priorContainerName ?? "Unavailable space"} → {item.priorParentId ? item.priorParentTitle ?? "Unavailable parent" : "Top level"}
+                      {" · "}Saved order: {item.priorPosition ?? "Unplaced"}</p>
                   </div>
                   <button className="secondary-button" type="button" onClick={() => void restore(item)}>
                     Restore
@@ -70,10 +107,8 @@ export function WorkspaceArchive({containerId,embedded}:{containerId?:string;emb
                 </li>
               ))}
           </ul>
-          {resource.data?.items.filter((item) =>
-            tab === "trash" ? item.trashedAt : !item.trashedAt,
-          ).length === 0 ? (
-            <p>Nothing here.</p>
+          {shown.length === 0 ? (
+            <p>{items.length ? "No trash matches these filters." : "Nothing here."}</p>
           ) : null}
         </RequestState>
         {error ? <p role="alert">{errorMessage(error)}</p> : null}

@@ -386,7 +386,7 @@ for (const width of [1440]) {
       await setupWorkspace(state);
       await presentationJourney(state);
       const touch=await beginTouchJourney(state,width);try{await touchPageToolsJourney(touch);await step('ARCH-004 — populated archive retention and exact cascade confirmation by touch', () => archiveRetentionJourney(state,touch));}finally{await touch.close();}
-    });
+    }, {}, {scheduled:true});
   });
 }
 

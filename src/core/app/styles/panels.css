@@ -81,6 +81,9 @@
 .slate-app .templates-workspace .template-list { margin-top: 8px; }
 .slate-app .deleted-template-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-block: 16px; }
 .slate-app .deleted-template-actions > p { flex-basis: 100%; }
+.slate-app .trash-filters { display: flex; flex-wrap: wrap; gap: 12px; align-items: end; margin-block: 16px; }
+.slate-app .trash-filters label { display: grid; flex: 1 1 160px; gap: 4px; min-width: 0; font-size: 14px; }
+.slate-app .trash-filters input, .slate-app .trash-filters select { width: 100%; min-width: 0; font-size: 14px; }
 .slate-app .archive-list { margin: 0; padding: 0; list-style: none; }
 .slate-app .archive-list > li { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding-block: 16px; }
 .slate-app .archive-list > li + li { border-top: 1px solid var(--slate-line); }
