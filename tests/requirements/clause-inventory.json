@@ -1380,7 +1380,7 @@
       "id": "NAV-006",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for NAV-006 — The touch client edits. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "The Workers registry does not certify browser acceptance. Supporting touchTablesJourney in ./tests/qualification/ui-convergence/tables-journey.mjs runs in the existing phone core registration in ./tests/qualification/ui-convergence/journeys.test.mjs: native member creation, heading and cell edits, row and column changes and lossless merge and unmerge with save, reload and complete native content readback. NAV-006 remains partial: complete gesture substitutions, acceptance 2, requirement-wide operator and block coverage and R-9 human review remain unproven. See CONTRACT.md for the existing broader touch journeys.",
       "supportingTests": []
     },
     {
