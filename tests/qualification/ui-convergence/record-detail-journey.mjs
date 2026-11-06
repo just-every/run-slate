@@ -170,6 +170,10 @@ export async function relationRecordsJourney(state, width) {
   await accessible(page, 'relation configured database');
   await settings.getByRole('button', {name: 'Cancel', exact: true}).click();
 
+  await mutate('POST', base + '/views', {expectedRevisionId: (await api(base)).database.revision_id,
+    view: {id: randomUUID(), name: 'Relation table', layout: 'table', filters: [], sorts: [], groups: [],
+      calculations: {}, display: {visibleFieldIds: [field.id]}, position: 0}});
+  await page.reload({waitUntil: 'networkidle'});
   const pencil = page.getByRole('button', {name: `Edit ${field.name}`, exact: true});
   await pencil.focus();
   await expect.poll(() => pencil.evaluate(element => getComputedStyle(element, '::after').opacity)).toBe('1');

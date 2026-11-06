@@ -12188,7 +12188,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/record-detail-journey.mjs": {
-      "sha256": "bf9d5d6fb0b802d162c238666c1019c19ca6707d01d8b3c369ae34392f285ad0",
+      "sha256": "50c4f28570d3cf6bdd9e7b2c2bca0438a17b570be69781d6a9a2726c5e060a9c",
       "executable": false
     },
     "tests/qualification/ui-convergence/record-templates-journey.mjs": {
