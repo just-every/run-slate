@@ -1,0 +1,15 @@
+{
+  "runs": [
+    {
+      "conclusion": "failure",
+      "event": "push",
+      "head_sha": "7567c70f93dde61fe6e98218ffde4071747a9145",
+      "html_url": "https://github.com/just-every/run-slate/actions/runs/42172410824",
+      "id": 42172410824,
+      "name": "Verify Slate",
+      "status": "completed"
+    }
+  ],
+  "jobDetailsInspected": false,
+  "note": "Completed failure was observed; no cause was inferred. Final source head and permitted generated-view-only failure are recorded separately in CI.json."
+}
