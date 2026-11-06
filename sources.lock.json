@@ -11912,7 +11912,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/browser-support.mjs": {
-      "sha256": "2d29e29c76065f6e5200e31c68ee89561dfc3a9cfd2058bf5b7892bc0a68b140",
+      "sha256": "705775fc1dfa74d233d2027d752d6c77d7d83e3d3d7b9f87bad7a137c7e9efc6",
       "executable": false
     },
     "tests/qualification/ui-convergence/chat-journey.mjs": {
@@ -11972,7 +11972,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/error-diagnostics.mjs": {
-      "sha256": "026b55091b30ac8e53e59c9fc7585d40bf0dd29545e6c0c483f0c73829e03fdc",
+      "sha256": "2da74fca9ee7968c86873a7bb0593259de999a86711a64eda3972dc130397804",
       "executable": false
     },
     "tests/qualification/ui-convergence/evidence/chat-1440-channel-blocked.png": {
@@ -12223,6 +12223,10 @@
       "sha256": "39600e52c1f2fbf730ac145b69f19bc72d40a6db9828b4dacac1a0d1c8e24ba1",
       "executable": false
     },
+    "tests/qualification/ui-convergence/request-timeline.mjs": {
+      "sha256": "c8aa42299ab530a92090961ae3951d239933d49d131cd5640af611a148f4329e",
+      "executable": false
+    },
     "tests/qualification/ui-convergence/review-request-journey.mjs": {
       "sha256": "b530886b8acd20ff0cd2e1730cbc6596a61f1c383256ff63638636af6c71f918",
       "executable": false
@@ -12372,7 +12376,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/two-people-support.mjs": {
-      "sha256": "3a731197af9a6a8977c9e2aa5e2b775dd7a2ddd6859f55f403724f3731417351",
+      "sha256": "1e472149e4de052e6b321f283f5e8d8ed458b9278c8f9fecb743b945aa8d8e98",
       "executable": false
     },
     "tests/qualification/ui-convergence/typed-shortcuts-journey.mjs": {
@@ -12384,7 +12388,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/version-deletion-journey.mjs": {
-      "sha256": "923ee3adc0d21515111acb14cf5b9fd4c565ab58e64ee8f629568b1f6d929ce4",
+      "sha256": "3aee0017b44a49db41eb303ae06e865cfc1e5e6ac79d8884221da1e1445320e1",
       "executable": false
     },
     "tests/qualification/ui-convergence/webhook-access-journey.mjs": {

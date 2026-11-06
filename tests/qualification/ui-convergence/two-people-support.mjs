@@ -5,6 +5,7 @@ import path from 'node:path';
 import { expect, request } from '@playwright/test';
 import { root } from '../../e2e/runtime-harness.mjs';
 import { apiErrorDiagnostics } from './error-diagnostics.mjs';
+import { requestTimeline, timelineContext } from './request-timeline.mjs';
 
 /**
  * Two signed-in people at once: the harness's owner context is Alex Owner, and a
@@ -17,6 +18,7 @@ export async function withSecondPerson(state, width, run) {
   const viewport = { width, height: width === 1440 ? 1000 : 844 };
   const context = await state.context.browser().newContext({ viewport, permissions: ['clipboard-read', 'clipboard-write'], locale: 'en-US' });
   await context.addCookies([{ name: 'slate_session', value: state.readerCookie.split('=')[1], url: state.origin }]);
+  requestTimeline(context);
   const errors = [];
   const page = await context.newPage();
   page.on('pageerror', cause => errors.push(String(cause)));
@@ -45,6 +47,10 @@ export async function withSecondPerson(state, width, run) {
   try {
     await run(people);
     assert.deepEqual(errors, [], 'Neither browser raised a page error.');
+  } catch (cause) {
+    // Preserve the second person's context before closing it.
+    state.otherTimelines.push(timelineContext(context));
+    throw cause;
   } finally {
     await writeFile(path.join(evidence, 'measurements.json'), JSON.stringify({ width, timings, refusals, screenshots: shots, pageErrors: errors }, null, 2));
     await context.close();
@@ -57,12 +63,18 @@ export async function call(context, origin, method, route, data) {
   // Own and dispose the transport for each call, retaining the person's current
   // authentication without carrying idle connections across browser actions.
   const transport = await request.newContext({ storageState: await context.storageState() });
+  const timeline = requestTimeline(context), observation = timeline.start(method, origin + route);
   try {
     const response = await transport.fetch(origin + route, { method, headers: { origin, 'content-type': 'application/json' }, data: data === undefined ? undefined : JSON.stringify(data), maxRetries: 0 });
+    timeline.answered(observation, response.status());
     const text = await response.text();
     let body;
     try { body = text ? JSON.parse(text) : undefined; } catch { body = text; }
+    timeline.answered(observation, response.status(), body);
     return { status: response.status(), body };
+  } catch (cause) {
+    if (observation.status === 'pending') timeline.failed(observation, cause);
+    throw cause;
   } finally {
     await transport.dispose();
   }
