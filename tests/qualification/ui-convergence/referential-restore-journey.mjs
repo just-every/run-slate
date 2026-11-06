@@ -57,7 +57,7 @@ export async function prepareReferentialRestore(state,evidence) {
     for(const [item,name,mimeType,bytes]of [
       [parent,'transfer-original.txt','text/plain',Buffer.from('synthetic-slate-316: original text Ω\nKeep every byte.\n')],
       [denied,'annex-original.pdf','application/pdf',Buffer.concat([Buffer.from('%PDF-1.7\n'),Buffer.from(Array.from({length:2053},(_,i)=>(i*73+19)%256)),Buffer.from('\n%%EOF')])],
-      [parent,'transfer-figure.png','image/png',Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jRZkAAAAASUVORK5CYII=','base64')],
+      [parent,'transfer-figure.png','image/png',Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR4nGNgaPj/HwAEggJ/59habAAAAABJRU5ErkJggg==','base64')],
     ]) {
       const upload=await context.request.post(origin+'/api/media',{headers:{Origin:origin},multipart:{operationKey:key(),pageId:item.id,file:{name,mimeType,buffer:bytes}}});
       assert.equal(upload.status(),200,await upload.text());
@@ -204,18 +204,23 @@ async function publicReadback(state,fixture,evidence,readerContext) {
   assert.equal((await anonymous()).status,404);
   await page.goto(origin+pagePath(fixture.parent.id),{waitUntil:'networkidle'});
   await openPageAction(page,'Public access');
-  const toggle=page.getByRole('switch',{name:'Public link',exact:true});
-  await expect(toggle).not.toBeChecked();
+  const panel=page.locator('.publication-settings');
+  await expect(panel).toContainText('Public access was stopped');
+  await panel.getByRole('button',{name:'Set up public page',exact:true}).click();
+  const dialog=page.getByRole('dialog',{name:'Public page settings',exact:true});
+  await expect(dialog.getByLabel('Host',{exact:true})).toHaveValue(exposure.host);
+  await expect(dialog.getByLabel('Public address',{exact:true})).toHaveValue(exposure.slug);
   const committed=page.waitForResponse(response=>new URL(response.url()).pathname===`/api/publishing/${fixture.parent.id}`&&response.request().method()==='POST');
-  await toggle.click();
+  await dialog.getByRole('button',{name:'Save public page',exact:true}).click();
   const response=await committed;assert.equal(response.status(),200,await response.text());
-  await expect(toggle).toBeChecked();
+  await expect(dialog).toBeHidden();
+  await expect(panel.getByRole('link',{name:'Open public page',exact:true})).toBeVisible();
   assert.deepEqual(await read(),fixture.exposure,'Explicit re-enablement reuses the exact original host, slug and settings.');
   const enabled=await anonymous();
   assert.equal(enabled.status,200);assert.match(enabled.body,new RegExp(bodyText));
   assert.match(enabled.body,/Transfer guide/);assert.doesNotMatch(enabled.body,/owner-only annex/);
   await page.reload({waitUntil:'networkidle'});
-  await expect(toggle).toBeChecked();
+  await expect(panel.getByRole('link',{name:'Open public page',exact:true})).toBeVisible();
   await page.screenshot({path:path.join(evidence,`${page.viewportSize().width}-restored-public-address.png`),fullPage:true});
   return {exposure,inactiveStatus:inactive.status,refusedStatus:denied.status,enabled:await read(),enabledStatus:enabled.status};
 }
@@ -262,7 +267,6 @@ export async function proveReferentialRestore(state,target,fixture,archive,evide
     assert.deepEqual(Buffer.from(destination.entries[blob.entry]),original.bytes,'A new destination export still holds the exact original.');
   }
   console.log(`PROBE PORT-002 archive inventory: ${inventory.records} retained rows, ${inventory.tables} declared tables and ${inventory.attachments} original objects agree after failed restore and retry`);
-  const recordProof=await proveRestoreRecords(state,fixture,evidence);
   const guestProof=await proveRestoreGuest(state,fixture,evidence);
   const stale=await context.browser().newContext();
   const sessionRefusals=[];
@@ -301,6 +305,7 @@ export async function proveReferentialRestore(state,target,fixture,archive,evide
     assert.equal(current.id,fixture.readerId);assert.equal(current.role,'member');
     const restoredAccess=await access(invited,origin,fixture);
     assert.deepEqual(restoredAccess,fixture.sourceAccess,'Restored direct, inherited group, revoked and refused access matches the source.');
+    const recordProof=await proveRestoreRecords({...state,page:memberPage},fixture,evidence);
     await mentionScreen(memberPage,origin,fixture,evidence,'restored-member');
     const publicProof=await publicReadback(state,fixture,evidence,invited);
     // Every selected original is read by the owner; the member also reads the allowed file and is refused the annex.

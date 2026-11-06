@@ -11436,7 +11436,7 @@
       "executable": false
     },
     "tests/portability/equivalence.mjs": {
-      "sha256": "34fd016d396345ea5afe948e177c9fe0bac04ea4ccd1c6b87cf88b993b7e2f9d",
+      "sha256": "56d8702c5075e0a858b3a6dd572920e340909bca3cc5cd544f36c7079b48ea6b",
       "executable": false
     },
     "tests/portability/fixture.mjs": {
@@ -12208,7 +12208,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/referential-restore-journey.mjs": {
-      "sha256": "dc6d98fc1caa1cfbe12f0e2d3ad657f29150a9f6a262803bfab3617b59f8c7e3",
+      "sha256": "bd80da4fe1545329ac3d3293077c53739f9f68a69272416763c81e5f433b3fdf",
       "executable": false
     },
     "tests/qualification/ui-convergence/restore-guest-journey.mjs": {
@@ -12216,7 +12216,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/restore-records-journey.mjs": {
-      "sha256": "4ab7d7451380862c4675825d2dc03eb018dac5042d2139eacabf2a28c3f017dd",
+      "sha256": "444a641bb74acbb82efa1e10a889aaa3d6fa0b9404845b0c31968000b3c0eba8",
       "executable": false
     },
     "tests/qualification/ui-convergence/review-request-journey.mjs": {
@@ -12428,7 +12428,7 @@
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
-      "sha256": "49e6d60c3eaad6cba425ad29d470566ab2a845b46fc32e738caf6448188bb934",
+      "sha256": "c13a5d0091629f516ab1b4d155f5d8be901dfcfddbd7076def036c9ed193c77f",
       "executable": false
     },
     "tests/requirements/count-registrations.mjs": {

@@ -274,7 +274,7 @@ The same registered transfer journey now verifies the selected page mention by
 following it, reads the retained person and group labels, and reloads those
 screens. A separate native database, updated record with retained earlier field
 values, and captured page template have source projections compared with the
-restored projections. Original links in the group checklist open their retained
+restored projections. Original links in the read-only member appendix open their retained
 addresses and each screen reloads. The focused implementation is
 `./tests/qualification/ui-convergence/restore-records-journey.mjs`.
 

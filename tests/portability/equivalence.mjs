@@ -25,6 +25,13 @@ export function equivalent(before,after,ownerEmail,newExportId,bootstrapAuditRow
     assert.deepEqual(after.entries[restoredBlob.entry],before.entries[originalBlob.entry],`Exact original bytes ${file.original_name}.`);
     assert.equal(createHash('sha256').update(after.entries[restoredBlob.entry]).digest('hex'),originalBlob.hash);
   }
+  for(const original of a.tables.federation_imports??[]){
+    if(original.state==='deleted')continue;
+    const restored=b.tables.federation_imports.find(row=>row.id===original.id);assert.ok(restored);
+    assert.match(restored.archive_key,/^federation\/restore\/[^/]+\/blobs\/\d+$/,'The retained input archive belongs to the successful restore.');
+    if(blobKeys.has(original.archive_key))assert.equal(restored.archive_key,blobKeys.get(original.archive_key));
+    blobKeys.set(original.archive_key,restored.archive_key);
+  }
   // Storage addresses are implementation custody. Match template asset identities
   // across the actual snapshots, then compare their independent original bytes.
   const assetRefs=value=>{
@@ -79,6 +86,7 @@ export function equivalent(before,after,ownerEmail,newExportId,bootstrapAuditRow
         expected.status=owner?'active':'historical';expected.is_setup_owner=owner?1:0;if(owner)expected.role='owner';
       }
       if(table==='files')expected.storage_key=blobKeys.get(expected.storage_key);
+      if(table==='federation_imports'&&expected.state!=='deleted')expected.archive_key=blobKeys.get(expected.archive_key);
       if(table==='knowledge_templates'||table==='structured_revisions'&&expected.entity_kind==='template')expected.snapshot_json=relocatedTemplate(expected.snapshot_json);
       if(table==='public_exposures'){
         const restored=actual.find(row=>row.id===expected.id);assert.ok(restored);

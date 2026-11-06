@@ -18,13 +18,15 @@ export async function prepareRestoreRecords(state,fixture) {
   const recordPath=`/api/databases/${database.id}/records/${created.pageId}`;
   const earlier=await ok(context,origin,'GET',recordPath);
   await ok(context,origin,'PATCH',recordPath,{operationKey:key(),expectedRevisionId:earlier.revisionId,values:{[field.id]:11}});
+  const configured=await ok(context,origin,'GET',`/api/databases/${database.id}`);
+  await ok(context,origin,'POST',`/api/databases/${database.id}/views`,{operationKey:key(),expectedRevisionId:configured.database.revision_id,view:{id:key(),name:'Transfer table',layout:'table',filters:[],sorts:[],groups:[],calculations:{},display:{},position:0}});
   const template=(await ok(context,origin,'POST','/api/templates',{operationKey:key(),sourcePageId:fixture.parent.id,includeChildren:false,containerId:null,title:'Transfer guide template',description:'Retained recovery instructions',category:'Transfer'})).value;
   const templatePath=`/app/templates/${template.id}`;
   const recordAddress=`/app/databases/${database.id}/records/${created.pageId}`;
   const databaseAddress=`/app/databases/${database.id}`;
   const blockId=key();
-  const current=await ok(context,origin,'GET',`/api/pages/${fixture.groupChild.id}`);
-  await ok(context,origin,'PUT',`/api/pages/${fixture.groupChild.id}/blocks`,{operationKey:key(),expectedRevisionId:current.page.revisionId,blocks:[...current.blocks.map(({id,parentBlockId,blockType,content,treePosition})=>({id,parentBlockId,blockType,content,treePosition})),{id:blockId,blockType:'paragraph',treePosition:'b',content:{text:[
+  const current=await ok(context,origin,'GET',`/api/pages/${fixture.direct.id}`);
+  await ok(context,origin,'PUT',`/api/pages/${fixture.direct.id}/blocks`,{operationKey:key(),expectedRevisionId:current.page.revisionId,blocks:[...current.blocks.map(({id,parentBlockId,blockType,content,treePosition})=>({id,parentBlockId,blockType,content,treePosition})),{id:blockId,blockType:'paragraph',treePosition:'b',content:{text:[
     {text:'Open retained inventory',link:{href:databaseAddress}},{text:' · '},
     {text:'Open retained item',link:{href:recordAddress}},{text:' · '},
     {text:'Open retained template',link:{href:templatePath}},
@@ -74,10 +76,10 @@ export async function proveRestoreRecords(state,fixture,evidence) {
       await expect(linked.locator('.template-preview')).toContainText('Confirm the transfer owner');
     }],
   ]) {
-    await page.goto(origin+pagePath(fixture.groupChild.id),{waitUntil:'networkidle'});
+    await page.goto(origin+pagePath(fixture.direct.id),{waitUntil:'networkidle'});
     const link=page.locator(`[data-block-id="${records.blockId}"]`).getByRole('link',{name:label,exact:true});
     await expect(link).toHaveAttribute('href',address);
-    const opened=page.waitForEvent('popup');await link.click({modifiers:['ControlOrMeta']});const linked=await opened;
+    const opened=page.waitForEvent('popup');await link.click();const linked=await opened;
     try {
       await expect(linked).toHaveURL(origin+address);await check(linked);
       await linked.reload({waitUntil:'networkidle'});await check(linked);
