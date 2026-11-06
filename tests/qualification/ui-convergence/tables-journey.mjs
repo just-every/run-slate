@@ -138,6 +138,11 @@ export async function touchTablesJourney({page,context,origin,api,containerId}) 
   await tools();await tap(block.getByRole('button',{name:'Unmerge cells',exact:true}));
   expected={...expected,merges:[]};
   await reconcile('unmerge far-right retains covered cells');
+  // The restored covered cell keeps its colour and accepts its own touch edit.
+  await expect(block.locator('tbody [data-table-row="1"][data-table-column="2"]')).toHaveCSS('background-color','rgb(220, 252, 231)');
+  await edit(block.getByRole('textbox',{name:'Row 2, Status',exact:true}),'Coverage retained and confirmed');
+  expected={...expected,rows:expected.rows.map((row,i)=>i===1?{...row,cells:[...row.cells.slice(0,2),'Coverage retained and confirmed',row.cells[3]]}:row)};
+  await reconcile('edit coloured covered cell after far-right unmerge');
   await tools();
   for(const name of ['Add row','Remove row','Add column','Remove column','Merge cells'])
     await reachable(block.getByRole('button',{name,exact:true}));
