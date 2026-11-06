@@ -517,7 +517,7 @@
       "id": "LIFE-002",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Selected native draft body, named member and group grants, address and session-bound link access, full revocation, general and anonymous-publication refusals and retained privacy across lifecycle profiles are covered. The complete exclusion corpus, every-role and automation invariant, held company-policy outcomes, inherited full sharing duties and five-second cross-surface and AI removal remain unproven. No full LIFE-002 acceptance or release is claimed.",
+      "unmetReason": "Selected native draft body, named member and group grants, address and session-bound link access, full revocation, general and anonymous-publication refusals and retained privacy across all lifecycle and access profile combinations are covered. Ordinary-page and discussion search exclusion now includes populated live controls, exact totals and facets, authors and grantees; native content queries, inbox, analytics, owner export refusal and authorized trees have populated supporting proof. The complete exclusion corpus, every-role and automation invariant, held company-policy outcomes, inherited full sharing duties and five-second cross-surface and AI removal remain unproven. No full LIFE-002 acceptance or release is claimed.",
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
@@ -534,6 +534,10 @@
         {
           "file": "tests/flagship/structured/structured.test.ts",
           "testName": "structured records, computation, readers, templates, automation, policies and views retain durable semantics"
+        },
+        {
+          "file": "tests/e2e/search/fts-permissions.test.ts",
+          "testName": "Indexed search uses current native authority for literal matches, totals, facets and cursors"
         }
       ]
     },
