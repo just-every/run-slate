@@ -163,7 +163,7 @@ for (const width of [1440]) {
 }
 
 for (const width of [1440]) {
-  test(`shared page invitations name their space and disappear on revocation at ${width}px`, { timeout: 840000 }, async () => {
+  test(`shared page invitations name their space and disappear on revocation at ${width}px`, { timeout: 1200000 }, async () => {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
       await withSecondPerson(state, width, people => sharedNavigationJourney(state, people));

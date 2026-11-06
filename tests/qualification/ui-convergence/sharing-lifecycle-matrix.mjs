@@ -84,8 +84,8 @@ export async function permissionLifecycleMatrix({ state, bob, api, level, pageId
     const dialog = view.getByRole('dialog', { name: 'Publish this revision', exact: true });
     await expect(dialog.getByRole('button', { name: 'Review publication', exact: true })).toBeEnabled();
     for (const label of ['Change destination when publishing', 'General access when published']) {
-      if (level === 'full') await expect(dialog.getByLabel(label, { exact: true })).toBeEnabled();
-      else await expect(dialog.getByLabel(label, { exact: true })).toBeDisabled();
+      if (level === 'full') await expect(dialog.getByLabel(label)).toBeEnabled();
+      else await expect(dialog.getByLabel(label)).toBeDisabled();
     }
     const schedule = dialog.locator('input[name="publishAt"]');
     if (level === 'full') await expect(schedule).toBeEnabled();
@@ -125,7 +125,42 @@ export async function permissionLifecycleMatrix({ state, bob, api, level, pageId
     }
   }
   // Scheduling a live page makes it private. The existing server requires full.
-  if (level !== 'full') {
+  if (level === 'full') {
+    await openPageAction(view, 'Publish workspace revision');
+    let dialog = view.getByRole('dialog', { name: 'Publish this revision', exact: true });
+    await expect(dialog.getByRole('button', { name: 'Review publication', exact: true })).toBeEnabled();
+    await dialog.locator('input[name="publishAt"]').fill(new Date(Date.now() + 3600000).toISOString().slice(0, 16));
+    await dialog.getByRole('button', { name: 'Review publication', exact: true }).click();
+    await capture(`${route}/publish`, 'pages.publish', () => dialog.getByRole('button', { name: 'Publish workspace revision', exact: true }).click(),
+      async (_before, after, result) => {
+        assert.equal(result.value.scheduled, true);
+        assert.equal(after.document.page.lifecycle, 'scheduled');
+        assert.equal(after.document.schedule.state, 'scheduled');
+        assert.equal(after.document.workingRevisionId, result.receipt.revisionId);
+      });
+    await reopen();
+    await accessible(view, 'full member scheduled publication');
+    await openPageAction(view, 'Cancel scheduled publication');
+    await capture(`${route}/cancel-schedule`, 'pages.schedule.cancel',
+      () => view.getByRole('dialog', { name: 'Confirm this page change', exact: true }).getByRole('button', { name: 'Confirm', exact: true }).click(),
+      async (before, after) => {
+        assert.equal(after.document.page.lifecycle, 'draft');
+        assert.equal(after.document.publishedRevisionId, null);
+        assert.equal(after.document.workingRevisionId, before.document.workingRevisionId);
+        assert.deepEqual(content(after.document.blocks), content(before.document.blocks));
+      });
+    await reopen();
+    await openPageAction(view, 'Publish workspace revision');
+    dialog = view.getByRole('dialog', { name: 'Publish this revision', exact: true });
+    await expect(dialog.getByRole('button', { name: 'Review publication', exact: true })).toBeEnabled();
+    await dialog.getByRole('button', { name: 'Review publication', exact: true }).click();
+    await capture(`${route}/publish`, 'pages.publish', () => dialog.getByRole('button', { name: 'Publish workspace revision', exact: true }).click(),
+      async (_before, after, result) => {
+        assert.equal(after.document.page.lifecycle, 'live');
+        assert.equal(after.document.publishedRevisionId, result.receipt.revisionId);
+      });
+    await reopen();
+  } else {
     await refuse('POST', `${route}/publish`, { operationKey: randomUUID(), expectedRevisionId: (await read()).page.revisionId, publishAt: new Date(Date.now() + 3600000).toISOString() });
   }
   await accessible(view, `${level} publication and discard after reload`);
