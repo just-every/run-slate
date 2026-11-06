@@ -12236,7 +12236,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/sharing-journey.mjs": {
-      "sha256": "9c4cf562bf112c2f4bf0e3ebf0f10286b5e8c861606a54784a8fecdfdbb8262f",
+      "sha256": "b735db5f197de02ca39eb7c830cede072837ca3c05a91a32e030173ceabb9e87",
       "executable": false
     },
     "tests/qualification/ui-convergence/shortcut-reference-journey.mjs": {
@@ -12420,7 +12420,7 @@
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
-      "sha256": "9f676c0327c60fbe36adbeb5aec7daea0912f378acdd28047d99af4505114457",
+      "sha256": "611964b43200ce01f1d63da6986a30cc79035130b6bbabd42ce4f615e0c0fcdf",
       "executable": false
     },
     "tests/requirements/count-registrations.mjs": {
