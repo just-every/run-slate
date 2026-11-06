@@ -126,6 +126,18 @@ export async function touchTablesJourney({page,context,origin,api,containerId}) 
   await edit(block.getByRole('textbox',{name:'Row 2, Owner',exact:true}),'Relief lead confirmed');
   expected={...expected,rows:expected.rows.map((row,i)=>i===1?{...row,cells:[row.cells[0],'Relief lead confirmed',...row.cells.slice(2)]}:row)};
   await reconcile('edit uncovered cell');
+  // A merged anchor at the far edge must remain editable after horizontal scrolling.
+  await tools();await select('Table row',0);await select('Table column',2);
+  for(const label of ['Merge rows','Merge columns'])await type(page,block.getByRole('spinbutton',{name:label,exact:true}),'2');
+  await tap(block.getByRole('button',{name:'Merge cells',exact:true}));
+  expected={...expected,merges:[{rowId:rowIds[0],column:2,rowSpan:2,colSpan:2}]};
+  await reconcile('merge far-right populated rectangle');
+  await edit(block.getByRole('textbox',{name:'Row 1, Status',exact:true}),'Ready for handover');
+  expected={...expected,rows:expected.rows.map((row,i)=>i===0?{...row,cells:[...row.cells.slice(0,2),'Ready for handover',row.cells[3]]}:row)};
+  await reconcile('edit far-right merged anchor');
+  await tools();await tap(block.getByRole('button',{name:'Unmerge cells',exact:true}));
+  expected={...expected,merges:[]};
+  await reconcile('unmerge far-right retains covered cells');
   await tools();
   for(const name of ['Add row','Remove row','Add column','Remove column','Merge cells'])
     await reachable(block.getByRole('button',{name,exact:true}));
