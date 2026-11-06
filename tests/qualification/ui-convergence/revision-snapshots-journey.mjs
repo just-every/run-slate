@@ -32,7 +32,7 @@ export async function revisionSnapshotsJourney(state,width) {
   const history=(await api(`/api/revisions/${pageId}`)).items;
   assert.deepEqual(new Set(history.map(item=>item.id)),new Set([...retained.map(item=>item.receipt.revisionId),receipt.revisionId]),'Every returned revision is retained, with no unaccounted snapshot.');
   assert.deepEqual(history.find(item=>item.id===receipt.revisionId),{id:receipt.revisionId,origin:originKind,authorMemberId:'browser-owner',authorDisplayName:'Alex Owner',ordinal:null,label,statusKey:null,createdAt:receipt.committedAt,deletedAt:null,deletedByMemberId:null,deletedByDisplayName:null});
-  retained.push({receipt,origin:originKind,label,body,cardTitle,expectedText,expectedHash,snapshot:structuredClone(snapshot)});
+  retained.push({receipt,value,submitted:result.submitted,origin:originKind,label,body,cardTitle,expectedText,expectedHash,snapshot:structuredClone(snapshot)});
  };
  const change=async(method,path,action)=>{
   const response=page.waitForResponse(response=>new URL(response.url()).pathname===path&&response.request().method()===method);
@@ -40,7 +40,7 @@ export async function revisionSnapshotsJourney(state,width) {
   const returned=await response;
   assert.equal(returned.status(),200,await returned.text());
   if(method==='PATCH'&&path===`/api/pages/${pageId}/blocks/${blockId}`)content=returned.request().postDataJSON().content;
-  return returned.json();
+  return {...await returned.json(),submitted:{method,path,input:returned.request().postDataJSON()}};
  };
  try {
   await profile({...workspace.policies,'page.lifecycle.v1':'draft-then-publish','page.version.v1':'autosnapshot'});
@@ -79,6 +79,16 @@ export async function revisionSnapshotsJourney(state,width) {
   extraBlocks=[{...extraBlocks[0],content:{...extraBlocks[0].content,preview:{...extraBlocks[0].content.preview,title:cardTitle}}}];
   extraText=`https://example.test/revision ${cardTitle} Stored reference details Slate reference`;
   await record(await ok(context,origin,'PATCH',`/api/pages/${pageId}/blocks/${cardId}`,{operationKey:randomUUID(),expectedRevisionId:(await api(`/api/pages/${pageId}`)).blocks[1].revisionId,content:extraBlocks[0].content}),'autosave');
+  const beforeReplay=await api(`/api/pages/${pageId}`);
+  const historyBeforeReplay=await api(`/api/revisions/${pageId}`);
+  for(const item of retained.filter(item=>item.submitted)){
+   const {method,path,input}=item.submitted;
+   const replay=await ok(context,origin,method,path,input);
+   assert.deepEqual(replay.receipt,item.receipt,'A native-session retry retains its original receipt after later edits.');
+   assert.deepEqual(replay.value,item.value);
+  }
+  assert.deepEqual(await api(`/api/pages/${pageId}`),beforeReplay,'Old retries cannot roll the working page back.');
+  assert.deepEqual(await api(`/api/revisions/${pageId}`),historyBeforeReplay,'Old retries add no revision.');
   await page.reload({waitUntil:'networkidle'});
   for(const [index,item] of retained.entries()){
    const id=item.receipt.revisionId;
