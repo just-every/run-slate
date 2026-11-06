@@ -1,0 +1,167 @@
+{
+  "schema": 1,
+  "task": "sd-slate-c-f200",
+  "repository": "just-every/run-slate",
+  "branch": "cloud/sd-slate-c-f200",
+  "head": "85e783a432d3fa6b50c9338bfc3b71f284087fe9",
+  "tree": "e89c847be910531a9e4bf0cbbe6ace4db4ebac40",
+  "productPush": {
+    "result": "success",
+    "attempts": 1,
+    "log": "product-push.log",
+    "saveOnly": true,
+    "skipCI": true
+  },
+  "predecessor": "26f7a08151f30f85511a27638b9f2eaf8e43a142",
+  "replayTreeEqualsPredecessor": true,
+  "mainAtReplay": "1f16db6cb1d9b26717cb30519a925902c1f9a9a8",
+  "mainEqualsHead": false,
+  "contractStatusGapEvidenceUnchanged": true,
+  "generatedViewsCommitted": false,
+  "workflowChanged": false,
+  "productionSourceChanged": false,
+  "checks": [
+    {
+      "command": "pnpm exec vitest run tests/flagship/structured/automation-repairs.test.ts",
+      "exit": 0,
+      "head": "26f7a08151f30f85511a27638b9f2eaf8e43a142",
+      "scope": "Entire source tree is byte-identical at saved head"
+    },
+    {
+      "command": "pnpm typecheck",
+      "exit": 0,
+      "head": "26f7a08151f30f85511a27638b9f2eaf8e43a142",
+      "scope": "Entire source tree is byte-identical at saved head"
+    },
+    {
+      "command": "pnpm exec rer check --profile first-party",
+      "exit": 0,
+      "head": "26f7a08151f30f85511a27638b9f2eaf8e43a142",
+      "scope": "Entire source tree is byte-identical at saved head"
+    },
+    {
+      "command": "node src/base/runtime/contract-docs.mjs write",
+      "exit": 0,
+      "scope": "After replay, before save"
+    },
+    {
+      "command": "node src/base/runtime/contract-docs.mjs check",
+      "exit": 0,
+      "scope": "After write; views then restored from origin/main"
+    },
+    {
+      "command": "pnpm integration:sync",
+      "exit": 0
+    },
+    {
+      "command": "node scripts/edition-authoring/cli.mjs lock",
+      "exit": 0
+    },
+    {
+      "command": "pnpm source:check",
+      "exit": 0
+    },
+    {
+      "command": "npx -y @runeditrun/rer build",
+      "exit": 0,
+      "head": "85e783a432d3fa6b50c9338bfc3b71f284087fe9"
+    },
+    {
+      "command": "node scripts/edition-authoring/cli.mjs check && node scripts/sync-integration.mjs --check",
+      "exit": 0,
+      "head": "85e783a432d3fa6b50c9338bfc3b71f284087fe9"
+    },
+    {
+      "command": "node src/base/runtime/contract-docs.mjs check",
+      "exit": 0,
+      "head": "85e783a432d3fa6b50c9338bfc3b71f284087fe9"
+    }
+  ],
+  "migrationLedger": {
+    "command": null,
+    "exit": 0,
+    "reason": "No migration changed"
+  },
+  "sourceLockFresh": true,
+  "publicationScan": {
+    "commit": "85e783a432d3fa6b50c9338bfc3b71f284087fe9",
+    "status": "NOT_RUN_CLOUD",
+    "complete": false,
+    "historyScanned": false,
+    "findings": null,
+    "custody": "Guarded lander"
+  },
+  "ci": {
+    "head": "85e783a432d3fa6b50c9338bfc3b71f284087fe9",
+    "runs": [],
+    "reason": "Preservation save carries skip ci; no dispatch or rerun"
+  },
+  "countsBefore": {
+    "done": 57,
+    "partial": 240,
+    "missing": 41,
+    "total": 338,
+    "registrations": 207
+  },
+  "countsAfter": {
+    "done": 57,
+    "partial": 240,
+    "missing": 41,
+    "total": 338,
+    "registrations": 207
+  },
+  "blocker": {
+    "run": 42225509049,
+    "job": 127918839748,
+    "reason": "Required exact failed-shard reproduction passed on predecessor and main. Verify-repair rule prohibits speculative repair and requires BLOCKED handoff for fv triage."
+  },
+  "ready": false,
+  "landed": false,
+  "pr": null,
+  "terminalProof": {
+    "status": "passed",
+    "head": "85e783a432d3fa6b50c9338bfc3b71f284087fe9",
+    "command": "SLATE_CHROMIUM_PATH=/usr/bin/chromium node --test --test-concurrency=1 --test-name-pattern='^spreadsheet tables merge, sort and round-trip' tests/qualification/ui-convergence/journeys.test.mjs",
+    "exit": 0,
+    "passed": 1,
+    "failed": 0,
+    "skipped": 0,
+    "registrationDurationMs": 317952.035148,
+    "processDurationMs": 336878.655959,
+    "log": "saved-head-database-journey.log",
+    "receipt": "automation-restart-receipt.json",
+    "screens": [
+      "candidate-1440-run-log.png",
+      "candidate-390-run-log.png"
+    ]
+  },
+  "remoteRefs": {
+    "refs/heads/cloud/sd-slate-c-f200": "85e783a432d3fa6b50c9338bfc3b71f284087fe9",
+    "refs/heads/main": "1f16db6cb1d9b26717cb30519a925902c1f9a9a8"
+  },
+  "nativeRecoverySummary": {
+    "head": "85e783a432d3fa6b50c9338bfc3b71f284087fe9",
+    "jobs": 1,
+    "runs": 1,
+    "createdRecords": 1,
+    "comments": 1,
+    "inboxOutcomes": 1,
+    "actionReceipts": 3,
+    "operationReceipts": 3,
+    "actionActivity": 3,
+    "completionActivity": 1,
+    "healthRefusedAfterKills": true,
+    "sourceValue": {
+      "recovery-stage": "admitted"
+    },
+    "createdValue": {
+      "recovery-stage": "completed"
+    }
+  },
+  "reproductionSummary": {
+    "predecessorExit": 0,
+    "mainExit": 0,
+    "failureReproduced": false,
+    "repairRounds": 0
+  }
+}

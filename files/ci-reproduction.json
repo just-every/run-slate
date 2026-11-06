@@ -1,0 +1,54 @@
+{
+  "schema": 1,
+  "task": "sd-slate-c-f200",
+  "repository": "just-every/run-slate",
+  "failedHead": "26f7a08151f30f85511a27638b9f2eaf8e43a142",
+  "run": 42225509049,
+  "job": 127918839748,
+  "command": "bash .github/scripts/run-shard.sh",
+  "configuration": {
+    "SLATE_UI_SHARD": "5/8",
+    "SLATE_UI_ASSIGNMENTS": ".github/scripts/journey-shards.json",
+    "SERIAL_SUITE": "true",
+    "WORKER_SHARD": "0",
+    "SUITE_COMMAND": "node --test --test-concurrency=1 --test-name-pattern='^genuine insertion focus.*1440' tests/ui/polish-journeys.test.mjs"
+  },
+  "test": "named review request, reviewer queue, exact verify and overdue escalation at 1440px",
+  "failure": "Step REV-006 \u2014 numbered deletion leaves an attributed tombstone failed: expect(locator).toBeHidden() failed; Publish this revision dialog Expected hidden, Received visible; native page-open POST returned 409 REVISION_CONFLICT.",
+  "reproduction": {
+    "head": "26f7a08151f30f85511a27638b9f2eaf8e43a142",
+    "exit": 0,
+    "journeys": {
+      "passed": 2,
+      "failed": 0
+    },
+    "focus": {
+      "passed": 1,
+      "failed": 0
+    },
+    "result": "NOT_REPRODUCED",
+    "runner": "Ubuntu 24.04 in Docker",
+    "node": "22.20.0",
+    "pnpm": "10.12.4",
+    "chromium": "Playwright 1.63.0 Chromium, exposed at /usr/bin/chromium",
+    "image": "mcr.microsoft.com/playwright:v1.63.0-noble",
+    "imageDigest": "sha256:eff16c30e6f3f4af0a03fa4b706120d5e9b0891c344a27d64559aff5900a4a27"
+  },
+  "mainComparison": {
+    "head": "1f16db6cb1d9b26717cb30519a925902c1f9a9a8",
+    "exit": 0,
+    "journeys": {
+      "passed": 2,
+      "failed": 0
+    },
+    "focus": {
+      "passed": 1,
+      "failed": 0
+    },
+    "result": "PASS",
+    "runner": "Same Ubuntu 24.04 image, Node 22.20.0, pnpm 10.12.4 and Chromium as original-SHA reproduction"
+  },
+  "repairRounds": 0,
+  "rule": "If it does not reproduce, stop BLOCKED with that output; do not guess a fix.",
+  "decision": "No source repair; preserve unfinished predecessor work on the named branch and return the unreproduced failure to fv."
+}

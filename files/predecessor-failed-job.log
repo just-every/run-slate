@@ -1,0 +1,103 @@
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	﻿2026-11-06T13:29:15.7733905Z ##[group]Run bash .github/scripts/run-shard.sh
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:29:15.7734246Z [36;1mbash .github/scripts/run-shard.sh[0m
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:29:15.7751695Z shell: /usr/bin/bash -e {0}
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:29:15.7751924Z env:
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:29:15.7752142Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:29:15.7752398Z   SLATE_UI_SHARD: 5/8
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:29:15.7752670Z   SLATE_UI_ASSIGNMENTS: .github/scripts/journey-shards.json
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:29:15.7752944Z   SERIAL_SUITE: true
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:29:15.7753125Z   WORKER_SHARD: 0
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:29:15.7753549Z   SUITE_COMMAND: node --test --test-concurrency=1 --test-name-pattern='^genuine insertion focus.*1440' tests/ui/polish-journeys.test.mjs
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:29:15.7753993Z ##[endgroup]
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:29:15.8144930Z TAP version 13
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:30:54.1109868Z # BLOCK-011 visible copy rendered 493 ms after Save.
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:31:08.0624924Z # BLOCK-011 synced paragraphs, live copy, access needed and static deletion passed at 1440px
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:31:21.3309634Z # WORK-016 searchable expertise, owned/verified pages, hidden tag and scoped guest people passed at 1440px
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:31:35.4870177Z # Journey failure context {
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:31:35.4871258Z #   "rejected": [
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:31:35.4872659Z #     {
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:31:35.4874517Z #       "url": "http://127.0.0.1:33247/api/pages/01M6RGX1E9W746BGN864N87PSA/open",
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:31:35.4886281Z #       "method": "POST",
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:31:35.4892980Z #       "requestBody": "{\\"operationKey\\":\\"c8cd0104-f897-404c-9041-618dff48c0f1\\",\\"revisionId\\":\\"01M6RGX8EESZKX8CA8J2DVEVFD\\"}",
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:31:35.4894062Z #       "status": 409,
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:31:35.4894926Z #       "responseBody": "{\\"code\\":\\"REVISION_CONFLICT\\",\\"message\\":\\"The record changed. Reload before saving.\\"}"
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:31:35.4895864Z #     }
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:31:35.4896121Z #   ],
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:31:35.4896380Z #   "consoleErrors": [
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:31:35.4896659Z #     {
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:31:35.4897365Z #       "url": "http://127.0.0.1:33247/app/pages/01M6RGTPCAC2R4H0M0BVSY90C6?detail=status",
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:31:35.4898191Z #       "message": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:31:35.4898600Z #     },
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:31:35.4898886Z #     {
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:31:35.4899322Z #       "url": "http://127.0.0.1:33247/app/pages/01M6RGX1E9W746BGN864N87PSA",
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:31:35.4900119Z #       "message": "Failed to load resource: the server responded with a status of 409 (Conflict)"
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:31:35.4900954Z #     }
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:31:35.4901176Z #   ]
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:31:35.4901430Z # }
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:31:35.5612008Z # Subtest: named review request, reviewer queue, exact verify and overdue escalation at 1440px
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:31:35.5621027Z not ok 1 - named review request, reviewer queue, exact verify and overdue escalation at 1440px
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:31:35.5622527Z   ---
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:31:35.5623088Z   duration_ms: 121191.569557
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:31:35.5623445Z   type: 'test'
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:31:35.5624114Z   location: '/home/runner/work/run-slate/run-slate/tests/qualification/ui-convergence/journey-shard.mjs:23:97'
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:31:35.5624842Z   failureType: 'testCodeFailure'
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:31:35.5625194Z   error: |-
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:31:35.5626161Z     Step REV-006 — numbered deletion leaves an attributed tombstone failed: expect(locator).toBeHidden() failed
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:31:35.5626784Z     
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:31:35.5627234Z     Locator:  getByRole('dialog')
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:31:35.5627572Z     Expected: hidden
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:31:35.5627851Z     Received: visible
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:31:35.5628123Z     Timeout:  5000ms
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:31:35.5628375Z     
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:31:35.5628629Z     Call log:
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:31:35.5629028Z       - Expect "toBeHidden" getByRole('dialog') with timeout 5000ms
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:31:35.5629463Z       - waiting for getByRole('dialog')
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:31:35.5630207Z         3 × locator resolved to <dialog open="" class="folio-dialog" aria-label="Publish this revision">…</dialog>
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:31:35.5630668Z           - unexpected value "visible"
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:31:35.5631280Z     
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:31:35.5631523Z   code: 'ERR_TEST_FAILURE'
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:31:35.5631739Z   stack: |-
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:31:35.5632532Z     captureRawStack (/home/runner/work/run-slate/run-slate/node_modules/.pnpm/playwright-core@1.63.0/node_modules/playwright-core/lib/coreBundle.js:8588:17)
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:31:35.5633513Z     callMatcherAsStep (/home/runner/work/run-slate/run-slate/node_modules/.pnpm/playwright@1.63.0/node_modules/playwright/lib/matchers/expect.js:13310:57)
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:31:35.5634414Z     Object.toBeHidden (/home/runner/work/run-slate/run-slate/node_modules/.pnpm/playwright@1.63.0/node_modules/playwright/lib/matchers/expect.js:13302:23)
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:31:35.5635211Z     publish (/home/runner/work/run-slate/run-slate/tests/qualification/ui-convergence/version-deletion-journey.mjs:47:28)
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:31:35.5635959Z     async versionDeletionJourney (/home/runner/work/run-slate/run-slate/tests/qualification/ui-convergence/version-deletion-journey.mjs:52:26)
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:31:35.5636809Z     async step (/home/runner/work/run-slate/run-slate/tests/qualification/ui-convergence/journeys.test.mjs:41:9)
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:31:35.5637710Z     async withSecondPerson (/home/runner/work/run-slate/run-slate/tests/qualification/ui-convergence/two-people-support.mjs:45:5)
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:31:35.5638518Z     async withWorkspace.scheduled (/home/runner/work/run-slate/run-slate/tests/qualification/ui-convergence/journeys.test.mjs:193:7)
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:31:35.5639333Z     async withWorkspace (/home/runner/work/run-slate/run-slate/tests/qualification/ui-convergence/browser-support.mjs:188:7)
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:31:35.5640202Z     async TestContext.<anonymous> (/home/runner/work/run-slate/run-slate/tests/qualification/ui-convergence/journeys.test.mjs:187:5)
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:31:35.5640875Z   ...
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:32:37.0541057Z # Subtest: BLOCK-016 — task reports, My tasks and typed assignments preserve reader access and completion at 1440px
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:32:37.0542863Z ok 2 - BLOCK-016 — task reports, My tasks and typed assignments preserve reader access and completion at 1440px
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:32:37.0543863Z   ---
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:32:37.0544282Z   duration_ms: 61494.511442
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:32:37.0544790Z   type: 'test'
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:32:37.0545279Z   ...
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:32:37.1016535Z 1..2
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:32:37.1016876Z # tests 2
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:32:37.1017254Z # suites 0
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:32:37.1018844Z # pass 1
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:32:37.1019577Z # fail 1
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:32:37.1019774Z # cancelled 0
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:32:37.1019977Z # skipped 0
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:32:37.1020306Z # todo 0
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:32:37.1020724Z # duration_ms 201297.434301
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:34:44.2238533Z TAP version 13
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:34:44.2239102Z # Subtest: genuine insertion focus lifecycle at 1440px
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:34:44.2239634Z ok 1 - genuine insertion focus lifecycle at 1440px
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:34:44.2240033Z   ---
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:34:44.2240294Z   duration_ms: 106026.329666
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:34:44.2240597Z   type: 'test'
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:34:44.2240830Z   ...
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:34:44.2241065Z 1..1
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:34:44.2241306Z # tests 1
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:34:44.2241524Z # suites 0
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:34:44.2241769Z # pass 1
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:34:44.2241986Z # fail 0
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:34:44.2242203Z # cancelled 0
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:34:44.2242430Z # skipped 0
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:34:44.2242663Z # todo 0
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:34:44.2242937Z # duration_ms 127088.980518
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:34:44.2243373Z Shard lane results: journeys=1 worker-suite=0
+verify (ui-focus-desktop)	Workers, public-door journeys and suite	2026-11-06T13:34:44.2256662Z ##[error]Process completed with exit code 1.

@@ -1,0 +1,19 @@
+{
+  "head": "85e783a432d3fa6b50c9338bfc3b71f284087fe9",
+  "jobs": 1,
+  "runs": 1,
+  "createdRecords": 1,
+  "comments": 1,
+  "inboxOutcomes": 1,
+  "actionReceipts": 3,
+  "operationReceipts": 3,
+  "actionActivity": 3,
+  "completionActivity": 1,
+  "healthRefusedAfterKills": true,
+  "sourceValue": {
+    "recovery-stage": "admitted"
+  },
+  "createdValue": {
+    "recovery-stage": "completed"
+  }
+}
