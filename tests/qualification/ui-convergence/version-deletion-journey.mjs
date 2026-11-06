@@ -36,14 +36,24 @@ export async function versionDeletionJourney(state, people) {
     };
     // Publish through the actual review and confirmation controls, keeping each label.
     const publish = async label => {
+      // A click dispatches submission; the review and close follow its response.
+      // Settle that exact request before starting the unchanged UI assertions.
+      const submit = async (name, endpoint) => {
+        const [response] = await Promise.all([
+          alice.page.waitForResponse(item => item.request().method() === 'POST'
+            && new URL(item.url()).pathname === `/api/pages/${pageId}/${endpoint}`, { timeout: 5000 }),
+          dialog.getByRole('button', { name, exact: true }).click(),
+        ]);
+        assert.equal(response.status(), 200, await response.text());
+      };
       await alice.page.goto(`${origin}/app/pages/${pageId}`, { waitUntil: 'networkidle' });
       await alice.page.getByRole('button', { name: 'More', exact: true }).click();
       await alice.page.getByRole('menuitem', { name: 'Publish workspace revision', exact: true }).click();
       const dialog = alice.page.getByRole('dialog');
       await dialog.getByLabel('Version label', { exact: true }).fill(label);
-      await dialog.getByRole('button', { name: 'Review publication', exact: true }).click();
+      await submit('Review publication', 'publish-preview');
       await expect(dialog.getByRole('region', { name: 'Reviewed publication', exact: true })).toBeVisible();
-      await dialog.getByRole('button', { name: 'Publish workspace revision', exact: true }).click();
+      await submit('Publish workspace revision', 'publish');
       await expect(dialog).toBeHidden();
       return (await read()).publishedRevisionId;
     };
