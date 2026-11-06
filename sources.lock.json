@@ -1324,59 +1324,59 @@
       "executable": false
     },
     "evidence/provider-folders/folders-1440-google-drive-completed-report.png": {
-      "sha256": "4a24ab836d9200cc5e3d8b3694d041b1e9217b2eacd7c463cd66fa82a4cff891",
+      "sha256": "d0959d103600dee4d598724e0897331d2361d15f7bfa4ce71c8243fb2cede099",
       "executable": false
     },
     "evidence/provider-folders/folders-1440-google-drive-connected.png": {
-      "sha256": "5eadf3018cc8cb6137d46674e2c89c4acee0c92ee93af33b140365cfbdd8c107",
+      "sha256": "9fdefa22aed21ac4a35c93da832871ed57d35277bd1b21a4424c451794f6ac80",
       "executable": false
     },
     "evidence/provider-folders/folders-1440-google-drive-imported-document.png": {
-      "sha256": "96872306145668568af118c064c10cbad0b726bca2c3ca20799d6d69d9192131",
+      "sha256": "664b54247618a402e4ade8313e886e6fb6aee95693bec83444a0e354c0ee7bb6",
       "executable": false
     },
     "evidence/provider-folders/folders-1440-google-drive-imported-tree.png": {
-      "sha256": "f74f81743dc7acb64966e9498cd9321df90ed6be2ef68479d04fb28613061ed0",
+      "sha256": "ff4395f2c112cef64f56206f34bc369d88cff58f900dec29c9138fa8333c3e0f",
       "executable": false
     },
     "evidence/provider-folders/folders-1440-google-drive-persisted-omissions.png": {
-      "sha256": "658e5d858737c48e99853b57d589bb5ecfbe32b13cdefd548a039fb6ebc05be8",
+      "sha256": "2863120645402b6ed05b606f0900bc8e0ac25947429f14622bfe3493a8a2aa42",
       "executable": false
     },
     "evidence/provider-folders/folders-1440-google-drive-preview-omissions.png": {
-      "sha256": "33163ac7f2d0b9242b767af179f8a3de050dfe2975a762c7ea56dff2101d3c46",
+      "sha256": "2e5693d30f8c7e83533ac041bfb27ec60e4c8c5a0622c0b00b095e36a23946e1",
       "executable": false
     },
     "evidence/provider-folders/folders-1440-google-drive-preview-private-access.png": {
-      "sha256": "894dc9e02a89fc91a7da29ff55970e7efd2d9b74b9b279e5abf2e58c65ba3451",
+      "sha256": "9330e399a805406b88289814aeff5c95feffe993395ff9c0de7b8daa12eab72f",
       "executable": false
     },
     "evidence/provider-folders/folders-1440-sharepoint-completed-report.png": {
-      "sha256": "4d1eba7fa76712b501f659ff6c8715526b6000cafd9c07aed7493e876fe1ebe0",
+      "sha256": "1eb5bc8b84f91646184c656e92a6bd2ed1722c36b48904285c1c45a42f89b092",
       "executable": false
     },
     "evidence/provider-folders/folders-1440-sharepoint-connected.png": {
-      "sha256": "b6455c5b51b51cf8b1506a595f33527348f7cb4da514fa823862f04b65efd4b4",
+      "sha256": "02184fae049d664fdf90fbaf2e7645bdbab0cf2186f1f98910a31f8630fb3a37",
       "executable": false
     },
     "evidence/provider-folders/folders-1440-sharepoint-imported-document.png": {
-      "sha256": "2275c7cc9c5d6de4d44113d114c0f68b25b3db207d3e6e8d4c5bcd07ef49b134",
+      "sha256": "ced56adc19c24fc4b09828bdd02b620bae4f9c9bff8dc17fa89641f1301d5667",
       "executable": false
     },
     "evidence/provider-folders/folders-1440-sharepoint-imported-tree.png": {
-      "sha256": "e5f5135f2b376a30c5a1d2f707f0aa8fec67b9ee6a424fa189205360287f38c6",
+      "sha256": "ba094bb51b176580457e066349ab41f5506c80f5894a97a0de4ad28904c2c0d6",
       "executable": false
     },
     "evidence/provider-folders/folders-1440-sharepoint-persisted-omissions.png": {
-      "sha256": "555216faee534ecfc757d56a15790be5ac7c1072e2afd9ddbb864d7574d7f7c6",
+      "sha256": "3e02e4f76e6ed7c912994a6883a86844832ea5e17a478d96cde3f7299720fff4",
       "executable": false
     },
     "evidence/provider-folders/folders-1440-sharepoint-preview-omissions.png": {
-      "sha256": "aa9bb341c49e91333facbc07e816e0e40ef6c67756d461c847e3f4ceab3e50f9",
+      "sha256": "3e02e4f76e6ed7c912994a6883a86844832ea5e17a478d96cde3f7299720fff4",
       "executable": false
     },
     "evidence/provider-folders/folders-1440-sharepoint-preview-private-access.png": {
-      "sha256": "2dcd68899a8b36f055ae8a09018546af3439103815594c17e9c5b9d9a74788e9",
+      "sha256": "1ce3a3c7ffb74c13a2cc094d2c5a7bb011285660ef355ba04e6b467d2c7e0ea2",
       "executable": false
     },
     "evidence/provider-folders/folders-390-google-drive-completed-report.png": {
@@ -1564,43 +1564,43 @@
       "executable": false
     },
     "evidence/scheduled-backups/backups-1440-connection-passed.png": {
-      "sha256": "e9caa818379b089ebede4103630bced2a0c991a481c0809fae7dc88e667de32e",
+      "sha256": "82825afabf95e26b2c2f4a5bd7d2397c34eb60d6cd27cc3c17404e4627938747",
       "executable": false
     },
     "evidence/scheduled-backups/backups-1440-destination-form.png": {
-      "sha256": "cdc7f55d11968ec866db106465d9fc78542f314c280d5e13b68a2f7cd276f217",
+      "sha256": "47dc758fc097187767c9dbcb9665d72adef0bd7570b41ec99386f257cd0cd7d0",
       "executable": false
     },
     "evidence/scheduled-backups/backups-1440-failure-cleared.png": {
-      "sha256": "7a8c654d6a835aec80891801a4e2fa9e13ade0d7a2d4674e87564dc644c1eb92",
+      "sha256": "cea742eaea4777026a65caf7c3b9c187c296dbf7c2fbb12a2288f7698967a8c2",
       "executable": false
     },
     "evidence/scheduled-backups/backups-1440-failure-visible.png": {
-      "sha256": "43bb9a3cfc37fb665f939a677b1578cdbbb08a1be9f253db9df94564c7ff3e64",
+      "sha256": "0f5f7823692b340ee664b0b311d85c11f8e947a98151362694cceba68f537071",
       "executable": false
     },
     "evidence/scheduled-backups/backups-1440-persisted-drill.png": {
-      "sha256": "0b6257da766ba139e809b1c7aa5d0db7561fd93ca7a969443f18acdbcc56814c",
+      "sha256": "90299118fb1382aeb8950010c3ba75035e025561bae4b7e9bd8bb68e41946261",
       "executable": false
     },
     "evidence/scheduled-backups/backups-1440-removed.png": {
-      "sha256": "500123e88fb1b0adc3acfeedcb3ab4a56d804472cc5b1ec97200c0abf5488852",
+      "sha256": "633491cc4b752a21df8f4a39fb8207df40238d92cad378e42c87a4d6d90f3a66",
       "executable": false
     },
     "evidence/scheduled-backups/backups-1440-restore-drill.png": {
-      "sha256": "481a075ac68641569091b64e2c63a07701cbcfed27a61bae0b170d3f40c87c46",
+      "sha256": "3fe03552392f5b9850839ecc3fe7a126e4f12955e692bf2aa467fe6152b4e6a2",
       "executable": false
     },
     "evidence/scheduled-backups/backups-1440-saved.png": {
-      "sha256": "31900fe2bc8404f4b822dd066f5ff5b5ce8d5693d7dff5e8f6a1402c7581f835",
+      "sha256": "46356110be2b3c4f9616511c73af784a3c15f8d514c3a489df611ff182111822",
       "executable": false
     },
     "evidence/scheduled-backups/backups-1440-successful-backup.png": {
-      "sha256": "5298e91cec40e2c3bcd578bd59d5077c39454171c804f2e3d88e449637ebe373",
+      "sha256": "432c7a7835a0fafc254006ce0a20064b6a97238e865c49efbce062da24bb1a74",
       "executable": false
     },
     "evidence/scheduled-backups/backups-1440-weekly-schedule.png": {
-      "sha256": "b3f093948999d4d5f2283e71cfa390be0cfcd50199c3839a35fc92d1be459ad9",
+      "sha256": "d9946e503eae1e33e916aa1d507dcbd652ba94b6af3236bc06c8180ed61c1ce5",
       "executable": false
     },
     "evidence/scheduled-backups/backups-390-connection-passed.png": {
@@ -12328,7 +12328,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/transfer-jobs-journey.mjs": {
-      "sha256": "a47db1d464612cc671b36e3a69211c6887e13446936a7e981d80c70142f60359",
+      "sha256": "929204aa70cbd66b4125cf8628778b34e4a4508de01c4a192254793951badca6",
       "executable": false
     },
     "tests/qualification/ui-convergence/tree-filter-journey.mjs": {

@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import {mkdir,mkdtemp,readFile,rm,writeFile} from 'node:fs/promises';
 import {createHash,randomUUID} from 'node:crypto';
+import {execFileSync} from 'node:child_process';
 import path from 'node:path';
 import {expect} from '@playwright/test';
 import {runtime,signIn,root} from '../../portability/runtime.mjs';
@@ -109,7 +110,8 @@ async function reconcileSubtree(state,source,archive,bytes,job,evidence){
   }
   const after=await source.snapshot();
   for(const table of Object.keys(source.before))assert.deepEqual(ordered(after[table]),ordered(source.before[table]),`Export leaves source ${table} unchanged.`);
-  const receipt={scope:'Ordinary authored page subtree only; other workspace families and requirement-wide completeness remain unproven.',viewport:state.page.viewportSize(),jobId:job.id,archive:{bytes:bytes.length,sha256:createHash('sha256').update(bytes).digest('hex')},mutations:source.receipts,nativeReads:source.documents,sourceBefore:source.before,archived:selected,originals:originalReceipts,sourceAfter:after};
+  const sourceIdentity={head:execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim(),journeySha256:createHash('sha256').update(await readFile(new URL(import.meta.url))).digest('hex')};
+  const receipt={scope:'Ordinary authored page subtree only; other workspace families and requirement-wide completeness remain unproven.',sourceIdentity,viewport:state.page.viewportSize(),jobId:job.id,archive:{bytes:bytes.length,sha256:createHash('sha256').update(bytes).digest('hex')},mutations:source.receipts,nativeReads:source.documents,sourceBefore:source.before,archived:selected,originals:originalReceipts,sourceAfter:after};
   await writeFile(path.join(evidence,`${state.page.viewportSize().width}-authored-subtree.json`),JSON.stringify(receipt,null,2)+'\n');
   console.log(`PROBE PORT-001 1: native authored subtree -> Settings workspace ZIP retains ${source.pages.length} ordered pages, bodies, properties, twelve revisions, explicit member and group grants, anchored thread and reply`);
   console.log(`PROBE PORT-001 2: native original downloads -> Settings ZIP has both exact original byte sequences and SHA-256 hashes; independent source snapshots unchanged`);
