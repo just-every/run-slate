@@ -3004,7 +3004,7 @@
       "id": "IMP-016",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Missing a public reviewed-mapping journey that applies active and unresolved restrictions and tries unsafe principal mapping without widening; the cited incumbent-export test reads parsed source restrictions only.",
+      "unmetReason": "Acceptance 1's complete content, tree, labels, versions, comments, ordinals, status, publication, links and named user and group restriction matrix; acceptance 4's complete empty, unknown and unmapped restriction and recovery-access matrix; and acceptance 7's complete general-grant and personal-space matrix remain unproven. The genuine incumbent fixture lacks the missing cases; synthetic parser cases do not replace them. ADMIN-007 and shared company-policy, IMP-001, full PORT-004 and imported-record SEARCH-001 through SEARCH-006 prerequisites remain unchanged.",
       "supportingTests": [
         {
           "file": "tests/flagship/federation/federation.test.ts",
