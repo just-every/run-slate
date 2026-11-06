@@ -1,0 +1,4 @@
+PROBE SHARE-002 erasure full: non-owner confirmed deletion and old-capture refusal
+PROBE SHARE-002 erasure edit: preview and delete refused with fresh native proof and exact restored inventory
+PROBE SHARE-002 erasure comment: preview and delete refused with fresh native proof and exact restored inventory
+PROBE SHARE-002 erasure view: preview and delete refused with fresh native proof and exact restored inventory

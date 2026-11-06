@@ -1,0 +1,14 @@
+{
+  "repository": "just-every/run-slate",
+  "branch": "cloud/sd-slate-c-f201",
+  "head": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+  "remoteHead": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+  "mainAtFinalFetch": "1f16db6cb1d9b26717cb30519a925902c1f9a9a8",
+  "candidateCommits": 16,
+  "allCandidateIdentitiesAndTrailersPassed": true,
+  "contractHistoryUnchanged": true,
+  "productCheckoutClean": true,
+  "pr": null,
+  "verifyRun": 42254411032,
+  "verifyEvent": "push"
+}

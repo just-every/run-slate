@@ -1,0 +1,8 @@
+PROBE SHARE-002 erasure full: non-owner confirmed deletion and old-capture refusal
+PROBE SHARE-002 full: page edits, ownership, locks, metadata reads, discussion, reactions, grants and revoked captures; 45 refused requests preserve inventories at 390px
+PROBE SHARE-002 erasure edit: preview and delete refused with fresh native proof and exact restored inventory
+PROBE SHARE-002 edit: page edits, ownership, locks, metadata reads, discussion, reactions, grants and revoked captures; 42 refused requests preserve inventories at 390px
+PROBE SHARE-002 erasure comment: preview and delete refused with fresh native proof and exact restored inventory
+PROBE SHARE-002 comment: page edits, ownership, locks, metadata reads, discussion, reactions, grants and revoked captures; 43 refused requests preserve inventories at 390px
+PROBE SHARE-002 erasure view: preview and delete refused with fresh native proof and exact restored inventory
+PROBE SHARE-002 view: page edits, ownership, locks, metadata reads, discussion, reactions, grants and revoked captures; 40 refused requests preserve inventories at 390px

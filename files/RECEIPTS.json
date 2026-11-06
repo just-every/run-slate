@@ -1,0 +1,1780 @@
+{
+  "validationHead": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+  "schema": 1,
+  "repository": "just-every/run-slate",
+  "branch": "cloud/sd-slate-c-f201",
+  "productHead": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+  "normalization": "Synthetic email-shaped identity strings are replaced with stable aliases. No credential, cookie, auth capture, network dump or runtime configuration is selected. Canonical inventory and receipt fields are otherwise retained.",
+  "matrices": [
+    {
+      "width": 1440,
+      "file": "native-matrix-1440.json.gz",
+      "rawBytes": 26202519,
+      "rawSha256": "df70173ef8ddafef1c3e61d397e75e039951c29e3c9b40579b209e1b45d440ae",
+      "normalizedSha256": "df70173ef8ddafef1c3e61d397e75e039951c29e3c9b40579b209e1b45d440ae",
+      "gzipSha256": "68be6b51a346e372f27e6eca0f345b5443582acdd1261a00c67a878e7555dfaa",
+      "levels": [
+        {
+          "level": "full",
+          "allowedCaptures": 36,
+          "refusedRequests": 45,
+          "erasureTrials": [
+            {
+              "pageId": "01M6RTSM6ZTQ6CC3FHHABK8YDP",
+              "allowed": true,
+              "refusedRequests": 4,
+              "receipt": {
+                "operationKey": "f9ae86c8-168b-45e4-a565-27180855b543",
+                "entity": {
+                  "id": "01M6RTSM6ZTQ6CC3FHHABK8YDP",
+                  "kind": "page",
+                  "revisionId": "01M6RTSRRW6AJA8XTAPME7Z90V"
+                },
+                "revisionId": "01M6RTSRRW6AJA8XTAPME7Z90V",
+                "activityId": "01M6RTSRRW5E2CG0DCNXDM6TGD",
+                "committedAt": "2026-11-06T16:24:19.986Z"
+              }
+            }
+          ],
+          "operations": [
+            "PATCH /api/comments/01M6RTSYQW5SJKA7A6Y1R6H9BM",
+            "PATCH /api/pages/01M6RTP84AXG8NWDKHWN2JX11P",
+            "PATCH /api/pages/01M6RTP84AXG8NWDKHWN2JX11P/blocks/cb0ed6fb-a7ab-4f99-b7fa-d47fd4b5b070",
+            "POST /api/archive/01M6RTP84AXG8NWDKHWN2JX11P",
+            "POST /api/comments/page/01M6RTP84AXG8NWDKHWN2JX11P",
+            "POST /api/comments/page/01M6RTP84AXG8NWDKHWN2JX11P/reaction",
+            "POST /api/comments/page/01M6RTP84AXG8NWDKHWN2JX11P/resolve-all",
+            "POST /api/comments/thread/01M6RTP8NHYDJM7NCDE4GKFXKK/resolve",
+            "POST /api/pages/01M6RTP84AXG8NWDKHWN2JX11P/cancel-schedule",
+            "POST /api/pages/01M6RTP84AXG8NWDKHWN2JX11P/discard-changes",
+            "POST /api/pages/01M6RTP84AXG8NWDKHWN2JX11P/lock",
+            "POST /api/pages/01M6RTP84AXG8NWDKHWN2JX11P/publish",
+            "POST /api/pages/01M6RTP84AXG8NWDKHWN2JX11P/unlock",
+            "POST /api/revisions/01M6RTP84AXG8NWDKHWN2JX11P/01M6RTQAQ6BPTEJ3TJPYQGPP5K/restore",
+            "POST /api/sharing",
+            "PUT /api/pages/01M6RTP84AXG8NWDKHWN2JX11P/blocks"
+          ],
+          "receiptActivityRevisions": [
+            {
+              "operationKey": "da88fcb4-e307-4642-bc7b-8d8e5d9d6951",
+              "activityId": "01M6RTPBN7SNS4X5EJCR4FBYW5",
+              "revisionId": "01M6RTPBN7VAV86GBP769DFVPH"
+            },
+            {
+              "operationKey": "3be19c17-11f7-4ad6-bec2-5a99983c2aba",
+              "activityId": "01M6RTPEK8BRM6A877CZMNE12V",
+              "revisionId": "01M6RTPEK8BDS2WK9B59PB1DXR"
+            },
+            {
+              "operationKey": "5011f92b-e768-476c-8754-8215e1a7762c",
+              "activityId": "01M6RTPNXNM6K821M25N86ZXXH",
+              "revisionId": "01M6RTPNXN4ZE1K1GPQTR35D0P"
+            },
+            {
+              "operationKey": "a5829c8e-18d5-4fb5-bbfd-b031ae1f431c",
+              "activityId": "01M6RTPVKCA23F9H8EKDYXHN0Y",
+              "revisionId": "01M6RTPVKC564YZ6ZXY53VZRC4"
+            },
+            {
+              "operationKey": "c1056c78-e716-4458-bede-e1f02c8746cd",
+              "activityId": "01M6RTPZFXS108DTD73SX4RGJQ",
+              "revisionId": "01M6RTPZFXZC8F8WQWV1NKNTXD"
+            },
+            {
+              "operationKey": "36cd52c7-5bc7-46a0-8f55-ccbcba26d55d",
+              "activityId": "01M6RTQ4F0ZVWFXMGBRAQ938F2",
+              "revisionId": "01M6RTQ4F04HTDSFDYDVFSMDNE"
+            },
+            {
+              "operationKey": "dfef4c51-0d9f-4134-ab33-d0ebcdb1e72d",
+              "activityId": "01M6RTQAQ6F8GY53W143D0FTMD",
+              "revisionId": "01M6RTQAQ6BPTEJ3TJPYQGPP5K"
+            },
+            {
+              "operationKey": "8e8c07ac-f4aa-461e-8f63-9274f522309d",
+              "activityId": "01M6RTQFKNF034R25CKYX38A0W",
+              "revisionId": "01M6RTQFKNEYZSX11SS04XC6PG"
+            },
+            {
+              "operationKey": "097f4576-1ad0-43d1-91f3-7be4e7db27d3",
+              "activityId": "01M6RTQMPRDNT6S8TKJNDJ62JG",
+              "revisionId": "01M6RTQMPRNMM5CQ187TGHWPEM"
+            },
+            {
+              "operationKey": "4a0d64de-648a-494a-aa51-2d4988abbf29",
+              "activityId": "01M6RTQTXXWX5XMNJRKN3X886Q",
+              "revisionId": "01M6RTQTXXPEWX8JDZSREDH224"
+            },
+            {
+              "operationKey": "addbdda1-ef88-4b40-b9e8-cba633d219dd",
+              "activityId": "01M6RTR262K547HKENWZRYYJDQ",
+              "revisionId": "01M6RTR2624KQ1K0CYDWEFJP82"
+            },
+            {
+              "operationKey": "d6b3a254-1dd4-4cd7-96ae-62623322f5ec",
+              "activityId": "01M6RTR80ZHE98WMFX6HCWM660",
+              "revisionId": "01M6RTR80ZAHDDFJ6YJ52KVS2K"
+            },
+            {
+              "operationKey": "9b6968cc-e35a-4975-985c-7ee866535d92",
+              "activityId": "01M6RTREG12Y1N8SJ4HFC9C2Q9",
+              "revisionId": "01M6RTREG128W9J0SSKCR2DEA6"
+            },
+            {
+              "operationKey": "aa0cf8d7-949c-4bcc-99da-42e6392055ed",
+              "activityId": "01M6RTRM5BKZX5ZP4FYWWM1WAK",
+              "revisionId": "01M6RTRM5B26SWP94052WFFZG5"
+            },
+            {
+              "operationKey": "29d192f4-e5d3-4143-92d1-5c16803d519f",
+              "activityId": "01M6RTRT7NE34SWVDSRCNDG147",
+              "revisionId": "01M6RTRT7NQ0Q8YRHCTAZJ5FFK"
+            },
+            {
+              "operationKey": "325554c4-b03b-4a4a-b117-4cd1e4e033d0",
+              "activityId": "01M6RTS2P3PYW7HKCA6VYXKBF6",
+              "revisionId": "01M6RTRT7NQ0Q8YRHCTAZJ5FFK"
+            },
+            {
+              "operationKey": "ee9beb6c-ee01-474d-89e2-7695ac8945f1",
+              "activityId": "01M6RTS79KVT6A4HV87E4A61AJ",
+              "revisionId": "01M6RTRT7NQ0Q8YRHCTAZJ5FFK"
+            },
+            {
+              "operationKey": "3e6293a8-14eb-4b0a-b5d8-fb787515d5cf",
+              "activityId": "01M6RTSCNRNRQGZ08EA668KS46",
+              "revisionId": "01M6RTRT7NQ0Q8YRHCTAZJ5FFK"
+            },
+            {
+              "operationKey": "5720ac19-29f3-4438-93eb-b10fd3652b0b",
+              "activityId": "01M6RTSGA6R4AZ4ACRFEV0JP2P",
+              "revisionId": "01M6RTRT7NQ0Q8YRHCTAZJ5FFK"
+            },
+            {
+              "operationKey": "16c69bda-1382-4189-a064-cca091daa539",
+              "activityId": "01M6RTSYQMTVABB46AGGPXJM4D",
+              "revisionId": "01M6RTSYQMVYENG7F4A2AVG0K4"
+            },
+            {
+              "operationKey": "5272132c-2911-4017-b411-14fa86bdc532",
+              "activityId": "01M6RTT301WWV1J0MMWXMEPMEN",
+              "revisionId": "01M6RTT30173CMA6K6V484M2FP"
+            },
+            {
+              "operationKey": "02036628-edb2-48c4-82c6-53c20e5cbd91",
+              "activityId": "01M6RTT6H694FGWKVMV9NK4PQY",
+              "revisionId": "01M6RTT6H6W9XBPA5DB5RC5XF6"
+            },
+            {
+              "operationKey": "d84096f0-d41d-44f8-8b61-9db41048ca05",
+              "activityId": "01M6RTTCZE7G8HSG0XBB5TN3NV",
+              "revisionId": "01M6RTTCZEFF6RFHA0JK7GE7FV"
+            },
+            {
+              "operationKey": "21bbbd18-935d-44a6-8748-c5502be33b47",
+              "activityId": "01M6RTTG4MKVY1333VEB8KMEYT",
+              "revisionId": "01M6RTTG4M3NM1S36SF027BQ3T"
+            },
+            {
+              "operationKey": "5ae0f159-abb1-40e8-b2c6-28ffc4495ca5",
+              "activityId": "01M6RTTKBD3M6N35ZRTW2C92X0",
+              "revisionId": "01M6RTTKBDZZ96JS48JHEADE62"
+            },
+            {
+              "operationKey": "51d89bf7-111f-4e38-a1e9-63e3b9f58fc0",
+              "activityId": "01M6RTTPPQ6G8E1H4YGBEZA87H",
+              "revisionId": "01M6RTTPPQCFQRR7MAZD5BSA42"
+            },
+            {
+              "operationKey": "5a6a0111-a05b-4c89-974e-da5530526a01",
+              "activityId": "01M6RTTV9C0CC8CTQDDQBRBDNB",
+              "revisionId": "01M6RTTV9CG8WWYMX2JX2H5ZAN"
+            },
+            {
+              "operationKey": "c8a7dc55-6061-4177-aaf5-943b54187d78",
+              "activityId": "01M6RTTZ32CD58C2WH2CS573SY",
+              "revisionId": "01M6RTTZ324Z7TDN5T1JJRBAZ6"
+            },
+            {
+              "operationKey": "9658249b-e3b2-4640-818c-e45d8cddfe63",
+              "activityId": "01M6RTV4F7851JDP1SYHR46DB9",
+              "revisionId": "01M6RTV4F7C61RYJBSW33MEXK2"
+            },
+            {
+              "operationKey": "e34cb4f1-1bc9-47f6-badf-99b5412dd99d",
+              "activityId": "01M6RTV8H0R8XXZNX7Y4DDKM45",
+              "revisionId": "01M6RTV8H08JETZ3G3BK25PHVY"
+            },
+            {
+              "operationKey": "a344a9c3-215d-4cc0-8859-195c9884f7ce",
+              "activityId": "01M6RTVDW3EQGMAAP2RYBNP5DR",
+              "revisionId": "01M6RTVDW3FAVS2BE9Q1N95QNJ"
+            },
+            {
+              "operationKey": "5d5fd8b3-e4ee-4fcf-9508-ba010a20d005",
+              "activityId": "01M6RTVGNC2C2SYX01ADJKXAAH",
+              "revisionId": "01M6RTVGNCCABQJV1J2D22YGRB"
+            },
+            {
+              "operationKey": "2e8a9f1f-611b-4f39-b36b-ac335d2c6c06",
+              "activityId": "01M6RTVMEKPSFCYN9GHF04DR1S",
+              "revisionId": "01M6RTVMEKVJC2BZQZAZG18NDA"
+            },
+            {
+              "operationKey": "54763fe0-f34e-4b21-8693-7650fa7540cf",
+              "activityId": "01M6RTVRC3H0TW8FKGGNGENY7V",
+              "revisionId": "01M6RTVRC3EWRWMZT0FS080ZDF"
+            },
+            {
+              "operationKey": "294f7fc2-89e0-4f0f-aad6-544a74bb68e7",
+              "activityId": "01M6RTVW0G8Q9416GWT0Q6JTGP",
+              "revisionId": "01M6RTVW0GHP33QTSXTNZKHYYD"
+            },
+            {
+              "operationKey": "2661c838-89c0-447f-8499-3c7779b82cc4",
+              "activityId": "01M6RTVZQS2BMC6RVAMM7C880M",
+              "revisionId": "01M6RTVZQS5Q58N4WGD44H2H3K"
+            }
+          ]
+        },
+        {
+          "level": "edit",
+          "allowedCaptures": 25,
+          "refusedRequests": 42,
+          "erasureTrials": [
+            {
+              "pageId": "01M6RV1HH6E0J6C7JWAHHKFXXW",
+              "allowed": false,
+              "refusedRequests": 2,
+              "receipt": null
+            }
+          ],
+          "operations": [
+            "PATCH /api/comments/01M6RV1SD70KQVN66ETN9ANSMG",
+            "PATCH /api/pages/01M6RTYP8QB5FY70KEMFVYNYR6",
+            "PATCH /api/pages/01M6RTYP8QB5FY70KEMFVYNYR6/blocks/a59ef8ae-1b4d-4009-8a79-252a7fe220f4",
+            "POST /api/archive/01M6RTYP8QB5FY70KEMFVYNYR6",
+            "POST /api/comments/page/01M6RTYP8QB5FY70KEMFVYNYR6",
+            "POST /api/comments/page/01M6RTYP8QB5FY70KEMFVYNYR6/reaction",
+            "POST /api/comments/page/01M6RTYP8QB5FY70KEMFVYNYR6/resolve-all",
+            "POST /api/comments/thread/01M6RTYPGTA4SKTKZQG0CJ1EYS/resolve",
+            "POST /api/pages/01M6RTYP8QB5FY70KEMFVYNYR6/discard-changes",
+            "POST /api/pages/01M6RTYP8QB5FY70KEMFVYNYR6/lock",
+            "POST /api/pages/01M6RTYP8QB5FY70KEMFVYNYR6/publish",
+            "POST /api/pages/01M6RTYP8QB5FY70KEMFVYNYR6/unlock",
+            "POST /api/revisions/01M6RTYP8QB5FY70KEMFVYNYR6/01M6RTZFRHW62K6ZKJJ4BE7PY5/restore",
+            "PUT /api/pages/01M6RTYP8QB5FY70KEMFVYNYR6/blocks"
+          ],
+          "receiptActivityRevisions": [
+            {
+              "operationKey": "d319ad6e-25f0-432f-986a-abe99d119abc",
+              "activityId": "01M6RTYS29C1AY0XMM4NTDCXCH",
+              "revisionId": "01M6RTYS29MG8K080A0EW33BZP"
+            },
+            {
+              "operationKey": "f09ac272-1402-4643-bf9a-f2a360f66085",
+              "activityId": "01M6RTYX23HS04Q4490JWV93A5",
+              "revisionId": "01M6RTYX232XT2WX8EGR6VZHYG"
+            },
+            {
+              "operationKey": "1bf998b2-8431-4d6b-a1cf-1582b6400cc1",
+              "activityId": "01M6RTZ2WBNTC2V363XDG574HD",
+              "revisionId": "01M6RTZ2WBBZ32XAY2M2HS9FMB"
+            },
+            {
+              "operationKey": "5288a457-ce67-42fc-96cf-36c0d2420f19",
+              "activityId": "01M6RTZBFCY2ZSJT1A14FHAGMD",
+              "revisionId": "01M6RTZBFCF2HECQA38XZK0A0W"
+            },
+            {
+              "operationKey": "398a8bee-fa72-4a04-95d9-567da5b2fbf2",
+              "activityId": "01M6RTZFRHB4HR2ZEHAYFJVXYZ",
+              "revisionId": "01M6RTZFRHW62K6ZKJJ4BE7PY5"
+            },
+            {
+              "operationKey": "5de939f3-a508-4626-95ae-caebb6d1f1b9",
+              "activityId": "01M6RTZNRF4GA084FEQTYV4AEH",
+              "revisionId": "01M6RTZNRF7H7KCTD7CHBZR3S3"
+            },
+            {
+              "operationKey": "e1e501f2-ff2b-4cb9-b734-d95b58613494",
+              "activityId": "01M6RTZVA7NR25KEWTS7DXM9EG",
+              "revisionId": "01M6RTZVA76CNW6R289KMM5WS3"
+            },
+            {
+              "operationKey": "fc62db5a-76e0-4c20-a8af-30761b192ce1",
+              "activityId": "01M6RV01B2TNH4JZGGX8T3ND9D",
+              "revisionId": "01M6RV01B2HQXBDZVB0SVGC3W3"
+            },
+            {
+              "operationKey": "5e939a17-e8b9-44cc-9d0e-e2f1ae1ded93",
+              "activityId": "01M6RV0A1AV35ATT64FH176KB0",
+              "revisionId": "01M6RV0A1AASX8DA7VF55NQB8E"
+            },
+            {
+              "operationKey": "8964a5a7-9f7c-4a2f-aaa5-ec94e87f5dfc",
+              "activityId": "01M6RV0FH49ZBFBGHT20SWMX4C",
+              "revisionId": "01M6RV0FH4TWCZS7TZ6YGYNC04"
+            },
+            {
+              "operationKey": "22acf9ea-fe5d-43a5-a0a3-c2a2a71a113d",
+              "activityId": "01M6RV0TCEAW3G5B0GXA5J5VSW",
+              "revisionId": "01M6RV0FH4TWCZS7TZ6YGYNC04"
+            },
+            {
+              "operationKey": "c8aff2d1-4fa2-4370-bcce-92c32bab3d4f",
+              "activityId": "01M6RV0ZAGCBSA3PNNATGQ22MB",
+              "revisionId": "01M6RV0FH4TWCZS7TZ6YGYNC04"
+            },
+            {
+              "operationKey": "7930595e-9c68-4a53-b579-cf5d82f1e6a7",
+              "activityId": "01M6RV16ZPQ9Z3J8CTW52NK81T",
+              "revisionId": "01M6RV0FH4TWCZS7TZ6YGYNC04"
+            },
+            {
+              "operationKey": "105c6077-4408-444f-b638-5bd59b896021",
+              "activityId": "01M6RV1BZHF05FHRS2ZH12FYQT",
+              "revisionId": "01M6RV0FH4TWCZS7TZ6YGYNC04"
+            },
+            {
+              "operationKey": "d4e54193-7820-4292-b3d1-a7be50673602",
+              "activityId": "01M6RV1SD45SYN6QNRZFKD6TRS",
+              "revisionId": "01M6RV1SD4MCQK4JG5GR48DP26"
+            },
+            {
+              "operationKey": "19db1fce-bd7a-4e98-98e2-5f98708cf036",
+              "activityId": "01M6RV1YMTJMQQ7T9GPWFF5P2Z",
+              "revisionId": "01M6RV1YMTP2RFWCQ8KV3KM9EW"
+            },
+            {
+              "operationKey": "b97aef8b-24d9-4180-b681-ae64ddc06de9",
+              "activityId": "01M6RV231ZDW7A7FRXF0KC3F8X",
+              "revisionId": "01M6RV231Z154G5VKTJB4PRBQY"
+            },
+            {
+              "operationKey": "789ba34f-77ea-4201-8b07-a4593461e430",
+              "activityId": "01M6RV2BDJVBDPCW7RET1X4ZAS",
+              "revisionId": "01M6RV2BDJG0DY5M1J9D09XYBJ"
+            },
+            {
+              "operationKey": "290c16c8-9ff4-4c0f-b240-433d778d43cb",
+              "activityId": "01M6RV2F9TVP60M0QQ62E31X3N",
+              "revisionId": "01M6RV2F9TF54W5GQH4NSA8VEM"
+            },
+            {
+              "operationKey": "2b2255cf-2730-48eb-aece-6cc90f08c93a",
+              "activityId": "01M6RV2KFWH3GFNPX2MB2H6XNT",
+              "revisionId": "01M6RV2KFWNP3ETXP1STAZ58FE"
+            },
+            {
+              "operationKey": "02e975be-d69d-4d3f-b9ed-fd7c088ebe2c",
+              "activityId": "01M6RV2R275TN569D8VGVFR9T3",
+              "revisionId": "01M6RV2R27GS8E8SZ7GND1B790"
+            },
+            {
+              "operationKey": "beb78828-6fc9-4bc2-8c24-20966b63d44d",
+              "activityId": "01M6RV2XA76EE6589ZM75A6KX8",
+              "revisionId": "01M6RV2XA7R8QBB7NN0R6A6DDN"
+            },
+            {
+              "operationKey": "02d4e255-10f2-431d-adc1-3d3b0b71d09f",
+              "activityId": "01M6RV324RYHV4RKK0KJVYDJTV",
+              "revisionId": "01M6RV324R2EAYT7QVF0VMXN3Y"
+            },
+            {
+              "operationKey": "b704ef66-5254-4d12-85cb-1c1bfc31e19e",
+              "activityId": "01M6RV38V4TKE78QCR8DRGB09C",
+              "revisionId": "01M6RV38V4NFZH7X3VH2GPGJYF"
+            },
+            {
+              "operationKey": "1c566dc4-123f-45fe-845e-61d61a500b62",
+              "activityId": "01M6RV3E60E8JQVBNAYFP33XHH",
+              "revisionId": "01M6RV3E60RD96MK36D2J78Y98"
+            }
+          ]
+        },
+        {
+          "level": "comment",
+          "allowedCaptures": 11,
+          "refusedRequests": 43,
+          "erasureTrials": [
+            {
+              "pageId": "01M6RV8VRJB0ZBFVSMMS3WZ46J",
+              "allowed": false,
+              "refusedRequests": 2,
+              "receipt": null
+            }
+          ],
+          "operations": [
+            "PATCH /api/comments/01M6RV94652JT4SYNY6K1NNM5P",
+            "POST /api/comments/page/01M6RV6E3X67H7CHFR2A6BB1YS",
+            "POST /api/comments/page/01M6RV6E3X67H7CHFR2A6BB1YS/reaction",
+            "POST /api/comments/page/01M6RV6E3X67H7CHFR2A6BB1YS/resolve-all",
+            "POST /api/comments/thread/01M6RV6EBRP8BC7VB0AG7M2P3A/resolve"
+          ],
+          "receiptActivityRevisions": [
+            {
+              "operationKey": "53a30095-bcd4-4ebc-beab-41bc4b9ad74c",
+              "activityId": "01M6RV9461BE22CTJG3GVSSWDC",
+              "revisionId": "01M6RV9461QANVXG620ZFFYX4E"
+            },
+            {
+              "operationKey": "9b08e7c2-8e53-42e2-8cbe-3d37c422f002",
+              "activityId": "01M6RV99YMRWG94RSVC2HJZSYV",
+              "revisionId": "01M6RV99YMBX66ECMWQ25KYFQB"
+            },
+            {
+              "operationKey": "8b85d585-c0d7-4524-80a6-5e97d4bd9ead",
+              "activityId": "01M6RV9F12RBY8CEFP3S7MPK95",
+              "revisionId": "01M6RV9F12EVK3H5JKWYMCQJ0P"
+            },
+            {
+              "operationKey": "fe6af875-2bca-46c7-b4fa-7153531f8969",
+              "activityId": "01M6RV9S65TRW6XH223D5GYFEG",
+              "revisionId": "01M6RV9S6588SD5QBYZ9H6GSQM"
+            },
+            {
+              "operationKey": "02979dc5-8f09-4701-b02d-27198d1c5263",
+              "activityId": "01M6RV9XKYBJ6WJHKSBZ6CSB9P",
+              "revisionId": "01M6RV9XKYJW07M8Z18G4VWVD3"
+            },
+            {
+              "operationKey": "9d1ca273-5750-49c8-9588-72a1e7e6a8fa",
+              "activityId": "01M6RVA26PEPCYDAVATXYANC9F",
+              "revisionId": "01M6RVA26PC2EGHSHVRFRJT6HQ"
+            },
+            {
+              "operationKey": "cb61a539-1b25-449a-a525-88c5db44742f",
+              "activityId": "01M6RVA84P2A1GSYJKGVB9TKPS",
+              "revisionId": "01M6RVA84P5D0G2ZH7C2080FN4"
+            },
+            {
+              "operationKey": "412ae6ee-d5cd-45a5-a2f5-d9ae4f986ed3",
+              "activityId": "01M6RVAF2072FSQK06NJ5DPNT8",
+              "revisionId": "01M6RVAF20647VMSX8TBZWNMYF"
+            },
+            {
+              "operationKey": "c0cdefbb-924b-46d8-9a06-972027575c95",
+              "activityId": "01M6RVAMAM7A3YZ4ZQ5JRQ3GAB",
+              "revisionId": "01M6RVAMAMJGT9XNMMXZGK9H9J"
+            },
+            {
+              "operationKey": "576c518f-7263-4d1b-9c35-aac717b789e8",
+              "activityId": "01M6RVAV6FQ844S2KJHXH8PTB5",
+              "revisionId": "01M6RVAV6F8XHGYSM65A4WFT0M"
+            },
+            {
+              "operationKey": "2425e5da-a8bd-4ada-b0f5-df85e50074f7",
+              "activityId": "01M6RVB10MBFYFHBCXBQPHPT72",
+              "revisionId": "01M6RVB10MHJKNEAB171F5WT2Y"
+            }
+          ]
+        },
+        {
+          "level": "view",
+          "allowedCaptures": 4,
+          "refusedRequests": 40,
+          "erasureTrials": [
+            {
+              "pageId": "01M6RVFPQB902YW7MZEG2J5HVG",
+              "allowed": false,
+              "refusedRequests": 2,
+              "receipt": null
+            }
+          ],
+          "operations": [
+            "POST /api/comments/page/01M6RVD1AKZTMB75XESHNDZ5Z3/reaction"
+          ],
+          "receiptActivityRevisions": [
+            {
+              "operationKey": "dd5233ba-711c-4cb2-8533-c5d339fd2265",
+              "activityId": "01M6RVGKJCCRVCTGFSPGWT6JT5",
+              "revisionId": "01M6RVGKJC5JXAB70JH33E8VBW"
+            },
+            {
+              "operationKey": "623ae426-5d2a-47c4-ae87-38ac28c3225c",
+              "activityId": "01M6RVGRZCE0H0PTCPH9721XEK",
+              "revisionId": "01M6RVGRZCXS8W4AX6DFRW8T5G"
+            },
+            {
+              "operationKey": "b414f502-30ad-464f-88e5-295ceb693200",
+              "activityId": "01M6RVGZ9VXBF86RG2ZREQ6D8R",
+              "revisionId": "01M6RVGZ9VN9WRB9HJ80YQE05G"
+            },
+            {
+              "operationKey": "68a6d79f-9fde-4ca0-9147-d5d5a8d03342",
+              "activityId": "01M6RVH558YV42VKCR1R29HXYM",
+              "revisionId": "01M6RVH5586C4VFD08V0CZD0HF"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "file": "native-matrix-390.json.gz",
+      "rawBytes": 26202518,
+      "rawSha256": "08fc695194db99a2374ea685f236a97c2b18ef6d4adaf5bbbc3fa69504a54c63",
+      "normalizedSha256": "08fc695194db99a2374ea685f236a97c2b18ef6d4adaf5bbbc3fa69504a54c63",
+      "gzipSha256": "a66ad537f6589135f13934bae843143787d60d6198491d0cf253a0882e849407",
+      "levels": [
+        {
+          "level": "full",
+          "allowedCaptures": 36,
+          "refusedRequests": 45,
+          "erasureTrials": [
+            {
+              "pageId": "01M6RTP223P9WGRTKG72VK0AY0",
+              "allowed": true,
+              "refusedRequests": 4,
+              "receipt": {
+                "operationKey": "29850f03-1e05-48f0-8901-f86483222885",
+                "entity": {
+                  "id": "01M6RTP223P9WGRTKG72VK0AY0",
+                  "kind": "page",
+                  "revisionId": "01M6RTP5DJHCW09BW87Y7XCAHB"
+                },
+                "revisionId": "01M6RTP5DJHCW09BW87Y7XCAHB",
+                "activityId": "01M6RTP5DJ9QP37DT5CPTJR2HM",
+                "committedAt": "2026-11-06T16:22:21.865Z"
+              }
+            }
+          ],
+          "operations": [
+            "PATCH /api/comments/01M6RTPCVGD839370E2YYT6SRE",
+            "PATCH /api/pages/01M6RTK6SE0H9E1K39YBH4ECMS",
+            "PATCH /api/pages/01M6RTK6SE0H9E1K39YBH4ECMS/blocks/b187809c-9d0d-4697-aa67-9dd9238ed640",
+            "POST /api/archive/01M6RTK6SE0H9E1K39YBH4ECMS",
+            "POST /api/comments/page/01M6RTK6SE0H9E1K39YBH4ECMS",
+            "POST /api/comments/page/01M6RTK6SE0H9E1K39YBH4ECMS/reaction",
+            "POST /api/comments/page/01M6RTK6SE0H9E1K39YBH4ECMS/resolve-all",
+            "POST /api/comments/thread/01M6RTK73DDJCXEJV2HDB898HN/resolve",
+            "POST /api/pages/01M6RTK6SE0H9E1K39YBH4ECMS/cancel-schedule",
+            "POST /api/pages/01M6RTK6SE0H9E1K39YBH4ECMS/discard-changes",
+            "POST /api/pages/01M6RTK6SE0H9E1K39YBH4ECMS/lock",
+            "POST /api/pages/01M6RTK6SE0H9E1K39YBH4ECMS/publish",
+            "POST /api/pages/01M6RTK6SE0H9E1K39YBH4ECMS/unlock",
+            "POST /api/revisions/01M6RTK6SE0H9E1K39YBH4ECMS/01M6RTM3EAJN02WH1DY50TY5ND/restore",
+            "POST /api/sharing",
+            "PUT /api/pages/01M6RTK6SE0H9E1K39YBH4ECMS/blocks"
+          ],
+          "receiptActivityRevisions": [
+            {
+              "operationKey": "c9337552-37a1-4719-9c1f-1c4d7fd8bf25",
+              "activityId": "01M6RTK9TDKV8N0BBTBWYBB5GE",
+              "revisionId": "01M6RTK9TDM2W1PDX8PNGT1FWF"
+            },
+            {
+              "operationKey": "0e1ccb41-2c24-47a9-aed3-a40f4e99cf92",
+              "activityId": "01M6RTKCKZS6FN1RCQ7WCNH9P7",
+              "revisionId": "01M6RTKCKZBZJVTQCXFTEWNSDR"
+            },
+            {
+              "operationKey": "17ab10c2-bb27-4043-8460-1da31aabdbe6",
+              "activityId": "01M6RTKJV9EZW3SZE3JQ9BQV7Z",
+              "revisionId": "01M6RTKJV909TT5AT1BTNHEV0N"
+            },
+            {
+              "operationKey": "48e9277e-2305-42e5-a471-48a9b32f01ea",
+              "activityId": "01M6RTKQ3X2VK0903SZ2ABAE6Q",
+              "revisionId": "01M6RTKQ3XVQK6KJV7BRNTNP3P"
+            },
+            {
+              "operationKey": "cf26ee93-ffc6-4391-85e4-ddee8b78236b",
+              "activityId": "01M6RTKV3B58MKV7V0C2HP1TGE",
+              "revisionId": "01M6RTKV3B35KCKJFE4QYYXJNE"
+            },
+            {
+              "operationKey": "287d1e05-9a83-4ae2-82ec-a79c9c314eab",
+              "activityId": "01M6RTKZK44PVQ8CVV08NHVP0K",
+              "revisionId": "01M6RTKZK4FJX8ESGNHZTTTH92"
+            },
+            {
+              "operationKey": "7771fc0f-74f9-4f61-8fca-b9f9a9d4fa8b",
+              "activityId": "01M6RTM3EAQTY6063RHXD6MH4X",
+              "revisionId": "01M6RTM3EAJN02WH1DY50TY5ND"
+            },
+            {
+              "operationKey": "6a1cb99f-647c-431a-901d-d5c70d9085c8",
+              "activityId": "01M6RTM8EPKHA32CSWQK9S0Q3X",
+              "revisionId": "01M6RTM8EPTPPNZ79SPNXGT1WK"
+            },
+            {
+              "operationKey": "9865e71c-9027-48c3-93f2-9888bb9bfde3",
+              "activityId": "01M6RTMCSWN7VT1ZNJ8JB1FT5R",
+              "revisionId": "01M6RTMCSWNSH2M9DJ8690X56G"
+            },
+            {
+              "operationKey": "d7af3501-d12a-495a-a9aa-0ac126b32dfe",
+              "activityId": "01M6RTMHPE848B74555M8A08HH",
+              "revisionId": "01M6RTMHPE5A9P1NMDR45AGY90"
+            },
+            {
+              "operationKey": "e87b2793-581b-4998-b71a-460f5ff557bc",
+              "activityId": "01M6RTMQC6RNH4BTBGDSMXXXN4",
+              "revisionId": "01M6RTMQC665R8NXDE5XF8KNN0"
+            },
+            {
+              "operationKey": "55302521-ada9-4522-9374-a3303659e374",
+              "activityId": "01M6RTMW5HHEMF5C9XEEX7XJHK",
+              "revisionId": "01M6RTMW5HRPA8HCFFAP2947BX"
+            },
+            {
+              "operationKey": "1d18c871-c0dc-4d5b-b483-b0111a5547f1",
+              "activityId": "01M6RTN0G3W9AGQBKYJP5HGT5T",
+              "revisionId": "01M6RTN0G3DXXD9RX2GQM1YHCV"
+            },
+            {
+              "operationKey": "2ad26176-7e3e-461b-b069-f477e6090586",
+              "activityId": "01M6RTN4P0315ZKCKS5RF3Q0EX",
+              "revisionId": "01M6RTN4P0CM0PXQJE09A20C9V"
+            },
+            {
+              "operationKey": "207117c7-6dd3-4cc6-9721-fc7abfdf7a46",
+              "activityId": "01M6RTN8PTJEZP8B0Q5A8MXEYA",
+              "revisionId": "01M6RTN8PTTDR0QBY6ARGERKAG"
+            },
+            {
+              "operationKey": "6ee5e3fe-dc65-4781-a9a1-5136d33c2a00",
+              "activityId": "01M6RTNFSPWJ9YZRYKMWT2C285",
+              "revisionId": "01M6RTN8PTTDR0QBY6ARGERKAG"
+            },
+            {
+              "operationKey": "84dd98a5-852c-40a9-8d83-f122dbb603b2",
+              "activityId": "01M6RTNKH8305ZCM59NJJYW5PQ",
+              "revisionId": "01M6RTN8PTTDR0QBY6ARGERKAG"
+            },
+            {
+              "operationKey": "41b1b2c1-d08d-4e23-b007-d92fcde8c1fd",
+              "activityId": "01M6RTNS0WE46KY1K19Y5PD098",
+              "revisionId": "01M6RTN8PTTDR0QBY6ARGERKAG"
+            },
+            {
+              "operationKey": "6773dcb2-b549-413c-b926-c80c461b721c",
+              "activityId": "01M6RTNXK4VBAGP3T64KR34HPF",
+              "revisionId": "01M6RTN8PTTDR0QBY6ARGERKAG"
+            },
+            {
+              "operationKey": "3cf3fc4e-067d-4281-ae48-26346d3be04c",
+              "activityId": "01M6RTPCVDKHVPDF9BBCDY0R8C",
+              "revisionId": "01M6RTPCVD52YMER1YWWXNMAQ0"
+            },
+            {
+              "operationKey": "00da909c-fec8-4aba-a7e0-e653738076c9",
+              "activityId": "01M6RTPH6FQ1TGXH57TB2KDWQ3",
+              "revisionId": "01M6RTPH6F3QZA9ZENWGYXN2VJ"
+            },
+            {
+              "operationKey": "c2fef00f-b0bb-4c12-a934-08b91cf588ad",
+              "activityId": "01M6RTPNTNJG6NKFCTB18FQ8KC",
+              "revisionId": "01M6RTPNTNK49TZPT7GX9VDNBA"
+            },
+            {
+              "operationKey": "2b71b529-8f93-4a86-8a24-0c1f8d640957",
+              "activityId": "01M6RTPXXW2S0C1E5TC40EEJ3K",
+              "revisionId": "01M6RTPXXWZZX46VCY74VYG9JZ"
+            },
+            {
+              "operationKey": "5c351376-7ccc-41ff-9f1e-809f4c48c37a",
+              "activityId": "01M6RTQ1W4NDGF5RNCY66KZ562",
+              "revisionId": "01M6RTQ1W4GH68XD3X7M1H4QSF"
+            },
+            {
+              "operationKey": "3a7d7406-f703-4532-9ea6-cb0d01d1ffbf",
+              "activityId": "01M6RTQ5HRP2YN0TZ5KEWQ9A24",
+              "revisionId": "01M6RTQ5HQAZPEBTAH891TNYZB"
+            },
+            {
+              "operationKey": "a19b650e-e9e7-40b5-9161-f4c9529a6104",
+              "activityId": "01M6RTQ9EE0AZ0GDFW8ZSXBYH8",
+              "revisionId": "01M6RTQ9EE3WQYHRHAE8DWY49G"
+            },
+            {
+              "operationKey": "cef032b0-deb0-44e6-aa28-91e31b41d666",
+              "activityId": "01M6RTQENNE9SX9C80YJN5VZTH",
+              "revisionId": "01M6RTQENNEZERN1Y49AQ0NAB5"
+            },
+            {
+              "operationKey": "157b1c33-2f7c-4bf4-9ea6-00f6f161468a",
+              "activityId": "01M6RTQKJWG6K92BNK2A24TKES",
+              "revisionId": "01M6RTQKJWPRS393CT87M4RXJV"
+            },
+            {
+              "operationKey": "8557b490-0e23-4767-8868-2fcc1ad1f637",
+              "activityId": "01M6RTQSHRQD7RTB63SBT81F48",
+              "revisionId": "01M6RTQSHR4865ZX098E0KEBM5"
+            },
+            {
+              "operationKey": "4ddb0d4a-e73e-4e0f-8dc0-7ca721feb5e2",
+              "activityId": "01M6RTQYA5A2ACZ5YG6HGD12SP",
+              "revisionId": "01M6RTQYA522TPE76G27TVVPWC"
+            },
+            {
+              "operationKey": "3a135b63-4982-4b02-b2cc-8ac79e5f2c0d",
+              "activityId": "01M6RTR4YFB25AQ1M0EV23HN1H",
+              "revisionId": "01M6RTR4YF5DTXYSYWF369JKHC"
+            },
+            {
+              "operationKey": "055a5f11-0c27-40cf-b384-921b7eb6da8a",
+              "activityId": "01M6RTR9SCMXXFQ8647Y4BN2PK",
+              "revisionId": "01M6RTR9SCZZN9SRDJHDNAXJFF"
+            },
+            {
+              "operationKey": "2b9ff122-faff-4941-8eb7-e7ce4baa14e2",
+              "activityId": "01M6RTREWKMSDCWZN8SAB9RQXR",
+              "revisionId": "01M6RTREWK100N1RQ9A2J7GAK6"
+            },
+            {
+              "operationKey": "45b69679-53b1-47e3-9d31-37ba9e466152",
+              "activityId": "01M6RTRKJMRJAB9CPQV5D7V4VN",
+              "revisionId": "01M6RTRKJM0QTK44PHXTBWXMEY"
+            },
+            {
+              "operationKey": "a3432a66-a5d7-4c3c-82b4-b4a86a792ab5",
+              "activityId": "01M6RTRR8TTF8R0TXYGBJN41AA",
+              "revisionId": "01M6RTRR8TDQZ09ZA8WVKEWF23"
+            },
+            {
+              "operationKey": "97812fac-0d87-475d-8318-d6db50b5b704",
+              "activityId": "01M6RTRXC7TGHY2GTYDD2N173X",
+              "revisionId": "01M6RTRXC7JFWPFNNZN1CQ8WHD"
+            }
+          ]
+        },
+        {
+          "level": "edit",
+          "allowedCaptures": 25,
+          "refusedRequests": 42,
+          "erasureTrials": [
+            {
+              "pageId": "01M6RTYBN5V33CDET2NVSTJVKG",
+              "allowed": false,
+              "refusedRequests": 2,
+              "receipt": null
+            }
+          ],
+          "operations": [
+            "PATCH /api/comments/01M6RTYJYTAG4YX7ZEDWKT5213",
+            "PATCH /api/pages/01M6RTVP4DXY9S3BMK4KRBR88J",
+            "PATCH /api/pages/01M6RTVP4DXY9S3BMK4KRBR88J/blocks/81b670a4-951f-4041-bbd9-a2e62bef9415",
+            "POST /api/archive/01M6RTVP4DXY9S3BMK4KRBR88J",
+            "POST /api/comments/page/01M6RTVP4DXY9S3BMK4KRBR88J",
+            "POST /api/comments/page/01M6RTVP4DXY9S3BMK4KRBR88J/reaction",
+            "POST /api/comments/page/01M6RTVP4DXY9S3BMK4KRBR88J/resolve-all",
+            "POST /api/comments/thread/01M6RTVPBZGFVWQJ9P6F36JSX9/resolve",
+            "POST /api/pages/01M6RTVP4DXY9S3BMK4KRBR88J/discard-changes",
+            "POST /api/pages/01M6RTVP4DXY9S3BMK4KRBR88J/lock",
+            "POST /api/pages/01M6RTVP4DXY9S3BMK4KRBR88J/publish",
+            "POST /api/pages/01M6RTVP4DXY9S3BMK4KRBR88J/unlock",
+            "POST /api/revisions/01M6RTVP4DXY9S3BMK4KRBR88J/01M6RTWG1CSVGWEJ65HT0JAJJG/restore",
+            "PUT /api/pages/01M6RTVP4DXY9S3BMK4KRBR88J/blocks"
+          ],
+          "receiptActivityRevisions": [
+            {
+              "operationKey": "5927c0a1-4e0e-4883-8c6b-e1684d755f10",
+              "activityId": "01M6RTVRWZJFFXC3ZD3MM8EZD7",
+              "revisionId": "01M6RTVRWZCB1QQY23EENCXG3T"
+            },
+            {
+              "operationKey": "320388cf-00f0-4103-9205-5d93eefdff37",
+              "activityId": "01M6RTVWH968M6PT1BWSJQC5CX",
+              "revisionId": "01M6RTVWH9T7SDB16WTNM98GQP"
+            },
+            {
+              "operationKey": "8da374a5-f7d7-408a-81ef-334fcdf2e905",
+              "activityId": "01M6RTW32WV1PNZK8GKQWXW6QP",
+              "revisionId": "01M6RTW32W7NTVFGCX880S32B0"
+            },
+            {
+              "operationKey": "94282a00-5278-4536-9c70-f42d651052e0",
+              "activityId": "01M6RTWBE4569EYC2CJQYR6WNJ",
+              "revisionId": "01M6RTWBE45AAES4ZZ95XMBMF0"
+            },
+            {
+              "operationKey": "abb7d90c-ba44-45df-82d4-36da00760d6e",
+              "activityId": "01M6RTWG1C9A13P8AQ5H43RKJY",
+              "revisionId": "01M6RTWG1CSVGWEJ65HT0JAJJG"
+            },
+            {
+              "operationKey": "ab0ac7f9-a7bb-4e88-8264-01cd1225e54f",
+              "activityId": "01M6RTWNNVVXNBXQ4M3HB7Z1N0",
+              "revisionId": "01M6RTWNNVT3ZQJWW5NWNARDKD"
+            },
+            {
+              "operationKey": "25781cf2-616a-4ddb-843b-bfd4410f8ebb",
+              "activityId": "01M6RTWVES1NADE333818182V9",
+              "revisionId": "01M6RTWVESK8185GSDKENFBBAD"
+            },
+            {
+              "operationKey": "fc51280d-18cf-45d4-99bb-771f7354e927",
+              "activityId": "01M6RTX17FDDGRJZ675ND3F67H",
+              "revisionId": "01M6RTX17FMDJS0DW6HWM38PX9"
+            },
+            {
+              "operationKey": "085883dc-fa97-4219-930d-d24674ae6694",
+              "activityId": "01M6RTX7ZCGNPF1HHBAGF24QVS",
+              "revisionId": "01M6RTX7ZCXCGR66TFWZCG9Y5Z"
+            },
+            {
+              "operationKey": "6fe90968-3fd1-46bc-9fce-25e09ca5ae7a",
+              "activityId": "01M6RTXD8PMCM7SNY73TEWQ1HR",
+              "revisionId": "01M6RTXD8N6VJV1SMDB2714DP1"
+            },
+            {
+              "operationKey": "9e186f2c-2af5-4952-bacf-bd92510fac42",
+              "activityId": "01M6RTXQNZTN9Y29YK1528DA4V",
+              "revisionId": "01M6RTXD8N6VJV1SMDB2714DP1"
+            },
+            {
+              "operationKey": "1ed7e78c-c597-403c-a3d7-8f1760a68191",
+              "activityId": "01M6RTXW45614MXPZ7P61HR4N4",
+              "revisionId": "01M6RTXD8N6VJV1SMDB2714DP1"
+            },
+            {
+              "operationKey": "6fae46fe-8659-4a44-807a-bb32d13923ab",
+              "activityId": "01M6RTY2AFVGFBYQSS7TZ5SWQ7",
+              "revisionId": "01M6RTXD8N6VJV1SMDB2714DP1"
+            },
+            {
+              "operationKey": "9732f7e7-ab19-44a3-8f6d-c9224f18b75c",
+              "activityId": "01M6RTY6QYQB7D60FTAVPK3ZP9",
+              "revisionId": "01M6RTXD8N6VJV1SMDB2714DP1"
+            },
+            {
+              "operationKey": "e79fa776-c92c-44d2-b758-3edfcdbda652",
+              "activityId": "01M6RTYJYMZAYQPPAAW4MR2FTR",
+              "revisionId": "01M6RTYJYMWYRVYBFFWERQWDYJ"
+            },
+            {
+              "operationKey": "338bf781-f8c5-4f8e-8bcd-aca5f57e3329",
+              "activityId": "01M6RTYR661AJ2S50ZTY0Y1FB4",
+              "revisionId": "01M6RTYR66WAZH8JBN5DG3S7T2"
+            },
+            {
+              "operationKey": "0b0cd7ea-ccb0-455b-abcd-13dd8d1838a0",
+              "activityId": "01M6RTYWKJRZ19H63SN6TFVTNW",
+              "revisionId": "01M6RTYWKJAYHGAPS94VDM5AXK"
+            },
+            {
+              "operationKey": "e7e1b7e2-12b2-4418-979c-5c730f435699",
+              "activityId": "01M6RTZ5TP0R9915DR687R1KX4",
+              "revisionId": "01M6RTZ5TPSHJ907XFJKT8PTT4"
+            },
+            {
+              "operationKey": "f1752ddc-fb6b-4f35-a7ea-8c006ddf3ee6",
+              "activityId": "01M6RTZ9XK4DCSJFQDT0M6Y7WR",
+              "revisionId": "01M6RTZ9XKC3KE313ZFP9TNJP4"
+            },
+            {
+              "operationKey": "68688376-0134-4dfa-898a-d2e27fa23918",
+              "activityId": "01M6RTZDWJVYYGF9MMQKTANBVM",
+              "revisionId": "01M6RTZDWJQRPKXESZKBM4EN58"
+            },
+            {
+              "operationKey": "f494ec9c-c6d3-45e2-abfd-c4aed7e5d746",
+              "activityId": "01M6RTZJ60ENFZRZEVHNKPG4FM",
+              "revisionId": "01M6RTZJ60W06ADQG22JYAJ4FY"
+            },
+            {
+              "operationKey": "fe3970b9-6ed3-4c1b-bec5-a2417e7c98ae",
+              "activityId": "01M6RTZQG6TK7ZB6HYW051CW08",
+              "revisionId": "01M6RTZQG6T1FDBX7S3AJX9SFP"
+            },
+            {
+              "operationKey": "f18768d4-b9ca-492c-aa8f-0f9ee758954b",
+              "activityId": "01M6RTZWF2BTCV8DFXMJ5KTK1R",
+              "revisionId": "01M6RTZWF26E7E1D7738W8BB9A"
+            },
+            {
+              "operationKey": "496802e4-5ff2-4b3f-bfd5-003418d2dae2",
+              "activityId": "01M6RV02HZ5K4VS6D0CX77KP1D",
+              "revisionId": "01M6RV02HZPGQQBKMEAP8111ZM"
+            },
+            {
+              "operationKey": "327e088c-69b1-4902-a121-73eb559368a3",
+              "activityId": "01M6RV08VV46ZKS5JKWC5K8Y54",
+              "revisionId": "01M6RV08VV20DNMD1GQR11TZGQ"
+            }
+          ]
+        },
+        {
+          "level": "comment",
+          "allowedCaptures": 11,
+          "refusedRequests": 43,
+          "erasureTrials": [
+            {
+              "pageId": "01M6RV5QCXWDGWX84ZRJKDMYHV",
+              "allowed": false,
+              "refusedRequests": 2,
+              "receipt": null
+            }
+          ],
+          "operations": [
+            "PATCH /api/comments/01M6RV5ZJTGW8V6MEWS9MS2RWS",
+            "POST /api/comments/page/01M6RV3AGQ1AEVPGE18QGY0MN8",
+            "POST /api/comments/page/01M6RV3AGQ1AEVPGE18QGY0MN8/reaction",
+            "POST /api/comments/page/01M6RV3AGQ1AEVPGE18QGY0MN8/resolve-all",
+            "POST /api/comments/thread/01M6RV3AQS05MM2W148QPVQB6P/resolve"
+          ],
+          "receiptActivityRevisions": [
+            {
+              "operationKey": "c158c33e-2378-4556-9cd7-d114605a0d8e",
+              "activityId": "01M6RV5ZJN073PDXJWQ9RAN89X",
+              "revisionId": "01M6RV5ZJN1TDYW42HTTCVG8HT"
+            },
+            {
+              "operationKey": "9a6bc538-271b-490b-8dee-1c9d58d0bed1",
+              "activityId": "01M6RV651QH3SQH97Q0VJ8RJJ6",
+              "revisionId": "01M6RV651QXM0YK0ERC25MXEFR"
+            },
+            {
+              "operationKey": "f733f20f-8bed-4d61-9006-dbd0b5a4a8ec",
+              "activityId": "01M6RV69X87CBEW2FSCQ8MZ7WS",
+              "revisionId": "01M6RV69X8WVZPVVK5SM8TXMKG"
+            },
+            {
+              "operationKey": "5e3099a3-eb1c-4b5e-ba3c-79e1b1910c80",
+              "activityId": "01M6RV6M6H0GKT8SRS9WDCJA6F",
+              "revisionId": "01M6RV6M6H7CBT21B9CYJ338KH"
+            },
+            {
+              "operationKey": "2328b5a9-47ef-4f97-96ed-5723544ddac2",
+              "activityId": "01M6RV6S0VG9G1T38D50BTKG5G",
+              "revisionId": "01M6RV6S0VY58N3VE3MHNPKEK8"
+            },
+            {
+              "operationKey": "dd8266c1-6c2a-4b78-845f-23118ae7a5ae",
+              "activityId": "01M6RV6Z4FBBJDA4SFHT9YFVD9",
+              "revisionId": "01M6RV6Z4F8V297JWZB23R54DC"
+            },
+            {
+              "operationKey": "8a69386c-8722-4d94-80f5-04570fbf293a",
+              "activityId": "01M6RV74085ZE78QZM2RDA6RYW",
+              "revisionId": "01M6RV7408566RZNJXP9A3R738"
+            },
+            {
+              "operationKey": "a851860c-1db8-4e0f-99c7-33d2a2c869f4",
+              "activityId": "01M6RV79WJVFK4J49P202WYZE7",
+              "revisionId": "01M6RV79WJTX9T83C6XCGW48PA"
+            },
+            {
+              "operationKey": "b90e9f7f-b9be-4f78-996e-eaa0f49ba325",
+              "activityId": "01M6RV7F2K212A1S6K8BGVBYRH",
+              "revisionId": "01M6RV7F2K3BY3YXG5RE4E84PQ"
+            },
+            {
+              "operationKey": "4cec26d7-9413-4aa5-904a-b172e8b2d610",
+              "activityId": "01M6RV7MZ1TGWK3ABZXTXH5JVC",
+              "revisionId": "01M6RV7MZ1FE1YYRQXQ3PFX81M"
+            },
+            {
+              "operationKey": "378bc0d8-2cd1-48c3-8900-6054cd262e71",
+              "activityId": "01M6RV7T9M1SFW85SH1QCKA3EN",
+              "revisionId": "01M6RV7T9MT0RX0DQP81JNSNC4"
+            }
+          ]
+        },
+        {
+          "level": "view",
+          "allowedCaptures": 4,
+          "refusedRequests": 40,
+          "erasureTrials": [
+            {
+              "pageId": "01M6RVCFQQDNCMSRPCPQS7RRXM",
+              "allowed": false,
+              "refusedRequests": 2,
+              "receipt": null
+            }
+          ],
+          "operations": [
+            "POST /api/comments/page/01M6RV9T6PAC2X68MEY4HJ2KYF/reaction"
+          ],
+          "receiptActivityRevisions": [
+            {
+              "operationKey": "d6838200-1046-425c-8ef7-89cc0fcfd9ef",
+              "activityId": "01M6RVDCXV5WKG3V2QJ4CX7FMR",
+              "revisionId": "01M6RVDCXVGQYC53MJS73NBQG2"
+            },
+            {
+              "operationKey": "a38c6328-9c4f-4f53-b942-5d41fd4f0330",
+              "activityId": "01M6RVDK6X40KFA25XYM74PC9Y",
+              "revisionId": "01M6RVDK6XRSEZ7QG548XZS0M7"
+            },
+            {
+              "operationKey": "99680352-e9b0-4648-9c83-c0c55d532c14",
+              "activityId": "01M6RVDT1DAZF028TMZ7EWTMJJ",
+              "revisionId": "01M6RVDT1DQPCC6ECZHYEHZVEM"
+            },
+            {
+              "operationKey": "0a90867e-3e59-42f9-8abf-b2735745eb46",
+              "activityId": "01M6RVE0PYEQQ1KBV6P851VBSN",
+              "revisionId": "01M6RVE0PYFSPTCTC8JAC2ZTFB"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "screens": [
+    {
+      "width": 1440,
+      "state": "comment archive controls after reload",
+      "file": "075-1440-comment-archive-controls-after-reload.png",
+      "sha256": "bb17d86631811e8ec4fe235cb5d4e82c90b0642053f17683867a316c459167d5",
+      "artifact": {
+        "schema": 1,
+        "commit": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+        "tree": "8d928ceecc58e0767b9d105c9129d88f42434791",
+        "sourceSha256": "f84f10505efbee4f9da489c1cbd16a61da324a38fc4fa7e62df3d277db3322af",
+        "lockSha256": "03501fc04c971744953a0a1fa6cd5a5084619457b30655f54ff752987aeda3cf",
+        "outputSha256": "3ae5217e5997c2b023c790abe902dca21c65f0e03054b7d8d52ca7aea2df79fd"
+      }
+    },
+    {
+      "width": 1440,
+      "state": "comment permanent deletion unavailable",
+      "file": "077-1440-comment-permanent-deletion-unavailable.png",
+      "sha256": "75213295e4c720a5267ff4c781979450158c8b647f0b0d21ca723df8fcaa1599",
+      "artifact": {
+        "schema": 1,
+        "commit": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+        "tree": "8d928ceecc58e0767b9d105c9129d88f42434791",
+        "sourceSha256": "f84f10505efbee4f9da489c1cbd16a61da324a38fc4fa7e62df3d277db3322af",
+        "lockSha256": "03501fc04c971744953a0a1fa6cd5a5084619457b30655f54ff752987aeda3cf",
+        "outputSha256": "3ae5217e5997c2b023c790abe902dca21c65f0e03054b7d8d52ca7aea2df79fd"
+      }
+    },
+    {
+      "width": 1440,
+      "state": "comment publication and discard after reload",
+      "file": "074-1440-comment-publication-and-discard-after-reload.png",
+      "sha256": "42141d46729def01a11c85d489c102a5a38e057c0e571e8488d4371b1171cf53",
+      "artifact": {
+        "schema": 1,
+        "commit": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+        "tree": "8d928ceecc58e0767b9d105c9129d88f42434791",
+        "sourceSha256": "f84f10505efbee4f9da489c1cbd16a61da324a38fc4fa7e62df3d277db3322af",
+        "lockSha256": "03501fc04c971744953a0a1fa6cd5a5084619457b30655f54ff752987aeda3cf",
+        "outputSha256": "3ae5217e5997c2b023c790abe902dca21c65f0e03054b7d8d52ca7aea2df79fd"
+      }
+    },
+    {
+      "width": 1440,
+      "state": "comment revision restore authority",
+      "file": "073-1440-comment-revision-restore-authority.png",
+      "sha256": "d9cb08dc24928f29bd274634227907ed17e26959bd97c50b441de1c8166fe168",
+      "artifact": {
+        "schema": 1,
+        "commit": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+        "tree": "8d928ceecc58e0767b9d105c9129d88f42434791",
+        "sourceSha256": "f84f10505efbee4f9da489c1cbd16a61da324a38fc4fa7e62df3d277db3322af",
+        "lockSha256": "03501fc04c971744953a0a1fa6cd5a5084619457b30655f54ff752987aeda3cf",
+        "outputSha256": "3ae5217e5997c2b023c790abe902dca21c65f0e03054b7d8d52ca7aea2df79fd"
+      }
+    },
+    {
+      "width": 1440,
+      "state": "comment trash controls after reload",
+      "file": "076-1440-comment-trash-controls-after-reload.png",
+      "sha256": "8edd8fea70d2b9508ed86f42150c81d0949d27cf6ceaed4bd37890dffaf0cecb",
+      "artifact": {
+        "schema": 1,
+        "commit": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+        "tree": "8d928ceecc58e0767b9d105c9129d88f42434791",
+        "sourceSha256": "f84f10505efbee4f9da489c1cbd16a61da324a38fc4fa7e62df3d277db3322af",
+        "lockSha256": "03501fc04c971744953a0a1fa6cd5a5084619457b30655f54ff752987aeda3cf",
+        "outputSha256": "3ae5217e5997c2b023c790abe902dca21c65f0e03054b7d8d52ca7aea2df79fd"
+      }
+    },
+    {
+      "width": 1440,
+      "state": "edit archive controls after reload",
+      "file": "061-1440-edit-archive-controls-after-reload.png",
+      "sha256": "4ccea408be9099ffd784161a6f309a37437997df90c79d51c010b4863196c37d",
+      "artifact": {
+        "schema": 1,
+        "commit": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+        "tree": "8d928ceecc58e0767b9d105c9129d88f42434791",
+        "sourceSha256": "f84f10505efbee4f9da489c1cbd16a61da324a38fc4fa7e62df3d277db3322af",
+        "lockSha256": "03501fc04c971744953a0a1fa6cd5a5084619457b30655f54ff752987aeda3cf",
+        "outputSha256": "3ae5217e5997c2b023c790abe902dca21c65f0e03054b7d8d52ca7aea2df79fd"
+      }
+    },
+    {
+      "width": 1440,
+      "state": "edit permanent deletion unavailable",
+      "file": "063-1440-edit-permanent-deletion-unavailable.png",
+      "sha256": "50bae63a1f4a5b2aaef71daaccb8d2b506e75bc34b57c175ce9eb89bc9651160",
+      "artifact": {
+        "schema": 1,
+        "commit": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+        "tree": "8d928ceecc58e0767b9d105c9129d88f42434791",
+        "sourceSha256": "f84f10505efbee4f9da489c1cbd16a61da324a38fc4fa7e62df3d277db3322af",
+        "lockSha256": "03501fc04c971744953a0a1fa6cd5a5084619457b30655f54ff752987aeda3cf",
+        "outputSha256": "3ae5217e5997c2b023c790abe902dca21c65f0e03054b7d8d52ca7aea2df79fd"
+      }
+    },
+    {
+      "width": 1440,
+      "state": "edit publication and discard after reload",
+      "file": "060-1440-edit-publication-and-discard-after-reload.png",
+      "sha256": "4ff3e6852a38f64e20798c1c4a5293fda3c20e4eea89d8c26ad58351a6f5dde5",
+      "artifact": {
+        "schema": 1,
+        "commit": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+        "tree": "8d928ceecc58e0767b9d105c9129d88f42434791",
+        "sourceSha256": "f84f10505efbee4f9da489c1cbd16a61da324a38fc4fa7e62df3d277db3322af",
+        "lockSha256": "03501fc04c971744953a0a1fa6cd5a5084619457b30655f54ff752987aeda3cf",
+        "outputSha256": "3ae5217e5997c2b023c790abe902dca21c65f0e03054b7d8d52ca7aea2df79fd"
+      }
+    },
+    {
+      "width": 1440,
+      "state": "edit publication authority before review",
+      "file": "059-1440-edit-publication-authority-before-review.png",
+      "sha256": "12df8f6ff7faa10f82dc715a984f9c995bebc5bffe6c3dd2a7afc4f6dae91cf9",
+      "artifact": {
+        "schema": 1,
+        "commit": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+        "tree": "8d928ceecc58e0767b9d105c9129d88f42434791",
+        "sourceSha256": "f84f10505efbee4f9da489c1cbd16a61da324a38fc4fa7e62df3d277db3322af",
+        "lockSha256": "03501fc04c971744953a0a1fa6cd5a5084619457b30655f54ff752987aeda3cf",
+        "outputSha256": "3ae5217e5997c2b023c790abe902dca21c65f0e03054b7d8d52ca7aea2df79fd"
+      }
+    },
+    {
+      "width": 1440,
+      "state": "edit revision restore authority",
+      "file": "058-1440-edit-revision-restore-authority.png",
+      "sha256": "ff0845602a89936186ed6f1f22bca7b2aaeb3eb7839f0cd8d9aceafacca8975a",
+      "artifact": {
+        "schema": 1,
+        "commit": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+        "tree": "8d928ceecc58e0767b9d105c9129d88f42434791",
+        "sourceSha256": "f84f10505efbee4f9da489c1cbd16a61da324a38fc4fa7e62df3d277db3322af",
+        "lockSha256": "03501fc04c971744953a0a1fa6cd5a5084619457b30655f54ff752987aeda3cf",
+        "outputSha256": "3ae5217e5997c2b023c790abe902dca21c65f0e03054b7d8d52ca7aea2df79fd"
+      }
+    },
+    {
+      "width": 1440,
+      "state": "edit schedule control visible after reload",
+      "file": "006-1440-edit-schedule-control-visible-after-reload.png",
+      "sha256": "266bf27432e47cebbb91ae02b676f4860f6d29da9ebd5308fb39bbfeb77649c4",
+      "artifact": {
+        "schema": 1,
+        "commit": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+        "tree": "8d928ceecc58e0767b9d105c9129d88f42434791",
+        "sourceSha256": "f84f10505efbee4f9da489c1cbd16a61da324a38fc4fa7e62df3d277db3322af",
+        "lockSha256": "03501fc04c971744953a0a1fa6cd5a5084619457b30655f54ff752987aeda3cf",
+        "outputSha256": "3ae5217e5997c2b023c790abe902dca21c65f0e03054b7d8d52ca7aea2df79fd"
+      }
+    },
+    {
+      "width": 1440,
+      "state": "edit trash controls after reload",
+      "file": "062-1440-edit-trash-controls-after-reload.png",
+      "sha256": "bf0d2985a5a23d66450d2c15e4aef6b9271c25109ef2658f200507f5c7d94664",
+      "artifact": {
+        "schema": 1,
+        "commit": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+        "tree": "8d928ceecc58e0767b9d105c9129d88f42434791",
+        "sourceSha256": "f84f10505efbee4f9da489c1cbd16a61da324a38fc4fa7e62df3d277db3322af",
+        "lockSha256": "03501fc04c971744953a0a1fa6cd5a5084619457b30655f54ff752987aeda3cf",
+        "outputSha256": "3ae5217e5997c2b023c790abe902dca21c65f0e03054b7d8d52ca7aea2df79fd"
+      }
+    },
+    {
+      "width": 1440,
+      "state": "full archive controls after reload",
+      "file": "044-1440-full-archive-controls-after-reload.png",
+      "sha256": "0fdafc022a06ce478e31872528836c1ff546a5272ef61e00dec200f86842c96b",
+      "artifact": {
+        "schema": 1,
+        "commit": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+        "tree": "8d928ceecc58e0767b9d105c9129d88f42434791",
+        "sourceSha256": "f84f10505efbee4f9da489c1cbd16a61da324a38fc4fa7e62df3d277db3322af",
+        "lockSha256": "03501fc04c971744953a0a1fa6cd5a5084619457b30655f54ff752987aeda3cf",
+        "outputSha256": "3ae5217e5997c2b023c790abe902dca21c65f0e03054b7d8d52ca7aea2df79fd"
+      }
+    },
+    {
+      "width": 1440,
+      "state": "full member scheduled publication",
+      "file": "042-1440-full-member-scheduled-publication.png",
+      "sha256": "63e7ba289bed2572fca1ac21740207fd477f452c48904a53d7c7c85ab8f2217d",
+      "artifact": {
+        "schema": 1,
+        "commit": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+        "tree": "8d928ceecc58e0767b9d105c9129d88f42434791",
+        "sourceSha256": "f84f10505efbee4f9da489c1cbd16a61da324a38fc4fa7e62df3d277db3322af",
+        "lockSha256": "03501fc04c971744953a0a1fa6cd5a5084619457b30655f54ff752987aeda3cf",
+        "outputSha256": "3ae5217e5997c2b023c790abe902dca21c65f0e03054b7d8d52ca7aea2df79fd"
+      }
+    },
+    {
+      "width": 1440,
+      "state": "full non-owner confirmed permanent deletion",
+      "file": "046-1440-full-non-owner-confirmed-permanent-deletion.png",
+      "sha256": "cc2e0f3853f3066f62b53d53e8e9395d42ebb450a504801d2083d4b22f851d67",
+      "artifact": {
+        "schema": 1,
+        "commit": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+        "tree": "8d928ceecc58e0767b9d105c9129d88f42434791",
+        "sourceSha256": "f84f10505efbee4f9da489c1cbd16a61da324a38fc4fa7e62df3d277db3322af",
+        "lockSha256": "03501fc04c971744953a0a1fa6cd5a5084619457b30655f54ff752987aeda3cf",
+        "outputSha256": "3ae5217e5997c2b023c790abe902dca21c65f0e03054b7d8d52ca7aea2df79fd"
+      }
+    },
+    {
+      "width": 1440,
+      "state": "full non-owner erased page remains absent",
+      "file": "047-1440-full-non-owner-erased-page-remains-absent.png",
+      "sha256": "7831732676e241239a9c9c5482b82102a26ecb7b10f411b703859299d7cbe985",
+      "artifact": {
+        "schema": 1,
+        "commit": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+        "tree": "8d928ceecc58e0767b9d105c9129d88f42434791",
+        "sourceSha256": "f84f10505efbee4f9da489c1cbd16a61da324a38fc4fa7e62df3d277db3322af",
+        "lockSha256": "03501fc04c971744953a0a1fa6cd5a5084619457b30655f54ff752987aeda3cf",
+        "outputSha256": "3ae5217e5997c2b023c790abe902dca21c65f0e03054b7d8d52ca7aea2df79fd"
+      }
+    },
+    {
+      "width": 1440,
+      "state": "full publication and discard after reload",
+      "file": "043-1440-full-publication-and-discard-after-reload.png",
+      "sha256": "0e4e5547397b72a8ddcc3a1f5d35f40ca508b41962cb8b5953aae9a0659864bd",
+      "artifact": {
+        "schema": 1,
+        "commit": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+        "tree": "8d928ceecc58e0767b9d105c9129d88f42434791",
+        "sourceSha256": "f84f10505efbee4f9da489c1cbd16a61da324a38fc4fa7e62df3d277db3322af",
+        "lockSha256": "03501fc04c971744953a0a1fa6cd5a5084619457b30655f54ff752987aeda3cf",
+        "outputSha256": "3ae5217e5997c2b023c790abe902dca21c65f0e03054b7d8d52ca7aea2df79fd"
+      }
+    },
+    {
+      "width": 1440,
+      "state": "full publication authority before review",
+      "file": "041-1440-full-publication-authority-before-review.png",
+      "sha256": "0aec5f65c7654da69d4082a12aafa089f15ad022ad2aebdf981a723786bb467f",
+      "artifact": {
+        "schema": 1,
+        "commit": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+        "tree": "8d928ceecc58e0767b9d105c9129d88f42434791",
+        "sourceSha256": "f84f10505efbee4f9da489c1cbd16a61da324a38fc4fa7e62df3d277db3322af",
+        "lockSha256": "03501fc04c971744953a0a1fa6cd5a5084619457b30655f54ff752987aeda3cf",
+        "outputSha256": "3ae5217e5997c2b023c790abe902dca21c65f0e03054b7d8d52ca7aea2df79fd"
+      }
+    },
+    {
+      "width": 1440,
+      "state": "full revision restore authority",
+      "file": "040-1440-full-revision-restore-authority.png",
+      "sha256": "f4b6202fe32b71ecaa24e51f41d28a9c6bca7294545a3564ae0060ded5864e69",
+      "artifact": {
+        "schema": 1,
+        "commit": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+        "tree": "8d928ceecc58e0767b9d105c9129d88f42434791",
+        "sourceSha256": "f84f10505efbee4f9da489c1cbd16a61da324a38fc4fa7e62df3d277db3322af",
+        "lockSha256": "03501fc04c971744953a0a1fa6cd5a5084619457b30655f54ff752987aeda3cf",
+        "outputSha256": "3ae5217e5997c2b023c790abe902dca21c65f0e03054b7d8d52ca7aea2df79fd"
+      }
+    },
+    {
+      "width": 1440,
+      "state": "full schedule control visible after reload",
+      "file": "005-1440-full-schedule-control-visible-after-reload.png",
+      "sha256": "2e5c149a010a0d3ce97f8619c344dc68c6db6aa05102a122b6c3a029356e16c1",
+      "artifact": {
+        "schema": 1,
+        "commit": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+        "tree": "8d928ceecc58e0767b9d105c9129d88f42434791",
+        "sourceSha256": "f84f10505efbee4f9da489c1cbd16a61da324a38fc4fa7e62df3d277db3322af",
+        "lockSha256": "03501fc04c971744953a0a1fa6cd5a5084619457b30655f54ff752987aeda3cf",
+        "outputSha256": "3ae5217e5997c2b023c790abe902dca21c65f0e03054b7d8d52ca7aea2df79fd"
+      }
+    },
+    {
+      "width": 1440,
+      "state": "full trash controls after reload",
+      "file": "045-1440-full-trash-controls-after-reload.png",
+      "sha256": "658ea5975bd5ad7cf09c8182803632a5f4c4c1b8fa022870897ad51d4b4c751a",
+      "artifact": {
+        "schema": 1,
+        "commit": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+        "tree": "8d928ceecc58e0767b9d105c9129d88f42434791",
+        "sourceSha256": "f84f10505efbee4f9da489c1cbd16a61da324a38fc4fa7e62df3d277db3322af",
+        "lockSha256": "03501fc04c971744953a0a1fa6cd5a5084619457b30655f54ff752987aeda3cf",
+        "outputSha256": "3ae5217e5997c2b023c790abe902dca21c65f0e03054b7d8d52ca7aea2df79fd"
+      }
+    },
+    {
+      "width": 1440,
+      "state": "view archive controls after reload",
+      "file": "089-1440-view-archive-controls-after-reload.png",
+      "sha256": "6d32a3d76aa253b04be1e60b03bafadc5281d2af44860d3822026c1e6f3bcfba",
+      "artifact": {
+        "schema": 1,
+        "commit": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+        "tree": "8d928ceecc58e0767b9d105c9129d88f42434791",
+        "sourceSha256": "f84f10505efbee4f9da489c1cbd16a61da324a38fc4fa7e62df3d277db3322af",
+        "lockSha256": "03501fc04c971744953a0a1fa6cd5a5084619457b30655f54ff752987aeda3cf",
+        "outputSha256": "3ae5217e5997c2b023c790abe902dca21c65f0e03054b7d8d52ca7aea2df79fd"
+      }
+    },
+    {
+      "width": 1440,
+      "state": "view permanent deletion unavailable",
+      "file": "091-1440-view-permanent-deletion-unavailable.png",
+      "sha256": "489feef04d6907b15c2a49be228b134d774d59cb8b0fc3fcbd2e11b5450edc90",
+      "artifact": {
+        "schema": 1,
+        "commit": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+        "tree": "8d928ceecc58e0767b9d105c9129d88f42434791",
+        "sourceSha256": "f84f10505efbee4f9da489c1cbd16a61da324a38fc4fa7e62df3d277db3322af",
+        "lockSha256": "03501fc04c971744953a0a1fa6cd5a5084619457b30655f54ff752987aeda3cf",
+        "outputSha256": "3ae5217e5997c2b023c790abe902dca21c65f0e03054b7d8d52ca7aea2df79fd"
+      }
+    },
+    {
+      "width": 1440,
+      "state": "view publication and discard after reload",
+      "file": "088-1440-view-publication-and-discard-after-reload.png",
+      "sha256": "5d2005f7c4447b6732d10a0404091f404574d30d14ea39c7ef26576ffd7ea548",
+      "artifact": {
+        "schema": 1,
+        "commit": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+        "tree": "8d928ceecc58e0767b9d105c9129d88f42434791",
+        "sourceSha256": "f84f10505efbee4f9da489c1cbd16a61da324a38fc4fa7e62df3d277db3322af",
+        "lockSha256": "03501fc04c971744953a0a1fa6cd5a5084619457b30655f54ff752987aeda3cf",
+        "outputSha256": "3ae5217e5997c2b023c790abe902dca21c65f0e03054b7d8d52ca7aea2df79fd"
+      }
+    },
+    {
+      "width": 1440,
+      "state": "view revision restore authority",
+      "file": "087-1440-view-revision-restore-authority.png",
+      "sha256": "4cd140c3acddcfa19c4776d80f9a95842debe49737bb2c01bf7d148769182291",
+      "artifact": {
+        "schema": 1,
+        "commit": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+        "tree": "8d928ceecc58e0767b9d105c9129d88f42434791",
+        "sourceSha256": "f84f10505efbee4f9da489c1cbd16a61da324a38fc4fa7e62df3d277db3322af",
+        "lockSha256": "03501fc04c971744953a0a1fa6cd5a5084619457b30655f54ff752987aeda3cf",
+        "outputSha256": "3ae5217e5997c2b023c790abe902dca21c65f0e03054b7d8d52ca7aea2df79fd"
+      }
+    },
+    {
+      "width": 1440,
+      "state": "view trash controls after reload",
+      "file": "090-1440-view-trash-controls-after-reload.png",
+      "sha256": "d01bf97793f918efc89dd9c03c9f00132f3141a943dedfc68037cd82b7942912",
+      "artifact": {
+        "schema": 1,
+        "commit": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+        "tree": "8d928ceecc58e0767b9d105c9129d88f42434791",
+        "sourceSha256": "f84f10505efbee4f9da489c1cbd16a61da324a38fc4fa7e62df3d277db3322af",
+        "lockSha256": "03501fc04c971744953a0a1fa6cd5a5084619457b30655f54ff752987aeda3cf",
+        "outputSha256": "3ae5217e5997c2b023c790abe902dca21c65f0e03054b7d8d52ca7aea2df79fd"
+      }
+    },
+    {
+      "width": 390,
+      "state": "comment archive controls after reload",
+      "file": "044-390-comment-archive-controls-after-reload.png",
+      "sha256": "ed6d78c5408778f35180d81bc8d516fbb47d2fc56cbbee4ca3b56ec6d683ffb3",
+      "artifact": {
+        "schema": 1,
+        "commit": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+        "tree": "8d928ceecc58e0767b9d105c9129d88f42434791",
+        "sourceSha256": "f84f10505efbee4f9da489c1cbd16a61da324a38fc4fa7e62df3d277db3322af",
+        "lockSha256": "03501fc04c971744953a0a1fa6cd5a5084619457b30655f54ff752987aeda3cf",
+        "outputSha256": "3ae5217e5997c2b023c790abe902dca21c65f0e03054b7d8d52ca7aea2df79fd"
+      }
+    },
+    {
+      "width": 390,
+      "state": "comment permanent deletion unavailable",
+      "file": "046-390-comment-permanent-deletion-unavailable.png",
+      "sha256": "bd97e89b0f05e737794299acfda8e7e7a1b05b729575f1bf741f60842738493a",
+      "artifact": {
+        "schema": 1,
+        "commit": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+        "tree": "8d928ceecc58e0767b9d105c9129d88f42434791",
+        "sourceSha256": "f84f10505efbee4f9da489c1cbd16a61da324a38fc4fa7e62df3d277db3322af",
+        "lockSha256": "03501fc04c971744953a0a1fa6cd5a5084619457b30655f54ff752987aeda3cf",
+        "outputSha256": "3ae5217e5997c2b023c790abe902dca21c65f0e03054b7d8d52ca7aea2df79fd"
+      }
+    },
+    {
+      "width": 390,
+      "state": "comment publication and discard after reload",
+      "file": "043-390-comment-publication-and-discard-after-reload.png",
+      "sha256": "6683d599b4dacddb521272124f88ceb8953d6735e1bf48b9244ddcf322656800",
+      "artifact": {
+        "schema": 1,
+        "commit": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+        "tree": "8d928ceecc58e0767b9d105c9129d88f42434791",
+        "sourceSha256": "f84f10505efbee4f9da489c1cbd16a61da324a38fc4fa7e62df3d277db3322af",
+        "lockSha256": "03501fc04c971744953a0a1fa6cd5a5084619457b30655f54ff752987aeda3cf",
+        "outputSha256": "3ae5217e5997c2b023c790abe902dca21c65f0e03054b7d8d52ca7aea2df79fd"
+      }
+    },
+    {
+      "width": 390,
+      "state": "comment revision restore authority",
+      "file": "042-390-comment-revision-restore-authority.png",
+      "sha256": "a516c65d7035144f187dd1bd734cc3d3668404e3153592ece375a877101b28a7",
+      "artifact": {
+        "schema": 1,
+        "commit": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+        "tree": "8d928ceecc58e0767b9d105c9129d88f42434791",
+        "sourceSha256": "f84f10505efbee4f9da489c1cbd16a61da324a38fc4fa7e62df3d277db3322af",
+        "lockSha256": "03501fc04c971744953a0a1fa6cd5a5084619457b30655f54ff752987aeda3cf",
+        "outputSha256": "3ae5217e5997c2b023c790abe902dca21c65f0e03054b7d8d52ca7aea2df79fd"
+      }
+    },
+    {
+      "width": 390,
+      "state": "comment trash controls after reload",
+      "file": "045-390-comment-trash-controls-after-reload.png",
+      "sha256": "fa3c475b119c394ddfa882bc7d664c233e4d6c0570e1cf48ece9f1c6d826516b",
+      "artifact": {
+        "schema": 1,
+        "commit": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+        "tree": "8d928ceecc58e0767b9d105c9129d88f42434791",
+        "sourceSha256": "f84f10505efbee4f9da489c1cbd16a61da324a38fc4fa7e62df3d277db3322af",
+        "lockSha256": "03501fc04c971744953a0a1fa6cd5a5084619457b30655f54ff752987aeda3cf",
+        "outputSha256": "3ae5217e5997c2b023c790abe902dca21c65f0e03054b7d8d52ca7aea2df79fd"
+      }
+    },
+    {
+      "width": 390,
+      "state": "edit archive controls after reload",
+      "file": "030-390-edit-archive-controls-after-reload.png",
+      "sha256": "db0083580cf5d1f432a4b53ec8f9d2351d1bb0f5393f59f290e645184f0cd42a",
+      "artifact": {
+        "schema": 1,
+        "commit": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+        "tree": "8d928ceecc58e0767b9d105c9129d88f42434791",
+        "sourceSha256": "f84f10505efbee4f9da489c1cbd16a61da324a38fc4fa7e62df3d277db3322af",
+        "lockSha256": "03501fc04c971744953a0a1fa6cd5a5084619457b30655f54ff752987aeda3cf",
+        "outputSha256": "3ae5217e5997c2b023c790abe902dca21c65f0e03054b7d8d52ca7aea2df79fd"
+      }
+    },
+    {
+      "width": 390,
+      "state": "edit permanent deletion unavailable",
+      "file": "032-390-edit-permanent-deletion-unavailable.png",
+      "sha256": "4448530da68759001a9a94a6d0792fcd799b7de91780a11d5081cc34f8686817",
+      "artifact": {
+        "schema": 1,
+        "commit": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+        "tree": "8d928ceecc58e0767b9d105c9129d88f42434791",
+        "sourceSha256": "f84f10505efbee4f9da489c1cbd16a61da324a38fc4fa7e62df3d277db3322af",
+        "lockSha256": "03501fc04c971744953a0a1fa6cd5a5084619457b30655f54ff752987aeda3cf",
+        "outputSha256": "3ae5217e5997c2b023c790abe902dca21c65f0e03054b7d8d52ca7aea2df79fd"
+      }
+    },
+    {
+      "width": 390,
+      "state": "edit publication and discard after reload",
+      "file": "029-390-edit-publication-and-discard-after-reload.png",
+      "sha256": "01203eee042f7fe7b053ed4afc81c67bb1f479fbbf3894a244b4fd7529a30a21",
+      "artifact": {
+        "schema": 1,
+        "commit": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+        "tree": "8d928ceecc58e0767b9d105c9129d88f42434791",
+        "sourceSha256": "f84f10505efbee4f9da489c1cbd16a61da324a38fc4fa7e62df3d277db3322af",
+        "lockSha256": "03501fc04c971744953a0a1fa6cd5a5084619457b30655f54ff752987aeda3cf",
+        "outputSha256": "3ae5217e5997c2b023c790abe902dca21c65f0e03054b7d8d52ca7aea2df79fd"
+      }
+    },
+    {
+      "width": 390,
+      "state": "edit publication authority before review",
+      "file": "028-390-edit-publication-authority-before-review.png",
+      "sha256": "ecde4ae609f35b383d4c5ee0b1185a981920d859d338aedc043c4e06646d5105",
+      "artifact": {
+        "schema": 1,
+        "commit": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+        "tree": "8d928ceecc58e0767b9d105c9129d88f42434791",
+        "sourceSha256": "f84f10505efbee4f9da489c1cbd16a61da324a38fc4fa7e62df3d277db3322af",
+        "lockSha256": "03501fc04c971744953a0a1fa6cd5a5084619457b30655f54ff752987aeda3cf",
+        "outputSha256": "3ae5217e5997c2b023c790abe902dca21c65f0e03054b7d8d52ca7aea2df79fd"
+      }
+    },
+    {
+      "width": 390,
+      "state": "edit revision restore authority",
+      "file": "027-390-edit-revision-restore-authority.png",
+      "sha256": "24c6c19f580444457262c654efe0e387767ad4f8d20bf2d7286f15502bdbbfe8",
+      "artifact": {
+        "schema": 1,
+        "commit": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+        "tree": "8d928ceecc58e0767b9d105c9129d88f42434791",
+        "sourceSha256": "f84f10505efbee4f9da489c1cbd16a61da324a38fc4fa7e62df3d277db3322af",
+        "lockSha256": "03501fc04c971744953a0a1fa6cd5a5084619457b30655f54ff752987aeda3cf",
+        "outputSha256": "3ae5217e5997c2b023c790abe902dca21c65f0e03054b7d8d52ca7aea2df79fd"
+      }
+    },
+    {
+      "width": 390,
+      "state": "edit schedule control visible after reload",
+      "file": "012-390-edit-schedule-control-visible-after-reload.png",
+      "sha256": "f337df629dbfa89504d853024fd762b3b2ebb0fb79c049b0f3854583d79b009a",
+      "artifact": {
+        "schema": 1,
+        "commit": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+        "tree": "8d928ceecc58e0767b9d105c9129d88f42434791",
+        "sourceSha256": "f84f10505efbee4f9da489c1cbd16a61da324a38fc4fa7e62df3d277db3322af",
+        "lockSha256": "03501fc04c971744953a0a1fa6cd5a5084619457b30655f54ff752987aeda3cf",
+        "outputSha256": "3ae5217e5997c2b023c790abe902dca21c65f0e03054b7d8d52ca7aea2df79fd"
+      }
+    },
+    {
+      "width": 390,
+      "state": "edit trash controls after reload",
+      "file": "031-390-edit-trash-controls-after-reload.png",
+      "sha256": "0de61e3f3d4565907c4588d5696aed0eb56f7f8b90c409eb13e3d45aee3fd2d7",
+      "artifact": {
+        "schema": 1,
+        "commit": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+        "tree": "8d928ceecc58e0767b9d105c9129d88f42434791",
+        "sourceSha256": "f84f10505efbee4f9da489c1cbd16a61da324a38fc4fa7e62df3d277db3322af",
+        "lockSha256": "03501fc04c971744953a0a1fa6cd5a5084619457b30655f54ff752987aeda3cf",
+        "outputSha256": "3ae5217e5997c2b023c790abe902dca21c65f0e03054b7d8d52ca7aea2df79fd"
+      }
+    },
+    {
+      "width": 390,
+      "state": "full archive controls after reload",
+      "file": "013-390-full-archive-controls-after-reload.png",
+      "sha256": "010cc1b504c0894ecad8c0d30c425ea6abf725d5a3b86114338ed7fd71da54b2",
+      "artifact": {
+        "schema": 1,
+        "commit": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+        "tree": "8d928ceecc58e0767b9d105c9129d88f42434791",
+        "sourceSha256": "f84f10505efbee4f9da489c1cbd16a61da324a38fc4fa7e62df3d277db3322af",
+        "lockSha256": "03501fc04c971744953a0a1fa6cd5a5084619457b30655f54ff752987aeda3cf",
+        "outputSha256": "3ae5217e5997c2b023c790abe902dca21c65f0e03054b7d8d52ca7aea2df79fd"
+      }
+    },
+    {
+      "width": 390,
+      "state": "full member scheduled publication",
+      "file": "011-390-full-member-scheduled-publication.png",
+      "sha256": "988419e6ee24e233ddb6797aaf92af35e0798561a1bffc85045198e4d01a562a",
+      "artifact": {
+        "schema": 1,
+        "commit": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+        "tree": "8d928ceecc58e0767b9d105c9129d88f42434791",
+        "sourceSha256": "f84f10505efbee4f9da489c1cbd16a61da324a38fc4fa7e62df3d277db3322af",
+        "lockSha256": "03501fc04c971744953a0a1fa6cd5a5084619457b30655f54ff752987aeda3cf",
+        "outputSha256": "3ae5217e5997c2b023c790abe902dca21c65f0e03054b7d8d52ca7aea2df79fd"
+      }
+    },
+    {
+      "width": 390,
+      "state": "full non-owner confirmed permanent deletion",
+      "file": "015-390-full-non-owner-confirmed-permanent-deletion.png",
+      "sha256": "c88f4f92366e0a2a05a8b4db5143b603308ba4ff94a59a466e9429b29ecd0cc2",
+      "artifact": {
+        "schema": 1,
+        "commit": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+        "tree": "8d928ceecc58e0767b9d105c9129d88f42434791",
+        "sourceSha256": "f84f10505efbee4f9da489c1cbd16a61da324a38fc4fa7e62df3d277db3322af",
+        "lockSha256": "03501fc04c971744953a0a1fa6cd5a5084619457b30655f54ff752987aeda3cf",
+        "outputSha256": "3ae5217e5997c2b023c790abe902dca21c65f0e03054b7d8d52ca7aea2df79fd"
+      }
+    },
+    {
+      "width": 390,
+      "state": "full non-owner erased page remains absent",
+      "file": "016-390-full-non-owner-erased-page-remains-absent.png",
+      "sha256": "3ef7ce7fb1f7c11085e9bece5e12f8d0f910642d94829474efabedb0e286a3f2",
+      "artifact": {
+        "schema": 1,
+        "commit": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+        "tree": "8d928ceecc58e0767b9d105c9129d88f42434791",
+        "sourceSha256": "f84f10505efbee4f9da489c1cbd16a61da324a38fc4fa7e62df3d277db3322af",
+        "lockSha256": "03501fc04c971744953a0a1fa6cd5a5084619457b30655f54ff752987aeda3cf",
+        "outputSha256": "3ae5217e5997c2b023c790abe902dca21c65f0e03054b7d8d52ca7aea2df79fd"
+      }
+    },
+    {
+      "width": 390,
+      "state": "full publication and discard after reload",
+      "file": "012-390-full-publication-and-discard-after-reload.png",
+      "sha256": "1fb9475790074ef9ec56ec435d77d7ce18b9bb4baabd285c44b4e9631cd9d711",
+      "artifact": {
+        "schema": 1,
+        "commit": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+        "tree": "8d928ceecc58e0767b9d105c9129d88f42434791",
+        "sourceSha256": "f84f10505efbee4f9da489c1cbd16a61da324a38fc4fa7e62df3d277db3322af",
+        "lockSha256": "03501fc04c971744953a0a1fa6cd5a5084619457b30655f54ff752987aeda3cf",
+        "outputSha256": "3ae5217e5997c2b023c790abe902dca21c65f0e03054b7d8d52ca7aea2df79fd"
+      }
+    },
+    {
+      "width": 390,
+      "state": "full publication authority before review",
+      "file": "010-390-full-publication-authority-before-review.png",
+      "sha256": "7a5960e5ab1b3c20fa1e27714bd8d7d1f0ab73f62a800e933fd900dd116a47b0",
+      "artifact": {
+        "schema": 1,
+        "commit": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+        "tree": "8d928ceecc58e0767b9d105c9129d88f42434791",
+        "sourceSha256": "f84f10505efbee4f9da489c1cbd16a61da324a38fc4fa7e62df3d277db3322af",
+        "lockSha256": "03501fc04c971744953a0a1fa6cd5a5084619457b30655f54ff752987aeda3cf",
+        "outputSha256": "3ae5217e5997c2b023c790abe902dca21c65f0e03054b7d8d52ca7aea2df79fd"
+      }
+    },
+    {
+      "width": 390,
+      "state": "full revision restore authority",
+      "file": "009-390-full-revision-restore-authority.png",
+      "sha256": "fc20e1546f14315bb75553f28dc3580497204652b7e20c06b11e787a5a01c82c",
+      "artifact": {
+        "schema": 1,
+        "commit": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+        "tree": "8d928ceecc58e0767b9d105c9129d88f42434791",
+        "sourceSha256": "f84f10505efbee4f9da489c1cbd16a61da324a38fc4fa7e62df3d277db3322af",
+        "lockSha256": "03501fc04c971744953a0a1fa6cd5a5084619457b30655f54ff752987aeda3cf",
+        "outputSha256": "3ae5217e5997c2b023c790abe902dca21c65f0e03054b7d8d52ca7aea2df79fd"
+      }
+    },
+    {
+      "width": 390,
+      "state": "full schedule control visible after reload",
+      "file": "011-390-full-schedule-control-visible-after-reload.png",
+      "sha256": "a5edb8a737fe53eb58c7c4ec56f768b5cdcda0add9e1ee87b85bfb55f1b0073c",
+      "artifact": {
+        "schema": 1,
+        "commit": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+        "tree": "8d928ceecc58e0767b9d105c9129d88f42434791",
+        "sourceSha256": "f84f10505efbee4f9da489c1cbd16a61da324a38fc4fa7e62df3d277db3322af",
+        "lockSha256": "03501fc04c971744953a0a1fa6cd5a5084619457b30655f54ff752987aeda3cf",
+        "outputSha256": "3ae5217e5997c2b023c790abe902dca21c65f0e03054b7d8d52ca7aea2df79fd"
+      }
+    },
+    {
+      "width": 390,
+      "state": "full trash controls after reload",
+      "file": "014-390-full-trash-controls-after-reload.png",
+      "sha256": "244f411487fafe58ca5cab21c00ac894d0b1d5940df372385ec05916bc4cb85a",
+      "artifact": {
+        "schema": 1,
+        "commit": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+        "tree": "8d928ceecc58e0767b9d105c9129d88f42434791",
+        "sourceSha256": "f84f10505efbee4f9da489c1cbd16a61da324a38fc4fa7e62df3d277db3322af",
+        "lockSha256": "03501fc04c971744953a0a1fa6cd5a5084619457b30655f54ff752987aeda3cf",
+        "outputSha256": "3ae5217e5997c2b023c790abe902dca21c65f0e03054b7d8d52ca7aea2df79fd"
+      }
+    },
+    {
+      "width": 390,
+      "state": "view archive controls after reload",
+      "file": "058-390-view-archive-controls-after-reload.png",
+      "sha256": "aadce4abf54b0ae7d043e633b851aca7dc8af799489fd515eaf7a726ee1d1d1d",
+      "artifact": {
+        "schema": 1,
+        "commit": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+        "tree": "8d928ceecc58e0767b9d105c9129d88f42434791",
+        "sourceSha256": "f84f10505efbee4f9da489c1cbd16a61da324a38fc4fa7e62df3d277db3322af",
+        "lockSha256": "03501fc04c971744953a0a1fa6cd5a5084619457b30655f54ff752987aeda3cf",
+        "outputSha256": "3ae5217e5997c2b023c790abe902dca21c65f0e03054b7d8d52ca7aea2df79fd"
+      }
+    },
+    {
+      "width": 390,
+      "state": "view permanent deletion unavailable",
+      "file": "060-390-view-permanent-deletion-unavailable.png",
+      "sha256": "cdab6be4d253f3da0e54ecb58720fe2db868db32a97c2e50d434df460db27516",
+      "artifact": {
+        "schema": 1,
+        "commit": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+        "tree": "8d928ceecc58e0767b9d105c9129d88f42434791",
+        "sourceSha256": "f84f10505efbee4f9da489c1cbd16a61da324a38fc4fa7e62df3d277db3322af",
+        "lockSha256": "03501fc04c971744953a0a1fa6cd5a5084619457b30655f54ff752987aeda3cf",
+        "outputSha256": "3ae5217e5997c2b023c790abe902dca21c65f0e03054b7d8d52ca7aea2df79fd"
+      }
+    },
+    {
+      "width": 390,
+      "state": "view publication and discard after reload",
+      "file": "057-390-view-publication-and-discard-after-reload.png",
+      "sha256": "35fb02828064e40c467bb7d145a01f0bf0331018a9837a97c60e0b6930dfc549",
+      "artifact": {
+        "schema": 1,
+        "commit": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+        "tree": "8d928ceecc58e0767b9d105c9129d88f42434791",
+        "sourceSha256": "f84f10505efbee4f9da489c1cbd16a61da324a38fc4fa7e62df3d277db3322af",
+        "lockSha256": "03501fc04c971744953a0a1fa6cd5a5084619457b30655f54ff752987aeda3cf",
+        "outputSha256": "3ae5217e5997c2b023c790abe902dca21c65f0e03054b7d8d52ca7aea2df79fd"
+      }
+    },
+    {
+      "width": 390,
+      "state": "view revision restore authority",
+      "file": "056-390-view-revision-restore-authority.png",
+      "sha256": "c46d972581132a139b0acdf4f93d229abea238847f1801571106162c07c3dfcf",
+      "artifact": {
+        "schema": 1,
+        "commit": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+        "tree": "8d928ceecc58e0767b9d105c9129d88f42434791",
+        "sourceSha256": "f84f10505efbee4f9da489c1cbd16a61da324a38fc4fa7e62df3d277db3322af",
+        "lockSha256": "03501fc04c971744953a0a1fa6cd5a5084619457b30655f54ff752987aeda3cf",
+        "outputSha256": "3ae5217e5997c2b023c790abe902dca21c65f0e03054b7d8d52ca7aea2df79fd"
+      }
+    },
+    {
+      "width": 390,
+      "state": "view trash controls after reload",
+      "file": "059-390-view-trash-controls-after-reload.png",
+      "sha256": "21afc67f98754edd588093fe21305d0620bd0b897e40e7713d0bb6ee7d482f78",
+      "artifact": {
+        "schema": 1,
+        "commit": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+        "tree": "8d928ceecc58e0767b9d105c9129d88f42434791",
+        "sourceSha256": "f84f10505efbee4f9da489c1cbd16a61da324a38fc4fa7e62df3d277db3322af",
+        "lockSha256": "03501fc04c971744953a0a1fa6cd5a5084619457b30655f54ff752987aeda3cf",
+        "outputSha256": "3ae5217e5997c2b023c790abe902dca21c65f0e03054b7d8d52ca7aea2df79fd"
+      }
+    }
+  ],
+  "registrationCounts": {
+    "before": 207,
+    "after": 207
+  },
+  "statusCounts": {
+    "before": {
+      "done": 57,
+      "partial": 240,
+      "missing": 41
+    },
+    "after": {
+      "done": 57,
+      "partial": 240,
+      "missing": 41
+    }
+  },
+  "mechanical": {
+    "views": {
+      "command": "node src/base/runtime/contract-docs.mjs write; node src/base/runtime/contract-docs.mjs check",
+      "exit": 0,
+      "generatedFilesRestoredFromMain": true
+    },
+    "lock": {
+      "command": "node scripts/edition-authoring/cli.mjs lock; pnpm source:check",
+      "exit": 0
+    },
+    "ledger": {
+      "command": null,
+      "exit": 0,
+      "reason": "No migration changed."
+    }
+  }
+}

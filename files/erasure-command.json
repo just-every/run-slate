@@ -1,0 +1,24 @@
+{
+  "head": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+  "headAfter": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+  "command": [
+    "timeout",
+    "1200",
+    "node",
+    "/tmp/slate-erasure-probe.mjs"
+  ],
+  "cwd": "/home/agent/rer-consolidation/work/sd-slate-c-f201/run-slate",
+  "startedAt": "2026-11-06T16:18:13.378267+00:00",
+  "finishedAt": "2026-11-06T16:19:23.589348+00:00",
+  "elapsedSeconds": 70.202,
+  "exit": 0,
+  "artifact": {
+    "schema": 1,
+    "commit": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+    "tree": "8d928ceecc58e0767b9d105c9129d88f42434791",
+    "sourceSha256": "f84f10505efbee4f9da489c1cbd16a61da324a38fc4fa7e62df3d277db3322af",
+    "lockSha256": "03501fc04c971744953a0a1fa6cd5a5084619457b30655f54ff752987aeda3cf",
+    "outputSha256": "3ae5217e5997c2b023c790abe902dca21c65f0e03054b7d8d52ca7aea2df79fd"
+  },
+  "sourceCleanAfter": true
+}
