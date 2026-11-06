@@ -11864,7 +11864,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/archive-retention-journey.mjs": {
-      "sha256": "b926212b3e66eaf3f533aec2cfb84fb4c3f58235ac2a59640d44b1476202e405",
+      "sha256": "8bfbc690d2e43e7dcbde154c0fb43dda1c6565d239551c79b772613016b3a84d",
       "executable": false
     },
     "tests/qualification/ui-convergence/ask-draft.test.ts": {
@@ -12328,7 +12328,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/trash-list-journey.mjs": {
-      "sha256": "655880706eb468a4055e1901ff460bbb37dcba98c0d7d8d280fdd7ff6c94671e",
+      "sha256": "dd429e0b1d7659513a2daa689c9a59abac5564063a25982555f61353ff0a7f68",
       "executable": false
     },
     "tests/qualification/ui-convergence/tree-filter-journey.mjs": {

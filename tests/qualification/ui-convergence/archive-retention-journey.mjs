@@ -8,7 +8,11 @@ import {tap,type,checkpoint} from './touch-controls.mjs';
 
 /** Archive and deletion use the ordinary member's native controls and session. */
 export async function archiveRetentionJourney(state,touch) {
-  const {page,context,origin,containerId}=touch;
+  const {page,context,origin}=touch;
+  // This shared caller may already contain trash from earlier member journeys.
+  const container=(await ok(context,origin,'POST','/api/containers',{operationKey:randomUUID(),name:'Archive retention',visibility:'private'})).value;
+  const containerId=container.id;
+  const retentionTouch={...touch,containerId,containerName:container.name};
   const f=await retentionFixture({containerId,memberId:'browser-reader',
     request:async(method,route,body)=>{
       // Vocabulary belongs to the workspace owner; all content uses the member.
@@ -43,7 +47,7 @@ export async function archiveRetentionJourney(state,touch) {
   await page.goto(`${origin}/app/pages/${f.root.pageId}`,{waitUntil:'networkidle'});
   await expect(page.getByText('Current retained body',{exact:true})).toBeVisible();
   await checkpoint(page,'retained archive restored');
-  await trashListJourney(state,touch,f);
+  await trashListJourney(state,retentionTouch,f);
   const doc=await f.read(`/api/pages/${f.root.pageId}`);
   // This HTTP setup prepares a trash-list confirmation, so retire the restored editor first.
   await page.goto(origin+'/app/archive',{waitUntil:'networkidle'});
