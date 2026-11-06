@@ -1,0 +1,6 @@
+{
+  "command": "gh run view 42205830358 --repo just-every/run-slate --job 127852154486 --log-failed",
+  "exit": 0,
+  "job": "127852154486",
+  "log": "CI-APP-FAILURE.log"
+}

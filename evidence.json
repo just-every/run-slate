@@ -25,16 +25,52 @@
       "sha256": "1797b8ba12635ef33376289feee3bd8cfcd7607d9be597b0fc1973d643d3d3b7"
     },
     {
-      "blob": "497f9623e4e192549bbb69ffdfa32c914557879b",
-      "bytes": 2523,
+      "blob": "f0b25b0837652d056d54c8312a03af2419f59345",
+      "bytes": 3158,
       "path": "CHECKS.json",
-      "sha256": "0336726527b105bcd8b26cbd1d5fd6dd1541d9444ce73991bc6779bf1364953a"
+      "sha256": "ee0ab429743df6598dc40679f67ea89b7b0c585fd3b10a97d7aab72a27686f0d"
+    },
+    {
+      "blob": "1422c29f0a4df19b4077ec9f2a869c69d0becd45",
+      "bytes": 2048,
+      "path": "CI-AGGREGATE-FAILURE.log",
+      "sha256": "c01e1ef64f35cad6f6ae42c4b9ad5280fa45ea34175332844fbf8f12a8398625"
+    },
+    {
+      "blob": "e1bb7b803f4862c63ac7be01b03c7f2f137b1354",
+      "bytes": 178,
+      "path": "CI-AGGREGATE-FAILURE.log.json",
+      "sha256": "a6b615af7fe2be0499ae68f688b47e6270fe4957d94e65a3d541f5a98f504156"
+    },
+    {
+      "blob": "44ba330031150e009905ddd9f7240959285da052",
+      "bytes": 824,
+      "path": "CI-APP-FAILURE.log",
+      "sha256": "db8f4664e6e93c159a57c1d8d2c9cee46daaf9c900226d6991568076664301af"
+    },
+    {
+      "blob": "1cd5f2b4011062698a302d54f6c78f9b56ee3efa",
+      "bytes": 172,
+      "path": "CI-APP-FAILURE.log.json",
+      "sha256": "6c02dfe0674ee71faa48d75841dfc72acb60bce18dfee65143efd8b9689d4054"
     },
     {
       "blob": "a6e3d5129798ab8f21f3ef39fdc0b4a14087a8a1",
       "bytes": 231,
       "path": "CI-DISCOVERY.json",
       "sha256": "b30454c851878979800ada8b1085ecf0a649cfab04811604540cfd1def31df51"
+    },
+    {
+      "blob": "533d61843b241f7d92247c1c2e3f36423e28c528",
+      "bytes": 2462,
+      "path": "CI-JOBS.json",
+      "sha256": "e45e8959db2f93ff30ebb0b67bd60602d0222cfa53bc3a77941168d62c71a361"
+    },
+    {
+      "blob": "a82d5ef76a960d3fa534d437b639bb7e25865996",
+      "bytes": 178,
+      "path": "CI-STATUS.json",
+      "sha256": "fd94092a2b6cc2ace7f3d0d9ec4e4f8eca8a064b53b5908cecefa21a0b111483"
     },
     {
       "blob": "85473c7670b9a755ea906063da91e244816542f3",
@@ -55,10 +91,10 @@
       "sha256": "fdd0c9ec6c7631a53669e07de3fbe6e907d94b91a259fb1735270be04a551f94"
     },
     {
-      "blob": "5500f4df43f3ace5273eb7ceb8c798a4ed726f0b",
-      "bytes": 8712,
+      "blob": "710731a7d21d5dd45ac9ec6119264012a26398d9",
+      "bytes": 10543,
       "path": "REPORT.md",
-      "sha256": "85837072953a99727b7a3989f91d958224aa84cb233e33cc3e44ea0ab62bdda9"
+      "sha256": "cd905cda9467b45aea2c5e07b43c5264a841695886a3154821599d23d2e125e1"
     },
     {
       "blob": "6082b235b57b28137a3d66dc4ece9f9da73b9f43",

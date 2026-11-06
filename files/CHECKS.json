@@ -96,5 +96,27 @@
   "publicationScan": {
     "status": "not run in cloud; guarded lander required"
   },
-  "mainAtHandoff": "bc567c9b6f6b25c98cb6fa05b9ab0fe37628a547"
+  "mainAtHandoff": "bc567c9b6f6b25c98cb6fa05b9ab0fe37628a547",
+  "ci": {
+    "runId": 42205830358,
+    "event": "push",
+    "conclusion": "failure",
+    "head_sha": "1cc85571efb3b6fe2ca4e18d6e334e135b0eaf10",
+    "html_url": "https://github.com/just-every/run-slate/actions/runs/42205830358",
+    "status": "completed",
+    "failedJobs": [
+      {
+        "id": 127852154486,
+        "name": "verify (app)"
+      },
+      {
+        "id": 127852426924,
+        "name": "verify"
+      }
+    ],
+    "generatedViewFailureOnly": true,
+    "behavioralTestsInCI": "skipped after expected generated-view failure; local exact-candidate tests passed",
+    "rerunOrDispatch": false,
+    "githubCalls": 6
+  }
 }

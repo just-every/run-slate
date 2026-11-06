@@ -1,0 +1,6 @@
+{
+  "command": "gh run view 42205830358 --repo just-every/run-slate --job 127852426924 --log-failed",
+  "exit": 0,
+  "job": "127852426924",
+  "log": "CI-AGGREGATE-FAILURE.log"
+}
