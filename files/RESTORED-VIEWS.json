@@ -1,0 +1,8 @@
+{
+  "head": "df79629236f5948491aae07694635ad4c06ccd8a",
+  "command": "node src/base/runtime/contract-docs.mjs check",
+  "exit": 1,
+  "output": "ACCEPTANCE.md: generated content differs; run contract-docs write.",
+  "expected": true,
+  "reason": "Generated views restored from main as required; the guarded lander writes them from CONTRACT.md"
+}

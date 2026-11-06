@@ -1,0 +1,9 @@
+{
+  "head": "df79629236f5948491aae07694635ad4c06ccd8a",
+  "path": "/home/agent/rer-consolidation/work/sd-slate-c-f178/product-df79629236f5948491aae07694635ad4c06ccd8a.bundle",
+  "sha256": "3ace6063b7c79b2db9e2ee0fc76592002dd9b4be291102ca8e96f20e627d5bb9",
+  "bytes": 32819,
+  "verified": true,
+  "prerequisite": "93b7327adee97ac0ff691bfb5cbff68f4412a27a",
+  "scope": "candidate commits since origin/main"
+}

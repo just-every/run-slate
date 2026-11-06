@@ -1,0 +1,31 @@
+{
+  "head": "df79629236f5948491aae07694635ad4c06ccd8a",
+  "native": {
+    "command": "pnpm exec vitest run tests/flagship/content/http.test.ts -t 'publication, human verification and media enforce current reader authority'",
+    "exit": 0,
+    "passed": 1,
+    "otherRegistrationsNotSelected": 3,
+    "node": "22.20.0",
+    "exactCandidate": true,
+    "head": "df79629236f5948491aae07694635ad4c06ccd8a",
+    "groupMembershipAndReplay": true
+  },
+  "affected": {
+    "command": "pnpm exec vitest run tests/flagship/content/http.test.ts tests/flagship/content/mention-access.test.ts tests/flagship/discovery/group-mentions.test.ts tests/flagship/discovery/following.test.ts tests/e2e/notifications/chat.test.ts tests/e2e/notifications/destinations.test.ts tests/e2e/pages/analytics.test.ts",
+    "exit": 0,
+    "files": 7,
+    "passed": 14,
+    "source": "11021e17beb0ac15a4d8166c209a780df69c8ca5",
+    "relevantProductionBytesEqualCandidate": true,
+    "node": "24.19.0"
+  },
+  "reproduction": {
+    "sourceBeforeFix": "725e1940848467c19b70fbc68f4a5d8997e7ec18",
+    "sameExistingRegistration": true,
+    "exit": 1,
+    "failure": "expected [] but received an access-granted notification naming the draft in its active grantee inbox",
+    "assertion": "tests/flagship/content/draft-privacy.case.ts:143"
+  },
+  "mutationsRemoved": 0,
+  "newRegistrations": 0
+}

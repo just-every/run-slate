@@ -1,0 +1,62 @@
+{
+  "head": "df79629236f5948491aae07694635ad4c06ccd8a",
+  "registration": "tests/flagship/content/http.test.ts: publication, human verification and media enforce current reader authority",
+  "responsiveRegistrations": [
+    "real core-wiki and touch-member journeys at 390px",
+    "page creation destinations and editor locks preserve readable content at 1440px"
+  ],
+  "supportingOnly": true,
+  "rows": [
+    {
+      "outcome": "1 body and own grants",
+      "path": "tests/flagship/content/draft-privacy.case.ts",
+      "line": 65
+    },
+    {
+      "outcome": "1 current group membership",
+      "path": "tests/flagship/content/draft-privacy.case.ts",
+      "line": 79
+    },
+    {
+      "outcome": "1 revocation and replay",
+      "path": "tests/flagship/content/draft-privacy.case.ts",
+      "line": 117
+    },
+    {
+      "outcome": "2 general and anonymous refusal",
+      "path": "tests/flagship/content/draft-privacy.case.ts",
+      "line": 95
+    },
+    {
+      "outcome": "4 retained native draft",
+      "path": "tests/flagship/content/draft-privacy.case.ts",
+      "line": 102
+    },
+    {
+      "outcome": "Requirement retained inbox and delivery",
+      "path": "tests/flagship/content/draft-privacy.case.ts",
+      "line": 161
+    },
+    {
+      "outcome": "Responsive saved body and grants",
+      "path": "tests/qualification/ui-convergence/draft-privacy-journey.mjs",
+      "line": 34
+    },
+    {
+      "outcome": "Responsive inbox with active grant",
+      "path": "tests/qualification/ui-convergence/draft-privacy-journey.mjs",
+      "line": 88
+    },
+    {
+      "outcome": "Responsive lifecycle reload",
+      "path": "tests/qualification/ui-convergence/draft-privacy-journey.mjs",
+      "line": 104
+    }
+  ],
+  "unproven": [
+    "complete requirement exclusion corpus",
+    "acceptance 3 full invariant",
+    "acceptance 5 company policy",
+    "full inherited SHARE-001, SHARE-006 and SHARE-007 duties"
+  ]
+}

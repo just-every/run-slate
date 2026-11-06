@@ -1,0 +1,165 @@
+{
+  "schema": 1,
+  "repository": "just-every/run-slate",
+  "branch": "cloud/sd-slate-c-f178",
+  "head": "df79629236f5948491aae07694635ad4c06ccd8a",
+  "tree": "fa095ee55300bb20fc6379508830d49b048ecdd1",
+  "productPush": {
+    "status": "pushed",
+    "guard": "cloud-push.py",
+    "attempts": 1,
+    "remoteHead": "df79629236f5948491aae07694635ad4c06ccd8a",
+    "verified": true
+  },
+  "ci": {
+    "run": 42174738428,
+    "conclusion": "failure",
+    "head_sha": "df79629236f5948491aae07694635ad4c06ccd8a",
+    "html_url": "https://github.com/just-every/run-slate/actions/runs/42174738428",
+    "status": "completed",
+    "event": "push",
+    "branch": "cloud/sd-slate-c-f178",
+    "jobs": [
+      {
+        "conclusion": "success",
+        "id": 127750502724,
+        "name": "plan",
+        "status": "completed",
+        "steps": []
+      },
+      {
+        "conclusion": "failure",
+        "id": 127750539918,
+        "name": "verify (app)",
+        "status": "completed",
+        "steps": [
+          {
+            "conclusion": "failure",
+            "name": "Run node src/base/runtime/contract-docs.mjs check"
+          }
+        ]
+      },
+      {
+        "conclusion": "skipped",
+        "id": 127750541786,
+        "name": "import-scale",
+        "status": "completed",
+        "steps": []
+      },
+      {
+        "conclusion": "failure",
+        "id": 127750786708,
+        "name": "verify",
+        "status": "completed",
+        "steps": [
+          {
+            "conclusion": "failure",
+            "name": "Require the plan and every expected job"
+          }
+        ]
+      },
+      {
+        "conclusion": "skipped",
+        "id": 127750787052,
+        "name": "local-journeys",
+        "status": "completed",
+        "steps": []
+      },
+      {
+        "conclusion": "skipped",
+        "id": 127750787223,
+        "name": "verify (${{ matrix.suite }})",
+        "status": "completed",
+        "steps": []
+      },
+      {
+        "conclusion": "skipped",
+        "id": 127750788317,
+        "name": "contract",
+        "status": "completed",
+        "steps": []
+      }
+    ],
+    "failedJobArchives": [
+      {
+        "job": 127750539918,
+        "command": "gh run view 42174738428 --repo just-every/run-slate --job 127750539918 --log-failed",
+        "exit": 0,
+        "returnedBytes": 1068,
+        "diagnostic": "ACCEPTANCE.md: generated content differs; run contract-docs write.\n##[error]Process completed with exit code 1."
+      },
+      {
+        "job": 127750786708,
+        "command": "gh run view 42174738428 --repo just-every/run-slate --job 127750786708 --log-failed",
+        "exit": 0,
+        "returnedBytes": 2984,
+        "diagnostic": "##[error]Process completed with exit code 1."
+      }
+    ],
+    "classification": "Expected generated-view freshness failure and dependent aggregate; behavioral jobs skipped",
+    "permittedHandoffException": true,
+    "behavioralCIGreen": false,
+    "githubCalls": 8
+  },
+  "local": {
+    "typecheck": 0,
+    "firstParty": 0,
+    "sourceLock": 0,
+    "contractWriteAndCheckBeforeRestore": 0,
+    "contractShape": 0,
+    "nativePublicationRegistration": {
+      "passed": 1,
+      "exit": 0,
+      "node": "22.20.0"
+    },
+    "affectedWorkers": {
+      "files": 7,
+      "passed": 14,
+      "exit": 0,
+      "source": "11021e17beb0ac15a4d8166c209a780df69c8ca5",
+      "productionBytesEqualFinal": true
+    },
+    "responsive": {
+      "passed": 2,
+      "exit": 0,
+      "widths": [
+        390,
+        1440
+      ],
+      "head": "df79629236f5948491aae07694635ad4c06ccd8a"
+    }
+  },
+  "clause": {
+    "id": "LIFE-002",
+    "before": "partial",
+    "after": "partial",
+    "countsBefore": {
+      "done": 57,
+      "partial": 240,
+      "missing": 41
+    },
+    "countsAfter": {
+      "done": 57,
+      "partial": 240,
+      "missing": 41
+    },
+    "registrationsBefore": 207,
+    "registrationsAfter": 207,
+    "released": false
+  },
+  "publicationScan": "guarded lander pending",
+  "mainLanding": "not attempted",
+  "runSite": "guarded lander pending",
+  "pullRequest": null,
+  "bundle": {
+    "head": "df79629236f5948491aae07694635ad4c06ccd8a",
+    "path": "/home/agent/rer-consolidation/work/sd-slate-c-f178/product-df79629236f5948491aae07694635ad4c06ccd8a.bundle",
+    "sha256": "3ace6063b7c79b2db9e2ee0fc76592002dd9b4be291102ca8e96f20e627d5bb9",
+    "bytes": 32819,
+    "verified": true,
+    "prerequisite": "93b7327adee97ac0ff691bfb5cbff68f4412a27a",
+    "scope": "candidate commits since origin/main"
+  },
+  "githubCalls": 8,
+  "handoff": "READY under the generated-view exception; guarded regeneration, scan and exact-SHA behavioral Verify remain required"
+}

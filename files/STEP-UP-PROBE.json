@@ -1,0 +1,14 @@
+{
+  "head": "aac44bc79b03f66a986043820860b01bfe8af464",
+  "stale": {
+    "status": 403,
+    "code": "STEP_UP_REQUIRED",
+    "archiveUnchanged": true
+  },
+  "fresh": {
+    "status": 200,
+    "deleted": true
+  },
+  "door": "native permanent-delete and native mailbox sign-in",
+  "productGuardChanged": false
+}

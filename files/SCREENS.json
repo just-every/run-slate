@@ -1,0 +1,97 @@
+{
+  "head": "df79629236f5948491aae07694635ad4c06ccd8a",
+  "buildArtifact": {
+    "schema": 1,
+    "commit": "df79629236f5948491aae07694635ad4c06ccd8a",
+    "tree": "fa095ee55300bb20fc6379508830d49b048ecdd1",
+    "sourceSha256": "c8227982ed00e0a4125331796ec7f225b066bfb6f2470943af29e65db7bd446b",
+    "lockSha256": "01a468e6ed21c5e84e229c9ea9cbdf57c6170bcfdc8ace4bff2b2f758f5a6d70",
+    "outputSha256": "31ea6f10e97960133d72e126dd5a7fb9c22976ab79e5e60e7d1aaccea4ccdff0"
+  },
+  "screens": [
+    {
+      "path": "screens/390/private-draft-inbox.png",
+      "width": 390,
+      "height": 909,
+      "bytes": 26798,
+      "sha256": "df73e91cf257c07f2b8f9b878535a848f76e7e8e6033af77db1911af91c1843b"
+    },
+    {
+      "path": "screens/390/saved-grant.png",
+      "width": 390,
+      "height": 909,
+      "bytes": 40429,
+      "sha256": "494efd204b9963de1c9f07eec73cc10a284e65b6f97d3c801600e15ee32c2b0b"
+    },
+    {
+      "path": "screens/390/granted-reader.png",
+      "width": 390,
+      "height": 909,
+      "bytes": 33739,
+      "sha256": "45ae1ed342f4924ef71dd8b0a456df761ca46e0f12a2f54c9b0fe8122313d102"
+    },
+    {
+      "path": "screens/390/saved-group-grant.png",
+      "width": 390,
+      "height": 909,
+      "bytes": 41629,
+      "sha256": "bc32823f527c36e16fac9c27caf7bae5b87322b481fc9e6550e2413b6e5f70db"
+    },
+    {
+      "path": "screens/390/refused-owner.png",
+      "width": 390,
+      "height": 909,
+      "bytes": 13447,
+      "sha256": "5c32190e9e6f3f9836a3f0903f78146177bf97280ad76435f187cc8df6111eca"
+    },
+    {
+      "path": "screens/390/revoked-grant.png",
+      "width": 390,
+      "height": 909,
+      "bytes": 41720,
+      "sha256": "010aad7b15100459510972896239d37e1468ab1655f7612a17fab78ddc320500"
+    },
+    {
+      "path": "screens/1440/private-draft-inbox.png",
+      "width": 1440,
+      "height": 1000,
+      "bytes": 77363,
+      "sha256": "c51d9b446e63e58adccfe269a598cb03aa92735ebaa2b3ed5e3ee37f601bccf9"
+    },
+    {
+      "path": "screens/1440/saved-grant.png",
+      "width": 1440,
+      "height": 1000,
+      "bytes": 125288,
+      "sha256": "3ba94b3fa5dd34e13e20c145ce7757bf86b00d4e7a998ced3cfdc58a7972a56e"
+    },
+    {
+      "path": "screens/1440/granted-reader.png",
+      "width": 1440,
+      "height": 1000,
+      "bytes": 82483,
+      "sha256": "930f775afb49ac7b1660d68cfd452963773a8bf0d8cb379eb2a667f2eb1d503f"
+    },
+    {
+      "path": "screens/1440/saved-group-grant.png",
+      "width": 1440,
+      "height": 1000,
+      "bytes": 130450,
+      "sha256": "af35b637e0502b80ef9b0c94a8246e57090428e26d207e054188331e6427c600"
+    },
+    {
+      "path": "screens/1440/refused-owner.png",
+      "width": 1440,
+      "height": 1000,
+      "bytes": 60991,
+      "sha256": "fa78d6bfc52493d9e016d790932c75ea92d2432d2c263c37779379462c2cd491"
+    },
+    {
+      "path": "screens/1440/revoked-grant.png",
+      "width": 1440,
+      "height": 1000,
+      "bytes": 124872,
+      "sha256": "21949577a62fe96c7ffb29fb630780f8c009b0fd8e8863164b9e6657662597e3"
+    }
+  ]
+}

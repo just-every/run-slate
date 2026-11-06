@@ -1,0 +1,29 @@
+{
+  "head": "aac44bc79b03f66a986043820860b01bfe8af464",
+  "command": "node --test --test-concurrency=1 --test-name-pattern='page creation destinations and editor locks preserve readable content at 1440px|real core-wiki and touch-member journeys at 390px' tests/qualification/ui-convergence/journeys.test.mjs",
+  "node": "22.20.0",
+  "exit": 1,
+  "passed": 1,
+  "failed": 1,
+  "desktop": {
+    "passed": true,
+    "durationMs": 165989.666442,
+    "draftPrivacyJourneyPassed": true
+  },
+  "phone": {
+    "passed": false,
+    "durationMs": 671468.299508,
+    "draftPrivacyJourneyPassed": true,
+    "failure": "Touch surfaces have no browser errors or hydration mismatch. Received permanent-delete 403 and browser resource 403; expected no errors.",
+    "location": "tests/qualification/ui-convergence/touch-journey.mjs:37"
+  },
+  "unchangedFromMain": [
+    "src/core/features/session/step-up.ts",
+    "src/core/features/archive/routes.ts",
+    "tests/qualification/ui-convergence/archive-retention-journey.mjs",
+    "tests/qualification/ui-convergence/touch-journey.mjs"
+  ],
+  "repairAttempts": 1,
+  "repair": "Obtain the positive archive case member own fresh native mailbox session, preserving product step-up and all assertions",
+  "focusedProbe": "STEP-UP-PROBE.json"
+}

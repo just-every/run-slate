@@ -1,0 +1,90 @@
+{
+  "run": 42174738428,
+  "conclusion": "failure",
+  "head_sha": "df79629236f5948491aae07694635ad4c06ccd8a",
+  "html_url": "https://github.com/just-every/run-slate/actions/runs/42174738428",
+  "status": "completed",
+  "event": "push",
+  "branch": "cloud/sd-slate-c-f178",
+  "jobs": [
+    {
+      "conclusion": "success",
+      "id": 127750502724,
+      "name": "plan",
+      "status": "completed",
+      "steps": []
+    },
+    {
+      "conclusion": "failure",
+      "id": 127750539918,
+      "name": "verify (app)",
+      "status": "completed",
+      "steps": [
+        {
+          "conclusion": "failure",
+          "name": "Run node src/base/runtime/contract-docs.mjs check"
+        }
+      ]
+    },
+    {
+      "conclusion": "skipped",
+      "id": 127750541786,
+      "name": "import-scale",
+      "status": "completed",
+      "steps": []
+    },
+    {
+      "conclusion": "failure",
+      "id": 127750786708,
+      "name": "verify",
+      "status": "completed",
+      "steps": [
+        {
+          "conclusion": "failure",
+          "name": "Require the plan and every expected job"
+        }
+      ]
+    },
+    {
+      "conclusion": "skipped",
+      "id": 127750787052,
+      "name": "local-journeys",
+      "status": "completed",
+      "steps": []
+    },
+    {
+      "conclusion": "skipped",
+      "id": 127750787223,
+      "name": "verify (${{ matrix.suite }})",
+      "status": "completed",
+      "steps": []
+    },
+    {
+      "conclusion": "skipped",
+      "id": 127750788317,
+      "name": "contract",
+      "status": "completed",
+      "steps": []
+    }
+  ],
+  "failedJobArchives": [
+    {
+      "job": 127750539918,
+      "command": "gh run view 42174738428 --repo just-every/run-slate --job 127750539918 --log-failed",
+      "exit": 0,
+      "returnedBytes": 1068,
+      "diagnostic": "ACCEPTANCE.md: generated content differs; run contract-docs write.\n##[error]Process completed with exit code 1."
+    },
+    {
+      "job": 127750786708,
+      "command": "gh run view 42174738428 --repo just-every/run-slate --job 127750786708 --log-failed",
+      "exit": 0,
+      "returnedBytes": 2984,
+      "diagnostic": "##[error]Process completed with exit code 1."
+    }
+  ],
+  "classification": "Expected generated-view freshness failure and dependent aggregate; behavioral jobs skipped",
+  "permittedHandoffException": true,
+  "behavioralCIGreen": false,
+  "githubCalls": 8
+}

@@ -1,0 +1,19 @@
+{
+  "main": {
+    "ref": "origin/main",
+    "total": 207,
+    "sites": 203,
+    "unresolved": []
+  },
+  "candidate": {
+    "ref": "HEAD",
+    "total": 207,
+    "sites": 203,
+    "unresolved": [],
+    "head": "df79629236f5948491aae07694635ad4c06ccd8a"
+  },
+  "added": 0,
+  "removed": 0,
+  "budgetFileDeclared": 205,
+  "note": "Existing main inventory is 207 while its test-budget file declares 205. This task adds no registration and preserves all existing assertions."
+}

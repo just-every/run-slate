@@ -1,0 +1,26 @@
+{
+  "head": "df79629236f5948491aae07694635ad4c06ccd8a",
+  "ownBase": "725e1940848467c19b70fbc68f4a5d8997e7ec18",
+  "files": [
+    "CONTRACT.md",
+    "sources.lock.json",
+    "src/core/features/notifications/creation-access.ts",
+    "src/core/features/notifications/events.ts",
+    "src/core/features/notifications/outbox.ts",
+    "tests/flagship/content/draft-privacy.case.ts",
+    "tests/qualification/ui-convergence/archive-retention-journey.mjs",
+    "tests/qualification/ui-convergence/draft-privacy-journey.mjs",
+    "tests/requirements/cli-journey.md",
+    "tests/requirements/test-evidence.json"
+  ],
+  "newEmailShapedStrings": 0,
+  "newCredentialShapedStrings": 0,
+  "contractAcceptanceChanged": false,
+  "statusChanged": false,
+  "generatedViewsCommitted": false,
+  "workflowChanged": false,
+  "registrationsAdded": 0,
+  "assertionsRemovedOrNarrowed": false,
+  "publicationScan": "Not run in cloud; guarded lander required",
+  "fixtureRepair": "Positive archive journey obtains fresh native mailbox proof; product step-up guard and all business assertions preserved"
+}

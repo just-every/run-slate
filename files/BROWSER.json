@@ -1,0 +1,28 @@
+{
+  "head": "df79629236f5948491aae07694635ad4c06ccd8a",
+  "command": "node --test --test-concurrency=1 --test-name-pattern='page creation destinations and editor locks preserve readable content at 1440px|real core-wiki and touch-member journeys at 390px' tests/qualification/ui-convergence/journeys.test.mjs",
+  "node": "22.20.0",
+  "browser": "/usr/bin/chromium",
+  "hardTimeoutSeconds": 1800,
+  "exit": 0,
+  "passed": 2,
+  "failed": 0,
+  "registrations": [
+    {
+      "test": "real core-wiki and touch-member journeys at 390px",
+      "durationMs": 736881.811738,
+      "passed": true
+    },
+    {
+      "test": "page creation destinations and editor locks preserve readable content at 1440px",
+      "durationMs": 167493.413153,
+      "passed": true
+    }
+  ],
+  "draftWidths": [
+    390,
+    1440
+  ],
+  "archiveFixtureRepairPassed": true,
+  "assertionsRemovedOrNarrowed": false
+}

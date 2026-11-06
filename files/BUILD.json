@@ -1,0 +1,20 @@
+{
+  "head": "df79629236f5948491aae07694635ad4c06ccd8a",
+  "command": "npx -y @runeditrun/rer build",
+  "exit": 0,
+  "artifact": {
+    "schema": 1,
+    "commit": "df79629236f5948491aae07694635ad4c06ccd8a",
+    "tree": "fa095ee55300bb20fc6379508830d49b048ecdd1",
+    "sourceSha256": "c8227982ed00e0a4125331796ec7f225b066bfb6f2470943af29e65db7bd446b",
+    "lockSha256": "01a468e6ed21c5e84e229c9ea9cbdf57c6170bcfdc8ace4bff2b2f758f5a6d70",
+    "outputSha256": "31ea6f10e97960133d72e126dd5a7fb9c22976ab79e5e60e7d1aaccea4ccdff0"
+  },
+  "typecheckRuntime": "22.20.0",
+  "browserRuntime": "22.20.0",
+  "browser": "/usr/bin/chromium",
+  "browserArguments": [
+    "--no-sandbox"
+  ],
+  "productionDifferenceSinceSave": false
+}

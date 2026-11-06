@@ -1,0 +1,48 @@
+{
+  "head": "df79629236f5948491aae07694635ad4c06ccd8a",
+  "checks": [
+    {
+      "check": "typecheck",
+      "head": "df79629236f5948491aae07694635ad4c06ccd8a",
+      "command": "pnpm typecheck",
+      "exit": 0,
+      "durationSeconds": 33.509
+    },
+    {
+      "check": "first-party",
+      "head": "df79629236f5948491aae07694635ad4c06ccd8a",
+      "command": "npx -y @runeditrun/rer check --profile first-party",
+      "exit": 0,
+      "durationSeconds": 2.322
+    },
+    {
+      "check": "source-lock",
+      "head": "df79629236f5948491aae07694635ad4c06ccd8a",
+      "command": "pnpm source:check",
+      "exit": 0,
+      "durationSeconds": 0.976
+    },
+    {
+      "check": "contract-shape",
+      "head": "df79629236f5948491aae07694635ad4c06ccd8a",
+      "command": "node scripts/check-contract.mjs",
+      "exit": 0,
+      "durationSeconds": 0.545
+    }
+  ],
+  "views": {
+    "writeCommand": "node src/base/runtime/contract-docs.mjs write",
+    "writeExit": 0,
+    "checkCommand": "node src/base/runtime/contract-docs.mjs check",
+    "checkExit": 0,
+    "restoredFrom": "origin/main",
+    "files": [
+      "ACCEPTANCE.md",
+      "docs/CLAIMS.md"
+    ]
+  },
+  "ledger": {
+    "command": null,
+    "reason": "No migration changed"
+  }
+}
