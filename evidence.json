@@ -1,0 +1,118 @@
+{
+  "files": [
+    {
+      "blob": "e4fcd9662ad7128648a7aaa3d32a011bc62d5e4e",
+      "bytes": 1014,
+      "path": "CI.json",
+      "sha256": "557a60e20e62365275a1b2c6cb7821ff9d4e65da145a506fa59e8add85020c80"
+    },
+    {
+      "blob": "4993af8378def6c2ab13c64a7946f458d3f1da55",
+      "bytes": 363,
+      "path": "MECHANICAL.txt",
+      "sha256": "90162c9a9c1d8ecc7ccc0ca8c0df626440bab81924c0a3a9a7d38546926a3c9a"
+    },
+    {
+      "blob": "a97426f60b4191173345acc5c1d52f63ac3664c8",
+      "bytes": 6490,
+      "path": "RECEIPT.json",
+      "sha256": "9ee9c8f7ccae8c8613f0991dfaa9d5f4f59a5b82abc194a6b1021b94317b5258"
+    },
+    {
+      "blob": "308b30354fa70b2ebd1843303735317c96130211",
+      "bytes": 12455,
+      "path": "REPORT.md",
+      "sha256": "8cea273286291984e5154f58275f40e3f9acbeb0cd6ac0aa3408e28b1bbc6f7c"
+    },
+    {
+      "blob": "76d878c789969fd54ac8fc98c802e8870293533a",
+      "bytes": 79367,
+      "path": "access-needed-1440.png",
+      "sha256": "76664f7410cfc78be23a726b494df47a488eb2e42e7d776ef36d5315d508f7af"
+    },
+    {
+      "blob": "a0a8b7e0b71d9317f020fea03e1560577a2fee04",
+      "bytes": 32491,
+      "path": "access-needed-390.png",
+      "sha256": "e3250475c4c1188e3599b9637ad49c5e61d2f00f7080a78ae5b7b0581f568ded"
+    },
+    {
+      "blob": "23073273eed7f3d023dba7e93fe0a11eacbce234",
+      "bytes": 868,
+      "path": "browser-custody.log",
+      "sha256": "6e6a411637d9739ff4b4c392ed240c15e0321031841cadb8f9590f6000e3b845"
+    },
+    {
+      "blob": "17c8d3d0db09bdc09dde026307d15773a035cbf0",
+      "bytes": 995,
+      "path": "browser-desktop.log",
+      "sha256": "3ff4b0812f4a3fd5bb72c62043d050b1a47e8c5f694506c69497e6b20e9eaf5a"
+    },
+    {
+      "blob": "8219c51daf48f0c346f93887b8e5f2f5b794dc2a",
+      "bytes": 360,
+      "path": "browser-phone.log",
+      "sha256": "2bd87347bc5ee8c29b0863616088cc30bd66b614c116ef8cfd52006e33fae8aa"
+    },
+    {
+      "blob": "012f748355c58e5b3b1571c81b848fdc5025acff",
+      "bytes": 835,
+      "path": "ci-jobs.jsonl",
+      "sha256": "6c9b48e8f29f5cf5f1667090036469b00fe48e6f189cd5f56746bacc2c13d16b"
+    },
+    {
+      "blob": "c54238eb3889943e5907249d848d74ca04d43d98",
+      "bytes": 84703,
+      "path": "granted-source-1440.png",
+      "sha256": "26e673e3b7ceaba5bf9de99256a5a9d81844017b2b728eca2c73a2e35e6d6b2a"
+    },
+    {
+      "blob": "ad9ea07902ec08ee069c4c20719bd75ce82080a3",
+      "bytes": 37623,
+      "path": "granted-source-390.png",
+      "sha256": "beb3a175624d513a0401f0ee7d77183f63d2d000032f87dfff46ba0df82ba365"
+    },
+    {
+      "blob": "1f1620b95433281e60bfa524e382a4e0c0859ebd",
+      "bytes": 370,
+      "path": "phone-proof.mjs",
+      "sha256": "57ed9b8b4863218e8a6ec2de3a5b5958990731d2f35ca4aa0e558038e5950d2b"
+    },
+    {
+      "blob": "68a29978740e315232dba4365eb21fa84dd47474",
+      "bytes": 173,
+      "path": "typecheck.log",
+      "sha256": "434193f97f15411bb41d0e3eccdc2b85c528835475b92d1b702c243b8e0a6227"
+    },
+    {
+      "blob": "ae869b2fafd3acf46a2dc6ce35ec869497ae9cfb",
+      "bytes": 32,
+      "path": "views-check.log",
+      "sha256": "c21aae40192141751d6d5c7a3a1d0eb701a6852f305d592d77b4dcab9c2536ab"
+    },
+    {
+      "blob": "fba560db7c48416c914446f2a1e319a79104d105",
+      "bytes": 67,
+      "path": "views-restored-exact.log",
+      "sha256": "183372998615cc516043a5f66404b300281009a84349eda72da66d79fe542603"
+    },
+    {
+      "blob": "d4d1e60ea7fdc565c576421664992b40e47a816e",
+      "bytes": 28,
+      "path": "views-write.log",
+      "sha256": "df91012bf66fb476e9cd1a30c002829398beb55f869e07cc7be477197fa5a276"
+    },
+    {
+      "blob": "563074ab11a52a18148de567f5860e884c30e348",
+      "bytes": 1211,
+      "path": "workers.log",
+      "sha256": "c5c475c3b0335fe28509190cd5198f2481c798e67e9b183e4531fb40568a83af"
+    }
+  ],
+  "product_branch": "cloud/sd-slate-c-f181",
+  "product_head": "5876345c89632bc3fff5165e9210a1b2c85c7996",
+  "ref": "refs/heads/evidence/sd-slate-c-f181",
+  "repository": "just-every/run-slate",
+  "schema": 1,
+  "tag": "sd-slate-c-f181"
+}

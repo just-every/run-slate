@@ -1,0 +1,181 @@
+{
+  "branch": "cloud/sd-slate-c-f181",
+  "browser_binding": "Application source remained byte-identical from the pre-save build through the final candidate. Synced request journey did not change after its responsive executions. Custody assertions ran with the final helper bytes. No green exact-SHA CI claim is made by this receipt.",
+  "build": {
+    "commit": "93b7327adee97ac0ff691bfb5cbff68f4412a27a",
+    "lockSha256": "448bc3a37bd43b67fcc66f3a7a623ce3de73166b5c22b04fc50afd1c140c7371",
+    "outputSha256": "4bae0df98285f68cf28504aaa2fa6249b27f11ad31b7970b80bae453a5231bf7",
+    "schema": 1,
+    "sourceSha256": "3aee0659df33ed71aa23806f9c2eee5e3a099479fa9b0a6532dbfd877cd1e25b",
+    "tree": "d211992a4722979f2383941952be6db8bc224a1d"
+  },
+  "checks": [
+    {
+      "binding": "exact final source and test bytes; ran before final commit",
+      "command": "pnpm exec vitest run tests/e2e/editor/tables.test.ts",
+      "exit": 0,
+      "log": "workers.log",
+      "tests": 1
+    },
+    {
+      "actual_pattern": "^named review request",
+      "command": "node --test --test-concurrency=1 --test-name-pattern='^named review request' tests/qualification/ui-convergence/journeys.test.mjs",
+      "exit": 0,
+      "log": "browser-desktop.log",
+      "tests": 1,
+      "width": 1440
+    },
+    {
+      "binding": "same withWorkspace, setupWorkspace and syncedJourney helper; no added registration",
+      "command": "node /tmp/run-slate-synced-phone.mjs",
+      "exit": 0,
+      "log": "browser-phone.log",
+      "width": 390
+    },
+    {
+      "actual_pattern": "^shared page invitations",
+      "command": "node --test --test-concurrency=1 --test-name-pattern='^shared page invitations' tests/qualification/ui-convergence/journeys.test.mjs",
+      "exit": 0,
+      "log": "browser-custody.log",
+      "tests": 1,
+      "width": 1440
+    },
+    {
+      "command": "pnpm typecheck",
+      "exit": 0,
+      "log": "typecheck.log"
+    },
+    {
+      "command": "pnpm exec rer check --profile first-party",
+      "exit": 0
+    },
+    {
+      "command": "npx -y @runeditrun/rer build",
+      "exit": 0,
+      "via": "cloud_run"
+    },
+    {
+      "command": "node src/base/runtime/contract-docs.mjs write && node src/base/runtime/contract-docs.mjs check",
+      "exit": 0,
+      "restored": [
+        "ACCEPTANCE.md",
+        "docs/CLAIMS.md"
+      ]
+    },
+    {
+      "command": "pnpm integration:sync",
+      "exit": 0
+    },
+    {
+      "command": "pnpm source:lock && pnpm source:check",
+      "exit": 0
+    },
+    {
+      "binding": "committed final head",
+      "command": "pnpm source:check",
+      "exit": 0
+    }
+  ],
+  "clause": {
+    "after": "partial",
+    "before": "partial",
+    "closed": "native access request for existing synced paragraphs",
+    "id": "BLOCK-011",
+    "remainder": "Other synced block kinds and incumbent synced imports; owner-source Confluence fixtures remain held"
+  },
+  "existing_assertions_removed_or_narrowed": false,
+  "files_sha256": {
+    "src/core/features/editor/ui/blocks/SyncedBlock.tsx": "108afb2ee541a5aa983660d6078a42022060db7ac2ed019ea53334036c60e231",
+    "tests/e2e/editor/synced-case.ts": "c59b269beb6b538219e457b0f12c409d0e606989ab3f567c1531c68b566280bb",
+    "tests/qualification/ui-convergence/synced-custody.mjs": "7a7cb9c89e53c890eb036f659df704ad5cdaaacdf84c4dd8c00cfff38b4f654f",
+    "tests/qualification/ui-convergence/synced-journey.mjs": "28d8052252e838c0fd47c985b7a81f6e36fdfde8f4ab8c6641a94a1b5811f762"
+  },
+  "github_budget": {
+    "candidate_status_poll_after_discovery_seconds_at_least": 300,
+    "explicit_calls_used": 8,
+    "limit": 10,
+    "single_watcher": true
+  },
+  "head": "5876345c89632bc3fff5165e9210a1b2c85c7996",
+  "landing": "Not performed; main never pushed",
+  "main_at_final_fetch": "93b7327adee97ac0ff691bfb5cbff68f4412a27a",
+  "mechanical": {
+    "all_parent_status_ids_retained": true,
+    "candidate_table_rows": 698,
+    "ledger": "none",
+    "migration_change": false,
+    "parent_table_rows": 698,
+    "status_rows": 338
+  },
+  "native_inventories": {
+    "blocks_unchanged": true,
+    "can_edit_source_after_view_grant": false,
+    "container_grants_unchanged": true,
+    "direct_source_read_before_explicit_grant": 404,
+    "page_grants_unchanged": true,
+    "page_revisions_unchanged": true,
+    "pages_unchanged": true,
+    "request_submissions": 4,
+    "retained_personal_requests": 3,
+    "retained_requests_for_existing_source": 2,
+    "sessions_unchanged": true,
+    "source_grantor_notices": 1,
+    "source_outbox_entries": 1,
+    "source_outbox_recipients": 1,
+    "synced_state_after_explicit_view_grant": "ready"
+  },
+  "pr": "none; cloud branch push is the existing Verify entry point",
+  "product_source_unchanged_since_browser_build": true,
+  "publication_scan": "Guarded lander duty; cloud scan not run",
+  "recovery": {
+    "path": "/home/agent/rer-consolidation/work/sd-slate-c-f181/product.bundle",
+    "published_as_evidence": false,
+    "sha256": "810afbc4e3bd6fbdebd803504e03cbf91142d0c403d7a6cd636fa9312d61513e",
+    "verified": true
+  },
+  "remote_branch_readback": "5876345c89632bc3fff5165e9210a1b2c85c7996",
+  "repository": "just-every/run-slate",
+  "status_after": {
+    "done": 57,
+    "missing": 41,
+    "partial": 240,
+    "total": 338
+  },
+  "status_before": {
+    "done": 57,
+    "missing": 41,
+    "partial": 240,
+    "total": 338
+  },
+  "tag": "sd-slate-c-f181",
+  "tests_added": 0,
+  "verify": {
+    "archive_commands": [
+      {
+        "command": "gh run view 42180235529 --repo just-every/run-slate --job 127767969495 --log-failed",
+        "exit": 0
+      },
+      {
+        "command": "gh run view 42180235529 --repo just-every/run-slate --job 127768218295 --log-failed",
+        "exit": 0
+      }
+    ],
+    "classification": "expected-generated-view-only",
+    "conclusion": "failure",
+    "dependent_aggregate_job": 127768218295,
+    "event": "push",
+    "failed_app_job": 127767969495,
+    "failure": "ACCEPTANCE.md: generated content differs; run contract-docs write.",
+    "head_sha": "5876345c89632bc3fff5165e9210a1b2c85c7996",
+    "html_url": "https://github.com/just-every/run-slate/actions/runs/42180235529",
+    "id": 42180235529,
+    "local_exact_head_restored_view_check": {
+      "command": "node src/base/runtime/contract-docs.mjs check",
+      "exit": 1,
+      "failure": "ACCEPTANCE.md: generated content differs; run contract-docs write."
+    },
+    "product_assertion_failure": false,
+    "shards": "skipped",
+    "status": "completed"
+  }
+}

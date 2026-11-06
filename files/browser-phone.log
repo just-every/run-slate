@@ -1,0 +1,3 @@
+BLOCK-011 visible copy rendered 1442 ms after Save.
+PROBE BLOCK-011 access request: native reader -> generic receipt; replay -> one current grantor notice (browser-owner); grants and content unchanged; explicit grant -> live source; revocation -> access needed at 390px
+BLOCK-011 synced paragraphs, live copy, access needed and static deletion passed at 390px

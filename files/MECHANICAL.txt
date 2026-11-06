@@ -1,0 +1,2 @@
+MECHANICAL lock=pnpm source:lock && pnpm source:check exit=0; views=node src/base/runtime/contract-docs.mjs write && node src/base/runtime/contract-docs.mjs check exit=0; restored=ACCEPTANCE.md,docs/CLAIMS.md; ledger=none exit=0
+All 338 parent Status IDs retained; pipe-prefixed table lines 698 -> 698. No generated view committed. No migration added or changed.

@@ -1,0 +1,15 @@
+BLOCK-011 visible copy rendered 1390 ms after Save.
+PROBE BLOCK-011 access request: native reader -> generic receipt; replay -> one current grantor notice (browser-owner); grants and content unchanged; explicit grant -> live source; revocation -> access needed at 1440px
+BLOCK-011 synced paragraphs, live copy, access needed and static deletion passed at 1440px
+WORK-016 searchable expertise, owned/verified pages, hidden tag and scoped guest people passed at 1440px
+PROBE REV-006 1: edit-only, current, published and autosnapshot DELETE requests -> refused without revision or activity changes
+PROBE REV-006 2: full-member History confirmation -> version 2 content removed, attributed timed tombstone after reload; every other revision retained; replay has one activity
+✔ named review request, reviewer queue, exact verify and overdue escalation at 1440px (113047.938207ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 132242.988878
