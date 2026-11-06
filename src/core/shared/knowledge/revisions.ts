@@ -2,6 +2,22 @@ function collapsed(value: string): string {
   return value.normalize("NFC").replace(/\s+/gu, " ").trim();
 }
 
+/** Formatting spans are adjacent text; rows, cells and list items retain word boundaries. */
+export function extractRevisionBlockText(value: unknown, inline = false): string {
+  if (typeof value === "string") return value;
+  if (Array.isArray(value)) return value.map(item => extractRevisionBlockText(item)).join(inline ? "" : " ");
+  if (!value || typeof value !== "object") return "";
+  const record = value as Record<string, unknown>;
+  if (record.mention && typeof record.mention === "object") {
+    const label = (record.mention as {label?: unknown}).label;
+    return typeof label === "string" ? label : typeof record.text === "string" ? record.text : "";
+  }
+  return Object.entries(record)
+    .filter(([key]) => ["text", "code", "summary", "content", "cells", "rows", "columns", "caption", "alt", "items", "detail", "attribution"].includes(key))
+    .map(([key, child]) => extractRevisionBlockText(child, key === "text" || key === "content" || key === "detail"))
+    .join(" ");
+}
+
 export interface RevisionTextBlock {
   text: string;
   children?: readonly RevisionTextBlock[];

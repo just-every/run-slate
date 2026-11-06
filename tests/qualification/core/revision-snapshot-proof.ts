@@ -38,7 +38,7 @@ export async function revisionSnapshotProof(f:Awaited<ReturnType<typeof auditFix
   props={...props,title:'Cafe\u0301\t  snapshot'};
   await commit('PATCH',`/api/pages/${pageId}`,{expectedRevisionId:await f.revision(pageId),properties:{title:props.title}},'alpha zeta Café snapshot');
   const first=createUlid(),second=createUlid();
-  blocks=[{id:first,blockType:'paragraph',treePosition:'1',parentBlockId:null,content:{text:[{text:'Cafe\u0301\t  first',marks:['bold']}]}},{id:second,blockType:'paragraph',treePosition:'2',parentBlockId:null,content:{text:[{text:'second\nline'}]}}];
+  blocks=[{id:first,blockType:'paragraph',treePosition:'1',parentBlockId:null,content:{text:[{text:'Cafe\u0301\t  fi',marks:['bold']},{text:'rst'}]}},{id:second,blockType:'paragraph',treePosition:'2',parentBlockId:null,content:{text:[{text:'second\nline'}]}}];
   await commit('PUT',`/api/pages/${pageId}/blocks`,{expectedRevisionId:await f.revision(pageId),blocks:[blocks[1],blocks[0]]},'Café first second line alpha zeta Café snapshot');
   await commit('POST',`/api/pages/${pageId}/publish`,{expectedRevisionId:await f.revision(pageId)},'Café first second line alpha zeta Café snapshot','publish');
   props={...props,title:'synthetic-slate-later',icon:'📗',labels:['later'],typeface:'mono',smallText:false,fullWidth:false};

@@ -4,8 +4,7 @@ import { ApiProblem } from '../../app/problems';
 import { mutationGuard } from '../../app/operations';
 import type { BlockView } from '../../shared/api/content';
 import type { PageRow, PageProperties, RevisionSnapshot, RevisionRow } from './types';
-import { revisionContentHash } from '../../shared/knowledge/revisions';
-import { plainContent } from '../editor/validation';
+import { extractRevisionBlockText, revisionContentHash } from '../../shared/knowledge/revisions';
 export async function pageRow(ctx: FeatureContext, id: string): Promise<PageRow> {
     const row = await ctx.db.prepare('SELECT * FROM pages WHERE id=? AND workspace_id=? AND deleted_at IS NULL').bind(id, ctx.actor.workspaceId).first<PageRow>();
     if (!row)
@@ -70,4 +69,4 @@ export async function revisionRow(ctx: FeatureContext, pageId: string, id: strin
 }
 export function ref(p: PageRow) { return { id: p.id, containerId: p.container_id, title: p.title, revisionId: p.revision_id, lifecycle: p.lifecycle }; }
 
-export async function snapshotHash(s:RevisionSnapshot){return revisionContentHash({ body: s.blocks.map(b => ({ text: plainContent(b.content) })), properties: { title: s.properties.title, labels: s.properties.labels, ...Object.fromEntries(Object.entries(s.properties.databaseFields ?? {}).map(([k, v]) => [k, typeof v === 'object' ? JSON.stringify(v) : v])) } });}
+export async function snapshotHash(s:RevisionSnapshot){return revisionContentHash({ body: s.blocks.map(b => ({ text: extractRevisionBlockText(b.content) })), properties: { title: s.properties.title, labels: s.properties.labels, ...Object.fromEntries(Object.entries(s.properties.databaseFields ?? {}).map(([k, v]) => [k, typeof v === 'object' ? JSON.stringify(v) : v])) } });}
