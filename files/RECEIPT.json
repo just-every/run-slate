@@ -1,0 +1,117 @@
+{
+  "schema": 1,
+  "tag": "sd-slate-c-f180",
+  "repository": "just-every/run-slate",
+  "branch": "cloud/sd-slate-c-f180",
+  "head": "a4cec6c722ebd036dc7f01034c4295aca5808768",
+  "product_pushed": true,
+  "clause": "NAV-006",
+  "before": "partial",
+  "after": "partial",
+  "selected_point": "acceptance 3 native table editing at 390 on touch",
+  "selected_point_local_result": "passed",
+  "full_clause_done": false,
+  "counts_before": {
+    "done": 57,
+    "partial": 240,
+    "missing": 41,
+    "total": 338
+  },
+  "counts_after": {
+    "done": 57,
+    "partial": 240,
+    "missing": 41,
+    "total": 338
+  },
+  "checks": [
+    {
+      "receipt": "build.json",
+      "exit": 0,
+      "sha256": "b1e11763e0b622822a94511ef65cdf2513efe1a55dd3c5354722e22b8a48395e"
+    },
+    {
+      "receipt": "phone-journey.json",
+      "exit": 0,
+      "sha256": "656021b8334982b12b2614afa7ebf6f2123479348e2dee8283286cf65190029a"
+    },
+    {
+      "receipt": "desktop-journey.json",
+      "exit": 0,
+      "sha256": "d3429a8f48e5ae1ce21c4400c0a51a78b888d7fcd481cec67bf0abaf5c92f895"
+    },
+    {
+      "receipt": "browser-proof-390.json",
+      "exit": 0,
+      "sha256": "b528d4511c6a239686d646101e0750d680b6d8dfd0e55852e38d731d75d68f75"
+    },
+    {
+      "receipt": "browser-proof-1440-final.json",
+      "exit": 0,
+      "sha256": "a736e912c2c988ce7290cea9132eaadc4cfc3173bf0401737afd578514fed99a"
+    },
+    {
+      "receipt": "typecheck-and-first-party.json",
+      "exit": 0,
+      "sha256": "21d000816c385ee94110f24699af684da61dfad4598ea4317066e24825c68070"
+    },
+    {
+      "receipt": "mechanical.json",
+      "exit": 0,
+      "sha256": "9eac796e5db391a63492f1d7e75ca2b4d09a460714b07c566438608b652a7213"
+    },
+    {
+      "receipt": "product-push.json",
+      "exit": 0,
+      "sha256": "f3638f6a6f5510c1f13fc18ee86b6f83e328d0e2e4fe53de40a3ad0f00dc20ed"
+    }
+  ],
+  "probes_per_width": 14,
+  "screens": [
+    {
+      "width": 390,
+      "file": "table-390.png",
+      "geometry": "table-390-geometry.json"
+    },
+    {
+      "width": 1440,
+      "file": "table-1440.png",
+      "geometry": "table-1440-geometry.json"
+    }
+  ],
+  "publication_scan": "guarded lander duty, not run in cloud",
+  "landing": "not performed",
+  "run_site": "guarded lander duty",
+  "generated_views_committed": false,
+  "pr": null,
+  "ci": {
+    "head": "a4cec6c722ebd036dc7f01034c4295aca5808768",
+    "run_id": 42182111695,
+    "event": "push",
+    "status": "completed",
+    "conclusion": "failure",
+    "url": "https://github.com/just-every/run-slate/actions/runs/42182111695",
+    "app_job": 127773900884,
+    "aggregate_job": 127774125650,
+    "failed_command": "node src/base/runtime/contract-docs.mjs check",
+    "failure": "ACCEPTANCE.md: generated content differs; run contract-docs write.",
+    "app_exit": 1,
+    "product_test_failure": false,
+    "generated_view_exception": true,
+    "shards": "skipped after app failure",
+    "rerun_or_dispatch": false,
+    "gh_invocations": 6,
+    "archive_command": "gh run view 42182111695 --repo just-every/run-slate --job 127773900884 --log-failed",
+    "archive_exit": 0,
+    "baseline": {
+      "head": "93b7327adee97ac0ff691bfb5cbff68f4412a27a",
+      "green_verify": 42144247270,
+      "green_run_site": 42144247238,
+      "later_failed_verify": 42150976860,
+      "failed_tooling_job": 127674495791,
+      "single_archive_command_exit": 0,
+      "single_archive_output_bytes": 0,
+      "not_reproduced_or_repaired": true
+    }
+  },
+  "custody": "READY under the explicit generated-view-only exception; guarded landing still pending"
+}

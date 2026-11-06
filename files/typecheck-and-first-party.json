@@ -1,0 +1,26 @@
+{
+  "name": "typecheck-and-first-party",
+  "head": "a4cec6c722ebd036dc7f01034c4295aca5808768",
+  "tree": "1be577edd7c3717420eb07e1eda5f51178944d50",
+  "branch": "cloud/sd-slate-c-f180",
+  "command": [
+    "bash",
+    "/tmp/slate-type-and-check.sh"
+  ],
+  "started": "2026-11-06T07:27:33.967727+00:00",
+  "worktree": "",
+  "browser": "/usr/bin/chromium",
+  "node": "v24.19.0",
+  "artifact": {
+    "schema": 1,
+    "commit": "a4cec6c722ebd036dc7f01034c4295aca5808768",
+    "tree": "1be577edd7c3717420eb07e1eda5f51178944d50",
+    "sourceSha256": "b4e45dbfc76f81d7588660faf7c5f74caf83372bc9ba253624ebd86e8ec08335",
+    "lockSha256": "dbcab822384d4dbfe0f855b2583922b3fb0462b0368355dfe350c82022bc44ff",
+    "outputSha256": "4b13d6bb85f3058bc3ca448ff91cff241f362171a6689ebd2ec3ee969c2b068e"
+  },
+  "exit": 0,
+  "finished": "2026-11-06T07:28:05.124600+00:00",
+  "log": "typecheck-and-first-party.log",
+  "log_sha256": "2c4d9ecd4a62ec1cc1c718ae9e9fdc0f857d3b25e529703a531791d28ef7f1ee"
+}

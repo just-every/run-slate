@@ -1,0 +1,39 @@
+PROBE NAV-006 table populated native creation: member touch controls -> saved, reloaded and native content reconciled
+PROBE NAV-006 table heading edit: member touch controls -> saved, reloaded and native content reconciled
+PROBE NAV-006 table cell edit: member touch controls -> saved, reloaded and native content reconciled
+PROBE NAV-006 table add row: member touch controls -> saved, reloaded and native content reconciled
+PROBE NAV-006 table edit added row: member touch controls -> saved, reloaded and native content reconciled
+PROBE NAV-006 table remove selected row: member touch controls -> saved, reloaded and native content reconciled
+PROBE NAV-006 table add column: member touch controls -> saved, reloaded and native content reconciled
+PROBE NAV-006 table edit added heading: member touch controls -> saved, reloaded and native content reconciled
+PROBE NAV-006 table edit added column: member touch controls -> saved, reloaded and native content reconciled
+PROBE NAV-006 table remove selected column: member touch controls -> saved, reloaded and native content reconciled
+PROBE NAV-006 table merge populated rectangle: member touch controls -> saved, reloaded and native content reconciled
+PROBE NAV-006 table edit merged anchor: member touch controls -> saved, reloaded and native content reconciled
+PROBE NAV-006 table unmerge retains covered cells: member touch controls -> saved, reloaded and native content reconciled
+PROBE NAV-006 table edit uncovered cell: member touch controls -> saved, reloaded and native content reconciled
+Journey failure context {
+  "rejected": [],
+  "consoleErrors": []
+}
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+locator.scrollIntoViewIfNeeded: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for getByRole('spinbutton', { name: 'Merge rows', exact: true })[22m
+
+    at reachable (/workspace/run-slate/tests/qualification/ui-convergence/touch-controls.mjs:7:17)
+    at tap (/workspace/run-slate/tests/qualification/ui-convergence/touch-controls.mjs:21:43)
+    at type (/workspace/run-slate/tests/qualification/ui-convergence/touch-controls.mjs:23:9)
+    at /tmp/slate-browser-proof.mjs:19:11
+    at async withWorkspace (/workspace/run-slate/tests/qualification/ui-convergence/browser-support.mjs:188:7)
+    at async file:///tmp/slate-browser-proof.mjs:12:1 {
+  log: [
+    "  - waiting for getByRole('spinbutton', { name: 'Merge rows', exact: true })"
+  ],
+  name: 'TimeoutError'
+}
+
+Node.js v24.19.0

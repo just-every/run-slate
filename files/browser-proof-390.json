@@ -1,0 +1,31 @@
+{
+  "name": "browser-proof-390",
+  "head": "a4cec6c722ebd036dc7f01034c4295aca5808768",
+  "tree": "1be577edd7c3717420eb07e1eda5f51178944d50",
+  "branch": "cloud/sd-slate-c-f180",
+  "command": [
+    "perl",
+    "-e",
+    "alarm 1200; exec @ARGV",
+    "--",
+    "node",
+    "/tmp/slate-browser-proof-minimal.mjs",
+    "390"
+  ],
+  "started": "2026-11-06T07:30:36.508718+00:00",
+  "worktree": "",
+  "browser": "/usr/bin/chromium",
+  "node": "v24.19.0",
+  "artifact": {
+    "schema": 1,
+    "commit": "a4cec6c722ebd036dc7f01034c4295aca5808768",
+    "tree": "1be577edd7c3717420eb07e1eda5f51178944d50",
+    "sourceSha256": "b4e45dbfc76f81d7588660faf7c5f74caf83372bc9ba253624ebd86e8ec08335",
+    "lockSha256": "dbcab822384d4dbfe0f855b2583922b3fb0462b0368355dfe350c82022bc44ff",
+    "outputSha256": "4b13d6bb85f3058bc3ca448ff91cff241f362171a6689ebd2ec3ee969c2b068e"
+  },
+  "exit": 0,
+  "finished": "2026-11-06T07:31:06.574265+00:00",
+  "log": "browser-proof-390.log",
+  "log_sha256": "f9a19fd4387da4f30a93ff81afff1315f01b6250be406747fd6790d1b00cbf6a"
+}

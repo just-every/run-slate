@@ -1,0 +1,64 @@
+[
+  {
+    "time": 1793949202.3319843,
+    "args": [
+      "api",
+      "repos/just-every/run-slate/actions/runs?head_sha=93b7327adee97ac0ff691bfb5cbff68f4412a27a&per_page=100",
+      "--jq",
+      ".workflow_runs[] | {id,name,event,status,conclusion,head_sha,html_url}"
+    ]
+  },
+  {
+    "time": 1793949209.4718173,
+    "args": [
+      "api",
+      "repos/just-every/run-slate/actions/runs/42150976860/jobs",
+      "--jq",
+      ".jobs[] | {id,name,conclusion,steps:[.steps[] | select(.conclusion==\"failure\") | {name,conclusion}]}"
+    ]
+  },
+  {
+    "time": 1793949218.0642376,
+    "args": [
+      "run",
+      "view",
+      "42150976860",
+      "--repo",
+      "just-every/run-slate",
+      "--job",
+      "127674495791",
+      "--log-failed"
+    ]
+  },
+  {
+    "time": 1793950722.9960582,
+    "args": [
+      "api",
+      "repos/just-every/run-slate/actions/runs?head_sha=a4cec6c722ebd036dc7f01034c4295aca5808768&per_page=100",
+      "--jq",
+      "[.workflow_runs[] | {id,name,event,status,conclusion,head_sha,html_url,run_attempt}]"
+    ]
+  },
+  {
+    "time": 1793950738.690578,
+    "args": [
+      "api",
+      "repos/just-every/run-slate/actions/runs/42182111695/jobs",
+      "--jq",
+      "[.jobs[] | {id,name,conclusion,steps:[.steps[] | select(.conclusion==\"failure\") | {name,number,conclusion}]}]"
+    ]
+  },
+  {
+    "time": 1793950767.2696962,
+    "args": [
+      "run",
+      "view",
+      "42182111695",
+      "--repo",
+      "just-every/run-slate",
+      "--job",
+      "127773900884",
+      "--log-failed"
+    ]
+  }
+]

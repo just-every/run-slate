@@ -1,0 +1,187 @@
+PROBE NAV-006 table populated native creation: member touch controls -> saved, reloaded and native content reconciled
+TABLE TRACE {"event":"focusin","target":"Column 4 heading","trusted":true,"row":"0","column":"0","active":"Column 4 heading"}
+TABLE TRACE {"event":"click","target":"Column 4 heading","trusted":true,"row":"0","column":"3","active":"Column 4 heading"}
+TABLE TRACE {"event":"input","target":"Column 4 heading","trusted":true,"row":"0","column":"3","active":"Column 4 heading"}
+TABLE TRACE {"event":"input","target":"Column 4 heading","trusted":true,"row":"0","column":"3","active":"Column 4 heading"}
+TABLE TRACE {"event":"input","target":"Column 4 heading","trusted":true,"row":"0","column":"3","active":"Column 4 heading"}
+TABLE TRACE {"event":"input","target":"Column 4 heading","trusted":true,"row":"0","column":"3","active":"Column 4 heading"}
+TABLE TRACE {"event":"input","target":"Column 4 heading","trusted":true,"row":"0","column":"3","active":"Column 4 heading"}
+TABLE TRACE {"event":"input","target":"Column 4 heading","trusted":true,"row":"0","column":"3","active":"Column 4 heading"}
+TABLE TRACE {"event":"input","target":"Column 4 heading","trusted":true,"row":"0","column":"3","active":"Column 4 heading"}
+TABLE TRACE {"event":"input","target":"Column 4 heading","trusted":true,"row":"0","column":"3","active":"Column 4 heading"}
+TABLE TRACE {"event":"input","target":"Column 4 heading","trusted":true,"row":"0","column":"3","active":"Column 4 heading"}
+TABLE TRACE {"event":"input","target":"Column 4 heading","trusted":true,"row":"0","column":"3","active":"Column 4 heading"}
+TABLE TRACE {"event":"input","target":"Column 4 heading","trusted":true,"row":"0","column":"3","active":"Column 4 heading"}
+TABLE TRACE {"event":"input","target":"Column 4 heading","trusted":true,"row":"0","column":"3","active":"Column 4 heading"}
+TABLE TRACE {"event":"input","target":"Column 4 heading","trusted":true,"row":"0","column":"3","active":"Column 4 heading"}
+PROBE NAV-006 table heading edit: member touch controls -> saved, reloaded and native content reconciled
+TABLE TRACE {"event":"focusin","target":"Row 3, Next handover","trusted":true,"row":"0","column":"0","active":"Row 3, Next handover"}
+TABLE TRACE {"event":"click","target":"Row 3, Next handover","trusted":true,"row":"2","column":"3","active":"Row 3, Next handover"}
+TABLE TRACE {"event":"input","target":"Row 3, Next handover","trusted":true,"row":"2","column":"3","active":"Row 3, Next handover"}
+TABLE TRACE {"event":"input","target":"Row 3, Next handover","trusted":true,"row":"2","column":"3","active":"Row 3, Next handover"}
+TABLE TRACE {"event":"input","target":"Row 3, Next handover","trusted":true,"row":"2","column":"3","active":"Row 3, Next handover"}
+TABLE TRACE {"event":"input","target":"Row 3, Next handover","trusted":true,"row":"2","column":"3","active":"Row 3, Next handover"}
+TABLE TRACE {"event":"input","target":"Row 3, Next handover","trusted":true,"row":"2","column":"3","active":"Row 3, Next handover"}
+TABLE TRACE {"event":"input","target":"Row 3, Next handover","trusted":true,"row":"2","column":"3","active":"Row 3, Next handover"}
+TABLE TRACE {"event":"input","target":"Row 3, Next handover","trusted":true,"row":"2","column":"3","active":"Row 3, Next handover"}
+TABLE TRACE {"event":"input","target":"Row 3, Next handover","trusted":true,"row":"2","column":"3","active":"Row 3, Next handover"}
+TABLE TRACE {"event":"input","target":"Row 3, Next handover","trusted":true,"row":"2","column":"3","active":"Row 3, Next handover"}
+TABLE TRACE {"event":"input","target":"Row 3, Next handover","trusted":true,"row":"2","column":"3","active":"Row 3, Next handover"}
+TABLE TRACE {"event":"input","target":"Row 3, Next handover","trusted":true,"row":"2","column":"3","active":"Row 3, Next handover"}
+TABLE TRACE {"event":"input","target":"Row 3, Next handover","trusted":true,"row":"2","column":"3","active":"Row 3, Next handover"}
+TABLE TRACE {"event":"input","target":"Row 3, Next handover","trusted":true,"row":"2","column":"3","active":"Row 3, Next handover"}
+TABLE TRACE {"event":"input","target":"Row 3, Next handover","trusted":true,"row":"2","column":"3","active":"Row 3, Next handover"}
+TABLE TRACE {"event":"input","target":"Row 3, Next handover","trusted":true,"row":"2","column":"3","active":"Row 3, Next handover"}
+TABLE TRACE {"event":"input","target":"Row 3, Next handover","trusted":true,"row":"2","column":"3","active":"Row 3, Next handover"}
+TABLE TRACE {"event":"input","target":"Row 3, Next handover","trusted":true,"row":"2","column":"3","active":"Row 3, Next handover"}
+TABLE TRACE {"event":"input","target":"Row 3, Next handover","trusted":true,"row":"2","column":"3","active":"Row 3, Next handover"}
+PROBE NAV-006 table cell edit: member touch controls -> saved, reloaded and native content reconciled
+TABLE TRACE {"event":"focusin","target":"Table tools","trusted":true,"row":"0","column":"0","active":null}
+TABLE TRACE {"event":"click","target":"Table tools","trusted":true,"row":"0","column":"0","active":null}
+TABLE TRACE {"event":"focusin","target":"Table row","trusted":true,"row":"0","column":"0","active":"Table row"}
+TABLE TRACE {"event":"click","target":"Table row","trusted":true,"row":"0","column":"0","active":"Table row"}
+TABLE TRACE {"event":"input","target":"Table row","trusted":false,"row":"0","column":"0","active":"Table row"}
+TABLE TRACE {"event":"change","target":"Table row","trusted":false,"row":"0","column":"0","active":"Table row"}
+TABLE TRACE {"event":"focusin","target":"Add row","trusted":true,"row":"0","column":"0","active":null}
+TABLE TRACE {"event":"click","target":"Add row","trusted":true,"row":"0","column":"0","active":null}
+PROBE NAV-006 table add row: member touch controls -> saved, reloaded and native content reconciled
+TABLE TRACE {"event":"focusin","target":"Row 2, Task","trusted":true,"row":"0","column":"0","active":"Row 2, Task"}
+TABLE TRACE {"event":"click","target":"Row 2, Task","trusted":true,"row":"1","column":"0","active":"Row 2, Task"}
+TABLE TRACE {"event":"input","target":"Row 2, Task","trusted":true,"row":"1","column":"0","active":"Row 2, Task"}
+TABLE TRACE {"event":"input","target":"Row 2, Task","trusted":true,"row":"1","column":"0","active":"Row 2, Task"}
+TABLE TRACE {"event":"input","target":"Row 2, Task","trusted":true,"row":"1","column":"0","active":"Row 2, Task"}
+TABLE TRACE {"event":"input","target":"Row 2, Task","trusted":true,"row":"1","column":"0","active":"Row 2, Task"}
+TABLE TRACE {"event":"input","target":"Row 2, Task","trusted":true,"row":"1","column":"0","active":"Row 2, Task"}
+TABLE TRACE {"event":"input","target":"Row 2, Task","trusted":true,"row":"1","column":"0","active":"Row 2, Task"}
+TABLE TRACE {"event":"input","target":"Row 2, Task","trusted":true,"row":"1","column":"0","active":"Row 2, Task"}
+TABLE TRACE {"event":"input","target":"Row 2, Task","trusted":true,"row":"1","column":"0","active":"Row 2, Task"}
+TABLE TRACE {"event":"input","target":"Row 2, Task","trusted":true,"row":"1","column":"0","active":"Row 2, Task"}
+TABLE TRACE {"event":"input","target":"Row 2, Task","trusted":true,"row":"1","column":"0","active":"Row 2, Task"}
+TABLE TRACE {"event":"input","target":"Row 2, Task","trusted":true,"row":"1","column":"0","active":"Row 2, Task"}
+TABLE TRACE {"event":"input","target":"Row 2, Task","trusted":true,"row":"1","column":"0","active":"Row 2, Task"}
+TABLE TRACE {"event":"input","target":"Row 2, Task","trusted":true,"row":"1","column":"0","active":"Row 2, Task"}
+TABLE TRACE {"event":"input","target":"Row 2, Task","trusted":true,"row":"1","column":"0","active":"Row 2, Task"}
+TABLE TRACE {"event":"input","target":"Row 2, Task","trusted":true,"row":"1","column":"0","active":"Row 2, Task"}
+TABLE TRACE {"event":"input","target":"Row 2, Task","trusted":true,"row":"1","column":"0","active":"Row 2, Task"}
+TABLE TRACE {"event":"input","target":"Row 2, Task","trusted":true,"row":"1","column":"0","active":"Row 2, Task"}
+TABLE TRACE {"event":"input","target":"Row 2, Task","trusted":true,"row":"1","column":"0","active":"Row 2, Task"}
+PROBE NAV-006 table edit added row: member touch controls -> saved, reloaded and native content reconciled
+TABLE TRACE {"event":"focusin","target":"Table tools","trusted":true,"row":"0","column":"0","active":null}
+TABLE TRACE {"event":"click","target":"Table tools","trusted":true,"row":"0","column":"0","active":null}
+TABLE TRACE {"event":"focusin","target":"Table row","trusted":true,"row":"0","column":"0","active":"Table row"}
+TABLE TRACE {"event":"click","target":"Table row","trusted":true,"row":"0","column":"0","active":"Table row"}
+TABLE TRACE {"event":"input","target":"Table row","trusted":false,"row":"1","column":"0","active":"Table row"}
+TABLE TRACE {"event":"change","target":"Table row","trusted":false,"row":"1","column":"0","active":"Table row"}
+TABLE TRACE {"event":"focusin","target":"Remove row","trusted":true,"row":"1","column":"0","active":null}
+TABLE TRACE {"event":"click","target":"Remove row","trusted":true,"row":"1","column":"0","active":null}
+PROBE NAV-006 table remove selected row: member touch controls -> saved, reloaded and native content reconciled
+TABLE TRACE {"event":"focusin","target":"Table tools","trusted":true,"row":"0","column":"0","active":null}
+TABLE TRACE {"event":"click","target":"Table tools","trusted":true,"row":"0","column":"0","active":null}
+TABLE TRACE {"event":"focusin","target":"Table column","trusted":true,"row":"0","column":"0","active":"Table column"}
+TABLE TRACE {"event":"click","target":"Table column","trusted":true,"row":"0","column":"0","active":"Table column"}
+TABLE TRACE {"event":"input","target":"Table column","trusted":false,"row":"0","column":"1","active":"Table column"}
+TABLE TRACE {"event":"change","target":"Table column","trusted":false,"row":"0","column":"1","active":"Table column"}
+TABLE TRACE {"event":"focusin","target":"Add column","trusted":true,"row":"0","column":"1","active":null}
+TABLE TRACE {"event":"click","target":"Add column","trusted":true,"row":"0","column":"1","active":null}
+PROBE NAV-006 table add column: member touch controls -> saved, reloaded and native content reconciled
+TABLE TRACE {"event":"focusin","target":"Column 3 heading","trusted":true,"row":"0","column":"0","active":"Column 3 heading"}
+TABLE TRACE {"event":"click","target":"Column 3 heading","trusted":true,"row":"0","column":"2","active":"Column 3 heading"}
+TABLE TRACE {"event":"input","target":"Column 3 heading","trusted":true,"row":"0","column":"2","active":"Column 3 heading"}
+TABLE TRACE {"event":"input","target":"Column 3 heading","trusted":true,"row":"0","column":"2","active":"Column 3 heading"}
+TABLE TRACE {"event":"input","target":"Column 3 heading","trusted":true,"row":"0","column":"2","active":"Column 3 heading"}
+TABLE TRACE {"event":"input","target":"Column 3 heading","trusted":true,"row":"0","column":"2","active":"Column 3 heading"}
+TABLE TRACE {"event":"input","target":"Column 3 heading","trusted":true,"row":"0","column":"2","active":"Column 3 heading"}
+TABLE TRACE {"event":"input","target":"Column 3 heading","trusted":true,"row":"0","column":"2","active":"Column 3 heading"}
+TABLE TRACE {"event":"input","target":"Column 3 heading","trusted":true,"row":"0","column":"2","active":"Column 3 heading"}
+TABLE TRACE {"event":"input","target":"Column 3 heading","trusted":true,"row":"0","column":"2","active":"Column 3 heading"}
+TABLE TRACE {"event":"input","target":"Column 3 heading","trusted":true,"row":"0","column":"2","active":"Column 3 heading"}
+TABLE TRACE {"event":"input","target":"Column 3 heading","trusted":true,"row":"0","column":"2","active":"Column 3 heading"}
+TABLE TRACE {"event":"input","target":"Column 3 heading","trusted":true,"row":"0","column":"2","active":"Column 3 heading"}
+TABLE TRACE {"event":"input","target":"Column 3 heading","trusted":true,"row":"0","column":"2","active":"Column 3 heading"}
+TABLE TRACE {"event":"input","target":"Column 3 heading","trusted":true,"row":"0","column":"2","active":"Column 3 heading"}
+TABLE TRACE {"event":"input","target":"Column 3 heading","trusted":true,"row":"0","column":"2","active":"Column 3 heading"}
+TABLE TRACE {"event":"input","target":"Column 3 heading","trusted":true,"row":"0","column":"2","active":"Column 3 heading"}
+TABLE TRACE {"event":"input","target":"Column 3 heading","trusted":true,"row":"0","column":"2","active":"Column 3 heading"}
+TABLE TRACE {"event":"input","target":"Column 3 heading","trusted":true,"row":"0","column":"2","active":"Column 3 heading"}
+TABLE TRACE {"event":"input","target":"Column 3 heading","trusted":true,"row":"0","column":"2","active":"Column 3 heading"}
+TABLE TRACE {"event":"input","target":"Column 3 heading","trusted":true,"row":"0","column":"2","active":"Column 3 heading"}
+TABLE TRACE {"event":"input","target":"Column 3 heading","trusted":true,"row":"0","column":"2","active":"Column 3 heading"}
+PROBE NAV-006 table edit added heading: member touch controls -> saved, reloaded and native content reconciled
+TABLE TRACE {"event":"focusin","target":"Row 2, Temporary checkpoint","trusted":true,"row":"0","column":"0","active":"Row 2, Temporary checkpoint"}
+TABLE TRACE {"event":"click","target":"Row 2, Temporary checkpoint","trusted":true,"row":"1","column":"2","active":"Row 2, Temporary checkpoint"}
+TABLE TRACE {"event":"input","target":"Row 2, Temporary checkpoint","trusted":true,"row":"1","column":"2","active":"Row 2, Temporary checkpoint"}
+TABLE TRACE {"event":"input","target":"Row 2, Temporary checkpoint","trusted":true,"row":"1","column":"2","active":"Row 2, Temporary checkpoint"}
+TABLE TRACE {"event":"input","target":"Row 2, Temporary checkpoint","trusted":true,"row":"1","column":"2","active":"Row 2, Temporary checkpoint"}
+TABLE TRACE {"event":"input","target":"Row 2, Temporary checkpoint","trusted":true,"row":"1","column":"2","active":"Row 2, Temporary checkpoint"}
+TABLE TRACE {"event":"input","target":"Row 2, Temporary checkpoint","trusted":true,"row":"1","column":"2","active":"Row 2, Temporary checkpoint"}
+TABLE TRACE {"event":"input","target":"Row 2, Temporary checkpoint","trusted":true,"row":"1","column":"2","active":"Row 2, Temporary checkpoint"}
+TABLE TRACE {"event":"input","target":"Row 2, Temporary checkpoint","trusted":true,"row":"1","column":"2","active":"Row 2, Temporary checkpoint"}
+TABLE TRACE {"event":"input","target":"Row 2, Temporary checkpoint","trusted":true,"row":"1","column":"2","active":"Row 2, Temporary checkpoint"}
+TABLE TRACE {"event":"input","target":"Row 2, Temporary checkpoint","trusted":true,"row":"1","column":"2","active":"Row 2, Temporary checkpoint"}
+TABLE TRACE {"event":"input","target":"Row 2, Temporary checkpoint","trusted":true,"row":"1","column":"2","active":"Row 2, Temporary checkpoint"}
+TABLE TRACE {"event":"input","target":"Row 2, Temporary checkpoint","trusted":true,"row":"1","column":"2","active":"Row 2, Temporary checkpoint"}
+TABLE TRACE {"event":"input","target":"Row 2, Temporary checkpoint","trusted":true,"row":"1","column":"2","active":"Row 2, Temporary checkpoint"}
+TABLE TRACE {"event":"input","target":"Row 2, Temporary checkpoint","trusted":true,"row":"1","column":"2","active":"Row 2, Temporary checkpoint"}
+TABLE TRACE {"event":"input","target":"Row 2, Temporary checkpoint","trusted":true,"row":"1","column":"2","active":"Row 2, Temporary checkpoint"}
+TABLE TRACE {"event":"input","target":"Row 2, Temporary checkpoint","trusted":true,"row":"1","column":"2","active":"Row 2, Temporary checkpoint"}
+TABLE TRACE {"event":"input","target":"Row 2, Temporary checkpoint","trusted":true,"row":"1","column":"2","active":"Row 2, Temporary checkpoint"}
+TABLE TRACE {"event":"input","target":"Row 2, Temporary checkpoint","trusted":true,"row":"1","column":"2","active":"Row 2, Temporary checkpoint"}
+TABLE TRACE {"event":"input","target":"Row 2, Temporary checkpoint","trusted":true,"row":"1","column":"2","active":"Row 2, Temporary checkpoint"}
+PROBE NAV-006 table edit added column: member touch controls -> saved, reloaded and native content reconciled
+TABLE TRACE {"event":"focusin","target":"Table tools","trusted":true,"row":"0","column":"0","active":null}
+TABLE TRACE {"event":"click","target":"Table tools","trusted":true,"row":"0","column":"0","active":null}
+TABLE TRACE {"event":"focusin","target":"Table column","trusted":true,"row":"0","column":"0","active":"Table column"}
+TABLE TRACE {"event":"click","target":"Table column","trusted":true,"row":"0","column":"0","active":"Table column"}
+TABLE TRACE {"event":"input","target":"Table column","trusted":false,"row":"0","column":"2","active":"Table column"}
+TABLE TRACE {"event":"change","target":"Table column","trusted":false,"row":"0","column":"2","active":"Table column"}
+TABLE TRACE {"event":"focusin","target":"Remove column","trusted":true,"row":"0","column":"2","active":null}
+TABLE TRACE {"event":"click","target":"Remove column","trusted":true,"row":"0","column":"2","active":null}
+PROBE NAV-006 table remove selected column: member touch controls -> saved, reloaded and native content reconciled
+TABLE TRACE {"event":"focusin","target":"Table tools","trusted":true,"row":"0","column":"0","active":null}
+TABLE TRACE {"event":"click","target":"Table tools","trusted":true,"row":"0","column":"0","active":null}
+TABLE TRACE {"event":"focusin","target":"Table row","trusted":true,"row":"0","column":"0","active":"Table row"}
+TABLE TRACE {"event":"click","target":"Table row","trusted":true,"row":"0","column":"0","active":"Table row"}
+TABLE TRACE {"event":"input","target":"Table row","trusted":false,"row":"0","column":"0","active":"Table row"}
+TABLE TRACE {"event":"change","target":"Table row","trusted":false,"row":"0","column":"0","active":"Table row"}
+TABLE TRACE {"event":"focusin","target":"Table column","trusted":true,"row":"0","column":"0","active":"Table column"}
+TABLE TRACE {"event":"click","target":"Table column","trusted":true,"row":"0","column":"0","active":"Table column"}
+TABLE TRACE {"event":"input","target":"Table column","trusted":false,"row":"0","column":"0","active":"Table column"}
+TABLE TRACE {"event":"change","target":"Table column","trusted":false,"row":"0","column":"0","active":"Table column"}
+TABLE TRACE {"event":"focusin","target":"Merge rows","trusted":true,"row":"0","column":"0","active":"Merge rows"}
+TABLE TRACE {"event":"click","target":"Merge rows","trusted":true,"row":"0","column":"0","active":"Merge rows"}
+TABLE TRACE {"event":"input","target":"Merge rows","trusted":true,"row":"0","column":"0","active":"Merge rows"}
+TABLE TRACE {"event":"change","target":"Merge rows","trusted":true,"row":"0","column":"0","active":null}
+TABLE TRACE {"event":"focusin","target":"Merge columns","trusted":true,"row":"0","column":"0","active":"Merge columns"}
+TABLE TRACE {"event":"click","target":"Merge columns","trusted":true,"row":"0","column":"0","active":"Merge columns"}
+TABLE TRACE {"event":"input","target":"Merge columns","trusted":true,"row":"0","column":"0","active":"Merge columns"}
+TABLE TRACE {"event":"focusin","target":"Merge cells","trusted":true,"row":"0","column":"0","active":null}
+TABLE TRACE {"event":"click","target":"Merge cells","trusted":true,"row":"0","column":"0","active":null}
+PROBE NAV-006 table merge populated rectangle: member touch controls -> saved, reloaded and native content reconciled
+TABLE TRACE {"event":"focusin","target":"Table tools","trusted":true,"row":"0","column":"0","active":null}
+TABLE TRACE {"event":"click","target":"Table tools","trusted":true,"row":"0","column":"0","active":null}
+TOUCH GEOMETRY {"valid":false,"element":{"tag":"DIV","role":"textbox","label":"Row 1, Task"},"box":{"x":-38.5,"y":390,"width":304,"height":44,"top":390,"right":265.5,"bottom":434,"left":-38.5},"viewport":{"left":0,"top":0,"width":390,"height":844},"scroll":{"x":0,"y":0},"hit":{"tag":"DIV","id":"","className":"min-h-[1.5em] w-full rounded-control break-words whitespace-pre-wrap outline-none"}}
+Journey failure context {
+  "rejected": [],
+  "consoleErrors": []
+}
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: A touch control is wholly inside the visual viewport and unobscured.
+    at reachable (file:///workspace/run-slate/tests/qualification/ui-convergence/touch-controls.mjs:19:10)
+    at async tap (file:///workspace/run-slate/tests/qualification/ui-convergence/touch-controls.mjs:21:37)
+    at async type (file:///workspace/run-slate/tests/qualification/ui-convergence/touch-controls.mjs:23:3)
+    at async touchTablesJourney (file:///workspace/run-slate/tests/qualification/ui-convergence/tables-journey.mjs:110:3)
+    at async file:///tmp/slate-touch-trace.mjs:17:7
+    at async withWorkspace (file:///workspace/run-slate/tests/qualification/ui-convergence/browser-support.mjs:188:7)
+    at async file:///tmp/slate-touch-trace.mjs:6:1 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}
+
+Node.js v24.19.0

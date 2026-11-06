@@ -1,0 +1,781 @@
+{
+  "pageId": "01M6QW8G28ME82W4RF6KJX8NBN",
+  "blockId": "a3f8eb0b-cee2-49cf-86cb-316539e8237d",
+  "receipts": [
+    {
+      "operation": "populated native creation",
+      "content": {
+        "caption": "Response handover",
+        "columns": [
+          "Task",
+          "Owner",
+          "Status",
+          "Handoff"
+        ],
+        "rows": [
+          {
+            "id": "1bd8a073-3742-430c-a83c-cb38fa7c207b",
+            "cells": [
+              "Response 1",
+              "Lead 1",
+              "Ready 1",
+              "Note 1"
+            ]
+          },
+          {
+            "id": "42986929-d9a3-4c3a-a279-94f9ce2d64de",
+            "cells": [
+              "Response 2",
+              "Lead 2",
+              "Ready 2",
+              "Note 2"
+            ]
+          },
+          {
+            "id": "85cc6d68-5cbe-4a03-9e4f-1f925a16cc33",
+            "cells": [
+              "Response 3",
+              "Lead 3",
+              "Ready 3",
+              "Note 3"
+            ]
+          }
+        ],
+        "headerColumn": true,
+        "widths": [
+          160,
+          160,
+          160,
+          160
+        ],
+        "colours": {
+          "42986929-d9a3-4c3a-a279-94f9ce2d64de:2": "green"
+        },
+        "merges": []
+      }
+    },
+    {
+      "operation": "heading edit",
+      "content": {
+        "caption": "Response handover",
+        "columns": [
+          "Task",
+          "Owner",
+          "Status",
+          "Next handover"
+        ],
+        "rows": [
+          {
+            "id": "1bd8a073-3742-430c-a83c-cb38fa7c207b",
+            "cells": [
+              "Response 1",
+              "Lead 1",
+              "Ready 1",
+              "Note 1"
+            ]
+          },
+          {
+            "id": "42986929-d9a3-4c3a-a279-94f9ce2d64de",
+            "cells": [
+              "Response 2",
+              "Lead 2",
+              "Ready 2",
+              "Note 2"
+            ]
+          },
+          {
+            "id": "85cc6d68-5cbe-4a03-9e4f-1f925a16cc33",
+            "cells": [
+              "Response 3",
+              "Lead 3",
+              "Ready 3",
+              "Note 3"
+            ]
+          }
+        ],
+        "headerColumn": true,
+        "widths": [
+          160,
+          160,
+          160,
+          160
+        ],
+        "colours": {
+          "42986929-d9a3-4c3a-a279-94f9ce2d64de:2": "green"
+        },
+        "merges": []
+      }
+    },
+    {
+      "operation": "cell edit",
+      "content": {
+        "caption": "Response handover",
+        "columns": [
+          "Task",
+          "Owner",
+          "Status",
+          "Next handover"
+        ],
+        "rows": [
+          {
+            "id": "1bd8a073-3742-430c-a83c-cb38fa7c207b",
+            "cells": [
+              "Response 1",
+              "Lead 1",
+              "Ready 1",
+              "Note 1"
+            ]
+          },
+          {
+            "id": "42986929-d9a3-4c3a-a279-94f9ce2d64de",
+            "cells": [
+              "Response 2",
+              "Lead 2",
+              "Ready 2",
+              "Note 2"
+            ]
+          },
+          {
+            "id": "85cc6d68-5cbe-4a03-9e4f-1f925a16cc33",
+            "cells": [
+              "Response 3",
+              "Lead 3",
+              "Ready 3",
+              "Dispatch confirmed"
+            ]
+          }
+        ],
+        "headerColumn": true,
+        "widths": [
+          160,
+          160,
+          160,
+          160
+        ],
+        "colours": {
+          "42986929-d9a3-4c3a-a279-94f9ce2d64de:2": "green"
+        },
+        "merges": []
+      }
+    },
+    {
+      "operation": "add row",
+      "content": {
+        "caption": "Response handover",
+        "columns": [
+          "Task",
+          "Owner",
+          "Status",
+          "Next handover"
+        ],
+        "rows": [
+          {
+            "id": "1bd8a073-3742-430c-a83c-cb38fa7c207b",
+            "cells": [
+              "Response 1",
+              "Lead 1",
+              "Ready 1",
+              "Note 1"
+            ]
+          },
+          {
+            "id": "966a1914-7383-4b0f-ae3f-8c9e113247d0",
+            "cells": [
+              "",
+              "",
+              "",
+              ""
+            ]
+          },
+          {
+            "id": "42986929-d9a3-4c3a-a279-94f9ce2d64de",
+            "cells": [
+              "Response 2",
+              "Lead 2",
+              "Ready 2",
+              "Note 2"
+            ]
+          },
+          {
+            "id": "85cc6d68-5cbe-4a03-9e4f-1f925a16cc33",
+            "cells": [
+              "Response 3",
+              "Lead 3",
+              "Ready 3",
+              "Dispatch confirmed"
+            ]
+          }
+        ],
+        "headerColumn": true,
+        "widths": [
+          160,
+          160,
+          160,
+          160
+        ],
+        "colours": {
+          "42986929-d9a3-4c3a-a279-94f9ce2d64de:2": "green"
+        },
+        "merges": []
+      }
+    },
+    {
+      "operation": "edit added row",
+      "content": {
+        "caption": "Response handover",
+        "columns": [
+          "Task",
+          "Owner",
+          "Status",
+          "Next handover"
+        ],
+        "rows": [
+          {
+            "id": "1bd8a073-3742-430c-a83c-cb38fa7c207b",
+            "cells": [
+              "Response 1",
+              "Lead 1",
+              "Ready 1",
+              "Note 1"
+            ]
+          },
+          {
+            "id": "966a1914-7383-4b0f-ae3f-8c9e113247d0",
+            "cells": [
+              "Temporary response",
+              "",
+              "",
+              ""
+            ]
+          },
+          {
+            "id": "42986929-d9a3-4c3a-a279-94f9ce2d64de",
+            "cells": [
+              "Response 2",
+              "Lead 2",
+              "Ready 2",
+              "Note 2"
+            ]
+          },
+          {
+            "id": "85cc6d68-5cbe-4a03-9e4f-1f925a16cc33",
+            "cells": [
+              "Response 3",
+              "Lead 3",
+              "Ready 3",
+              "Dispatch confirmed"
+            ]
+          }
+        ],
+        "headerColumn": true,
+        "widths": [
+          160,
+          160,
+          160,
+          160
+        ],
+        "colours": {
+          "42986929-d9a3-4c3a-a279-94f9ce2d64de:2": "green"
+        },
+        "merges": []
+      }
+    },
+    {
+      "operation": "remove selected row",
+      "content": {
+        "caption": "Response handover",
+        "columns": [
+          "Task",
+          "Owner",
+          "Status",
+          "Next handover"
+        ],
+        "rows": [
+          {
+            "id": "1bd8a073-3742-430c-a83c-cb38fa7c207b",
+            "cells": [
+              "Response 1",
+              "Lead 1",
+              "Ready 1",
+              "Note 1"
+            ]
+          },
+          {
+            "id": "42986929-d9a3-4c3a-a279-94f9ce2d64de",
+            "cells": [
+              "Response 2",
+              "Lead 2",
+              "Ready 2",
+              "Note 2"
+            ]
+          },
+          {
+            "id": "85cc6d68-5cbe-4a03-9e4f-1f925a16cc33",
+            "cells": [
+              "Response 3",
+              "Lead 3",
+              "Ready 3",
+              "Dispatch confirmed"
+            ]
+          }
+        ],
+        "headerColumn": true,
+        "widths": [
+          160,
+          160,
+          160,
+          160
+        ],
+        "colours": {
+          "42986929-d9a3-4c3a-a279-94f9ce2d64de:2": "green"
+        },
+        "merges": []
+      }
+    },
+    {
+      "operation": "add column",
+      "content": {
+        "caption": "Response handover",
+        "columns": [
+          "Task",
+          "Owner",
+          "",
+          "Status",
+          "Next handover"
+        ],
+        "rows": [
+          {
+            "id": "1bd8a073-3742-430c-a83c-cb38fa7c207b",
+            "cells": [
+              "Response 1",
+              "Lead 1",
+              "",
+              "Ready 1",
+              "Note 1"
+            ]
+          },
+          {
+            "id": "42986929-d9a3-4c3a-a279-94f9ce2d64de",
+            "cells": [
+              "Response 2",
+              "Lead 2",
+              "",
+              "Ready 2",
+              "Note 2"
+            ]
+          },
+          {
+            "id": "85cc6d68-5cbe-4a03-9e4f-1f925a16cc33",
+            "cells": [
+              "Response 3",
+              "Lead 3",
+              "",
+              "Ready 3",
+              "Dispatch confirmed"
+            ]
+          }
+        ],
+        "headerColumn": true,
+        "widths": [
+          160,
+          160,
+          180,
+          160,
+          160
+        ],
+        "colours": {
+          "42986929-d9a3-4c3a-a279-94f9ce2d64de:3": "green"
+        },
+        "merges": []
+      }
+    },
+    {
+      "operation": "edit added heading",
+      "content": {
+        "caption": "Response handover",
+        "columns": [
+          "Task",
+          "Owner",
+          "Temporary checkpoint",
+          "Status",
+          "Next handover"
+        ],
+        "rows": [
+          {
+            "id": "1bd8a073-3742-430c-a83c-cb38fa7c207b",
+            "cells": [
+              "Response 1",
+              "Lead 1",
+              "",
+              "Ready 1",
+              "Note 1"
+            ]
+          },
+          {
+            "id": "42986929-d9a3-4c3a-a279-94f9ce2d64de",
+            "cells": [
+              "Response 2",
+              "Lead 2",
+              "",
+              "Ready 2",
+              "Note 2"
+            ]
+          },
+          {
+            "id": "85cc6d68-5cbe-4a03-9e4f-1f925a16cc33",
+            "cells": [
+              "Response 3",
+              "Lead 3",
+              "",
+              "Ready 3",
+              "Dispatch confirmed"
+            ]
+          }
+        ],
+        "headerColumn": true,
+        "widths": [
+          160,
+          160,
+          180,
+          160,
+          160
+        ],
+        "colours": {
+          "42986929-d9a3-4c3a-a279-94f9ce2d64de:3": "green"
+        },
+        "merges": []
+      }
+    },
+    {
+      "operation": "edit added column",
+      "content": {
+        "caption": "Response handover",
+        "columns": [
+          "Task",
+          "Owner",
+          "Temporary checkpoint",
+          "Status",
+          "Next handover"
+        ],
+        "rows": [
+          {
+            "id": "1bd8a073-3742-430c-a83c-cb38fa7c207b",
+            "cells": [
+              "Response 1",
+              "Lead 1",
+              "",
+              "Ready 1",
+              "Note 1"
+            ]
+          },
+          {
+            "id": "42986929-d9a3-4c3a-a279-94f9ce2d64de",
+            "cells": [
+              "Response 2",
+              "Lead 2",
+              "Temporary coverage",
+              "Ready 2",
+              "Note 2"
+            ]
+          },
+          {
+            "id": "85cc6d68-5cbe-4a03-9e4f-1f925a16cc33",
+            "cells": [
+              "Response 3",
+              "Lead 3",
+              "",
+              "Ready 3",
+              "Dispatch confirmed"
+            ]
+          }
+        ],
+        "headerColumn": true,
+        "widths": [
+          160,
+          160,
+          180,
+          160,
+          160
+        ],
+        "colours": {
+          "42986929-d9a3-4c3a-a279-94f9ce2d64de:3": "green"
+        },
+        "merges": []
+      }
+    },
+    {
+      "operation": "remove selected column",
+      "content": {
+        "caption": "Response handover",
+        "columns": [
+          "Task",
+          "Owner",
+          "Status",
+          "Next handover"
+        ],
+        "rows": [
+          {
+            "id": "1bd8a073-3742-430c-a83c-cb38fa7c207b",
+            "cells": [
+              "Response 1",
+              "Lead 1",
+              "Ready 1",
+              "Note 1"
+            ]
+          },
+          {
+            "id": "42986929-d9a3-4c3a-a279-94f9ce2d64de",
+            "cells": [
+              "Response 2",
+              "Lead 2",
+              "Ready 2",
+              "Note 2"
+            ]
+          },
+          {
+            "id": "85cc6d68-5cbe-4a03-9e4f-1f925a16cc33",
+            "cells": [
+              "Response 3",
+              "Lead 3",
+              "Ready 3",
+              "Dispatch confirmed"
+            ]
+          }
+        ],
+        "headerColumn": true,
+        "widths": [
+          160,
+          160,
+          160,
+          160
+        ],
+        "colours": {
+          "42986929-d9a3-4c3a-a279-94f9ce2d64de:2": "green"
+        },
+        "merges": []
+      }
+    },
+    {
+      "operation": "merge populated rectangle",
+      "content": {
+        "caption": "Response handover",
+        "columns": [
+          "Task",
+          "Owner",
+          "Status",
+          "Next handover"
+        ],
+        "rows": [
+          {
+            "id": "1bd8a073-3742-430c-a83c-cb38fa7c207b",
+            "cells": [
+              "Response 1",
+              "Lead 1",
+              "Ready 1",
+              "Note 1"
+            ]
+          },
+          {
+            "id": "42986929-d9a3-4c3a-a279-94f9ce2d64de",
+            "cells": [
+              "Response 2",
+              "Lead 2",
+              "Ready 2",
+              "Note 2"
+            ]
+          },
+          {
+            "id": "85cc6d68-5cbe-4a03-9e4f-1f925a16cc33",
+            "cells": [
+              "Response 3",
+              "Lead 3",
+              "Ready 3",
+              "Dispatch confirmed"
+            ]
+          }
+        ],
+        "headerColumn": true,
+        "widths": [
+          160,
+          160,
+          160,
+          160
+        ],
+        "colours": {
+          "42986929-d9a3-4c3a-a279-94f9ce2d64de:2": "green"
+        },
+        "merges": [
+          {
+            "rowId": "1bd8a073-3742-430c-a83c-cb38fa7c207b",
+            "column": 0,
+            "rowSpan": 2,
+            "colSpan": 2
+          }
+        ]
+      }
+    },
+    {
+      "operation": "edit merged anchor",
+      "content": {
+        "caption": "Response handover",
+        "columns": [
+          "Task",
+          "Owner",
+          "Status",
+          "Next handover"
+        ],
+        "rows": [
+          {
+            "id": "1bd8a073-3742-430c-a83c-cb38fa7c207b",
+            "cells": [
+              "Response lead confirmed",
+              "Lead 1",
+              "Ready 1",
+              "Note 1"
+            ]
+          },
+          {
+            "id": "42986929-d9a3-4c3a-a279-94f9ce2d64de",
+            "cells": [
+              "Response 2",
+              "Lead 2",
+              "Ready 2",
+              "Note 2"
+            ]
+          },
+          {
+            "id": "85cc6d68-5cbe-4a03-9e4f-1f925a16cc33",
+            "cells": [
+              "Response 3",
+              "Lead 3",
+              "Ready 3",
+              "Dispatch confirmed"
+            ]
+          }
+        ],
+        "headerColumn": true,
+        "widths": [
+          160,
+          160,
+          160,
+          160
+        ],
+        "colours": {
+          "42986929-d9a3-4c3a-a279-94f9ce2d64de:2": "green"
+        },
+        "merges": [
+          {
+            "rowId": "1bd8a073-3742-430c-a83c-cb38fa7c207b",
+            "column": 0,
+            "rowSpan": 2,
+            "colSpan": 2
+          }
+        ]
+      }
+    },
+    {
+      "operation": "unmerge retains covered cells",
+      "content": {
+        "caption": "Response handover",
+        "columns": [
+          "Task",
+          "Owner",
+          "Status",
+          "Next handover"
+        ],
+        "rows": [
+          {
+            "id": "1bd8a073-3742-430c-a83c-cb38fa7c207b",
+            "cells": [
+              "Response lead confirmed",
+              "Lead 1",
+              "Ready 1",
+              "Note 1"
+            ]
+          },
+          {
+            "id": "42986929-d9a3-4c3a-a279-94f9ce2d64de",
+            "cells": [
+              "Response 2",
+              "Lead 2",
+              "Ready 2",
+              "Note 2"
+            ]
+          },
+          {
+            "id": "85cc6d68-5cbe-4a03-9e4f-1f925a16cc33",
+            "cells": [
+              "Response 3",
+              "Lead 3",
+              "Ready 3",
+              "Dispatch confirmed"
+            ]
+          }
+        ],
+        "headerColumn": true,
+        "widths": [
+          160,
+          160,
+          160,
+          160
+        ],
+        "colours": {
+          "42986929-d9a3-4c3a-a279-94f9ce2d64de:2": "green"
+        },
+        "merges": []
+      }
+    },
+    {
+      "operation": "edit uncovered cell",
+      "content": {
+        "caption": "Response handover",
+        "columns": [
+          "Task",
+          "Owner",
+          "Status",
+          "Next handover"
+        ],
+        "rows": [
+          {
+            "id": "1bd8a073-3742-430c-a83c-cb38fa7c207b",
+            "cells": [
+              "Response lead confirmed",
+              "Lead 1",
+              "Ready 1",
+              "Note 1"
+            ]
+          },
+          {
+            "id": "42986929-d9a3-4c3a-a279-94f9ce2d64de",
+            "cells": [
+              "Response 2",
+              "Relief lead confirmed",
+              "Ready 2",
+              "Note 2"
+            ]
+          },
+          {
+            "id": "85cc6d68-5cbe-4a03-9e4f-1f925a16cc33",
+            "cells": [
+              "Response 3",
+              "Lead 3",
+              "Ready 3",
+              "Dispatch confirmed"
+            ]
+          }
+        ],
+        "headerColumn": true,
+        "widths": [
+          160,
+          160,
+          160,
+          160
+        ],
+        "colours": {
+          "42986929-d9a3-4c3a-a279-94f9ce2d64de:2": "green"
+        },
+        "merges": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "head": "a4cec6c722ebd036dc7f01034c4295aca5808768",
+  "status_rows_before": 338,
+  "status_rows_after": 338,
+  "changed_status_rows": [
+    "NAV-006"
+  ],
+  "counts_before": {
+    "done": 57,
+    "partial": 240,
+    "missing": 41
+  },
+  "counts_after": {
+    "done": 57,
+    "partial": 240,
+    "missing": 41
+  },
+  "test_budget_metadata": 205,
+  "registration_changes": 0,
+  "existing_assertions_removed_or_narrowed": false,
+  "generated_views_committed": false,
+  "workflow_edited": false,
+  "base_pin_changed": false,
+  "changed_files": [
+    "CONTRACT.md",
+    "sources.lock.json",
+    "src/core/features/editor/ui/blocks/TableBlock.tsx",
+    "tests/qualification/ui-convergence/journeys.test.mjs",
+    "tests/qualification/ui-convergence/tables-journey.mjs",
+    "tests/requirements/clause-inventory.json",
+    "tests/requirements/cli-journey.md"
+  ]
+}

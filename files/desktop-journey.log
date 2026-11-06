@@ -1,0 +1,22 @@
+PROBE DB-012 ordinary edit: native record Quantity 7 -> 11; computed value 22 and reload retained
+PROBE DB-012 record-is-page: viewer fields, retained comments, exact historical body and unchanged stored current body passed
+PROBE DB-012 record-is-row: viewer fields, retained comments, exact historical body and unchanged stored current body passed
+PROBE DB-012 record-is-page: viewer fields, retained comments, exact historical body and unchanged stored current body passed
+PROBE DB-012 read-only: all six fields readable; native viewer PATCH -> 404 and unchanged record and history
+NAV-006 touch table layout record edit persisted
+NAV-006 touch board layout record edit persisted
+NAV-006 touch list layout record edit persisted
+NAV-006 touch gallery layout record edit persisted
+NAV-006 touch calendar layout record edit persisted
+NAV-006 touch timeline layout record edit persisted
+PROBE AUTO-003 browser 1440: native database Automations -> trigger, actor, readable touched record and time; error retries, visible failure beside rule and persisted disable reason
+NAV-006 touch database charts, templates and automations passed
+✔ spreadsheet tables merge, sort and round-trip through edited database records at 1440px (158274.604969ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 177846.276418

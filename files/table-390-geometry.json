@@ -1,0 +1,99 @@
+{
+  "head": "a4cec6c722ebd036dc7f01034c4295aca5808768",
+  "width": 390,
+  "geometry": {
+    "box": {
+      "x": 28.5,
+      "y": 390,
+      "width": 229,
+      "height": 44,
+      "top": 390,
+      "right": 257.5,
+      "bottom": 434,
+      "left": 28.5
+    },
+    "scrollport": {
+      "x": 20.5,
+      "y": 319,
+      "width": 245,
+      "height": 220,
+      "top": 319,
+      "right": 265.5,
+      "bottom": 539,
+      "left": 20.5
+    },
+    "fontSize": "14px",
+    "documentWidth": 390,
+    "viewport": 390
+  },
+  "icons": [
+    {
+      "name": "Open navigation",
+      "tooltip": "Open navigation"
+    },
+    {
+      "name": "Comments",
+      "tooltip": "Comments"
+    },
+    {
+      "name": "Insert a block after table",
+      "tooltip": "Insert block"
+    },
+    {
+      "name": "Block actions for table",
+      "tooltip": "Block actions"
+    }
+  ],
+  "content": {
+    "caption": "Response handover",
+    "columns": [
+      "Task",
+      "Owner",
+      "Status",
+      "Handoff"
+    ],
+    "rows": [
+      {
+        "id": "b542f3a1-65db-4347-8dbf-e16c2025ec48",
+        "cells": [
+          "On-call lead confirmed by touch",
+          "Lead 1",
+          "Ready 1",
+          "Note 1"
+        ]
+      },
+      {
+        "id": "ce16137f-13c3-4fc8-b044-1f850775a92e",
+        "cells": [
+          "Response 2",
+          "Lead 2",
+          "Ready 2",
+          "Note 2"
+        ]
+      },
+      {
+        "id": "6b20f2bf-fedb-49a7-be51-45c2d9a4404a",
+        "cells": [
+          "Response 3",
+          "Lead 3",
+          "Ready 3",
+          "Note 3"
+        ]
+      }
+    ],
+    "widths": [
+      160,
+      160,
+      160,
+      160
+    ],
+    "merges": [
+      {
+        "rowId": "b542f3a1-65db-4347-8dbf-e16c2025ec48",
+        "column": 0,
+        "rowSpan": 2,
+        "colSpan": 2
+      }
+    ]
+  }
+}

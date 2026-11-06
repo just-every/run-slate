@@ -1,0 +1,30 @@
+{
+  "head": "a4cec6c722ebd036dc7f01034c4295aca5808768",
+  "run_id": 42182111695,
+  "event": "push",
+  "status": "completed",
+  "conclusion": "failure",
+  "url": "https://github.com/just-every/run-slate/actions/runs/42182111695",
+  "app_job": 127773900884,
+  "aggregate_job": 127774125650,
+  "failed_command": "node src/base/runtime/contract-docs.mjs check",
+  "failure": "ACCEPTANCE.md: generated content differs; run contract-docs write.",
+  "app_exit": 1,
+  "product_test_failure": false,
+  "generated_view_exception": true,
+  "shards": "skipped after app failure",
+  "rerun_or_dispatch": false,
+  "gh_invocations": 6,
+  "archive_command": "gh run view 42182111695 --repo just-every/run-slate --job 127773900884 --log-failed",
+  "archive_exit": 0,
+  "baseline": {
+    "head": "93b7327adee97ac0ff691bfb5cbff68f4412a27a",
+    "green_verify": 42144247270,
+    "green_run_site": 42144247238,
+    "later_failed_verify": 42150976860,
+    "failed_tooling_job": 127674495791,
+    "single_archive_command_exit": 0,
+    "single_archive_output_bytes": 0,
+    "not_reproduced_or_repaired": true
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "name": "phone-journey",
+  "head": "a4cec6c722ebd036dc7f01034c4295aca5808768",
+  "tree": "1be577edd7c3717420eb07e1eda5f51178944d50",
+  "branch": "cloud/sd-slate-c-f180",
+  "command": [
+    "perl",
+    "-e",
+    "alarm 1200; exec @ARGV",
+    "--",
+    "node",
+    "--test",
+    "--test-concurrency=1",
+    "--test-name-pattern=^real core-wiki and touch-member journeys at 390px$",
+    "tests/qualification/ui-convergence/journeys.test.mjs"
+  ],
+  "started": "2026-11-06T07:25:54.476014+00:00",
+  "worktree": "",
+  "browser": "/usr/bin/chromium",
+  "node": "v24.19.0",
+  "artifact": {
+    "schema": 1,
+    "commit": "a4cec6c722ebd036dc7f01034c4295aca5808768",
+    "tree": "1be577edd7c3717420eb07e1eda5f51178944d50",
+    "sourceSha256": "b4e45dbfc76f81d7588660faf7c5f74caf83372bc9ba253624ebd86e8ec08335",
+    "lockSha256": "dbcab822384d4dbfe0f855b2583922b3fb0462b0368355dfe350c82022bc44ff",
+    "outputSha256": "4b13d6bb85f3058bc3ca448ff91cff241f362171a6689ebd2ec3ee969c2b068e"
+  },
+  "exit": 0,
+  "finished": "2026-11-06T07:36:47.248950+00:00",
+  "log": "phone-journey.log",
+  "log_sha256": "ca59cbb80f29c47b04d6dd621c1edd773b9753d17be9637847e936f44ba1b1d3"
+}
