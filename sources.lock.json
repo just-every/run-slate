@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "fdca800fa58947398289d0b25d321fa72989dcb4df1a8bce2687f517d243b9b5",
+      "sha256": "199f5a49b26638c2a619934b0c7b6246cca0881eb4a4d8090ef10c6ca0096303",
       "executable": false
     },
     "DEMO.md": {
@@ -10856,7 +10856,7 @@
       "executable": false
     },
     "tests/flagship/content/draft-privacy.case.ts": {
-      "sha256": "fed82bf95ebca21e7e59d267a2b4c01906a619c155e19e05b8e3b2b3c9bc4ffd",
+      "sha256": "30c5ef1ebd1fa7861cfee5a676563e0350f928ba276a3829a86e4529e5b6836e",
       "executable": false
     },
     "tests/flagship/content/http.test.ts": {
@@ -11976,7 +11976,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/draft-privacy-journey.mjs": {
-      "sha256": "08a64d368892c4a005ba3f7d082eb71e14e38bf510c7f4e34b03611adcdac532",
+      "sha256": "59b537ba1f6abc3ece723db90a448f9d769b9e6804190f5542c2ba7fc369fd26",
       "executable": false
     },
     "tests/qualification/ui-convergence/embed-timeout-journey.mjs": {
