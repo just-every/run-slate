@@ -960,7 +960,7 @@
       "executable": false
     },
     "ACCEPTANCE.md": {
-      "sha256": "a0f95a6682809f16df96946dd68d3dc68904ff1d1ffe59df6971d947ce4a9029",
+      "sha256": "c61cf9bf8b2a18ef020434ca7abf259978ab23c5dc25bb0cdd93e287f376f2ff",
       "executable": false
     },
     "AGENTS.consumer.md": {
@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "18929436165c9f33908676c0c414649b99f3cebae9f54168d6d6af46fde5d066",
+      "sha256": "3185244439ad0b495f839291cd5a0a7cfac55cd25bee63bda7844500b893342c",
       "executable": false
     },
     "DEMO.md": {
@@ -10456,7 +10456,7 @@
       "executable": false
     },
     "tests/e2e/emitted-runtime.mjs": {
-      "sha256": "1fc1cc05ec2c963f6a8543ca340234b957a6d34539bb60383197bee77605358f",
+      "sha256": "68c909ac66309eed057c1db1dd260c3f9d63b57980d2d0fbde4c7e59e081ce8f",
       "executable": false
     },
     "tests/e2e/foundation-runtime.test.mjs": {
@@ -11335,6 +11335,10 @@
       "sha256": "517cc0078d0fd882522e3594e2d1903c9ee5fa70703d7d941e36c8c92a5a9541",
       "executable": false
     },
+    "tests/helpers/automation-storage-gate.mjs": {
+      "sha256": "a2b1267633887f9991ac3bd123204fa69202e692fb4992a1ff0ab60401110ca2",
+      "executable": false
+    },
     "tests/helpers/embed-edge.mjs": {
       "sha256": "2f76cc778d7e62cdd5bb7f16253c47cf405a632454525817a50acdddcab6a44b",
       "executable": false
@@ -11456,7 +11460,7 @@
       "executable": false
     },
     "tests/portability/runtime.mjs": {
-      "sha256": "36a024d3699aa242c2f3ab3dbaa0d046aa7a607f24a63bec3c0eb151fdc75741",
+      "sha256": "bacc656ad66e29f497b9937eb67838814ded6ae46e7fea27b334c2221d11ee9a",
       "executable": false
     },
     "tests/profile/body-blocks-journey.ts": {
@@ -11680,7 +11684,7 @@
       "executable": false
     },
     "tests/qualification/local/process.mjs": {
-      "sha256": "e736bb64b921954bbb6f59e7b04bca32c7091d84b3438286527bbe66b0de1b87",
+      "sha256": "b416ca6a9daad540a80272c65abcc9f2cd06bb12814f4396fbf415e2a97ea643",
       "executable": false
     },
     "tests/qualification/local/README.md": {
@@ -11868,7 +11872,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/archive-retention-journey.mjs": {
-      "sha256": "57856676a5fabf30228badaec6ed0cb78ab2b87d21927ce6adca067a5914c43b",
+      "sha256": "dc5058f841147bbc3d39befe4ac97797437d91eb235b76c9327b2c342bc2f281",
       "executable": false
     },
     "tests/qualification/ui-convergence/ask-draft.test.ts": {
@@ -11883,8 +11887,12 @@
       "sha256": "f066a1085c8c9e5351097dafba8a09fee9ed40aa5e5864073fc871b259d64450",
       "executable": false
     },
+    "tests/qualification/ui-convergence/automation-restart-journey.mjs": {
+      "sha256": "e262ed8150d2b60efc3545c9519f614d931569ef0fe28f5df3ac0ddabca5a75f",
+      "executable": false
+    },
     "tests/qualification/ui-convergence/automation-run-log-journey.mjs": {
-      "sha256": "125e3e49ec01156d499071407370f164ac141ddd8a554eb3e0c0e2960ff79dd8",
+      "sha256": "81e2044d1637b8093ff9d291db46051f99b1662199ebddb64dbfb8005029cc37",
       "executable": false
     },
     "tests/qualification/ui-convergence/backups-journey.mjs": {
@@ -12424,11 +12432,11 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "cf70d7f3952a26a4510ce2d9c68b92dba13293c02871eee19e4f974bb6562b01",
+      "sha256": "b8569c291de8eec70de283df851203262fa5cbf8eb7779bce3758b0a97e176d6",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
-      "sha256": "c13a5d0091629f516ab1b4d155f5d8be901dfcfddbd7076def036c9ed193c77f",
+      "sha256": "9fcce4b2ed051830164585003c48048d260dcc996d8849852ee11b6c4d6794cb",
       "executable": false
     },
     "tests/requirements/count-registrations.mjs": {
@@ -12440,7 +12448,7 @@
       "executable": false
     },
     "tests/requirements/test-evidence.json": {
-      "sha256": "0a8344d30c140538c56bdafe2f4e9988dd65c459787b7d47c9f34d7148194e55",
+      "sha256": "3f3b1a0c840694fabc83d438abed7848b851e541dffb2de62bfacef4d7c9c791",
       "executable": false
     },
     "tests/rer/editor.test.mjs": {

@@ -1,4 +1,5 @@
 import {transferStorageGate} from '../helpers/transfer-storage-gate.mjs';
+import {automationStorageGate} from '../helpers/automation-storage-gate.mjs';
 import {embedEdge} from '../helpers/embed-edge.mjs';
 import { webhookEdge } from '../helpers/webhook-edge.mjs';
 import { createRequire } from 'node:module';
@@ -28,6 +29,8 @@ const mail = vars.MAIL_PROVIDER === 'development' ? {MAIL_PROVIDER:'resend',MAIL
 const transferGate = triggerMode === 'scheduled' ? transferStorageGate(selected.main, miniflare.Response) : undefined;
 const emitted = await productionModules(selected.main, modulesRules, miniflare);
 if (transferGate) emitted.modules.unshift(transferGate.module);
+const automationGate = triggerMode === 'scheduled' ? automationStorageGate(transferGate.module.path, miniflare.Response) : undefined;
+if (automationGate) emitted.modules.unshift(automationGate.module);
 const worker = { ...workerOptions, name: config.name,
   ...emitted,
   bindings: { ...workerOptions.bindings, ...vars, ...mail },
@@ -56,6 +59,7 @@ const worker = { ...workerOptions, name: config.name,
     return fetch(request);
   } };
 if (transferGate) worker.serviceBindings = {...worker.serviceBindings, TEST_TRANSFER_GATE: request => transferGate.service(request)};
+if (automationGate) worker.serviceBindings = {...worker.serviceBindings, TEST_AUTOMATION_GATE: request => automationGate.service(request)};
 const options = miniflare.convertV4MiniflareOptions({ host: '127.0.0.1', port: Number(port),
   unsafeTriggerHandlers: triggerMode === 'scheduled', unsafeLocalExplorer: false, workers: [worker, ...selected.externalWorkers] });
 const runtime = new miniflare.Miniflare({ ...options, resourcePersistencePath: resolve(persistPath, 'v3') });
@@ -69,6 +73,19 @@ catch (cause) { await stop(); throw cause; }
 // Parent-only clock fixtures use the running native D1 binding, avoiding CLI/Worker
 // persistence contention. No application route or application response is replaced.
 if (triggerMode === 'scheduled' && process.send) process.on('message', async message => {
+  if (message?.type === 'fixture.automation') {
+    try {process.send({type:message.type+'.result',id:message.id,value:automationGate.control(message.action,message.actionIndex)});}
+    catch {process.send({type:message.type+'.result',id:message.id,error:'Automation storage control failed'});}
+    return;
+  }
+  if (message?.type === 'fixture.read' && typeof message.sql === 'string' && /^SELECT\b/i.test(message.sql)) {
+    try {
+      const db=await runtime.getD1Database('DB');
+      const value=await db.prepare(message.sql).bind(...(message.values??[])).all();
+      process.send({type:message.type+'.result',id:message.id,value:value.results});
+    } catch {process.send({type:message.type+'.result',id:message.id,error:'Native D1 fixture read failed'});}
+    return;
+  }
   if (message?.type === 'fixture.transfer') {
     try {const value=message.action==='objects'
       ? {keys:(await (await runtime.getR2Bucket('FILES')).list({prefix:message.method})).objects.map(object=>object.key)}

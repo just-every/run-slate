@@ -1,4 +1,5 @@
 import {transferControl} from '../helpers/transfer-storage-gate.mjs';
+import {automationControl,nativeAutomationRequest} from '../helpers/automation-storage-gate.mjs';
 import {launchMailRuntime} from '../e2e/mail-runtime.mjs';
 import {signInWithOutbox} from '../e2e/outbox-auth.mjs';
 import {testDevKey,devKeyHeaders,sourceDevOrigins} from '../e2e/dev-key.mjs';
@@ -7,7 +8,7 @@ import {randomUUID} from 'node:crypto';
 import {readFile,writeFile,rm} from 'node:fs/promises';
 import path from 'node:path';
 import {availablePort,waitForReady,sessionCookie} from '../e2e/runtime-harness.mjs';
-import {command,launch,stop,safeEnvironment} from '../qualification/local/process.mjs';
+import {command,launch,stop,crash,safeEnvironment} from '../qualification/local/process.mjs';
 
 export const ownerEmail='archive-owner@example.invalid';
 export const root=path.resolve(import.meta.dirname,'../..');
@@ -42,6 +43,9 @@ export async function runtime(directory, {email=ownerEmail,publicHost}={}){
   }
   await invoke(['d1','migrations','apply','DB']);
   return {origin,persist,start,close,email,
+    async crash(){const result=await crash(worker);worker=undefined;return result;},
+    automationGate:(action,index)=>automationControl(worker.child,action,index),
+    read:(sql,...values)=>nativeAutomationRequest(worker.child,{type:'fixture.read',sql,values}),
     transferGate:(action,method)=>transferControl(worker.child,action,method),
     async fixtureSql(statements){
       const id=randomUUID();

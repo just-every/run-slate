@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import {randomUUID} from 'node:crypto';
 import {expect} from '@playwright/test';
+import {signInWithOutbox} from '../../e2e/outbox-auth.mjs';
 import {retentionFixture} from '../archive-retention-fixture.ts';
 import {call,ok} from './two-people-support.mjs';
 import {tap,type,checkpoint} from './touch-controls.mjs';
@@ -8,6 +9,12 @@ import {tap,type,checkpoint} from './touch-controls.mjs';
 /** Archive and deletion use the ordinary member's native controls and session. */
 export async function archiveRetentionJourney(state,touch) {
   const {page,context,origin,containerId}=touch;
+  // This sensitive flow can follow more than ten minutes of other journeys.
+  // Obtain a real fresh proof instead of extending or rewinding its authority.
+  const member=(await ok(context,origin,'GET','/api/session')).member;
+  const fresh=await signInWithOutbox(origin,member.email);
+  await context.addCookies([{name:'slate_session',value:fresh.cookie.split('=')[1],url:origin}]);
+  assert.equal((await ok(context,origin,'GET','/api/session')).member.id,member.id);
   const f=await retentionFixture({containerId,memberId:'browser-reader',
     request:async(method,route,body)=>{
       // Vocabulary belongs to the workspace owner; all content uses the member.
