@@ -7,7 +7,7 @@ import {call,ok,withSecondPerson} from './two-people-support.mjs';
 
 /** Saved draft, named sharing and retained privacy through the native settings and page doors. */
 export async function draftPrivacyJourney(state) {
-  const {page,context,origin}=state,width=page.viewportSize().width;
+  const {page,context,origin}=state,width=page.viewportSize().width,returnUrl=page.url();
   const directory=`.artifacts/ui-convergence/draft-privacy/${width}`;
   await mkdir(directory,{recursive:true});
   const openSharing=async()=>{
@@ -30,7 +30,7 @@ export async function draftPrivacyJourney(state) {
   try {
     await profile('draft-then-publish','workspace-general');
     const containerId=(await ok(context,origin,'GET','/api/containers')).items.find(item=>item.name==='Handbook').id;
-    const id=await createPage(page,origin,containerId,'Private response draft');
+    const id=await createPage(page,origin,containerId,'DraftCustody private response');
     const text='Only the named draft reviewers can read this response.';
     await page.getByRole('textbox',{name:'Page body',exact:true}).fill(text);
     await page.locator('.editor-save-status').filter({hasText:/^Saved$/}).waitFor();
@@ -44,6 +44,9 @@ export async function draftPrivacyJourney(state) {
       assert.ok(!JSON.stringify(response.body).includes(text));
       assert.deepEqual(await inventory(),before,'Refused reads and writes preserve the draft, revisions, grants and exposure.');
     };
+    const control=(await ok(context,origin,'POST','/api/pages',{operationKey:randomUUID(),containerId,title:'DraftCustody published response',blocks:[{id:randomUUID(),blockType:'paragraph',treePosition:'a',content:{text:[{text:'A published response stays in search.'}]}}]})).value.pageId;
+    await ok(context,origin,'POST',`/api/pages/${control}/publish`,{operationKey:randomUUID(),expectedRevisionId:(await ok(context,origin,'GET',`/api/pages/${control}`)).page.revisionId});
+    await ok(context,origin,'POST','/api/sharing',{operationKey:randomUUID(),targetKind:'page',targetId:control,principalKind:'workspace',principalId:original.id,level:'view'});
     const content=await read();assert.equal(content.page.lifecycle,'draft');assert.equal(content.publishedRevisionId,null);
     assert.deepEqual((await grants()).items,[]);
     await withSecondPerson(state,width,async people=>{
@@ -70,6 +73,19 @@ export async function draftPrivacyJourney(state) {
       await people.bob.page.goto(address,{waitUntil:'networkidle'});
       await expect(people.bob.page.locator('.page-document')).toContainText(text);
       assert.equal((await ok(people.bob.context,origin,'GET',`/api/pages/${id}`)).page.id,id);
+      // Both people can read this draft directly, but discovery shows the live control only.
+      for(const view of [page,people.bob.page]) {
+        await view.goto(`${origin}/app/search?q=DraftCustody`,{waitUntil:'networkidle'});
+        await expect(view.locator('.search-results > li')).toHaveCount(1);
+        await expect(view.locator('.search-results h2')).toHaveText('DraftCustody published response');
+        await expect(view.locator('.search-results')).not.toContainText(text);
+        await view.reload({waitUntil:'networkidle'});
+        await expect(view.locator('.search-results > li')).toHaveCount(1);
+      }
+      await page.screenshot({path:`${directory}/private-draft-search.png`,fullPage:true});
+      await page.goto(address,{waitUntil:'networkidle'});await openSharing();
+      await people.bob.page.goto(address,{waitUntil:'networkidle'});
+      await expect(people.bob.page.locator('.page-document')).toContainText(text);
       const retained={page:content.page,blocks:content.blocks,grants:(await grants()).items};
       await page.screenshot({path:`${directory}/saved-grant.png`,fullPage:true});
       await people.bob.page.screenshot({path:`${directory}/granted-reader.png`,fullPage:true});
@@ -107,7 +123,7 @@ export async function draftPrivacyJourney(state) {
       await expect(page.getByRole('combobox',{name:`Access for Draft reviewers ${width}`,exact:true})).toHaveValue('view');
       await people.bob.page.goto(address,{waitUntil:'networkidle'});
       await expect(people.bob.page.locator('.page-document')).toContainText(text);
-      await refused(people.bob.context,'PATCH',`/api/pages/${id}`,{operationKey:randomUUID(),expectedRevisionId:content.page.revisionId,properties:{title:'View-only replacement'}},403);
+      await refused(people.bob.context,'PATCH',`/api/pages/${id}`,{operationKey:randomUUID(),expectedRevisionId:content.page.revisionId,properties:{title:'View-only replacement'}},404);
       await page.screenshot({path:`${directory}/saved-group-grant.png`,fullPage:true});
       const groupRow=page.locator('.right .grant-list > li').filter({has:page.getByRole('combobox',{name:`Access for Draft reviewers ${width}`,exact:true})});
       await groupRow.locator('details > summary').click();await groupRow.getByRole('button',{name:'Remove access',exact:true}).click();
@@ -143,4 +159,5 @@ export async function draftPrivacyJourney(state) {
   } finally {
     try {await profile(original.policies['page.lifecycle.v1'],original.policies['page.access.v1']);} finally {await anonymous.close();}
   }
+  await page.goto(returnUrl,{waitUntil:'networkidle'});
 }

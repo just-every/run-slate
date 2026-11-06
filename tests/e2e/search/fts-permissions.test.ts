@@ -19,6 +19,10 @@ test('Indexed search uses current native authority for literal matches, totals, 
  const parent=await seed('parent','ReadableParentTitle','ReadableParentBody');
  const draft=await seed('draft','PrivateDraftTitle','PrivateDraftBody',{parent:'parent',lifecycle:'draft'});
  const otherDraft=await seed('other-draft','MemberDraftTitle','MemberDraftBody',{parent:'parent',author:'reader',lifecycle:'draft'});
+ const scheduled=await seed('scheduled-private','ScheduledPrivateTitle','ScheduledPrivateBody',{lifecycle:'scheduled'});
+ const archivedDraft=await seed('archived-private','ArchivedPrivateTitle','ArchivedPrivateBody',{lifecycle:'archived'});
+ await sql("UPDATE pages SET archived_at=? WHERE id='archived-private'",now);
+ await sql("INSERT INTO content_archive_locations(page_id,prior_container_id,prior_lifecycle,action,actor_member_id,occurred_at) VALUES('archived-private','c','draft','archive','owner',?)",now);
  const restricted=await seed('restricted','RestrictedChildTitle','RestrictedChildBody',{parent:'parent',restricted:true});
  for(const [id,owner]of [['personal','owner'],['member-personal','reader']]){
   await sql("INSERT INTO containers(id,workspace_id,name,visibility,created_at,updated_at,revision_id) VALUES(?,'w',?,'personal',?,?,'r')",id,id,now,now);
@@ -41,8 +45,10 @@ test('Indexed search uses current native authority for literal matches, totals, 
   {name:'shared alpha',document:alpha,allowed:shared},
   {name:'shared beta',document:beta,allowed:shared},
   {name:'readable parent',document:parent,allowed:shared},
-  {name:'owner draft',document:draft,allowed:['owner']},
-  {name:'another member draft',document:otherDraft,allowed:['reader']},
+  {name:'owner draft excluded even for its author',document:draft,allowed:[]},
+  {name:'another member draft excluded even for its author',document:otherDraft,allowed:[]},
+  {name:'scheduled content excluded from discovery',document:scheduled,allowed:[]},
+  {name:'private archived draft stays excluded when archives are included',document:archivedDraft,allowed:[],filters:{includeArchived:'true'}},
   {name:'restricted child under readable parent',document:restricted,allowed:[]},
   {name:'owner personal container',document:personal,allowed:['owner']},
   {name:'another member personal container',document:otherPersonal,allowed:['reader']},
