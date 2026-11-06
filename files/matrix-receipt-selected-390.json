@@ -1,0 +1,63 @@
+{
+  "head": "ad60d1d01d73d519b4cbc70047886d178db48247",
+  "width": 390,
+  "mode": "selected",
+  "file": "permission-matrix-selected-390.json",
+  "sha256": "e5dac102e560a98f5ff29d4f6d7072bb9eb356dcc40627fa763a9b44e605da72",
+  "levels": {
+    "full": {
+      "pageId": "01M6RHRDJVQWD9QXKQQN1EHS52",
+      "readLevel": "full",
+      "committedMutations": 5,
+      "refusals": 0,
+      "allRefusalsUnchanged": true,
+      "refusalStatuses": [],
+      "retainedVersions": 5,
+      "retainedComments": 2,
+      "retainedGrants": 3,
+      "activityEntries": 18
+    },
+    "edit": {
+      "pageId": "01M6RHS4EFN8G3MNRCY3F2GGG0",
+      "readLevel": "edit",
+      "committedMutations": 3,
+      "refusals": 2,
+      "allRefusalsUnchanged": true,
+      "refusalStatuses": [
+        404
+      ],
+      "retainedVersions": 5,
+      "retainedComments": 2,
+      "retainedGrants": 2,
+      "activityEntries": 15
+    },
+    "comment": {
+      "pageId": "01M6RHSRTDGVWARZ5PRDYSJJR2",
+      "readLevel": "comment",
+      "committedMutations": 1,
+      "refusals": 4,
+      "allRefusalsUnchanged": true,
+      "refusalStatuses": [
+        404
+      ],
+      "retainedVersions": 3,
+      "retainedComments": 2,
+      "retainedGrants": 2,
+      "activityEntries": 10
+    },
+    "view": {
+      "pageId": "01M6RHT9FK04E37HG1THQXR5E0",
+      "readLevel": "view",
+      "committedMutations": 0,
+      "refusals": 5,
+      "allRefusalsUnchanged": true,
+      "refusalStatuses": [
+        404
+      ],
+      "retainedVersions": 3,
+      "retainedComments": 1,
+      "retainedGrants": 2,
+      "activityEntries": 8
+    }
+  }
+}

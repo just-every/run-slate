@@ -1,0 +1,13 @@
+# sd-slate-c-f198 plan
+
+Scope: just-every/run-slate, cloud/sd-slate-c-f198, continuation of SHARE-002.
+
+1. Inspect the full SHARE-002 clause, its authoritative gap and the predecessor's loaded sharing evidence. Retain all acceptance text and existing assertions. Read the supplied plan and riders; do not reconstruct or reorder the campaign.
+2. Start at the pinned predecessor. Merge current main without rewriting published commits. Resolve CONTRACT.md before regenerated views, keep main's generated files whole, and regenerate source integrity last.
+3. Extend the existing ordinary published-page permission journey through a focused helper. Keep independent pages and a native non-author, non-owner ordinary member at each level. Add display and label editing, ownership custody, body structure replacement and locking. Compare allowed mutations to their actual receipts, revisions and activity; repeat captures and compare complete inventories. Compare every refused request to unchanged state, including current sessions and captures after revocation. Preserve the predecessor's selected title, body, comment and direct-grant matrix.
+4. Run the touched existing sharing registration at 1440. Run the same focused helper at 390 for responsive browser proof. Retain all existing registration widths and deadline obligations. Run touched typecheck, first-party checks and source checks. Add no registration.
+5. Preserve work with guarded skip-CI saves. Before the final candidate, merge fresh main, generate and check the views, restore main's generated files and regenerate the lock last. Retain every parent Status row. Inspect every candidate identity and trailer.
+6. Build and run browser proof at the final committed source. Push only the named branch, discover exact-head Verify through REST, and report its actual result. Expected generated-view freshness belongs to the guarded lander. No main mutation or cloud publication-scan claim.
+7. Keep SHARE-002 PARTIAL unless its entire every-operation obligation is actually proven. Name the remaining surfaces and authoritative company-policy and ADMIN-007 boundaries without narrowing acceptance. Publish the complete non-secret packet through the separate evidence ref, then relay plan status and exact custody through POST lines.
+
+Initial audit: the predecessor already covers the brief's selected populated reads, title and body editing, comment creation and direct-grant-change matrix. Its expanded sharing caller additionally covers discussion authorship, reactions and captured-write revocation. The remaining acceptance gap is broader than those selected operations; no DONE promotion is justified by a selected slice.

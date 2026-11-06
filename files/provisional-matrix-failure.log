@@ -1,0 +1,1244 @@
+PROBE SHARE-002 full: expanded discussion, reactions, effective grants and revoked captures; 31 refused requests preserve inventories at 1440px
+Journey failure context {
+  "rejected": [],
+  "consoleErrors": []
+}
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: A repeated page edit changes no retained inventory.
++ actual - expected
+
+  {
+    activity: [
+      {
++       action: 'pages.open',
++       actor: {
++         displayName: 'Morgan Reader',
++         id: 'browser-reader'
++       },
++       aiRunId: null,
++       automationRunId: null,
++       context: {
++         pageId: '01M6RFHQGJNTMTXPW316A0QWQD',
++         revisionId: '01M6RFJ9QK9E17YS52VCX195RP'
++       },
++       deleted: false,
++       feature: 'pages',
++       id: '01M6RFJANQCNBWR9XT4JSR7HRS',
++       occurredAt: '2026-11-06T13:08:01.844Z',
++       operationKey: '66db8cb5-78b0-4a7d-b455-696d886915ff',
++       target: {
++         id: '01M6RFHQGJNTMTXPW316A0QWQD',
++         kind: 'page'
++       }
++     },
++     {
+        action: 'pages.blocks.replace',
+        actor: {
+          displayName: 'Morgan Reader',
+          id: 'browser-reader'
+        },
+
+    at capture (file:///workspace/run-slate/tests/qualification/ui-convergence/sharing-page-edit-matrix.mjs:48:12)
+    at async permissionPageEditsMatrix (file:///workspace/run-slate/tests/qualification/ui-convergence/sharing-page-edit-matrix.mjs:130:7)
+    at async file:///workspace/run-slate/tests/qualification/ui-convergence/sharing-journey.mjs:283:21
+    at async withSecondPerson (file:///workspace/run-slate/tests/qualification/ui-convergence/two-people-support.mjs:45:5)
+    at async permissionLevelsJourney (file:///workspace/run-slate/tests/qualification/ui-convergence/sharing-journey.mjs:128:9)
+    at async file:///tmp/run-slate-permissions.mjs:6:3
+    at async withWorkspace (file:///workspace/run-slate/tests/qualification/ui-convergence/browser-support.mjs:188:7)
+    at async file:///tmp/run-slate-permissions.mjs:4:1 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: {
+    document: {
+      lock: null,
+      authorDisplayName: 'Alex Owner',
+      ownerDisplayName: 'Alex Owner',
+      contributors: [ { id: 'browser-reader', displayName: 'Morgan Reader' } ],
+      schedule: null,
+      mentions: {},
+      page: {
+        id: '01M6RFHQGJNTMTXPW316A0QWQD',
+        containerId: '01M6RFCYD5QJ531D31KNWFJYBP',
+        title: 'Member revised edit guide',
+        revisionId: '01M6RFJ9QK9E17YS52VCX195RP',
+        lifecycle: 'live'
+      },
+      blocks: [
+        {
+          id: '1f1fd021-848b-4c40-ba94-03f51dcb9232',
+          blockType: 'paragraph',
+          content: { text: [Array] },
+          parentBlockId: null,
+          treePosition: 'a0',
+          pageId: '01M6RFHQGJNTMTXPW316A0QWQD',
+          revisionId: '01M6RFHWX6ADKSFTVEQP4EXZSN'
+        },
+        {
+          id: '6840b38b-6cba-45d1-80c0-1c888342bca1',
+          blockType: 'paragraph',
+          content: { text: [Array] },
+          treePosition: 'z',
+          pageId: '01M6RFHQGJNTMTXPW316A0QWQD',
+          parentBlockId: null,
+          revisionId: '01M6RFJ9QN1G898W9XEWN2PKT4'
+        }
+      ],
+      properties: {
+        title: 'Member revised edit guide',
+        icon: null,
+        coverFileId: null,
+        ownerMemberId: 'browser-owner',
+        statusKey: null,
+        labels: [ 'permission-edit' ],
+        typeface: 'serif',
+        smallText: true,
+        fullWidth: true
+      },
+      parentPageId: null,
+      createdAt: '2026-11-06T13:07:42.225Z',
+      updatedAt: '2026-11-06T13:08:00.881Z',
+      authorMemberId: 'browser-owner',
+      workingRevisionId: '01M6RFJ9QK9E17YS52VCX195RP',
+      publishedRevisionId: '01M6RFJ9QK9E17YS52VCX195RP',
+      permissions: { level: 'full', canEdit: true, canUnlock: true, canShare: true },
+      policyProfile: {
+        'page.lifecycle.v1': 'always-live',
+        'page.access.v1': 'workspace-general',
+        'page.public-access.v1': 'site',
+        'page.version.v1': 'autosnapshot',
+        'page.status.v1': 'verification-only',
+        'record.page-parity.v1': 'record-is-page',
+        'automation.scope.v1': 'source',
+        'container.access.v1': 'class-led'
+      }
+    },
+    revisions: {
+      items: [
+        {
+          id: '01M6RFJ9QK9E17YS52VCX195RP',
+          origin: 'autosave',
+          authorMemberId: 'browser-reader',
+          authorDisplayName: 'Morgan Reader',
+          ordinal: null,
+          label: null,
+          statusKey: null,
+          createdAt: '2026-11-06T13:08:00.881Z',
+          deletedAt: null,
+          deletedByMemberId: null,
+          deletedByDisplayName: null
+        },
+        {
+          id: '01M6RFJ351K7237760GF4BZSSJ',
+          origin: 'autosave',
+          authorMemberId: 'browser-reader',
+          authorDisplayName: 'Morgan Reader',
+          ordinal: null,
+          label: null,
+          statusKey: null,
+          createdAt: '2026-11-06T13:07:54.143Z',
+          deletedAt: null,
+          deletedByMemberId: null,
+          deletedByDisplayName: null
+        },
+        {
+          id: '01M6RFHWX40EAHA0VF1D8Y5RDV',
+          origin: 'autosave',
+          authorMemberId: 'browser-reader',
+          authorDisplayName: 'Morgan Reader',
+          ordinal: null,
+          label: null,
+          statusKey: null,
+          createdAt: '2026-11-06T13:07:47.746Z',
+          deletedAt: null,
+          deletedByMemberId: null,
+          deletedByDisplayName: null
+        },
+        {
+          id: '01M6RFHSZDDMV3MXDH4GD5BJNQ',
+          origin: 'autosave',
+          authorMemberId: 'browser-reader',
+          authorDisplayName: 'Morgan Reader',
+          ordinal: null,
+          label: null,
+          statusKey: null,
+          createdAt: '2026-11-06T13:07:44.747Z',
+          deletedAt: null,
+          deletedByMemberId: null,
+          deletedByDisplayName: null
+        },
+        {
+          id: '01M6RFHQSNQYVF3BNF59K4YCKH',
+          origin: 'publish',
+          authorMemberId: 'browser-owner',
+          authorDisplayName: 'Alex Owner',
+          ordinal: null,
+          label: null,
+          statusKey: null,
+          createdAt: '2026-11-06T13:07:42.509Z',
+          deletedAt: null,
+          deletedByMemberId: null,
+          deletedByDisplayName: null
+        },
+        {
+          id: '01M6RFHQQ66JE4DTFF2N3SS9CG',
+          origin: 'autosave',
+          authorMemberId: 'browser-owner',
+          authorDisplayName: 'Alex Owner',
+          ordinal: null,
+          label: null,
+          statusKey: null,
+          createdAt: '2026-11-06T13:07:42.436Z',
+          deletedAt: null,
+          deletedByMemberId: null,
+          deletedByDisplayName: null
+        },
+        {
+          id: '01M6RFHQGJMMTHKAT0H4MC3ZMH',
+          origin: 'autosave',
+          authorMemberId: 'browser-owner',
+          authorDisplayName: 'Alex Owner',
+          ordinal: null,
+          label: null,
+          statusKey: null,
+          createdAt: '2026-11-06T13:07:42.225Z',
+          deletedAt: null,
+          deletedByMemberId: null,
+          deletedByDisplayName: null
+        }
+      ]
+    },
+    comments: {
+      threads: [
+        {
+          id: '01M6RFHQTKB3JQR3G91QJJWE60',
+          workspace_id: 'browser-workspace',
+          page_id: '01M6RFHQGJNTMTXPW316A0QWQD',
+          kind: 'page',
+          block_id: null,
+          anchor_json: null,
+          anchor_revision_id: null,
+          state: 'open',
+          resolved_at: null,
+          resolved_by_member_id: null,
+          created_at: '2026-11-06T13:07:42.543Z',
+          updated_at: '2026-11-06T13:07:42.543Z',
+          revision_id: '01M6RFHQTHE9ARS0T42FQX3DV7',
+          orphaned: 0
+        }
+      ],
+      comments: [
+        {
+          id: '01M6RFHQTKD5SFCRT8478Q6C2R',
+          threadId: '01M6RFHQTKB3JQR3G91QJJWE60',
+          parentCommentId: null,
+          authorMemberId: 'browser-owner',
+          body: [ [Object] ],
+          authorDisplayName: 'Alex Owner',
+          createdAt: '2026-11-06T13:07:42.543Z',
+          updatedAt: '2026-11-06T13:07:42.543Z',
+          deletedAt: null,
+          revisionId: '01M6RFHQTHE9ARS0T42FQX3DV7'
+        }
+      ],
+      reactions: []
+    },
+    grants: {
+      items: [
+        {
+          id: '01M6RFHQP24YXK9NRFGFJZ1KRG',
+          principalKind: 'member',
+          principalId: 'browser-owner',
+          level: 'full',
+          expiresAt: null,
+          revokedAt: null,
+          invitationId: null,
+          invitationEmail: null,
+          invitationExpiresAt: null,
+          invitationRevokedAt: null,
+          principalLabel: 'Alex Owner',
+          origin: {
+            kind: 'page',
+            id: '01M6RFHQGJNTMTXPW316A0QWQD',
+            name: 'Member revised edit guide'
+          },
+          inherited: false,
+          status: 'active',
+          effective: true
+        },
+        {
+          id: '01M6RFHQR0C0C388XH60HFDV9F',
+          principalKind: 'member',
+          principalId: 'browser-reader',
+          level: 'edit',
+          expiresAt: null,
+          revokedAt: null,
+          invitationId: null,
+          invitationEmail: null,
+          invitationExpiresAt: null,
+          invitationRevokedAt: null,
+          principalLabel: 'Morgan Reader',
+          origin: {
+            kind: 'page',
+            id: '01M6RFHQGJNTMTXPW316A0QWQD',
+            name: 'Member revised edit guide'
+          },
+          inherited: false,
+          status: 'active',
+          effective: true
+        }
+      ],
+      inheritedItems: [],
+      effectiveItems: [
+        {
+          id: '01M6RFHQP24YXK9NRFGFJZ1KRG',
+          principalKind: 'member',
+          principalId: 'browser-owner',
+          level: 'full',
+          expiresAt: null,
+          revokedAt: null,
+          invitationId: null,
+          invitationEmail: null,
+          invitationExpiresAt: null,
+          invitationRevokedAt: null,
+          principalLabel: 'Alex Owner',
+          origin: {
+            kind: 'page',
+            id: '01M6RFHQGJNTMTXPW316A0QWQD',
+            name: 'Member revised edit guide'
+          },
+          inherited: false,
+          status: 'active',
+          effective: true
+        },
+        {
+          id: '01M6RFHQR0C0C388XH60HFDV9F',
+          principalKind: 'member',
+          principalId: 'browser-reader',
+          level: 'edit',
+          expiresAt: null,
+          revokedAt: null,
+          invitationId: null,
+          invitationEmail: null,
+          invitationExpiresAt: null,
+          invitationRevokedAt: null,
+          principalLabel: 'Morgan Reader',
+          origin: {
+            kind: 'page',
+            id: '01M6RFHQGJNTMTXPW316A0QWQD',
+            name: 'Member revised edit guide'
+          },
+          inherited: false,
+          status: 'active',
+          effective: true
+        }
+      ],
+      levels: [ 'full', 'edit', 'comment', 'view' ],
+      container: { id: '01M6RFCYD5QJ531D31KNWFJYBP', name: 'Handbook' },
+      restricted: true,
+      restriction: {
+        scope: 'page',
+        id: '01M6RFHQGJNTMTXPW316A0QWQD',
+        name: 'Member revised edit guide'
+      }
+    },
+    activity: [
+      {
+        id: '01M6RFJANQCNBWR9XT4JSR7HRS',
+        actor: { id: 'browser-reader', displayName: 'Morgan Reader' },
+        feature: 'pages',
+        action: 'pages.open',
+        target: { kind: 'page', id: '01M6RFHQGJNTMTXPW316A0QWQD' },
+        occurredAt: '2026-11-06T13:08:01.844Z',
+        operationKey: '66db8cb5-78b0-4a7d-b455-696d886915ff',
+        automationRunId: null,
+        aiRunId: null,
+        deleted: false,
+        context: {
+          pageId: '01M6RFHQGJNTMTXPW316A0QWQD',
+          revisionId: '01M6RFJ9QK9E17YS52VCX195RP'
+        }
+      },
+      {
+        id: '01M6RFJ9QKWF071DHBHPW46SX0',
+        actor: { id: 'browser-reader', displayName: 'Morgan Reader' },
+        feature: 'pages',
+        action: 'pages.blocks.replace',
+        target: { kind: 'page', id: '01M6RFHQGJNTMTXPW316A0QWQD' },
+        occurredAt: '2026-11-06T13:08:00.881Z',
+        operationKey: 'e8259258-399d-4031-a73b-8d90d0305a5b',
+        automationRunId: null,
+        aiRunId: null,
+        deleted: false,
+        context: {
+          pageId: '01M6RFHQGJNTMTXPW316A0QWQD',
+          revisionId: '01M6RFJ9QK9E17YS52VCX195RP'
+        }
+      },
+      {
+        id: '01M6RFJ4P1NPQCC9W1Z2J1PRAA',
+        actor: { id: 'browser-reader', displayName: 'Morgan Reader' },
+        feature: 'pages',
+        action: 'pages.open',
+        target: { kind: 'page', id: '01M6RFHQGJNTMTXPW316A0QWQD' },
+        occurredAt: '2026-11-06T13:07:55.677Z',
+        operationKey: '68abe608-efc7-44a3-b5e4-a91ddf0007b6',
+        automationRunId: null,
+        aiRunId: null,
+        deleted: false,
+        context: {
+          pageId: '01M6RFHQGJNTMTXPW316A0QWQD',
+          revisionId: '01M6RFJ351K7237760GF4BZSSJ'
+        }
+      },
+      {
+        id: '01M6RFJ36D1BJ9J0HX6VE4H06M',
+        actor: { id: 'browser-reader', displayName: 'Morgan Reader' },
+        feature: 'pages',
+        action: 'pages.open',
+        target: { kind: 'page', id: '01M6RFHQGJNTMTXPW316A0QWQD' },
+        occurredAt: '2026-11-06T13:07:54.187Z',
+        operationKey: 'a825ea39-0894-445f-80ad-5486eef54cf2',
+        automationRunId: null,
+        aiRunId: null,
+        deleted: false,
+        context: {
+          pageId: '01M6RFHQGJNTMTXPW316A0QWQD',
+          revisionId: '01M6RFJ351K7237760GF4BZSSJ'
+        }
+      },
+      {
+        id: '01M6RFJ3513CS0GFG5M9ZVR0JE',
+        actor: { id: 'browser-reader', displayName: 'Morgan Reader' },
+        feature: 'pages',
+        action: 'pages.update',
+        target: { kind: 'page', id: '01M6RFHQGJNTMTXPW316A0QWQD' },
+        occurredAt: '2026-11-06T13:07:54.143Z',
+        operationKey: '22ef4e52-16c5-45fa-9023-ffd1b455c5c0',
+        automationRunId: null,
+        aiRunId: null,
+        deleted: false,
+        context: {
+          pageId: '01M6RFHQGJNTMTXPW316A0QWQD',
+          revisionId: '01M6RFJ351K7237760GF4BZSSJ'
+        }
+      },
+      {
+        id: '01M6RFJ1APWGQP0XHZSQFRT09T',
+        actor: { id: 'browser-reader', displayName: 'Morgan Reader' },
+        feature: 'pages',
+        action: 'pages.open',
+        target: { kind: 'page', id: '01M6RFHQGJNTMTXPW316A0QWQD' },
+        occurredAt: '2026-11-06T13:07:52.243Z',
+        operationKey: 'c94045e4-71ad-47b1-ade2-db876961df4c',
+        automationRunId: null,
+        aiRunId: null,
+        deleted: false,
+        context: {
+          pageId: '01M6RFHQGJNTMTXPW316A0QWQD',
+          revisionId: '01M6RFHWX40EAHA0VF1D8Y5RDV'
+        }
+      },
+      {
+        id: '01M6RFJ00ZKJCC406H7RKQRZSA',
+        actor: { id: 'browser-reader', displayName: 'Morgan Reader' },
+        feature: 'pages',
+        action: 'pages.open',
+        target: { kind: 'page', id: '01M6RFHQGJNTMTXPW316A0QWQD' },
+        occurredAt: '2026-11-06T13:07:50.912Z',
+        operationKey: '3248c049-aaac-4626-bf36-8d4ce9c70958',
+        automationRunId: null,
+        aiRunId: null,
+        deleted: false,
+        context: {
+          pageId: '01M6RFHQGJNTMTXPW316A0QWQD',
+          revisionId: '01M6RFHWX40EAHA0VF1D8Y5RDV'
+        }
+      },
+      {
+        id: '01M6RFHYJ4MZ3VPNS5G87P5XH1',
+        actor: { id: 'browser-reader', displayName: 'Morgan Reader' },
+        feature: 'pages',
+        action: 'pages.open',
+        target: { kind: 'page', id: '01M6RFHQGJNTMTXPW316A0QWQD' },
+        occurredAt: '2026-11-06T13:07:49.442Z',
+        operationKey: '3e6455b4-5af7-4976-8f17-1d22a4eb7585',
+        automationRunId: null,
+        aiRunId: null,
+        deleted: false,
+        context: {
+          pageId: '01M6RFHQGJNTMTXPW316A0QWQD',
+          revisionId: '01M6RFHWX40EAHA0VF1D8Y5RDV'
+        }
+      },
+      {
+        id: '01M6RFHWX4QWGH2JDWBT5WP9BR',
+        actor: { id: 'browser-reader', displayName: 'Morgan Reader' },
+        feature: 'pages',
+        action: 'pages.block.update',
+        target: { kind: 'page', id: '01M6RFHQGJNTMTXPW316A0QWQD' },
+        occurredAt: '2026-11-06T13:07:47.746Z',
+        operationKey: '6f60b2a8-0f6c-4316-8b51-09c2d03214b1',
+        automationRunId: null,
+        aiRunId: null,
+        deleted: false,
+        context: {
+          pageId: '01M6RFHQGJNTMTXPW316A0QWQD',
+          revisionId: '01M6RFHWX40EAHA0VF1D8Y5RDV'
+        }
+      },
+      {
+        id: '01M6RFHT1PN8DGAXBMHXR4AEVX',
+        actor: { id: 'browser-reader', displayName: 'Morgan Reader' },
+        feature: 'pages',
+        action: 'pages.open',
+        target: { kind: 'page', id: '01M6RFHQGJNTMTXPW316A0QWQD' },
+        occurredAt: '2026-11-06T13:07:44.815Z',
+        operationKey: 'd89e7c18-70f0-419e-8a3b-190f972ce5b4',
+        automationRunId: null,
+        aiRunId: null,
+        deleted: false,
+        context: {
+          pageId: '01M6RFHQGJNTMTXPW316A0QWQD',
+          revisionId: '01M6RFHSZDDMV3MXDH4GD5BJNQ'
+        }
+      },
+      {
+        id: '01M6RFHSZD76ZYMGTRFZMBTFSK',
+        actor: { id: 'browser-reader', displayName: 'Morgan Reader' },
+        feature: 'pages',
+        action: 'pages.update',
+        target: { kind: 'page', id: '01M6RFHQGJNTMTXPW316A0QWQD' },
+        occurredAt: '2026-11-06T13:07:44.747Z',
+        operationKey: '655674a8-b448-4915-ad20-5f9bc6a28832',
+        automationRunId: null,
+        aiRunId: null,
+        deleted: false,
+        context: {
+          pageId: '01M6RFHQGJNTMTXPW316A0QWQD',
+          revisionId: '01M6RFHSZDDMV3MXDH4GD5BJNQ'
+        }
+      },
+      {
+        id: '01M6RFHRJKDQ86C8M2FNK8KGWF',
+        actor: { id: 'browser-reader', displayName: 'Morgan Reader' },
+        feature: 'pages',
+        action: 'pages.open',
+        target: { kind: 'page', id: '01M6RFHQGJNTMTXPW316A0QWQD' },
+        occurredAt: '2026-11-06T13:07:43.271Z',
+        operationKey: '07eaa191-b8ef-4d88-b2c9-3cb7b638bd8c',
+        automationRunId: null,
+        aiRunId: null,
+        deleted: false,
+        context: {
+          pageId: '01M6RFHQGJNTMTXPW316A0QWQD',
+          revisionId: '01M6RFHQSNQYVF3BNF59K4YCKH'
+        }
+      },
+      {
+        id: '01M6RFHQXBB4NBR8G21YKJYYPK',
+        actor: { id: 'browser-reader', displayName: 'Morgan Reader' },
+        feature: 'pages',
+        action: 'pages.open',
+        target: { kind: 'page', id: '01M6RFHQGJNTMTXPW316A0QWQD' },
+        occurredAt: '2026-11-06T13:07:42.595Z',
+        operationKey: '59a9c61c-36c1-4f68-a5b2-c5167863bf11',
+        automationRunId: null,
+        aiRunId: null,
+        deleted: false,
+        context: {
+          pageId: '01M6RFHQGJNTMTXPW316A0QWQD',
+          revisionId: '01M6RFHQSNQYVF3BNF59K4YCKH'
+        }
+      },
+      {
+        id: '01M6RFHQTHT214WEWQ84RP5YDA',
+        actor: { id: 'browser-owner', displayName: 'Alex Owner' },
+        feature: 'comments',
+        action: 'comments.create',
+        target: { kind: 'comment-thread', id: '01M6RFHQTKB3JQR3G91QJJWE60' },
+        occurredAt: '2026-11-06T13:07:42.543Z',
+        operationKey: '777e85e3-bf0d-42d7-9347-39e40ba2db94',
+        automationRunId: null,
+        aiRunId: null,
+        deleted: false,
+        context: {
+          pageId: '01M6RFHQGJNTMTXPW316A0QWQD',
+          commentId: '01M6RFHQTKD5SFCRT8478Q6C2R',
+          threadId: '01M6RFHQTKB3JQR3G91QJJWE60'
+        }
+      },
+      {
+        id: '01M6RFHQSNE4TVFTBGWQQCHZJ5',
+        actor: { id: 'browser-owner', displayName: 'Alex Owner' },
+        feature: 'pages',
+        action: 'pages.publish',
+        target: { kind: 'page', id: '01M6RFHQGJNTMTXPW316A0QWQD' },
+        occurredAt: '2026-11-06T13:07:42.509Z',
+        operationKey: 'ca3c4956-cee9-41c7-bdff-e1b8f4880691',
+        automationRunId: null,
+        aiRunId: null,
+        deleted: false,
+        context: {
+          pageId: '01M6RFHQGJNTMTXPW316A0QWQD',
+          revisionId: '01M6RFHQSNQYVF3BNF59K4YCKH'
+        }
+      },
+      {
+        id: '01M6RFHQQZXFG7Q97VHEK2H6S7',
+        actor: { id: 'browser-owner', displayName: 'Alex Owner' },
+        feature: 'sharing',
+        action: 'sharing.grant',
+        target: { kind: 'page', id: '01M6RFHQGJNTMTXPW316A0QWQD' },
+        occurredAt: '2026-11-06T13:07:42.460Z',
+        operationKey: 'ee3b4a9b-98ba-409b-a320-14b3b45d0cde',
+        automationRunId: null,
+        aiRunId: null,
+        deleted: false,
+        context: {
+          pageId: '01M6RFHQGJNTMTXPW316A0QWQD',
+          grantId: '01M6RFHQR0C0C388XH60HFDV9F'
+        }
+      },
+      {
+        id: '01M6RFHQQ6ZF4DSQ5KVK22KVPD',
+        actor: { id: 'browser-owner', displayName: 'Alex Owner' },
+        feature: 'sharing',
+        action: 'sharing.inheritance',
+        target: { kind: 'page', id: '01M6RFHQGJNTMTXPW316A0QWQD' },
+        occurredAt: '2026-11-06T13:07:42.436Z',
+        operationKey: '601a20cd-70f7-4f66-82c1-e126be4f9441',
+        automationRunId: null,
+        aiRunId: null,
+        deleted: false,
+        context: {
+          pageId: '01M6RFHQGJNTMTXPW316A0QWQD',
+          revisionId: '01M6RFHQQ66JE4DTFF2N3SS9CG'
+        }
+      },
+      {
+        id: '01M6RFHQP0MMXDNJ6ZPWHP7P6T',
+        actor: { id: 'browser-owner', displayName: 'Alex Owner' },
+        feature: 'sharing',
+        action: 'sharing.grant',
+        target: { kind: 'page', id: '01M6RFHQGJNTMTXPW316A0QWQD' },
+        occurredAt: '2026-11-06T13:07:42.397Z',
+        operationKey: '04a16929-d9ed-48c1-9a53-0dd48cc2c258',
+        automationRunId: null,
+        aiRunId: null,
+        deleted: false,
+        context: {
+          pageId: '01M6RFHQGJNTMTXPW316A0QWQD',
+          grantId: '01M6RFHQP24YXK9NRFGFJZ1KRG'
+        }
+      },
+      {
+        id: '01M6RFHQGJ50GXX0N4M5NK1CJD',
+        actor: { id: 'browser-owner', displayName: 'Alex Owner' },
+        feature: 'pages',
+        action: 'pages.create',
+        target: { kind: 'page', id: '01M6RFHQGJNTMTXPW316A0QWQD' },
+        occurredAt: '2026-11-06T13:07:42.225Z',
+        operationKey: '5350c945-215f-4240-a931-8025059458f2',
+        automationRunId: null,
+        aiRunId: null,
+        deleted: false,
+        context: {
+          pageId: '01M6RFHQGJNTMTXPW316A0QWQD',
+          revisionId: '01M6RFHQGJMMTHKAT0H4MC3ZMH'
+        }
+      }
+    ]
+  },
+  expected: {
+    document: {
+      lock: null,
+      authorDisplayName: 'Alex Owner',
+      ownerDisplayName: 'Alex Owner',
+      contributors: [ { id: 'browser-reader', displayName: 'Morgan Reader' } ],
+      schedule: null,
+      mentions: {},
+      page: {
+        id: '01M6RFHQGJNTMTXPW316A0QWQD',
+        containerId: '01M6RFCYD5QJ531D31KNWFJYBP',
+        title: 'Member revised edit guide',
+        revisionId: '01M6RFJ9QK9E17YS52VCX195RP',
+        lifecycle: 'live'
+      },
+      blocks: [
+        {
+          id: '1f1fd021-848b-4c40-ba94-03f51dcb9232',
+          blockType: 'paragraph',
+          content: { text: [Array] },
+          parentBlockId: null,
+          treePosition: 'a0',
+          pageId: '01M6RFHQGJNTMTXPW316A0QWQD',
+          revisionId: '01M6RFHWX6ADKSFTVEQP4EXZSN'
+        },
+        {
+          id: '6840b38b-6cba-45d1-80c0-1c888342bca1',
+          blockType: 'paragraph',
+          content: { text: [Array] },
+          treePosition: 'z',
+          pageId: '01M6RFHQGJNTMTXPW316A0QWQD',
+          parentBlockId: null,
+          revisionId: '01M6RFJ9QN1G898W9XEWN2PKT4'
+        }
+      ],
+      properties: {
+        title: 'Member revised edit guide',
+        icon: null,
+        coverFileId: null,
+        ownerMemberId: 'browser-owner',
+        statusKey: null,
+        labels: [ 'permission-edit' ],
+        typeface: 'serif',
+        smallText: true,
+        fullWidth: true
+      },
+      parentPageId: null,
+      createdAt: '2026-11-06T13:07:42.225Z',
+      updatedAt: '2026-11-06T13:08:00.881Z',
+      authorMemberId: 'browser-owner',
+      workingRevisionId: '01M6RFJ9QK9E17YS52VCX195RP',
+      publishedRevisionId: '01M6RFJ9QK9E17YS52VCX195RP',
+      permissions: { level: 'full', canEdit: true, canUnlock: true, canShare: true },
+      policyProfile: {
+        'page.lifecycle.v1': 'always-live',
+        'page.access.v1': 'workspace-general',
+        'page.public-access.v1': 'site',
+        'page.version.v1': 'autosnapshot',
+        'page.status.v1': 'verification-only',
+        'record.page-parity.v1': 'record-is-page',
+        'automation.scope.v1': 'source',
+        'container.access.v1': 'class-led'
+      }
+    },
+    revisions: {
+      items: [
+        {
+          id: '01M6RFJ9QK9E17YS52VCX195RP',
+          origin: 'autosave',
+          authorMemberId: 'browser-reader',
+          authorDisplayName: 'Morgan Reader',
+          ordinal: null,
+          label: null,
+          statusKey: null,
+          createdAt: '2026-11-06T13:08:00.881Z',
+          deletedAt: null,
+          deletedByMemberId: null,
+          deletedByDisplayName: null
+        },
+        {
+          id: '01M6RFJ351K7237760GF4BZSSJ',
+          origin: 'autosave',
+          authorMemberId: 'browser-reader',
+          authorDisplayName: 'Morgan Reader',
+          ordinal: null,
+          label: null,
+          statusKey: null,
+          createdAt: '2026-11-06T13:07:54.143Z',
+          deletedAt: null,
+          deletedByMemberId: null,
+          deletedByDisplayName: null
+        },
+        {
+          id: '01M6RFHWX40EAHA0VF1D8Y5RDV',
+          origin: 'autosave',
+          authorMemberId: 'browser-reader',
+          authorDisplayName: 'Morgan Reader',
+          ordinal: null,
+          label: null,
+          statusKey: null,
+          createdAt: '2026-11-06T13:07:47.746Z',
+          deletedAt: null,
+          deletedByMemberId: null,
+          deletedByDisplayName: null
+        },
+        {
+          id: '01M6RFHSZDDMV3MXDH4GD5BJNQ',
+          origin: 'autosave',
+          authorMemberId: 'browser-reader',
+          authorDisplayName: 'Morgan Reader',
+          ordinal: null,
+          label: null,
+          statusKey: null,
+          createdAt: '2026-11-06T13:07:44.747Z',
+          deletedAt: null,
+          deletedByMemberId: null,
+          deletedByDisplayName: null
+        },
+        {
+          id: '01M6RFHQSNQYVF3BNF59K4YCKH',
+          origin: 'publish',
+          authorMemberId: 'browser-owner',
+          authorDisplayName: 'Alex Owner',
+          ordinal: null,
+          label: null,
+          statusKey: null,
+          createdAt: '2026-11-06T13:07:42.509Z',
+          deletedAt: null,
+          deletedByMemberId: null,
+          deletedByDisplayName: null
+        },
+        {
+          id: '01M6RFHQQ66JE4DTFF2N3SS9CG',
+          origin: 'autosave',
+          authorMemberId: 'browser-owner',
+          authorDisplayName: 'Alex Owner',
+          ordinal: null,
+          label: null,
+          statusKey: null,
+          createdAt: '2026-11-06T13:07:42.436Z',
+          deletedAt: null,
+          deletedByMemberId: null,
+          deletedByDisplayName: null
+        },
+        {
+          id: '01M6RFHQGJMMTHKAT0H4MC3ZMH',
+          origin: 'autosave',
+          authorMemberId: 'browser-owner',
+          authorDisplayName: 'Alex Owner',
+          ordinal: null,
+          label: null,
+          statusKey: null,
+          createdAt: '2026-11-06T13:07:42.225Z',
+          deletedAt: null,
+          deletedByMemberId: null,
+          deletedByDisplayName: null
+        }
+      ]
+    },
+    comments: {
+      threads: [
+        {
+          id: '01M6RFHQTKB3JQR3G91QJJWE60',
+          workspace_id: 'browser-workspace',
+          page_id: '01M6RFHQGJNTMTXPW316A0QWQD',
+          kind: 'page',
+          block_id: null,
+          anchor_json: null,
+          anchor_revision_id: null,
+          state: 'open',
+          resolved_at: null,
+          resolved_by_member_id: null,
+          created_at: '2026-11-06T13:07:42.543Z',
+          updated_at: '2026-11-06T13:07:42.543Z',
+          revision_id: '01M6RFHQTHE9ARS0T42FQX3DV7',
+          orphaned: 0
+        }
+      ],
+      comments: [
+        {
+          id: '01M6RFHQTKD5SFCRT8478Q6C2R',
+          threadId: '01M6RFHQTKB3JQR3G91QJJWE60',
+          parentCommentId: null,
+          authorMemberId: 'browser-owner',
+          body: [ [Object] ],
+          authorDisplayName: 'Alex Owner',
+          createdAt: '2026-11-06T13:07:42.543Z',
+          updatedAt: '2026-11-06T13:07:42.543Z',
+          deletedAt: null,
+          revisionId: '01M6RFHQTHE9ARS0T42FQX3DV7'
+        }
+      ],
+      reactions: []
+    },
+    grants: {
+      items: [
+        {
+          id: '01M6RFHQP24YXK9NRFGFJZ1KRG',
+          principalKind: 'member',
+          principalId: 'browser-owner',
+          level: 'full',
+          expiresAt: null,
+          revokedAt: null,
+          invitationId: null,
+          invitationEmail: null,
+          invitationExpiresAt: null,
+          invitationRevokedAt: null,
+          principalLabel: 'Alex Owner',
+          origin: {
+            kind: 'page',
+            id: '01M6RFHQGJNTMTXPW316A0QWQD',
+            name: 'Member revised edit guide'
+          },
+          inherited: false,
+          status: 'active',
+          effective: true
+        },
+        {
+          id: '01M6RFHQR0C0C388XH60HFDV9F',
+          principalKind: 'member',
+          principalId: 'browser-reader',
+          level: 'edit',
+          expiresAt: null,
+          revokedAt: null,
+          invitationId: null,
+          invitationEmail: null,
+          invitationExpiresAt: null,
+          invitationRevokedAt: null,
+          principalLabel: 'Morgan Reader',
+          origin: {
+            kind: 'page',
+            id: '01M6RFHQGJNTMTXPW316A0QWQD',
+            name: 'Member revised edit guide'
+          },
+          inherited: false,
+          status: 'active',
+          effective: true
+        }
+      ],
+      inheritedItems: [],
+      effectiveItems: [
+        {
+          id: '01M6RFHQP24YXK9NRFGFJZ1KRG',
+          principalKind: 'member',
+          principalId: 'browser-owner',
+          level: 'full',
+          expiresAt: null,
+          revokedAt: null,
+          invitationId: null,
+          invitationEmail: null,
+          invitationExpiresAt: null,
+          invitationRevokedAt: null,
+          principalLabel: 'Alex Owner',
+          origin: {
+            kind: 'page',
+            id: '01M6RFHQGJNTMTXPW316A0QWQD',
+            name: 'Member revised edit guide'
+          },
+          inherited: false,
+          status: 'active',
+          effective: true
+        },
+        {
+          id: '01M6RFHQR0C0C388XH60HFDV9F',
+          principalKind: 'member',
+          principalId: 'browser-reader',
+          level: 'edit',
+          expiresAt: null,
+          revokedAt: null,
+          invitationId: null,
+          invitationEmail: null,
+          invitationExpiresAt: null,
+          invitationRevokedAt: null,
+          principalLabel: 'Morgan Reader',
+          origin: {
+            kind: 'page',
+            id: '01M6RFHQGJNTMTXPW316A0QWQD',
+            name: 'Member revised edit guide'
+          },
+          inherited: false,
+          status: 'active',
+          effective: true
+        }
+      ],
+      levels: [ 'full', 'edit', 'comment', 'view' ],
+      container: { id: '01M6RFCYD5QJ531D31KNWFJYBP', name: 'Handbook' },
+      restricted: true,
+      restriction: {
+        scope: 'page',
+        id: '01M6RFHQGJNTMTXPW316A0QWQD',
+        name: 'Member revised edit guide'
+      }
+    },
+    activity: [
+      {
+        id: '01M6RFJ9QKWF071DHBHPW46SX0',
+        actor: { id: 'browser-reader', displayName: 'Morgan Reader' },
+        feature: 'pages',
+        action: 'pages.blocks.replace',
+        target: { kind: 'page', id: '01M6RFHQGJNTMTXPW316A0QWQD' },
+        occurredAt: '2026-11-06T13:08:00.881Z',
+        operationKey: 'e8259258-399d-4031-a73b-8d90d0305a5b',
+        automationRunId: null,
+        aiRunId: null,
+        deleted: false,
+        context: {
+          pageId: '01M6RFHQGJNTMTXPW316A0QWQD',
+          revisionId: '01M6RFJ9QK9E17YS52VCX195RP'
+        }
+      },
+      {
+        id: '01M6RFJ4P1NPQCC9W1Z2J1PRAA',
+        actor: { id: 'browser-reader', displayName: 'Morgan Reader' },
+        feature: 'pages',
+        action: 'pages.open',
+        target: { kind: 'page', id: '01M6RFHQGJNTMTXPW316A0QWQD' },
+        occurredAt: '2026-11-06T13:07:55.677Z',
+        operationKey: '68abe608-efc7-44a3-b5e4-a91ddf0007b6',
+        automationRunId: null,
+        aiRunId: null,
+        deleted: false,
+        context: {
+          pageId: '01M6RFHQGJNTMTXPW316A0QWQD',
+          revisionId: '01M6RFJ351K7237760GF4BZSSJ'
+        }
+      },
+      {
+        id: '01M6RFJ36D1BJ9J0HX6VE4H06M',
+        actor: { id: 'browser-reader', displayName: 'Morgan Reader' },
+        feature: 'pages',
+        action: 'pages.open',
+        target: { kind: 'page', id: '01M6RFHQGJNTMTXPW316A0QWQD' },
+        occurredAt: '2026-11-06T13:07:54.187Z',
+        operationKey: 'a825ea39-0894-445f-80ad-5486eef54cf2',
+        automationRunId: null,
+        aiRunId: null,
+        deleted: false,
+        context: {
+          pageId: '01M6RFHQGJNTMTXPW316A0QWQD',
+          revisionId: '01M6RFJ351K7237760GF4BZSSJ'
+        }
+      },
+      {
+        id: '01M6RFJ3513CS0GFG5M9ZVR0JE',
+        actor: { id: 'browser-reader', displayName: 'Morgan Reader' },
+        feature: 'pages',
+        action: 'pages.update',
+        target: { kind: 'page', id: '01M6RFHQGJNTMTXPW316A0QWQD' },
+        occurredAt: '2026-11-06T13:07:54.143Z',
+        operationKey: '22ef4e52-16c5-45fa-9023-ffd1b455c5c0',
+        automationRunId: null,
+        aiRunId: null,
+        deleted: false,
+        context: {
+          pageId: '01M6RFHQGJNTMTXPW316A0QWQD',
+          revisionId: '01M6RFJ351K7237760GF4BZSSJ'
+        }
+      },
+      {
+        id: '01M6RFJ1APWGQP0XHZSQFRT09T',
+        actor: { id: 'browser-reader', displayName: 'Morgan Reader' },
+        feature: 'pages',
+        action: 'pages.open',
+        target: { kind: 'page', id: '01M6RFHQGJNTMTXPW316A0QWQD' },
+        occurredAt: '2026-11-06T13:07:52.243Z',
+        operationKey: 'c94045e4-71ad-47b1-ade2-db876961df4c',
+        automationRunId: null,
+        aiRunId: null,
+        deleted: false,
+        context: {
+          pageId: '01M6RFHQGJNTMTXPW316A0QWQD',
+          revisionId: '01M6RFHWX40EAHA0VF1D8Y5RDV'
+        }
+      },
+      {
+        id: '01M6RFJ00ZKJCC406H7RKQRZSA',
+        actor: { id: 'browser-reader', displayName: 'Morgan Reader' },
+        feature: 'pages',
+        action: 'pages.open',
+        target: { kind: 'page', id: '01M6RFHQGJNTMTXPW316A0QWQD' },
+        occurredAt: '2026-11-06T13:07:50.912Z',
+        operationKey: '3248c049-aaac-4626-bf36-8d4ce9c70958',
+        automationRunId: null,
+        aiRunId: null,
+        deleted: false,
+        context: {
+          pageId: '01M6RFHQGJNTMTXPW316A0QWQD',
+          revisionId: '01M6RFHWX40EAHA0VF1D8Y5RDV'
+        }
+      },
+      {
+        id: '01M6RFHYJ4MZ3VPNS5G87P5XH1',
+        actor: { id: 'browser-reader', displayName: 'Morgan Reader' },
+        feature: 'pages',
+        action: 'pages.open',
+        target: { kind: 'page', id: '01M6RFHQGJNTMTXPW316A0QWQD' },
+        occurredAt: '2026-11-06T13:07:49.442Z',
+        operationKey: '3e6455b4-5af7-4976-8f17-1d22a4eb7585',
+        automationRunId: null,
+        aiRunId: null,
+        deleted: false,
+        context: {
+          pageId: '01M6RFHQGJNTMTXPW316A0QWQD',
+          revisionId: '01M6RFHWX40EAHA0VF1D8Y5RDV'
+        }
+      },
+      {
+        id: '01M6RFHWX4QWGH2JDWBT5WP9BR',
+        actor: { id: 'browser-reader', displayName: 'Morgan Reader' },
+        feature: 'pages',
+        action: 'pages.block.update',
+        target: { kind: 'page', id: '01M6RFHQGJNTMTXPW316A0QWQD' },
+        occurredAt: '2026-11-06T13:07:47.746Z',
+        operationKey: '6f60b2a8-0f6c-4316-8b51-09c2d03214b1',
+        automationRunId: null,
+        aiRunId: null,
+        deleted: false,
+        context: {
+          pageId: '01M6RFHQGJNTMTXPW316A0QWQD',
+          revisionId: '01M6RFHWX40EAHA0VF1D8Y5RDV'
+        }
+      },
+      {
+        id: '01M6RFHT1PN8DGAXBMHXR4AEVX',
+        actor: { id: 'browser-reader', displayName: 'Morgan Reader' },
+        feature: 'pages',
+        action: 'pages.open',
+        target: { kind: 'page', id: '01M6RFHQGJNTMTXPW316A0QWQD' },
+        occurredAt: '2026-11-06T13:07:44.815Z',
+        operationKey: 'd89e7c18-70f0-419e-8a3b-190f972ce5b4',
+        automationRunId: null,
+        aiRunId: null,
+        deleted: false,
+        context: {
+          pageId: '01M6RFHQGJNTMTXPW316A0QWQD',
+          revisionId: '01M6RFHSZDDMV3MXDH4GD5BJNQ'
+        }
+      },
+      {
+        id: '01M6RFHSZD76ZYMGTRFZMBTFSK',
+        actor: { id: 'browser-reader', displayName: 'Morgan Reader' },
+        feature: 'pages',
+        action: 'pages.update',
+        target: { kind: 'page', id: '01M6RFHQGJNTMTXPW316A0QWQD' },
+        occurredAt: '2026-11-06T13:07:44.747Z',
+        operationKey: '655674a8-b448-4915-ad20-5f9bc6a28832',
+        automationRunId: null,
+        aiRunId: null,
+        deleted: false,
+        context: {
+          pageId: '01M6RFHQGJNTMTXPW316A0QWQD',
+          revisionId: '01M6RFHSZDDMV3MXDH4GD5BJNQ'
+        }
+      },
+      {
+        id: '01M6RFHRJKDQ86C8M2FNK8KGWF',
+        actor: { id: 'browser-reader', displayName: 'Morgan Reader' },
+        feature: 'pages',
+        action: 'pages.open',
+        target: { kind: 'page', id: '01M6RFHQGJNTMTXPW316A0QWQD' },
+        occurredAt: '2026-11-06T13:07:43.271Z',
+        operationKey: '07eaa191-b8ef-4d88-b2c9-3cb7b638bd8c',
+        automationRunId: null,
+        aiRunId: null,
+        deleted: false,
+        context: {
+          pageId: '01M6RFHQGJNTMTXPW316A0QWQD',
+          revisionId: '01M6RFHQSNQYVF3BNF59K4YCKH'
+        }
+      },
+      {
+        id: '01M6RFHQXBB4NBR8G21YKJYYPK',
+        actor: { id: 'browser-reader', displayName: 'Morgan Reader' },
+        feature: 'pages',
+        action: 'pages.open',
+        target: { kind: 'page', id: '01M6RFHQGJNTMTXPW316A0QWQD' },
+        occurredAt: '2026-11-06T13:07:42.595Z',
+        operationKey: '59a9c61c-36c1-4f68-a5b2-c5167863bf11',
+        automationRunId: null,
+        aiRunId: null,
+        deleted: false,
+        context: {
+          pageId: '01M6RFHQGJNTMTXPW316A0QWQD',
+          revisionId: '01M6RFHQSNQYVF3BNF59K4YCKH'
+        }
+      },
+      {
+        id: '01M6RFHQTHT214WEWQ84RP5YDA',
+        actor: { id: 'browser-owner', displayName: 'Alex Owner' },
+        feature: 'comments',
+        action: 'comments.create',
+        target: { kind: 'comment-thread', id: '01M6RFHQTKB3JQR3G91QJJWE60' },
+        occurredAt: '2026-11-06T13:07:42.543Z',
+        operationKey: '777e85e3-bf0d-42d7-9347-39e40ba2db94',
+        automationRunId: null,
+        aiRunId: null,
+        deleted: false,
+        context: {
+          pageId: '01M6RFHQGJNTMTXPW316A0QWQD',
+          commentId: '01M6RFHQTKD5SFCRT8478Q6C2R',
+          threadId: '01M6RFHQTKB3JQR3G91QJJWE60'
+        }
+      },
+      {
+        id: '01M6RFHQSNE4TVFTBGWQQCHZJ5',
+        actor: { id: 'browser-owner', displayName: 'Alex Owner' },
+        feature: 'pages',
+        action: 'pages.publish',
+        target: { kind: 'page', id: '01M6RFHQGJNTMTXPW316A0QWQD' },
+        occurredAt: '2026-11-06T13:07:42.509Z',
+        operationKey: 'ca3c4956-cee9-41c7-bdff-e1b8f4880691',
+        automationRunId: null,
+        aiRunId: null,
+        deleted: false,
+        context: {
+          pageId: '01M6RFHQGJNTMTXPW316A0QWQD',
+          revisionId: '01M6RFHQSNQYVF3BNF59K4YCKH'
+        }
+      },
+      {
+        id: '01M6RFHQQZXFG7Q97VHEK2H6S7',
+        actor: { id: 'browser-owner', displayName: 'Alex Owner' },
+        feature: 'sharing',
+        action: 'sharing.grant',
+        target: { kind: 'page', id: '01M6RFHQGJNTMTXPW316A0QWQD' },
+        occurredAt: '2026-11-06T13:07:42.460Z',
+        operationKey: 'ee3b4a9b-98ba-409b-a320-14b3b45d0cde',
+        automationRunId: null,
+        aiRunId: null,
+        deleted: false,
+        context: {
+          pageId: '01M6RFHQGJNTMTXPW316A0QWQD',
+          grantId: '01M6RFHQR0C0C388XH60HFDV9F'
+        }
+      },
+      {
+        id: '01M6RFHQQ6ZF4DSQ5KVK22KVPD',
+        actor: { id: 'browser-owner', displayName: 'Alex Owner' },
+        feature: 'sharing',
+        action: 'sharing.inheritance',
+        target: { kind: 'page', id: '01M6RFHQGJNTMTXPW316A0QWQD' },
+        occurredAt: '2026-11-06T13:07:42.436Z',
+        operationKey: '601a20cd-70f7-4f66-82c1-e126be4f9441',
+        automationRunId: null,
+        aiRunId: null,
+        deleted: false,
+        context: {
+          pageId: '01M6RFHQGJNTMTXPW316A0QWQD',
+          revisionId: '01M6RFHQQ66JE4DTFF2N3SS9CG'
+        }
+      },
+      {
+        id: '01M6RFHQP0MMXDNJ6ZPWHP7P6T',
+        actor: { id: 'browser-owner', displayName: 'Alex Owner' },
+        feature: 'sharing',
+        action: 'sharing.grant',
+        target: { kind: 'page', id: '01M6RFHQGJNTMTXPW316A0QWQD' },
+        occurredAt: '2026-11-06T13:07:42.397Z',
+        operationKey: '04a16929-d9ed-48c1-9a53-0dd48cc2c258',
+        automationRunId: null,
+        aiRunId: null,
+        deleted: false,
+        context: {
+          pageId: '01M6RFHQGJNTMTXPW316A0QWQD',
+          grantId: '01M6RFHQP24YXK9NRFGFJZ1KRG'
+        }
+      },
+      {
+        id: '01M6RFHQGJ50GXX0N4M5NK1CJD',
+        actor: { id: 'browser-owner', displayName: 'Alex Owner' },
+        feature: 'pages',
+        action: 'pages.create',
+        target: { kind: 'page', id: '01M6RFHQGJNTMTXPW316A0QWQD' },
+        occurredAt: '2026-11-06T13:07:42.225Z',
+        operationKey: '5350c945-215f-4240-a931-8025059458f2',
+        automationRunId: null,
+        aiRunId: null,
+        deleted: false,
+        context: {
+          pageId: '01M6RFHQGJNTMTXPW316A0QWQD',
+          revisionId: '01M6RFHQGJMMTHKAT0H4MC3ZMH'
+        }
+      }
+    ]
+  },
+  operator: 'deepStrictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.19.0

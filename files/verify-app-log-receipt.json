@@ -1,0 +1,20 @@
+{
+  "queried_at": "2026-11-06T13:48:10.544092+00:00",
+  "head": "ad60d1d01d73d519b4cbc70047886d178db48247",
+  "run": 42226287821,
+  "job": 127920558394,
+  "command": [
+    "gh",
+    "run",
+    "view",
+    "42226287821",
+    "--repo",
+    "just-every/run-slate",
+    "--job",
+    "127920558394",
+    "--log-failed"
+  ],
+  "exit": 0,
+  "output_file": "verify-app-failed-step.log",
+  "redaction": "Environment assignment values and ANSI formatting omitted; failed command and complete assertion error retained."
+}

@@ -1,0 +1,20 @@
+[
+  {
+    "file": "provisional-baseline-sharing.log",
+    "exit": 1,
+    "candidate_receipt": false,
+    "scope": "Provisional local diagnostics; final exact-head evidence is separate."
+  },
+  {
+    "file": "provisional-matrix-failure.log",
+    "exit": 1,
+    "candidate_receipt": false,
+    "scope": "Provisional local diagnostics; final exact-head evidence is separate."
+  },
+  {
+    "file": "provisional-matrix-pass.log",
+    "exit": 0,
+    "candidate_receipt": false,
+    "scope": "Provisional local diagnostics; final exact-head evidence is separate."
+  }
+]

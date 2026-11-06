@@ -1,0 +1,4 @@
+PROBE SHARE-002 full: page edits, ownership, locks, metadata reads, discussion, reactions, grants and revoked captures; 35 refused requests preserve inventories at 390px
+PROBE SHARE-002 edit: page edits, ownership, locks, metadata reads, discussion, reactions, grants and revoked captures; 34 refused requests preserve inventories at 390px
+PROBE SHARE-002 comment: page edits, ownership, locks, metadata reads, discussion, reactions, grants and revoked captures; 33 refused requests preserve inventories at 390px
+PROBE SHARE-002 view: page edits, ownership, locks, metadata reads, discussion, reactions, grants and revoked captures; 30 refused requests preserve inventories at 390px

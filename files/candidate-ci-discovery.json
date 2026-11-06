@@ -1,0 +1,23 @@
+{
+  "queried_at": "2026-11-06T13:37:11.871542+00:00",
+  "head": "ad60d1d01d73d519b4cbc70047886d178db48247",
+  "command": [
+    "gh",
+    "api",
+    "repos/just-every/run-slate/actions/runs?head_sha=ad60d1d01d73d519b4cbc70047886d178db48247&per_page=100",
+    "--jq",
+    "[.workflow_runs[] | {id,name,status,conclusion,head_sha,event,html_url}]"
+  ],
+  "exit": 0,
+  "runs": [
+    {
+      "conclusion": "failure",
+      "event": "push",
+      "head_sha": "ad60d1d01d73d519b4cbc70047886d178db48247",
+      "html_url": "https://github.com/just-every/run-slate/actions/runs/42226287821",
+      "id": 42226287821,
+      "name": "Verify Slate",
+      "status": "completed"
+    }
+  ]
+}

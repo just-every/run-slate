@@ -1,0 +1,36 @@
+SYNCED_CUSTODY delete 1440: allowed static, denied and anonymous content-free, history unchanged
+SYNCED_CUSTODY remove 1440: allowed static, denied and anonymous content-free, history unchanged
+SYNCED_CUSTODY unsync 1440: allowed static, denied and anonymous content-free, history unchanged
+SYNCED_CUSTODY restore 1440: allowed static, denied and anonymous content-free, history unchanged
+SYNCED_CUSTODY discard 1440: allowed static, denied and anonymous content-free, history unchanged
+SYNCED_CUSTODY history 1440: ordinary static and immutable prior revision
+SYNCED_CUSTODY member-erasure 1440: deletion accepted, owner receives no private content
+Journey failure context {
+  "rejected": [],
+  "consoleErrors": []
+}
+✖ shared page invitations name their space and disappear on revocation at 1440px (102099.521814ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 119004.855575
+
+✖ failing tests:
+
+test at tests/qualification/ui-convergence/journey-shard.mjs:23:97
+✖ shared page invitations name their space and disappear on revocation at 1440px (102099.521814ms)
+  Error: listen EADDRINUSE: address already in use 127.0.0.1:39843
+      at Server.setupListenHandle [as _listen2] (node:net:2167:16)
+      at listenInCluster (node:net:2224:12)
+      at node:net:2448:7
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    code: 'EADDRINUSE',
+    errno: -98,
+    syscall: 'listen',
+    address: '127.0.0.1',
+    port: 39843
+  }

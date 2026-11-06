@@ -1,0 +1,31 @@
+{
+  "head": "ad60d1d01d73d519b4cbc70047886d178db48247",
+  "branch": "cloud/sd-slate-c-f198",
+  "base": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+  "counts": {
+    "partial": 240,
+    "done": 57,
+    "missing": 41
+  },
+  "statusRows": 338,
+  "registrationsBefore": 207,
+  "registrationsAfter": 207,
+  "sourceChanges": "journeys, requirement specifications, contract evidence and generated source lock",
+  "acceptanceTextChanged": false,
+  "generatedViewsCommitted": false,
+  "publicationScan": "guarded lander pending",
+  "mainLanding": "pending",
+  "verify": {
+    "run": 42226287821,
+    "event": "push",
+    "head": "ad60d1d01d73d519b4cbc70047886d178db48247",
+    "status": "completed",
+    "conclusion": "failure",
+    "classification": "permitted generated ACCEPTANCE.md freshness failure; app and dependent aggregate only; test shards skipped",
+    "app_job": 127920558394,
+    "aggregate_job": 127920783254,
+    "explicit_ci_commands": 5
+  },
+  "product_pushed": true,
+  "remaining": "Full SHARE-002 every-operation proof remains unestablished; no status promotion."
+}
