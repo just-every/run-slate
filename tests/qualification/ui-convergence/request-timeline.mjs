@@ -10,7 +10,7 @@ export function requestTimeline(context) {
   let failure, failureAt, publication;
   const start = (method, url, page) => {
     const row = { method, path: diagnosticPath(url), start: now(), status: 'pending' };
-    if (publication?.page === page && method === 'POST' && new URL(url, 'http://diagnostic.invalid').pathname === publication.path) publication.row = row;
+    if (publication && publication.page === page && method === 'POST' && new URL(url, 'http://diagnostic.invalid').pathname === publication.path) publication.row = row;
     rows.push(row);
     if (rows.length > 40) rows.shift();
     return row;
