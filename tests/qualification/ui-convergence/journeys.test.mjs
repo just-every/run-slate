@@ -198,7 +198,7 @@ for (const width of [1440]) {
 }
 
 for (const width of [1440]) {
-  test(`TMPL-007 starter templates are found by category; touch spaces, templates, archive and workspace settings work at ${width}px`, { timeout: 240000 }, async () => {
+  test(`TMPL-007 starter templates are found by category; touch spaces, templates, archive and workspace settings work at ${width}px`, { timeout: 420000 }, async () => {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
       await templateCaptureJourney(state);

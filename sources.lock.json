@@ -12108,7 +12108,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
-      "sha256": "d3742e6d06e503f0a6024b309105bdc846e2281313b841b95d241353d250422b",
+      "sha256": "036bc6bd09443e032eb525fe80ed094c1710474f9a6ef5265870ca6b6a9631fd",
       "executable": false
     },
     "tests/qualification/ui-convergence/link-access-journey.mjs": {
@@ -12272,7 +12272,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/template-scope-journey.mjs": {
-      "sha256": "de1dc930a89aa0aeafaa985e4dd1c0e254398d07c6507ffae656939c78520170",
+      "sha256": "becbf51267ade1b3356b42d861d5991db66d5370e81680869ccc01ffdc78c3c9",
       "executable": false
     },
     "tests/qualification/ui-convergence/template-snapshot-journey.mjs": {
