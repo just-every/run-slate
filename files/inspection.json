@@ -1,0 +1,41 @@
+{
+  "head": "40821af611d4632f7f7364dbea7af3756c489780",
+  "main": "bc567c9b6f6b25c98cb6fa05b9ab0fe37628a547",
+  "checkedCommits": [
+    "40821af611d4632f7f7364dbea7af3756c489780",
+    "2b0d908cbb59b283f659b4952563a51f747bcb30",
+    "40046db446790b25d7598bcd5047d7b59a3b53ed",
+    "b94c7a739f5f8658aee8942c3341d081a5e936a5"
+  ],
+  "identities": "fleet authors and committers; no trailers",
+  "statusRows": 338,
+  "tableRows": 698,
+  "before": {
+    "partial": 240,
+    "done": 57,
+    "missing": 41
+  },
+  "after": {
+    "partial": 240,
+    "done": 57,
+    "missing": 41
+  },
+  "registrationsBefore": 205,
+  "registrationsAfter": 205,
+  "changedFiles": [
+    "CONTRACT.md",
+    "sources.lock.json",
+    "src/core/features/editor/ui/blocks/SyncedBlock.tsx",
+    "tests/e2e/editor/synced-case.ts",
+    "tests/qualification/ui-convergence/journeys.test.mjs",
+    "tests/qualification/ui-convergence/synced-custody.mjs",
+    "tests/qualification/ui-convergence/synced-journey.mjs",
+    "tests/requirements/clause-inventory.json",
+    "tests/requirements/cli-journey.md",
+    "tests/requirements/test-evidence.json"
+  ],
+  "generatedViewsCommitted": false,
+  "workflowChanged": false,
+  "existingRegistrationsRetained": true,
+  "newEmailShapedStrings": 0
+}

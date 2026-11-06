@@ -1,0 +1,1975 @@
+[
+  {
+    "file": "028-1440-touch-synced-restored-deleted-reference-stays-content-free.json",
+    "state": "touch synced restored deleted reference stays content free",
+    "head": "40821af611d4632f7f7364dbea7af3756c489780",
+    "geometry": {
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "documentWidth": 1440,
+      "body": {
+        "x": 372,
+        "y": 193.390625,
+        "width": 880,
+        "height": 168,
+        "top": 193.390625,
+        "right": 1252,
+        "bottom": 361.390625,
+        "left": 372
+      },
+      "toolbar": [
+        {
+          "x": 1102.0625,
+          "y": 9.5,
+          "width": 67.28125,
+          "height": 36,
+          "top": 9.5,
+          "right": 1169.34375,
+          "bottom": 45.5,
+          "left": 1102.0625
+        },
+        {
+          "x": 1177.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1213.34375,
+          "bottom": 45.5,
+          "left": 1177.34375
+        },
+        {
+          "x": 1221.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1257.34375,
+          "bottom": 45.5,
+          "left": 1221.34375
+        },
+        {
+          "x": 1265.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1301.34375,
+          "bottom": 45.5,
+          "left": 1265.34375
+        },
+        {
+          "x": 1309.34375,
+          "y": 9.5,
+          "width": 106.65625,
+          "height": 36,
+          "top": 9.5,
+          "right": 1416,
+          "bottom": 45.5,
+          "left": 1309.34375
+        }
+      ]
+    },
+    "seriousOrCritical": []
+  },
+  {
+    "file": "013-1440-touch-synced-delete-static-anonymous.json",
+    "state": "touch synced delete static anonymous",
+    "head": "40821af611d4632f7f7364dbea7af3756c489780",
+    "geometry": {
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "documentWidth": 1440,
+      "toolbar": []
+    },
+    "seriousOrCritical": []
+  },
+  {
+    "file": "046-1440-touch-explicit-grant-reveals-live-synced-source.json",
+    "state": "touch explicit grant reveals live synced source",
+    "head": "40821af611d4632f7f7364dbea7af3756c489780",
+    "geometry": {
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "documentWidth": 1440,
+      "body": {
+        "x": 372,
+        "y": 223.390625,
+        "width": 880,
+        "height": 260,
+        "top": 223.390625,
+        "right": 1252,
+        "bottom": 483.390625,
+        "left": 372
+      },
+      "toolbar": [
+        {
+          "x": 1102.0625,
+          "y": 9.5,
+          "width": 67.28125,
+          "height": 36,
+          "top": 9.5,
+          "right": 1169.34375,
+          "bottom": 45.5,
+          "left": 1102.0625
+        },
+        {
+          "x": 1177.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1213.34375,
+          "bottom": 45.5,
+          "left": 1177.34375
+        },
+        {
+          "x": 1221.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1257.34375,
+          "bottom": 45.5,
+          "left": 1221.34375
+        },
+        {
+          "x": 1265.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1301.34375,
+          "bottom": 45.5,
+          "left": 1265.34375
+        },
+        {
+          "x": 1309.34375,
+          "y": 9.5,
+          "width": 106.65625,
+          "height": 36,
+          "top": 9.5,
+          "right": 1416,
+          "bottom": 45.5,
+          "left": 1309.34375
+        }
+      ]
+    },
+    "seriousOrCritical": []
+  },
+  {
+    "file": "025-1440-touch-synced-discard-static-anonymous.json",
+    "state": "touch synced discard static anonymous",
+    "head": "40821af611d4632f7f7364dbea7af3756c489780",
+    "geometry": {
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "documentWidth": 1440,
+      "toolbar": []
+    },
+    "seriousOrCritical": []
+  },
+  {
+    "file": "018-1440-touch-synced-unsync-static-restricted.json",
+    "state": "touch synced unsync static restricted",
+    "head": "40821af611d4632f7f7364dbea7af3756c489780",
+    "geometry": {
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "documentWidth": 1440,
+      "body": {
+        "x": 372,
+        "y": 223.390625,
+        "width": 880,
+        "height": 168,
+        "top": 223.390625,
+        "right": 1252,
+        "bottom": 391.390625,
+        "left": 372
+      },
+      "toolbar": [
+        {
+          "x": 1102.0625,
+          "y": 9.5,
+          "width": 67.28125,
+          "height": 36,
+          "top": 9.5,
+          "right": 1169.34375,
+          "bottom": 45.5,
+          "left": 1102.0625
+        },
+        {
+          "x": 1177.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1213.34375,
+          "bottom": 45.5,
+          "left": 1177.34375
+        },
+        {
+          "x": 1221.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1257.34375,
+          "bottom": 45.5,
+          "left": 1221.34375
+        },
+        {
+          "x": 1265.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1301.34375,
+          "bottom": 45.5,
+          "left": 1265.34375
+        },
+        {
+          "x": 1309.34375,
+          "y": 9.5,
+          "width": 106.65625,
+          "height": 36,
+          "top": 9.5,
+          "right": 1416,
+          "bottom": 45.5,
+          "left": 1309.34375
+        }
+      ]
+    },
+    "seriousOrCritical": []
+  },
+  {
+    "file": "047-1440-touch-synced-source-deletion-confirmation.json",
+    "state": "touch synced source deletion confirmation",
+    "head": "40821af611d4632f7f7364dbea7af3756c489780",
+    "geometry": {
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "documentWidth": 1440,
+      "toolbar": []
+    },
+    "seriousOrCritical": []
+  },
+  {
+    "file": "044-1440-touch-synced-source-access-needed.json",
+    "state": "touch synced source access needed",
+    "head": "40821af611d4632f7f7364dbea7af3756c489780",
+    "geometry": {
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "documentWidth": 1440,
+      "body": {
+        "x": 372,
+        "y": 223.390625,
+        "width": 880,
+        "height": 240,
+        "top": 223.390625,
+        "right": 1252,
+        "bottom": 463.390625,
+        "left": 372
+      },
+      "toolbar": [
+        {
+          "x": 1102.0625,
+          "y": 9.5,
+          "width": 67.28125,
+          "height": 36,
+          "top": 9.5,
+          "right": 1169.34375,
+          "bottom": 45.5,
+          "left": 1102.0625
+        },
+        {
+          "x": 1177.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1213.34375,
+          "bottom": 45.5,
+          "left": 1177.34375
+        },
+        {
+          "x": 1221.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1257.34375,
+          "bottom": 45.5,
+          "left": 1221.34375
+        },
+        {
+          "x": 1265.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1301.34375,
+          "bottom": 45.5,
+          "left": 1265.34375
+        },
+        {
+          "x": 1309.34375,
+          "y": 9.5,
+          "width": 106.65625,
+          "height": 36,
+          "top": 9.5,
+          "right": 1416,
+          "bottom": 45.5,
+          "left": 1309.34375
+        }
+      ]
+    },
+    "seriousOrCritical": []
+  },
+  {
+    "file": "027-1440-touch-synced-immutable-deleted-reference-in-history.json",
+    "state": "touch synced immutable deleted reference in history",
+    "head": "40821af611d4632f7f7364dbea7af3756c489780",
+    "geometry": {
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "documentWidth": 1440,
+      "body": {
+        "x": 372,
+        "y": 193.390625,
+        "width": 696,
+        "height": 202,
+        "top": 193.390625,
+        "right": 1068,
+        "bottom": 395.390625,
+        "left": 372
+      },
+      "toolbar": [
+        {
+          "x": 1102.0625,
+          "y": 9.5,
+          "width": 67.28125,
+          "height": 36,
+          "top": 9.5,
+          "right": 1169.34375,
+          "bottom": 45.5,
+          "left": 1102.0625
+        },
+        {
+          "x": 1177.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1213.34375,
+          "bottom": 45.5,
+          "left": 1177.34375
+        },
+        {
+          "x": 1221.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1257.34375,
+          "bottom": 45.5,
+          "left": 1221.34375
+        },
+        {
+          "x": 1265.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1301.34375,
+          "bottom": 45.5,
+          "left": 1265.34375
+        },
+        {
+          "x": 1309.34375,
+          "y": 9.5,
+          "width": 106.65625,
+          "height": 36,
+          "top": 9.5,
+          "right": 1416,
+          "bottom": 45.5,
+          "left": 1309.34375
+        }
+      ]
+    },
+    "seriousOrCritical": []
+  },
+  {
+    "file": "021-1440-touch-synced-restore-static-restricted.json",
+    "state": "touch synced restore static restricted",
+    "head": "40821af611d4632f7f7364dbea7af3756c489780",
+    "geometry": {
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "documentWidth": 1440,
+      "body": {
+        "x": 372,
+        "y": 223.390625,
+        "width": 880,
+        "height": 168,
+        "top": 223.390625,
+        "right": 1252,
+        "bottom": 391.390625,
+        "left": 372
+      },
+      "toolbar": [
+        {
+          "x": 1102.0625,
+          "y": 9.5,
+          "width": 67.28125,
+          "height": 36,
+          "top": 9.5,
+          "right": 1169.34375,
+          "bottom": 45.5,
+          "left": 1102.0625
+        },
+        {
+          "x": 1177.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1213.34375,
+          "bottom": 45.5,
+          "left": 1177.34375
+        },
+        {
+          "x": 1221.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1257.34375,
+          "bottom": 45.5,
+          "left": 1221.34375
+        },
+        {
+          "x": 1265.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1301.34375,
+          "bottom": 45.5,
+          "left": 1265.34375
+        },
+        {
+          "x": 1309.34375,
+          "y": 9.5,
+          "width": 106.65625,
+          "height": 36,
+          "top": 9.5,
+          "right": 1416,
+          "bottom": 45.5,
+          "left": 1309.34375
+        }
+      ]
+    },
+    "seriousOrCritical": []
+  },
+  {
+    "file": "048-1440-touch-synced-static-copy-after-deletion.json",
+    "state": "touch synced static copy after deletion",
+    "head": "40821af611d4632f7f7364dbea7af3756c489780",
+    "geometry": {
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "documentWidth": 1440,
+      "body": {
+        "x": 372,
+        "y": 223.390625,
+        "width": 880,
+        "height": 242,
+        "top": 223.390625,
+        "right": 1252,
+        "bottom": 465.390625,
+        "left": 372
+      },
+      "toolbar": [
+        {
+          "x": 1102.0625,
+          "y": 9.5,
+          "width": 67.28125,
+          "height": 36,
+          "top": 9.5,
+          "right": 1169.34375,
+          "bottom": 45.5,
+          "left": 1102.0625
+        },
+        {
+          "x": 1177.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1213.34375,
+          "bottom": 45.5,
+          "left": 1177.34375
+        },
+        {
+          "x": 1221.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1257.34375,
+          "bottom": 45.5,
+          "left": 1221.34375
+        },
+        {
+          "x": 1265.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1301.34375,
+          "bottom": 45.5,
+          "left": 1265.34375
+        },
+        {
+          "x": 1309.34375,
+          "y": 9.5,
+          "width": 106.65625,
+          "height": 36,
+          "top": 9.5,
+          "right": 1416,
+          "bottom": 45.5,
+          "left": 1309.34375
+        }
+      ]
+    },
+    "seriousOrCritical": []
+  },
+  {
+    "file": "024-1440-touch-synced-discard-static-restricted.json",
+    "state": "touch synced discard static restricted",
+    "head": "40821af611d4632f7f7364dbea7af3756c489780",
+    "geometry": {
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "documentWidth": 1440,
+      "body": {
+        "x": 372,
+        "y": 223.390625,
+        "width": 880,
+        "height": 168,
+        "top": 223.390625,
+        "right": 1252,
+        "bottom": 391.390625,
+        "left": 372
+      },
+      "toolbar": [
+        {
+          "x": 1102.0625,
+          "y": 9.5,
+          "width": 67.28125,
+          "height": 36,
+          "top": 9.5,
+          "right": 1169.34375,
+          "bottom": 45.5,
+          "left": 1102.0625
+        },
+        {
+          "x": 1177.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1213.34375,
+          "bottom": 45.5,
+          "left": 1177.34375
+        },
+        {
+          "x": 1221.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1257.34375,
+          "bottom": 45.5,
+          "left": 1221.34375
+        },
+        {
+          "x": 1265.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1301.34375,
+          "bottom": 45.5,
+          "left": 1265.34375
+        },
+        {
+          "x": 1309.34375,
+          "y": 9.5,
+          "width": 106.65625,
+          "height": 36,
+          "top": 9.5,
+          "right": 1416,
+          "bottom": 45.5,
+          "left": 1309.34375
+        }
+      ]
+    },
+    "seriousOrCritical": []
+  },
+  {
+    "file": "030-1440-touch-synced-member-erasure-no-wider-audience.json",
+    "state": "touch synced member erasure no wider audience",
+    "head": "40821af611d4632f7f7364dbea7af3756c489780",
+    "geometry": {
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "documentWidth": 1440,
+      "body": {
+        "x": 372,
+        "y": 271.390625,
+        "width": 880,
+        "height": 168,
+        "top": 271.390625,
+        "right": 1252,
+        "bottom": 439.390625,
+        "left": 372
+      },
+      "toolbar": [
+        {
+          "x": 1102.0625,
+          "y": 9.5,
+          "width": 67.28125,
+          "height": 36,
+          "top": 9.5,
+          "right": 1169.34375,
+          "bottom": 45.5,
+          "left": 1102.0625
+        },
+        {
+          "x": 1177.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1213.34375,
+          "bottom": 45.5,
+          "left": 1177.34375
+        },
+        {
+          "x": 1221.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1257.34375,
+          "bottom": 45.5,
+          "left": 1221.34375
+        },
+        {
+          "x": 1265.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1301.34375,
+          "bottom": 45.5,
+          "left": 1265.34375
+        },
+        {
+          "x": 1309.34375,
+          "y": 9.5,
+          "width": 106.65625,
+          "height": 36,
+          "top": 9.5,
+          "right": 1416,
+          "bottom": 45.5,
+          "left": 1309.34375
+        }
+      ]
+    },
+    "seriousOrCritical": []
+  },
+  {
+    "file": "012-1440-touch-synced-delete-static-restricted.json",
+    "state": "touch synced delete static restricted",
+    "head": "40821af611d4632f7f7364dbea7af3756c489780",
+    "geometry": {
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "documentWidth": 1440,
+      "body": {
+        "x": 372,
+        "y": 255.390625,
+        "width": 880,
+        "height": 168,
+        "top": 255.390625,
+        "right": 1252,
+        "bottom": 423.390625,
+        "left": 372
+      },
+      "toolbar": [
+        {
+          "x": 1102.0625,
+          "y": 9.5,
+          "width": 67.28125,
+          "height": 36,
+          "top": 9.5,
+          "right": 1169.34375,
+          "bottom": 45.5,
+          "left": 1102.0625
+        },
+        {
+          "x": 1177.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1213.34375,
+          "bottom": 45.5,
+          "left": 1177.34375
+        },
+        {
+          "x": 1221.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1257.34375,
+          "bottom": 45.5,
+          "left": 1221.34375
+        },
+        {
+          "x": 1265.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1301.34375,
+          "bottom": 45.5,
+          "left": 1265.34375
+        },
+        {
+          "x": 1309.34375,
+          "y": 9.5,
+          "width": 106.65625,
+          "height": 36,
+          "top": 9.5,
+          "right": 1416,
+          "bottom": 45.5,
+          "left": 1309.34375
+        }
+      ]
+    },
+    "seriousOrCritical": []
+  },
+  {
+    "file": "029-1440-touch-synced-personal-source-before-erasure.json",
+    "state": "touch synced personal source before erasure",
+    "head": "40821af611d4632f7f7364dbea7af3756c489780",
+    "geometry": {
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "documentWidth": 1440,
+      "body": {
+        "x": 372,
+        "y": 193.390625,
+        "width": 880,
+        "height": 230,
+        "top": 193.390625,
+        "right": 1252,
+        "bottom": 423.390625,
+        "left": 372
+      },
+      "toolbar": [
+        {
+          "x": 1102.0625,
+          "y": 9.5,
+          "width": 67.28125,
+          "height": 36,
+          "top": 9.5,
+          "right": 1169.34375,
+          "bottom": 45.5,
+          "left": 1102.0625
+        },
+        {
+          "x": 1177.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1213.34375,
+          "bottom": 45.5,
+          "left": 1177.34375
+        },
+        {
+          "x": 1221.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1257.34375,
+          "bottom": 45.5,
+          "left": 1221.34375
+        },
+        {
+          "x": 1265.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1301.34375,
+          "bottom": 45.5,
+          "left": 1265.34375
+        },
+        {
+          "x": 1309.34375,
+          "y": 9.5,
+          "width": 106.65625,
+          "height": 36,
+          "top": 9.5,
+          "right": 1416,
+          "bottom": 45.5,
+          "left": 1309.34375
+        }
+      ]
+    },
+    "seriousOrCritical": []
+  },
+  {
+    "file": "026-1440-touch-synced-ordinary-static-and-immutable-history.json",
+    "state": "touch synced ordinary static and immutable history",
+    "head": "40821af611d4632f7f7364dbea7af3756c489780",
+    "geometry": {
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "documentWidth": 1440,
+      "body": {
+        "x": 372,
+        "y": 193.390625,
+        "width": 880,
+        "height": 202,
+        "top": 193.390625,
+        "right": 1252,
+        "bottom": 395.390625,
+        "left": 372
+      },
+      "toolbar": [
+        {
+          "x": 1102.0625,
+          "y": 9.5,
+          "width": 67.28125,
+          "height": 36,
+          "top": 9.5,
+          "right": 1169.34375,
+          "bottom": 45.5,
+          "left": 1102.0625
+        },
+        {
+          "x": 1177.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1213.34375,
+          "bottom": 45.5,
+          "left": 1177.34375
+        },
+        {
+          "x": 1221.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1257.34375,
+          "bottom": 45.5,
+          "left": 1221.34375
+        },
+        {
+          "x": 1265.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1301.34375,
+          "bottom": 45.5,
+          "left": 1265.34375
+        },
+        {
+          "x": 1309.34375,
+          "y": 9.5,
+          "width": 106.65625,
+          "height": 36,
+          "top": 9.5,
+          "right": 1416,
+          "bottom": 45.5,
+          "left": 1309.34375
+        }
+      ]
+    },
+    "seriousOrCritical": []
+  },
+  {
+    "file": "009-1440-touch-synced-allowed-trashed-source.json",
+    "state": "touch synced allowed trashed source",
+    "head": "40821af611d4632f7f7364dbea7af3756c489780",
+    "geometry": {
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "documentWidth": 1440,
+      "body": {
+        "x": 372,
+        "y": 301.390625,
+        "width": 880,
+        "height": 168,
+        "top": 301.390625,
+        "right": 1252,
+        "bottom": 469.390625,
+        "left": 372
+      },
+      "toolbar": [
+        {
+          "x": 1102.0625,
+          "y": 9.5,
+          "width": 67.28125,
+          "height": 36,
+          "top": 9.5,
+          "right": 1169.34375,
+          "bottom": 45.5,
+          "left": 1102.0625
+        },
+        {
+          "x": 1177.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1213.34375,
+          "bottom": 45.5,
+          "left": 1177.34375
+        },
+        {
+          "x": 1221.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1257.34375,
+          "bottom": 45.5,
+          "left": 1221.34375
+        },
+        {
+          "x": 1265.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1301.34375,
+          "bottom": 45.5,
+          "left": 1265.34375
+        },
+        {
+          "x": 1309.34375,
+          "y": 9.5,
+          "width": 106.65625,
+          "height": 36,
+          "top": 9.5,
+          "right": 1416,
+          "bottom": 45.5,
+          "left": 1309.34375
+        }
+      ]
+    },
+    "seriousOrCritical": []
+  },
+  {
+    "file": "011-1440-touch-synced-delete-static-allowed.json",
+    "state": "touch synced delete static allowed",
+    "head": "40821af611d4632f7f7364dbea7af3756c489780",
+    "geometry": {
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "documentWidth": 1440,
+      "body": {
+        "x": 372,
+        "y": 333.390625,
+        "width": 880,
+        "height": 198,
+        "top": 333.390625,
+        "right": 1252,
+        "bottom": 531.390625,
+        "left": 372
+      },
+      "toolbar": [
+        {
+          "x": 1102.0625,
+          "y": 9.5,
+          "width": 67.28125,
+          "height": 36,
+          "top": 9.5,
+          "right": 1169.34375,
+          "bottom": 45.5,
+          "left": 1102.0625
+        },
+        {
+          "x": 1177.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1213.34375,
+          "bottom": 45.5,
+          "left": 1177.34375
+        },
+        {
+          "x": 1221.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1257.34375,
+          "bottom": 45.5,
+          "left": 1221.34375
+        },
+        {
+          "x": 1265.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1301.34375,
+          "bottom": 45.5,
+          "left": 1265.34375
+        },
+        {
+          "x": 1309.34375,
+          "y": 9.5,
+          "width": 106.65625,
+          "height": 36,
+          "top": 9.5,
+          "right": 1416,
+          "bottom": 45.5,
+          "left": 1309.34375
+        }
+      ]
+    },
+    "seriousOrCritical": []
+  },
+  {
+    "file": "023-1440-touch-synced-discard-static-allowed.json",
+    "state": "touch synced discard static allowed",
+    "head": "40821af611d4632f7f7364dbea7af3756c489780",
+    "geometry": {
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "documentWidth": 1440,
+      "body": {
+        "x": 372,
+        "y": 301.390625,
+        "width": 880,
+        "height": 198,
+        "top": 301.390625,
+        "right": 1252,
+        "bottom": 499.390625,
+        "left": 372
+      },
+      "toolbar": [
+        {
+          "x": 1102.0625,
+          "y": 9.5,
+          "width": 67.28125,
+          "height": 36,
+          "top": 9.5,
+          "right": 1169.34375,
+          "bottom": 45.5,
+          "left": 1102.0625
+        },
+        {
+          "x": 1177.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1213.34375,
+          "bottom": 45.5,
+          "left": 1177.34375
+        },
+        {
+          "x": 1221.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1257.34375,
+          "bottom": 45.5,
+          "left": 1221.34375
+        },
+        {
+          "x": 1265.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1301.34375,
+          "bottom": 45.5,
+          "left": 1265.34375
+        },
+        {
+          "x": 1309.34375,
+          "y": 9.5,
+          "width": 106.65625,
+          "height": 36,
+          "top": 9.5,
+          "right": 1416,
+          "bottom": 45.5,
+          "left": 1309.34375
+        }
+      ]
+    },
+    "seriousOrCritical": []
+  },
+  {
+    "file": "043-1440-touch-synced-copy-edited.json",
+    "state": "touch synced copy edited",
+    "head": "40821af611d4632f7f7364dbea7af3756c489780",
+    "geometry": {
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "documentWidth": 1440,
+      "body": {
+        "x": 372,
+        "y": 193.390625,
+        "width": 880,
+        "height": 270,
+        "top": 193.390625,
+        "right": 1252,
+        "bottom": 463.390625,
+        "left": 372
+      },
+      "toolbar": [
+        {
+          "x": 1102.0625,
+          "y": 9.5,
+          "width": 67.28125,
+          "height": 36,
+          "top": 9.5,
+          "right": 1169.34375,
+          "bottom": 45.5,
+          "left": 1102.0625
+        },
+        {
+          "x": 1177.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1213.34375,
+          "bottom": 45.5,
+          "left": 1177.34375
+        },
+        {
+          "x": 1221.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1257.34375,
+          "bottom": 45.5,
+          "left": 1221.34375
+        },
+        {
+          "x": 1265.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1301.34375,
+          "bottom": 45.5,
+          "left": 1265.34375
+        },
+        {
+          "x": 1309.34375,
+          "y": 9.5,
+          "width": 106.65625,
+          "height": 36,
+          "top": 9.5,
+          "right": 1416,
+          "bottom": 45.5,
+          "left": 1309.34375
+        }
+      ]
+    },
+    "seriousOrCritical": []
+  },
+  {
+    "file": "019-1440-touch-synced-unsync-static-anonymous.json",
+    "state": "touch synced unsync static anonymous",
+    "head": "40821af611d4632f7f7364dbea7af3756c489780",
+    "geometry": {
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "documentWidth": 1440,
+      "toolbar": []
+    },
+    "seriousOrCritical": []
+  },
+  {
+    "file": "020-1440-touch-synced-restore-static-allowed.json",
+    "state": "touch synced restore static allowed",
+    "head": "40821af611d4632f7f7364dbea7af3756c489780",
+    "geometry": {
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "documentWidth": 1440,
+      "body": {
+        "x": 372,
+        "y": 301.390625,
+        "width": 880,
+        "height": 198,
+        "top": 301.390625,
+        "right": 1252,
+        "bottom": 499.390625,
+        "left": 372
+      },
+      "toolbar": [
+        {
+          "x": 1102.0625,
+          "y": 9.5,
+          "width": 67.28125,
+          "height": 36,
+          "top": 9.5,
+          "right": 1169.34375,
+          "bottom": 45.5,
+          "left": 1102.0625
+        },
+        {
+          "x": 1177.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1213.34375,
+          "bottom": 45.5,
+          "left": 1177.34375
+        },
+        {
+          "x": 1221.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1257.34375,
+          "bottom": 45.5,
+          "left": 1221.34375
+        },
+        {
+          "x": 1265.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1301.34375,
+          "bottom": 45.5,
+          "left": 1265.34375
+        },
+        {
+          "x": 1309.34375,
+          "y": 9.5,
+          "width": 106.65625,
+          "height": 36,
+          "top": 9.5,
+          "right": 1416,
+          "bottom": 45.5,
+          "left": 1309.34375
+        }
+      ]
+    },
+    "seriousOrCritical": []
+  },
+  {
+    "file": "010-1440-touch-synced-restricted-trashed-source.json",
+    "state": "touch synced restricted trashed source",
+    "head": "40821af611d4632f7f7364dbea7af3756c489780",
+    "geometry": {
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "documentWidth": 1440,
+      "body": {
+        "x": 372,
+        "y": 223.390625,
+        "width": 880,
+        "height": 200,
+        "top": 223.390625,
+        "right": 1252,
+        "bottom": 423.390625,
+        "left": 372
+      },
+      "toolbar": [
+        {
+          "x": 1102.0625,
+          "y": 9.5,
+          "width": 67.28125,
+          "height": 36,
+          "top": 9.5,
+          "right": 1169.34375,
+          "bottom": 45.5,
+          "left": 1102.0625
+        },
+        {
+          "x": 1177.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1213.34375,
+          "bottom": 45.5,
+          "left": 1177.34375
+        },
+        {
+          "x": 1221.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1257.34375,
+          "bottom": 45.5,
+          "left": 1221.34375
+        },
+        {
+          "x": 1265.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1301.34375,
+          "bottom": 45.5,
+          "left": 1265.34375
+        },
+        {
+          "x": 1309.34375,
+          "y": 9.5,
+          "width": 106.65625,
+          "height": 36,
+          "top": 9.5,
+          "right": 1416,
+          "bottom": 45.5,
+          "left": 1309.34375
+        }
+      ]
+    },
+    "seriousOrCritical": []
+  },
+  {
+    "file": "005-390-touch-phone-synced-access-request.json",
+    "state": "touch phone synced access request",
+    "head": "40821af611d4632f7f7364dbea7af3756c489780",
+    "geometry": {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "documentWidth": 390,
+      "body": {
+        "x": 19.5,
+        "y": 412,
+        "width": 351,
+        "height": 180,
+        "top": 412,
+        "right": 370.5,
+        "bottom": 592,
+        "left": 19.5
+      },
+      "toolbar": [
+        {
+          "x": 140.0625,
+          "y": 205,
+          "width": 67.28125,
+          "height": 44,
+          "top": 205,
+          "right": 207.34375,
+          "bottom": 249,
+          "left": 140.0625
+        },
+        {
+          "x": 215.34375,
+          "y": 205,
+          "width": 44,
+          "height": 44,
+          "top": 205,
+          "right": 259.34375,
+          "bottom": 249,
+          "left": 215.34375
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        {
+          "x": 267.34375,
+          "y": 205,
+          "width": 106.65625,
+          "height": 44,
+          "top": 205,
+          "right": 374,
+          "bottom": 249,
+          "left": 267.34375
+        }
+      ]
+    },
+    "seriousOrCritical": []
+  },
+  {
+    "file": "016-1440-touch-synced-remove-static-anonymous.json",
+    "state": "touch synced remove static anonymous",
+    "head": "40821af611d4632f7f7364dbea7af3756c489780",
+    "geometry": {
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "documentWidth": 1440,
+      "toolbar": []
+    },
+    "seriousOrCritical": []
+  },
+  {
+    "file": "045-1440-touch-synced-access-request-received.json",
+    "state": "touch synced access request received",
+    "head": "40821af611d4632f7f7364dbea7af3756c489780",
+    "geometry": {
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "documentWidth": 1440,
+      "body": {
+        "x": 372,
+        "y": 223.390625,
+        "width": 880,
+        "height": 240,
+        "top": 223.390625,
+        "right": 1252,
+        "bottom": 463.390625,
+        "left": 372
+      },
+      "toolbar": [
+        {
+          "x": 1102.0625,
+          "y": 9.5,
+          "width": 67.28125,
+          "height": 36,
+          "top": 9.5,
+          "right": 1169.34375,
+          "bottom": 45.5,
+          "left": 1102.0625
+        },
+        {
+          "x": 1177.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1213.34375,
+          "bottom": 45.5,
+          "left": 1177.34375
+        },
+        {
+          "x": 1221.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1257.34375,
+          "bottom": 45.5,
+          "left": 1221.34375
+        },
+        {
+          "x": 1265.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1301.34375,
+          "bottom": 45.5,
+          "left": 1265.34375
+        },
+        {
+          "x": 1309.34375,
+          "y": 9.5,
+          "width": 106.65625,
+          "height": 36,
+          "top": 9.5,
+          "right": 1416,
+          "bottom": 45.5,
+          "left": 1309.34375
+        }
+      ]
+    },
+    "seriousOrCritical": []
+  },
+  {
+    "file": "031-1440-touch-synced-member-erasure-anonymous-access-needed.json",
+    "state": "touch synced member erasure anonymous access needed",
+    "head": "40821af611d4632f7f7364dbea7af3756c489780",
+    "geometry": {
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "documentWidth": 1440,
+      "toolbar": []
+    },
+    "seriousOrCritical": []
+  },
+  {
+    "file": "042-1440-touch-synced-source-made.json",
+    "state": "touch synced source made",
+    "head": "40821af611d4632f7f7364dbea7af3756c489780",
+    "geometry": {
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "documentWidth": 1440,
+      "body": {
+        "x": 372,
+        "y": 193.390625,
+        "width": 880,
+        "height": 208,
+        "top": 193.390625,
+        "right": 1252,
+        "bottom": 401.390625,
+        "left": 372
+      },
+      "toolbar": [
+        {
+          "x": 1102.0625,
+          "y": 9.5,
+          "width": 67.28125,
+          "height": 36,
+          "top": 9.5,
+          "right": 1169.34375,
+          "bottom": 45.5,
+          "left": 1102.0625
+        },
+        {
+          "x": 1177.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1213.34375,
+          "bottom": 45.5,
+          "left": 1177.34375
+        },
+        {
+          "x": 1221.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1257.34375,
+          "bottom": 45.5,
+          "left": 1221.34375
+        },
+        {
+          "x": 1265.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1301.34375,
+          "bottom": 45.5,
+          "left": 1265.34375
+        },
+        {
+          "x": 1309.34375,
+          "y": 9.5,
+          "width": 106.65625,
+          "height": 36,
+          "top": 9.5,
+          "right": 1416,
+          "bottom": 45.5,
+          "left": 1309.34375
+        }
+      ]
+    },
+    "seriousOrCritical": []
+  },
+  {
+    "file": "006-390-touch-phone-explicitly-granted-synced-source.json",
+    "state": "touch phone explicitly granted synced source",
+    "head": "40821af611d4632f7f7364dbea7af3756c489780",
+    "geometry": {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "documentWidth": 390,
+      "body": {
+        "x": 19.5,
+        "y": 280,
+        "width": 351,
+        "height": 224,
+        "top": 280,
+        "right": 370.5,
+        "bottom": 504,
+        "left": 19.5
+      },
+      "toolbar": [
+        {
+          "x": 140.0625,
+          "y": 73,
+          "width": 67.28125,
+          "height": 44,
+          "top": 73,
+          "right": 207.34375,
+          "bottom": 117,
+          "left": 140.0625
+        },
+        {
+          "x": 215.34375,
+          "y": 73,
+          "width": 44,
+          "height": 44,
+          "top": 73,
+          "right": 259.34375,
+          "bottom": 117,
+          "left": 215.34375
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        {
+          "x": 267.34375,
+          "y": 73,
+          "width": 106.65625,
+          "height": 44,
+          "top": 73,
+          "right": 374,
+          "bottom": 117,
+          "left": 267.34375
+        }
+      ]
+    },
+    "seriousOrCritical": []
+  },
+  {
+    "file": "022-1440-touch-synced-restore-static-anonymous.json",
+    "state": "touch synced restore static anonymous",
+    "head": "40821af611d4632f7f7364dbea7af3756c489780",
+    "geometry": {
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "documentWidth": 1440,
+      "toolbar": []
+    },
+    "seriousOrCritical": []
+  },
+  {
+    "file": "015-1440-touch-synced-remove-static-restricted.json",
+    "state": "touch synced remove static restricted",
+    "head": "40821af611d4632f7f7364dbea7af3756c489780",
+    "geometry": {
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "documentWidth": 1440,
+      "body": {
+        "x": 372,
+        "y": 223.390625,
+        "width": 880,
+        "height": 168,
+        "top": 223.390625,
+        "right": 1252,
+        "bottom": 391.390625,
+        "left": 372
+      },
+      "toolbar": [
+        {
+          "x": 1102.0625,
+          "y": 9.5,
+          "width": 67.28125,
+          "height": 36,
+          "top": 9.5,
+          "right": 1169.34375,
+          "bottom": 45.5,
+          "left": 1102.0625
+        },
+        {
+          "x": 1177.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1213.34375,
+          "bottom": 45.5,
+          "left": 1177.34375
+        },
+        {
+          "x": 1221.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1257.34375,
+          "bottom": 45.5,
+          "left": 1221.34375
+        },
+        {
+          "x": 1265.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1301.34375,
+          "bottom": 45.5,
+          "left": 1265.34375
+        },
+        {
+          "x": 1309.34375,
+          "y": 9.5,
+          "width": 106.65625,
+          "height": 36,
+          "top": 9.5,
+          "right": 1416,
+          "bottom": 45.5,
+          "left": 1309.34375
+        }
+      ]
+    },
+    "seriousOrCritical": []
+  },
+  {
+    "file": "014-1440-touch-synced-remove-static-allowed.json",
+    "state": "touch synced remove static allowed",
+    "head": "40821af611d4632f7f7364dbea7af3756c489780",
+    "geometry": {
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "documentWidth": 1440,
+      "body": {
+        "x": 372,
+        "y": 301.390625,
+        "width": 880,
+        "height": 198,
+        "top": 301.390625,
+        "right": 1252,
+        "bottom": 499.390625,
+        "left": 372
+      },
+      "toolbar": [
+        {
+          "x": 1102.0625,
+          "y": 9.5,
+          "width": 67.28125,
+          "height": 36,
+          "top": 9.5,
+          "right": 1169.34375,
+          "bottom": 45.5,
+          "left": 1102.0625
+        },
+        {
+          "x": 1177.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1213.34375,
+          "bottom": 45.5,
+          "left": 1177.34375
+        },
+        {
+          "x": 1221.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1257.34375,
+          "bottom": 45.5,
+          "left": 1221.34375
+        },
+        {
+          "x": 1265.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1301.34375,
+          "bottom": 45.5,
+          "left": 1265.34375
+        },
+        {
+          "x": 1309.34375,
+          "y": 9.5,
+          "width": 106.65625,
+          "height": 36,
+          "top": 9.5,
+          "right": 1416,
+          "bottom": 45.5,
+          "left": 1309.34375
+        }
+      ]
+    },
+    "seriousOrCritical": []
+  },
+  {
+    "file": "017-1440-touch-synced-unsync-static-allowed.json",
+    "state": "touch synced unsync static allowed",
+    "head": "40821af611d4632f7f7364dbea7af3756c489780",
+    "geometry": {
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "documentWidth": 1440,
+      "body": {
+        "x": 372,
+        "y": 301.390625,
+        "width": 880,
+        "height": 198,
+        "top": 301.390625,
+        "right": 1252,
+        "bottom": 499.390625,
+        "left": 372
+      },
+      "toolbar": [
+        {
+          "x": 1102.0625,
+          "y": 9.5,
+          "width": 67.28125,
+          "height": 36,
+          "top": 9.5,
+          "right": 1169.34375,
+          "bottom": 45.5,
+          "left": 1102.0625
+        },
+        {
+          "x": 1177.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1213.34375,
+          "bottom": 45.5,
+          "left": 1177.34375
+        },
+        {
+          "x": 1221.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1257.34375,
+          "bottom": 45.5,
+          "left": 1221.34375
+        },
+        {
+          "x": 1265.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1301.34375,
+          "bottom": 45.5,
+          "left": 1265.34375
+        },
+        {
+          "x": 1309.34375,
+          "y": 9.5,
+          "width": 106.65625,
+          "height": 36,
+          "top": 9.5,
+          "right": 1416,
+          "bottom": 45.5,
+          "left": 1309.34375
+        }
+      ]
+    },
+    "seriousOrCritical": []
+  }
+]

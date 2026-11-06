@@ -1,0 +1,50 @@
+[
+  {
+    "at": "2026-11-06T08:10:59.168335+00:00",
+    "command": [
+      "gh",
+      "api",
+      "repos/just-every/run-slate/actions/runs?head_sha=bc567c9b6f6b25c98cb6fa05b9ab0fe37628a547&per_page=100",
+      "--jq",
+      ".workflow_runs[] | {id,name,event,status,conclusion,head_sha,html_url}"
+    ],
+    "exit": 0
+  },
+  {
+    "at": "2026-11-06T08:15:18.276901+00:00",
+    "command": [
+      "gh",
+      "api",
+      "repos/just-every/run-slate/actions/runs?head_sha=40821af611d4632f7f7364dbea7af3756c489780&per_page=100",
+      "--jq",
+      "[.workflow_runs[] | {id,name,event,status,conclusion,head_sha,html_url}]"
+    ],
+    "exit": 0
+  },
+  {
+    "at": "2026-11-06T08:16:13.419781+00:00",
+    "command": [
+      "gh",
+      "api",
+      "repos/just-every/run-slate/actions/runs/42186243665/jobs",
+      "--jq",
+      "[.jobs[] | {id,name,status,conclusion,steps:[.steps[]|select(.conclusion==\"failure\")|{name,conclusion}]}]"
+    ],
+    "exit": 0
+  },
+  {
+    "at": "2026-11-06T08:16:52.101317+00:00",
+    "command": [
+      "gh",
+      "run",
+      "view",
+      "42186243665",
+      "--repo",
+      "just-every/run-slate",
+      "--job",
+      "127787212256",
+      "--log-failed"
+    ],
+    "exit": 0
+  }
+]

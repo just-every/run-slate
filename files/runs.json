@@ -1,0 +1,121 @@
+[
+  {
+    "name": "first-party",
+    "head": "2b0d908cbb59b283f659b4952563a51f747bcb30",
+    "started": "2026-11-06T08:06:31.567774+00:00",
+    "seconds": 1.505,
+    "command": [
+      "npx",
+      "-y",
+      "@runeditrun/rer",
+      "check",
+      "--profile",
+      "first-party"
+    ],
+    "exit": 0,
+    "log": "slate-first-party.log",
+    "packetLog": "first-party-save.log"
+  },
+  {
+    "name": "build",
+    "head": "40821af611d4632f7f7364dbea7af3756c489780",
+    "started": "2026-11-06T08:07:47.213003+00:00",
+    "seconds": 26.725,
+    "command": [
+      "npx",
+      "-y",
+      "@runeditrun/rer",
+      "build"
+    ],
+    "exit": 0,
+    "log": "slate-final-build.log",
+    "packetLog": "build.log"
+  },
+  {
+    "name": "workers-tables",
+    "head": "40821af611d4632f7f7364dbea7af3756c489780",
+    "started": "2026-11-06T08:08:30.250045+00:00",
+    "seconds": 21.711,
+    "command": [
+      "pnpm",
+      "exec",
+      "vitest",
+      "run",
+      "tests/e2e/editor/tables.test.ts"
+    ],
+    "exit": 0,
+    "log": "slate-final-tables.log",
+    "packetLog": "workers.log"
+  },
+  {
+    "name": "typecheck",
+    "head": "40821af611d4632f7f7364dbea7af3756c489780",
+    "started": "2026-11-06T08:08:52.020078+00:00",
+    "seconds": 26.15,
+    "command": [
+      "pnpm",
+      "typecheck"
+    ],
+    "exit": 0,
+    "log": "slate-final-typecheck.log",
+    "packetLog": "typecheck.log"
+  },
+  {
+    "name": "first-party-candidate",
+    "head": "40821af611d4632f7f7364dbea7af3756c489780",
+    "started": "2026-11-06T08:10:08.922964+00:00",
+    "seconds": 1.672,
+    "command": [
+      "npx",
+      "-y",
+      "@runeditrun/rer",
+      "check",
+      "--profile",
+      "first-party"
+    ],
+    "exit": 0,
+    "log": "slate-final-first-party.log",
+    "packetLog": "first-party.log"
+  },
+  {
+    "name": "desktop-and-custody",
+    "head": "40821af611d4632f7f7364dbea7af3756c489780",
+    "started": "2026-11-06T08:08:44.717460+00:00",
+    "seconds": 217.627,
+    "command": [
+      "perl",
+      "-e",
+      "alarm 1200; exec @ARGV",
+      "--",
+      "env",
+      "SLATE_CHROMIUM_PATH=/usr/bin/chromium",
+      "node",
+      "--test",
+      "--test-concurrency=1",
+      "--test-name-pattern=^(named review request|shared page invitations)",
+      "tests/qualification/ui-convergence/journeys.test.mjs"
+    ],
+    "exit": 0,
+    "log": "slate-final-desktop.log",
+    "packetLog": "desktop.log"
+  },
+  {
+    "name": "phone-request",
+    "head": "40821af611d4632f7f7364dbea7af3756c489780",
+    "started": "2026-11-06T08:12:22.405992+00:00",
+    "seconds": 49.516,
+    "command": [
+      "perl",
+      "-e",
+      "alarm 1200; exec @ARGV",
+      "--",
+      "env",
+      "SLATE_CHROMIUM_PATH=/usr/bin/chromium",
+      "node",
+      "/tmp/slate-phone.mjs"
+    ],
+    "exit": 0,
+    "log": "slate-final-phone.log",
+    "packetLog": "phone.log"
+  }
+]
