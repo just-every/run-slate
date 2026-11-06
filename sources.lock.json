@@ -12124,7 +12124,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
-      "sha256": "56157a493201cd1559bc6a4de4e19295423496132ee7f9b7e7f3cfba4d54893e",
+      "sha256": "20d44e10aad45951c0ba5c06a7672381d7ec11b2ca38efec118447353c46414e",
       "executable": false
     },
     "tests/qualification/ui-convergence/link-access-journey.mjs": {
@@ -12231,12 +12231,16 @@
       "sha256": "713db30db4126472246cbc11ce456f2c5cf33ab9938a0a4e3f596e250de24e59",
       "executable": false
     },
+    "tests/qualification/ui-convergence/sharing-discussion-matrix.mjs": {
+      "sha256": "e166a80ca5facf238e2403372d7c913ee45d905ec8f155d5c79c5cd4d778380b",
+      "executable": false
+    },
     "tests/qualification/ui-convergence/sharing-inheritance-journey.mjs": {
       "sha256": "322b56cb3bcace81805715acf5d345f13ab091836fbf03b78adb185902629b14",
       "executable": false
     },
     "tests/qualification/ui-convergence/sharing-journey.mjs": {
-      "sha256": "10a5a6a9442893158d785f7544423954d6d660c16344d5b9107074d002afe081",
+      "sha256": "5232017244ac8b75dd50bda396c18589088733c572ff1bbcdec1c647ef5fda86",
       "executable": false
     },
     "tests/qualification/ui-convergence/shortcut-reference-journey.mjs": {
@@ -12416,11 +12420,11 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "7dd832be986bc1dcf849d309b18a023168427c410062533ade43963193611699",
+      "sha256": "4f2416edc1cf25fec737afb6e2dd02cfef2bac97bb363eef22b0a7d36e6a1c44",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
-      "sha256": "63b168f325103b472b75628b8e369bc0ed13a5ed01d5512efb068a665f1d826d",
+      "sha256": "b23178f3248d84ef906c9ad647d55cdec4e92ee7871c25da4682cafea66c990b",
       "executable": false
     },
     "tests/requirements/count-registrations.mjs": {
