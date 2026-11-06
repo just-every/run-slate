@@ -2,7 +2,8 @@ function collapsed(value: string): string {
   return value.normalize("NFC").replace(/\s+/gu, " ").trim();
 }
 
-/** Formatting spans are adjacent text; rows, cells and list items retain word boundaries. */
+/** Formatting spans are adjacent text; rows, cells and list items retain word boundaries.
+ * Authored link addresses and committed preview text belong to the snapshot too. */
 export function extractRevisionBlockText(value: unknown, inline = false): string {
   if (typeof value === "string") return value;
   if (Array.isArray(value)) return value.map(item => extractRevisionBlockText(item)).join(inline ? "" : " ");
@@ -13,7 +14,7 @@ export function extractRevisionBlockText(value: unknown, inline = false): string
     return typeof label === "string" ? label : typeof record.text === "string" ? record.text : "";
   }
   return Object.entries(record)
-    .filter(([key]) => ["text", "code", "summary", "content", "cells", "rows", "columns", "caption", "alt", "items", "detail", "attribution"].includes(key))
+    .filter(([key]) => ["text", "code", "summary", "content", "cells", "rows", "columns", "caption", "alt", "items", "detail", "attribution", "url", "preview", "title", "description", "siteName", "iconLabel"].includes(key))
     .map(([key, child]) => extractRevisionBlockText(child, key === "text" || key === "content" || key === "detail"))
     .join(" ");
 }

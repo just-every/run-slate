@@ -14,8 +14,8 @@ export async function revisionSnapshotsJourney(state,width) {
  const retained=[];
  const firstBody='Cafe\u0301\t  first snapshot',laterBody='synthetic-slate-later-body';
  const blockId=randomUUID(),containerId=(await api('/api/containers')).items.find(item=>item.name==='Handbook').id;
- let properties={title:'synthetic-slate-initial-snapshot',icon:'📘',coverFileId:null,ownerMemberId:'browser-owner',statusKey:null,labels:['alpha','zeta'],typeface:'serif',smallText:false,fullWidth:true};
- let body=firstBody,pageId;
+ let properties={cover:{kind:'gallery',id:'ocean'},title:'synthetic-slate-initial-snapshot',icon:'📘',coverFileId:null,ownerMemberId:'browser-owner',statusKey:null,labels:['alpha','zeta'],typeface:'serif',smallText:false,fullWidth:true};
+ let body=firstBody,pageId,extraText='',extraBlocks=[],cardTitle=null;
  let content={text:[{text:'Cafe\u0301\t  fi',marks:['bold']},{text:'rst snapshot'}]};
  const record=async(result,originKind,label=null)=>{
   const {receipt,value}=result;
@@ -24,16 +24,15 @@ export async function revisionSnapshotsJourney(state,width) {
   const document=await api(`/api/pages/${pageId}`);
   assert.equal(document.page.revisionId,receipt.revisionId);
   assert.deepEqual(document.properties,properties,'Every committed property agrees with the native input.');
-  assert.equal(document.blocks.length,1);
-  assert.deepEqual(document.blocks[0],{id:blockId,pageId,parentBlockId:null,blockType:'paragraph',treePosition:'1',content,revisionId:document.blocks[0].revisionId});
-  const expectedText=`${body} alpha zeta ${properties.title}`.normalize('NFC').replace(/\s+/gu,' ').trim();
+  assert.deepEqual(document.blocks.map(block=>({...block,revisionId:undefined})),[{id:blockId,pageId,parentBlockId:null,blockType:'paragraph',treePosition:'1',content,revisionId:undefined},...extraBlocks.map(block=>({...block,pageId,revisionId:undefined}))]);
+  const expectedText=`${body} ${extraText} alpha zeta ${properties.title}`.normalize('NFC').replace(/\s+/gu,' ').trim();
   const expectedHash=createHash('sha256').update(expectedText).digest('hex');
   const snapshot=await api(`/api/revisions/${pageId}/${receipt.revisionId}`);
   assert.deepEqual(snapshot,{id:receipt.revisionId,blocks:document.blocks,properties,createdAt:receipt.committedAt,newerRevisionExists:false});
   const history=(await api(`/api/revisions/${pageId}`)).items;
   assert.deepEqual(new Set(history.map(item=>item.id)),new Set([...retained.map(item=>item.receipt.revisionId),receipt.revisionId]),'Every returned revision is retained, with no unaccounted snapshot.');
   assert.deepEqual(history.find(item=>item.id===receipt.revisionId),{id:receipt.revisionId,origin:originKind,authorMemberId:'browser-owner',authorDisplayName:'Alex Owner',ordinal:null,label,statusKey:null,createdAt:receipt.committedAt,deletedAt:null,deletedByMemberId:null,deletedByDisplayName:null});
-  retained.push({receipt,origin:originKind,label,body,expectedText,expectedHash,snapshot:structuredClone(snapshot)});
+  retained.push({receipt,origin:originKind,label,body,cardTitle,expectedText,expectedHash,snapshot:structuredClone(snapshot)});
  };
  const change=async(method,path,action)=>{
   const response=page.waitForResponse(response=>new URL(response.url()).pathname===path&&response.request().method()===method);
@@ -69,6 +68,17 @@ export async function revisionSnapshotsJourney(state,width) {
   body=laterBody;
   content={text:[{text:body}]};
   await record(await change('PATCH',`/api/pages/${pageId}/blocks/${blockId}`,()=>page.getByRole('textbox',{name:'Paragraph',exact:true}).fill(body)),'autosave');
+  properties={...properties,cover:null};
+  await record(await ok(context,origin,'PATCH',`/api/pages/${pageId}`,{operationKey:randomUUID(),expectedRevisionId:(await api(`/api/pages/${pageId}`)).page.revisionId,properties:{cover:null}}),'autosave');
+  const cardId=randomUUID();
+  cardTitle='Cafe\u0301 reference';
+  extraBlocks=[{id:cardId,parentBlockId:null,blockType:'link-card',treePosition:'2',content:{url:'https://example.test/revision',display:'card',previewState:'ready',preview:{title:cardTitle,description:'Stored\t reference details',siteName:'Slate reference'}}}];
+  extraText=`https://example.test/revision ${cardTitle} Stored reference details Slate reference`;
+  await record(await ok(context,origin,'PUT',`/api/pages/${pageId}/blocks`,{operationKey:randomUUID(),expectedRevisionId:(await api(`/api/pages/${pageId}`)).page.revisionId,blocks:[{id:blockId,parentBlockId:null,blockType:'paragraph',treePosition:'1',content},...extraBlocks]}),'autosave');
+  cardTitle='synthetic-slate-later-reference';
+  extraBlocks=[{...extraBlocks[0],content:{...extraBlocks[0].content,preview:{...extraBlocks[0].content.preview,title:cardTitle}}}];
+  extraText=`https://example.test/revision ${cardTitle} Stored reference details Slate reference`;
+  await record(await ok(context,origin,'PATCH',`/api/pages/${pageId}/blocks/${cardId}`,{operationKey:randomUUID(),expectedRevisionId:(await api(`/api/pages/${pageId}`)).blocks[1].revisionId,content:extraBlocks[0].content}),'autosave');
   await page.reload({waitUntil:'networkidle'});
   for(const [index,item] of retained.entries()){
    const id=item.receipt.revisionId;
@@ -78,6 +88,7 @@ export async function revisionSnapshotsJourney(state,width) {
    const preview=page.locator('.revision-preview');
    await expect(preview.getByRole('heading',{level:3})).toHaveText(item.snapshot.properties.title);
    await expect(preview).toContainText(item.body.replace(/\s+/gu,' '));
+   if(item.cardTitle)await expect(preview).toContainText(item.cardTitle);
    if(index!==retained.length-1)await expect(preview).toContainText('A newer revision exists.');
    if(index===0){await expect(preview).not.toContainText(laterBody);await page.screenshot({path:`${directory}/old-snapshot.png`,fullPage:true});}
    if(index===retained.length-1){await expect(preview).not.toContainText('first snapshot');await page.screenshot({path:`${directory}/new-snapshot.png`,fullPage:true});}
@@ -85,7 +96,7 @@ export async function revisionSnapshotsJourney(state,width) {
   // Read storage only with the emitted Worker stopped; every write above used its native session.
   await page.goto('about:blank');
   const [stored]=await state.atRest(`SELECT * FROM page_revisions WHERE page_id='${pageId}' ORDER BY created_at,id`);
-  assert.deepEqual(stored.results,retained.map(item=>({id:item.receipt.revisionId,page_id:pageId,author_member_id:'browser-owner',origin:item.origin,content_hash:item.expectedHash,body_json:JSON.stringify(item.snapshot.blocks),properties_json:JSON.stringify(item.snapshot.properties),status_key:null,ordinal:null,label:item.label,created_at:item.receipt.committedAt,deleted_at:null,deleted_by_member_id:null})));
+  assert.deepEqual(stored.results.map(row=>({...row,body_json:JSON.parse(row.body_json),properties_json:JSON.parse(row.properties_json)})),retained.map(item=>({id:item.receipt.revisionId,page_id:pageId,author_member_id:'browser-owner',origin:item.origin,content_hash:item.expectedHash,body_json:item.snapshot.blocks,properties_json:item.snapshot.properties,status_key:null,ordinal:null,label:item.label,created_at:item.receipt.committedAt,deleted_at:null,deleted_by_member_id:null})));
   await writeFile(`${directory}/receipts.json`,JSON.stringify({pageId,width,retained,storedRows:stored.results,reopenedAfterReload:true},null,2)+'\n');
   console.log(`PROBE REV-001 1: native create, title and body edits, workspace publication -> ${retained.length} immutable ordinary-page snapshots; independent hashes and D1 rows agree; reopened after reload at ${width}px`);
  } finally {await profile(workspace.policies);}
