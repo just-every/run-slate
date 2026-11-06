@@ -1,0 +1,16 @@
+[
+  {
+    "attempt": 1,
+    "command": "git fetch origin main",
+    "exit": 128,
+    "HTTP": "unknown (not supplied by Git)",
+    "diagnostic": "remote: Invalid username or token. Password authentication is not supported for Git operations. fatal: Authentication failed for the declared GitHub repository."
+  },
+  {
+    "attempt": 2,
+    "command": "git fetch origin main",
+    "exit": 0,
+    "HTTP": "unknown (not supplied by Git)",
+    "diagnostic": "From https://github.com/just-every/run-slate\n * branch              main       -> FETCH_HEAD\n"
+  }
+]

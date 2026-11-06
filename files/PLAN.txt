@@ -1,0 +1,8 @@
+sd-slate-c-f172 plan
+1. Map IMP-016 acceptance 2, 3, 5 and 6 to existing genuine-export HTTP and responsive Settings journeys. Preserve acceptance text and the omitted acceptance 1, 4 and 7 matrices.
+2. Exercise native Preview, Apply and resumed batches with current actor authority and mapped member or group availability changed after review. Compare canonical principals, grants, job checkpoints and publication on every refusal, then restore authority and resume the same reviewed source.
+3. Prove same-name and same-email source people do not implicitly select or activate native accounts. Compare exact active and historical principal sets and source-ID mappings after completion.
+4. Read the edit-restriction inheritance conversion in the native report and Settings at desktop and phone sizes. Check restricted inheritance, explicit grants, anonymous exposure and current reader refusal.
+5. Fold proof into existing registrations, update supporting requirement metadata and the IMP-016 Status Evidence and Gap only, without claiming DONE for unavailable genuine incumbent cases.
+6. Run touched import tests, typecheck, first-party checks, generated write and check, restore generated views, synchronize integration and regenerate source lock last. Retain every parent Status row.
+7. Merge fresh main after published saves, audit every candidate identity and trailer, push only cloud/sd-slate-c-f172 through the fleet guard, discover exact-SHA Verify within the API budget, and publish complete non-secret reports and receipts to evidence/sd-slate-c-f172.

@@ -1,0 +1,16 @@
+{
+  "head": "4d0921dcdbdd5483b88b85489b7b93d21f79185a",
+  "command": "SLATE_CHROMIUM_PATH=/usr/bin/chromium timeout 1200 node --test --test-name-pattern='page outline follows headings' tests/qualification/ui-convergence/journeys.test.mjs",
+  "exit": 0,
+  "test": "page outline follows headings and navigates long pages at 1440px",
+  "duration_ms": 509091.318879,
+  "assertions_removed_or_narrowed": false,
+  "harness_timeout_ms": 600000,
+  "business_deadlines_unchanged": true,
+  "files": {
+    "tests/qualification/ui-convergence/journeys.test.mjs": "56157a493201cd1559bc6a4de4e19295423496132ee7f9b7e7f3cfba4d54893e",
+    "tests/qualification/ui-convergence/browser-support.mjs": "58b767178e50bf9c1a7f52bf53615282022edfaf7795a1ed572aed58fbe0bbfd",
+    "tests/qualification/ui-convergence/import-review-journey.mjs": "1aa022e0d94f86a59936bbedec7bbf674522a50a02ff30ef33b3ffd43406ca5a",
+    "tests/qualification/ui-convergence/reading-journeys.mjs": "951548c7815ef36bc83ca46694bbbf69daf848753ae20e437c910368a869862a"
+  }
+}

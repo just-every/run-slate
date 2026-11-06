@@ -1,0 +1,108 @@
+{
+  "head": "4d0921dcdbdd5483b88b85489b7b93d21f79185a",
+  "branch": "cloud/sd-slate-c-f172",
+  "observed_at": "2026-11-06T02:52:50.274616+00:00",
+  "checks": [
+    {
+      "command": "node src/base/runtime/contract-docs.mjs write",
+      "exit": 0,
+      "output": "Wrote 1 contract documents.\n"
+    },
+    {
+      "command": "node src/base/runtime/contract-docs.mjs check before restoring generated views",
+      "exit": 0,
+      "output": "Contract documents are current.\n"
+    },
+    {
+      "command": "git checkout origin/main -- ACCEPTANCE.md docs/CLAIMS.md",
+      "exit": 0,
+      "generatedFilesCommitted": false
+    },
+    {
+      "command": "node src/base/runtime/contract-docs.mjs check on candidate with restored views",
+      "exit": 1,
+      "expected": true,
+      "output": "ACCEPTANCE.md: generated content differs; run contract-docs write.\n"
+    },
+    {
+      "command": "pnpm source:lock",
+      "exit": 0
+    },
+    {
+      "command": "pnpm source:check",
+      "exit": 0
+    },
+    {
+      "command": "pnpm integration:sync",
+      "exit": 0
+    },
+    {
+      "command": "pnpm typecheck",
+      "exit": 0
+    },
+    {
+      "command": "pnpm exec rer check --profile first-party",
+      "exit": 0
+    },
+    {
+      "command": "npx -y @runeditrun/rer build via cloud_run",
+      "exit": 0,
+      "source_parent": "b91e96a152d24a045e970842a6ebb2cc4b1e79ba",
+      "runtime_source_unchanged": true
+    },
+    {
+      "command": "migration ledger check",
+      "exit": 0,
+      "reason": "No migration added or edited."
+    },
+    {
+      "command": "registered desktop Settings and authority journey",
+      "exit": 0,
+      "duration_ms": 509091.318879
+    }
+  ],
+  "status_rows": {
+    "before": 338,
+    "after": 338
+  },
+  "table_rows": {
+    "before": 698,
+    "after": 698
+  },
+  "counts": {
+    "before": {
+      "done": 57,
+      "partial": 240,
+      "missing": 41
+    },
+    "after": {
+      "done": 57,
+      "partial": 240,
+      "missing": 41
+    }
+  },
+  "test_registrations_added": 0,
+  "existing_assertions_removed_or_narrowed": false,
+  "test_budget_metadata_registrations": 205,
+  "source_files": {
+    "CONTRACT.md": "e253f3d68a6498117e4ae73bda455fbbf31d150b273542b7aecc544ef7090598",
+    "sources.lock.json": "b5b082526c9a7de5b11ee8b0943291796270cb6938c88ce1a26ed1638bbd5cf0",
+    "src/core/app/styles/content.css": "c0533b63f711ccf71c545c2162dfddfc9870d6c7601d1de0e6037d6f90c601ba",
+    "src/core/features/imports/kit-context.ts": "fab0eec56ff7ba70c40677d1aec29909f6efc1b55da2698f2bb3eeb982176a9f",
+    "src/core/features/imports/principal-mapping.ts": "c2f6d73bf2d0ac0f52bffb54303abb9c39694cfab1b4c5aefbb1d7218c6b9dc7",
+    "src/core/features/settings/ui/workspace/ImportReview.tsx": "64002d78fa0249455f282a1cee4a1dd14958a8f644a85c283b98759a829dc030",
+    "tests/e2e/imports/preview-undo.test.ts": "d7b704feca0294ab940111dd273853e04e891b0f49b56eaba15393d6fc590268",
+    "tests/e2e/imports/reviewed-principals-journey.ts": "bad6bcf533a347f08d8c0ee45399b3911b9c50df87734851699dcc200082b687",
+    "tests/qualification/ui-convergence/browser-support.mjs": "58b767178e50bf9c1a7f52bf53615282022edfaf7795a1ed572aed58fbe0bbfd",
+    "tests/qualification/ui-convergence/import-review-journey.mjs": "1aa022e0d94f86a59936bbedec7bbf674522a50a02ff30ef33b3ffd43406ca5a",
+    "tests/qualification/ui-convergence/journeys.test.mjs": "56157a493201cd1559bc6a4de4e19295423496132ee7f9b7e7f3cfba4d54893e",
+    "tests/qualification/ui-convergence/reading-journeys.mjs": "951548c7815ef36bc83ca46694bbbf69daf848753ae20e437c910368a869862a",
+    "tests/requirements/clause-inventory.json": "d74430f07716b77458f662a7b5a62f0de4182cf0e7ed500bd207b94c50bb7f84",
+    "tests/requirements/cli-journey.md": "01de75201f5b840aad1b1bab67fd0c568fdadefc4ed815bb83d6fb43ff6a21ca",
+    "tests/requirements/test-evidence.json": "0a8344d30c140538c56bdafe2f4e9988dd65c459787b7d47c9f34d7148194e55"
+  },
+  "publication_scan": {
+    "run_in_cloud": false,
+    "custody": "Guarded Mac lander; no scan result claimed."
+  }
+}

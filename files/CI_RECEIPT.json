@@ -1,0 +1,22 @@
+{
+  "head": "4d0921dcdbdd5483b88b85489b7b93d21f79185a",
+  "run_id": 42155491135,
+  "event": "push",
+  "status": "completed",
+  "raw_conclusion": "failure",
+  "url": "https://github.com/just-every/run-slate/actions/runs/42155491135",
+  "substantive_failure": {
+    "job_id": 127688566311,
+    "job": "verify (app)",
+    "command": "node src/base/runtime/contract-docs.mjs check",
+    "exit": 1,
+    "failure": "ACCEPTANCE.md: generated content differs; run contract-docs write."
+  },
+  "aggregate_job_id": 127688772608,
+  "other_test_jobs": "skipped because the build prerequisite failed",
+  "classification": "Expected generated-view freshness failure only; permitted READY exception. No source test failure observed in CI.",
+  "actions_cli_calls": 6,
+  "logs_read_once_per_failed_job": true,
+  "log_redactions": "GitHub runner environment path metadata omitted; commands, error and exit preserved.",
+  "landing_conditions": "Guarded lander regenerates views and reruns exact-SHA Verify, publication scan and Run site."
+}

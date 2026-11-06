@@ -1,0 +1,21 @@
+▲ [WARNING] Proxy environment variables detected. We'll use your proxy for fetch requests.
+
+
+▲ [WARNING] Proxy environment variables detected. We'll use your proxy for fetch requests.
+
+
+(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:
+  - import "./source-fixtures" without a file extension (scripts/import-scale/generate-server-dc.ts:2:91). Add the file extension
+  - import "./types" without a file extension (scripts/import-scale/generate-server-dc.ts:3:82). Add the file extension
+  - import "./source-fixtures" without a file extension (scripts/import-scale/generate-server-dc.ts:4:22). Add the file extension
+  - import "./csv" without a file extension (scripts/import-scale/source-fixtures.ts:4:46). Add the file extension
+Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.
+
+ RUN  v4.1.11 /workspace/run-slate-f172
+
+
+ Test Files  2 passed (2)
+      Tests  3 passed (3)
+   Start at  02:34:59
+   Duration  143.89s (transform 8.31s, setup 1.33s, import 16.90s, tests 123.89s, environment 0ms)
+

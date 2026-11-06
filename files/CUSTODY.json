@@ -1,0 +1,14 @@
+{
+  "branch": "cloud/sd-slate-c-f172",
+  "head": "4d0921dcdbdd5483b88b85489b7b93d21f79185a",
+  "product_push": "succeeded",
+  "bundle": {
+    "path": "/home/agent/rer-consolidation/work/sd-slate-c-f172/recovery-4d0921dc.bundle",
+    "sha256": "15b50d688a29128cf61bc9f82612dbf931cded6b8c69f44495f0c0aac307e34a",
+    "verified": true,
+    "prerequisite_main": "93b7327adee97ac0ff691bfb5cbff68f4412a27a"
+  },
+  "main_changed_by_cloud": false,
+  "pr_created": false,
+  "observed_at": "2026-11-06T03:17:53.821418+00:00"
+}

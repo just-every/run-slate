@@ -1,0 +1,507 @@
+{
+  "jobId": "01M6QBW2Q16VF8595A60QD6EMD",
+  "state": "completed",
+  "transactionExpiryRefused": true,
+  "refusals": [
+    {
+      "action": "preview",
+      "status": 409,
+      "code": "IMPORT_MAPPING_UNAVAILABLE",
+      "state": "preview"
+    },
+    {
+      "action": "preview",
+      "status": 409,
+      "code": "IMPORT_MAPPING_UNAVAILABLE",
+      "state": "preview"
+    },
+    {
+      "action": "preview",
+      "status": 409,
+      "code": "IMPORT_MAPPING_UNAVAILABLE",
+      "state": "preview"
+    },
+    {
+      "action": "preview",
+      "status": 409,
+      "code": "IMPORT_MAPPING_UNAVAILABLE",
+      "state": "preview"
+    },
+    {
+      "action": "preview",
+      "status": 400,
+      "code": "IMPORT_MAPPING_INVALID",
+      "state": "preview"
+    },
+    {
+      "action": "preview",
+      "status": 400,
+      "code": "IMPORT_MAPPING_INVALID",
+      "state": "preview"
+    },
+    {
+      "action": "preview",
+      "status": 400,
+      "code": "IMPORT_MAPPING_INVALID",
+      "state": "preview"
+    },
+    {
+      "action": "preview",
+      "status": 400,
+      "code": "IMPORT_MAPPING_INVALID",
+      "state": "preview"
+    },
+    {
+      "action": "apply",
+      "status": 409,
+      "code": "IMPORT_MAPPING_UNAVAILABLE",
+      "state": "preview"
+    },
+    {
+      "action": "apply",
+      "status": 409,
+      "code": "IMPORT_MAPPING_UNAVAILABLE",
+      "state": "preview"
+    },
+    {
+      "action": "apply",
+      "status": 409,
+      "code": "IMPORT_MAPPING_UNAVAILABLE",
+      "state": "preview"
+    },
+    {
+      "action": "apply",
+      "status": 409,
+      "code": "IMPORT_MAPPING_UNAVAILABLE",
+      "state": "preview"
+    },
+    {
+      "action": "apply",
+      "status": 403,
+      "code": "FORBIDDEN",
+      "state": "preview"
+    },
+    {
+      "action": "apply",
+      "status": 401,
+      "code": "UNAUTHENTICATED",
+      "state": "preview"
+    },
+    {
+      "action": "apply",
+      "status": 401,
+      "code": "UNAUTHENTICATED",
+      "state": "preview"
+    },
+    {
+      "action": "apply",
+      "status": 404,
+      "code": "NOT_FOUND",
+      "state": "preview"
+    },
+    {
+      "action": "resume",
+      "status": 409,
+      "code": "IMPORT_MAPPING_UNAVAILABLE",
+      "state": "preparing"
+    },
+    {
+      "action": "resume",
+      "status": 409,
+      "code": "IMPORT_MAPPING_UNAVAILABLE",
+      "state": "preparing"
+    },
+    {
+      "action": "resume",
+      "status": 409,
+      "code": "IMPORT_MAPPING_UNAVAILABLE",
+      "state": "preparing"
+    },
+    {
+      "action": "resume",
+      "status": 409,
+      "code": "IMPORT_MAPPING_UNAVAILABLE",
+      "state": "preparing"
+    },
+    {
+      "action": "resume",
+      "status": 403,
+      "code": "FORBIDDEN",
+      "state": "preparing"
+    },
+    {
+      "action": "resume",
+      "status": 401,
+      "code": "UNAUTHENTICATED",
+      "state": "preparing"
+    },
+    {
+      "action": "resume",
+      "status": 401,
+      "code": "UNAUTHENTICATED",
+      "state": "preparing"
+    },
+    {
+      "action": "resume",
+      "status": 404,
+      "code": "NOT_FOUND",
+      "state": "preparing"
+    },
+    {
+      "action": "resume",
+      "status": 409,
+      "code": "IMPORT_MAPPING_UNAVAILABLE",
+      "state": "running"
+    },
+    {
+      "action": "resume",
+      "status": 409,
+      "code": "IMPORT_MAPPING_UNAVAILABLE",
+      "state": "running"
+    },
+    {
+      "action": "resume",
+      "status": 409,
+      "code": "IMPORT_MAPPING_UNAVAILABLE",
+      "state": "running"
+    },
+    {
+      "action": "resume",
+      "status": 409,
+      "code": "IMPORT_MAPPING_UNAVAILABLE",
+      "state": "running"
+    },
+    {
+      "action": "resume",
+      "status": 403,
+      "code": "FORBIDDEN",
+      "state": "running"
+    },
+    {
+      "action": "resume",
+      "status": 401,
+      "code": "UNAUTHENTICATED",
+      "state": "running"
+    },
+    {
+      "action": "resume",
+      "status": 401,
+      "code": "UNAUTHENTICATED",
+      "state": "running"
+    },
+    {
+      "action": "resume",
+      "status": 404,
+      "code": "NOT_FOUND",
+      "state": "running"
+    },
+    {
+      "action": "resume",
+      "status": 409,
+      "code": "IMPORT_MAPPING_UNAVAILABLE",
+      "state": "running"
+    },
+    {
+      "action": "resume",
+      "status": 409,
+      "code": "IMPORT_MAPPING_UNAVAILABLE",
+      "state": "running"
+    },
+    {
+      "action": "resume",
+      "status": 409,
+      "code": "IMPORT_MAPPING_UNAVAILABLE",
+      "state": "running"
+    },
+    {
+      "action": "resume",
+      "status": 409,
+      "code": "IMPORT_MAPPING_UNAVAILABLE",
+      "state": "running"
+    },
+    {
+      "action": "resume",
+      "status": 403,
+      "code": "FORBIDDEN",
+      "state": "running"
+    },
+    {
+      "action": "resume",
+      "status": 401,
+      "code": "UNAUTHENTICATED",
+      "state": "running"
+    },
+    {
+      "action": "resume",
+      "status": 401,
+      "code": "UNAUTHENTICATED",
+      "state": "running"
+    },
+    {
+      "action": "resume",
+      "status": 404,
+      "code": "NOT_FOUND",
+      "state": "running"
+    }
+  ],
+  "principals": [
+    {
+      "source_id": "confluence-member:100002:01721cce-111f-5224-ad5c-802ed734a543",
+      "target_id": "285228d410f72551:member:24",
+      "status": "historical"
+    },
+    {
+      "source_id": "confluence-member:100002:0eff3fbd-1450-54fc-ac64-d172d7001a6a",
+      "target_id": "285228d410f72551:member:29",
+      "status": "historical"
+    },
+    {
+      "source_id": "confluence-member:100002:1455b2cb-fba0-53e1-91e3-c9d3886a2e40",
+      "target_id": "285228d410f72551:member:20",
+      "status": "historical"
+    },
+    {
+      "source_id": "confluence-member:100002:153024a8-6007-574c-8b58-f48cf3ff273d",
+      "target_id": "285228d410f72551:member:8",
+      "status": "historical"
+    },
+    {
+      "source_id": "confluence-member:100002:34baaed9-510e-5148-b97c-28a41b3bda3a",
+      "target_id": "285228d410f72551:member:17",
+      "status": "historical"
+    },
+    {
+      "source_id": "confluence-member:100002:3ecba2c4-8f26-560b-838e-a76021d2517a",
+      "target_id": "285228d410f72551:member:13",
+      "status": "historical"
+    },
+    {
+      "source_id": "confluence-member:100002:4d28c21f-a464-5a26-af74-894b49b0c2b4",
+      "target_id": "285228d410f72551:member:23",
+      "status": "historical"
+    },
+    {
+      "source_id": "confluence-member:100002:52a54c64-4f1a-5f3d-850b-dabbdddfc3c2",
+      "target_id": "285228d410f72551:member:28",
+      "status": "historical"
+    },
+    {
+      "source_id": "confluence-member:100002:542d25c2-4da8-5735-8650-b3126883eabd",
+      "target_id": "285228d410f72551:member:15",
+      "status": "historical"
+    },
+    {
+      "source_id": "confluence-member:100002:5ced585b-12c2-5d4f-8b01-e8840d1152d4",
+      "target_id": "285228d410f72551:member:18",
+      "status": "historical"
+    },
+    {
+      "source_id": "confluence-member:100002:73c4aa73-6e05-55d6-a0be-fe8895cf9690",
+      "target_id": "285228d410f72551:member:27",
+      "status": "historical"
+    },
+    {
+      "source_id": "confluence-member:100002:74fce02a-b449-50fd-bab7-2ca59d99efff",
+      "target_id": "285228d410f72551:member:26",
+      "status": "historical"
+    },
+    {
+      "source_id": "confluence-member:100002:766bb67c-6fb7-5f77-9c30-0d787ee78c9e",
+      "target_id": "285228d410f72551:member:2",
+      "status": "historical"
+    },
+    {
+      "source_id": "confluence-member:100002:7c54adcd-e1f4-5991-9b3d-8bc11e628efa",
+      "target_id": "285228d410f72551:member:5",
+      "status": "historical"
+    },
+    {
+      "source_id": "confluence-member:100002:8577744d-f484-5699-8ec7-6805f2bb0b20",
+      "target_id": "285228d410f72551:member:12",
+      "status": "historical"
+    },
+    {
+      "source_id": "confluence-member:100002:8ab249bd-5811-558a-9f77-c979b5b2430a",
+      "target_id": "285228d410f72551:member:9",
+      "status": "historical"
+    },
+    {
+      "source_id": "confluence-member:100002:8db1b889-55d4-53e3-ad73-b6cb68b4d2ad",
+      "target_id": "285228d410f72551:member:11",
+      "status": "historical"
+    },
+    {
+      "source_id": "confluence-member:100002:91e037c4-a352-5ef9-a86b-4ee301fae57e",
+      "target_id": "285228d410f72551:member:14",
+      "status": "historical"
+    },
+    {
+      "source_id": "confluence-member:100002:976d509d-ec41-5e19-8ec8-29aafd7f0565",
+      "target_id": "285228d410f72551:member:21",
+      "status": "historical"
+    },
+    {
+      "source_id": "confluence-member:100002:9b3f9b50-1c58-5d7a-a020-65125e417362",
+      "target_id": "285228d410f72551:member:30",
+      "status": "historical"
+    },
+    {
+      "source_id": "confluence-member:100002:af5e4aa5-dd79-5f4d-a179-6878713948be",
+      "target_id": "285228d410f72551:member:19",
+      "status": "historical"
+    },
+    {
+      "source_id": "confluence-member:100002:b84bd50a-5d45-528d-8cd0-23903e773cc0",
+      "target_id": "285228d410f72551:member:1",
+      "status": "historical"
+    },
+    {
+      "source_id": "confluence-member:100002:bade51f8-5677-5122-911e-a1876a99f0f4",
+      "target_id": "285228d410f72551:member:22",
+      "status": "historical"
+    },
+    {
+      "source_id": "confluence-member:100002:c8815d82-eafb-51a0-864e-fbb098216d82",
+      "target_id": "285228d410f72551:member:10",
+      "status": "historical"
+    },
+    {
+      "source_id": "confluence-member:100002:d14327d2-354f-574c-bd67-514a73d79d91",
+      "target_id": "285228d410f72551:member:4",
+      "status": "historical"
+    },
+    {
+      "source_id": "confluence-member:100002:d518bf8e-86f0-5141-8dbe-02924ff4f15b",
+      "target_id": "285228d410f72551:member:25",
+      "status": "historical"
+    },
+    {
+      "source_id": "confluence-member:100002:d8425a0d-efe8-582c-9ab1-3e483fa7fd35",
+      "target_id": "285228d410f72551:member:7",
+      "status": "historical"
+    },
+    {
+      "source_id": "confluence-member:100002:dc21e471-a2d2-5f27-9118-f2386d4652d5",
+      "target_id": "285228d410f72551:member:3",
+      "status": "historical"
+    },
+    {
+      "source_id": "confluence-member:100002:dc6de373-4181-5468-8798-147566e10c00",
+      "target_id": "285228d410f72551:member:6",
+      "status": "historical"
+    },
+    {
+      "source_id": "confluence-member:100002:dcf228a2-1c9c-5e36-bc09-1da84dbb228d",
+      "target_id": "285228d410f72551:member:16",
+      "status": "historical"
+    },
+    {
+      "source_id": "confluence-member:337b3360b6b6549796e42d89",
+      "target_id": "285228d410f72551:member:34",
+      "status": "historical"
+    },
+    {
+      "source_id": "confluence-member:9011939ac5f65cf58bc15a4e",
+      "target_id": "285228d410f72551:member:33",
+      "status": "historical"
+    },
+    {
+      "source_id": "confluence-member:ba8e43d17ccf5133b4f9dc53",
+      "target_id": "285228d410f72551:member:31",
+      "status": "historical"
+    },
+    {
+      "source_id": "confluence-member:dd5d3d25a2cd522b9d43a5c4",
+      "target_id": "285228d410f72551:member:32",
+      "status": "historical"
+    },
+    {
+      "source_id": "confluence-member:100001:d9d99555-7c2d-5fc9-9d5f-444042ec9317",
+      "target_id": "01M6QBW2PJ7Y02GDY1ZTAFGRWZ",
+      "status": "active"
+    }
+  ],
+  "pages": [
+    {
+      "id": "285228d410f72551:page:299",
+      "title": "Pizza Restaurant Launch Plan",
+      "access_inheritance": "restricted"
+    },
+    {
+      "id": "285228d410f72551:page:36",
+      "title": "Getting started in Confluence",
+      "access_inheritance": "restricted"
+    },
+    {
+      "id": "285228d410f72551:page:54",
+      "title": "Overview",
+      "access_inheritance": "restricted"
+    }
+  ],
+  "grants": [
+    {
+      "page_id": "285228d410f72551:page:299",
+      "principal_kind": "member",
+      "principal_id": "01M6QBW2PHEZN38G8RK01RV81S",
+      "level": "full"
+    },
+    {
+      "page_id": "285228d410f72551:page:299",
+      "principal_kind": "member",
+      "principal_id": "01M6QBW2PJ7Y02GDY1ZTAFGRWZ",
+      "level": "edit"
+    },
+    {
+      "page_id": "285228d410f72551:page:36",
+      "principal_kind": "member",
+      "principal_id": "01M6QBW2PHEZN38G8RK01RV81S",
+      "level": "full"
+    },
+    {
+      "page_id": "285228d410f72551:page:36",
+      "principal_kind": "member",
+      "principal_id": "01M6QBW2PJ7Y02GDY1ZTAFGRWZ",
+      "level": "edit"
+    },
+    {
+      "page_id": "285228d410f72551:page:54",
+      "principal_kind": "member",
+      "principal_id": "01M6QBW2PHEZN38G8RK01RV81S",
+      "level": "full"
+    },
+    {
+      "page_id": "285228d410f72551:page:54",
+      "principal_kind": "member",
+      "principal_id": "01M6QBW2PJ7Y02GDY1ZTAFGRWZ",
+      "level": "edit"
+    }
+  ],
+  "access": {
+    "restrictedPages": 3,
+    "sourceNamedGrants": 3,
+    "mappedLiveGrants": 3,
+    "unresolvedRestrictedPages": 0,
+    "recoveryGrants": 3,
+    "historicalMembers": 34,
+    "historicalGroups": 0
+  },
+  "warnings": [
+    {
+      "kind": "construct",
+      "label": "Source edit restrictions",
+      "detail": "Source edit restrictions conservatively close native page inheritance. Explicitly mapped members or groups receive the source edit grant; the importing member retains recovery access."
+    }
+  ],
+  "exposures": [],
+  "command": "pnpm exec vitest run tests/e2e/imports/preview-undo.test.ts -t 'reviews, applies' --silent=false --reporter=verbose",
+  "exit": 0,
+  "runtime": "Node 24.19.0, local Cloudflare Workers runtime",
+  "files": {
+    "tests/e2e/imports/reviewed-principals-journey.ts": "bad6bcf533a347f08d8c0ee45399b3911b9c50df87734851699dcc200082b687",
+    "tests/e2e/imports/preview-undo.test.ts": "d7b704feca0294ab940111dd273853e04e891b0f49b56eaba15393d6fc590268",
+    "src/core/features/imports/principal-mapping.ts": "c2f6d73bf2d0ac0f52bffb54303abb9c39694cfab1b4c5aefbb1d7218c6b9dc7",
+    "src/core/features/imports/kit-context.ts": "fab0eec56ff7ba70c40677d1aec29909f6efc1b55da2698f2bb3eeb982176a9f"
+  },
+  "candidate_head": "4d0921dcdbdd5483b88b85489b7b93d21f79185a",
+  "binding": "All recorded source and journey file hashes match the candidate; runtime source is byte-identical to build parent b91e96a152d24a045e970842a6ebb2cc4b1e79ba."
+}

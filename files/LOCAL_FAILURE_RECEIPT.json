@@ -1,0 +1,11 @@
+{
+  "head": "267e353fa8cfefdc83b49ac1cb8276d53f409fb1",
+  "command": "SLATE_CHROMIUM_PATH=/usr/bin/chromium timeout 1200 node --test --test-name-pattern='page outline follows headings' tests/qualification/ui-convergence/journeys.test.mjs",
+  "exit": 1,
+  "test": "page outline follows headings and navigates long pages at 1440px",
+  "failure": "GET /api/members/current: 401 {\"code\":\"UNAUTHENTICATED\",\"message\":\"A valid session is required.\"}",
+  "location": "tests/qualification/ui-convergence/workspace-authority-journey.mjs:18",
+  "cause": "The new expiry fixture correctly invalidated the shared native reader session, and the following unchanged authority journey reused it.",
+  "repair": "After restoring fixture membership, obtain a fresh native outbox sign-in and update the harness reader token. Keep every existing authority assertion and never revive the old token or authority version.",
+  "ci_repair_round": false
+}

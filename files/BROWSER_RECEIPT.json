@@ -1,0 +1,99 @@
+{
+  "command": "SLATE_CHROMIUM_PATH=/usr/bin/chromium timeout 1200 node /tmp/slate-import-browser.mjs",
+  "exit": 0,
+  "receipts": [
+    {
+      "width": 1440,
+      "jobId": "01M6QCN5Z8V5S4PFWFV5135943",
+      "state": "completed",
+      "mappings": [
+        {
+          "sourceId": "confluence-member:100001:d9d99555-7c2d-5fc9-9d5f-444042ec9317",
+          "kind": "member",
+          "targetId": "browser-reader"
+        }
+      ],
+      "access": {
+        "restrictedPages": 3,
+        "sourceNamedGrants": 3,
+        "mappedLiveGrants": 3,
+        "unresolvedRestrictedPages": 0,
+        "recoveryGrants": 3,
+        "historicalMembers": 34,
+        "historicalGroups": 0
+      },
+      "pages": [
+        {
+          "id": "8c9574dc3f532538:page:54",
+          "title": "Overview",
+          "anonymousNative": 401,
+          "anonymousPublished": 404
+        },
+        {
+          "id": "8c9574dc3f532538:page:36",
+          "title": "Getting started in Confluence",
+          "anonymousNative": 401,
+          "anonymousPublished": 404
+        },
+        {
+          "id": "8c9574dc3f532538:page:299",
+          "title": "Pizza Restaurant Launch Plan",
+          "anonymousNative": 401,
+          "anonymousPublished": 404
+        }
+      ],
+      "unavailableTargetShown": true,
+      "retainedMappingUnchanged": true
+    },
+    {
+      "width": 390,
+      "jobId": "01M6QCQ95WSNCT8219FJPX57E2",
+      "state": "completed",
+      "mappings": [
+        {
+          "sourceId": "confluence-member:100001:d9d99555-7c2d-5fc9-9d5f-444042ec9317",
+          "kind": "member",
+          "targetId": "browser-reader"
+        }
+      ],
+      "access": {
+        "restrictedPages": 3,
+        "sourceNamedGrants": 3,
+        "mappedLiveGrants": 3,
+        "unresolvedRestrictedPages": 0,
+        "recoveryGrants": 3,
+        "historicalMembers": 34,
+        "historicalGroups": 0
+      },
+      "pages": [
+        {
+          "id": "f44d82af26c3563f:page:54",
+          "title": "Overview",
+          "anonymousNative": 401,
+          "anonymousPublished": 404
+        },
+        {
+          "id": "f44d82af26c3563f:page:36",
+          "title": "Getting started in Confluence",
+          "anonymousNative": 401,
+          "anonymousPublished": 404
+        },
+        {
+          "id": "f44d82af26c3563f:page:299",
+          "title": "Pizza Restaurant Launch Plan",
+          "anonymousNative": 401,
+          "anonymousPublished": 404
+        }
+      ],
+      "unavailableTargetShown": true,
+      "retainedMappingUnchanged": true
+    }
+  ],
+  "files": {
+    "tests/qualification/ui-convergence/import-review-journey.mjs": "1aa022e0d94f86a59936bbedec7bbf674522a50a02ff30ef33b3ffd43406ca5a",
+    "tests/qualification/ui-convergence/browser-support.mjs": "58b767178e50bf9c1a7f52bf53615282022edfaf7795a1ed572aed58fbe0bbfd"
+  },
+  "fresh_native_signin_after_membership_restore": true,
+  "candidate_head": "4d0921dcdbdd5483b88b85489b7b93d21f79185a",
+  "binding": "All recorded source and journey file hashes match the candidate; runtime source is byte-identical to build parent b91e96a152d24a045e970842a6ebb2cc4b1e79ba."
+}
