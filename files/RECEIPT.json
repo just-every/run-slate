@@ -1,0 +1,181 @@
+{
+  "tag": "sd-slate-c-f168",
+  "repository": "just-every/run-slate",
+  "branch": "cloud/sd-slate-c-f168",
+  "head": "df54b595d42770e71f9d5e7cf25fddec4b1a5602",
+  "createdAt": "2026-11-06T02:47:30.144780+00:00",
+  "checks": [
+    {
+      "command": "pnpm exec vitest run tests/flagship/structured/http.test.ts tests/flagship/structured/structured.test.ts",
+      "exit": 0,
+      "files": 2,
+      "tests": 3,
+      "sourceReviewed": "ed92d9ecc1b0def9d2b94bb3f746623a1bef66f8",
+      "relevantSourceAndTestBytesEqualHead": true,
+      "log": "workers.log"
+    },
+    {
+      "command": "pnpm typecheck",
+      "exit": 0,
+      "log": "typecheck.log"
+    },
+    {
+      "command": "pnpm exec rer check --profile first-party",
+      "exit": 0
+    },
+    {
+      "command": "cloud_run npx -y @runeditrun/rer build",
+      "exit": 0,
+      "artifact": "build-source.json"
+    },
+    {
+      "command": "cloud_run perl -e 'alarm 1200; exec @ARGV' -- node /tmp/f168-browser.mjs",
+      "exit": 0,
+      "node": {
+        "exit": 0,
+        "explicitExitCode": null,
+        "at": "2026-11-06T02:44:23.751Z"
+      },
+      "widths": [
+        1440,
+        390
+      ],
+      "head": "df54b595d42770e71f9d5e7cf25fddec4b1a5602",
+      "log": "browser.log"
+    }
+  ],
+  "counts": {
+    "before": {
+      "done": 57,
+      "partial": 240,
+      "missing": 41,
+      "total": 338
+    },
+    "after": {
+      "done": 57,
+      "partial": 240,
+      "missing": 41,
+      "total": 338
+    }
+  },
+  "registrationsBefore": 205,
+  "registrationsAfter": 205,
+  "statusRowsRetained": 338,
+  "allTableRowsRetained": 698,
+  "clause": {
+    "id": "DB-002",
+    "before": "partial",
+    "after": "partial",
+    "selectedAcceptance": 3
+  },
+  "screenshots": [
+    "1440-relation-configured-database.png",
+    "1440-relation-field-keyboard-tooltip.png",
+    "1440-relation-multiple-target-picker.png",
+    "1440-relation-retained-multiple-records.png",
+    "1440-relation-follows-retained-renamed-record.png",
+    "1440-relation-current-reader-after-revocation.png",
+    "1440-relation-reader-safe-picker-after-revocation.png",
+    "390-relation-configured-database.png",
+    "390-relation-field-keyboard-tooltip.png",
+    "390-relation-multiple-target-picker.png",
+    "390-relation-retained-multiple-records.png",
+    "390-relation-follows-retained-renamed-record.png",
+    "390-relation-current-reader-after-revocation.png",
+    "390-relation-reader-safe-picker-after-revocation.png"
+  ],
+  "browserDriver": {
+    "exit": 0,
+    "explicitExitCode": null,
+    "at": "2026-11-06T02:44:23.751Z"
+  },
+  "browserWrapper": {
+    "command": "cloud_run perl -e 'alarm 1200; exec @ARGV' -- node /tmp/f168-browser.mjs",
+    "exit": 0
+  },
+  "publicationScan": "Guarded lander duty; cloud branch push is exempt; no scan result claimed.",
+  "ci": {
+    "run": {
+      "conclusion": "failure",
+      "event": "push",
+      "head_sha": "df54b595d42770e71f9d5e7cf25fddec4b1a5602",
+      "html_url": "https://github.com/just-every/run-slate/actions/runs/42152607612",
+      "id": 42152607612,
+      "name": "Verify Slate",
+      "status": "completed"
+    },
+    "jobs": [
+      {
+        "conclusion": "success",
+        "id": 127679147073,
+        "name": "plan",
+        "status": "completed",
+        "steps": []
+      },
+      {
+        "conclusion": "failure",
+        "id": 127679183922,
+        "name": "verify (app)",
+        "status": "completed",
+        "steps": [
+          {
+            "conclusion": "failure",
+            "name": "Run node src/base/runtime/contract-docs.mjs check"
+          }
+        ]
+      },
+      {
+        "conclusion": "skipped",
+        "id": 127679185500,
+        "name": "import-scale",
+        "status": "completed",
+        "steps": []
+      },
+      {
+        "conclusion": "failure",
+        "id": 127679388277,
+        "name": "verify",
+        "status": "completed",
+        "steps": [
+          {
+            "conclusion": "failure",
+            "name": "Require the plan and every expected job"
+          }
+        ]
+      },
+      {
+        "conclusion": "skipped",
+        "id": 127679388774,
+        "name": "verify (${{ matrix.suite }})",
+        "status": "completed",
+        "steps": []
+      },
+      {
+        "conclusion": "skipped",
+        "id": 127679389032,
+        "name": "contract",
+        "status": "completed",
+        "steps": []
+      },
+      {
+        "conclusion": "skipped",
+        "id": 127679389071,
+        "name": "local-journeys",
+        "status": "completed",
+        "steps": []
+      }
+    ],
+    "classification": "Expected generated-view freshness failure only in app; aggregate dependency guard fails with it; product test shards skipped. No green full CI or landed acceptance claim.",
+    "appLog": "ci-app.log",
+    "aggregateLog": "ci-aggregate.log",
+    "ghCallsUsed": 5
+  },
+  "pr": null,
+  "mechanical": "MECHANICAL.json",
+  "push": {
+    "status": "pushed",
+    "head": "df54b595d42770e71f9d5e7cf25fddec4b1a5602",
+    "branch": "cloud/sd-slate-c-f168",
+    "receipt": "product-push.log"
+  }
+}

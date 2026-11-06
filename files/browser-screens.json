@@ -1,0 +1,1138 @@
+[
+  {
+    "file": "1440-relation-configured-database.png",
+    "state": "relation configured database",
+    "width": 1440,
+    "path": "/app/databases/01M6QBTGX5VV9SXPBW3H0RZ00Z",
+    "artifact": {
+      "schema": 1,
+      "commit": "df54b595d42770e71f9d5e7cf25fddec4b1a5602",
+      "tree": "8c00c2a94ef87407a061f6e49d0b61202ebb559e",
+      "sourceSha256": "2e1c25708fa2c06df6839d32661d5d19b80652f05eaf20b73ca4b6521211a505",
+      "lockSha256": "c05ea9e8a9090a8d3d6da0a2ab89ded1f4f3e819333452fb543b314770a3ac68",
+      "outputSha256": "074c2ebabef0370d4bc9a47297b8e3214436c3b5cacf7589664ce0f1cda9fccb"
+    },
+    "geometry": {
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "documentWidth": 1440,
+      "toolbar": [
+        {
+          "x": 1102.0625,
+          "y": 9.5,
+          "width": 67.28125,
+          "height": 36,
+          "top": 9.5,
+          "right": 1169.34375,
+          "bottom": 45.5,
+          "left": 1102.0625
+        },
+        {
+          "x": 1177.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1213.34375,
+          "bottom": 45.5,
+          "left": 1177.34375
+        },
+        {
+          "x": 1221.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1257.34375,
+          "bottom": 45.5,
+          "left": 1221.34375
+        },
+        {
+          "x": 1265.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1301.34375,
+          "bottom": 45.5,
+          "left": 1265.34375
+        },
+        {
+          "x": 1309.34375,
+          "y": 9.5,
+          "width": 106.65625,
+          "height": 36,
+          "top": 9.5,
+          "right": 1416,
+          "bottom": 45.5,
+          "left": 1309.34375
+        }
+      ]
+    },
+    "seriousOrCriticalViolations": []
+  },
+  {
+    "file": "1440-relation-field-keyboard-tooltip.png",
+    "state": "relation field keyboard tooltip",
+    "width": 1440,
+    "path": "/app/databases/01M6QBTGX5VV9SXPBW3H0RZ00Z",
+    "artifact": {
+      "schema": 1,
+      "commit": "df54b595d42770e71f9d5e7cf25fddec4b1a5602",
+      "tree": "8c00c2a94ef87407a061f6e49d0b61202ebb559e",
+      "sourceSha256": "2e1c25708fa2c06df6839d32661d5d19b80652f05eaf20b73ca4b6521211a505",
+      "lockSha256": "c05ea9e8a9090a8d3d6da0a2ab89ded1f4f3e819333452fb543b314770a3ac68",
+      "outputSha256": "074c2ebabef0370d4bc9a47297b8e3214436c3b5cacf7589664ce0f1cda9fccb"
+    },
+    "geometry": {
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "documentWidth": 1440,
+      "toolbar": [
+        {
+          "x": 1102.0625,
+          "y": 9.5,
+          "width": 67.28125,
+          "height": 36,
+          "top": 9.5,
+          "right": 1169.34375,
+          "bottom": 45.5,
+          "left": 1102.0625
+        },
+        {
+          "x": 1177.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1213.34375,
+          "bottom": 45.5,
+          "left": 1177.34375
+        },
+        {
+          "x": 1221.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1257.34375,
+          "bottom": 45.5,
+          "left": 1221.34375
+        },
+        {
+          "x": 1265.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1301.34375,
+          "bottom": 45.5,
+          "left": 1265.34375
+        },
+        {
+          "x": 1309.34375,
+          "y": 9.5,
+          "width": 106.65625,
+          "height": 36,
+          "top": 9.5,
+          "right": 1416,
+          "bottom": 45.5,
+          "left": 1309.34375
+        }
+      ]
+    },
+    "seriousOrCriticalViolations": []
+  },
+  {
+    "file": "1440-relation-multiple-target-picker.png",
+    "state": "relation multiple target picker",
+    "width": 1440,
+    "path": "/app/databases/01M6QBTGX5VV9SXPBW3H0RZ00Z/records/01M6QBTGZYSJKJJ0Z2HQNQTQG6",
+    "artifact": {
+      "schema": 1,
+      "commit": "df54b595d42770e71f9d5e7cf25fddec4b1a5602",
+      "tree": "8c00c2a94ef87407a061f6e49d0b61202ebb559e",
+      "sourceSha256": "2e1c25708fa2c06df6839d32661d5d19b80652f05eaf20b73ca4b6521211a505",
+      "lockSha256": "c05ea9e8a9090a8d3d6da0a2ab89ded1f4f3e819333452fb543b314770a3ac68",
+      "outputSha256": "074c2ebabef0370d4bc9a47297b8e3214436c3b5cacf7589664ce0f1cda9fccb"
+    },
+    "geometry": {
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "documentWidth": 1440,
+      "body": {
+        "x": 652,
+        "y": 322.390625,
+        "width": 716,
+        "height": 176,
+        "top": 322.390625,
+        "right": 1368,
+        "bottom": 498.390625,
+        "left": 652
+      },
+      "toolbar": [
+        {
+          "x": 1102.0625,
+          "y": 9.5,
+          "width": 67.28125,
+          "height": 36,
+          "top": 9.5,
+          "right": 1169.34375,
+          "bottom": 45.5,
+          "left": 1102.0625
+        },
+        {
+          "x": 1177.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1213.34375,
+          "bottom": 45.5,
+          "left": 1177.34375
+        },
+        {
+          "x": 1221.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1257.34375,
+          "bottom": 45.5,
+          "left": 1221.34375
+        },
+        {
+          "x": 1265.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1301.34375,
+          "bottom": 45.5,
+          "left": 1265.34375
+        },
+        {
+          "x": 1309.34375,
+          "y": 9.5,
+          "width": 106.65625,
+          "height": 36,
+          "top": 9.5,
+          "right": 1416,
+          "bottom": 45.5,
+          "left": 1309.34375
+        }
+      ]
+    },
+    "seriousOrCriticalViolations": []
+  },
+  {
+    "file": "1440-relation-retained-multiple-records.png",
+    "state": "relation retained multiple records",
+    "width": 1440,
+    "path": "/app/databases/01M6QBTGX5VV9SXPBW3H0RZ00Z/records/01M6QBTGZYSJKJJ0Z2HQNQTQG6",
+    "artifact": {
+      "schema": 1,
+      "commit": "df54b595d42770e71f9d5e7cf25fddec4b1a5602",
+      "tree": "8c00c2a94ef87407a061f6e49d0b61202ebb559e",
+      "sourceSha256": "2e1c25708fa2c06df6839d32661d5d19b80652f05eaf20b73ca4b6521211a505",
+      "lockSha256": "c05ea9e8a9090a8d3d6da0a2ab89ded1f4f3e819333452fb543b314770a3ac68",
+      "outputSha256": "074c2ebabef0370d4bc9a47297b8e3214436c3b5cacf7589664ce0f1cda9fccb"
+    },
+    "geometry": {
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "documentWidth": 1440,
+      "body": {
+        "x": 652,
+        "y": 326.390625,
+        "width": 716,
+        "height": 176,
+        "top": 326.390625,
+        "right": 1368,
+        "bottom": 502.390625,
+        "left": 652
+      },
+      "toolbar": [
+        {
+          "x": 1102.0625,
+          "y": 9.5,
+          "width": 67.28125,
+          "height": 36,
+          "top": 9.5,
+          "right": 1169.34375,
+          "bottom": 45.5,
+          "left": 1102.0625
+        },
+        {
+          "x": 1177.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1213.34375,
+          "bottom": 45.5,
+          "left": 1177.34375
+        },
+        {
+          "x": 1221.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1257.34375,
+          "bottom": 45.5,
+          "left": 1221.34375
+        },
+        {
+          "x": 1265.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1301.34375,
+          "bottom": 45.5,
+          "left": 1265.34375
+        },
+        {
+          "x": 1309.34375,
+          "y": 9.5,
+          "width": 106.65625,
+          "height": 36,
+          "top": 9.5,
+          "right": 1416,
+          "bottom": 45.5,
+          "left": 1309.34375
+        }
+      ]
+    },
+    "seriousOrCriticalViolations": []
+  },
+  {
+    "file": "1440-relation-follows-retained-renamed-record.png",
+    "state": "relation follows retained renamed record",
+    "width": 1440,
+    "path": "/app/databases/01M6QBTGXKPZ09VVY8NPQM2QP8/records/01M6QBTGY871JEKMYG7ZNWH1SV",
+    "artifact": {
+      "schema": 1,
+      "commit": "df54b595d42770e71f9d5e7cf25fddec4b1a5602",
+      "tree": "8c00c2a94ef87407a061f6e49d0b61202ebb559e",
+      "sourceSha256": "2e1c25708fa2c06df6839d32661d5d19b80652f05eaf20b73ca4b6521211a505",
+      "lockSha256": "c05ea9e8a9090a8d3d6da0a2ab89ded1f4f3e819333452fb543b314770a3ac68",
+      "outputSha256": "074c2ebabef0370d4bc9a47297b8e3214436c3b5cacf7589664ce0f1cda9fccb"
+    },
+    "geometry": {
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "documentWidth": 1440,
+      "body": {
+        "x": 652,
+        "y": 267.390625,
+        "width": 716,
+        "height": 132,
+        "top": 267.390625,
+        "right": 1368,
+        "bottom": 399.390625,
+        "left": 652
+      },
+      "toolbar": [
+        {
+          "x": 1102.0625,
+          "y": 9.5,
+          "width": 67.28125,
+          "height": 36,
+          "top": 9.5,
+          "right": 1169.34375,
+          "bottom": 45.5,
+          "left": 1102.0625
+        },
+        {
+          "x": 1177.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1213.34375,
+          "bottom": 45.5,
+          "left": 1177.34375
+        },
+        {
+          "x": 1221.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1257.34375,
+          "bottom": 45.5,
+          "left": 1221.34375
+        },
+        {
+          "x": 1265.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1301.34375,
+          "bottom": 45.5,
+          "left": 1265.34375
+        },
+        {
+          "x": 1309.34375,
+          "y": 9.5,
+          "width": 106.65625,
+          "height": 36,
+          "top": 9.5,
+          "right": 1416,
+          "bottom": 45.5,
+          "left": 1309.34375
+        }
+      ]
+    },
+    "seriousOrCriticalViolations": []
+  },
+  {
+    "file": "1440-relation-current-reader-after-revocation.png",
+    "state": "relation current reader after revocation",
+    "width": 1440,
+    "path": "/app/databases/01M6QBTGX5VV9SXPBW3H0RZ00Z/records/01M6QBTGZYSJKJJ0Z2HQNQTQG6",
+    "artifact": {
+      "schema": 1,
+      "commit": "df54b595d42770e71f9d5e7cf25fddec4b1a5602",
+      "tree": "8c00c2a94ef87407a061f6e49d0b61202ebb559e",
+      "sourceSha256": "2e1c25708fa2c06df6839d32661d5d19b80652f05eaf20b73ca4b6521211a505",
+      "lockSha256": "c05ea9e8a9090a8d3d6da0a2ab89ded1f4f3e819333452fb543b314770a3ac68",
+      "outputSha256": "074c2ebabef0370d4bc9a47297b8e3214436c3b5cacf7589664ce0f1cda9fccb"
+    },
+    "geometry": {
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "documentWidth": 1440,
+      "body": {
+        "x": 652,
+        "y": 326.390625,
+        "width": 716,
+        "height": 176,
+        "top": 326.390625,
+        "right": 1368,
+        "bottom": 502.390625,
+        "left": 652
+      },
+      "toolbar": [
+        {
+          "x": 1102.0625,
+          "y": 9.5,
+          "width": 67.28125,
+          "height": 36,
+          "top": 9.5,
+          "right": 1169.34375,
+          "bottom": 45.5,
+          "left": 1102.0625
+        },
+        {
+          "x": 1177.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1213.34375,
+          "bottom": 45.5,
+          "left": 1177.34375
+        },
+        {
+          "x": 1221.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1257.34375,
+          "bottom": 45.5,
+          "left": 1221.34375
+        },
+        {
+          "x": 1265.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1301.34375,
+          "bottom": 45.5,
+          "left": 1265.34375
+        },
+        {
+          "x": 1309.34375,
+          "y": 9.5,
+          "width": 106.65625,
+          "height": 36,
+          "top": 9.5,
+          "right": 1416,
+          "bottom": 45.5,
+          "left": 1309.34375
+        }
+      ]
+    },
+    "seriousOrCriticalViolations": []
+  },
+  {
+    "file": "1440-relation-reader-safe-picker-after-revocation.png",
+    "state": "relation reader safe picker after revocation",
+    "width": 1440,
+    "path": "/app/databases/01M6QBTGX5VV9SXPBW3H0RZ00Z/records/01M6QBTGZYSJKJJ0Z2HQNQTQG6",
+    "artifact": {
+      "schema": 1,
+      "commit": "df54b595d42770e71f9d5e7cf25fddec4b1a5602",
+      "tree": "8c00c2a94ef87407a061f6e49d0b61202ebb559e",
+      "sourceSha256": "2e1c25708fa2c06df6839d32661d5d19b80652f05eaf20b73ca4b6521211a505",
+      "lockSha256": "c05ea9e8a9090a8d3d6da0a2ab89ded1f4f3e819333452fb543b314770a3ac68",
+      "outputSha256": "074c2ebabef0370d4bc9a47297b8e3214436c3b5cacf7589664ce0f1cda9fccb"
+    },
+    "geometry": {
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "documentWidth": 1440,
+      "body": {
+        "x": 652,
+        "y": 326.390625,
+        "width": 716,
+        "height": 176,
+        "top": 326.390625,
+        "right": 1368,
+        "bottom": 502.390625,
+        "left": 652
+      },
+      "toolbar": [
+        {
+          "x": 1102.0625,
+          "y": 9.5,
+          "width": 67.28125,
+          "height": 36,
+          "top": 9.5,
+          "right": 1169.34375,
+          "bottom": 45.5,
+          "left": 1102.0625
+        },
+        {
+          "x": 1177.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1213.34375,
+          "bottom": 45.5,
+          "left": 1177.34375
+        },
+        {
+          "x": 1221.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1257.34375,
+          "bottom": 45.5,
+          "left": 1221.34375
+        },
+        {
+          "x": 1265.34375,
+          "y": 9.5,
+          "width": 36,
+          "height": 36,
+          "top": 9.5,
+          "right": 1301.34375,
+          "bottom": 45.5,
+          "left": 1265.34375
+        },
+        {
+          "x": 1309.34375,
+          "y": 9.5,
+          "width": 106.65625,
+          "height": 36,
+          "top": 9.5,
+          "right": 1416,
+          "bottom": 45.5,
+          "left": 1309.34375
+        }
+      ]
+    },
+    "seriousOrCriticalViolations": []
+  },
+  {
+    "file": "390-relation-configured-database.png",
+    "state": "relation configured database",
+    "width": 390,
+    "path": "/app/databases/01M6QBW03M0PETM8Y84V0J3GCJ",
+    "artifact": {
+      "schema": 1,
+      "commit": "df54b595d42770e71f9d5e7cf25fddec4b1a5602",
+      "tree": "8c00c2a94ef87407a061f6e49d0b61202ebb559e",
+      "sourceSha256": "2e1c25708fa2c06df6839d32661d5d19b80652f05eaf20b73ca4b6521211a505",
+      "lockSha256": "c05ea9e8a9090a8d3d6da0a2ab89ded1f4f3e819333452fb543b314770a3ac68",
+      "outputSha256": "074c2ebabef0370d4bc9a47297b8e3214436c3b5cacf7589664ce0f1cda9fccb"
+    },
+    "geometry": {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "documentWidth": 390,
+      "toolbar": [
+        {
+          "x": 140.0625,
+          "y": 103,
+          "width": 67.28125,
+          "height": 44,
+          "top": 103,
+          "right": 207.34375,
+          "bottom": 147,
+          "left": 140.0625
+        },
+        {
+          "x": 215.34375,
+          "y": 103,
+          "width": 44,
+          "height": 44,
+          "top": 103,
+          "right": 259.34375,
+          "bottom": 147,
+          "left": 215.34375
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        {
+          "x": 267.34375,
+          "y": 103,
+          "width": 106.65625,
+          "height": 44,
+          "top": 103,
+          "right": 374,
+          "bottom": 147,
+          "left": 267.34375
+        }
+      ]
+    },
+    "seriousOrCriticalViolations": []
+  },
+  {
+    "file": "390-relation-field-keyboard-tooltip.png",
+    "state": "relation field keyboard tooltip",
+    "width": 390,
+    "path": "/app/databases/01M6QBW03M0PETM8Y84V0J3GCJ",
+    "artifact": {
+      "schema": 1,
+      "commit": "df54b595d42770e71f9d5e7cf25fddec4b1a5602",
+      "tree": "8c00c2a94ef87407a061f6e49d0b61202ebb559e",
+      "sourceSha256": "2e1c25708fa2c06df6839d32661d5d19b80652f05eaf20b73ca4b6521211a505",
+      "lockSha256": "c05ea9e8a9090a8d3d6da0a2ab89ded1f4f3e819333452fb543b314770a3ac68",
+      "outputSha256": "074c2ebabef0370d4bc9a47297b8e3214436c3b5cacf7589664ce0f1cda9fccb"
+    },
+    "geometry": {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "documentWidth": 390,
+      "toolbar": [
+        {
+          "x": 140.0625,
+          "y": 103,
+          "width": 67.28125,
+          "height": 44,
+          "top": 103,
+          "right": 207.34375,
+          "bottom": 147,
+          "left": 140.0625
+        },
+        {
+          "x": 215.34375,
+          "y": 103,
+          "width": 44,
+          "height": 44,
+          "top": 103,
+          "right": 259.34375,
+          "bottom": 147,
+          "left": 215.34375
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        {
+          "x": 267.34375,
+          "y": 103,
+          "width": 106.65625,
+          "height": 44,
+          "top": 103,
+          "right": 374,
+          "bottom": 147,
+          "left": 267.34375
+        }
+      ]
+    },
+    "seriousOrCriticalViolations": []
+  },
+  {
+    "file": "390-relation-multiple-target-picker.png",
+    "state": "relation multiple target picker",
+    "width": 390,
+    "path": "/app/databases/01M6QBW03M0PETM8Y84V0J3GCJ/records/01M6QBW06P5R1GQWZVB1RYKTEQ",
+    "artifact": {
+      "schema": 1,
+      "commit": "df54b595d42770e71f9d5e7cf25fddec4b1a5602",
+      "tree": "8c00c2a94ef87407a061f6e49d0b61202ebb559e",
+      "sourceSha256": "2e1c25708fa2c06df6839d32661d5d19b80652f05eaf20b73ca4b6521211a505",
+      "lockSha256": "c05ea9e8a9090a8d3d6da0a2ab89ded1f4f3e819333452fb543b314770a3ac68",
+      "outputSha256": "074c2ebabef0370d4bc9a47297b8e3214436c3b5cacf7589664ce0f1cda9fccb"
+    },
+    "geometry": {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "documentWidth": 390,
+      "body": {
+        "x": 19.5,
+        "y": 355,
+        "width": 351,
+        "height": 206,
+        "top": 355,
+        "right": 370.5,
+        "bottom": 561,
+        "left": 19.5
+      },
+      "toolbar": [
+        {
+          "x": 140.0625,
+          "y": 73,
+          "width": 67.28125,
+          "height": 44,
+          "top": 73,
+          "right": 207.34375,
+          "bottom": 117,
+          "left": 140.0625
+        },
+        {
+          "x": 215.34375,
+          "y": 73,
+          "width": 44,
+          "height": 44,
+          "top": 73,
+          "right": 259.34375,
+          "bottom": 117,
+          "left": 215.34375
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        {
+          "x": 267.34375,
+          "y": 73,
+          "width": 106.65625,
+          "height": 44,
+          "top": 73,
+          "right": 374,
+          "bottom": 117,
+          "left": 267.34375
+        }
+      ]
+    },
+    "seriousOrCriticalViolations": []
+  },
+  {
+    "file": "390-relation-retained-multiple-records.png",
+    "state": "relation retained multiple records",
+    "width": 390,
+    "path": "/app/databases/01M6QBW03M0PETM8Y84V0J3GCJ/records/01M6QBW06P5R1GQWZVB1RYKTEQ",
+    "artifact": {
+      "schema": 1,
+      "commit": "df54b595d42770e71f9d5e7cf25fddec4b1a5602",
+      "tree": "8c00c2a94ef87407a061f6e49d0b61202ebb559e",
+      "sourceSha256": "2e1c25708fa2c06df6839d32661d5d19b80652f05eaf20b73ca4b6521211a505",
+      "lockSha256": "c05ea9e8a9090a8d3d6da0a2ab89ded1f4f3e819333452fb543b314770a3ac68",
+      "outputSha256": "074c2ebabef0370d4bc9a47297b8e3214436c3b5cacf7589664ce0f1cda9fccb"
+    },
+    "geometry": {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "documentWidth": 390,
+      "body": {
+        "x": 19.5,
+        "y": 403,
+        "width": 351,
+        "height": 206,
+        "top": 403,
+        "right": 370.5,
+        "bottom": 609,
+        "left": 19.5
+      },
+      "toolbar": [
+        {
+          "x": 140.0625,
+          "y": 73,
+          "width": 67.28125,
+          "height": 44,
+          "top": 73,
+          "right": 207.34375,
+          "bottom": 117,
+          "left": 140.0625
+        },
+        {
+          "x": 215.34375,
+          "y": 73,
+          "width": 44,
+          "height": 44,
+          "top": 73,
+          "right": 259.34375,
+          "bottom": 117,
+          "left": 215.34375
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        {
+          "x": 267.34375,
+          "y": 73,
+          "width": 106.65625,
+          "height": 44,
+          "top": 73,
+          "right": 374,
+          "bottom": 117,
+          "left": 267.34375
+        }
+      ]
+    },
+    "seriousOrCriticalViolations": []
+  },
+  {
+    "file": "390-relation-follows-retained-renamed-record.png",
+    "state": "relation follows retained renamed record",
+    "width": 390,
+    "path": "/app/databases/01M6QBW041KZRGVVVCVMDF27CY/records/01M6QBW04R086VCEJWXDBE61XE",
+    "artifact": {
+      "schema": 1,
+      "commit": "df54b595d42770e71f9d5e7cf25fddec4b1a5602",
+      "tree": "8c00c2a94ef87407a061f6e49d0b61202ebb559e",
+      "sourceSha256": "2e1c25708fa2c06df6839d32661d5d19b80652f05eaf20b73ca4b6521211a505",
+      "lockSha256": "c05ea9e8a9090a8d3d6da0a2ab89ded1f4f3e819333452fb543b314770a3ac68",
+      "outputSha256": "074c2ebabef0370d4bc9a47297b8e3214436c3b5cacf7589664ce0f1cda9fccb"
+    },
+    "geometry": {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "documentWidth": 390,
+      "body": {
+        "x": 19.5,
+        "y": 284,
+        "width": 351,
+        "height": 158,
+        "top": 284,
+        "right": 370.5,
+        "bottom": 442,
+        "left": 19.5
+      },
+      "toolbar": [
+        {
+          "x": 140.0625,
+          "y": 73,
+          "width": 67.28125,
+          "height": 44,
+          "top": 73,
+          "right": 207.34375,
+          "bottom": 117,
+          "left": 140.0625
+        },
+        {
+          "x": 215.34375,
+          "y": 73,
+          "width": 44,
+          "height": 44,
+          "top": 73,
+          "right": 259.34375,
+          "bottom": 117,
+          "left": 215.34375
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        {
+          "x": 267.34375,
+          "y": 73,
+          "width": 106.65625,
+          "height": 44,
+          "top": 73,
+          "right": 374,
+          "bottom": 117,
+          "left": 267.34375
+        }
+      ]
+    },
+    "seriousOrCriticalViolations": []
+  },
+  {
+    "file": "390-relation-current-reader-after-revocation.png",
+    "state": "relation current reader after revocation",
+    "width": 390,
+    "path": "/app/databases/01M6QBW03M0PETM8Y84V0J3GCJ/records/01M6QBW06P5R1GQWZVB1RYKTEQ",
+    "artifact": {
+      "schema": 1,
+      "commit": "df54b595d42770e71f9d5e7cf25fddec4b1a5602",
+      "tree": "8c00c2a94ef87407a061f6e49d0b61202ebb559e",
+      "sourceSha256": "2e1c25708fa2c06df6839d32661d5d19b80652f05eaf20b73ca4b6521211a505",
+      "lockSha256": "c05ea9e8a9090a8d3d6da0a2ab89ded1f4f3e819333452fb543b314770a3ac68",
+      "outputSha256": "074c2ebabef0370d4bc9a47297b8e3214436c3b5cacf7589664ce0f1cda9fccb"
+    },
+    "geometry": {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "documentWidth": 390,
+      "body": {
+        "x": 19.5,
+        "y": 355,
+        "width": 351,
+        "height": 206,
+        "top": 355,
+        "right": 370.5,
+        "bottom": 561,
+        "left": 19.5
+      },
+      "toolbar": [
+        {
+          "x": 140.0625,
+          "y": 73,
+          "width": 67.28125,
+          "height": 44,
+          "top": 73,
+          "right": 207.34375,
+          "bottom": 117,
+          "left": 140.0625
+        },
+        {
+          "x": 215.34375,
+          "y": 73,
+          "width": 44,
+          "height": 44,
+          "top": 73,
+          "right": 259.34375,
+          "bottom": 117,
+          "left": 215.34375
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        {
+          "x": 267.34375,
+          "y": 73,
+          "width": 106.65625,
+          "height": 44,
+          "top": 73,
+          "right": 374,
+          "bottom": 117,
+          "left": 267.34375
+        }
+      ]
+    },
+    "seriousOrCriticalViolations": []
+  },
+  {
+    "file": "390-relation-reader-safe-picker-after-revocation.png",
+    "state": "relation reader safe picker after revocation",
+    "width": 390,
+    "path": "/app/databases/01M6QBW03M0PETM8Y84V0J3GCJ/records/01M6QBW06P5R1GQWZVB1RYKTEQ",
+    "artifact": {
+      "schema": 1,
+      "commit": "df54b595d42770e71f9d5e7cf25fddec4b1a5602",
+      "tree": "8c00c2a94ef87407a061f6e49d0b61202ebb559e",
+      "sourceSha256": "2e1c25708fa2c06df6839d32661d5d19b80652f05eaf20b73ca4b6521211a505",
+      "lockSha256": "c05ea9e8a9090a8d3d6da0a2ab89ded1f4f3e819333452fb543b314770a3ac68",
+      "outputSha256": "074c2ebabef0370d4bc9a47297b8e3214436c3b5cacf7589664ce0f1cda9fccb"
+    },
+    "geometry": {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "documentWidth": 390,
+      "body": {
+        "x": 19.5,
+        "y": 355,
+        "width": 351,
+        "height": 206,
+        "top": 355,
+        "right": 370.5,
+        "bottom": 561,
+        "left": 19.5
+      },
+      "toolbar": [
+        {
+          "x": 140.0625,
+          "y": 73,
+          "width": 67.28125,
+          "height": 44,
+          "top": 73,
+          "right": 207.34375,
+          "bottom": 117,
+          "left": 140.0625
+        },
+        {
+          "x": 215.34375,
+          "y": 73,
+          "width": 44,
+          "height": 44,
+          "top": 73,
+          "right": 259.34375,
+          "bottom": 117,
+          "left": 215.34375
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        {
+          "x": 267.34375,
+          "y": 73,
+          "width": 106.65625,
+          "height": 44,
+          "top": 73,
+          "right": 374,
+          "bottom": 117,
+          "left": 267.34375
+        }
+      ]
+    },
+    "seriousOrCriticalViolations": []
+  }
+]

@@ -1,0 +1,81 @@
+{
+  "head": "df54b595d42770e71f9d5e7cf25fddec4b1a5602",
+  "commands": [
+    {
+      "command": [
+        "node",
+        "src/base/runtime/contract-docs.mjs",
+        "write"
+      ],
+      "exit": 0,
+      "stdoutBytes": 28,
+      "stderrBytes": 0
+    },
+    {
+      "command": [
+        "node",
+        "src/base/runtime/contract-docs.mjs",
+        "check"
+      ],
+      "exit": 0,
+      "stdoutBytes": 32,
+      "stderrBytes": 0
+    },
+    {
+      "command": [
+        "git",
+        "checkout",
+        "origin/main",
+        "--",
+        "ACCEPTANCE.md",
+        "docs/CLAIMS.md"
+      ],
+      "exit": 0,
+      "stdoutBytes": 0,
+      "stderrBytes": 0
+    },
+    {
+      "command": [
+        "pnpm",
+        "integration:sync"
+      ],
+      "exit": 0,
+      "stdoutBytes": 160,
+      "stderrBytes": 0
+    },
+    {
+      "command": [
+        "node",
+        "scripts/edition-authoring/cli.mjs",
+        "lock"
+      ],
+      "exit": 0,
+      "stdoutBytes": 540229,
+      "stderrBytes": 0
+    },
+    {
+      "command": [
+        "pnpm",
+        "source:check"
+      ],
+      "exit": 0,
+      "stdoutBytes": 540447,
+      "stderrBytes": 0
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit": 0,
+      "stdoutBytes": 0,
+      "stderrBytes": 0
+    }
+  ],
+  "migrationLedger": {
+    "command": null,
+    "exit": 0,
+    "reason": "No migration added or edited."
+  }
+}

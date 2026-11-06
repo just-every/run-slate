@@ -1,0 +1,236 @@
+[
+  {
+    "width": 1440,
+    "sourceDatabaseId": "01M6QBTGX5VV9SXPBW3H0RZ00Z",
+    "targetDatabaseId": "01M6QBTGXKPZ09VVY8NPQM2QP8",
+    "sourceRecordId": "01M6QBTGZYSJKJJ0Z2HQNQTQG6",
+    "targetRecordIds": [
+      "01M6QBTGY871JEKMYG7ZNWH1SV",
+      "01M6QBTGZ2N8AFDKYNQEYDWN7Z"
+    ],
+    "nativeConfigurationRequests": [
+      {
+        "method": "POST",
+        "path": "/api/databases/01M6QBTGX5VV9SXPBW3H0RZ00Z/fields",
+        "status": 200,
+        "field": {
+          "id": "c098b23e-cfe2-4bd5-a358-9b4190ebecb5",
+          "name": "Linked records",
+          "type": "relation",
+          "config": {
+            "databaseId": "01M6QBTGXKPZ09VVY8NPQM2QP8"
+          },
+          "position": 0
+        }
+      },
+      {
+        "method": "POST",
+        "path": "/api/databases/01M6QBTGX5VV9SXPBW3H0RZ00Z/fields",
+        "status": 409,
+        "field": {
+          "id": "c098b23e-cfe2-4bd5-a358-9b4190ebecb5",
+          "name": "Linked records",
+          "type": "relation",
+          "config": {
+            "databaseId": "01M6QBTGX5VV9SXPBW3H0RZ00Z"
+          },
+          "position": 0
+        }
+      }
+    ],
+    "ownerReadbacks": [
+      {
+        "path": "/api/databases/01M6QBTGX5VV9SXPBW3H0RZ00Z/records/01M6QBTGZYSJKJJ0Z2HQNQTQG6",
+        "status": 200,
+        "recordId": "01M6QBTGZYSJKJJ0Z2HQNQTQG6",
+        "revisionId": "01M6QBTRT2KKV270R01RS3NMDZ",
+        "values": {
+          "c098b23e-cfe2-4bd5-a358-9b4190ebecb5": []
+        }
+      },
+      {
+        "path": "/api/databases/01M6QBTGX5VV9SXPBW3H0RZ00Z/records/01M6QBTGZYSJKJJ0Z2HQNQTQG6",
+        "status": 200,
+        "recordId": "01M6QBTGZYSJKJJ0Z2HQNQTQG6",
+        "revisionId": "01M6QBTVGGH686PQTBSHV2B95T",
+        "values": {
+          "c098b23e-cfe2-4bd5-a358-9b4190ebecb5": [
+            "01M6QBTGY871JEKMYG7ZNWH1SV",
+            "01M6QBTGZ2N8AFDKYNQEYDWN7Z"
+          ]
+        }
+      },
+      {
+        "path": "/api/databases/01M6QBTGX5VV9SXPBW3H0RZ00Z/records/01M6QBTGZYSJKJJ0Z2HQNQTQG6",
+        "status": 200,
+        "recordId": "01M6QBTGZYSJKJJ0Z2HQNQTQG6",
+        "revisionId": "01M6QBTVGGH686PQTBSHV2B95T",
+        "values": {
+          "c098b23e-cfe2-4bd5-a358-9b4190ebecb5": [
+            "01M6QBTGY871JEKMYG7ZNWH1SV",
+            "01M6QBTGZ2N8AFDKYNQEYDWN7Z"
+          ]
+        }
+      },
+      {
+        "path": "/api/databases/01M6QBTGX5VV9SXPBW3H0RZ00Z/records/01M6QBTGZYSJKJJ0Z2HQNQTQG6",
+        "status": 200,
+        "recordId": "01M6QBTGZYSJKJJ0Z2HQNQTQG6",
+        "revisionId": "01M6QBTVGGH686PQTBSHV2B95T",
+        "values": {
+          "c098b23e-cfe2-4bd5-a358-9b4190ebecb5": [
+            "01M6QBTGY871JEKMYG7ZNWH1SV",
+            "01M6QBTGZ2N8AFDKYNQEYDWN7Z"
+          ]
+        }
+      },
+      {
+        "path": "/api/databases/01M6QBTGX5VV9SXPBW3H0RZ00Z/records/01M6QBTGZYSJKJJ0Z2HQNQTQG6",
+        "status": 200,
+        "recordId": "01M6QBTGZYSJKJJ0Z2HQNQTQG6",
+        "revisionId": "01M6QBTVGGH686PQTBSHV2B95T",
+        "values": {
+          "c098b23e-cfe2-4bd5-a358-9b4190ebecb5": [
+            "01M6QBTGY871JEKMYG7ZNWH1SV",
+            "01M6QBTGZ2N8AFDKYNQEYDWN7Z"
+          ]
+        }
+      },
+      {
+        "path": "/api/databases/01M6QBTGX5VV9SXPBW3H0RZ00Z/records/01M6QBTGZYSJKJJ0Z2HQNQTQG6",
+        "status": 200,
+        "recordId": "01M6QBTGZYSJKJJ0Z2HQNQTQG6",
+        "revisionId": "01M6QBTVGGH686PQTBSHV2B95T",
+        "values": {
+          "c098b23e-cfe2-4bd5-a358-9b4190ebecb5": [
+            "01M6QBTGY871JEKMYG7ZNWH1SV",
+            "01M6QBTGZ2N8AFDKYNQEYDWN7Z"
+          ]
+        }
+      }
+    ],
+    "expectedRefusalConsole": [
+      {
+        "url": "http://127.0.0.1:43767/app/databases/01M6QBTGX5VV9SXPBW3H0RZ00Z",
+        "message": "Failed to load resource: the server responded with a status of 409 (Conflict)"
+      }
+    ]
+  },
+  {
+    "width": 390,
+    "sourceDatabaseId": "01M6QBW03M0PETM8Y84V0J3GCJ",
+    "targetDatabaseId": "01M6QBW041KZRGVVVCVMDF27CY",
+    "sourceRecordId": "01M6QBW06P5R1GQWZVB1RYKTEQ",
+    "targetRecordIds": [
+      "01M6QBW04R086VCEJWXDBE61XE",
+      "01M6QBW05TZBSVY9EVEMZ0CZ0N"
+    ],
+    "nativeConfigurationRequests": [
+      {
+        "method": "POST",
+        "path": "/api/databases/01M6QBW03M0PETM8Y84V0J3GCJ/fields",
+        "status": 200,
+        "field": {
+          "id": "26ac5252-4bc7-4a98-b109-42f92bc371d0",
+          "name": "Linked records",
+          "type": "relation",
+          "config": {
+            "databaseId": "01M6QBW041KZRGVVVCVMDF27CY"
+          },
+          "position": 0
+        }
+      },
+      {
+        "method": "POST",
+        "path": "/api/databases/01M6QBW03M0PETM8Y84V0J3GCJ/fields",
+        "status": 409,
+        "field": {
+          "id": "26ac5252-4bc7-4a98-b109-42f92bc371d0",
+          "name": "Linked records",
+          "type": "relation",
+          "config": {
+            "databaseId": "01M6QBW03M0PETM8Y84V0J3GCJ"
+          },
+          "position": 0
+        }
+      }
+    ],
+    "ownerReadbacks": [
+      {
+        "path": "/api/databases/01M6QBW03M0PETM8Y84V0J3GCJ/records/01M6QBW06P5R1GQWZVB1RYKTEQ",
+        "status": 200,
+        "recordId": "01M6QBW06P5R1GQWZVB1RYKTEQ",
+        "revisionId": "01M6QBW5WEH30P17FD85B1713Z",
+        "values": {
+          "26ac5252-4bc7-4a98-b109-42f92bc371d0": []
+        }
+      },
+      {
+        "path": "/api/databases/01M6QBW03M0PETM8Y84V0J3GCJ/records/01M6QBW06P5R1GQWZVB1RYKTEQ",
+        "status": 200,
+        "recordId": "01M6QBW06P5R1GQWZVB1RYKTEQ",
+        "revisionId": "01M6QBW7DGDC9HT8PRQZMYPQVE",
+        "values": {
+          "26ac5252-4bc7-4a98-b109-42f92bc371d0": [
+            "01M6QBW04R086VCEJWXDBE61XE",
+            "01M6QBW05TZBSVY9EVEMZ0CZ0N"
+          ]
+        }
+      },
+      {
+        "path": "/api/databases/01M6QBW03M0PETM8Y84V0J3GCJ/records/01M6QBW06P5R1GQWZVB1RYKTEQ",
+        "status": 200,
+        "recordId": "01M6QBW06P5R1GQWZVB1RYKTEQ",
+        "revisionId": "01M6QBW7DGDC9HT8PRQZMYPQVE",
+        "values": {
+          "26ac5252-4bc7-4a98-b109-42f92bc371d0": [
+            "01M6QBW04R086VCEJWXDBE61XE",
+            "01M6QBW05TZBSVY9EVEMZ0CZ0N"
+          ]
+        }
+      },
+      {
+        "path": "/api/databases/01M6QBW03M0PETM8Y84V0J3GCJ/records/01M6QBW06P5R1GQWZVB1RYKTEQ",
+        "status": 200,
+        "recordId": "01M6QBW06P5R1GQWZVB1RYKTEQ",
+        "revisionId": "01M6QBW7DGDC9HT8PRQZMYPQVE",
+        "values": {
+          "26ac5252-4bc7-4a98-b109-42f92bc371d0": [
+            "01M6QBW04R086VCEJWXDBE61XE",
+            "01M6QBW05TZBSVY9EVEMZ0CZ0N"
+          ]
+        }
+      },
+      {
+        "path": "/api/databases/01M6QBW03M0PETM8Y84V0J3GCJ/records/01M6QBW06P5R1GQWZVB1RYKTEQ",
+        "status": 200,
+        "recordId": "01M6QBW06P5R1GQWZVB1RYKTEQ",
+        "revisionId": "01M6QBW7DGDC9HT8PRQZMYPQVE",
+        "values": {
+          "26ac5252-4bc7-4a98-b109-42f92bc371d0": [
+            "01M6QBW04R086VCEJWXDBE61XE",
+            "01M6QBW05TZBSVY9EVEMZ0CZ0N"
+          ]
+        }
+      },
+      {
+        "path": "/api/databases/01M6QBW03M0PETM8Y84V0J3GCJ/records/01M6QBW06P5R1GQWZVB1RYKTEQ",
+        "status": 200,
+        "recordId": "01M6QBW06P5R1GQWZVB1RYKTEQ",
+        "revisionId": "01M6QBW7DGDC9HT8PRQZMYPQVE",
+        "values": {
+          "26ac5252-4bc7-4a98-b109-42f92bc371d0": [
+            "01M6QBW04R086VCEJWXDBE61XE",
+            "01M6QBW05TZBSVY9EVEMZ0CZ0N"
+          ]
+        }
+      }
+    ],
+    "expectedRefusalConsole": [
+      {
+        "url": "http://127.0.0.1:38269/app/databases/01M6QBW03M0PETM8Y84V0J3GCJ",
+        "message": "Failed to load resource: the server responded with a status of 409 (Conflict)"
+      }
+    ]
+  }
+]
