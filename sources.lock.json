@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "e253f3d68a6498117e4ae73bda455fbbf31d150b273542b7aecc544ef7090598",
+      "sha256": "e4f352cf117f08d33f2320ffc07298be21aea4bbd4ae664276687eea2193ba0f",
       "executable": false
     },
     "DEMO.md": {
@@ -6912,7 +6912,7 @@
       "executable": false
     },
     "src/core/features/editor/ui/blocks/TableBlock.tsx": {
-      "sha256": "0396e70350fc4ef44394e15b6a51e327f239f5c48c01b19710280783fd25b2d4",
+      "sha256": "bd07293f018750b6ab6055748046e84d1c6c379ed10a972c066ccbc38b4a24f1",
       "executable": false
     },
     "src/core/features/editor/ui/blocks/TableOfContentsBlock.tsx": {
@@ -12116,7 +12116,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
-      "sha256": "56157a493201cd1559bc6a4de4e19295423496132ee7f9b7e7f3cfba4d54893e",
+      "sha256": "ee5f453e6ccbaf8e1850635976e6d9b494724e8edfc8298c5d25c82a08cce8e0",
       "executable": false
     },
     "tests/qualification/ui-convergence/link-access-journey.mjs": {
@@ -12260,7 +12260,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/tables-journey.mjs": {
-      "sha256": "e8117e75070f236a26d712e3e505748132068c7fd0f4c21ca8fde14cb3523edd",
+      "sha256": "d81351c012bc1c07dab67ad5196865e1591caad70ada8303a1ca2fb4831d2eea",
       "executable": false
     },
     "tests/qualification/ui-convergence/task-assignment-journey.mjs": {
@@ -12408,11 +12408,11 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "d74430f07716b77458f662a7b5a62f0de4182cf0e7ed500bd207b94c50bb7f84",
+      "sha256": "66bcfd01031e0993bb1ef9f8742eb24957ee77868ea345ef1adb960d8aaae66b",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
-      "sha256": "01de75201f5b840aad1b1bab67fd0c568fdadefc4ed815bb83d6fb43ff6a21ca",
+      "sha256": "79e9a1de367d5b2f05ef44edaaf9bbdc1287763f0b2f7a45d9681766a1593a6e",
       "executable": false
     },
     "tests/requirements/count-registrations.mjs": {
