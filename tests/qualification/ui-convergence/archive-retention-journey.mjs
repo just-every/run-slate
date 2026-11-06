@@ -1,3 +1,4 @@
+import {signInWithOutbox} from '../../e2e/outbox-auth.mjs';
 import assert from 'node:assert/strict';
 import {randomUUID} from 'node:crypto';
 import {expect} from '@playwright/test';
@@ -8,6 +9,11 @@ import {tap,type,checkpoint} from './touch-controls.mjs';
 /** Archive and deletion use the ordinary member's native controls and session. */
 export async function archiveRetentionJourney(state,touch) {
   const {page,context,origin,containerId}=touch;
+  // Earlier native journeys may outlive the sensitive-operation proof window.
+  // Obtain the member's own mailbox proof before the positive deletion path.
+  const {member}=await touch.api('/api/session');
+  const fresh=await signInWithOutbox(origin,member.email);
+  await context.addCookies([{name:'slate_session',value:fresh.cookie.split('=')[1],url:origin}]);
   const f=await retentionFixture({containerId,memberId:'browser-reader',
     request:async(method,route,body)=>{
       // Vocabulary belongs to the workspace owner; all content uses the member.
