@@ -1,0 +1,64 @@
+{
+  "head": "5259bb70e903ce18ec59e5ef31fab3b8bd0c071d",
+  "artifact": {
+    "schema": 1,
+    "commit": "5259bb70e903ce18ec59e5ef31fab3b8bd0c071d",
+    "tree": "79b0f0ae11cc5e89f7e06e9d6944bed530bfb547",
+    "sourceSha256": "578a06cc2adf2c0c8c4a1f3cd94673e072f87bf810afdbe6567dd3d1cfdbd8c2",
+    "lockSha256": "d954efb321d37e3382e63aed7bbbc84e40137199f8936925711d8c43e7bed43e",
+    "outputSha256": "de331b3451a46dbf5dab71a824427329316154edb05e0a1e6f27faed8a40b778"
+  },
+  "focused": {
+    "command": "SLATE_CHROMIUM_PATH=/usr/bin/chromium cloud_run perl -e 'alarm 1200; exec @ARGV' -- node $HOME/rer-consolidation/work/sd-slate-c-f179/packet/address-probe.mjs",
+    "exit": 0,
+    "widths": [
+      1440,
+      390
+    ],
+    "proofs": [
+      {
+        "width": 1440,
+        "address": "/app/templates/01M6QY1R6NTBPB9M2NR49X5DAS",
+        "mutations": 5,
+        "ownerReadbacks": 6,
+        "readerStatuses": [
+          200,
+          404,
+          200,
+          200,
+          200
+        ]
+      },
+      {
+        "width": 390,
+        "address": "/app/templates/01M6QY4PCFFEWHZZDRXWH8S0N9",
+        "mutations": 5,
+        "ownerReadbacks": 6,
+        "readerStatuses": [
+          200,
+          404,
+          200,
+          200,
+          200
+        ]
+      }
+    ]
+  },
+  "phone": {
+    "command": "SLATE_CHROMIUM_PATH=/usr/bin/chromium cloud_run perl -e 'alarm 1200; exec @ARGV' -- node --test --test-concurrency=1 --test-name-pattern 'real core-wiki and touch-member journeys at 390px' tests/qualification/ui-convergence/journeys.test.mjs",
+    "exit": 0,
+    "tests": 1,
+    "passed": 1,
+    "failed": 0,
+    "durationMs": 693975.540283
+  },
+  "desktopIntegration": {
+    "head": "14c03bf3e788d694a06383cfa28c77cb4076ea3b",
+    "test": "TMPL-007 starter templates are found by category; touch spaces, templates, archive and workspace settings work at 1440px",
+    "exit": 0,
+    "tests": 1,
+    "passed": 1,
+    "durationMs": 181511.428062,
+    "note": "No relevant desktop registration, template helper or production byte changed afterward. Final exact-head focused proof is also recorded."
+  }
+}

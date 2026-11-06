@@ -1,0 +1,33 @@
+{
+  "head": "5259bb70e903ce18ec59e5ef31fab3b8bd0c071d",
+  "branch": "cloud/sd-slate-c-f179",
+  "statusRows": 338,
+  "parentTableRows": 698,
+  "candidateTableRows": 698,
+  "statusBefore": {
+    "done": 57,
+    "partial": 240,
+    "missing": 41
+  },
+  "statusAfter": {
+    "done": 57,
+    "partial": 240,
+    "missing": 41
+  },
+  "registrationsBefore": 207,
+  "registrationsAfter": 207,
+  "newRegistrations": 0,
+  "removedAssertions": 0,
+  "generatedViewsCommitted": false,
+  "productionSourceChanged": false,
+  "note": "LINK-001 remains PARTIAL; native authored-template address proof only. Other kinds, references, transitions and profiles remain in the Gap.",
+  "productPushed": true,
+  "pushCommand": "python3 $HOME/rer-consolidation/.tools/cloud-push.py origin cloud/sd-slate-c-f179",
+  "pushExit": 0,
+  "verifyRun": 42182442782,
+  "verifyConclusion": "failure: expected generated-view freshness only",
+  "publicationScan": "Guarded lander duty; not run or claimed complete in cloud",
+  "landing": "Not performed",
+  "runSite": "Pending guarded landing",
+  "commits": 3
+}

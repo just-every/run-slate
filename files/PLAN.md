@@ -1,0 +1,11 @@
+# Slate retained template address plan
+
+Scope: LINK-001 acceptance 1 and 2, authored-template address continuity only. Preserve all acceptance sentences and the existing partial judgment. Other record kinds, reference forms, transitions and profiles remain explicit gaps; queued PAGE-003 and TMPL-001, TMPL-002, TMPL-003 and TMPL-006 remain authoritative. No shared policy or ADMIN-007 boundary changes.
+
+1. Map the existing native scope and starter-template journeys to the selected points. Record the missing retained-address readbacks and current-reader refusal.
+2. Extend templateScopeJourney without a new registration. Retain a single authored-template address through Update from a page, workspace to private container to workspace movement, archive and restore through the existing archived gallery. Reopen and reload after every mutation, correlate native receipts with identity and revision, compare full snapshots and exact populated gallery inventories, and exercise both readable and denied current-reader cases.
+3. Invoke through existing desktop and phone callers. Run touched browser journeys, typecheck and first-party checks. Save actual non-secret probe and browser receipts outside the product repository.
+4. Preserve every parent Status row. Update only LINK-001 supporting evidence and honest remaining gap plus its requirements inventory and journey specification. Do not promote other clauses or change homepage, UI scope, workflow definitions or dependency pins.
+5. Generate and check contract views, restore generated views from main, synchronize integration and regenerate source lock last. Commit with fleet identity and active hooks; inspect all candidate identities and trailers; push only cloud/sd-slate-c-f179 using the fleet push guard.
+6. Merge current main after any published save, regenerate mechanical outputs and retest changed bytes. Discover exact-head Verify through authenticated REST within the ten-call budget. Record status honestly and leave publication scan, landing and Run site to the guarded lander.
+7. Publish the explicitly selected actual report, plan and receipt files to the separate evidence ref. Preserve a verified bundle outside the clone before cleanup and remove the disposable clone only after successful product and evidence custody.

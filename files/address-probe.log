@@ -1,0 +1,12 @@
+PROBE TMPL-006 scope: two readable container Templates tabs and workspace collection -> exact ordered lists, own scope first and other scope absent after reload
+PROBE TMPL-006 move into container: one native Move collection submission -> receipt 01M6QY1R6NTBPB9M2NR49X5DAS, unchanged snapshot and all three collections reconciled after reload
+PROBE TMPL-006 move back to workspace: one native Move collection submission -> receipt 01M6QY1R6NTBPB9M2NR49X5DAS, unchanged snapshot and all three collections reconciled after reload
+PROBE LINK-001 1: Update from a page, move into a private space and back, archive and archived-gallery restore -> /app/templates/01M6QY1R6NTBPB9M2NR49X5DAS reopened and reloaded after every commit, exact populated inventories and snapshot retained
+PROBE LINK-001 2: same template address for owner and current reader -> workspace reads succeed, private-space reads refuse 404 without title or snapshot, returned workspace reads succeed
+FOCUSED_TEMPLATE_WIDTH=1440 PASS
+PROBE TMPL-006 scope: two readable container Templates tabs and workspace collection -> exact ordered lists, own scope first and other scope absent after reload
+PROBE TMPL-006 move into container: one native Move collection submission -> receipt 01M6QY4PCFFEWHZZDRXWH8S0N9, unchanged snapshot and all three collections reconciled after reload
+PROBE TMPL-006 move back to workspace: one native Move collection submission -> receipt 01M6QY4PCFFEWHZZDRXWH8S0N9, unchanged snapshot and all three collections reconciled after reload
+PROBE LINK-001 1: Update from a page, move into a private space and back, archive and archived-gallery restore -> /app/templates/01M6QY4PCFFEWHZZDRXWH8S0N9 reopened and reloaded after every commit, exact populated inventories and snapshot retained
+PROBE LINK-001 2: same template address for owner and current reader -> workspace reads succeed, private-space reads refuse 404 without title or snapshot, returned workspace reads succeed
+FOCUSED_TEMPLATE_WIDTH=390 PASS

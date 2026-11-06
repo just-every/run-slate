@@ -1,0 +1,21 @@
+{
+  "repository": "just-every/run-slate",
+  "head": "5259bb70e903ce18ec59e5ef31fab3b8bd0c071d",
+  "run": 42182442782,
+  "event": "push",
+  "status": "completed",
+  "conclusion": "failure",
+  "url": "https://github.com/just-every/run-slate/actions/runs/42182442782",
+  "cause": "Expected generated-view freshness only",
+  "failedJob": 127774982723,
+  "failedStep": "Run node src/base/runtime/contract-docs.mjs check",
+  "failure": "ACCEPTANCE.md: generated content differs; run contract-docs write.",
+  "stepExit": 1,
+  "aggregateJob": 127775215003,
+  "otherJobs": "Dependency skips; no product assertion failure reported.",
+  "logCommand": "gh run view 42182442782 --repo just-every/run-slate --job 127774982723 --log-failed",
+  "logCommandExit": 0,
+  "readinessPolicy": "The task explicitly permits READY for a Verify failing only on generated contract views. Lander regenerates views and requires exact-head green Verify before landing.",
+  "reruns": 0,
+  "githubCallsUsed": 10
+}

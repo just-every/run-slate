@@ -1,0 +1,83 @@
+{
+  "head": "5259bb70e903ce18ec59e5ef31fab3b8bd0c071d",
+  "rows": [
+    {
+      "check": "typecheck",
+      "command": "pnpm typecheck",
+      "exit": 0,
+      "logBytes": 169,
+      "logSha256": "8c69cf7948116e0bc6592c58795534259ab57651e29b8c718ee734981fe2565e",
+      "tail": [
+        "\u2009WARN\u2009 Unsupported engine: wanted: {\"node\":\"22.20.0\"} (current: {\"node\":\"v24.19.0\",\"pnpm\":\"10.12.4\"})",
+        "",
+        "> slate@0.4.0 typecheck /workspace/slate-f179",
+        "> tsc --noEmit",
+        ""
+      ]
+    },
+    {
+      "check": "build",
+      "command": "cloud_run npx -y @runeditrun/rer build",
+      "exit": 0,
+      "logBytes": 28881,
+      "logSha256": "731ed39819f802707f9928ca2c7d9c180fab440e5b428247dcb63b96f7b21f7f",
+      "tail": [
+        "  \u2026 and 1 more",
+        "See https://rolldown.rs/reference/InputOptions.checks#bundlertimings for more details.",
+        "",
+        "Your application is built",
+        "build: complete (exit 0)"
+      ]
+    },
+    {
+      "check": "firstParty",
+      "command": "npx -y @runeditrun/rer check --profile first-party",
+      "exit": 0,
+      "logBytes": 0,
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "tail": []
+    },
+    {
+      "check": "views",
+      "command": "node src/base/runtime/contract-docs.mjs write && node src/base/runtime/contract-docs.mjs check",
+      "exit": 0,
+      "logBytes": 60,
+      "logSha256": "a0dc3e5a57608862eebb5d81291a8613096d4984f76019b102a0ac55b950fe97",
+      "tail": [
+        "Wrote 1 contract documents.",
+        "Contract documents are current."
+      ]
+    },
+    {
+      "check": "sourceLock",
+      "command": "pnpm source:lock && pnpm source:check",
+      "exit": 0,
+      "logBytes": 1080984,
+      "logSha256": "b4d9f6d347fccb085e3608d8d0c040dea227117911c1d1bb42ddb300600e0604",
+      "tail": [
+        "    }",
+        "  }",
+        "}",
+        "",
+        "Integration resource, migration and source identities match."
+      ]
+    },
+    {
+      "check": "finalSourceCheck",
+      "command": "pnpm source:check",
+      "exit": 0,
+      "logBytes": 540553,
+      "logSha256": "a902c15dcc4599048abba6c081aabf9ad08d8e97af36222b974df0f31fde22b9",
+      "tail": [
+        "    }",
+        "  }",
+        "}",
+        "",
+        "Integration resource, migration and source identities match."
+      ]
+    }
+  ],
+  "generatedViewsRestoredFrom": "origin/main",
+  "generatedViewsCommitted": false,
+  "migrationLedger": "not applicable: no migration changed"
+}

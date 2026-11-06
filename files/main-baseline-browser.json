@@ -1,0 +1,13 @@
+{
+  "head": "93b7327adee97ac0ff691bfb5cbff68f4412a27a",
+  "test": "real core-wiki and touch-member journeys at 390px",
+  "command": "SLATE_CHROMIUM_PATH=/usr/bin/chromium cloud_run perl -e 'alarm 1200; exec @ARGV' -- node --test --test-concurrency=1 --test-name-pattern 'real core-wiki and touch-member journeys at 390px' tests/qualification/ui-convergence/journeys.test.mjs",
+  "exit": 0,
+  "tests": 1,
+  "passed": 1,
+  "failed": 0,
+  "durationMs": 608517.232753,
+  "archiveDeletion": "Passed through native controls with security check retained.",
+  "versionDeletion": "Passed native refusal, tombstone, retained revisions and replay.",
+  "environment": "Same VM, Node 24.19.0 test driver, pinned project build and /usr/bin/chromium as the candidate local run."
+}

@@ -1,0 +1,42 @@
+{
+  "head": "5259bb70e903ce18ec59e5ef31fab3b8bd0c071d",
+  "before": {
+    "ref": "93b7327adee97ac0ff691bfb5cbff68f4412a27a",
+    "registrations": 207,
+    "sites": 203
+  },
+  "after": {
+    "ref": "HEAD",
+    "registrations": 207,
+    "sites": 203
+  },
+  "unresolved": [],
+  "contractHistory": [
+    {
+      "commit": "4ac27fdc6ea0adadc73175b88a8bd58e0b1175a5",
+      "parentTableRows": 698,
+      "candidateTableRows": 698,
+      "allParentIdsRetained": true
+    },
+    {
+      "commit": "14c03bf3e788d694a06383cfa28c77cb4076ea3b",
+      "parentTableRows": 698,
+      "candidateTableRows": 698,
+      "allParentIdsRetained": true
+    },
+    {
+      "commit": "5259bb70e903ce18ec59e5ef31fab3b8bd0c071d",
+      "parentTableRows": 698,
+      "candidateTableRows": 698,
+      "allParentIdsRetained": true
+    }
+  ],
+  "files": [
+    "CONTRACT.md",
+    "sources.lock.json",
+    "tests/qualification/ui-convergence/journeys.test.mjs",
+    "tests/qualification/ui-convergence/template-scope-journey.mjs",
+    "tests/requirements/clause-inventory.json",
+    "tests/requirements/cli-journey.md"
+  ]
+}

@@ -1,0 +1,362 @@
+{
+  "width": 1440,
+  "address": "/app/templates/01M6QY1R6NTBPB9M2NR49X5DAS",
+  "receipts": [
+    {
+      "route": "/api/templates",
+      "status": 201,
+      "value": {
+        "id": "01M6QY1R6NTBPB9M2NR49X5DAS",
+        "revisionId": "01M6QY24RX69CE8KR4BM8CX6T5"
+      },
+      "receipt": {
+        "operationKey": "5915e06e-5d7a-4cf6-98f6-94647cdb39a3",
+        "entity": {
+          "id": "01M6QY1R6NTBPB9M2NR49X5DAS",
+          "kind": "template",
+          "revisionId": "01M6QY24RX69CE8KR4BM8CX6T5"
+        },
+        "revisionId": "01M6QY24RX69CE8KR4BM8CX6T5",
+        "activityId": "01M6QY24RXV14ZCJQEZ8AGK8W7",
+        "committedAt": "2026-11-06T08:02:05.704Z"
+      }
+    },
+    {
+      "route": "/api/templates/01M6QY1R6NTBPB9M2NR49X5DAS/change",
+      "status": 200,
+      "value": {
+        "id": "01M6QY1R6NTBPB9M2NR49X5DAS",
+        "revisionId": "01M6QY2E779P32KB6RGQRK94S0"
+      },
+      "receipt": {
+        "operationKey": "190ae734-0991-4022-a7c3-c6410675ce82",
+        "entity": {
+          "id": "01M6QY1R6NTBPB9M2NR49X5DAS",
+          "kind": "template",
+          "revisionId": "01M6QY2E779P32KB6RGQRK94S0"
+        },
+        "revisionId": "01M6QY2E779P32KB6RGQRK94S0",
+        "activityId": "01M6QY2E77EAYTJS61QQFE3TRW",
+        "committedAt": "2026-11-06T08:02:15.364Z"
+      }
+    },
+    {
+      "route": "/api/templates/01M6QY1R6NTBPB9M2NR49X5DAS/change",
+      "status": 200,
+      "value": {
+        "id": "01M6QY1R6NTBPB9M2NR49X5DAS",
+        "revisionId": "01M6QY2TE1PHZ09R21VV2AGX5B"
+      },
+      "receipt": {
+        "operationKey": "39487cd5-0c55-4c2f-9811-bcd45a2cc351",
+        "entity": {
+          "id": "01M6QY1R6NTBPB9M2NR49X5DAS",
+          "kind": "template",
+          "revisionId": "01M6QY2TE1PHZ09R21VV2AGX5B"
+        },
+        "revisionId": "01M6QY2TE1PHZ09R21VV2AGX5B",
+        "activityId": "01M6QY2TE157H3TFCPJFVQ0MYB",
+        "committedAt": "2026-11-06T08:02:27.899Z"
+      }
+    },
+    {
+      "route": "/api/templates/01M6QY1R6NTBPB9M2NR49X5DAS/change",
+      "status": 200,
+      "value": {
+        "id": "01M6QY1R6NTBPB9M2NR49X5DAS",
+        "revisionId": "01M6QY33SP87HQBX35ETRCNZDQ"
+      },
+      "receipt": {
+        "operationKey": "31c018da-5ca9-43b4-af11-124015f3301a",
+        "entity": {
+          "id": "01M6QY1R6NTBPB9M2NR49X5DAS",
+          "kind": "template",
+          "revisionId": "01M6QY33SP87HQBX35ETRCNZDQ"
+        },
+        "revisionId": "01M6QY33SP87HQBX35ETRCNZDQ",
+        "activityId": "01M6QY33SPWWWXR1TVHEVM28MM",
+        "committedAt": "2026-11-06T08:02:37.453Z"
+      }
+    },
+    {
+      "route": "/api/templates/01M6QY1R6NTBPB9M2NR49X5DAS/change",
+      "status": 200,
+      "value": {
+        "id": "01M6QY1R6NTBPB9M2NR49X5DAS",
+        "revisionId": "01M6QY3E0QRQJFB6ZA2QN3V2DG"
+      },
+      "receipt": {
+        "operationKey": "8c83b04f-5bf0-4b61-8441-9fe1fe66c728",
+        "entity": {
+          "id": "01M6QY1R6NTBPB9M2NR49X5DAS",
+          "kind": "template",
+          "revisionId": "01M6QY3E0QRQJFB6ZA2QN3V2DG"
+        },
+        "revisionId": "01M6QY3E0QRQJFB6ZA2QN3V2DG",
+        "activityId": "01M6QY3E0Q3HR5931WBN4DWVH3",
+        "committedAt": "2026-11-06T08:02:47.955Z"
+      }
+    }
+  ],
+  "readbacks": [
+    {
+      "label": "Created",
+      "path": "/app/templates/01M6QY1R6NTBPB9M2NR49X5DAS",
+      "id": "01M6QY1R6NTBPB9M2NR49X5DAS",
+      "title": "A workspace movable",
+      "revisionId": "01M6QY1R6NHZ3AMZX6NTB88GME",
+      "containerId": null,
+      "archived": false,
+      "snapshot": {
+        "title": "Scope source",
+        "properties": {
+          "icon": null,
+          "coverFileId": null,
+          "labels": [],
+          "typeface": "default",
+          "smallText": false,
+          "fullWidth": false
+        },
+        "blocks": [
+          {
+            "id": "fba52c79-0c4d-49c0-8ac8-5f5668e902c8",
+            "blockType": "paragraph",
+            "content": {
+              "text": [
+                {
+                  "text": "Retained scope snapshot"
+                }
+              ]
+            },
+            "parentBlockId": null,
+            "treePosition": "a0"
+          }
+        ],
+        "children": [],
+        "fieldDefinitions": [],
+        "fileFieldIds": [],
+        "relationFieldIds": []
+      }
+    },
+    {
+      "label": "Workspace reader before changes",
+      "readerStatus": 200,
+      "path": "/app/templates/01M6QY1R6NTBPB9M2NR49X5DAS"
+    },
+    {
+      "label": "Renamed through Update from a page",
+      "path": "/app/templates/01M6QY1R6NTBPB9M2NR49X5DAS",
+      "id": "01M6QY1R6NTBPB9M2NR49X5DAS",
+      "title": "A renamed workspace movable",
+      "revisionId": "01M6QY24RX69CE8KR4BM8CX6T5",
+      "containerId": null,
+      "archived": false,
+      "snapshot": {
+        "title": "Scope source",
+        "properties": {
+          "icon": null,
+          "coverFileId": null,
+          "labels": [],
+          "typeface": "default",
+          "smallText": false,
+          "fullWidth": false
+        },
+        "blocks": [
+          {
+            "id": "fba52c79-0c4d-49c0-8ac8-5f5668e902c8",
+            "blockType": "paragraph",
+            "content": {
+              "text": [
+                {
+                  "text": "Retained scope snapshot"
+                }
+              ]
+            },
+            "parentBlockId": null,
+            "treePosition": "a0"
+          }
+        ],
+        "children": [],
+        "fieldDefinitions": [],
+        "fileFieldIds": [],
+        "relationFieldIds": []
+      }
+    },
+    {
+      "label": "Moved into private Atlas",
+      "path": "/app/templates/01M6QY1R6NTBPB9M2NR49X5DAS",
+      "id": "01M6QY1R6NTBPB9M2NR49X5DAS",
+      "title": "A renamed workspace movable",
+      "revisionId": "01M6QY2E779P32KB6RGQRK94S0",
+      "containerId": "01M6QY1QZVW2NE5D3BNFTNFBX4",
+      "archived": false,
+      "snapshot": {
+        "title": "Scope source",
+        "properties": {
+          "icon": null,
+          "coverFileId": null,
+          "labels": [],
+          "typeface": "default",
+          "smallText": false,
+          "fullWidth": false
+        },
+        "blocks": [
+          {
+            "id": "fba52c79-0c4d-49c0-8ac8-5f5668e902c8",
+            "blockType": "paragraph",
+            "content": {
+              "text": [
+                {
+                  "text": "Retained scope snapshot"
+                }
+              ]
+            },
+            "parentBlockId": null,
+            "treePosition": "a0"
+          }
+        ],
+        "children": [],
+        "fieldDefinitions": [],
+        "fileFieldIds": [],
+        "relationFieldIds": []
+      }
+    },
+    {
+      "label": "Current reader refused after move",
+      "readerStatus": 404,
+      "path": "/app/templates/01M6QY1R6NTBPB9M2NR49X5DAS"
+    },
+    {
+      "label": "Returned to workspace",
+      "path": "/app/templates/01M6QY1R6NTBPB9M2NR49X5DAS",
+      "id": "01M6QY1R6NTBPB9M2NR49X5DAS",
+      "title": "A renamed workspace movable",
+      "revisionId": "01M6QY2TE1PHZ09R21VV2AGX5B",
+      "containerId": null,
+      "archived": false,
+      "snapshot": {
+        "title": "Scope source",
+        "properties": {
+          "icon": null,
+          "coverFileId": null,
+          "labels": [],
+          "typeface": "default",
+          "smallText": false,
+          "fullWidth": false
+        },
+        "blocks": [
+          {
+            "id": "fba52c79-0c4d-49c0-8ac8-5f5668e902c8",
+            "blockType": "paragraph",
+            "content": {
+              "text": [
+                {
+                  "text": "Retained scope snapshot"
+                }
+              ]
+            },
+            "parentBlockId": null,
+            "treePosition": "a0"
+          }
+        ],
+        "children": [],
+        "fieldDefinitions": [],
+        "fileFieldIds": [],
+        "relationFieldIds": []
+      }
+    },
+    {
+      "label": "Current reader restored after move",
+      "readerStatus": 200,
+      "path": "/app/templates/01M6QY1R6NTBPB9M2NR49X5DAS"
+    },
+    {
+      "label": "Archived",
+      "path": "/app/templates/01M6QY1R6NTBPB9M2NR49X5DAS",
+      "id": "01M6QY1R6NTBPB9M2NR49X5DAS",
+      "title": "A renamed workspace movable",
+      "revisionId": "01M6QY33SP87HQBX35ETRCNZDQ",
+      "containerId": null,
+      "archived": true,
+      "snapshot": {
+        "title": "Scope source",
+        "properties": {
+          "icon": null,
+          "coverFileId": null,
+          "labels": [],
+          "typeface": "default",
+          "smallText": false,
+          "fullWidth": false
+        },
+        "blocks": [
+          {
+            "id": "fba52c79-0c4d-49c0-8ac8-5f5668e902c8",
+            "blockType": "paragraph",
+            "content": {
+              "text": [
+                {
+                  "text": "Retained scope snapshot"
+                }
+              ]
+            },
+            "parentBlockId": null,
+            "treePosition": "a0"
+          }
+        ],
+        "children": [],
+        "fieldDefinitions": [],
+        "fileFieldIds": [],
+        "relationFieldIds": []
+      }
+    },
+    {
+      "label": "Archived workspace address",
+      "readerStatus": 200,
+      "path": "/app/templates/01M6QY1R6NTBPB9M2NR49X5DAS"
+    },
+    {
+      "label": "Restored through archived gallery",
+      "path": "/app/templates/01M6QY1R6NTBPB9M2NR49X5DAS",
+      "id": "01M6QY1R6NTBPB9M2NR49X5DAS",
+      "title": "A renamed workspace movable",
+      "revisionId": "01M6QY3E0QRQJFB6ZA2QN3V2DG",
+      "containerId": null,
+      "archived": false,
+      "snapshot": {
+        "title": "Scope source",
+        "properties": {
+          "icon": null,
+          "coverFileId": null,
+          "labels": [],
+          "typeface": "default",
+          "smallText": false,
+          "fullWidth": false
+        },
+        "blocks": [
+          {
+            "id": "fba52c79-0c4d-49c0-8ac8-5f5668e902c8",
+            "blockType": "paragraph",
+            "content": {
+              "text": [
+                {
+                  "text": "Retained scope snapshot"
+                }
+              ]
+            },
+            "parentBlockId": null,
+            "treePosition": "a0"
+          }
+        ],
+        "children": [],
+        "fieldDefinitions": [],
+        "fileFieldIds": [],
+        "relationFieldIds": []
+      }
+    },
+    {
+      "label": "Restored workspace address",
+      "readerStatus": 200,
+      "path": "/app/templates/01M6QY1R6NTBPB9M2NR49X5DAS"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "attempts": [
+    {
+      "head": "4ac27fdc6ea0adadc73175b88a8bd58e0b1175a5",
+      "scope": "new desktop expectation before correction",
+      "command": "SLATE_CHROMIUM_PATH=/usr/bin/chromium cloud_run perl -e 'alarm 1200; exec @ARGV' -- node --test --test-concurrency=1 --test-name-pattern 'TMPL-007 starter templates' tests/qualification/ui-convergence/journeys.test.mjs",
+      "exit": 1,
+      "failure": "Expected 403, actual 404 at readerAddress; native private-container boundary intentionally conceals existence.",
+      "repair": "Corrected new expectation to 404; retained native response and rendered no-content checks."
+    },
+    {
+      "head": "14c03bf3e788d694a06383cfa28c77cb4076ea3b",
+      "scope": "complete local phone registration after selected template assertions passed",
+      "command": "SLATE_CHROMIUM_PATH=/usr/bin/chromium cloud_run perl -e 'alarm 1800; exec @ARGV' -- node --test --test-concurrency=1 --test-name-pattern 'real core-wiki and touch-member journeys at 390px|TMPL-007 starter templates' tests/qualification/ui-convergence/journeys.test.mjs",
+      "exit": 1,
+      "test": "real core-wiki and touch-member journeys at 390px",
+      "durationMs": 619684.804075,
+      "failure": "Touch surfaces have no browser errors or hydration mismatch: permanent-delete: 403; Failed to load resource: 403 (Forbidden).",
+      "selectedTemplateOutcome": "Both LINK-001 probes and the complete retained-address receipt passed before the later archive failure. Desktop registration passed at the same SHA (181511.428062 ms).",
+      "diagnosis": "Permanent deletion requires email proof from the last ten minutes. The same complete phone case passes on main (608517.232753 ms). Moving only the new template readback after existing protected actions produces a complete exact-candidate pass (693975.540283 ms), without changing those assertions or the security check."
+    }
+  ],
+  "finalHead": "5259bb70e903ce18ec59e5ef31fab3b8bd0c071d",
+  "resolved": true
+}

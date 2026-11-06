@@ -1,0 +1,8 @@
+{
+  "path": "/home/agent/rer-consolidation/work/sd-slate-c-f179/product.bundle",
+  "sha256": "85a930b027e042c14c0b93bf9a312bb149b9382058db7d7b227c1270a31b295e",
+  "head": "5259bb70e903ce18ec59e5ef31fab3b8bd0c071d",
+  "basePrerequisite": "93b7327adee97ac0ff691bfb5cbff68f4412a27a",
+  "verified": true,
+  "scope": "All three task commits; published main prerequisite retained by the repository."
+}
