@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "48f41b7025dfdac87e236a7b0956d8749d8be1b2a6d46f4d8cd7bba9d4fa142b",
+      "sha256": "6a02bcecd030534fa50fc78689264fbbbae0047be3aacddfadedac15d24d0612",
       "executable": false
     },
     "DEMO.md": {
@@ -6232,7 +6232,7 @@
       "executable": false
     },
     "src/core/features/databases/discovery.ts": {
-      "sha256": "2f487a3d61c0499f901ac3d1004e9c2677c49a9db940c2131f5a8b69b60a6fb3",
+      "sha256": "6a711c379bdd6c75a009dfc1862b54798a3b6c8d4c4c46a2b1e57291a48d6c50",
       "executable": false
     },
     "src/core/features/databases/evaluation.ts": {
@@ -11292,7 +11292,7 @@
       "executable": false
     },
     "tests/flagship/structured/http.test.ts": {
-      "sha256": "8b4d671a2f2bef8bc93dcbfa6077a36f43d2983192d206f8ffa2359738fa77fe",
+      "sha256": "c65cdbc2d039ddeeb472b011a0b9f4fa111c4bb18171f9e2627d334df6819a07",
       "executable": false
     },
     "tests/flagship/structured/migration.py": {
@@ -12188,7 +12188,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/record-detail-journey.mjs": {
-      "sha256": "50c4f28570d3cf6bdd9e7b2c2bca0438a17b570be69781d6a9a2726c5e060a9c",
+      "sha256": "de059f2acc7d0533af3ea58eb3d8fc15af11c04f7f185af06282906651366965",
       "executable": false
     },
     "tests/qualification/ui-convergence/record-templates-journey.mjs": {
@@ -12416,7 +12416,7 @@
       "executable": false
     },
     "tests/requirements/test-evidence.json": {
-      "sha256": "1b7a994268aecc4ad18d01703d33b17e6bfe24ca2ab8a04ffd833c20995aa762",
+      "sha256": "49857f8f14a0adbb7c19b74bb08b6283272cf3d63f6c86779a3e1384bc77bdc7",
       "executable": false
     },
     "tests/rer/editor.test.mjs": {

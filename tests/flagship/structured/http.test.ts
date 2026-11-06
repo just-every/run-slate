@@ -217,22 +217,30 @@ test("Worker HTTP rejects missing expired revoked and denied sessions and persis
   expect((await call("GET", recordPath, memberCookie)).body.values.related).toEqual(selected);
   const firstPage = (await call("GET", `/pages/${first.pageId}`)).body;
   await mutate("PATCH", `/pages/${first.pageId}`, {expectedRevisionId: firstPage.page.revisionId, properties: {title: "Renamed actual target"}});
-  const hydrated = (await call("POST", "/databases/references", memberCookie, {pageIds: selected})).body.items;
+  const hydrated = (await call("POST", "/databases/references", memberCookie, {pageIds: [...selected, ordinary.pageId, dbPage, "missing-record"]})).body.items;
+  expect(hydrated.map((item: any) => item.id)).toEqual(selected);
   expect(hydrated.find((item: any) => item.id === first.pageId)).toEqual({id: first.pageId, label: "Renamed actual target", kind: "record", url: `/app/databases/${target.id}/records/${first.pageId}`});
   expect((await call("GET", `${targetBase}/records/${first.pageId}`, memberCookie)).body.page.page.title).toBe("Renamed actual target");
   expect((await call("GET", recordPath, memberCookie)).body.values.related).toEqual(selected);
+  const inventory = {id: "relation-inventory", name: "Relation inventory", layout: "table", filters: [], sorts: [], groups: [], calculations: {}, display: {}, position: 0};
+  await mutate("POST", base + "/views", {expectedRevisionId: (await call("GET", base)).body.database.revision_id, view: inventory});
   const snapshot = async () => ({
     record: (await call("GET", recordPath)).body,
     page: (await call("GET", `/pages/${record.pageId}`)).body,
     history: (await call("GET", `/revisions/${record.pageId}`)).body,
     structure: (await call("GET", base)).body,
     activity: (await call("GET", "/activity?limit=100")).body,
+    records: (await call("GET", base + "/views/" + inventory.id)).body,
   });
   for (const [bad, status, code] of [["missing-record", 404, "NOT_FOUND"], [ordinary.pageId, 400, "INVALID_RELATION"], [record.pageId, 400, "INVALID_RELATION"]] as const) {
     const before = await snapshot();
     const refused = await call("PATCH", recordPath, memberCookie, {operationKey: `case:bad-relation-${++operation}`, expectedRevisionId: before.record.revisionId, values: {related: [first.pageId, bad]}});
     expect(refused.status, JSON.stringify(refused.body)).toBe(status);
     expect(refused.body.code).toBe(code);
+    expect(await snapshot()).toEqual(before);
+    const refusedCreate = await call("POST", base + "/records", memberCookie, {operationKey: `case:bad-relation-create-${++operation}`, title: "Refused relation record", values: {related: [first.pageId, bad]}});
+    expect(refusedCreate.status, JSON.stringify(refusedCreate.body)).toBe(status);
+    expect(refusedCreate.body.code).toBe(code);
     expect(await snapshot()).toEqual(before);
   }
   // Restrict one real target, then revoke the independently signed-in reader.
@@ -252,6 +260,9 @@ test("Worker HTTP rejects missing expired revoked and denied sessions and persis
   const refused = await call("PATCH", recordPath, memberCookie, {operationKey: "case:revoked-relation", expectedRevisionId: retainedAfterRevocation.record.revisionId, values: {related: selected}});
   expect(refused.status).toBe(404);
   expect(refused.body.code).toBe("NOT_FOUND");
+  const revokedCreate = await call("POST", base + "/records", memberCookie, {operationKey: "case:revoked-relation-create", title: "Refused revoked target", values: {related: selected}});
+  expect(revokedCreate.status).toBe(404);
+  expect(revokedCreate.body.code).toBe("NOT_FOUND");
   const replay = await call("PATCH", recordPath, memberCookie, selectionInput);
   expect(replay.status).toBe(200);
   expect(replay.body.value.values.related).toEqual([first.pageId]);
