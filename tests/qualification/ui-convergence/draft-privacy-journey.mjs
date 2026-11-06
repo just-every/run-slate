@@ -134,7 +134,7 @@ export async function draftPrivacyJourney(state) {
       assert.deepEqual((await grants()).effectiveItems,[]);
 
       // A workspace owner's settings authority never grants another author's body.
-      await ok(context,origin,'POST','/api/sharing',{operationKey:randomUUID(),targetKind:'container',targetId:containerId,principalKind:'member',principalId:'browser-reader',level:'full'});
+      const authoringGrant=(await ok(context,origin,'POST','/api/sharing',{operationKey:randomUUID(),targetKind:'container',targetId:containerId,principalKind:'member',principalId:'browser-reader',level:'full'})).value.id;
       const memberDraft=await createPage(people.bob.page,origin,containerId,`Member-authored response ${width}`);
       const memberText='A member owns this private draft body.';
       await people.bob.page.getByRole('textbox',{name:'Page body',exact:true}).fill(memberText);
@@ -154,6 +154,7 @@ export async function draftPrivacyJourney(state) {
       await expect(people.bob.page.locator('.page-document')).toContainText(memberText);
       await people.bob.page.screenshot({path:`${directory}/member-author.png`,fullPage:true});
       await page.screenshot({path:`${directory}/refused-owner.png`,fullPage:true});
+      await ok(context,origin,'POST','/api/sharing',{operationKey:randomUUID(),targetKind:'container',targetId:containerId,id:authoringGrant,principalKind:'member',principalId:'browser-reader',level:'full',revoke:true});
     });
     console.log(`PROBE LIFE-002 browser ${width}: native draft creation and saved body -> link alone refused; address grant persisted; named reader read; profile switches retained draft; revoked session refused after reload`);
   } finally {
