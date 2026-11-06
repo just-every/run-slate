@@ -10,7 +10,7 @@ import {pageDetailsJourney} from './page-details-journey.mjs';
 import {syncedCustodyJourney,syncedHistoryJourney,syncedMemberErasureJourney} from './synced-custody.mjs';
 import {peopleJourney} from './people-journey.mjs';
 import {workspaceAuthorityJourney} from './workspace-authority-journey.mjs';
-import {syncedJourney} from './synced-journey.mjs';
+import {syncedJourney,syncedRequestPhoneJourney} from './synced-journey.mjs';
 import {touchDatabaseToolsJourney} from './touch-database-tools-journey.mjs';
 import {archiveRetentionJourney} from './archive-retention-journey.mjs';
 import {touchManagementJourney} from './touch-management-journey.mjs';
@@ -83,7 +83,7 @@ for (const width of [390, 1440]) {
   test(`real core-wiki and touch-member journeys at ${width}px`, { timeout: width === 390 ? 780000 : 720000 }, async () => {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
-      if(width===390)await transferJobsJourney(state);
+      if(width===390){await transferJobsJourney(state);await syncedRequestPhoneJourney(state);}
       const refused = await state.context.request.get(state.origin + '/api/ai/availability');
       assert.equal(refused.status(), 403);
       assert.equal((await refused.json()).code, 'FEATURE_DISABLED');

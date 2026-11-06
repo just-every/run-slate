@@ -226,3 +226,26 @@ The matching Workers registration in `tests/e2e/imports/preview-undo.test.ts` ru
 The same native journey also expires a mapped guest after request validation and before the actual Apply transaction: the transaction refuses and the selected native state remains unchanged. The same responsive Settings journey expires its reviewed destination after completion, shows that the mapped principal is no longer available while retaining the exact source-ID choice, and refuses that person's native page reads before restoring the identity fixture. No registration or prior assertion is removed or narrowed.
 
 Changing the reviewed destination's membership invalidates its old native session. The browser fixture therefore obtains a fresh native sign-in after restoring membership, updates its retained reader cookie, and verifies the restored reader through the current-member route. It never clears a session revocation or rewinds the membership authority version. Following Settings and authority journeys retain their original assertions and use the fresh session.
+
+
+## Synced paragraph access requests
+
+The existing desktop review-request registration calls `syncedJourney` in
+`./tests/qualification/ui-convergence/synced-journey.mjs`. A member can read a copy
+without its source title, body, author, icon or source link. The native Request
+access button returns a generic receipt. A second native action uses a different
+operation key; both that request and a replay leave one notice for a current
+full-access grantor. Native source, copy and sharing readbacks stay unchanged.
+The source still refuses access, and the copy remains content-free after reload.
+Only an explicit source grant reveals the live content; revocation hides it again.
+The existing Workers tables registration checks the native session, complete
+protected table inventories, durable distinct request receipts and one outbox
+recipient, including an absent-record request with the same generic response.
+
+The existing phone core registration calls `syncedRequestPhoneJourney` from the
+same file. Its view-only reader reaches the request on a 390px screen, sees the
+receipt and then reads the source after an explicit grant. The changed denied
+and granted screens are captured at 1440 and 390 with overflow and accessibility
+checks. Existing static audience, erasure, trash, deletion and immutable-history
+proofs remain active. No test registration or acceptance point is added, and
+BLOCK-011 stays partial for other synced kinds and incumbent imports.
