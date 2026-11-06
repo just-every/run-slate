@@ -5108,7 +5108,7 @@
       "executable": false
     },
     "seed.json": {
-      "sha256": "c5811bc959261515409024e89e3af09da8664e10ded4ff3841ebf6e5a410475b",
+      "sha256": "181402e9191bc202e2416283d04dc55f5402f335073c7d84069df99575194991",
       "executable": false
     },
     "src/base/runtime/contract-docs.mjs": {
@@ -5348,7 +5348,7 @@
       "executable": false
     },
     "src/core/app/styles/features.css": {
-      "sha256": "8b17621e560a5dfa93696f1c7304447ed09072a45acc4fb17d3a6307a6fb4d63",
+      "sha256": "06a8c8db76ce1f5dd71c67caf66724290254ed59dc0625e9311769e1e5cf2dbb",
       "executable": false
     },
     "src/core/app/styles/forms.css": {
@@ -5656,11 +5656,11 @@
       "executable": false
     },
     "src/core/features/activity/service.ts": {
-      "sha256": "5f1879cafc363e14ff6dc701d92f526451ad316ad10f656f9e098325e6c42e13",
+      "sha256": "1388defbe6e65d2914fe9890c0d1e6d545c2622ee3d89ce7f1e81e29dd20a214",
       "executable": false
     },
     "src/core/features/activity/ui/workspace/ActivityWorkspace.tsx": {
-      "sha256": "4efdb35ac850e2aff27a9d4633978ffd2b93c9955aaaba47c7eb39de79c8921b",
+      "sha256": "ac4080791721e0604b03bcaacfd9cfbc97c071c659e11b6e3cf43d2799120746",
       "executable": false
     },
     "src/core/features/ai/allowance.ts": {
@@ -5816,7 +5816,7 @@
       "executable": false
     },
     "src/core/features/archive/erasure-member.ts": {
-      "sha256": "2f11b294764fd312b1a96fc4eeab563e2c8b14960f33ede28ecbd5dac67ec6f9",
+      "sha256": "0c37f234f1e89ce84fa7897ab6c70b8d56e93351ac367bdcdf03b63571e1b091",
       "executable": false
     },
     "src/core/features/archive/erasure-references.ts": {
@@ -8060,7 +8060,7 @@
       "executable": false
     },
     "src/core/features/notifications/events.ts": {
-      "sha256": "4c6362787de9ec10eeefe16656f7ef4553534b3fe48c31237d2c5a7ff163dfd8",
+      "sha256": "3c4deea01b5028f07b5f9de5dc4c0a77ccfa895acb80f44953c972c7acc32fc1",
       "executable": false
     },
     "src/core/features/notifications/following.ts": {
@@ -8092,7 +8092,7 @@
       "executable": false
     },
     "src/core/features/notifications/service.ts": {
-      "sha256": "5c636fb82d8fd2ed14fcc0bd598db7e391b80c59256ec3977847bbe5def4fc80",
+      "sha256": "cc49d03331fe456f125b3207e0808d9635c5c478117712b7cebe4304db78e101",
       "executable": false
     },
     "src/core/features/notifications/slack.ts": {
@@ -8112,11 +8112,11 @@
       "executable": false
     },
     "src/core/features/notifications/ui/WorkspaceInbox.tsx": {
-      "sha256": "4f6dc78925ba1bc4d38bf83d35d5d97eeb3828735de2b1df2ef213a9cf2204f8",
+      "sha256": "a40682d49792ab74c7ffaecbbf993df92b6622cede551f7f054d54f530dfc510",
       "executable": false
     },
     "src/core/features/notifications/visibility.ts": {
-      "sha256": "b26aef5f152a92df61119491c0214e9b2670d0cc6fd414613d2df78754de07d9",
+      "sha256": "0af92781067ca3d8cfb16fec58449d04e71834ecc185b51c91235fd2b13bf015",
       "executable": false
     },
     "src/core/features/notifications/watched-changes.ts": {
@@ -8468,7 +8468,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageSharing.tsx": {
-      "sha256": "344c0d2ce908b15a102062be1cd676baf78b6f8ae2872b1f3cb8b4cf5215d7e7",
+      "sha256": "d6f2da8a9f06bfcbcf3ec84dd06805cc001315e39662aef2204b57b15f163e6b",
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageStatusBadge.tsx": {
@@ -9379,6 +9379,10 @@
       "sha256": "c70bfb41ecb96f8ef8ba5bf397a4de323791302775eb191c62e1dfdd31dcd496",
       "executable": false
     },
+    "src/core/features/sharing/message.ts": {
+      "sha256": "c06c50dae5ffac43a87021c3d47a04cec525e2b074e979c40f1c968d1a7bf2a6",
+      "executable": false
+    },
     "src/core/features/sharing/recipients.ts": {
       "sha256": "f452b6b3850c2c699d18a28065415f503d7d22063176a53b2dd603945e757dcf",
       "executable": false
@@ -9388,11 +9392,15 @@
       "executable": false
     },
     "src/core/features/sharing/routes.ts": {
-      "sha256": "4e6024fa7509a83712ef8d7b5282fd87d53adb1ef1cc071a2a4f33eacd2e8eb4",
+      "sha256": "7e565f7a846b178c2702a3283555cac0ae2d59d8f117c8a672e2d9e154ba4f61",
       "executable": false
     },
     "src/core/features/sharing/ui/AccessRequestHandler.tsx": {
       "sha256": "cae926814073d92b01cc5761edc27f60f3b70f5250307b9e0a6dfe9e3004a68d",
+      "executable": false
+    },
+    "src/core/features/sharing/ui/ShareMessage.tsx": {
+      "sha256": "808672f98e5a5513a688277e3579e5f73dfcf72c31ad78a15466f4bb14ce7a94",
       "executable": false
     },
     "src/core/features/skills/activity.ts": {

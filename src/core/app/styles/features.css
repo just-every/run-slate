@@ -225,3 +225,8 @@
     grid-template-columns: 110px minmax(0, 1fr);
   }
 }
+
+.share-message-text {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}

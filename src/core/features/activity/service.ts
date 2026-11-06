@@ -25,7 +25,7 @@ export async function activity(ctx:FeatureContext,input:ActivityInput={}){
   const candidateRevision=detail.revisionId??(row.target_kind==='revision'?row.target_id:undefined);
   const revisionId=pageId && !detail.grantId && ['page','revision'].includes(row.target_kind) && candidateRevision
    ? (await ctx.db.prepare('SELECT id FROM page_revisions WHERE id=? AND page_id=?').bind(candidateRevision,pageId).first<{id:string}>())?.id : undefined;
-  items.push({id:row.id,actor,feature:row.feature,action:row.action,target:{kind:row.target_kind,id:row.target_id},occurredAt:row.occurred_at,operationKey:row.operation_key,automationRunId:row.automation_run_id,aiRunId:row.ai_run_id,deleted:!!page?.deleted_at,context:page?.deleted_at?{}:{pageId,commentId:detail.commentId??(row.target_kind==='comment'?row.target_id:undefined),threadId:row.target_kind==='comment-thread'?row.target_id:undefined,revisionId,grantId:detail.grantId},explanation:page?.deleted_at?'The underlying page was erased; only this activity record remains.':undefined});if(items.length>limit)break;
+  items.push({id:row.id,actor,feature:row.feature,action:row.action,target:{kind:row.target_kind,id:row.target_id},occurredAt:row.occurred_at,operationKey:row.operation_key,automationRunId:row.automation_run_id,aiRunId:row.ai_run_id,deleted:!!page?.deleted_at,context:page?.deleted_at?{}:{pageId,commentId:detail.commentId??(row.target_kind==='comment'?row.target_id:undefined),threadId:row.target_kind==='comment-thread'?row.target_id:undefined,revisionId,grantId:detail.grantId},shareMessage:!page?.deleted_at&&row.actor_member_id===ctx.actor.id&&row.action==='sharing.message'?detail.shareMessage:undefined,explanation:page?.deleted_at?'The underlying page was erased; only this activity record remains.':undefined});if(items.length>limit)break;
  }
  const hasMore=items.length>limit;if(hasMore)items.pop();const last=items.at(-1);return {items,nextCursor:hasMore&&last?encodeCursor({at:last.occurredAt,id:last.id,ceiling:cursor.ceiling}):undefined};
 }
@@ -33,7 +33,7 @@ export async function activity(ctx:FeatureContext,input:ActivityInput={}){
 /** Both the timeline and integrations use this exact target/source visibility boundary. */
 async function activityVisibility(ctx:FeatureContext,row:Row,pageId?:string,allowedPage?:boolean){
  const allowed=pageId?(allowedPage??(await resolveCurrentAccessMany(ctx,[pageId],{includeDeleted:true,includeTrashed:true})).get(pageId)?.decision.allowed):resolvers.has(row.target_kind)?await resolvers.get(row.target_kind)!(ctx,row.target_id):await readableTarget(ctx,row.target_kind,row.target_id);
- const detail=JSON.parse(row.detail_json) as {commentId?:string;revisionId?:string;grantId?:string;sourcePageIds?:string[]};
+ const detail=JSON.parse(row.detail_json) as {commentId?:string;revisionId?:string;grantId?:string;sourcePageIds?:string[];shareMessage?:string};
  if(!allowed)return {allowed:false,detail};
  for(const id of detail.sourcePageIds??[])if(!await readableTarget(ctx,'page',id))return {allowed:false,detail};
  return {allowed:true,detail};

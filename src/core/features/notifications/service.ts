@@ -13,6 +13,11 @@ export async function visibleNotification(ctx:FeatureContext,row:NotificationRow
  if(!await eventReadable(ctx,{event:row.event,page_id:row.source_page_id,container_id:row.source_container_id,detail_json:row.detail_json}))return;
  const title=row.event==='saml-domain-failed'?'SAML domain verification failed':row.event==='backup-failed'?'Scheduled backup failed':row.source_page_id?await currentPageTitle(ctx,row.source_page_id,{includeTrashed:row.event==='page-trashed'}):row.source_container_id?(await ctx.db.prepare('SELECT name AS title FROM containers WHERE id=?').bind(row.source_container_id).first<{title:string}>())?.title??null:null;
  const detail=JSON.parse(row.detail_json);
+ if(row.event==='share-message'&&detail.shareMessage){
+  const sender=await ctx.db.prepare("SELECT id,display_name AS displayName FROM members WHERE id=? AND workspace_id=? AND status='active'").bind(detail.shareMessage.senderMemberId,ctx.actor.workspaceId).first<{id:string;displayName:string}>();
+  if(!sender)return;
+  detail.shareMessage={message:detail.shareMessage.message,sender};
+ }
  return {id:row.id,event:row.event,pageId:row.source_page_id,containerId:row.source_container_id,commentId:row.comment_id,title,detail,createdAt:row.created_at,readAt:row.read_at,audience:row.audience,href:row.event==='maintenance'&&detail.runId?`/app/runs/${encodeURIComponent(detail.runId)}`:row.event==='saml-domain-failed'?'/app/settings?section=saml':row.event==='backup-failed'?'/app/settings?section=portability':row.event==='page-trashed'?'/app/archive':row.source_page_id?`/app/pages/${row.source_page_id}${row.comment_id?`?comment=${row.comment_id}`:detail.blockId?`#block-${encodeURIComponent(detail.blockId)}`:''}`:row.source_container_id?`/app/containers/${row.source_container_id}`:'/app',period:row.created_at.slice(0,10)};
 }
 export async function notificationList(ctx:FeatureContext,input:{cursor?:string;limit?:number;audience?:'direct'|'watched';archived?:boolean}={}) {

@@ -1,3 +1,4 @@
+import { ShareMessage } from "../../../sharing/ui/ShareMessage";
 import { AccessExpiry } from "../../../../app/ui/AccessExpiry";
 import { displayDate } from "../../../../app/ui/displayDate";
 import { useEffect, useState } from "react";
@@ -210,6 +211,7 @@ export function PageSharing({ document, address }: { document: DocumentView; add
               Share page
             </button>
           </form>
+          <ShareMessage pageId={document.page.id} members={members.data?.items ?? []} senderId={member.id} onSent={() => { grants.reload(); window.dispatchEvent(new Event("slate:navigation-changed")); }} />
           <details><summary>Invite by email</summary><form className="detail-form" onSubmit={async event=>{event.preventDefault();const data=new FormData(event.currentTarget);setPending(true);setError(undefined);try{await mutate("/api/invitations",{operationKey:operationKey(),email:String(data.get("email")),kind:"guest",pageId:document.page.id,level:String(data.get("level")),expiresAt:data.get("expires")?new Date(String(data.get("expires"))).toISOString():null});setInvited(String(data.get("email")));grants.reload();}catch(error){setError(error);}finally{setPending(false);}}}><label>Email address<input name="email" type="email" required/></label><label>Invitation access<select name="level" defaultValue="view">{grants.data?.levels?.map(level=><option key={level} value={level}>{accessLabel(level)}</option>)}</select></label><details><summary>Set an access expiry</summary><label>Guest access expires<AccessExpiry name="expires"/></label></details><p>Sending creates a pending invitation. Access begins only when it is accepted; the invitation expires after 7 days.</p><button disabled={pending}>Send invitation</button>{invited?<p role="status">{`Invitation sent to ${invited}`}</p>:null}</form></details>
           <details className="advanced-access"><summary>Advanced access</summary>
           <p>{document.permissions.level === "full" ? "You can manage access to this page." : `You can ${accessLabel(document.permissions.level).toLowerCase()} ${document.permissions.level === "comment" ? "on " : ""}this page.`}</p><p>{grants.data?.restricted?'Only people invited directly can access this page.':'People with access to the parent page or space can also access this page.'}</p>
