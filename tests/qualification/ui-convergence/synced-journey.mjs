@@ -48,7 +48,9 @@ export async function syncedJourney(state,width){
   const notice=(await api('/api/notifications')).items.filter(item=>item.event==='access-requested'&&item.pageId===source);assert.equal(notice.length,1);assert.deepEqual(notice[0].detail,{requesterMemberId:await readerId});
   assert.equal((await call(reader,origin,'GET',`/api/pages/${source}`)).status,404);
   const deniedDocument=await ok(reader,origin,'GET',`/api/pages/${copies[0]}`);
-  assert.deepEqual(deniedDocument.blocks[0].synced,{state:'access-needed'});
+  const deniedReference=deniedDocument.blocks.find(block=>block.blockType==='synced-reference');
+  assert.ok(deniedReference,'The readable copy retains its synced reference.');
+  assert.deepEqual(deniedReference.synced,{state:'access-needed'});
   assert.ok(!JSON.stringify(deniedDocument).includes(title)&&!JSON.stringify(deniedDocument).includes(changed),'The native copy readback carries no source title or body.');
   await denied.reload({waitUntil:'networkidle'});await expect(access).toBeVisible();await expect(denied.locator('body')).not.toContainText(changed);await expect(denied.locator('body')).not.toContainText(title);
   await checkpoint(denied,'synced access request received');
