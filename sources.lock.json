@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "c57fc1007b3c71dfc1d163f45d74a7e3a1593fc035f231a2e836787d3d325515",
+      "sha256": "00f125915a81d6952f6cdb0dd83b5c1c2c6ab63c272730b48f679f4956fe80a5",
       "executable": false
     },
     "DEMO.md": {
@@ -4620,11 +4620,11 @@
       "executable": false
     },
     "package.json": {
-      "sha256": "4dc738d494eec95fe589885601d277f6d3287941c17849f5f1aa583b2148c41f",
+      "sha256": "56045d5ff1fa381e674e1b81d73e7fe707427dbe478681f34238053547f837cd",
       "executable": false
     },
     "pnpm-lock.yaml": {
-      "sha256": "13dba99e2ce491e5cea95ddb529db1db0493506020cda3fc5f8ed98fb224be71",
+      "sha256": "5064c62fd026432cc732f9b938463a9de45f466df458d50be3271372bc1f1505",
       "executable": false
     },
     "pnpm-workspace.yaml": {
@@ -9723,6 +9723,10 @@
       "sha256": "20aadf0587aa41068993d3e493ede096839c9c7b1fb52c2b67c0e29b87caefe9",
       "executable": false
     },
+    "src/core/features/workspace-export/docx-layout.ts": {
+      "sha256": "45e2d6515280382a0dce25a741189b9f614112325484f881075d4cc494aaade3",
+      "executable": false
+    },
     "src/core/features/workspace-export/docx-media.ts": {
       "sha256": "d6f5e374460a4e22cc2c532f73e3765f87fe8c6bd6ca1be072138e20b615d57c",
       "executable": false
@@ -9740,7 +9744,7 @@
       "executable": false
     },
     "src/core/features/workspace-export/docx.ts": {
-      "sha256": "d85c3b210d2b49a76b5716005b14f955868ae320d5dae1c28b79073465c6e9cd",
+      "sha256": "a9f9338b3244250295767b105d29c0a47c6332495f68886a7a61a82e9566249a",
       "executable": false
     },
     "src/core/features/workspace-export/html.ts": {
@@ -10420,7 +10424,7 @@
       "executable": false
     },
     "tests/e2e/editor/columns-case.ts": {
-      "sha256": "7067ffd4ba32571ca8971f1046537fcf10078128b2fbda4b872f15dfbd1bc4ce",
+      "sha256": "8d48f9f99269f449bac1d69ac7e80699a4d80317050525839adf745ef18b4a68",
       "executable": false
     },
     "tests/e2e/editor/embed-refusals-journey.ts": {
@@ -11375,6 +11379,14 @@
       "sha256": "c7d46426691e5e0a4aff99c8014bad22425713ddf0d67921a8f7d86c80b5b288",
       "executable": false
     },
+    "tests/helpers/word-columns-fixture.d.mts": {
+      "sha256": "1eff77bb3fd011c09d8538c0ec38ad755a896d22e837cf46cabf985d424c225e",
+      "executable": false
+    },
+    "tests/helpers/word-columns-fixture.mjs": {
+      "sha256": "1d668e1eb6e5d712db1271754bffc41f4fa6deb8ed3a6467cc98ff853590e490",
+      "executable": false
+    },
     "tests/installer/helpers.mjs": {
       "sha256": "4283e92e295032fed086a04a7f29d8d17a270538e28e36fa786f71f202f25db9",
       "executable": false
@@ -11924,7 +11936,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/columns-journey.mjs": {
-      "sha256": "9842535ecf7e27e59d6bb3fca57d8d1c64ab29149d45743f3c9c5d0d9cd0d19f",
+      "sha256": "c4f61e5fddf1e188bedc89f80673f3ed970b878ccd4b07ec694e6c07f046a443",
       "executable": false
     },
     "tests/qualification/ui-convergence/comment-anchors.mjs": {
@@ -12419,6 +12431,10 @@
       "sha256": "3f0dfbce6d93dd7be4879cce565407e42d24cc39454df0c47fbf22d40828fcba",
       "executable": false
     },
+    "tests/qualification/ui-convergence/word-columns-journey.mjs": {
+      "sha256": "9409ac84b179c03bb290a943d0ccba75c9ac05774d5edbb0f356dfce36fdec80",
+      "executable": false
+    },
     "tests/qualification/ui-convergence/workspace-authority-journey.mjs": {
       "sha256": "2b3165cb2a450be99323d087d0e58329ff188c6b87959b434ef942171565cbf6",
       "executable": false
@@ -12456,7 +12472,7 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "e0c3e2355ca049ea3d48e9c55b22d421f2b10a91ac6e7da3c5ef2a37b97ea180",
+      "sha256": "8f5b151e95defa230f024774664ad9d998a9e00c0cfbdb51118f1a5bc2e8a848",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
@@ -12472,7 +12488,7 @@
       "executable": false
     },
     "tests/requirements/test-evidence.json": {
-      "sha256": "1ee71543f0df92b8cd8ece9911aedea66e1556eb659f63d38dd0946a078a9817",
+      "sha256": "2820b7b5106d1e5ce7470e095a48bc926813d7530a69fd5d64af486fbc9811b2",
       "executable": false
     },
     "tests/rer/editor.test.mjs": {

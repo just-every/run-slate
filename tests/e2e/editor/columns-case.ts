@@ -1,5 +1,8 @@
 import {expect} from 'vitest';
 import {zipSync,strToU8,unzipSync} from 'fflate';
+import {DOMParser} from '@xmldom/xmldom';
+import {XMLValidator} from 'fast-xml-parser';
+import {wordColumnsFixture} from '../../helpers/word-columns-fixture.mjs';
 
 /** Layout validation, format preservation and source imports through HTTP doors. */
 export async function columnsCase(request:(method:string,path:string,body?:unknown,actor?:'owner'|'reader'|'public')=>Response|Promise<Response>,containerId:string,ownerId:string){
@@ -65,6 +68,45 @@ export async function columnsCase(request:(method:string,path:string,body?:unkno
   expect(imported.blocks.filter((b:any)=>b.parentBlockId===group.id&&b.blockType==='column')).toHaveLength(count);
  }
  expect(docs.filter(d=>d.blocks.some((b:any)=>b.blockType==='columns'&&b.content.count===3))).toHaveLength(6);
+ // Exercise real export for every supported width without replacing the
+ // existing order, import, copy, revision, comment or access assertions.
+ const corpus=wordColumnsFixture(()=>crypto.randomUUID());
+ const layoutPage=await json('POST','/pages',{operationKey:crypto.randomUUID(),containerId,title:'Word column handover',blocks:corpus.blocks});
+ const output=await request('POST','/exports/readable',{scope:'page',id:layoutPage.value.pageId,format:'docx',includeComments:false});
+ expect(output.status).toBe(200);
+ const xml=new TextDecoder().decode(unzipSync(new Uint8Array(await output.arrayBuffer()))['word/document.xml']);
+ expect(XMLValidator.validate(xml)).toBe(true);
+ const decoded=new DOMParser().parseFromString(xml,'application/xml');
+ const pageSize=decoded.getElementsByTagName('w:pgSz')[0]!,margins=decoded.getElementsByTagName('w:pgMar')[0]!;
+ const availableWidth=Number(pageSize.getAttribute('w:w'))-Number(margins.getAttribute('w:left'))-Number(margins.getAttribute('w:right'));
+ const tables=Array.from(decoded.getElementsByTagName('w:tbl'));
+ expect(tables).toHaveLength(4);
+ let previous=xml.indexOf(corpus.before);
+ for(const [index,section] of corpus.sections.entries()){
+  const table=tables[index]!,cells=Array.from(table.getElementsByTagName('w:tc'));
+  expect(cells).toHaveLength(section.count);
+  expect(table.getElementsByTagName('w:tr').length).toBe(1);
+  expect(table.getElementsByTagName('w:cantSplit').length).toBe(0);
+  expect(table.getElementsByTagName('w:trHeight').length).toBe(0);
+  expect(table.getElementsByTagName('w:noWrap').length).toBe(0);
+  expect(table.getElementsByTagName('w:tblLayout')[0]!.getAttribute('w:type')).toBe('fixed');
+  const grid=Array.from(table.getElementsByTagName('w:gridCol')).map(node=>Number(node.getAttribute('w:w')));
+  expect(grid).toHaveLength(section.count);
+  expect(grid.reduce((sum,width)=>sum+width,0)).toBe(availableWidth);
+  expect(Math.max(...grid)-Math.min(...grid)).toBeLessThanOrEqual(1);
+  for(const [cellIndex,cell] of cells.entries()){
+   const expected=section.cells[cellIndex]!;
+   expect(Array.from(cell.getElementsByTagName('w:t')).map(node=>node.textContent).join('')).toBe(expected.heading+expected.text.replaceAll('\n','')+expected.end);
+   expect(cell.getElementsByTagName('w:vAlign')[0]!.getAttribute('w:val')).toBe('top');
+   expect(cell.getElementsByTagName('w:pStyle')[0]!.getAttribute('w:val')).toBe(`Heading${expected.level}`);
+   expect(Number(cell.getElementsByTagName('w:tcW')[0]!.getAttribute('w:w'))).toBe(grid[cellIndex]);
+   expect(cell.lastChild!.nodeName).toBe('w:p');
+   expect(xml.indexOf(expected.heading)).toBeGreaterThan(previous);
+   previous=xml.indexOf(expected.end);
+  }
+  expect(xml.indexOf(section.after)).toBeGreaterThan(previous);
+  previous=xml.indexOf(section.after);
+ }
  const copied=await json('POST',`/pages/${pageId}/duplicate`,{operationKey:crypto.randomUUID(),containerId});
  const copy=await json('GET',`/pages/${copied.value.pageId}`);
  expect(copy.blocks.filter((b:any)=>b.blockType==='column')).toHaveLength(3);
