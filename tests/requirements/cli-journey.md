@@ -233,7 +233,7 @@ AUTO-008 acceptance 1, native automation rules only: `automationRestartJourney` 
 This is supporting evidence only for AUTO-008 as a whole. Owner Home failure and stuck projection, explicit stop and cancellation, other background-job families, full owner, due, progress, failure and resolution semantics and complete message, record and issue deduplication remain omitted and unproven. Connector, agent, provider, ADMIN-007 and shared company-policy prerequisites remain authoritative.
 ## Selected referential restore
 
-`referentialRestore` proof is folded into `transferJobsJourney` in
+The PORT-002 proof is folded into `transferJobsJourney` in
 `./tests/qualification/ui-convergence/transfer-jobs-journey.mjs` by the focused
 `prepareReferentialRestore` and `proveReferentialRestore` helpers in
 `./tests/qualification/ui-convergence/referential-restore-journey.mjs`.

@@ -1659,7 +1659,7 @@
       "id": "PORT-002",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of PORT-002 — Referential restore. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Selected ordinary subtree native restore proof is loaded by the existing Node browser callers described in tests/requirements/cli-journey.md, outside this Workers-only registry. Every other record family, unselected link, mention, anchor and file form, public slugs, complete principal, revision and grant inventories, imported-original custody and universal same-record resolution remain unproven; CONTRACT.md retains PARTIAL.",
       "supportingTests": [
         {
           "file": "tests/flagship/federation/federation.test.ts",
