@@ -1,0 +1,5 @@
+PROBE LIFE-002 1: native author, address grant and group sessions -> exact body and persisted grants; owner and outsider refused; same sessions refused after full revocation, replay unchanged
+PROBE LIFE-002 2: both access profiles -> general grants and anonymous publication refused; content, grants, exposures, receipts and activity unchanged
+PROBE LIFE-002 4: native lifecycle profile switches -> retained draft and named grants unchanged, author and grantees read, owner and anonymous refused
+PROBE LIFE-002 browser 1440: native draft creation and saved body -> link alone refused; address grant persisted; named reader read; profile switches retained draft; revoked session refused after reload
+PROBE LIFE-002 browser 390: native draft creation and saved body -> link alone refused; address grant persisted; named reader read; profile switches retained draft; revoked session refused after reload

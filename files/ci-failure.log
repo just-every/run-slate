@@ -1,0 +1,21 @@
+verify (app)	Run node src/base/runtime/contract-docs.mjs check	﻿2026-11-06T02:38:42.2322750Z ##[group]Run node src/base/runtime/contract-docs.mjs check
+verify (app)	Run node src/base/runtime/contract-docs.mjs check	2026-11-06T02:38:42.2323053Z [36;1mnode src/base/runtime/contract-docs.mjs check[0m
+verify (app)	Run node src/base/runtime/contract-docs.mjs check	2026-11-06T02:38:42.2340497Z shell: /usr/bin/bash -e {0}
+verify (app)	Run node src/base/runtime/contract-docs.mjs check	2026-11-06T02:38:42.3405281Z ACCEPTANCE.md: generated content differs; run contract-docs write.
+verify (app)	Run node src/base/runtime/contract-docs.mjs check	2026-11-06T02:38:42.3490040Z ##[error]Process completed with exit code 1.
+verify	Require the plan and every expected job	﻿2026-11-06T02:38:50.0707354Z ##[group]Run set -euo pipefail
+verify	Require the plan and every expected job	2026-11-06T02:38:50.0708085Z [36;1mset -euo pipefail[0m
+verify	Require the plan and every expected job	2026-11-06T02:38:50.0708727Z [36;1mtest "$PLAN" = success[0m
+verify	Require the plan and every expected job	2026-11-06T02:38:50.0709493Z [36;1mif [ "$SKIP" = true ]; then exit 0; fi[0m
+verify	Require the plan and every expected job	2026-11-06T02:38:50.0710279Z [36;1m# Dispatch has always been the installer/local-only entry point.[0m
+verify	Require the plan and every expected job	2026-11-06T02:38:50.0711170Z [36;1mif [ "$EVENT" != workflow_dispatch ]; then[0m
+verify	Require the plan and every expected job	2026-11-06T02:38:50.0711997Z [36;1m  for result in "$APP" "$SHARDS" "$CONTRACT"; do test "$result" = success; done[0m
+verify	Require the plan and every expected job	2026-11-06T02:38:50.0712751Z [36;1mfi[0m
+verify	Require the plan and every expected job	2026-11-06T02:38:50.0713655Z [36;1mif [ "$EVENT" = schedule ] || [ "$EVENT" = workflow_dispatch ] || [[ "$REF" == refs/tags/* ]]; then[0m
+verify	Require the plan and every expected job	2026-11-06T02:38:50.0714476Z [36;1m  test "$LOCAL" = success[0m
+verify	Require the plan and every expected job	2026-11-06T02:38:50.0715028Z [36;1mfi[0m
+verify	Require the plan and every expected job	2026-11-06T02:38:50.0715641Z [36;1mif [ "$EVENT" = schedule ] || [[ "$REF" == refs/tags/* ]]; then[0m
+verify	Require the plan and every expected job	2026-11-06T02:38:50.0716322Z [36;1m  test "$SCALE" = success[0m
+verify	Require the plan and every expected job	2026-11-06T02:38:50.0717019Z [36;1mfi[0m
+verify	Require the plan and every expected job	2026-11-06T02:38:50.1466634Z shell: /usr/bin/bash -e {0}
+verify	Require the plan and every expected job	2026-11-06T02:38:50.1727074Z ##[error]Process completed with exit code 1.

@@ -1,0 +1,46 @@
+{
+  "head": "1be866b3fd9deb4be4fa131a4a350562eba2ac2a",
+  "source_lock": {
+    "command": "pnpm source:lock && pnpm source:check",
+    "exit": 0
+  },
+  "views": {
+    "command": "node src/base/runtime/contract-docs.mjs write && node src/base/runtime/contract-docs.mjs check",
+    "exit": 0,
+    "restored_from": "origin/main",
+    "committed": false
+  },
+  "ledger": {
+    "command": null,
+    "exit": 0,
+    "reason": "No migration changed"
+  },
+  "status_retention": [
+    {
+      "commit": "1be866b3fd9deb4be4fa131a4a350562eba2ac2a",
+      "parent": "f925b244f3ee17e012467edff88fa1d191b2e514",
+      "retained_status_ids": 338,
+      "removed": []
+    },
+    {
+      "commit": "f925b244f3ee17e012467edff88fa1d191b2e514",
+      "parent": "93b7327adee97ac0ff691bfb5cbff68f4412a27a",
+      "retained_status_ids": 338,
+      "removed": []
+    }
+  ],
+  "changes": [
+    "CONTRACT.md",
+    "sources.lock.json",
+    "src/core/features/pages/ui/workspace/PageSharing.tsx",
+    "src/core/features/workspace/invitations.ts",
+    "tests/flagship/content/draft-privacy.case.ts",
+    "tests/flagship/content/http.test.ts",
+    "tests/qualification/ui-convergence/draft-privacy-journey.mjs",
+    "tests/qualification/ui-convergence/journeys.test.mjs",
+    "tests/qualification/ui-convergence/publication-journey.mjs",
+    "tests/requirements/clause-inventory.json",
+    "tests/requirements/test-evidence.json"
+  ],
+  "publication_scan": "Cloud route: pending guarded Mac lander; no scan receipt claimed"
+}

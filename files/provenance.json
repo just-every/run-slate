@@ -1,0 +1,34 @@
+{
+  "head": "1be866b3fd9deb4be4fa131a4a350562eba2ac2a",
+  "tree": "076c2ebb41c09151d444b806adff42c713b042f0",
+  "main": "93b7327adee97ac0ff691bfb5cbff68f4412a27a",
+  "branch": "cloud/sd-slate-c-f171",
+  "clean": true,
+  "files": {
+    "http": {
+      "path": "tests/flagship/content/draft-privacy.case.ts",
+      "sha256": "1288d14108a9b6585c326c0fd36ea6f32c802da65617e89dc037c42fabb1a687"
+    },
+    "browser": {
+      "path": "tests/qualification/ui-convergence/draft-privacy-journey.mjs",
+      "sha256": "41590656f62cf85e817b1ab0b61f5deb15a129a97eb202f485e66ba937f2cb39"
+    },
+    "caller": {
+      "path": "tests/qualification/ui-convergence/journeys.test.mjs",
+      "sha256": "ae9d78c94e119bd96c2162e9da19d95453448e9eeb9c86edd8a89a2c6c979013"
+    },
+    "sharing": {
+      "path": "src/core/features/workspace/invitations.ts",
+      "sha256": "e06b0af0c66ff01d51d4a6abd6030018be682eb66838347a4c279d2cb801c6be"
+    }
+  },
+  "build": {
+    "schema": 1,
+    "commit": "1be866b3fd9deb4be4fa131a4a350562eba2ac2a",
+    "tree": "076c2ebb41c09151d444b806adff42c713b042f0",
+    "sourceSha256": "dc8b0c8891bb006c8d4ead8fbb448efcbd0c440ef07cce4bc719c2901a605eb9",
+    "lockSha256": "9982885a36718e200ad218591e08a345200bb1f7d23418b1eb7698e8381e1f1d",
+    "outputSha256": "8bae079d8cbb7fe70e27a01402b4279a6ea2794948b32a896c55d5c86bb361f9"
+  },
+  "recorded": "2026-11-06T02:41:06.203513+00:00"
+}

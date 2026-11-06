@@ -1,0 +1,14 @@
+{
+  "conclusion": "failure",
+  "head_sha": "1be866b3fd9deb4be4fa131a4a350562eba2ac2a",
+  "html_url": "https://github.com/just-every/run-slate/actions/runs/42151566690",
+  "status": "completed",
+  "run_id": 42151566690,
+  "event": "push",
+  "classification": "expected-generated-view-only",
+  "ready_exception": true,
+  "app_job": 127675819695,
+  "aggregate_job": 127676012304,
+  "tests": "skipped by generated-view prerequisite; no CI test proof claimed",
+  "github_calls": 5
+}

@@ -1,0 +1,9 @@
+{
+  "door": "POST /api/invitations then GET /api/pages/<draft>",
+  "expected": 200,
+  "actual": 404,
+  "test": "draftPrivacyCase",
+  "command": "pnpm exec vitest run tests/flagship/content/http.test.ts -t 'publication, human verification'",
+  "source_parent": "93b7327adee97ac0ff691bfb5cbff68f4412a27a",
+  "scope": "local newly added proof, not a CI repair"
+}

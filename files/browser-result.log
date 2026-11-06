@@ -1,0 +1,2 @@
+PROBE LIFE-002 browser 1440: native draft creation and saved body -> link alone refused; address grant persisted; named reader read; profile switches retained draft; revoked session refused after reload
+PROBE LIFE-002 browser 390: native draft creation and saved body -> link alone refused; address grant persisted; named reader read; profile switches retained draft; revoked session refused after reload

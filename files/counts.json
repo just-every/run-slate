@@ -1,0 +1,25 @@
+{
+  "before": {
+    "clauses": 338,
+    "statuses": {
+      "partial": 240,
+      "done": 57,
+      "missing": 41
+    },
+    "table_rows": 698
+  },
+  "after": {
+    "clauses": 338,
+    "statuses": {
+      "partial": 240,
+      "done": 57,
+      "missing": 41
+    },
+    "table_rows": 698
+  },
+  "registrations": {
+    "before": 207,
+    "after": 207
+  },
+  "head": "1be866b3fd9deb4be4fa131a4a350562eba2ac2a"
+}

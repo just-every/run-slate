@@ -1,0 +1,59 @@
+{
+  "head": "1be866b3fd9deb4be4fa131a4a350562eba2ac2a",
+  "time": "2026-11-06T02:38:41.376230+00:00",
+  "checks": [
+    {
+      "check": "http",
+      "command": [
+        "pnpm",
+        "exec",
+        "vitest",
+        "run",
+        "tests/flagship/content/http.test.ts",
+        "tests/qualification/policies/invitations.test.ts"
+      ],
+      "exit": 0,
+      "head": "1be866b3fd9deb4be4fa131a4a350562eba2ac2a"
+    },
+    {
+      "check": "types",
+      "command": [
+        "pnpm",
+        "typecheck"
+      ],
+      "exit": 0,
+      "head": "1be866b3fd9deb4be4fa131a4a350562eba2ac2a"
+    },
+    {
+      "check": "first-party",
+      "command": [
+        "pnpm",
+        "exec",
+        "rer",
+        "check",
+        "--profile",
+        "first-party"
+      ],
+      "exit": 0,
+      "head": "1be866b3fd9deb4be4fa131a4a350562eba2ac2a"
+    },
+    {
+      "check": "source-lock",
+      "command": [
+        "pnpm",
+        "source:check"
+      ],
+      "exit": 0,
+      "head": "1be866b3fd9deb4be4fa131a4a350562eba2ac2a"
+    },
+    {
+      "check": "contract",
+      "command": [
+        "node",
+        "scripts/check-contract.mjs"
+      ],
+      "exit": 0,
+      "head": "1be866b3fd9deb4be4fa131a4a350562eba2ac2a"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "head": "1be866b3fd9deb4be4fa131a4a350562eba2ac2a",
+  "command": "node src/base/runtime/contract-docs.mjs check",
+  "exit": 1,
+  "output": "ACCEPTANCE.md: generated content differs; run contract-docs write.\n",
+  "classification": "expected after restoring generated views from origin/main"
+}

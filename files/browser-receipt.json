@@ -1,0 +1,45 @@
+{
+  "head": "1be866b3fd9deb4be4fa131a4a350562eba2ac2a",
+  "command": "timeout 1200 env SLATE_CHROMIUM_PATH=/usr/bin/chromium node /tmp/slate-draft-browser.mjs",
+  "entrypoint": "withWorkspace, setupWorkspace, draftPrivacyJourney",
+  "widths": [
+    1440,
+    390
+  ],
+  "exit": 0,
+  "proof": "Native emitted Worker, real native sessions, no mocked application responses",
+  "screenshots": [
+    {
+      "path": "screens/1440/saved-grant.png",
+      "sha256": "375befbaa24b893d2030499d3551b4d14a918547f55f9d573c38213c045fdc96"
+    },
+    {
+      "path": "screens/1440/granted-reader.png",
+      "sha256": "c470433d2942b6316bd5660c086e9a4a22cfc1c71f1c601999fd925266bc07e5"
+    },
+    {
+      "path": "screens/1440/revoked-grant.png",
+      "sha256": "39c1e349aa94643730819ec571036a412ae0257bea0789954b96cb0d3219e8ac"
+    },
+    {
+      "path": "screens/1440/refused-reader.png",
+      "sha256": "e904aa77e640d384ba0681d07942aebe3bc29b3390910028abba16bdc2d78bd5"
+    },
+    {
+      "path": "screens/390/saved-grant.png",
+      "sha256": "079e6acf4bf21e0e095f611ba1b9b0ced03ac1506bd43ee11da2bbda1ad228d3"
+    },
+    {
+      "path": "screens/390/granted-reader.png",
+      "sha256": "fdaf276cdf385e6cc43a3942d8b4c3d907edcc3ef6be16419c75cf539427dc9c"
+    },
+    {
+      "path": "screens/390/revoked-grant.png",
+      "sha256": "010aad7b15100459510972896239d37e1468ab1655f7612a17fab78ddc320500"
+    },
+    {
+      "path": "screens/390/refused-reader.png",
+      "sha256": "5c32190e9e6f3f9836a3f0903f78146177bf97280ad76435f187cc8df6111eca"
+    }
+  ]
+}

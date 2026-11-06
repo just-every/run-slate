@@ -1,0 +1,403 @@
+diff --git a/CONTRACT.md b/CONTRACT.md
+index 687e5521..b3c23461 100644
+--- a/CONTRACT.md
++++ b/CONTRACT.md
+@@ -4067,7 +4067,7 @@ AUTO-003 is judged from the code and tests at commit `1c76d8836ddffd43d0ea70e168
+ | `BLOCK-009` | Link cards | published | partial | `tests/flagship/content/preview.test.ts` | Missing a paste-and-switch link-card journey through the editor plus allowed and refused preview requests; the cited test invokes the preview helper directly. |
+ | `BLOCK-010` | Content queries | published | partial | `tests/qualification/interface/blocks.mjs`; additional supporting browser coverage: `tests/qualification/ui-convergence/journeys.test.mjs` — "BLOCK-010 — native content queries retain criteria and current-reader results at 1440px" and "BLOCK-010 — native content queries retain criteria and current-reader results at 390px", through `tests/qualification/ui-convergence/content-query-journey.mjs` — contentQueryJourney: native criteria persistence, exact ordered current-reader results, both authors’ drafts excluded, response-correlated last run, committed source updates on reopen, revoked and deleted sources without stale rows, and retained missing-source criteria. | evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/blocks.mjs`. |
+ | `LIFE-001` | Lifecycle states | published | done | `tests/flagship/content/http.test.ts` — publication, human verification and media enforce current reader authority; `tests/qualification/ui-convergence/journeys.test.mjs` — page creation destinations and editor locks preserve readable content at 1440px (publication steps in `tests/qualification/interface/publication.mjs`). |  |
+-| `LIFE-002` | A draft is private | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "While a page is `draft` it is absent from search, from content queries, from the inbox, from analytics, from AI grounding, from every administrative and export listing, and from the tree of every member it has not been shared with."<br>No validated CI-run proof for this acceptance point: "Its body is readable only by its author and by the principals in its own grant list: sharing a draft, by link or by address, creates a grant under `SHARE-001` and `SHARE-006`, that grant requires a session like every other, it is shown in the draft's grant list, and revoking it ends access under `SHARE-007`."<br>No validated CI-run proof for this acceptance point: "There is no readable address for a draft that carries no grant, a draft has no general access grant under either value of `SHARE-005` (`SHARE-004`), and a draft cannot be published to the anonymous web (`WEB-001`)."<br>No validated CI-run proof for this acceptance point: "No role, policy value, container setting, workspace owner action, automation or extension defeats this."<br>No validated CI-run proof for this acceptance point: "`LIFE-006` decides whether a draft state arises, never whether this clause holds." |
++| `LIFE-002` | A draft is private | published | partial | `tests/flagship/content/http.test.ts` — "publication, human verification and media enforce current reader authority", calling `tests/flagship/content/draft-privacy.case.ts` — "draftPrivacyCase": selected acceptance 1 and 2 native page duties use independent author, owner, member and group-reader sessions, exact persisted grants and exposures, address sharing, session-bound page addresses, unchanged unsafe reads and writes, both access-profile general and anonymous-publication refusals, full revocation and replay without resurrection; acceptance 4 retains the existing draft, content and named grants across native lifecycle profile changes. `tests/qualification/ui-convergence/journeys.test.mjs` — "page creation destinations and editor locks preserve readable content at 1440px" and "real core-wiki and touch-member journeys at 390px", calling `tests/qualification/ui-convergence/draft-privacy-journey.mjs` — "draftPrivacyJourney": created and saved draft, copied link refusal, address grant, persisted grant list, reader body, profile switches and revoked-session reload. | The complete search, content-query, inbox, analytics, administrative and export-listing, other-tree and AI-grounding exclusion corpus remains unproved. Acceptance 3 every-role, policy, container, owner, automation and extension invariants and acceptance 5 held company-policy outcomes remain unproved under ADMIN-007 and the shared company-policy prerequisites. Full inherited SHARE-001 and SHARE-006 duties remain retained and are not certified by this existing-member slice. Inherited SHARE-007 five-second cross-surface and AI removal and its general grant-narrowing scope conflict remain unresolved and unclaimed by this full-revocation-only slice. No acceptance sentence is narrowed and no Slate clause is released. |
+ | `LIFE-003` | Publish | published | done | `tests/flagship/content/http.test.ts` — publication, human verification and media enforce current reader authority; `tests/qualification/ui-convergence/journeys.test.mjs` — page creation destinations and editor locks preserve readable content at 1440px (publication steps in `tests/qualification/interface/publication.mjs`). |  |
+ | `LIFE-004` | Scheduled publish | published | done | `tests/flagship/content/http.test.ts` — publication, human verification and media enforce current reader authority; `tests/qualification/ui-convergence/journeys.test.mjs` — page creation destinations and editor locks preserve readable content at 1440px (publication steps in `tests/qualification/interface/publication.mjs`). |  |
+ | `LIFE-005` | Unpublished changes | published | done | `tests/flagship/content/http.test.ts` — publication, human verification and media enforce current reader authority; `tests/qualification/ui-convergence/journeys.test.mjs` — page creation destinations and editor locks preserve readable content at 1440px (publication steps in `tests/qualification/interface/publication.mjs`). |  |
+diff --git a/sources.lock.json b/sources.lock.json
+index 72d29e8e..1ade948c 100644
+--- a/sources.lock.json
++++ b/sources.lock.json
+@@ -988,7 +988,7 @@
+       "executable": false
+     },
+     "CONTRACT.md": {
+-      "sha256": "90c09f2211a07bf8650cae78792be9b14d2ae97f355f6c6ef4077cbc73ce6cea",
++      "sha256": "c501726eb9eb42245a0d0de902839cfd3c92f272647aabe941dbec5aa48a628e",
+       "executable": false
+     },
+     "DEMO.md": {
+@@ -8468,7 +8468,7 @@
+       "executable": false
+     },
+     "src/core/features/pages/ui/workspace/PageSharing.tsx": {
+-      "sha256": "344c0d2ce908b15a102062be1cd676baf78b6f8ae2872b1f3cb8b4cf5215d7e7",
++      "sha256": "c9c9f3c219e9a6cba48e434b0dddef103bcf4d6cf4f7311cdaaa78e57fde0757",
+       "executable": false
+     },
+     "src/core/features/pages/ui/workspace/PageStatusBadge.tsx": {
+@@ -9836,7 +9836,7 @@
+       "executable": false
+     },
+     "src/core/features/workspace/invitations.ts": {
+-      "sha256": "043f84fe019a85a09ca9870a6fb62dd9a51293740cfbb19bf3b046eebdfc9fd1",
++      "sha256": "e06b0af0c66ff01d51d4a6abd6030018be682eb66838347a4c279d2cb801c6be",
+       "executable": false
+     },
+     "src/core/features/workspace/members.ts": {
+@@ -10843,8 +10843,12 @@
+       "sha256": "ed79d1a9e922d92673e56c565c39c2581a0cb646d94facb7f909251e290ff354",
+       "executable": false
+     },
++    "tests/flagship/content/draft-privacy.case.ts": {
++      "sha256": "1288d14108a9b6585c326c0fd36ea6f32c802da65617e89dc037c42fabb1a687",
++      "executable": false
++    },
+     "tests/flagship/content/http.test.ts": {
+-      "sha256": "2fbf89e5da65c910c8dc2fb26e2443729b7adff5b4d11f2ec530ba9ddc0b51c9",
++      "sha256": "10da05f44f3e0e430b46a46dbdd3049c33572945beefdb728bca8b7268c1373a",
+       "executable": false
+     },
+     "tests/flagship/content/journeys.ts": {
+@@ -11947,6 +11951,10 @@
+       "sha256": "7c29c683b2bc9add680e33d945636930c410c445a6820c9629dcb69e9168ae0e",
+       "executable": false
+     },
++    "tests/qualification/ui-convergence/draft-privacy-journey.mjs": {
++      "sha256": "41590656f62cf85e817b1ab0b61f5deb15a129a97eb202f485e66ba937f2cb39",
++      "executable": false
++    },
+     "tests/qualification/ui-convergence/embed-timeout-journey.mjs": {
+       "sha256": "0b7fd34774321767263b99c59d31ad26af8db2a22282c30773c1a4c601ecf71e",
+       "executable": false
+@@ -12108,7 +12116,7 @@
+       "executable": false
+     },
+     "tests/qualification/ui-convergence/journeys.test.mjs": {
+-      "sha256": "2c577b319326a67d991e81cc9b2a6a35d9193015e761f2e19755b44a1cd5126e",
++      "sha256": "ae9d78c94e119bd96c2162e9da19d95453448e9eeb9c86edd8a89a2c6c979013",
+       "executable": false
+     },
+     "tests/qualification/ui-convergence/link-access-journey.mjs": {
+@@ -12172,7 +12180,7 @@
+       "executable": false
+     },
+     "tests/qualification/ui-convergence/publication-journey.mjs": {
+-      "sha256": "f913831f2bc701f9529566eb2a28b5ade4beefbed4fdf1e21353e0396281eba7",
++      "sha256": "98cd7dc8c4f2be655fcaac45cadae30f69c4b16c0792993742bea272c0d6e924",
+       "executable": false
+     },
+     "tests/qualification/ui-convergence/reachability.test.mjs": {
+@@ -12400,7 +12408,7 @@
+       "executable": false
+     },
+     "tests/requirements/clause-inventory.json": {
+-      "sha256": "6cd6b3208ea5fea88673d3e07f64acfb3ec526470e8499c84bb8a0f755aa2e40",
++      "sha256": "ab251e5ea47cb522d4fb030341ac523dd1fa57ccbd8613ee9e31bd4b53e37a16",
+       "executable": false
+     },
+     "tests/requirements/cli-journey.md": {
+@@ -12416,7 +12424,7 @@
+       "executable": false
+     },
+     "tests/requirements/test-evidence.json": {
+-      "sha256": "31fee2180c0a7e0afd67d3e24db6aef60a4bd50108ed5b72e024e26bb1d4fca5",
++      "sha256": "e7faf39397d51e23219fa8a2e1dbe293c070154183fbb6f8b6930eafd1fc9783",
+       "executable": false
+     },
+     "tests/rer/editor.test.mjs": {
+diff --git a/src/core/features/pages/ui/workspace/PageSharing.tsx b/src/core/features/pages/ui/workspace/PageSharing.tsx
+index e0acd4d2..c0a21093 100644
+--- a/src/core/features/pages/ui/workspace/PageSharing.tsx
++++ b/src/core/features/pages/ui/workspace/PageSharing.tsx
+@@ -210,7 +210,7 @@ export function PageSharing({ document, address }: { document: DocumentView; add
+               Share page
+             </button>
+           </form>
+-          <details><summary>Invite by email</summary><form className="detail-form" onSubmit={async event=>{event.preventDefault();const data=new FormData(event.currentTarget);setPending(true);setError(undefined);try{await mutate("/api/invitations",{operationKey:operationKey(),email:String(data.get("email")),kind:"guest",pageId:document.page.id,level:String(data.get("level")),expiresAt:data.get("expires")?new Date(String(data.get("expires"))).toISOString():null});setInvited(String(data.get("email")));grants.reload();}catch(error){setError(error);}finally{setPending(false);}}}><label>Email address<input name="email" type="email" required/></label><label>Invitation access<select name="level" defaultValue="view">{grants.data?.levels?.map(level=><option key={level} value={level}>{accessLabel(level)}</option>)}</select></label><details><summary>Set an access expiry</summary><label>Guest access expires<AccessExpiry name="expires"/></label></details><p>Sending creates a pending invitation. Access begins only when it is accepted; the invitation expires after 7 days.</p><button disabled={pending}>Send invitation</button>{invited?<p role="status">{`Invitation sent to ${invited}`}</p>:null}</form></details>
++          <details><summary>Invite by email</summary><form className="detail-form" onSubmit={async event=>{event.preventDefault();const data=new FormData(event.currentTarget);setPending(true);setError(undefined);try{await mutate("/api/invitations",{operationKey:operationKey(),email:String(data.get("email")),kind:"guest",pageId:document.page.id,level:String(data.get("level")),expiresAt:data.get("expires")?new Date(String(data.get("expires"))).toISOString():null});setInvited(String(data.get("email")));grants.reload();}catch(error){setError(error);}finally{setPending(false);}}}><label>Email address<input name="email" type="email" required/></label><label>Invitation access<select name="level" defaultValue="view">{grants.data?.levels?.map(level=><option key={level} value={level}>{accessLabel(level)}</option>)}</select></label><details><summary>Set an access expiry</summary><label>Guest access expires<AccessExpiry name="expires"/></label></details><p>Existing members receive access immediately. New guests receive an invitation that expires after 7 days; their access begins when they accept.</p><button disabled={pending}>Send invitation</button>{invited?<p role="status">{`Sharing request accepted for ${invited}`}</p>:null}</form></details>
+           <details className="advanced-access"><summary>Advanced access</summary>
+           <p>{document.permissions.level === "full" ? "You can manage access to this page." : `You can ${accessLabel(document.permissions.level).toLowerCase()} ${document.permissions.level === "comment" ? "on " : ""}this page.`}</p><p>{grants.data?.restricted?'Only people invited directly can access this page.':'People with access to the parent page or space can also access this page.'}</p>
+           <div className="action-row">
+diff --git a/src/core/features/workspace/invitations.ts b/src/core/features/workspace/invitations.ts
+index cbbd9f06..9dc3de61 100644
+--- a/src/core/features/workspace/invitations.ts
++++ b/src/core/features/workspace/invitations.ts
+@@ -27,8 +27,11 @@ export async function prepareInvitation(ctx:FeatureContext,config:RuntimeConfig,
+   },prepare:async({revisionId})=>{
+     const policy=input.kind==='guest'?await requireGuestDomain(ctx.db,ctx.actor.workspaceId,input.email):null;
+     const grantExpiry=input.expiresAt==null&&policy?.defaultExpiryDays?new Date(Date.parse(ctx.now)+policy.defaultExpiryDays*86400000).toISOString():input.expiresAt??null;
+-    const id=createUlid(),grantId=input.kind==='guest'?createUlid():null; const existing=await ctx.db.prepare("SELECT id FROM members WHERE workspace_id=? AND lower(email)=lower(?) AND status='active'").bind(ctx.actor.workspaceId,input.email.toLowerCase()).first();
++    const id=createUlid(),grantId=input.kind==='guest'?createUlid():null; const existing=await ctx.db.prepare("SELECT id FROM members WHERE workspace_id=? AND lower(email)=lower(?) AND status='active'").bind(ctx.actor.workspaceId,input.email.toLowerCase()).first<{id:string}>();
+     const statements:D1PreparedStatement[]=[];
++    // Address sharing for a current member takes effect in this same authorized batch.
++    // Keep the generic admission response; no invitation or mail is needed for their existing session.
++    if(existing&&grantId){const table=input.pageId?'page_grants':'container_grants',key=input.pageId?'page_id':'container_id';statements.push(ctx.db.prepare(`INSERT INTO ${table} (id,${key},principal_kind,principal_id,level,expires_at,created_at,updated_at) VALUES (?,?,'member',?,?,?,?,?)`).bind(grantId,input.pageId??input.containerId!,existing.id,input.level??'view',grantExpiry,ctx.now,ctx.now));}
+     if(!existing) { if(grantId){const table=input.pageId?'page_grants':'container_grants',key=input.pageId?'page_id':'container_id';statements.push(ctx.db.prepare(`INSERT INTO ${table} (id,${key},principal_kind,principal_id,level,expires_at,created_at,updated_at) VALUES (?,?,'member',?,?,?,?,?)`).bind(grantId,input.pageId??input.containerId!,`invitation:${id}`,input.level??'view',grantExpiry,ctx.now,ctx.now));} statements.push(ctx.db.prepare('INSERT INTO invitations (id,workspace_id,email,kind,container_id,page_id,container_grant_id,page_grant_id,token_digest,invited_by_member_id,expires_at,created_at,guest_expires_at) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)').bind(id,ctx.actor.workspaceId,input.email.toLowerCase(),input.kind,input.containerId??null,input.pageId??null,input.containerId?grantId:null,input.pageId?grantId:null,await sessionDigest(config.sessionSecret,token),ctx.actor.id,new Date(Date.parse(ctx.now)+7*86400000).toISOString(),ctx.now,grantExpiry)); const url=new URL('/api/auth/invitation/accept',config.appUrl);url.searchParams.set('token',token);const delivery=await admitIdentityMail(ctx.db,config,{workspaceId:ctx.actor.workspaceId,email:input.email.toLowerCase(),kind:'invitation',invitationId:id,url:url.toString(),operationKey:input.operationKey,requestedByMemberId:ctx.actor.id},ctx.now);statements.push(delivery.statement); }
+     return {entity:{id:ctx.actor.workspaceId,kind:'invitation',revisionId},value:{accepted:true},statements};
+   }});
+diff --git a/tests/flagship/content/draft-privacy.case.ts b/tests/flagship/content/draft-privacy.case.ts
+new file mode 100644
+index 00000000..f63e83b6
+--- /dev/null
++++ b/tests/flagship/content/draft-privacy.case.ts
+@@ -0,0 +1,95 @@
++import {env} from 'cloudflare:test';
++import {expect} from 'vitest';
++import {createApi} from '../../../src/core/app/hono';
++import {createUlid} from '../../../src/core/shared/ulid';
++import {seedWorkspace,seedMember,sessionFor} from '../../e2e/setup/fixtures';
++
++/** Real native sessions and persisted grants; no content or authority response is faked. */
++export async function draftPrivacyCase() {
++  const {workspaceId}=await seedWorkspace();
++  const identities=await Promise.all(['Owner','Author','Reader','Group reader','Outsider'].map(async(name,index)=>({
++    id:(await seedMember(workspaceId,{role:index===0?'owner':'member',email:[`synthetic-slate-${index}`,'example.test'].join('@'),displayName:name})).memberId,
++    email:[`synthetic-slate-${index}`,'example.test'].join('@'),
++  })));
++  const [owner,author,reader,groupReader,outsider]=identities;
++  const sessions=new Map(await Promise.all(identities.map(async person=>[person.id,await sessionFor(person.id,{freshProof:true})] as const)));
++  const origin=new URL(String(env.APP_URL)).origin,app=createApi();
++  const request=async(actor:string|null,method:string,path:string,input?:unknown)=>{
++    const response=await app.request(origin+path,{method,headers:{origin,'content-type':'application/json',...(actor?{cookie:sessions.get(actor)!}:{})},body:input===undefined?undefined:JSON.stringify(input)},env);
++    return {status:response.status,body:await response.text()};
++  };
++  const ok=async(actor:string,method:string,path:string,input?:unknown)=>{
++    const result=await request(actor,method,path,input);expect(result.status,result.body).toBe(200);return JSON.parse(result.body);
++  };
++  const profile=async(access:string,lifecycle='draft-then-publish')=>{
++    const w=await ok(owner!.id,'GET','/api/workspace');
++    const {name,mark,description,guestAccess,publicLinkAccess,anonymousAccess}=w;
++    await ok(owner!.id,'PUT','/api/workspace',{operationKey:createUlid(),expectedRevisionId:w.revisionId,name,mark,description,guestAccess,publicLinkAccess,anonymousAccess,policies:{...w.policies,'page.access.v1':access,'page.lifecycle.v1':lifecycle}});
++  };
++  await profile('workspace-general');
++  const containerId=(await ok(owner!.id,'POST','/api/containers',{operationKey:createUlid(),name:'Draft custody'})).value.id;
++  await ok(owner!.id,'POST','/api/sharing',{operationKey:createUlid(),targetKind:'container',targetId:containerId,principalKind:'member',principalId:author!.id,level:'full'});
++  const groupId=(await ok(owner!.id,'POST','/api/groups',{operationKey:createUlid(),name:'Draft reviewers',memberIds:[groupReader!.id]})).value.id;
++  const blockId=createUlid(),title='Private response draft',text='Only the author and named reviewers can read this response.';
++  const id=(await ok(author!.id,'POST','/api/pages',{operationKey:createUlid(),containerId,title,blocks:[{id:blockId,blockType:'paragraph',treePosition:'a',content:{text:[{text}]}}]})).value.pageId;
++  const read=()=>ok(author!.id,'GET',`/api/pages/${id}`);
++  const grants=()=>ok(author!.id,'GET',`/api/sharing/pages/${id}`);
++  const rows=async(table:string)=>(await env.DB.prepare(`SELECT * FROM ${table} ORDER BY rowid`).all()).results;
++  // Include receipts and activity: a refused action may not leave a partial mutation.
++  const snapshot=async()=>Object.fromEntries(await Promise.all(['pages','page_blocks','page_revisions','page_grants','public_exposures','operation_receipts','activity_entries','invitations'].map(async table=>[table,await rows(table)])));
++  const storedDraft=async()=>Object.fromEntries(await Promise.all(['pages','page_blocks','page_revisions','page_grants','public_exposures'].map(async table=>[table,await rows(table)])));
++  const refused=async(actor:string|null,method:string,path:string,input?:unknown)=>{
++    const before=await snapshot(),response=await request(actor,method,path,input);
++    expect(response.status,response.body).toBe(actor===null?401:404);
++    expect(response.body).not.toContain(text);expect(await snapshot()).toEqual(before);
++  };
++  expect((await read()).blocks[0].content.text).toEqual([{text}]);
++  expect((await grants()).items).toEqual([]);
++  for(const person of [owner!,reader!,groupReader!,outsider!])await refused(person.id,'GET',`/api/pages/${id}`);
++  await refused(null,'GET',`/api/pages/${id}`);
++  await refused(null,'PATCH',`/api/pages/${id}`,{operationKey:createUlid(),expectedRevisionId:(await read()).page.revisionId,properties:{title:'Anonymous replacement'}});
++  // Address sharing an existing member must actually create a current, visible grant.
++  const addressInput={operationKey:createUlid(),kind:'guest',pageId:id,email:reader!.email,level:'view'};
++  await ok(author!.id,'POST','/api/invitations',addressInput);
++  expect((await ok(reader!.id,'GET',`/api/pages/${id}`)).blocks[0].content.text).toEqual([{text}]);
++  const personal=(await grants()).items.find((g:any)=>g.principalId===reader!.id);
++  expect(personal).toMatchObject({principalKind:'member',level:'view',status:'active',effective:true});
++  const groupInput={operationKey:createUlid(),targetKind:'page',targetId:id,principalKind:'group',principalId:groupId,level:'view'};
++  await ok(author!.id,'POST','/api/sharing',groupInput);
++  expect((await ok(groupReader!.id,'GET',`/api/pages/${id}`)).blocks[0].content.text).toEqual([{text}]);
++  const list=await grants();
++  expect(list.items.map((g:any)=>[g.principalKind,g.principalId,g.level,g.status]).sort()).toEqual([['member',reader!.id,'view','active'],['group',groupId,'view','active']].sort());
++  expect(list.effectiveItems.map((g:any)=>g.id).sort()).toEqual(list.items.map((g:any)=>g.id).sort());
++  expect(list.inheritedItems).toEqual([]);
++  for(const access of ['workspace-general','container-general']) {
++    await profile(access);
++    for(const [principalKind,principalId] of [['workspace',workspaceId],['container',containerId]]) {
++      const before=await snapshot(),response=await request(author!.id,'POST','/api/sharing',{operationKey:createUlid(),targetKind:'page',targetId:id,principalKind,principalId,level:'view'});
++      expect(response.status,response.body).toBe(403);expect(JSON.parse(response.body).code).toBe('DRAFT_PRIVATE');expect(await snapshot()).toEqual(before);
++    }
++    const before=await snapshot(),response=await request(author!.id,'POST',`/api/publishing/${id}`,{operationKey:createUlid(),expectedRevisionId:(await read()).page.revisionId,host:String(env.PUBLIC_PAGE_HOST),slug:'private-response'});
++    expect(response.status,response.body).toBe(403);expect(JSON.parse(response.body).code).toBe('PUBLICATION_FORBIDDEN');expect(await snapshot()).toEqual(before);
++    const anonymous=await request(null,'GET','/p/private-response');expect(anonymous.status).toBe(404);expect(anonymous.body).not.toContain(text);
++    for(const lifecycle of ['always-live','draft-then-publish']) {
++      const retained=await storedDraft();await profile(access,lifecycle);
++      expect(await storedDraft()).toEqual(retained);
++      const doc=await read();expect(doc.page.lifecycle).toBe('draft');expect(doc.publishedRevisionId).toBeNull();expect(doc.blocks[0].content.text).toEqual([{text}]);
++      for(const person of [owner!,outsider!])await refused(person.id,'GET',`/api/pages/${id}`);
++      await refused(null,'GET',`/api/pages/${id}`);
++      for(const person of [reader!,groupReader!])expect((await ok(person.id,'GET',`/api/pages/${id}`)).blocks[0].content.text).toEqual([{text}]);
++    }
++  }
++  for(const grant of (await grants()).items)await ok(author!.id,'POST','/api/sharing',{operationKey:createUlid(),targetKind:'page',targetId:id,id:grant.id,principalKind:grant.principalKind,principalId:grant.principalId,level:grant.level,revoke:true});
++  for(const person of [reader!,groupReader!,owner!,outsider!]) {
++    await refused(person.id,'GET',`/api/pages/${id}`);
++    await refused(person.id,'PATCH',`/api/pages/${id}`,{operationKey:createUlid(),expectedRevisionId:(await read()).page.revisionId,properties:{title:'Revoked replacement'}});
++  }
++  const revoked=await snapshot();
++  // Replaying either pre-revocation sharing receipt cannot resurrect a grant.
++  await ok(author!.id,'POST','/api/invitations',addressInput);await ok(author!.id,'POST','/api/sharing',groupInput);
++  expect(await snapshot()).toEqual(revoked);expect((await grants()).effectiveItems).toEqual([]);
++  expect((await grants()).items.every((g:any)=>g.status==='revoked')).toBe(true);
++  console.log('PROBE LIFE-002 1: native author, address grant and group sessions -> exact body and persisted grants; owner and outsider refused; same sessions refused after full revocation, replay unchanged');
++  console.log('PROBE LIFE-002 2: both access profiles -> general grants and anonymous publication refused; content, grants, exposures, receipts and activity unchanged');
++  console.log('PROBE LIFE-002 4: native lifecycle profile switches -> retained draft and named grants unchanged, author and grantees read, owner and anonymous refused');
++}
+diff --git a/tests/flagship/content/http.test.ts b/tests/flagship/content/http.test.ts
+index a6a0aba1..12f8b962 100644
+--- a/tests/flagship/content/http.test.ts
++++ b/tests/flagship/content/http.test.ts
+@@ -1,3 +1,4 @@
++import {draftPrivacyCase} from './draft-privacy.case';
+ import {statusVocabularyCase} from './status-vocabulary.case';
+ import { lifecycleJourney } from './lifecycle';
+ import {runFoldCases} from '../fold-cases';
+@@ -257,7 +258,7 @@ expect(activities).toEqual([{actor_member_id:f.a,occurred_at:removed.deletedAt}]
+ }}
+ ]);});
+ 
+-it("publication, human verification and media enforce current reader authority",async()=>{await runFoldCases([
++it("publication, human verification and media enforce current reader authority",async()=>{await draftPrivacyCase();await runFoldCases([
+ {name:"content durable HTTP draft publication keeps working content private through publish, discard and scheduling",before:resetDeployment,run:async()=>{
+  await runContentCases([
+ {name:"content durable HTTP draft privacy and published snapshot protect working content from readers",run:async()=>{const f=await fixture();await env.DB.prepare('INSERT INTO workspace_policies VALUES (?,?,?)').bind(f.w,JSON.stringify({'page.lifecycle.v1':'draft-then-publish'}),now).run();const listedBefore=(await f.request('GET','/api/pages',undefined,f.b)).data.items;const c=await f.request('POST','/api/pages',{operationKey:createUlid(),containerId:f.containerId,title:'Private draft',blocks:[block(createUlid(),'private')]});const id=c.data.value.pageId;expect((await f.request('GET',`/api/pages/${id}`,undefined,f.b)).status).toBe(404);expect((await f.request('GET','/api/pages',undefined,f.b)).data.items).toEqual(listedBefore);const pub=await f.request('POST',`/api/pages/${id}/publish`,{operationKey:createUlid(),expectedRevisionId:c.data.value.revisionId});expect(pub.status,JSON.stringify(pub.data)).toBe(200);expect((await f.request('GET',`/api/pages/${id}`,undefined,f.b)).status).toBe(200);}},
+diff --git a/tests/qualification/ui-convergence/draft-privacy-journey.mjs b/tests/qualification/ui-convergence/draft-privacy-journey.mjs
+new file mode 100644
+index 00000000..1bbcf09d
+--- /dev/null
++++ b/tests/qualification/ui-convergence/draft-privacy-journey.mjs
+@@ -0,0 +1,82 @@
++import assert from 'node:assert/strict';
++import {randomUUID} from 'node:crypto';
++import {mkdir} from 'node:fs/promises';
++import {expect} from '@playwright/test';
++import {createPage} from '../interface/create-page.mjs';
++import {call,ok,withSecondPerson} from './two-people-support.mjs';
++
++/** Saved draft, named sharing and retained privacy through the native settings and page doors. */
++export async function draftPrivacyJourney(state) {
++  const {page,context,origin}=state,width=page.viewportSize().width;
++  const directory=`.artifacts/ui-convergence/draft-privacy/${width}`;
++  await mkdir(directory,{recursive:true});
++  const openSharing=async()=>{
++    const heading=page.getByRole('heading',{name:'Share this page',exact:true});
++    if(!await heading.isVisible())await page.getByRole('button',{name:'Share',exact:true}).click();
++    await expect(heading).toBeVisible();
++  };
++  const original=await ok(context,origin,'GET','/api/workspace');
++  const profile=async(lifecycle,access)=>{
++    await page.goto(origin+'/app/settings',{waitUntil:'networkidle'});
++    await page.getByRole('button',{name:'Edit workspace & policies'}).click();
++    await page.locator('select[name="page.lifecycle.v1"]').selectOption(lifecycle);
++    await page.locator('select[name="page.access.v1"]').selectOption(access);
++    await page.getByRole('button',{name:'Save settings',exact:true}).click();
++    await page.getByRole('dialog').waitFor({state:'hidden'});
++    const stored=await ok(context,origin,'GET','/api/workspace');
++    assert.equal(stored.policies['page.lifecycle.v1'],lifecycle);assert.equal(stored.policies['page.access.v1'],access);
++  };
++  try {
++    await profile('draft-then-publish','workspace-general');
++    const containerId=(await ok(context,origin,'GET','/api/containers')).items.find(item=>item.name==='Handbook').id;
++    const id=await createPage(page,origin,containerId,'Private response draft');
++    const text='Only the named draft reviewers can read this response.';
++    await page.getByRole('textbox',{name:'Page body',exact:true}).fill(text);
++    await page.locator('.editor-save-status').filter({hasText:/^Saved$/}).waitFor();
++    const read=()=>ok(context,origin,'GET',`/api/pages/${id}`);
++    const grants=()=>ok(context,origin,'GET',`/api/sharing/pages/${id}`);
++    const content=await read();assert.equal(content.page.lifecycle,'draft');assert.equal(content.publishedRevisionId,null);
++    assert.deepEqual((await grants()).items,[]);
++    await withSecondPerson(state,width,async people=>{
++      assert.equal((await call(people.bob.context,origin,'GET',`/api/pages/${id}`)).status,404);
++      await openSharing();
++      const panel=page.locator('.right');
++      await panel.getByRole('button',{name:'Copy page link',exact:true}).click();
++      const address=await page.evaluate(()=>navigator.clipboard.readText());
++      assert.equal(address,`${origin}/app/pages/${id}`);
++      assert.equal((await call(people.bob.context,origin,'GET',new URL(address).pathname.replace('/app/','/api/'))).status,404);
++      await panel.getByText('Invite by email',{exact:true}).click();
++      await panel.getByRole('textbox',{name:'Email address',exact:true}).fill(['reader','test.invalid'].join('@'));
++      await panel.getByRole('button',{name:'Send invitation',exact:true}).click();
++      await expect.poll(async()=>(await grants()).items.map(g=>[g.principalKind,g.principalId,g.level,g.status])).toEqual([['member','browser-reader','view','active']]);
++      await page.reload({waitUntil:'networkidle'});
++      await openSharing();
++      await expect(page.getByRole('combobox',{name:'Access for Morgan Reader',exact:true})).toHaveValue('view');
++      await people.bob.page.goto(address,{waitUntil:'networkidle'});
++      await expect(people.bob.page.locator('.page-document')).toContainText(text);
++      assert.equal((await ok(people.bob.context,origin,'GET',`/api/pages/${id}`)).page.id,id);
++      const retained={page:content.page,blocks:content.blocks,grants:(await grants()).items};
++      await page.screenshot({path:`${directory}/saved-grant.png`,fullPage:true});
++      await people.bob.page.screenshot({path:`${directory}/granted-reader.png`,fullPage:true});
++      for(const [lifecycle,access] of [['always-live','container-general'],['draft-then-publish','workspace-general']]) {
++        await profile(lifecycle,access);
++        const doc=await read();assert.deepEqual(doc.page,retained.page);assert.deepEqual(doc.blocks,retained.blocks);assert.deepEqual((await grants()).items,retained.grants);
++        await page.goto(address,{waitUntil:'networkidle'});await page.reload({waitUntil:'networkidle'});
++        await expect(page.locator('.page-document')).toContainText(text);
++        await people.bob.page.reload({waitUntil:'networkidle'});await expect(people.bob.page.locator('.page-document')).toContainText(text);
++      }
++      await openSharing();
++      const row=page.locator('.right .grant-list > li').filter({has:page.getByRole('combobox',{name:'Access for Morgan Reader',exact:true})});
++      await row.locator('details > summary').click();await row.getByRole('button',{name:'Remove access',exact:true}).click();
++      await expect.poll(async()=>(await grants()).items[0].status).toBe('revoked');
++      assert.equal((await call(people.bob.context,origin,'GET',`/api/pages/${id}`)).status,404);
++      await people.bob.page.reload({waitUntil:'networkidle'});await expect(people.bob.page.locator('.page-document')).not.toContainText(text);
++      assert.deepEqual((await grants()).effectiveItems,[]);
++      await page.screenshot({path:`${directory}/revoked-grant.png`,fullPage:true});
++      await people.bob.page.screenshot({path:`${directory}/refused-reader.png`,fullPage:true});
++    });
++    console.log(`PROBE LIFE-002 browser ${width}: native draft creation and saved body -> link alone refused; address grant persisted; named reader read; profile switches retained draft; revoked session refused after reload`);
++  } finally {
++    await profile(original.policies['page.lifecycle.v1'],original.policies['page.access.v1']);
++  }
++}
+diff --git a/tests/qualification/ui-convergence/journeys.test.mjs b/tests/qualification/ui-convergence/journeys.test.mjs
+index 63616509..196bdcf4 100644
+--- a/tests/qualification/ui-convergence/journeys.test.mjs
++++ b/tests/qualification/ui-convergence/journeys.test.mjs
+@@ -1,3 +1,4 @@
++import {draftPrivacyJourney} from './draft-privacy-journey.mjs';
+ import {automationRunLogJourney} from "./automation-run-log-journey.mjs";
+ import {contentQueryJourney} from './content-query-journey.mjs';
+ import {publicProfileJourney} from './public-profile-journey.mjs';
+@@ -83,7 +84,7 @@ for (const width of [390, 1440]) {
+   test(`real core-wiki and touch-member journeys at ${width}px`, { timeout: width === 390 ? 780000 : 720000 }, async () => {
+     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
+       await setupWorkspace(state);
+-      if(width===390)await transferJobsJourney(state);
++      if(width===390){await transferJobsJourney(state);await draftPrivacyJourney(state);}
+       const refused = await state.context.request.get(state.origin + '/api/ai/availability');
+       assert.equal(refused.status(), 403);
+       assert.equal((await refused.json()).code, 'FEATURE_DISABLED');
+diff --git a/tests/qualification/ui-convergence/publication-journey.mjs b/tests/qualification/ui-convergence/publication-journey.mjs
+index 8c80047d..54f57199 100644
+--- a/tests/qualification/ui-convergence/publication-journey.mjs
++++ b/tests/qualification/ui-convergence/publication-journey.mjs
+@@ -1,3 +1,4 @@
++import {draftPrivacyJourney} from './draft-privacy-journey.mjs';
+ import {mkdir} from 'node:fs/promises';
+ import path from 'node:path';
+ import assert from 'node:assert/strict';
+@@ -8,6 +9,7 @@ import {call,ok,withSecondPerson} from './two-people-support.mjs';
+ 
+ /** Fold the existing publication assertions into the loaded native browser journey. */
+ export async function publicationJourney(state) {
++  await draftPrivacyJourney(state);
+   const width=state.page.viewportSize().width;
+   const directory=path.join(root,'.artifacts/ui-convergence/publication',String(width));
+   await mkdir(directory,{recursive:true});
+diff --git a/tests/requirements/clause-inventory.json b/tests/requirements/clause-inventory.json
+index 357ebf77..d15686f4 100644
+--- a/tests/requirements/clause-inventory.json
++++ b/tests/requirements/clause-inventory.json
+@@ -517,7 +517,7 @@
+       "id": "LIFE-002",
+       "document": "CONTRACT.md",
+       "status": "unproven",
+-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of LIFE-002 — A draft is private. Full requirement-level UI, profile and runtime evidence remains unproven.",
++      "unmetReason": "Selected native draft body, named member and group grants, address and session-bound link access, full revocation, general and anonymous-publication refusals and retained privacy across lifecycle profiles are covered. The complete exclusion corpus, every-role and automation invariant, held company-policy outcomes, inherited full sharing duties and five-second cross-surface and AI removal remain unproven. No full LIFE-002 acceptance or release is claimed.",
+       "supportingTests": [
+         {
+           "file": "tests/flagship/content/http.test.ts",
+diff --git a/tests/requirements/test-evidence.json b/tests/requirements/test-evidence.json
+index b2d61428..fa54caca 100644
+--- a/tests/requirements/test-evidence.json
++++ b/tests/requirements/test-evidence.json
+@@ -47,7 +47,7 @@
+         "WEB-005",
+         "STAT-002"
+       ],
+-      "reason": "Preserves separately asserted cases of the same public flow. LIFE-005 support performs published title and body reads, editor changes, republish, read-only discard refusal, lossless discard and duplicate-safe replay through native routes. Full LIFE-005 browser acceptance is the unpublishedChangesJourney in the existing responsive core journeys; the other named clauses retain supporting scope. STAT-001 support runs statusVocabularyCase through native bootstrap and authenticated routes under both profiles: complete seeded records, owner mutations, retained pages, explicit duplicate-safe bulk changes, unchanged non-owner refusals and revoked-session refusal. Full responsive controls are statusVocabularyJourney in the existing settings callers. Native anonymous HTTP reads cover default noindex and first-response header and robots meta after enabling and disabling indexing; publicPageJourney supplies native controls and persisted-state supporting evidence. COMM-002 acceptance 1–2: native-session HTTP journey has two comment-level members author, edit and delete their own comments; another author and an owner receive 403 without changing comments, threads or activity. Exact comment timestamps, in-place tombstones, mutation receipts and one activity per committed change survive all create/edit/delete replays. Responsive native controls in journeys.test.mjs complete the visible proof. Other listed clauses remain supporting regressions. STAT-002 supporting assertions cover native member set, replace and clear, replay, one activity entry, unchanged body, exact search and persisted-query membership and viewer refusal; CONTRACT.md retains main's partial judgment. CONT-007 native control and next-request proof is extended in guestScopeJourney, called by the existing desktop outline and phone tree-filter settings registrations. Its six independent container and workspace veto cases use issued guest sessions and explicit local publication with retained exposure addresses, measure guest projection and open-editor removal within five seconds, preserve unsaved text, refuse unauthorized settings, and reconcile unchanged unrelated containers. Inherited AI-answer removal remains unproved under ADMIN-007 and shared company-policy prerequisites; this HTTP registration remains supporting evidence."
++      "reason": "Preserves separately asserted cases of the same public flow. LIFE-005 support performs published title and body reads, editor changes, republish, read-only discard refusal, lossless discard and duplicate-safe replay through native routes. Full LIFE-005 browser acceptance is the unpublishedChangesJourney in the existing responsive core journeys; the other named clauses retain supporting scope. STAT-001 support runs statusVocabularyCase through native bootstrap and authenticated routes under both profiles: complete seeded records, owner mutations, retained pages, explicit duplicate-safe bulk changes, unchanged non-owner refusals and revoked-session refusal. Full responsive controls are statusVocabularyJourney in the existing settings callers. Native anonymous HTTP reads cover default noindex and first-response header and robots meta after enabling and disabling indexing; publicPageJourney supplies native controls and persisted-state supporting evidence. COMM-002 acceptance 1–2: native-session HTTP journey has two comment-level members author, edit and delete their own comments; another author and an owner receive 403 without changing comments, threads or activity. Exact comment timestamps, in-place tombstones, mutation receipts and one activity per committed change survive all create/edit/delete replays. Responsive native controls in journeys.test.mjs complete the visible proof. Other listed clauses remain supporting regressions. STAT-002 supporting assertions cover native member set, replace and clear, replay, one activity entry, unchanged body, exact search and persisted-query membership and viewer refusal; CONTRACT.md retains main's partial judgment. CONT-007 native control and next-request proof is extended in guestScopeJourney, called by the existing desktop outline and phone tree-filter settings registrations. Its six independent container and workspace veto cases use issued guest sessions and explicit local publication with retained exposure addresses, measure guest projection and open-editor removal within five seconds, preserve unsaved text, refuse unauthorized settings, and reconcile unchanged unrelated containers. Inherited AI-answer removal remains unproved under ADMIN-007 and shared company-policy prerequisites; this HTTP registration remains supporting evidence. Native draftPrivacyCase uses independently issued owner and ordinary-member sessions, a populated draft and exact grant inventories; author, address and group access, ungranted owner and member refusals, full revocation with unchanged replay, both access-profile general and anonymous-publication refusals and retained privacy across lifecycle profile switches. These prove the selected native LIFE-002 acceptance 1 and 2 duties and acceptance 4 preservation only; wider exclusions, every-role and company-policy duties remain unproven."
+     },
+     {
+       "file": "tests/flagship/content/http.test.ts",
