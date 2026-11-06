@@ -64,6 +64,7 @@ import { sharedNavigationJourney } from './shared-navigation-journey.mjs';
 import { globalCreateJourney } from './global-create-journey.mjs';
 import { templateCaptureJourney } from './template-capture-journey.mjs';
 import { starterTemplatesJourney } from './starter-templates-journey.mjs';
+import { templateScopeJourney } from './template-scope-journey.mjs';
 import { templateGalleryJourney } from './template-gallery-journey.mjs';
 import { templateSnapshotJourney } from './template-snapshot-journey.mjs';
 import { taskAssignmentJourney } from './task-assignment-journey.mjs';
@@ -111,6 +112,7 @@ for (const width of [390, 1440]) {
           await step('DB-012 populated record fields, comments, history and parity', () => recordDetailJourney(state, width));
           await templateCaptureJourney(state);
           await templateGalleryJourney(state);
+          await templateScopeJourney(state);
           await archiveRetentionJourney(state,touch);
           await withSecondPerson(state, width, people => step('DB-015 — template handover and revoked-saver pause on a phone', () => recordTemplatesJourney(state, people)));
           await withSecondPerson(state, width, people => step('REV-006 — numbered deletion tombstone on a phone', () => versionDeletionJourney(state, people)));

@@ -217,3 +217,24 @@ Functional assertions run at 1440px. The existing 390px core-wiki registration s
 AUTO-003 run history uses `automationRunLogCase` in `tests/flagship/structured/automation-run-log.case.ts`, invoked by the existing automation recovery Workers registration. Native authenticated rule and run HTTP reads observe every named state from real rule configuration and committed record events, including queued and running at their actual storage transitions. A real D1 trigger aborts comment writes; durable retries reach terminal failure and the production repeated-failure threshold, preserving exactly-once receipts and activity. Native events also reach the production rate boundary. Current-access loss removes touched titles, trigger record references and target receipts from the projection.
 
 `automationRunLogJourney` in `tests/qualification/ui-convergence/automation-run-log-journey.mjs` runs through the existing desktop database-tools caller and phone core caller. It reads the real emitted Worker, checks trigger, actor, record link, recorded time and action receipt, then induces native storage failures and advances only the durable retry clock. Error and failure appear beside the rule before opening its log; repeated failures persist the disabled reason across navigation and a later event. Browser captures use the existing evidence helper at 1440 and 390. No run row or successful application response is fabricated, and no test registration is added.
+
+
+## Retained authored-template address
+
+LINK-001 supporting proof extends `templateScopeJourney` in
+`tests/qualification/ui-convergence/template-scope-journey.mjs`, called by the
+existing desktop starter-template registration through `starterTemplatesJourney`
+and the existing phone core-wiki registration in
+`tests/qualification/ui-convergence/journeys.test.mjs`. No registration is added.
+A populated workspace and two readable private spaces retain exact local-first
+inventories. One authored-template address is reopened and reloaded after native
+Update from a page, each scope move, archive and restore through the archived
+gallery. Native receipts identify the same template and its newly committed
+revision; readback compares its complete snapshot, current title and scope.
+A second member opens the workspace address, receives a content-free refusal
+after the template moves into a private space, and regains that identical address
+when it returns to workspace scope. The archived and restored addresses also
+open for the current workspace reader. Browser captures and bounded native
+receipts remain outside product source. Other record kinds, reference forms,
+transitions and profiles remain unproven; the clause stays partial and no other
+template or page clause is promoted.
