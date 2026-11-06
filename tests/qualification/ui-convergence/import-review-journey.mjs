@@ -12,7 +12,7 @@ export async function importReviewJourney(state,width) {
  const before=(await api('/api/containers')).items.map(item=>item.id).sort();
  await page.goto(origin+'/app/settings/portability',{waitUntil:'networkidle'});
  const bytes=await readFile(new URL('../../e2e/imports/fixtures/real/confluence-space-export.zip',import.meta.url));
- await page.getByLabel('Format',{exact:true}).selectOption('confluence-space');
+ await page.getByRole('combobox',{name:/^Format/}).selectOption('confluence-space');
  await page.getByLabel('File',{exact:true}).setInputFiles({name:'confluence-space-export.zip',mimeType:'application/zip',buffer:bytes});
  const staged=page.waitForResponse(response=>new URL(response.url()).pathname==='/api/imports/stream'&&response.request().method()==='POST');
  await page.getByRole('button',{name:'Upload and review',exact:true}).click();
@@ -73,5 +73,20 @@ export async function importReviewJourney(state,width) {
    const refused=await anonymous.request.get(origin+'/api/pages/'+item.targetId);assert.equal(refused.status(),401);assert.ok(!(await refused.text()).includes(item.label));
    const published=await anonymous.request.get(origin+'/p/'+item.targetId);assert.equal(published.status(),404);assert.ok(!(await published.text()).includes(item.label));}
  }finally{await anonymous.close();await state.switchIdentity('owner');}
+ // The retained mapping remains explicit when its target loses current membership.
+ await state.atRest("UPDATE members SET member_kind='guest',guest_expires_at='2000-01-01T00:00:00.000Z' WHERE id='browser-reader'");
+ try{
+  await page.goto(origin+'/app/settings/portability',{waitUntil:'networkidle'});
+  await mappings.locator('summary').click();
+  await expect(mappedRow.locator('dd')).toContainText('Mapped principal no longer available');
+  assert.deepEqual((await api(base)).report.mappings,review.report.mappings);
+  await mappedRow.scrollIntoViewIfNeeded();await page.screenshot({path:path.join(evidence,`${width}-unavailable.png`),fullPage:false});
+  await state.switchIdentity('reader');
+  for(const item of pages)assert.equal((await context.request.get(origin+'/api/pages/'+item.targetId)).status(),401);
+ }finally{
+  await state.switchIdentity('owner');
+  await state.atRest("UPDATE members SET member_kind='member',guest_expires_at=NULL WHERE id='browser-reader'");
+ }
+ console.log('IMPORT_BROWSER_RECEIPT '+JSON.stringify({width,jobId:id,state:completed.state,mappings:completed.report.mappings,access:completed.report.access,pages:pages.map(item=>({id:item.targetId,title:item.label,anonymousNative:401,anonymousPublished:404})),unavailableTargetShown:true,retainedMappingUnchanged:true}));
  console.log(`PROBE IMP-016 Settings ${width}: genuine archive upload, explicit mapping, Apply and reload -> completed; reviewed member and historical people displayed; conversion retained; ${pages.length} restricted reader pages and no anonymous page`);
 }

@@ -1,4 +1,4 @@
-import {expect} from 'vitest';
+import {expect,vi} from 'vitest';
 import {env} from 'cloudflare:test';
 import {createApi} from '../../../src/core/app/hono';
 import {parseImport} from '../../../src/core/features/imports';
@@ -78,6 +78,14 @@ export async function reviewedPrincipalsJourney(reset:()=>Promise<void>) {
   await refuse(action,body,404,'NOT_FOUND',ownerCookie);
  };
  await recheck('apply');
+ // Expiry after the request's membership check must still fail its transaction.
+ const batch=env.DB.batch.bind(env.DB);let raced=false,afterExpiry:Awaited<ReturnType<typeof snapshot>>|undefined;
+ const guard=vi.spyOn(env.DB,'batch').mockImplementation((async(statements:D1PreparedStatement[])=>{
+  if(!raced){raced=true;await env.DB.prepare("UPDATE members SET member_kind='guest',guest_expires_at='2000-01-01T00:00:00.000Z' WHERE id=?").bind(mapped.memberId).run();afterExpiry=await snapshot();}
+  return batch(statements);
+ }) as D1Database['batch']);
+ try{const response=await request(base+'/apply',{fingerprint:job.report.fingerprint});expect(raced).toBe(true);expect(response.status).toBe(500);expect(await snapshot()).toEqual(afterExpiry);}
+ finally{guard.mockRestore();await env.DB.prepare("UPDATE members SET member_kind='member',guest_expires_at=NULL WHERE id=?").bind(mapped.memberId).run();}
  job=await ok(base+'/apply',{fingerprint:job.report.fingerprint});expect(job.state).toBe('preparing');
  await recheck('resume');
  for(let n=0;job.state==='preparing'&&n<40;n++)job=await ok(base+'/resume',{});
@@ -116,7 +124,7 @@ export async function reviewedPrincipalsJourney(reset:()=>Promise<void>) {
  }
  expect((await env.DB.prepare('SELECT * FROM public_exposures').all()).results).toEqual([]);
  const completed=await snapshot();await ok(base+'/apply',{fingerprint:job.report.fingerprint});await ok(base+'/resume',{});expect(await snapshot()).toEqual(completed);
- console.info('IMPORT_PRINCIPAL_RECEIPT '+JSON.stringify({jobId:staged.id,state:job.state,refusals,principals:resolved.map(link=>({...link,status:link.target_id===mapped.memberId?'active':'historical'})),pages,grants:(await env.DB.prepare('SELECT page_id,principal_kind,principal_id,level FROM page_grants ORDER BY page_id,principal_id,level').all()).results,access:job.report.access,warnings:warnings.filter(item=>item.label==='Source edit restrictions'),exposures:(await env.DB.prepare('SELECT * FROM public_exposures').all()).results}));
+ console.info('IMPORT_PRINCIPAL_RECEIPT '+JSON.stringify({jobId:staged.id,state:job.state,transactionExpiryRefused:raced,refusals,principals:resolved.map(link=>({...link,status:link.target_id===mapped.memberId?'active':'historical'})),pages,grants:(await env.DB.prepare('SELECT page_id,principal_kind,principal_id,level FROM page_grants ORDER BY page_id,principal_id,level').all()).results,access:job.report.access,warnings:warnings.filter(item=>item.label==='Source edit restrictions'),exposures:(await env.DB.prepare('SELECT * FROM public_exposures').all()).results}));
  console.info('PROBE IMP-016 2: genuine Confluence Preview, Apply, Preparing and two native batch checkpoints -> unsafe mapping, changed workspace, removed member, lost creation authority, removed actor, revoked session and another actor refused; authority, checkpoints and publication unchanged; restored authority resumes the same review');
  console.info(`PROBE IMP-016 3: completed native source-ID mapping -> ${historical.length} inactive historical people with no sessions; exact active identity set unchanged; equal source name did not match; email and name target shortcuts refused`);
  console.info(`PROBE IMP-016 5: retained warning and page readback -> ${sourceRestricted.length} restricted pages, exact reviewed edit and importing-member recovery grants`);

@@ -10556,7 +10556,7 @@
       "executable": false
     },
     "tests/e2e/imports/reviewed-principals-journey.ts": {
-      "sha256": "2594aabb8223af7a3e6019565fb6aa607b6a156dd65eb6f275ca3f52baa44f04",
+      "sha256": "bad6bcf533a347f08d8c0ee45399b3911b9c50df87734851699dcc200082b687",
       "executable": false
     },
     "tests/e2e/imports/reviewed-space.ts": {
@@ -12104,7 +12104,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/import-review-journey.mjs": {
-      "sha256": "0e2f3fe2b2b7f6671589d0f6adbbb0cf744672e5ca589ec03c2098552187d98c",
+      "sha256": "ba4db2900ccad9e4055e5a81d57ff371f13a421df7f60ccc59844bb01f7e0579",
       "executable": false
     },
     "tests/qualification/ui-convergence/inbox-journey.mjs": {
@@ -12412,7 +12412,7 @@
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
-      "sha256": "9faffe64c88bb7feb2005526358978d7c48cacf876ca4f4924dbe76eff7e2993",
+      "sha256": "b5e9ed03fb7c69af9fd7958f14a49afd06fd4d98e34af378e9a8d6175802a438",
       "executable": false
     },
     "tests/requirements/count-registrations.mjs": {
