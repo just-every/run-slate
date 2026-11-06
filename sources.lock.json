@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "fc7d546f563a193603b09fffc090d539b7bbd0f97dbce4537f711c223ad50027",
+      "sha256": "a7afdd018a7b837c684b65d88b035799134192e9f1da3ef26fc3b3140807f9d6",
       "executable": false
     },
     "DEMO.md": {
@@ -10844,7 +10844,7 @@
       "executable": false
     },
     "tests/flagship/content/draft-privacy.case.ts": {
-      "sha256": "9c4be19bc3dadbf46bb12cc96f092987b15f0f1425fc4538eab736c8785a837d",
+      "sha256": "978567103897907f7b7c7a6a505d5488a5eeb7ff35ac1c8977e18dcd48e43f20",
       "executable": false
     },
     "tests/flagship/content/http.test.ts": {
@@ -12412,7 +12412,7 @@
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
-      "sha256": "814e36d97f8594c1a2541eb6f272ba8deeee55f7395e64d05cf73437fc10e1cb",
+      "sha256": "e47ee29fed775d4d9d7a6357954a1cffa6d7bbd657549940ee60120b1173e922",
       "executable": false
     },
     "tests/requirements/count-registrations.mjs": {
@@ -12424,7 +12424,7 @@
       "executable": false
     },
     "tests/requirements/test-evidence.json": {
-      "sha256": "45d3a22f365c153e7a682a05aa9c39d0b834339778414894dccfc5fb8f55a551",
+      "sha256": "420d7b5f2a715359649437364fe6343a00986cb0207458b705093727fe167fb5",
       "executable": false
     },
     "tests/rer/editor.test.mjs": {

@@ -75,6 +75,21 @@ export async function draftPrivacyCase() {
   expect(list.items.map((g:any)=>[g.principalKind,g.principalId,g.level,g.status]).sort()).toEqual([['member',reader!.id,'view','active'],['group',groupId,'view','active']].sort());
   expect(list.effectiveItems.map((g:any)=>g.id).sort()).toEqual(list.items.map((g:any)=>g.id).sort());
   expect(list.inheritedItems).toEqual([]);
+  // Group access is bound to current membership in the existing native session.
+  const retainedGrants=list.items;
+  const group=(await ok(owner!.id,'GET','/api/groups')).items.find((item:any)=>item.id===groupId);
+  const removal={operationKey:createUlid(),id:groupId,expectedRevisionId:group.revisionId,name:group.name,memberIds:[]};
+  await ok(owner!.id,'POST','/api/groups',removal);
+  await refused(groupReader!.id,'GET',`/api/pages/${id}`);
+  expect((await grants()).items).toEqual(retainedGrants);
+  expect((await ok(reader!.id,'GET',`/api/pages/${id}`)).blocks[0].content.text).toEqual([{text}]);
+  const removed=(await ok(owner!.id,'GET','/api/groups')).items.find((item:any)=>item.id===groupId);
+  await ok(owner!.id,'POST','/api/groups',{operationKey:createUlid(),id:groupId,expectedRevisionId:removed.revisionId,name:removed.name,memberIds:[groupReader!.id]});
+  const restoredGroups=await rows('group_members');
+  await ok(owner!.id,'POST','/api/groups',removal);
+  expect(await rows('group_members')).toEqual(restoredGroups);
+  expect((await ok(groupReader!.id,'GET',`/api/pages/${id}`)).blocks[0].content.text).toEqual([{text}]);
+  expect((await grants()).items).toEqual(retainedGrants);
   for(const access of ['workspace-general','container-general']) {
     await profile(access);
     for(const [principalKind,principalId] of [['workspace',workspaceId],['container',containerId]]) {
@@ -261,6 +276,7 @@ export async function draftPrivacyCase() {
     }
   } finally {provider.mockRestore();}
   console.log('PROBE LIFE-002 link: delivered draft invitation -> pending grant, explicit acceptance and session-bound body; cancelled link and revoked guest session refused, replay unchanged');
+  console.log('PROBE LIFE-002 group: native membership removal -> existing group-reader session 404 without changing page grants; restored membership reads; replayed removal receipt changes nothing');
   console.log('PROBE LIFE-002 inbox: active member and group grants -> no new draft notice; retained direct and source notices hidden from five sessions across both lifecycle and access profiles; unread totals, native actions and queued delivery preserve privacy');
   console.log('PROBE LIFE-002 exclusion: native populated search, query, tree, inbox and analytics -> live control present, draft absent; unauthorized complete export refused without creating a job');
   console.log('PROBE LIFE-002 1: native author, address grant and group sessions -> exact body and persisted grants; owner and outsider refused; same sessions refused after full revocation, replay unchanged');
