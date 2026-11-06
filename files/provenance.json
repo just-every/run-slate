@@ -1,0 +1,50 @@
+{
+  "head": "b58e5660144c5363cde3092be33da95b2ff25e1a",
+  "branch": "cloud/sd-slate-c-f182",
+  "main": "bc567c9b6f6b25c98cb6fa05b9ab0fe37628a547",
+  "artifact": {
+    "schema": 1,
+    "commit": "b58e5660144c5363cde3092be33da95b2ff25e1a",
+    "tree": "26001505d5915b293846bc53d9186a0cfe22f197",
+    "sourceSha256": "345d32d5d5d27db5358690631ee97799c3f902b0fe5ea4cf01ab017866d0d956",
+    "lockSha256": "8f79aeb63379a243770ad0a1f0bb57f53014a10c63205db1e1f3c1dbf041ddde",
+    "outputSha256": "aa9d848dbd7af78d13c2a0d69dcda54f0297aa24311cc4af4f1fc576e3bd939b"
+  },
+  "files": [
+    {
+      "path": "CONTRACT.md",
+      "bytes": 501713,
+      "sha256": "ad4c2640ac264e74fe3d88cf6a6ee7d82e6ec0de39dc1e378a73f2e71848cbbe"
+    },
+    {
+      "path": "sources.lock.json",
+      "bytes": 540590,
+      "sha256": "8f79aeb63379a243770ad0a1f0bb57f53014a10c63205db1e1f3c1dbf041ddde"
+    },
+    {
+      "path": "tests/qualification/ui-convergence/archive-retention-journey.mjs",
+      "bytes": 6652,
+      "sha256": "5c26fae36f2f3144e3e1a4cf1b2955a303951ab95d8101f74617c1b22fc1df9f"
+    },
+    {
+      "path": "tests/qualification/ui-convergence/chat-journey.mjs",
+      "bytes": 20193,
+      "sha256": "5714e3e0558b6951c3a68a2579256b83b67d00d95cfcccdba9a929f39df0e29d"
+    },
+    {
+      "path": "tests/qualification/ui-convergence/sharing-journey.mjs",
+      "bytes": 31408,
+      "sha256": "b735db5f197de02ca39eb7c830cede072837ca3c05a91a32e030173ceabb9e87"
+    },
+    {
+      "path": "tests/requirements/clause-inventory.json",
+      "bytes": 202531,
+      "sha256": "37dc492cc90cf7923f8a52742cfc5785df48f7bbc2b9e392ea9cb719b33de2a8"
+    },
+    {
+      "path": "tests/requirements/cli-journey.md",
+      "bytes": 33507,
+      "sha256": "377a1df58b1e63766360b8df453ac8ed719b9062aabec0f07fd93d97e192d707"
+    }
+  ]
+}

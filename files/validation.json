@@ -1,0 +1,172 @@
+{
+  "head": "b58e5660144c5363cde3092be33da95b2ff25e1a",
+  "countsBefore": {
+    "done": 57,
+    "partial": 240,
+    "missing": 41
+  },
+  "countsAfter": {
+    "partial": 240,
+    "done": 57,
+    "missing": 41
+  },
+  "registrationsBefore": 207,
+  "registrationsAfter": 207,
+  "tableLines": 698,
+  "statusIds": 338,
+  "checks": [
+    {
+      "label": "handoff-build",
+      "head": "b58e5660144c5363cde3092be33da95b2ff25e1a",
+      "dirtyPathsAtStart": [],
+      "command": [
+        "npx",
+        "-y",
+        "@runeditrun/rer",
+        "build"
+      ],
+      "start": "2026-11-06T08:41:44.307177+00:00",
+      "end": "2026-11-06T08:42:21.338332+00:00",
+      "seconds": 37.031,
+      "exit": 0,
+      "log": "handoff-build.log"
+    },
+    {
+      "label": "handoff-core-journeys",
+      "head": "b58e5660144c5363cde3092be33da95b2ff25e1a",
+      "dirtyPathsAtStart": [],
+      "command": [
+        "timeout",
+        "1800",
+        "node",
+        "--test",
+        "--test-concurrency=1",
+        "--test-name-pattern=^real core-wiki and touch-member journeys at (390|1440)px$",
+        "tests/qualification/ui-convergence/journeys.test.mjs"
+      ],
+      "start": "2026-11-06T08:42:21.413141+00:00",
+      "end": "2026-11-06T09:01:50.691872+00:00",
+      "seconds": 1169.279,
+      "exit": 0,
+      "log": "handoff-core-journeys.log"
+    },
+    {
+      "label": "handoff-typecheck",
+      "head": "b58e5660144c5363cde3092be33da95b2ff25e1a",
+      "dirtyPathsAtStart": [],
+      "command": [
+        "pnpm",
+        "typecheck"
+      ],
+      "start": "2026-11-06T08:41:44.263738+00:00",
+      "end": "2026-11-06T08:42:14.680997+00:00",
+      "seconds": 30.417,
+      "exit": 0,
+      "log": "handoff-typecheck.log"
+    },
+    {
+      "label": "handoff-first-party",
+      "head": "b58e5660144c5363cde3092be33da95b2ff25e1a",
+      "dirtyPathsAtStart": [],
+      "command": [
+        "pnpm",
+        "exec",
+        "rer",
+        "check",
+        "--profile",
+        "first-party"
+      ],
+      "start": "2026-11-06T08:42:14.724930+00:00",
+      "end": "2026-11-06T08:42:15.891887+00:00",
+      "seconds": 1.167,
+      "exit": 0,
+      "log": "handoff-first-party.log"
+    },
+    {
+      "label": "handoff-source-check",
+      "head": "b58e5660144c5363cde3092be33da95b2ff25e1a",
+      "dirtyPathsAtStart": [],
+      "command": [
+        "pnpm",
+        "source:check"
+      ],
+      "start": "2026-11-06T08:42:15.941233+00:00",
+      "end": "2026-11-06T08:42:16.701749+00:00",
+      "seconds": 0.761,
+      "exit": 0,
+      "log": "handoff-source-check.log"
+    },
+    {
+      "label": "handoff-contract",
+      "head": "b58e5660144c5363cde3092be33da95b2ff25e1a",
+      "dirtyPathsAtStart": [],
+      "command": [
+        "pnpm",
+        "check:contract"
+      ],
+      "start": "2026-11-06T08:42:16.740484+00:00",
+      "end": "2026-11-06T08:42:17.512648+00:00",
+      "seconds": 0.772,
+      "exit": 0,
+      "log": "handoff-contract.log"
+    },
+    {
+      "label": "handoff-registrations",
+      "head": "b58e5660144c5363cde3092be33da95b2ff25e1a",
+      "dirtyPathsAtStart": [],
+      "command": [
+        "node",
+        "tests/requirements/count-registrations.mjs",
+        "HEAD"
+      ],
+      "start": "2026-11-06T08:42:17.554062+00:00",
+      "end": "2026-11-06T08:42:21.012039+00:00",
+      "seconds": 3.458,
+      "exit": 0,
+      "log": "handoff-registrations.log"
+    },
+    {
+      "label": "handoff-mechanical",
+      "head": "b58e5660144c5363cde3092be33da95b2ff25e1a",
+      "dirtyPathsAtStart": [],
+      "command": [
+        "bash",
+        "/tmp/slate-f182-mechanical.sh"
+      ],
+      "start": "2026-11-06T09:02:08.481485+00:00",
+      "end": "2026-11-06T09:02:10.392610+00:00",
+      "seconds": 1.911,
+      "exit": 0,
+      "log": "handoff-mechanical.log"
+    }
+  ],
+  "matrices": [
+    {
+      "width": 390,
+      "file": "matrix-390.json",
+      "allowed": 9,
+      "replayed": 9,
+      "refused": 11,
+      "pages": 4,
+      "sha256": "d640781ae597c100fadc9aac0fbabb3fe4c57fb28e7cae7d17650052a11bb089"
+    },
+    {
+      "width": 1440,
+      "file": "matrix-1440.json",
+      "allowed": 9,
+      "replayed": 9,
+      "refused": 11,
+      "pages": 4,
+      "sha256": "95b5b5b80829eec42a9eebff0ccdac95de0b2feecb919b8a6e0a0b945a8daa5e"
+    }
+  ],
+  "ci": {
+    "finalHeadPolled": false,
+    "budgetCalls": 10,
+    "priorHead": "57d52fbcc5bc4abf0a375a3a0814acc3228542b4",
+    "priorRun": 42184851485,
+    "priorResult": "generated-view check and aggregate dependency only",
+    "terminalCustody": "PUSHED"
+  },
+  "releaseClaim": false
+}

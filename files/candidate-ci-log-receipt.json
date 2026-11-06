@@ -1,0 +1,22 @@
+{
+  "head": "a47056444106f81bd64b9e7bf2ab3d6f71379273",
+  "run": 42180974319,
+  "job": 127770312263,
+  "command": [
+    "gh",
+    "run",
+    "view",
+    "42180974319",
+    "--repo",
+    "just-every/run-slate",
+    "--job",
+    "127770312263",
+    "--log-failed"
+  ],
+  "exit": 0,
+  "rawBytes": 1068,
+  "rawSha256": "94c720b57c30cf46a86643238ade8347a243951e46a4d039ffca00dac09803b4",
+  "packetFile": "candidate-ci-failed-job.log",
+  "removed": "Two runner environment metadata lines; failure text is unchanged.",
+  "failure": "ACCEPTANCE.md: generated content differs; run contract-docs write."
+}

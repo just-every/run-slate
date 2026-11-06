@@ -1,0 +1,14 @@
+{
+  "label": "handoff-source-check",
+  "head": "b58e5660144c5363cde3092be33da95b2ff25e1a",
+  "dirtyPathsAtStart": [],
+  "command": [
+    "pnpm",
+    "source:check"
+  ],
+  "start": "2026-11-06T08:42:15.941233+00:00",
+  "end": "2026-11-06T08:42:16.701749+00:00",
+  "seconds": 0.761,
+  "exit": 0,
+  "log": "handoff-source-check.log"
+}

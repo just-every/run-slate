@@ -1,0 +1,44 @@
+{
+  "main": "93b7327adee97ac0ff691bfb5cbff68f4412a27a",
+  "observedRuns": [
+    {
+      "id": 42144247270,
+      "name": "Verify Slate",
+      "conclusion": "success"
+    },
+    {
+      "id": 42140210059,
+      "name": "Verify Slate",
+      "conclusion": "success"
+    },
+    {
+      "id": 42144247238,
+      "name": "Run site",
+      "conclusion": "success"
+    },
+    {
+      "id": 42150976860,
+      "name": "Verify Slate",
+      "conclusion": "failure",
+      "failedJob": 127674495791,
+      "failedStep": "Workers, public-door journeys and suite"
+    }
+  ],
+  "logRead": {
+    "command": [
+      "gh",
+      "run",
+      "view",
+      "42150976860",
+      "--repo",
+      "just-every/run-slate",
+      "--job",
+      "127674495791",
+      "--log-failed"
+    ],
+    "exit": 0,
+    "stdoutBytes": 0,
+    "failureIdentified": false
+  },
+  "claim": "No infrastructure classification or repair was inferred from an empty log."
+}

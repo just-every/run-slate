@@ -1,0 +1,22 @@
+{
+  "candidate": {
+    "schema": 1,
+    "commit": "b58e5660144c5363cde3092be33da95b2ff25e1a",
+    "tree": "26001505d5915b293846bc53d9186a0cfe22f197",
+    "sourceSha256": "345d32d5d5d27db5358690631ee97799c3f902b0fe5ea4cf01ab017866d0d956",
+    "lockSha256": "8f79aeb63379a243770ad0a1f0bb57f53014a10c63205db1e1f3c1dbf041ddde",
+    "outputSha256": "aa9d848dbd7af78d13c2a0d69dcda54f0297aa24311cc4af4f1fc576e3bd939b"
+  },
+  "main": {
+    "schema": 1,
+    "commit": "bc567c9b6f6b25c98cb6fa05b9ab0fe37628a547",
+    "tree": "3f27994ae6e10a111ac83862d16fbf98f4886473",
+    "sourceSha256": "678f158b099343441602de7a4ddd6b7d9661f199da062afb02778001d13f9015",
+    "lockSha256": "066a2c5c21f3c8e452a152f89763761e72a76c7f9b81f6feac6dd665049fe58f",
+    "outputSha256": "f10eda3c9692ca169547eceecc129eedc8ec8a69d70ba615b5ec3d33e20662ad"
+  },
+  "runtimeSourceDiffPaths": [],
+  "runtimeSourceEqual": true,
+  "emittedBytesEqual": false,
+  "note": "Runtime source and dependency pins match current main. Contract and documentation source differs; emitted output equality is not claimed."
+}

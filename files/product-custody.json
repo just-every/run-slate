@@ -1,0 +1,12 @@
+{
+  "head": "b58e5660144c5363cde3092be33da95b2ff25e1a",
+  "branch": "cloud/sd-slate-c-f182",
+  "remoteObservation": "b58e5660144c5363cde3092be33da95b2ff25e1a\trefs/heads/cloud/sd-slate-c-f182",
+  "observedAt": "2026-11-06T09:02:13.291895+00:00",
+  "command": [
+    "git",
+    "ls-remote",
+    "origin",
+    "refs/heads/cloud/sd-slate-c-f182"
+  ]
+}

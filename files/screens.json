@@ -1,0 +1,173 @@
+{
+  "head": "b58e5660144c5363cde3092be33da95b2ff25e1a",
+  "screens": [
+    {
+      "width": 390,
+      "level": "comment",
+      "surface": "discussion",
+      "image": "screens/390-comment-discussion.png",
+      "receipt": "screens/390-comment-discussion.json"
+    },
+    {
+      "width": 390,
+      "level": "comment",
+      "surface": "page",
+      "image": "screens/390-comment-page.png",
+      "receipt": "screens/390-comment-page.json"
+    },
+    {
+      "width": 390,
+      "level": "comment",
+      "surface": "sharing",
+      "image": "screens/390-comment-sharing.png",
+      "receipt": "screens/390-comment-sharing.json"
+    },
+    {
+      "width": 390,
+      "level": "edit",
+      "surface": "discussion",
+      "image": "screens/390-edit-discussion.png",
+      "receipt": "screens/390-edit-discussion.json"
+    },
+    {
+      "width": 390,
+      "level": "edit",
+      "surface": "page",
+      "image": "screens/390-edit-page.png",
+      "receipt": "screens/390-edit-page.json"
+    },
+    {
+      "width": 390,
+      "level": "edit",
+      "surface": "sharing",
+      "image": "screens/390-edit-sharing.png",
+      "receipt": "screens/390-edit-sharing.json"
+    },
+    {
+      "width": 390,
+      "level": "full",
+      "surface": "discussion",
+      "image": "screens/390-full-discussion.png",
+      "receipt": "screens/390-full-discussion.json"
+    },
+    {
+      "width": 390,
+      "level": "full",
+      "surface": "page",
+      "image": "screens/390-full-page.png",
+      "receipt": "screens/390-full-page.json"
+    },
+    {
+      "width": 390,
+      "level": "full",
+      "surface": "sharing",
+      "image": "screens/390-full-sharing.png",
+      "receipt": "screens/390-full-sharing.json"
+    },
+    {
+      "width": 390,
+      "level": "view",
+      "surface": "discussion",
+      "image": "screens/390-view-discussion.png",
+      "receipt": "screens/390-view-discussion.json"
+    },
+    {
+      "width": 390,
+      "level": "view",
+      "surface": "page",
+      "image": "screens/390-view-page.png",
+      "receipt": "screens/390-view-page.json"
+    },
+    {
+      "width": 390,
+      "level": "view",
+      "surface": "sharing",
+      "image": "screens/390-view-sharing.png",
+      "receipt": "screens/390-view-sharing.json"
+    },
+    {
+      "width": 1440,
+      "level": "comment",
+      "surface": "discussion",
+      "image": "screens/1440-comment-discussion.png",
+      "receipt": "screens/1440-comment-discussion.json"
+    },
+    {
+      "width": 1440,
+      "level": "comment",
+      "surface": "page",
+      "image": "screens/1440-comment-page.png",
+      "receipt": "screens/1440-comment-page.json"
+    },
+    {
+      "width": 1440,
+      "level": "comment",
+      "surface": "sharing",
+      "image": "screens/1440-comment-sharing.png",
+      "receipt": "screens/1440-comment-sharing.json"
+    },
+    {
+      "width": 1440,
+      "level": "edit",
+      "surface": "discussion",
+      "image": "screens/1440-edit-discussion.png",
+      "receipt": "screens/1440-edit-discussion.json"
+    },
+    {
+      "width": 1440,
+      "level": "edit",
+      "surface": "page",
+      "image": "screens/1440-edit-page.png",
+      "receipt": "screens/1440-edit-page.json"
+    },
+    {
+      "width": 1440,
+      "level": "edit",
+      "surface": "sharing",
+      "image": "screens/1440-edit-sharing.png",
+      "receipt": "screens/1440-edit-sharing.json"
+    },
+    {
+      "width": 1440,
+      "level": "full",
+      "surface": "discussion",
+      "image": "screens/1440-full-discussion.png",
+      "receipt": "screens/1440-full-discussion.json"
+    },
+    {
+      "width": 1440,
+      "level": "full",
+      "surface": "page",
+      "image": "screens/1440-full-page.png",
+      "receipt": "screens/1440-full-page.json"
+    },
+    {
+      "width": 1440,
+      "level": "full",
+      "surface": "sharing",
+      "image": "screens/1440-full-sharing.png",
+      "receipt": "screens/1440-full-sharing.json"
+    },
+    {
+      "width": 1440,
+      "level": "view",
+      "surface": "discussion",
+      "image": "screens/1440-view-discussion.png",
+      "receipt": "screens/1440-view-discussion.json"
+    },
+    {
+      "width": 1440,
+      "level": "view",
+      "surface": "page",
+      "image": "screens/1440-view-page.png",
+      "receipt": "screens/1440-view-page.json"
+    },
+    {
+      "width": 1440,
+      "level": "view",
+      "surface": "sharing",
+      "image": "screens/1440-view-sharing.png",
+      "receipt": "screens/1440-view-sharing.json"
+    }
+  ]
+}

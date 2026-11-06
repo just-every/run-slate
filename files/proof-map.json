@@ -1,0 +1,30 @@
+{
+  "head": "b58e5660144c5363cde3092be33da95b2ff25e1a",
+  "file": "tests/qualification/ui-convergence/sharing-journey.mjs",
+  "helper": "permissionLevelsJourney",
+  "lines": {
+    "read": [
+      121
+    ],
+    "edit": [
+      217
+    ],
+    "comment": [
+      243
+    ],
+    "share": [
+      269
+    ],
+    "refusal": [
+      139
+    ],
+    "replay": [
+      205
+    ],
+    "screens": [
+      238,
+      265,
+      293
+    ]
+  }
+}

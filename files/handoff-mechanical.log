@@ -1,0 +1,8 @@
+Wrote 1 contract documents.
+Contract documents are current.
+
+> slate@0.4.0 integration:sync /workspace/slate-f182
+> node scripts/sync-integration.mjs --write
+
+Integration resource, migration and source identities match.
+MECHANICAL lock=pnpm source:lock and pnpm source:check exit=0; views=node src/base/runtime/contract-docs.mjs write and check, restored origin/main views exit=0; ledger=none exit=0

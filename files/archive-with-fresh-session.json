@@ -1,0 +1,15 @@
+{
+  "label": "archive-with-fresh-session",
+  "head": "a47056444106f81bd64b9e7bf2ab3d6f71379273",
+  "command": [
+    "timeout",
+    "1200",
+    "node",
+    ".artifacts/probe-archive-fresh.mjs"
+  ],
+  "start": "2026-11-06T07:49:24.843432+00:00",
+  "end": "2026-11-06T07:50:42.318943+00:00",
+  "seconds": 77.476,
+  "exit": 0,
+  "log": "archive-with-fresh-session.log"
+}

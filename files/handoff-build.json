@@ -1,0 +1,16 @@
+{
+  "label": "handoff-build",
+  "head": "b58e5660144c5363cde3092be33da95b2ff25e1a",
+  "dirtyPathsAtStart": [],
+  "command": [
+    "npx",
+    "-y",
+    "@runeditrun/rer",
+    "build"
+  ],
+  "start": "2026-11-06T08:41:44.307177+00:00",
+  "end": "2026-11-06T08:42:21.338332+00:00",
+  "seconds": 37.031,
+  "exit": 0,
+  "log": "handoff-build.log"
+}

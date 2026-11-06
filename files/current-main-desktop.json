@@ -1,0 +1,19 @@
+{
+  "label": "current-main-desktop",
+  "head": "bc567c9b6f6b25c98cb6fa05b9ab0fe37628a547",
+  "dirtyPathsAtStart": [],
+  "command": [
+    "timeout",
+    "1200",
+    "node",
+    "--test",
+    "--test-concurrency=1",
+    "--test-name-pattern=^real core-wiki and touch-member journeys at 1440px$",
+    "tests/qualification/ui-convergence/journeys.test.mjs"
+  ],
+  "start": "2026-11-06T08:21:38.827826+00:00",
+  "end": "2026-11-06T08:31:50.305433+00:00",
+  "seconds": 611.478,
+  "exit": 0,
+  "log": "current-main-desktop.log"
+}

@@ -1,0 +1,4 @@
+FETCH attempt=1/5 exit=0 HTTP=unknown (not supplied by Git)
+From https://github.com/just-every/run-slate
+ * branch              main       -> FETCH_HEAD
+

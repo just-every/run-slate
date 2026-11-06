@@ -1,0 +1,31 @@
+[
+  {
+    "file": "candidate-core-journeys.log",
+    "rawSha256": "8faa59e6b4be147006f52f547d44d2a6dad9def5679c691184d9a254aa74f5f4",
+    "omittedLines": [
+      30,
+      37,
+      44
+    ],
+    "reason": "Unrelated fixture credential-shaped request fields; assertion text unchanged."
+  },
+  {
+    "file": "baseline-core-journeys.log",
+    "rawSha256": "f0682ea7062eaebdf3c2a1f3c57637b170e0aaf93ddea9b8d5d469d7259127aa",
+    "omittedLines": [
+      26,
+      33,
+      40
+    ],
+    "reason": "Unrelated fixture credential-shaped request fields; assertion text unchanged."
+  },
+  {
+    "file": "final-desktop-retry.log",
+    "rawSha256": "f39b7aae4acb3547ecfc38d38d40cbcfae2808bffe6314fc26213cf24a422166",
+    "omittedLines": [
+      19,
+      26
+    ],
+    "reason": "Unrelated fixture credential-shaped request fields; assertion text unchanged."
+  }
+]

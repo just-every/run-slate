@@ -1,0 +1,45 @@
+{
+  "head": "a47056444106f81bd64b9e7bf2ab3d6f71379273",
+  "branch": "cloud/sd-slate-c-f182",
+  "main": "93b7327adee97ac0ff691bfb5cbff68f4412a27a",
+  "artifact": {
+    "schema": 1,
+    "commit": "a47056444106f81bd64b9e7bf2ab3d6f71379273",
+    "tree": "787083687acb2304da6abb96020679d9711b73cc",
+    "sourceSha256": "3035aeb4f1d3421ed300f31ff78d4941c998a6a088b282ad37c8f702d8ccc2ec",
+    "lockSha256": "11c7d66653d43d2cd4f4f618eed63dac2710e672c5457c59952944d3ee9731d8",
+    "outputSha256": "eaa2eafb1e752f0efd98da18bfc519ff553ac2ee1424fc20b2aff2854f699832"
+  },
+  "files": [
+    {
+      "path": "tests/qualification/ui-convergence/sharing-journey.mjs",
+      "sha256": "b735db5f197de02ca39eb7c830cede072837ca3c05a91a32e030173ceabb9e87",
+      "bytes": 31408
+    },
+    {
+      "path": "tests/qualification/ui-convergence/journeys.test.mjs",
+      "sha256": "2c577b319326a67d991e81cc9b2a6a35d9193015e761f2e19755b44a1cd5126e",
+      "bytes": 24705
+    },
+    {
+      "path": "tests/requirements/clause-inventory.json",
+      "sha256": "fcb3b922e83ee4469d90ce855868658baf812639c24a2896494ee8ae173968ca",
+      "bytes": 202178
+    },
+    {
+      "path": "tests/requirements/cli-journey.md",
+      "sha256": "935f4e4a5e07f649cedb17b3e396afa7737a2d47288c7af059b3fe8ca06d3f11",
+      "bytes": 29856
+    },
+    {
+      "path": "CONTRACT.md",
+      "sha256": "9fa020440bab092c3119740f42f818801ac4c79d61ba09f5a48fa627d7466acc",
+      "bytes": 500943
+    },
+    {
+      "path": "sources.lock.json",
+      "sha256": "11c7d66653d43d2cd4f4f618eed63dac2710e672c5457c59952944d3ee9731d8",
+      "bytes": 540228
+    }
+  ]
+}

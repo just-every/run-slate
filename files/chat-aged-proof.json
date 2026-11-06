@@ -1,0 +1,19 @@
+{
+  "label": "chat-aged-proof",
+  "head": "57d52fbcc5bc4abf0a375a3a0814acc3228542b4",
+  "dirtyPathsAtStart": [
+    "tests/qualification/ui-convergence/chat-journey.mjs",
+    "tests/requirements/cli-journey.md"
+  ],
+  "command": [
+    "timeout",
+    "1200",
+    "node",
+    ".artifacts/probe-chat-aged.mjs"
+  ],
+  "start": "2026-11-06T08:37:10.407296+00:00",
+  "end": "2026-11-06T08:38:45.110764+00:00",
+  "seconds": 94.703,
+  "exit": 0,
+  "log": "chat-aged-proof.log"
+}

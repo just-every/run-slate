@@ -1,0 +1,14 @@
+{
+  "label": "handoff-typecheck",
+  "head": "b58e5660144c5363cde3092be33da95b2ff25e1a",
+  "dirtyPathsAtStart": [],
+  "command": [
+    "pnpm",
+    "typecheck"
+  ],
+  "start": "2026-11-06T08:41:44.263738+00:00",
+  "end": "2026-11-06T08:42:14.680997+00:00",
+  "seconds": 30.417,
+  "exit": 0,
+  "log": "handoff-typecheck.log"
+}

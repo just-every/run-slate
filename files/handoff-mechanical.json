@@ -1,0 +1,14 @@
+{
+  "label": "handoff-mechanical",
+  "head": "b58e5660144c5363cde3092be33da95b2ff25e1a",
+  "dirtyPathsAtStart": [],
+  "command": [
+    "bash",
+    "/tmp/slate-f182-mechanical.sh"
+  ],
+  "start": "2026-11-06T09:02:08.481485+00:00",
+  "end": "2026-11-06T09:02:10.392610+00:00",
+  "seconds": 1.911,
+  "exit": 0,
+  "log": "handoff-mechanical.log"
+}

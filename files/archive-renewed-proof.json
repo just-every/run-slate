@@ -1,0 +1,20 @@
+{
+  "label": "archive-renewed-proof",
+  "head": "a47056444106f81bd64b9e7bf2ab3d6f71379273",
+  "command": [
+    "timeout",
+    "1200",
+    "node",
+    ".artifacts/probe-archive-fresh.mjs"
+  ],
+  "start": "2026-11-06T07:54:12.681285+00:00",
+  "end": "2026-11-06T07:55:37.717224+00:00",
+  "seconds": 85.035,
+  "exit": 0,
+  "log": "archive-renewed-proof.log",
+  "dirtyPathsAtStart": [
+    "tests/qualification/ui-convergence/archive-retention-journey.mjs",
+    "tests/requirements/cli-journey.md"
+  ],
+  "sourceState": "Development check before committing the native proof fixture correction."
+}

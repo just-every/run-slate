@@ -1,0 +1,19 @@
+{
+  "label": "final-core-journeys",
+  "head": "57d52fbcc5bc4abf0a375a3a0814acc3228542b4",
+  "dirtyPathsAtStart": [],
+  "command": [
+    "timeout",
+    "1800",
+    "node",
+    "--test",
+    "--test-concurrency=1",
+    "--test-name-pattern=^real core-wiki and touch-member journeys at (390|1440)px$",
+    "tests/qualification/ui-convergence/journeys.test.mjs"
+  ],
+  "start": "2026-11-06T08:03:56.535278+00:00",
+  "end": "2026-11-06T08:15:59.126169+00:00",
+  "seconds": 722.591,
+  "exit": 1,
+  "log": "final-core-journeys.log"
+}

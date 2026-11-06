@@ -1,0 +1,85 @@
+TAP version 13
+# NAV-006 touch create, type, insert and drag persisted
+# BLOCK-012 columns insert, desktop drag and touch layout passed at 1440px
+# PROBE COMM-002 acceptance 1–2: native comment controls and HTTP at 1440px -> two authors edit/delete; cross-author and owner override 403; edited times, two in-place tombstones and six activities survive replay/reload
+# NAV-006 touch comment and resolve persisted
+# WEB-006 native unpublish response {"width":1440,"elapsedMs":679}
+# PROBE SHARE-002 full: native member read, title, body, comment and direct grants match the level; 0 refused requests preserve inventories at 1440px
+# PROBE SHARE-002 edit: native member read, title, body, comment and direct grants match the level; 2 refused requests preserve inventories at 1440px
+# PROBE SHARE-002 comment: native member read, title, body, comment and direct grants match the level; 4 refused requests preserve inventories at 1440px
+# PROBE SHARE-002 view: native member read, title, body, comment and direct grants match the level; 5 refused requests preserve inventories at 1440px
+# NAV-006 touch workspace publication and sharing persisted
+# PAGE-007 Details, replay and edit-only refusal passed at 1440px
+# NAV-006 touch Search, Inbox, My tasks, requested reviews and verification health passed
+# Journey failure context {
+#   "rejected": [
+#     {
+#       "url": "http://127.0.0.1:43773/api/notifications/chat/destinations",
+#       "method": "POST",
+# [Unrelated fixture request body omitted from public packet.]
+#       "status": 422,
+#       "responseBody": "{\\"code\\":\\"CHAT_DESTINATION_REFUSED\\",\\"message\\":\\"Choose a private Slack channel that is not shared with another workspace or organization.\\",\\"details\\":{\\"reason\\":\\"private_unshared_channel_required\\"}}"
+#     },
+#     {
+#       "url": "http://127.0.0.1:43773/api/notifications/chat/destinations",
+#       "method": "POST",
+# [Unrelated fixture request body omitted from public packet.]
+#       "status": 403,
+#       "responseBody": "{\\"code\\":\\"STEP_UP_REQUIRED\\",\\"message\\":\\"Confirm this with your email first. Slate sent a confirmation link to your address. Open it, then try again within 10 minutes.\\"}"
+#     }
+#   ],
+#   "consoleErrors": [
+#     {
+#       "url": "http://127.0.0.1:43773/app/pages/01M6QZ6W9XDMY2FDS020RZ1KPZ",
+#       "message": "Failed to load resource: net::ERR_INTERNET_DISCONNECTED"
+#     },
+#     {
+#       "url": "http://127.0.0.1:43773/app/settings/chat",
+#       "message": "Failed to load resource: the server responded with a status of 422 (Unprocessable Entity)"
+#     },
+#     {
+#       "url": "http://127.0.0.1:43773/app/settings/chat",
+#       "message": "Failed to load resource: the server responded with a status of 403 (Forbidden)"
+#     }
+#   ]
+# }
+# Subtest: real core-wiki and touch-member journeys at 1440px
+not ok 1 - real core-wiki and touch-member journeys at 1440px
+  ---
+  duration_ms: 617470.509371
+  type: 'test'
+  location: '/workspace/slate-f182/tests/qualification/ui-convergence/journey-shard.mjs:23:97'
+  failureType: 'testCodeFailure'
+  error: |-
+    expect(locator).toContainText(expected) failed
+    
+    Locator: getByRole('alert')
+    Expected substring: "no Nook notification service"
+    Received string:    "Confirm this with your email first. Slate sent a confirmation link to your address. Open it, then try again within 10 minutes."
+    Timeout: 5000ms
+    
+    Call log:
+      - Expect "toContainText" getByRole('alert') with timeout 5000ms
+      - waiting for getByRole('alert')
+        12 × locator resolved to <p role="alert">Confirm this with your email first. Slate sent a …</p>
+           - unexpected value "Confirm this with your email first. Slate sent a confirmation link to your address. Open it, then try again within 10 minutes."
+    
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    captureRawStack (/workspace/slate-f182/node_modules/.pnpm/playwright-core@1.63.0/node_modules/playwright-core/lib/coreBundle.js:8588:17)
+    callMatcherAsStep (/workspace/slate-f182/node_modules/.pnpm/playwright@1.63.0/node_modules/playwright/lib/matchers/expect.js:13310:57)
+    Object.toContainText (/workspace/slate-f182/node_modules/.pnpm/playwright@1.63.0/node_modules/playwright/lib/matchers/expect.js:13302:23)
+    chatJourney (/workspace/slate-f182/tests/qualification/ui-convergence/chat-journey.mjs:240:41)
+    async withWorkspace.scheduled (/workspace/slate-f182/tests/qualification/ui-convergence/journeys.test.mjs:107:9)
+    async withWorkspace (/workspace/slate-f182/tests/qualification/ui-convergence/browser-support.mjs:188:7)
+    async TestContext.<anonymous> (/workspace/slate-f182/tests/qualification/ui-convergence/journeys.test.mjs:84:5)
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 639026.90866

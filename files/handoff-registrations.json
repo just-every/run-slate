@@ -1,0 +1,15 @@
+{
+  "label": "handoff-registrations",
+  "head": "b58e5660144c5363cde3092be33da95b2ff25e1a",
+  "dirtyPathsAtStart": [],
+  "command": [
+    "node",
+    "tests/requirements/count-registrations.mjs",
+    "HEAD"
+  ],
+  "start": "2026-11-06T08:42:17.554062+00:00",
+  "end": "2026-11-06T08:42:21.012039+00:00",
+  "seconds": 3.458,
+  "exit": 0,
+  "log": "handoff-registrations.log"
+}

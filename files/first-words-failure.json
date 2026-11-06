@@ -1,0 +1,18 @@
+{
+  "head": "57d52fbcc5bc4abf0a375a3a0814acc3228542b4",
+  "command": [
+    "timeout",
+    "1800",
+    "node",
+    "--test",
+    "--test-concurrency=1",
+    "--test-name-pattern=^real core-wiki and touch-member journeys at (390|1440)px$",
+    "tests/qualification/ui-convergence/journeys.test.mjs"
+  ],
+  "test": "real core-wiki and touch-member journeys at 1440px",
+  "exit": 1,
+  "failure": "Words typed just before leaving the page reach the server. Expected [Words typed and left at once come back.] but received [Words typed and ]. Predicate timeout 5000 ms.",
+  "location": "tests/qualification/ui-convergence/first-words-journey.mjs:54",
+  "productionDelta": "No task-authored client or server source changes; page editor, first-words helper and page mutation source match current main.",
+  "reproduction": "One unchanged desktop retry and identical current-main desktop run are recorded separately."
+}

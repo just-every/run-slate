@@ -1,0 +1,18 @@
+{
+  "label": "baseline-core-journeys",
+  "head": "93b7327adee97ac0ff691bfb5cbff68f4412a27a",
+  "command": [
+    "timeout",
+    "1800",
+    "node",
+    "--test",
+    "--test-concurrency=1",
+    "--test-name-pattern=^real core-wiki and touch-member journeys at (390|1440)px$",
+    "tests/qualification/ui-convergence/journeys.test.mjs"
+  ],
+  "start": "2026-11-06T07:42:08.514919+00:00",
+  "end": "2026-11-06T08:01:46.656284+00:00",
+  "seconds": 1178.141,
+  "exit": 1,
+  "log": "baseline-core-journeys.log"
+}
