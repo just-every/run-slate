@@ -198,7 +198,7 @@ export async function permissionLevelsJourney(state) {
             assert.equal(after.grants.items.length, before.grants.items.length + (input.id ? 0 : 1));
             for (const item of before.grants.items.filter(item => item.id !== input.id)) assert.deepEqual(after.grants.items.find(grant => grant.id === item.id), item);
             const changed = after.grants.items.find(item => item.id === result.value.id);
-            assert.deepEqual([changed.principalKind, changed.principalId, changed.level, changed.expiresAt, changed.revokedAt], [input.principalKind, input.principalId, input.level, input.expiresAt ?? null, null]);
+            assert.deepEqual([changed.principalKind, changed.principalId, changed.level, changed.expiresAt, changed.revokedAt], [input.principalKind, input.principalId, input.level, input.expiresAt ?? null, input.revoke ? result.receipt.committedAt : null]);
             assert.deepEqual(after.grants.inheritedItems, before.grants.inheritedItems);
           }
         }
@@ -273,14 +273,34 @@ export async function permissionLevelsJourney(state) {
         const shared = await committed('POST', '/api/sharing', 'sharing.grant', () => panel.getByRole('button', { name: 'Share page', exact: true }).click());
         const row = panel.locator(`[data-grant-id="${shared.value.id}"]`);
         await expect(row.getByRole('combobox')).toHaveValue('view');
-        await committed('POST', '/api/sharing', 'sharing.grant', () => row.getByRole('combobox').selectOption('comment'));
+        const changes = [];
+        for (const changedLevel of ['comment', 'edit', 'full', 'view']) {
+          changes.push(await committed('POST', '/api/sharing', 'sharing.grant', () => row.getByRole('combobox').selectOption(changedLevel)));
+          await view.reload({ waitUntil: 'networkidle' });
+          if (!await panel.isVisible()) await view.getByRole('button', { name: 'Share', exact: true }).click();
+          await expect(row.getByRole('combobox')).toHaveValue(changedLevel);
+          assert.equal((await api(`/api/sharing/pages/${pageId}`)).items.find(item => item.id === shared.value.id).level, changedLevel);
+        }
+        await row.locator('details > summary').click();
+        const revoked = await committed('POST', '/api/sharing', 'sharing.grant', () => row.getByRole('button', { name: 'Remove access', exact: true }).click());
         await view.reload({ waitUntil: 'networkidle' });
         if (!await panel.isVisible()) await view.getByRole('button', { name: 'Share', exact: true }).click();
-        await expect(row.getByRole('combobox')).toHaveValue('comment');
+        await expect(row).toContainText('Revoked');
+        await expect(row.getByRole('combobox')).toHaveCount(0);
+        await expect(row.getByRole('button', { name: 'Regrant access', exact: true })).toBeVisible();
         const grants = await api(`/api/sharing/pages/${pageId}`);
         assert.equal(grants.items.length, 3);
-        assert.equal(grants.items.find(item => item.id === shared.value.id).level, 'comment');
+        assert.equal(grants.items.find(item => item.id === shared.value.id).level, 'view');
+        assert.equal(grants.items.find(item => item.id === shared.value.id).revokedAt, revoked.receipt.committedAt);
         assert.equal(grants.items.find(item => item.id === readerGrant).level, 'full');
+        // The new row names the owner, whose independent authority is retained.
+        // This tests grant custody without narrowing the member under test.
+        const retained = await snapshot();
+        for (const result of [shared, ...changes]) {
+          const captured = records.find(item => item.result === result);
+          assert.deepEqual((await ok(bob.context, origin, captured.method, captured.target, captured.input)).receipt, result.receipt);
+          assert.deepEqual(await snapshot(), retained, 'Replaying a former grant creation or level change cannot revive a revoked grant.');
+        }
       } else {
         await expect(invite).toHaveCount(0);
         await expect(panel.getByRole('combobox')).toHaveCount(0);
@@ -288,7 +308,10 @@ export async function permissionLevelsJourney(state) {
         await expect(panel.getByRole('button', { name: 'Remove access', exact: true })).toHaveCount(0);
         const input = { targetKind: 'page', targetId: pageId, principalKind: 'member', principalId: member.id, level: 'full' };
         await refuse('POST', '/api/sharing', { ...input, operationKey: randomUUID() });
-        await refuse('POST', '/api/sharing', { ...input, id: readerGrant, operationKey: randomUUID() });
+        for (const changedLevel of ['full', 'edit', 'comment', 'view']) {
+          await refuse('POST', '/api/sharing', { ...input, id: readerGrant, level: changedLevel, operationKey: randomUUID() });
+        }
+        await refuse('POST', '/api/sharing', { ...input, id: readerGrant, level, revoke: true, operationKey: randomUUID() });
       }
       await accessible(view, `${level} member sharing after reload`);
       records.push({ level, pageId, blockId, readerGrant, final: await snapshot() });

@@ -12236,7 +12236,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/sharing-journey.mjs": {
-      "sha256": "b735db5f197de02ca39eb7c830cede072837ca3c05a91a32e030173ceabb9e87",
+      "sha256": "10a5a6a9442893158d785f7544423954d6d660c16344d5b9107074d002afe081",
       "executable": false
     },
     "tests/qualification/ui-convergence/shortcut-reference-journey.mjs": {
