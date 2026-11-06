@@ -412,7 +412,7 @@ Core · published · **partial**
 1. It copies no comment, version, watcher, analytics figure, grant beyond the destination's inheritance, or public link.
 2. Duplicate copies title, icon, cover, body and properties with a new identifier and copies no comment, version, grant or public link.
 
-**Evidence.** `tests/flagship/content/http.test.ts`
+**Evidence.** `tests/flagship/content/http.test.ts`; supporting duplication coverage: `tests/qualification/ui-convergence/duplicate-page-journey.mjs` — "duplicatePageJourney", loaded by `tests/qualification/ui-convergence/journeys.test.mjs` — "page creation destinations and editor locks preserve readable content at 1440px"; `tests/helpers/page-duplication.mjs` — "duplicationFixture, duplicationSnapshot and assertDuplication", also used by the cited content HTTP flow, reconciles populated source families with and without children.
 **Gap.** Missing a duplication journey that creates comments, versions, watchers, analytics, grants and publication before duplicating and reads their exclusion; the cited content flow checks some duplicate content and verification behavior only.
 
 #### PAGE-006 — Icon and cover
