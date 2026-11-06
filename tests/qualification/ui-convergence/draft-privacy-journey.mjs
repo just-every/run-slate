@@ -15,6 +15,7 @@ export async function draftPrivacyJourney(state) {
     if(!await heading.isVisible())await page.getByRole('button',{name:'Share',exact:true}).click();
     await expect(heading).toBeVisible();
   };
+  const anonymous=await context.browser().newContext({viewport:page.viewportSize()});
   const original=await ok(context,origin,'GET','/api/workspace');
   const profile=async(lifecycle,access)=>{
     await page.goto(origin+'/app/settings',{waitUntil:'networkidle'});
@@ -35,6 +36,14 @@ export async function draftPrivacyJourney(state) {
     await page.locator('.editor-save-status').filter({hasText:/^Saved$/}).waitFor();
     const read=()=>ok(context,origin,'GET',`/api/pages/${id}`);
     const grants=()=>ok(context,origin,'GET',`/api/sharing/pages/${id}`);
+    const exposure=()=>ok(context,origin,'GET',`/api/publishing/${id}`);
+    const inventory=async()=>{const doc=await read();return {page:doc.page,blocks:doc.blocks,workingRevisionId:doc.workingRevisionId,publishedRevisionId:doc.publishedRevisionId,grants:await grants(),exposure:await exposure()};};
+    const refused=async(actor,method,route,input,status)=>{
+      const before=await inventory(),response=await call(actor,origin,method,route,input);
+      assert.equal(response.status,status,JSON.stringify(response.body));
+      assert.ok(!JSON.stringify(response.body).includes(text));
+      assert.deepEqual(await inventory(),before,'Refused reads and writes preserve the draft, revisions, grants and exposure.');
+    };
     const content=await read();assert.equal(content.page.lifecycle,'draft');assert.equal(content.publishedRevisionId,null);
     assert.deepEqual((await grants()).items,[]);
     await withSecondPerson(state,width,async people=>{
@@ -45,6 +54,12 @@ export async function draftPrivacyJourney(state) {
       const address=await page.evaluate(()=>navigator.clipboard.readText());
       assert.equal(address,`${origin}/app/pages/${id}`);
       assert.equal((await call(people.bob.context,origin,'GET',new URL(address).pathname.replace('/app/','/api/'))).status,404);
+      await refused(anonymous,'GET',`/api/pages/${id}`,undefined,401);
+      await refused(anonymous,'PATCH',`/api/pages/${id}`,{operationKey:randomUUID(),expectedRevisionId:content.page.revisionId,properties:{title:'Sessionless replacement'}},401);
+      const anonymousPage=await anonymous.newPage();
+      await anonymousPage.goto(address,{waitUntil:'networkidle'});
+      await expect(anonymousPage.locator('body')).not.toContainText(text);
+      await anonymousPage.close();
       await panel.getByText('Invite by email',{exact:true}).click();
       await panel.getByRole('textbox',{name:'Email address',exact:true}).fill(['reader','test.invalid'].join('@'));
       await panel.getByRole('button',{name:'Send invitation',exact:true}).click();
@@ -58,12 +73,20 @@ export async function draftPrivacyJourney(state) {
       const retained={page:content.page,blocks:content.blocks,grants:(await grants()).items};
       await page.screenshot({path:`${directory}/saved-grant.png`,fullPage:true});
       await people.bob.page.screenshot({path:`${directory}/granted-reader.png`,fullPage:true});
-      for(const [lifecycle,access] of [['always-live','container-general'],['draft-then-publish','workspace-general']]) {
+      for(const [lifecycle,access] of [['always-live','container-general'],['draft-then-publish','container-general'],['always-live','workspace-general'],['draft-then-publish','workspace-general']]) {
         await profile(lifecycle,access);
         const doc=await read();assert.deepEqual(doc.page,retained.page);assert.deepEqual(doc.blocks,retained.blocks);assert.deepEqual((await grants()).items,retained.grants);
         await page.goto(address,{waitUntil:'networkidle'});await page.reload({waitUntil:'networkidle'});
         await expect(page.locator('.page-document')).toContainText(text);
         await people.bob.page.reload({waitUntil:'networkidle'});await expect(people.bob.page.locator('.page-document')).toContainText(text);
+        await openSharing();
+        await expect(page.locator('.right').getByRole('button',{name:'Allow general read access',exact:true})).toHaveCount(0);
+        await expect(page.locator('.right')).toContainText('Private drafts have no general access.');
+        const principalKind=access==='workspace-general'?'workspace':'container',principalId=principalKind==='workspace'?original.id:containerId;
+        await refused(context,'POST','/api/sharing',{operationKey:randomUUID(),targetKind:'page',targetId:id,principalKind,principalId,level:'view'},403);
+        await refused(context,'POST',`/api/publishing/${id}`,{operationKey:randomUUID(),expectedRevisionId:content.page.revisionId,host:new URL(origin).host,slug:`private-draft-${width}`},403);
+        await refused(anonymous,'GET',`/p/private-draft-${width}`,undefined,404);
+        await refused(anonymous,'GET',`/api/pages/${id}`,undefined,401);
       }
       await openSharing();
       const row=page.locator('.right .grant-list > li').filter({has:page.getByRole('combobox',{name:'Access for Morgan Reader',exact:true})});
@@ -74,9 +97,50 @@ export async function draftPrivacyJourney(state) {
       assert.deepEqual((await grants()).effectiveItems,[]);
       await page.screenshot({path:`${directory}/revoked-grant.png`,fullPage:true});
       await people.bob.page.screenshot({path:`${directory}/refused-reader.png`,fullPage:true});
+      // Sharing with a real group is a separate native grant, not a copied address.
+      const group=(await ok(context,origin,'POST','/api/groups',{operationKey:randomUUID(),name:`Draft reviewers ${width}`,memberIds:['browser-reader']})).value.id;
+      await page.reload({waitUntil:'networkidle'});await openSharing();
+      await page.locator('.right select[name="principal"]').selectOption(`group:${group}`);
+      await page.locator('.right').getByRole('button',{name:'Share page',exact:true}).click();
+      await expect.poll(async()=>(await grants()).items.filter(g=>g.status==='active').map(g=>[g.principalKind,g.principalId,g.level])).toEqual([['group',group,'view']]);
+      await page.reload({waitUntil:'networkidle'});await openSharing();
+      await expect(page.getByRole('combobox',{name:`Access for Draft reviewers ${width}`,exact:true})).toHaveValue('view');
+      await people.bob.page.goto(address,{waitUntil:'networkidle'});
+      await expect(people.bob.page.locator('.page-document')).toContainText(text);
+      await refused(people.bob.context,'PATCH',`/api/pages/${id}`,{operationKey:randomUUID(),expectedRevisionId:content.page.revisionId,properties:{title:'View-only replacement'}},403);
+      await page.screenshot({path:`${directory}/saved-group-grant.png`,fullPage:true});
+      const groupRow=page.locator('.right .grant-list > li').filter({has:page.getByRole('combobox',{name:`Access for Draft reviewers ${width}`,exact:true})});
+      await groupRow.locator('details > summary').click();await groupRow.getByRole('button',{name:'Remove access',exact:true}).click();
+      await expect.poll(async()=>(await grants()).items.every(g=>g.status==='revoked')).toBe(true);
+      await refused(people.bob.context,'GET',`/api/pages/${id}`,undefined,404);
+      await people.bob.page.reload({waitUntil:'networkidle'});
+      await expect(people.bob.page.locator('.page-document')).not.toContainText(text);
+      assert.deepEqual((await grants()).effectiveItems,[]);
+
+      // A workspace owner's settings authority never grants another author's body.
+      await ok(context,origin,'POST','/api/sharing',{operationKey:randomUUID(),targetKind:'container',targetId:containerId,principalKind:'member',principalId:'browser-reader',level:'full'});
+      const memberDraft=await createPage(people.bob.page,origin,containerId,`Member-authored response ${width}`);
+      const memberText='A member owns this private draft body.';
+      await people.bob.page.getByRole('textbox',{name:'Page body',exact:true}).fill(memberText);
+      await people.bob.page.locator('.editor-save-status').filter({hasText:/^Saved$/}).waitFor();
+      const memberRead=()=>ok(people.bob.context,origin,'GET',`/api/pages/${memberDraft}`);
+      const memberSnapshot=async()=>{const doc=await memberRead();return {page:doc.page,blocks:doc.blocks,grants:await ok(people.bob.context,origin,'GET',`/api/sharing/pages/${memberDraft}`),exposure:await ok(people.bob.context,origin,'GET',`/api/publishing/${memberDraft}`)};};
+      const memberBefore=await memberSnapshot();
+      assert.equal(memberBefore.page.lifecycle,'draft');assert.deepEqual(memberBefore.grants.items,[]);
+      for(const method of ['GET','PATCH']) {
+        const response=await call(context,origin,method,`/api/pages/${memberDraft}`,method==='PATCH'?{operationKey:randomUUID(),expectedRevisionId:memberBefore.page.revisionId,properties:{title:'Owner replacement'}}:undefined);
+        assert.equal(response.status,404);assert.ok(!JSON.stringify(response.body).includes(memberText));
+        assert.deepEqual(await memberSnapshot(),memberBefore);
+      }
+      await page.goto(`${origin}/app/pages/${memberDraft}`,{waitUntil:'networkidle'});
+      await expect(page.locator('body')).not.toContainText(memberText);
+      await people.bob.page.reload({waitUntil:'networkidle'});
+      await expect(people.bob.page.locator('.page-document')).toContainText(memberText);
+      await people.bob.page.screenshot({path:`${directory}/member-author.png`,fullPage:true});
+      await page.screenshot({path:`${directory}/refused-owner.png`,fullPage:true});
     });
     console.log(`PROBE LIFE-002 browser ${width}: native draft creation and saved body -> link alone refused; address grant persisted; named reader read; profile switches retained draft; revoked session refused after reload`);
   } finally {
-    await profile(original.policies['page.lifecycle.v1'],original.policies['page.access.v1']);
+    try {await profile(original.policies['page.lifecycle.v1'],original.policies['page.access.v1']);} finally {await anonymous.close();}
   }
 }
