@@ -109,7 +109,7 @@ export async function permissionDiscussionMatrix({ view, api, level, pageId, own
   }
   await accessible(view, `${level} discussion authority after reload`);
 
-  // PAGE-009 and COMM-005 explicitly permit reactions to readable content,
+  // PAGE-014 and COMM-005 explicitly permit reactions to readable content,
   // including view-level readers. Retain that more specific native duty.
   for (const target of ['comment', 'page']) {
     if (target === 'page') {

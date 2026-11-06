@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "8d753d1e9f7ece25e598d8e8f415c245fc15ba485a007434dccc5089a04078db",
+      "sha256": "050fe203c4f787b21fb07e77331a1d7bb0464aee9f007ca93c4086b775c38392",
       "executable": false
     },
     "DEMO.md": {
@@ -12116,7 +12116,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
-      "sha256": "20d44e10aad45951c0ba5c06a7672381d7ec11b2ca38efec118447353c46414e",
+      "sha256": "8587bcdfb9ac73ee289d730c3644c87ec07e5caca7c32d956ddcee8f83ff1162",
       "executable": false
     },
     "tests/qualification/ui-convergence/link-access-journey.mjs": {
@@ -12224,7 +12224,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/sharing-discussion-matrix.mjs": {
-      "sha256": "e166a80ca5facf238e2403372d7c913ee45d905ec8f155d5c79c5cd4d778380b",
+      "sha256": "240686052b37ffec54cf2c5d4f69a3f940eb170a6d06dafd85342c2d65701b9c",
       "executable": false
     },
     "tests/qualification/ui-convergence/sharing-inheritance-journey.mjs": {
@@ -12232,7 +12232,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/sharing-journey.mjs": {
-      "sha256": "5232017244ac8b75dd50bda396c18589088733c572ff1bbcdec1c647ef5fda86",
+      "sha256": "c9f2b6508f031e3beec42a4900f9bb54aa69973c892e3502237447342300352d",
       "executable": false
     },
     "tests/qualification/ui-convergence/shortcut-reference-journey.mjs": {
@@ -12412,11 +12412,11 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "0cd4d7dd44432de0825fd616035f4582a3497424ed70cc37b52488a09472df43",
+      "sha256": "95c051871ec65894f36089022451f0692a2e37e2f6f735910dcac8e9f79902dd",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
-      "sha256": "a74942f1861dcf1ca85df438c910ec3da54b3c121d75f79d439168b0941c71d6",
+      "sha256": "1ffe511c998903aa0788da7a1d20a6126a6ca090b899f57857872c1a8a70dad5",
       "executable": false
     },
     "tests/requirements/count-registrations.mjs": {

@@ -126,13 +126,6 @@ for (const width of [390, 1440]) {
         }
       } finally {await touch?.close();}
     }, {}, { scheduled: true, slack: true });
-    // Keep the complete level matrix in this existing registration, with its
-    // own native installation so earlier core traffic does not exhaust the
-    // production request window. No limiter or behavior assertion is bypassed.
-    await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
-      await setupWorkspace(state);
-      await permissionLevelsJourney(state);
-    });
   });
 }
 
@@ -170,13 +163,19 @@ for (const width of [1440]) {
 }
 
 for (const width of [1440]) {
-  test(`shared page invitations name their space and disappear on revocation at ${width}px`, { timeout: 240000 }, async () => {
+  test(`shared page invitations name their space and disappear on revocation at ${width}px`, { timeout: 840000 }, async () => {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
       await withSecondPerson(state, width, people => sharedNavigationJourney(state, people));
       await syncedCustodyJourney(state,width);
       await syncedHistoryJourney(state,width);
       await syncedMemberErasureJourney(state,width);
+    });
+    // The expanded sharing matrix owns its native installation and request
+    // window, under this existing sharing registration at one assertion width.
+    await withWorkspace({ width, height: 1000 }, 'core-wiki', async state => {
+      await setupWorkspace(state);
+      await permissionLevelsJourney(state);
     });
   });
 }
