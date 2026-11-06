@@ -8,7 +8,9 @@ import { root } from '../../e2e/runtime-harness.mjs';
 import { publicPageJourney } from './public-page-journey.mjs';
 import { expiryRegrantJourney } from './expiry-journey.mjs';
 import { inheritanceChainJourney } from './sharing-inheritance-journey.mjs';
+import { permissionDiscussionMatrix, assertDiscussionMutation } from './sharing-discussion-matrix.mjs';
 import { call, editable, grant, ok, restrictedPage, withSecondPerson } from './two-people-support.mjs';
+import { signInWithOutbox } from '../../e2e/outbox-auth.mjs';
 
 export async function shareJourney(state, pageId) {
   const { page, origin, api, readerCookie, switchIdentity } = state;
@@ -94,7 +96,6 @@ export async function shareJourney(state, pageId) {
   await publicPageJourney(state, pageId);
   await grantCorpusJourney(state);
   await inheritanceChainJourney(state);
-  await permissionLevelsJourney(state);
 }
 
 /** Independent published pages keep level semantics separate from grant narrowing. */
@@ -103,7 +104,15 @@ export async function permissionLevelsJourney(state) {
   const records = [], refusals = [];
   const configuration = await api('/api/sharing/configuration');
   assert.deepEqual(new Set(configuration.levels), new Set(['full', 'edit', 'comment', 'view']));
-  await withSecondPerson(state, width, async ({ bob }) => {
+  // First-run already admitted this ordinary member through a real invitation.
+  // Sharing to a third person proves an effective access change, not a redundant
+  // grant to the page's author or to the actor who already retains full access.
+  const recipient = (await api('/api/members')).items.find(item => item.id !== 'browser-owner' && item.id !== 'browser-reader' && item.role === 'member');
+  assert.ok(recipient, 'A separately admitted ordinary member receives the new grant.');
+  const recipientSession = await signInWithOutbox(origin, recipient.email);
+  const recipientContext = await context.browser().newContext();
+  await recipientContext.addCookies([{ name: 'slate_session', value: recipientSession.cookie.split('=')[1], url: origin }]);
+  try { await withSecondPerson(state, width, async ({ bob }) => {
     const member = (await ok(bob.context, origin, 'GET', '/api/session')).member;
     assert.equal(member.id, 'browser-reader');
     assert.equal(member.role, 'member');
@@ -136,11 +145,11 @@ export async function permissionLevelsJourney(state) {
         grants: await api(`/api/sharing/pages/${pageId}`),
         activity: (await api('/api/activity?limit=100')).items.filter(item => item.target.id === pageId || item.context?.pageId === pageId),
       });
-      const refuse = async (method, target, input) => {
-        const before = await snapshot();
+      const refuse = async (method, target, input, status = 404, baseline) => {
+        const before = baseline ?? await snapshot();
         const result = await call(bob.context, origin, method, target, input);
-        assert.equal(result.status, 404, `${level} cannot ${method} ${target}`);
-        assert.equal(result.body.code, 'NOT_FOUND');
+        assert.equal(result.status, status, `${level} cannot ${method} ${target}`);
+        assert.equal(result.body.code, status === 404 ? 'NOT_FOUND' : 'FORBIDDEN');
         const after = await snapshot();
         assert.deepEqual(after, before, `${level} refusal changes no page, revision, comment, grant or activity.`);
         refusals.push({ level, method, target, input, result, before, after });
@@ -190,9 +199,12 @@ export async function permissionLevelsJourney(state) {
           if (action === 'comments.create') {
             assert.deepEqual(after.grants, before.grants);
             assert.equal(after.comments.comments.length, before.comments.comments.length + 1);
-            assert.equal(after.comments.threads.length, before.comments.threads.length + 1);
+            assert.equal(after.comments.threads.length, before.comments.threads.length + (input.threadId ? 0 : 1));
             for (const comment of before.comments.comments) assert.deepEqual(after.comments.comments.find(item => item.id === comment.id), comment);
             assert.deepEqual(after.comments.reactions, before.comments.reactions);
+          } else if (action.startsWith('comments.')) {
+            assert.deepEqual(after.grants, before.grants);
+            assertDiscussionMutation({ before: before.comments, after: after.comments, action, target, input, result, memberId: member.id, pageId });
           } else {
             assert.deepEqual(after.comments, before.comments);
             assert.equal(after.grants.items.length, before.grants.items.length + (input.id ? 0 : 1));
@@ -240,6 +252,7 @@ export async function permissionLevelsJourney(state) {
       await view.getByRole('button', { name: 'Comments', exact: true }).click();
       await expect(view.locator(`#comment-${ownerComment}`)).toContainText(`Owner context for ${level}.`);
       const composer = view.getByRole('textbox', { name: 'Comment text', exact: true });
+      let memberComment;
       if (canComment) {
         await expect(composer).toBeVisible();
         const text = `Member ${level} response confirmed.`;
@@ -247,6 +260,7 @@ export async function permissionLevelsJourney(state) {
           await composer.fill(text);
           await view.getByRole('button', { name: 'Send comment', exact: true }).click();
         });
+        memberComment = created.value.id;
         const stored = (await api(commentsRoute)).comments;
         assert.deepEqual(stored.map(item => item.id), [ownerComment, created.value.id]);
         assert.deepEqual(stored[1].body, [{ text }]);
@@ -263,16 +277,19 @@ export async function permissionLevelsJourney(state) {
         await expect(view.locator('.right')).toContainText('Read-only discussion.');
       }
       await accessible(view, `${level} member discussion after reload`);
+      await permissionDiscussionMatrix({ view, api, level, pageId, ownerComment, memberComment, committed, refuse });
       await closeDetails(view);
       await view.getByRole('button', { name: 'Share', exact: true }).click();
       const panel = view.locator('.right'), invite = panel.getByRole('combobox', { name: 'Invite someone', exact: true });
       if (canShare) {
         await expect(invite).toBeVisible();
-        await invite.selectOption('member:browser-owner');
+        assert.equal((await call(recipientContext, origin, 'GET', route)).status, 404, 'The recipient initially has no access to this restricted page.');
+        await invite.selectOption(`member:${recipient.id}`);
         await panel.getByRole('combobox', { name: 'Permission', exact: true }).selectOption('view');
         const shared = await committed('POST', '/api/sharing', 'sharing.grant', () => panel.getByRole('button', { name: 'Share page', exact: true }).click());
         const row = panel.locator(`[data-grant-id="${shared.value.id}"]`);
         await expect(row.getByRole('combobox')).toHaveValue('view');
+        assert.equal((await ok(recipientContext, origin, 'GET', route)).permissions.level, 'view');
         const changes = [];
         for (const changedLevel of ['comment', 'edit', 'full', 'view']) {
           changes.push(await committed('POST', '/api/sharing', 'sharing.grant', () => row.getByRole('combobox').selectOption(changedLevel)));
@@ -280,6 +297,10 @@ export async function permissionLevelsJourney(state) {
           if (!await panel.isVisible()) await view.getByRole('button', { name: 'Share', exact: true }).click();
           await expect(row.getByRole('combobox')).toHaveValue(changedLevel);
           assert.equal((await api(`/api/sharing/pages/${pageId}`)).items.find(item => item.id === shared.value.id).level, changedLevel);
+          const received = await ok(recipientContext, origin, 'GET', route);
+          assert.equal(received.permissions.level, changedLevel);
+          assert.equal(received.permissions.canEdit, changedLevel === 'full' || changedLevel === 'edit');
+          assert.equal(received.permissions.canShare, changedLevel === 'full');
         }
         await row.locator('details > summary').click();
         const revoked = await committed('POST', '/api/sharing', 'sharing.grant', () => row.getByRole('button', { name: 'Remove access', exact: true }).click());
@@ -293,8 +314,8 @@ export async function permissionLevelsJourney(state) {
         assert.equal(grants.items.find(item => item.id === shared.value.id).level, 'view');
         assert.equal(grants.items.find(item => item.id === shared.value.id).revokedAt, revoked.receipt.committedAt);
         assert.equal(grants.items.find(item => item.id === readerGrant).level, 'full');
-        // The new row names the owner, whose independent authority is retained.
-        // This tests grant custody without narrowing the member under test.
+        assert.equal((await call(recipientContext, origin, 'GET', route)).status, 404, 'Revoking the new recipient grant ends their actual access.');
+        // The actor retains their independent full grant throughout this scenario.
         const retained = await snapshot();
         for (const result of [shared, ...changes]) {
           const captured = records.find(item => item.result === result);
@@ -314,10 +335,29 @@ export async function permissionLevelsJourney(state) {
         await refuse('POST', '/api/sharing', { ...input, id: readerGrant, level, revoke: true, operationKey: randomUUID() });
       }
       await accessible(view, `${level} member sharing after reload`);
+      const captures = records.filter(item => item.level === level && item.method);
+      const retained = await snapshot();
+      for (const captured of captures) {
+        assert.deepEqual((await ok(bob.context, origin, captured.method, captured.target, captured.input)).receipt, captured.result.receipt);
+        assert.deepEqual(await snapshot(), retained, 'Old captures cannot restore deleted comments, removed reactions or revoked grants.');
+      }
+      // End this independent page's scenario by revoking its member grant.
+      // A current session may neither read it nor replay a formerly allowed write.
+      const revoked = await ok(context, origin, 'POST', '/api/sharing', { operationKey: randomUUID(), id: readerGrant, targetKind: 'page', targetId: pageId, principalKind: 'member', principalId: member.id, level, revoke: true });
+      assert.equal((await api(`/api/sharing/pages/${pageId}`)).items.find(item => item.id === readerGrant).revokedAt, revoked.receipt.committedAt);
+      const revokedState = await snapshot();
+      await refuse('GET', route, undefined, 404, revokedState);
+      await refuse('GET', commentsRoute, undefined, 404, revokedState);
+      for (const captured of captures) await refuse(captured.method, captured.target, captured.input, 404, revokedState);
+      await view.goto(`${origin}/app/pages/${pageId}`, { waitUntil: 'networkidle' });
+      await expect(view.getByRole('heading', { name: 'Access needed', exact: true })).toBeVisible();
+      const visible = await view.locator('.content-frame').innerText();
+      for (const content of [initialTitle, initialBody, `Member revised ${level} guide`, `Owner context for ${level}.`]) assert.ok(!visible.includes(content), 'Revocation exposes no prior title, body or discussion.');
+      await accessible(view, `${level} revoked member cannot recover prior content`);
       records.push({ level, pageId, blockId, readerGrant, final: await snapshot() });
-      console.log(`PROBE SHARE-002 ${level}: native member read, title, body, comment and direct grants match the level; ${refusals.filter(item => item.level === level).length} refused requests preserve inventories at ${width}px`);
+      console.log(`PROBE SHARE-002 ${level}: native member reads, title, body, discussion, reactions and direct grants; revoked reads and captures refused; ${refusals.filter(item => item.level === level).length} refused requests preserve inventories at ${width}px`);
     }
-  });
+  }); } finally { await recipientContext.close(); }
   const directory = path.join(root, '.artifacts/ui-convergence/permission-levels', String(width));
   await mkdir(directory, { recursive: true });
   await writeFile(path.join(directory, 'matrix.json'), JSON.stringify({ width, configuration, records, refusals }, null, 2));
