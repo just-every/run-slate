@@ -24,15 +24,20 @@ export async function syncedCase(request:(method:string,path:string,body?:unknow
  await grant(source,'view',sourceGrant,true);
  one=await json('GET',`/pages/${copies[0]}`,undefined,'reader');expect(one.blocks[0].synced).toEqual({state:'access-needed'});expect(JSON.stringify(one)).not.toContain(changed);expect(JSON.stringify(one)).not.toContain(sourceTitle);
  // Access requests use the reader's native session and never mutate authoring or grants.
- const protectedState=async()=>Promise.all(['pages','page_blocks','page_revisions','page_grants','container_grants'].map(async table=>(await db.prepare(`SELECT * FROM ${table} ORDER BY id`).all()).results));
+ const protectedState=async()=>Promise.all(['pages','page_blocks','page_revisions','page_grants','container_grants','sessions'].map(async table=>(await db.prepare(`SELECT * FROM ${table} ORDER BY id`).all()).results));
  vi.useFakeTimers({toFake:['Date']});
  try {
- const beforeRequests=await protectedState(),ownerId=(await json('GET','/session')).member.id,requestKey=key();
- for(const [id,operationKey] of [[source,requestKey],[source,requestKey],[source,key()],[key(),key()]]){
+ expect((await json('GET','/session',undefined,'reader')).member.id).toBe(readerId);
+ const beforeRequests=await protectedState(),ownerId=(await json('GET','/session')).member.id,requestKey=key(),secondRequest=key(),missingId=key(),missingRequest=key();
+ const requests=async()=>(await db.prepare("SELECT body_json FROM discovery_revisions WHERE member_id=? AND entity_kind='access-request' ORDER BY id").bind(readerId).all<{body_json:string}>()).results.map(row=>JSON.parse(row.body_json));
+ const requestsBefore=await requests();
+ for(const [id,operationKey] of [[source,requestKey],[source,requestKey],[source,secondRequest],[missingId,missingRequest]]){
   const response=await request('POST',`/sharing/pages/${id}/request-access`,{operationKey},'reader');
   expect(response.status).toBe(202);expect(await response.json()).toEqual({accepted:true});
  }
  expect(await protectedState()).toEqual(beforeRequests);
+ const order=(rows:{operationKey:string}[])=>rows.sort((a,b)=>a.operationKey.localeCompare(b.operationKey));
+ expect(order(await requests())).toEqual(order([...requestsBefore,{pageId:source,operationKey:requestKey},{pageId:source,operationKey:secondRequest},{pageId:missingId,operationKey:missingRequest}]));
  const notices=(await json('GET','/notifications')).items.filter((item:any)=>item.event==='access-requested'&&item.pageId===source);
  expect(notices).toHaveLength(1);expect(notices[0].detail).toEqual({requesterMemberId:readerId});
  const outbox=(await db.prepare("SELECT recipients_json FROM notification_outbox WHERE event='access-requested' AND page_id=?").bind(source).all<{recipients_json:string}>()).results;
