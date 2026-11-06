@@ -1,0 +1,26 @@
+{
+  "repository": "just-every/run-slate",
+  "branch": "cloud/sd-slate-c-f173",
+  "head": "f38bdd94e85bdac4f6bdb28a2c6a7feec27205b6",
+  "base": "1be866b3fd9deb4be4fa131a4a350562eba2ac2a",
+  "main": "93b7327adee97ac0ff691bfb5cbff68f4412a27a",
+  "before": {
+    "done": 57,
+    "partial": 240,
+    "missing": 41,
+    "registrations": 207
+  },
+  "after": {
+    "done": 57,
+    "partial": 240,
+    "missing": 41,
+    "registrations": 207
+  },
+  "clause": "LIFE-002",
+  "status": "partial",
+  "runtime": "Node.js 22.20.0; pnpm 10.12.4; system Chromium with no-sandbox",
+  "proofBoundary": "Native ordinary-page and discussion evidence only; no held company-policy, complete AI or full inherited sharing proof; no release claimed.",
+  "productPush": "successful; exact remote head verified",
+  "savedHead": "a349f8d84cc3383aafa029c9d710e9509b02dd2d",
+  "remoteHead": "f38bdd94e85bdac4f6bdb28a2c6a7feec27205b6"
+}

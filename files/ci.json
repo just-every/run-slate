@@ -1,0 +1,22 @@
+{
+  "head": "f38bdd94e85bdac4f6bdb28a2c6a7feec27205b6",
+  "branch": "cloud/sd-slate-c-f173",
+  "run": {
+    "conclusion": "failure",
+    "event": "push",
+    "head_sha": "f38bdd94e85bdac4f6bdb28a2c6a7feec27205b6",
+    "html_url": "https://github.com/just-every/run-slate/actions/runs/42160719250",
+    "id": 42160719250,
+    "name": "Verify Slate",
+    "path": ".github/workflows/verify.yml",
+    "status": "completed"
+  },
+  "appJob": 127705508397,
+  "aggregateJob": 127705707039,
+  "classification": "Expected generated-view freshness failure and dependent aggregate failure only; test jobs skipped. No product assertion failure.",
+  "diagnostic": "ACCEPTANCE.md: generated content differs; run contract-docs write.",
+  "generatedViewsCommitted": false,
+  "workflowRerun": false,
+  "githubInvocations": 4,
+  "cloudReadyException": "The task explicitly permits the READY handoff for this sole generated-view failure. The guarded lander regenerates and requires its final exact-SHA green Verify, publication scan and Run site."
+}

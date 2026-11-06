@@ -1,0 +1,16 @@
+{
+  "before": {
+    "head": "93b7327adee97ac0ff691bfb5cbff68f4412a27a",
+    "registrations": 207,
+    "unresolved": []
+  },
+  "after": {
+    "head": "f38bdd94e85bdac4f6bdb28a2c6a7feec27205b6",
+    "registrations": 207,
+    "unresolved": []
+  },
+  "commands": [
+    "node tests/requirements/count-registrations.mjs origin/main",
+    "node tests/requirements/count-registrations.mjs HEAD"
+  ]
+}

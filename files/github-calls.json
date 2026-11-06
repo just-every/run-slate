@@ -1,0 +1,50 @@
+[
+  {
+    "ordinal": 1,
+    "time": 1793938200.366074,
+    "args": [
+      "api",
+      "repos/just-every/run-slate/actions/runs?head_sha=f38bdd94e85bdac4f6bdb28a2c6a7feec27205b6&per_page=100",
+      "--jq",
+      "{total_count,workflow_runs:[.workflow_runs[]|{id,name,path,event,status,conclusion,head_sha,html_url}]}"
+    ]
+  },
+  {
+    "ordinal": 2,
+    "time": 1793938258.1319356,
+    "args": [
+      "api",
+      "repos/just-every/run-slate/actions/runs/42160719250/jobs?per_page=100",
+      "--jq",
+      "{jobs:[.jobs[]|{id,name,status,conclusion,html_url,failedSteps:[.steps[]|select(.conclusion==\"failure\")|{name,number,conclusion}]}]}"
+    ]
+  },
+  {
+    "ordinal": 3,
+    "time": 1793938348.7760482,
+    "args": [
+      "run",
+      "view",
+      "42160719250",
+      "--repo",
+      "just-every/run-slate",
+      "--job",
+      "127705508397",
+      "--log-failed"
+    ]
+  },
+  {
+    "ordinal": 4,
+    "time": 1793938353.8053365,
+    "args": [
+      "run",
+      "view",
+      "42160719250",
+      "--repo",
+      "just-every/run-slate",
+      "--job",
+      "127705707039",
+      "--log-failed"
+    ]
+  }
+]

@@ -1,0 +1,26 @@
+
+> slate@0.4.0 test:release-source /home/agent/rer-consolidation/work/sd-slate-c-f173/run-slate
+> node --test tests/release/*.test.mjs
+
+TAP version 13
+# Subtest: public fixture policy preserves every reviewed archive
+ok 1 - public fixture policy preserves every reviewed archive
+  ---
+  duration_ms: 499.508615
+  type: 'test'
+  ...
+# Subtest: operations inspect input readiness without claiming provider readiness
+ok 2 - operations inspect input readiness without claiming provider readiness
+  ---
+  duration_ms: 39.709109
+  type: 'test'
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 2
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 550.145759

@@ -1,0 +1,16 @@
+{
+  "head": "f38bdd94e85bdac4f6bdb28a2c6a7feec27205b6",
+  "candidateCommitsChecked": [
+    "f38bdd94e85bdac4f6bdb28a2c6a7feec27205b6",
+    "a349f8d84cc3383aafa029c9d710e9509b02dd2d",
+    "39cb3779dbde695872202c6152b16ad93a58010f",
+    "1be866b3fd9deb4be4fa131a4a350562eba2ac2a",
+    "f925b244f3ee17e012467edff88fa1d191b2e514"
+  ],
+  "identity": "all fleet author and committer; no trailers",
+  "allParentStatusRowsRetained": true,
+  "generatedViewsCommitted": false,
+  "worktreeClean": true,
+  "fleetHookActive": true,
+  "fullPublicationScan": "not run in cloud; guarded lander required"
+}

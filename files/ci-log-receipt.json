@@ -1,0 +1,11 @@
+{
+  "run": 42160719250,
+  "appJob": 127705508397,
+  "appLogCommandExit": 0,
+  "aggregateJob": 127705707039,
+  "aggregateLogCommandExit": 0,
+  "commands": [
+    "gh run view 42160719250 --repo just-every/run-slate --job 127705508397 --log-failed",
+    "gh run view 42160719250 --repo just-every/run-slate --job 127705707039 --log-failed"
+  ]
+}

@@ -1,0 +1,86 @@
+[
+  {
+    "name": "workers",
+    "head": "f38bdd94e85bdac4f6bdb28a2c6a7feec27205b6",
+    "command": "cloud_run pnpm exec vitest run tests/flagship/content/http.test.ts tests/e2e/search/fts-permissions.test.ts",
+    "exit": 0,
+    "log": "workers.log",
+    "sha256": "0b4f6c7e3b6a0a4b4c1b669ca1587572d5d2aa63fcb67384b240fcdf9b4f77dd",
+    "testsPassed": 5,
+    "filesPassed": 2
+  },
+  {
+    "name": "typecheck",
+    "head": "f38bdd94e85bdac4f6bdb28a2c6a7feec27205b6",
+    "command": "pnpm typecheck",
+    "exit": 0,
+    "log": "typecheck.log",
+    "sha256": "95ca1ec5c35b7ba0d7599d5961a7cd4795b748884caa34553e0565a4a84710e2"
+  },
+  {
+    "name": "first-party",
+    "head": "f38bdd94e85bdac4f6bdb28a2c6a7feec27205b6",
+    "command": "cloud_run pnpm exec rer check --profile first-party",
+    "exit": 0,
+    "log": "first-party.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "name": "build",
+    "head": "f38bdd94e85bdac4f6bdb28a2c6a7feec27205b6",
+    "command": "cloud_run npx -y @runeditrun/rer build",
+    "exit": 0,
+    "log": "build.log",
+    "sha256": "3d18092fd7f393f1335a2cd9ba27475bd431e384d1ba8816b389f74ab274a22e"
+  },
+  {
+    "name": "desktop",
+    "head": "f38bdd94e85bdac4f6bdb28a2c6a7feec27205b6",
+    "command": "SLATE_CHROMIUM_PATH=/usr/bin/chromium cloud_run timeout 1200 node --test --test-concurrency=1 --test-name-pattern='^page creation destinations and editor locks preserve readable content at 1440px$' tests/qualification/ui-convergence/journeys.test.mjs",
+    "exit": 0,
+    "log": "desktop.log",
+    "sha256": "9fa2180d0461319b22bdeadc8e16bf0c1600fe31d583843c77c9ffc92626b34c",
+    "testsPassed": 1,
+    "durationMs": 130376.02124
+  },
+  {
+    "name": "release-source",
+    "head": "d56d13dac8fe68944eea1dab94bba1676ebe6fec",
+    "candidate": "f38bdd94e85bdac4f6bdb28a2c6a7feec27205b6",
+    "command": "cloud_run pnpm test:release-source",
+    "exit": 0,
+    "testsPassed": 2,
+    "log": "release-source.log",
+    "sha256": "0e9683b9bc8adf48ee96587cf48bc5cf94af1511bd2d28d33e0dbe52c7dcdea3",
+    "equivalence": "Release command, source tooling and assertions unchanged; final source lock independently regenerated and checked."
+  },
+  {
+    "name": "phone-initial",
+    "head": "d56d13dac8fe68944eea1dab94bba1676ebe6fec",
+    "command": "SLATE_CHROMIUM_PATH=/usr/bin/chromium cloud_run timeout 1200 node --test --test-concurrency=1 --test-name-pattern='^real core-wiki and touch-member journeys at 390px$' tests/qualification/ui-convergence/journeys.test.mjs",
+    "exit": 1,
+    "log": "phone-initial.log",
+    "failure": "After LIFE-002 passed, journeys.test.mjs:92 timed out waiting for More on Settings.",
+    "repair": "Restore the entry URL; assertions unchanged."
+  },
+  {
+    "name": "phone-authority-isolation",
+    "head": "2657dc6a49238310f06301bd1bd4f4973cef42a4",
+    "publishedEquivalentHead": "a349f8d84cc3383aafa029c9d710e9509b02dd2d",
+    "command": "SLATE_CHROMIUM_PATH=/usr/bin/chromium cloud_run timeout 1200 node --test --test-concurrency=1 --test-name-pattern='^real core-wiki and touch-member journeys at 390px$' tests/qualification/ui-convergence/journeys.test.mjs",
+    "exit": 1,
+    "log": "phone-authority-isolation.log",
+    "failure": "sharing-journey.mjs:54 expected view but received full from the helper's temporary container grant.",
+    "repair": "Explicitly revoke that temporary grant before returning; assertions unchanged."
+  },
+  {
+    "name": "phone",
+    "head": "f38bdd94e85bdac4f6bdb28a2c6a7feec27205b6",
+    "command": "SLATE_CHROMIUM_PATH=/usr/bin/chromium cloud_run timeout 1200 node --test --test-concurrency=1 --test-name-pattern='^real core-wiki and touch-member journeys at 390px$' tests/qualification/ui-convergence/journeys.test.mjs",
+    "exit": 0,
+    "testsPassed": 1,
+    "durationMs": 578117.632826,
+    "log": "phone.log",
+    "sha256": "c8c5f8f79bb56679368fbd9dcfdf024517a3c949b75ade56afb80ab8b0ff5d6b"
+  }
+]

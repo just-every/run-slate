@@ -1,0 +1,48 @@
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mProxy environment variables detected. We'll use your proxy for fetch requests.[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mProxy environment variables detected. We'll use your proxy for fetch requests.[0m
+
+
+(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:
+  - import "./source-fixtures" without a file extension (scripts/import-scale/generate-server-dc.ts:2:91). Add the file extension
+  - import "./types" without a file extension (scripts/import-scale/generate-server-dc.ts:3:82). Add the file extension
+  - import "./source-fixtures" without a file extension (scripts/import-scale/generate-server-dc.ts:4:22). Add the file extension
+  - import "./csv" without a file extension (scripts/import-scale/source-fixtures.ts:4:46). Add the file extension
+Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.
+
+ RUN  v4.1.11 /home/agent/rer-consolidation/work/sd-slate-c-f173/run-slate
+
+ ❯ tests/flagship/content/http.test.ts (4 tests | 1 failed | 3 skipped) 763ms
+     × publication, human verification and media enforce current reader authority 761ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/flagship/content/http.test.ts > content durable HTTP > publication, human verification and media enforce current reader authority
+AssertionError: expected [ '01M6QERNWGY1GS7NKH5WMZ0EVC', …(1) ] to deeply equal [ '01M6QERNWGY1GS7NKH5WMZ0EVC' ]
+
+- Expected
++ Received
+
+  [
+    "01M6QERNWGY1GS7NKH5WMZ0EVC",
++   "01M6QERNBHAMYJ3VGRC9F6GBQC",
+  ]
+
+ ❯ draftPrivacyCase tests/flagship/content/draft-privacy.case.ts:102:52
+    100|     for(const person of identities) {
+    101|       const found=await ok(person.id,'GET','/api/search?q=CustodyMarke…
+    102|       expect(found.items.map((item:any)=>item.id)).toEqual([control]);
+       |                                                    ^
+    103|       expect(found.total).toBe(1);
+    104|       expect(found.facets).toEqual({kind:{page:1},container:{[containe…
+ ❯ tests/flagship/content/http.test.ts:261:91
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 3 skipped (4)
+   Start at  03:34:32
+   Duration  14.10s (transform 6.52s, setup 613ms, import 12.01s, tests 763ms, environment 0ms)
+

@@ -1,0 +1,10 @@
+# sd-slate-c-f173 plan
+
+1. Retain the full-history f171 source candidate and all current main judgments. Inspect LIFE-002 and its existing native HTTP and responsive browser coverage. Keep all acceptance text unchanged.
+2. Re-run the existing native HTTP publication registration. Map selected acceptance 1, 2 and 4 duties to actual assertions, recording missing browser outcomes rather than duplicating tests.
+3. Fix canonical search to exclude private lifecycle pages and their discussions, including authors and named grantees, while preserving direct body reads. Extend the existing draft privacy journey with independently signed-in member authorship, explicit group sharing and persisted grant readback, anonymous and sessionless refusals, refusal snapshots, both general-access profiles and retained drafts across lifecycle changes. Keep the existing caller registrations and every assertion.
+4. Run touched HTTP and browser checks, typecheck and first-party validation. Generate and check contract views locally, restore generated views from main, synchronize integration and regenerate the source lock last. Preserve all parent Status rows in each commit.
+5. Push saves and the final product candidate only on cloud/sd-slate-c-f173 using the fleet push guard. Merge updated main after a published save; never rewrite published history. Inspect every candidate identity and message before pushing.
+6. Record point probes and mechanical receipts at the exact final candidate. Publish this complete non-secret report packet only to the evidence ref. Report exact-SHA Verify status honestly; leave main landing, publication scanning and Run site to the guarded lander.
+
+The selected points are a native subset of LIFE-002. Wider exclusion, automation, extension and held company-policy obligations remain authoritative; no DONE or release follows from this subset. The supplied ct rulings RL-101 and RL-102 govern API custody, not a LIFE-002 scope carve. No acceptance amendment or new policy default is authorized or proposed.

@@ -1,0 +1,98 @@
+[
+  {
+    "head": "f38bdd94e85bdac4f6bdb28a2c6a7feec27205b6",
+    "width": 1440,
+    "file": "screens/1440/saved-grant.png",
+    "sha256": "3ba94b3fa5dd34e13e20c145ce7757bf86b00d4e7a998ced3cfdc58a7972a56e"
+  },
+  {
+    "head": "f38bdd94e85bdac4f6bdb28a2c6a7feec27205b6",
+    "width": 1440,
+    "file": "screens/1440/granted-reader.png",
+    "sha256": "930f775afb49ac7b1660d68cfd452963773a8bf0d8cb379eb2a667f2eb1d503f"
+  },
+  {
+    "head": "f38bdd94e85bdac4f6bdb28a2c6a7feec27205b6",
+    "width": 1440,
+    "file": "screens/1440/revoked-grant.png",
+    "sha256": "21949577a62fe96c7ffb29fb630780f8c009b0fd8e8863164b9e6657662597e3"
+  },
+  {
+    "head": "f38bdd94e85bdac4f6bdb28a2c6a7feec27205b6",
+    "width": 1440,
+    "file": "screens/1440/refused-reader.png",
+    "sha256": "1542145112d1126487de0ee57a0ba3b6ad0ccfad51bd4dfd454cc69b55fffa11"
+  },
+  {
+    "head": "f38bdd94e85bdac4f6bdb28a2c6a7feec27205b6",
+    "width": 1440,
+    "file": "screens/1440/saved-group-grant.png",
+    "sha256": "af35b637e0502b80ef9b0c94a8246e57090428e26d207e054188331e6427c600"
+  },
+  {
+    "head": "f38bdd94e85bdac4f6bdb28a2c6a7feec27205b6",
+    "width": 1440,
+    "file": "screens/1440/member-author.png",
+    "sha256": "1842eb965fbe7d0e6078c9e59f25947e3d2694c813628815722ae7ec31b28e8c"
+  },
+  {
+    "head": "f38bdd94e85bdac4f6bdb28a2c6a7feec27205b6",
+    "width": 1440,
+    "file": "screens/1440/refused-owner.png",
+    "sha256": "fa78d6bfc52493d9e016d790932c75ea92d2432d2c263c37779379462c2cd491"
+  },
+  {
+    "head": "f38bdd94e85bdac4f6bdb28a2c6a7feec27205b6",
+    "width": 1440,
+    "file": "screens/1440/private-draft-search.png",
+    "sha256": "3af7fe9961fa666d95e79ed901ef75cf375201a49021c3ad6f2eafef8969979c"
+  },
+  {
+    "head": "f38bdd94e85bdac4f6bdb28a2c6a7feec27205b6",
+    "width": 390,
+    "file": "screens/390/saved-grant.png",
+    "sha256": "494efd204b9963de1c9f07eec73cc10a284e65b6f97d3c801600e15ee32c2b0b"
+  },
+  {
+    "head": "f38bdd94e85bdac4f6bdb28a2c6a7feec27205b6",
+    "width": 390,
+    "file": "screens/390/granted-reader.png",
+    "sha256": "45ae1ed342f4924ef71dd8b0a456df761ca46e0f12a2f54c9b0fe8122313d102"
+  },
+  {
+    "head": "f38bdd94e85bdac4f6bdb28a2c6a7feec27205b6",
+    "width": 390,
+    "file": "screens/390/revoked-grant.png",
+    "sha256": "010aad7b15100459510972896239d37e1468ab1655f7612a17fab78ddc320500"
+  },
+  {
+    "head": "f38bdd94e85bdac4f6bdb28a2c6a7feec27205b6",
+    "width": 390,
+    "file": "screens/390/refused-reader.png",
+    "sha256": "5c32190e9e6f3f9836a3f0903f78146177bf97280ad76435f187cc8df6111eca"
+  },
+  {
+    "head": "f38bdd94e85bdac4f6bdb28a2c6a7feec27205b6",
+    "width": 390,
+    "file": "screens/390/saved-group-grant.png",
+    "sha256": "bc32823f527c36e16fac9c27caf7bae5b87322b481fc9e6550e2413b6e5f70db"
+  },
+  {
+    "head": "f38bdd94e85bdac4f6bdb28a2c6a7feec27205b6",
+    "width": 390,
+    "file": "screens/390/member-author.png",
+    "sha256": "7687910b09e4bda9474e55486c45e716fba779987f38471c3e10b1e05b81a683"
+  },
+  {
+    "head": "f38bdd94e85bdac4f6bdb28a2c6a7feec27205b6",
+    "width": 390,
+    "file": "screens/390/refused-owner.png",
+    "sha256": "5c32190e9e6f3f9836a3f0903f78146177bf97280ad76435f187cc8df6111eca"
+  },
+  {
+    "head": "f38bdd94e85bdac4f6bdb28a2c6a7feec27205b6",
+    "width": 390,
+    "file": "screens/390/private-draft-search.png",
+    "sha256": "a4b1f3dbe8de4943fb3cc4ec9ca71b31bfb26b42f7c1ae65baba21d718186b40"
+  }
+]
