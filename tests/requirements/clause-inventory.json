@@ -598,7 +598,7 @@
       "id": "SHARE-002",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of SHARE-002 — What the levels mean. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "The Workers register remains unproven beyond its listed supporting mechanics. The existing responsive core browser registrations in ./tests/qualification/ui-convergence/journeys.test.mjs invoke permissionLevelsJourney through shareJourney in ./tests/qualification/ui-convergence/sharing-journey.mjs. Independent ordinary published pages give a non-author, non-owner member each configured level and exercise populated reads, title and body edits, comment creation and direct grant creation and changes. Native controls survive reload; refused HTTP mutations preserve page, revision, comment, grant and activity snapshots. Every other operation, record family, lifecycle, profile, principal and extension, automation and public API surface, including reactions, remains unproven. CONTRACT.md retains PARTIAL and all authoritative prerequisites.",
       "supportingTests": [
         {
           "file": "tests/flagship/structured/structured.test.ts",

@@ -1,10 +1,14 @@
 import assert from 'node:assert/strict';
+import { randomUUID } from 'node:crypto';
+import { mkdir, writeFile } from 'node:fs/promises';
+import path from 'node:path';
 import { expect } from '@playwright/test';
 import { accessible, closeDetails } from './browser-support.mjs';
+import { root } from '../../e2e/runtime-harness.mjs';
 import { publicPageJourney } from './public-page-journey.mjs';
 import { expiryRegrantJourney } from './expiry-journey.mjs';
 import { inheritanceChainJourney } from './sharing-inheritance-journey.mjs';
-import { call, ok } from './two-people-support.mjs';
+import { call, editable, grant, ok, restrictedPage, withSecondPerson } from './two-people-support.mjs';
 
 export async function shareJourney(state, pageId) {
   const { page, origin, api, readerCookie, switchIdentity } = state;
@@ -90,6 +94,191 @@ export async function shareJourney(state, pageId) {
   await publicPageJourney(state, pageId);
   await grantCorpusJourney(state);
   await inheritanceChainJourney(state);
+  await permissionLevelsJourney(state);
+}
+
+/** Independent published pages keep level semantics separate from grant narrowing. */
+export async function permissionLevelsJourney(state) {
+  const { context, origin, api } = state, width = state.page.viewportSize().width;
+  const records = [], refusals = [];
+  const configuration = await api('/api/sharing/configuration');
+  assert.deepEqual(new Set(configuration.levels), new Set(['full', 'edit', 'comment', 'view']));
+  await withSecondPerson(state, width, async ({ bob }) => {
+    const member = (await ok(bob.context, origin, 'GET', '/api/session')).member;
+    assert.equal(member.id, 'browser-reader');
+    assert.equal(member.role, 'member');
+    for (const level of ['full', 'edit', 'comment', 'view']) {
+      const canEdit = level === 'full' || level === 'edit', canComment = level !== 'view', canShare = level === 'full';
+      const initialTitle = `Permission ${level} guide`, initialBody = `Published ${level} response instructions.`;
+      const { pageId, blockIds: [blockId] } = await restrictedPage(state, initialTitle, [initialBody]);
+      const route = `/api/pages/${pageId}`, commentsRoute = `/api/comments/page/${pageId}`;
+      const readerGrant = (await grant(context, origin, pageId, member.id, level)).value.id;
+      let current = await api(route);
+      await ok(context, origin, 'POST', `${route}/publish`, { operationKey: randomUUID(), expectedRevisionId: current.page.revisionId });
+      // A populated discussion proves read access even for a member who cannot comment.
+      const ownerComment = (await ok(context, origin, 'POST', commentsRoute, { operationKey: randomUUID(), body: [{ text: `Owner context for ${level}.` }] })).value.id;
+      current = await ok(bob.context, origin, 'GET', route);
+      assert.equal(current.authorMemberId, 'browser-owner');
+      assert.equal(current.properties.ownerMemberId, 'browser-owner');
+      assert.equal(current.page.lifecycle, 'live');
+      assert.ok(current.publishedRevisionId);
+      assert.equal(current.permissions.level, level);
+      assert.equal(current.permissions.canEdit, canEdit);
+      assert.equal(current.permissions.canShare, canShare);
+      assert.equal(current.page.title, initialTitle);
+      assert.equal(current.blocks.find(block => block.id === blockId).content.text.map(span => span.text).join(''), initialBody);
+      assert.equal((await ok(bob.context, origin, 'GET', commentsRoute)).comments[0].id, ownerComment);
+
+      const snapshot = async () => ({
+        document: await api(route),
+        revisions: await api(`/api/revisions/${pageId}`),
+        comments: await api(commentsRoute),
+        grants: await api(`/api/sharing/pages/${pageId}`),
+        activity: (await api('/api/activity?limit=100')).items.filter(item => item.target.id === pageId || item.context?.pageId === pageId),
+      });
+      const refuse = async (method, target, input) => {
+        const before = await snapshot();
+        const result = await call(bob.context, origin, method, target, input);
+        assert.equal(result.status, 404, `${level} cannot ${method} ${target}`);
+        assert.equal(result.body.code, 'NOT_FOUND');
+        const after = await snapshot();
+        assert.deepEqual(after, before, `${level} refusal changes no page, revision, comment, grant or activity.`);
+        refusals.push({ level, method, target, input, result, before, after });
+      };
+      const committed = async (method, target, action, perform) => {
+        const before = await snapshot();
+        const pending = bob.page.waitForResponse(response => new URL(response.url()).pathname === target && response.request().method() === method);
+        await perform();
+        const response = await pending;
+        assert.equal(response.status(), 200, await response.text());
+        const input = response.request().postDataJSON(), result = await response.json();
+        assert.equal(result.receipt.operationKey, input.operationKey);
+        assert.equal(result.receipt.revisionId, result.receipt.entity.revisionId);
+        const after = await snapshot();
+        const added = after.activity.filter(item => !before.activity.some(previous => previous.id === item.id) && item.action !== 'pages.open');
+        // Rendering the committed revision records its own native read receipt.
+        // Keep that read in the inventory; the mutation itself must occur once.
+        for (const opened of after.activity.filter(item => !before.activity.some(previous => previous.id === item.id) && item.action === 'pages.open')) {
+          assert.equal(opened.actor.id, member.id);
+          assert.equal(opened.target.id, pageId);
+          assert.equal(opened.context.revisionId, after.document.workingRevisionId);
+        }
+        assert.equal(added.length, 1);
+        assert.equal(added[0].id, result.receipt.activityId);
+        assert.equal(added[0].operationKey, input.operationKey);
+        assert.equal(added[0].action, action);
+        assert.equal(added[0].actor.id, member.id);
+        assert.equal(added[0].occurredAt, result.receipt.committedAt);
+        for (const previous of before.activity) assert.deepEqual(after.activity.find(item => item.id === previous.id), previous);
+        if (action === 'pages.update' || action === 'pages.block.update') {
+          assert.equal(after.document.workingRevisionId, result.receipt.revisionId);
+          assert.equal(after.revisions.items.length, before.revisions.items.length + 1);
+          assert.ok(after.revisions.items.some(item => item.id === result.receipt.revisionId));
+          assert.deepEqual(after.comments, before.comments);
+          const expectedGrants = structuredClone(before.grants);
+          // Grant provenance displays the page's current title, not a stored ACL field.
+          for (const item of [...expectedGrants.items, ...expectedGrants.effectiveItems]) item.origin.name = after.document.page.title;
+          expectedGrants.restriction.name = after.document.page.title;
+          assert.deepEqual(after.grants, expectedGrants);
+        } else {
+          assert.deepEqual(after.document, before.document);
+          assert.deepEqual(after.revisions, before.revisions);
+          if (action === 'comments.create') assert.deepEqual(after.grants, before.grants);
+          else assert.deepEqual(after.comments, before.comments);
+        }
+        records.push({ level, method, target, input, result, before, after });
+        return result;
+      };
+      const view = bob.page;
+      await view.goto(`${origin}/app/pages/${pageId}`, { waitUntil: 'networkidle' });
+      await view.reload({ waitUntil: 'networkidle' });
+      const title = view.getByRole('textbox', { name: 'Page title', exact: true });
+      await expect(title).toHaveValue(initialTitle);
+      await expect(view.locator(`[data-block-id="${blockId}"]`).first()).toContainText(initialBody);
+      if (canEdit) {
+        await expect(title).not.toHaveAttribute('readonly', '');
+        await expect(editable(view, blockId)).toBeVisible();
+        const nextTitle = `Member revised ${level} guide`, nextBody = `Member revised ${level} response instructions.`;
+        await committed('PATCH', route, 'pages.update', async () => {
+          await title.fill(nextTitle);
+          await editable(view, blockId).click();
+        });
+        assert.equal((await api(route)).page.title, nextTitle);
+        await committed('PATCH', `${route}/blocks/${blockId}`, 'pages.block.update', () => editable(view, blockId).fill(nextBody));
+        assert.deepEqual((await api(route)).blocks.find(block => block.id === blockId).content, { text: [{ text: nextBody }] });
+        await view.reload({ waitUntil: 'networkidle' });
+        await expect(title).toHaveValue(nextTitle);
+        await expect(editable(view, blockId)).toHaveText(nextBody);
+      } else {
+        await expect(title).toHaveAttribute('readonly', '');
+        assert.equal(await view.locator('.page-document [contenteditable="true"]').count(), 0);
+        current = await api(route);
+        await refuse('PATCH', route, { operationKey: randomUUID(), expectedRevisionId: current.page.revisionId, properties: { title: 'Refused member title' } });
+        await refuse('PATCH', `${route}/blocks/${blockId}`, { operationKey: randomUUID(), expectedRevisionId: current.blocks.find(block => block.id === blockId).revisionId, content: { text: [{ text: 'Refused member body' }] } });
+      }
+      await accessible(view, `${level} member page after reload`);
+
+      await view.getByRole('button', { name: 'Comments', exact: true }).click();
+      await expect(view.locator(`#comment-${ownerComment}`)).toContainText(`Owner context for ${level}.`);
+      const composer = view.getByRole('textbox', { name: 'Comment text', exact: true });
+      if (canComment) {
+        await expect(composer).toBeVisible();
+        const text = `Member ${level} response confirmed.`;
+        const created = await committed('POST', commentsRoute, 'comments.create', async () => {
+          await composer.fill(text);
+          await view.getByRole('button', { name: 'Send comment', exact: true }).click();
+        });
+        const stored = (await api(commentsRoute)).comments;
+        assert.deepEqual(stored.map(item => item.id), [ownerComment, created.value.id]);
+        assert.deepEqual(stored[1].body, [{ text }]);
+        assert.equal(stored[1].authorMemberId, member.id);
+        assert.equal(stored[1].revisionId, created.receipt.revisionId);
+        await view.reload({ waitUntil: 'networkidle' });
+        if (!await view.locator('.right').isVisible()) await view.getByRole('button', { name: 'Comments', exact: true }).click();
+        await expect(view.locator(`#comment-${created.value.id}`)).toContainText(text);
+        await expect(composer).toBeVisible();
+      } else {
+        await expect(composer).toHaveCount(0);
+        await expect(view.getByRole('button', { name: 'Send comment', exact: true })).toHaveCount(0);
+        await refuse('POST', commentsRoute, { operationKey: randomUUID(), body: [{ text: 'Refused member comment' }] });
+        await expect(view.locator('.right')).toContainText('Read-only discussion.');
+      }
+      await accessible(view, `${level} member discussion after reload`);
+      await closeDetails(view);
+      await view.getByRole('button', { name: 'Share', exact: true }).click();
+      const panel = view.locator('.right'), invite = panel.getByRole('combobox', { name: 'Invite someone', exact: true });
+      if (canShare) {
+        await expect(invite).toBeVisible();
+        await invite.selectOption('member:browser-owner');
+        await panel.getByRole('combobox', { name: 'Permission', exact: true }).selectOption('view');
+        const shared = await committed('POST', '/api/sharing', 'sharing.grant', () => panel.getByRole('button', { name: 'Share page', exact: true }).click());
+        const row = panel.locator(`[data-grant-id="${shared.value.id}"]`);
+        await expect(row.getByRole('combobox')).toHaveValue('view');
+        await committed('POST', '/api/sharing', 'sharing.grant', () => row.getByRole('combobox').selectOption('comment'));
+        await view.reload({ waitUntil: 'networkidle' });
+        if (!await panel.isVisible()) await view.getByRole('button', { name: 'Share', exact: true }).click();
+        await expect(row.getByRole('combobox')).toHaveValue('comment');
+        const grants = await api(`/api/sharing/pages/${pageId}`);
+        assert.equal(grants.items.length, 3);
+        assert.equal(grants.items.find(item => item.id === shared.value.id).level, 'comment');
+        assert.equal(grants.items.find(item => item.id === readerGrant).level, 'full');
+      } else {
+        await expect(invite).toHaveCount(0);
+        await expect(panel.getByRole('combobox')).toHaveCount(0);
+        await expect(panel.getByRole('button', { name: 'Share page', exact: true })).toHaveCount(0);
+        await expect(panel.getByRole('button', { name: 'Remove access', exact: true })).toHaveCount(0);
+        const input = { targetKind: 'page', targetId: pageId, principalKind: 'member', principalId: member.id, level: 'full' };
+        await refuse('POST', '/api/sharing', { ...input, operationKey: randomUUID() });
+        await refuse('POST', '/api/sharing', { ...input, id: readerGrant, operationKey: randomUUID() });
+      }
+      await accessible(view, `${level} member sharing after reload`);
+      records.push({ level, pageId, blockId, readerGrant, final: await snapshot() });
+      console.log(`PROBE SHARE-002 ${level}: native member read, title, body, comment and direct grants match the level; refused writes preserve inventories at ${width}px`);
+    }
+  });
+  const directory = path.join(root, '.artifacts/ui-convergence/permission-levels', String(width));
+  await mkdir(directory, { recursive: true });
+  await writeFile(path.join(directory, 'matrix.json'), JSON.stringify({ width, configuration, records, refusals }, null, 2));
 }
 
 /** Native grants, rather than seeded ACL rows, drive the loaded Share panel. */
