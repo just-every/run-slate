@@ -1,0 +1,158 @@
+{
+  "head": "9167d6df3012153be7636fc77d29a7b0ad2f6f5e",
+  "checks": [
+    {
+      "name": "typecheck",
+      "head": "9167d6df3012153be7636fc77d29a7b0ad2f6f5e",
+      "command": "pnpm typecheck",
+      "exit": 0,
+      "startedAt": "2026-11-06T10:44:16.470973+00:00",
+      "finishedAt": "2026-11-06T10:44:40.854374+00:00"
+    },
+    {
+      "name": "first-party",
+      "head": "9167d6df3012153be7636fc77d29a7b0ad2f6f5e",
+      "command": "pnpm exec rer check --profile first-party",
+      "exit": 0,
+      "startedAt": "2026-11-06T10:44:40.854668+00:00",
+      "finishedAt": "2026-11-06T10:44:42.455704+00:00"
+    },
+    {
+      "name": "source-lock",
+      "head": "9167d6df3012153be7636fc77d29a7b0ad2f6f5e",
+      "command": "pnpm source:check",
+      "exit": 0,
+      "startedAt": "2026-11-06T10:44:42.455995+00:00",
+      "finishedAt": "2026-11-06T10:44:44.101207+00:00"
+    }
+  ],
+  "baseHead": "bc567c9b6f6b25c98cb6fa05b9ab0fe37628a547",
+  "registrationsBefore": 207,
+  "registrationsAfter": 207,
+  "statusCountsBefore": {
+    "done": 57,
+    "partial": 240,
+    "missing": 41
+  },
+  "statusCountsAfter": {
+    "done": 57,
+    "partial": 240,
+    "missing": 41
+  },
+  "statusRowsRetained": 338,
+  "parentTableRows": 698,
+  "acceptanceTextChanged": false,
+  "generatedViewsCommitted": false,
+  "migrationLedger": {
+    "command": null,
+    "exit": 0,
+    "reason": "No migration changed"
+  },
+  "workerTests": {
+    "command": "pnpm exec vitest run tests/qualification/core/audit-content.test.ts tests/e2e/notifications/chat.test.ts tests/flagship/core/security.test.ts",
+    "exit": 0,
+    "filesPassed": 3,
+    "testsPassed": 3,
+    "sourceMatchesCandidate": true
+  },
+  "build": {
+    "command": "cloud_run npx -y @runeditrun/rer build",
+    "exit": 0,
+    "head": "9167d6df3012153be7636fc77d29a7b0ad2f6f5e",
+    "provenance": {
+      "schema": 1,
+      "commit": "9167d6df3012153be7636fc77d29a7b0ad2f6f5e",
+      "tree": "506507d275eba8db7d0c3eba36849e96ba3df8b9",
+      "sourceSha256": "be8868ec4380ae05d9b8b1de0d1734f5fa9993d5384db1afc680d769be7c73b0",
+      "lockSha256": "c775664c4faa0963430f34872bb41ee80cf5b8c9b63a6e1dd913a9d76e249daa",
+      "outputSha256": "509460569003f23d2751f3096a7a83bf45eef490a4987534a535b3135ea8d66f"
+    }
+  },
+  "baseWorkflows": {
+    "head": "bc567c9b6f6b25c98cb6fa05b9ab0fe37628a547",
+    "verify": [
+      42183473801,
+      42179706478
+    ],
+    "runSite": 42183473597,
+    "conclusion": "success",
+    "observedBy": "REST exact head discovery"
+  },
+  "coreJourney": {
+    "head": "9167d6df3012153be7636fc77d29a7b0ad2f6f5e",
+    "command": "SLATE_CHROMIUM_PATH=/usr/bin/chromium cloud_run timeout 1200 node --test --test-concurrency=1 --test-name-pattern='^real core-wiki and touch-member journeys at 1440px$' tests/qualification/ui-convergence/journeys.test.mjs",
+    "exit": 0,
+    "testsPassed": 1,
+    "testsFailed": 0,
+    "durationMs": 500435.840505
+  },
+  "views": {
+    "write": "node src/base/runtime/contract-docs.mjs write",
+    "check": "node src/base/runtime/contract-docs.mjs check",
+    "exit": 0,
+    "generatedViewsRestoredFromMain": true
+  },
+  "focusedMessageProof": {
+    "command": "SLATE_CHROMIUM_PATH=/usr/bin/chromium cloud_run timeout 1200 node /tmp/slate-message-proof.mjs",
+    "head": "9167d6df3012153be7636fc77d29a7b0ad2f6f5e",
+    "exit": 0,
+    "screenshots": [
+      {
+        "file": "share-review-1440.png",
+        "receipt": "share-review-1440.json",
+        "state": "share message reviewed before explicit consent",
+        "width": 1440,
+        "sha256": "0ba68406df5e5688fb34b76832d6c45a1c1c1c33695fdb3ba4d5f091ae593862"
+      },
+      {
+        "file": "inbox-1440.png",
+        "receipt": "inbox-1440.json",
+        "state": "share message accepted grant inbox",
+        "width": 1440,
+        "sha256": "470f35214661d8b9adad2e95baf5464a498e239ffbb0e3e8123c061e75a78c0f"
+      },
+      {
+        "file": "share-review-390.png",
+        "receipt": "share-review-390.json",
+        "state": "share message phone review on independent published page",
+        "width": 390,
+        "sha256": "b0d74bbdcd37d49c7ea76056898f6288be80b6db65061df1fe4c2e9ab2de5506"
+      },
+      {
+        "file": "inbox-390.png",
+        "receipt": "inbox-390.json",
+        "state": "share message phone inbox readback on independent published page",
+        "width": 390,
+        "sha256": "9d568431a43c761d39ebfe8a4cdaca5bffa6450b4a436a493923af31b6226e50"
+      },
+      {
+        "file": "sender-activity-1440.png",
+        "receipt": "sender-activity-1440.json",
+        "state": "share message sender activity persisted",
+        "width": 1440,
+        "sha256": "3d7d85befa99da4114f196aded99e1de348a46d1b530be27d84bca36c29807e6"
+      },
+      {
+        "file": "sender-activity-390.png",
+        "receipt": "sender-activity-390.json",
+        "state": "share message phone sender activity persisted",
+        "width": 390,
+        "sha256": "5c1bf009944354d64d0e6df4e430b806e717f44c8f961f45aa365a0f3f148dfe"
+      }
+    ],
+    "note": "Task-side driver calls committed shareMessageJourney and captures retained sender Activity after its assertions."
+  },
+  "ci": {
+    "run": 42206008866,
+    "event": "push",
+    "head": "9167d6df3012153be7636fc77d29a7b0ad2f6f5e",
+    "status": "completed",
+    "conclusion": "failure",
+    "appJob": 127852759521,
+    "aggregateJob": 127853001770,
+    "classification": "permitted generated-view-only failure",
+    "error": "ACCEPTANCE.md: generated content differs; run contract-docs write.",
+    "shards": "skipped",
+    "noRealAssertionFailure": true
+  }
+}

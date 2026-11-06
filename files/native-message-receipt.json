@@ -1,0 +1,421 @@
+{
+  "sessions": [
+    {
+      "id": "browser-owner",
+      "role": "owner"
+    },
+    {
+      "id": "browser-reader",
+      "role": "member"
+    },
+    {
+      "id": "01M6R7WPY95XCXKS2Y342965RT",
+      "role": "member",
+      "nativeInvitationAccepted": true,
+      "erased": true
+    }
+  ],
+  "captures": [
+    {
+      "pageId": "01M6R7WQ13AJ9WEMNEV793EEKG",
+      "receipt": {
+        "value": {
+          "sent": 2,
+          "grantIds": [
+            "01M6R7WSNJHT7YQDMSJ9YW8MCE"
+          ]
+        },
+        "receipt": {
+          "operationKey": "096ff3be-01f3-4d61-89c0-be429726ecd3",
+          "entity": {
+            "kind": "page",
+            "id": "01M6R7WQ13AJ9WEMNEV793EEKG",
+            "revisionId": "01M6R7WQ57C23Y46NVMSWRA856"
+          },
+          "revisionId": "01M6R7WQ57C23Y46NVMSWRA856",
+          "activityId": "01M6R7WSN5XYQV2NZZ3HG87XBC",
+          "committedAt": "2026-11-06T10:53:56.257Z"
+        }
+      },
+      "grantsBefore": {
+        "items": [
+          {
+            "id": "01M6R7WQ22TA7GXBWE6788Q4YP",
+            "principalKind": "member",
+            "principalId": "browser-owner",
+            "level": "full",
+            "expiresAt": null,
+            "revokedAt": null,
+            "invitationId": null,
+            "invitationEmail": null,
+            "invitationExpiresAt": null,
+            "invitationRevokedAt": null,
+            "principalLabel": "Alex Owner",
+            "origin": {
+              "kind": "page",
+              "id": "01M6R7WQ13AJ9WEMNEV793EEKG",
+              "name": "Published message recipient guide"
+            },
+            "inherited": false,
+            "status": "active",
+            "effective": true
+          },
+          {
+            "id": "01M6R7WQ6E1WZJSG8ZPBDPXKEQ",
+            "principalKind": "member",
+            "principalId": "browser-reader",
+            "level": "view",
+            "expiresAt": null,
+            "revokedAt": null,
+            "invitationId": null,
+            "invitationEmail": null,
+            "invitationExpiresAt": null,
+            "invitationRevokedAt": null,
+            "principalLabel": "Morgan Reader",
+            "origin": {
+              "kind": "page",
+              "id": "01M6R7WQ13AJ9WEMNEV793EEKG",
+              "name": "Published message recipient guide"
+            },
+            "inherited": false,
+            "status": "active",
+            "effective": true
+          }
+        ],
+        "inheritedItems": [],
+        "effectiveItems": [
+          {
+            "id": "01M6R7WQ22TA7GXBWE6788Q4YP",
+            "principalKind": "member",
+            "principalId": "browser-owner",
+            "level": "full",
+            "expiresAt": null,
+            "revokedAt": null,
+            "invitationId": null,
+            "invitationEmail": null,
+            "invitationExpiresAt": null,
+            "invitationRevokedAt": null,
+            "principalLabel": "Alex Owner",
+            "origin": {
+              "kind": "page",
+              "id": "01M6R7WQ13AJ9WEMNEV793EEKG",
+              "name": "Published message recipient guide"
+            },
+            "inherited": false,
+            "status": "active",
+            "effective": true
+          },
+          {
+            "id": "01M6R7WQ6E1WZJSG8ZPBDPXKEQ",
+            "principalKind": "member",
+            "principalId": "browser-reader",
+            "level": "view",
+            "expiresAt": null,
+            "revokedAt": null,
+            "invitationId": null,
+            "invitationEmail": null,
+            "invitationExpiresAt": null,
+            "invitationRevokedAt": null,
+            "principalLabel": "Morgan Reader",
+            "origin": {
+              "kind": "page",
+              "id": "01M6R7WQ13AJ9WEMNEV793EEKG",
+              "name": "Published message recipient guide"
+            },
+            "inherited": false,
+            "status": "active",
+            "effective": true
+          }
+        ],
+        "levels": [
+          "full",
+          "edit",
+          "comment",
+          "view"
+        ],
+        "container": {
+          "id": "01M6R7WPZZ6Q5W5Z7CQXRBAHGY",
+          "name": "Message sharing team"
+        },
+        "restricted": true,
+        "restriction": {
+          "scope": "page",
+          "id": "01M6R7WQ13AJ9WEMNEV793EEKG",
+          "name": "Published message recipient guide"
+        }
+      },
+      "grantsAfter": {
+        "items": [
+          {
+            "id": "01M6R7WQ22TA7GXBWE6788Q4YP",
+            "principalKind": "member",
+            "principalId": "browser-owner",
+            "level": "full",
+            "expiresAt": null,
+            "revokedAt": null,
+            "invitationId": null,
+            "invitationEmail": null,
+            "invitationExpiresAt": null,
+            "invitationRevokedAt": null,
+            "principalLabel": "Alex Owner",
+            "origin": {
+              "kind": "page",
+              "id": "01M6R7WQ13AJ9WEMNEV793EEKG",
+              "name": "Published message recipient guide"
+            },
+            "inherited": false,
+            "status": "active",
+            "effective": true
+          },
+          {
+            "id": "01M6R7WQ6E1WZJSG8ZPBDPXKEQ",
+            "principalKind": "member",
+            "principalId": "browser-reader",
+            "level": "view",
+            "expiresAt": null,
+            "revokedAt": null,
+            "invitationId": null,
+            "invitationEmail": null,
+            "invitationExpiresAt": null,
+            "invitationRevokedAt": null,
+            "principalLabel": "Morgan Reader",
+            "origin": {
+              "kind": "page",
+              "id": "01M6R7WQ13AJ9WEMNEV793EEKG",
+              "name": "Published message recipient guide"
+            },
+            "inherited": false,
+            "status": "active",
+            "effective": true
+          },
+          {
+            "id": "01M6R7WSNJHT7YQDMSJ9YW8MCE",
+            "principalKind": "member",
+            "principalId": "01M6R7WPY95XCXKS2Y342965RT",
+            "level": "view",
+            "expiresAt": null,
+            "revokedAt": null,
+            "invitationId": null,
+            "invitationEmail": null,
+            "invitationExpiresAt": null,
+            "invitationRevokedAt": null,
+            "principalLabel": "Casey Member",
+            "origin": {
+              "kind": "page",
+              "id": "01M6R7WQ13AJ9WEMNEV793EEKG",
+              "name": "Published message recipient guide"
+            },
+            "inherited": false,
+            "status": "active",
+            "effective": true
+          }
+        ],
+        "inheritedItems": [],
+        "effectiveItems": [
+          {
+            "id": "01M6R7WQ22TA7GXBWE6788Q4YP",
+            "principalKind": "member",
+            "principalId": "browser-owner",
+            "level": "full",
+            "expiresAt": null,
+            "revokedAt": null,
+            "invitationId": null,
+            "invitationEmail": null,
+            "invitationExpiresAt": null,
+            "invitationRevokedAt": null,
+            "principalLabel": "Alex Owner",
+            "origin": {
+              "kind": "page",
+              "id": "01M6R7WQ13AJ9WEMNEV793EEKG",
+              "name": "Published message recipient guide"
+            },
+            "inherited": false,
+            "status": "active",
+            "effective": true
+          },
+          {
+            "id": "01M6R7WQ6E1WZJSG8ZPBDPXKEQ",
+            "principalKind": "member",
+            "principalId": "browser-reader",
+            "level": "view",
+            "expiresAt": null,
+            "revokedAt": null,
+            "invitationId": null,
+            "invitationEmail": null,
+            "invitationExpiresAt": null,
+            "invitationRevokedAt": null,
+            "principalLabel": "Morgan Reader",
+            "origin": {
+              "kind": "page",
+              "id": "01M6R7WQ13AJ9WEMNEV793EEKG",
+              "name": "Published message recipient guide"
+            },
+            "inherited": false,
+            "status": "active",
+            "effective": true
+          },
+          {
+            "id": "01M6R7WSNJHT7YQDMSJ9YW8MCE",
+            "principalKind": "member",
+            "principalId": "01M6R7WPY95XCXKS2Y342965RT",
+            "level": "view",
+            "expiresAt": null,
+            "revokedAt": null,
+            "invitationId": null,
+            "invitationEmail": null,
+            "invitationExpiresAt": null,
+            "invitationRevokedAt": null,
+            "principalLabel": "Casey Member",
+            "origin": {
+              "kind": "page",
+              "id": "01M6R7WQ13AJ9WEMNEV793EEKG",
+              "name": "Published message recipient guide"
+            },
+            "inherited": false,
+            "status": "active",
+            "effective": true
+          }
+        ],
+        "levels": [
+          "full",
+          "edit",
+          "comment",
+          "view"
+        ],
+        "container": {
+          "id": "01M6R7WPZZ6Q5W5Z7CQXRBAHGY",
+          "name": "Message sharing team"
+        },
+        "restricted": true,
+        "restriction": {
+          "scope": "page",
+          "id": "01M6R7WQ13AJ9WEMNEV793EEKG",
+          "name": "Published message recipient guide"
+        }
+      },
+      "activity": [
+        {
+          "id": "01M6R7WSN5XYQV2NZZ3HG87XBC",
+          "actor": {
+            "id": "browser-owner",
+            "displayName": "Alex Owner"
+          },
+          "feature": "sharing",
+          "action": "sharing.message",
+          "target": {
+            "kind": "page",
+            "id": "01M6R7WQ13AJ9WEMNEV793EEKG"
+          },
+          "occurredAt": "2026-11-06T10:53:56.257Z",
+          "operationKey": "096ff3be-01f3-4d61-89c0-be429726ecd3",
+          "automationRunId": null,
+          "aiRunId": null,
+          "deleted": false,
+          "context": {
+            "pageId": "01M6R7WQ13AJ9WEMNEV793EEKG",
+            "revisionId": "01M6R7WQ57C23Y46NVMSWRA856"
+          },
+          "shareMessage": "Please review this handover.\n<plain text> & keep the page unchanged."
+        }
+      ],
+      "notifications": {
+        "reader": {
+          "items": [
+            {
+              "id": "01M6R7WSNJHFRD9AJHXK0CYF7X:browser-reader",
+              "event": "share-message",
+              "pageId": "01M6R7WQ13AJ9WEMNEV793EEKG",
+              "containerId": null,
+              "commentId": null,
+              "title": "Published message recipient guide",
+              "detail": {
+                "shareMessage": {
+                  "message": "Please review this handover.\n<plain text> & keep the page unchanged.",
+                  "sender": {
+                    "id": "browser-owner",
+                    "displayName": "Alex Owner"
+                  }
+                }
+              },
+              "createdAt": "2026-11-06T10:53:56.257Z",
+              "readAt": null,
+              "audience": "direct",
+              "href": "/app/pages/01M6R7WQ13AJ9WEMNEV793EEKG",
+              "period": "2026-11-06"
+            },
+            {
+              "id": "01M6R7WQ6JBCHP54A74XMCVBXV:browser-reader",
+              "event": "access-granted",
+              "pageId": "01M6R7WQ13AJ9WEMNEV793EEKG",
+              "containerId": null,
+              "commentId": null,
+              "title": "Published message recipient guide",
+              "detail": {},
+              "createdAt": "2026-11-06T10:53:53.737Z",
+              "readAt": null,
+              "audience": "direct",
+              "href": "/app/pages/01M6R7WQ13AJ9WEMNEV793EEKG",
+              "period": "2026-11-06"
+            }
+          ],
+          "unreadCount": 2
+        },
+        "addedMember": {
+          "items": [
+            {
+              "id": "01M6R7WSNJHFRD9AJHXK0CYF7X:01M6R7WPY95XCXKS2Y342965RT",
+              "event": "share-message",
+              "pageId": "01M6R7WQ13AJ9WEMNEV793EEKG",
+              "containerId": null,
+              "commentId": null,
+              "title": "Published message recipient guide",
+              "detail": {
+                "shareMessage": {
+                  "message": "Please review this handover.\n<plain text> & keep the page unchanged.",
+                  "sender": {
+                    "id": "browser-owner",
+                    "displayName": "Alex Owner"
+                  }
+                }
+              },
+              "createdAt": "2026-11-06T10:53:56.257Z",
+              "readAt": "2026-11-06T10:53:59.566Z",
+              "audience": "direct",
+              "href": "/app/pages/01M6R7WQ13AJ9WEMNEV793EEKG",
+              "period": "2026-11-06"
+            }
+          ],
+          "unreadCount": 0
+        }
+      }
+    }
+  ],
+  "secondReceipt": {
+    "value": {
+      "sent": 1,
+      "grantIds": [
+        "01M6R7X34JP38YCYM2SM97MGHF"
+      ]
+    },
+    "receipt": {
+      "operationKey": "c482570e-f6a4-495e-b5c1-571a29a6be02",
+      "entity": {
+        "kind": "page",
+        "id": "01M6R7X038DRYH7B658B7ESW16",
+        "revisionId": "01M6R7X081VF8418QR7HC7EY0Y"
+      },
+      "revisionId": "01M6R7X081VF8418QR7HC7EY0Y",
+      "activityId": "01M6R7X34BFRBJ38ERK8336HS2",
+      "committedAt": "2026-11-06T10:54:05.958Z"
+    }
+  },
+  "probes": [
+    "PROBE SHARE-009 consent: native review, cancel and unaccepted grant -> no grant, message or activity; over-limit send -> 400",
+    "PROBE SHARE-009 1: native published-page Share -> readable Morgan and unreadable Casey reviewed; explicit consent commits only Casey View grant",
+    "PROBE SHARE-009 2-inbox: native inbox and reload -> exactly one plain-text message per recipient with sender, page title and link; unchanged page body",
+    "PROBE SHARE-009 3: add-grant confirmation and exact capture replay -> one accepted grant, one item per recipient and one sender activity",
+    "PROBE SHARE-009 current-access: revoke Casey then replay -> grant remains revoked and inbox empty; read-only send -> 404",
+    "PROBE SHARE-009 recipient-drift: native access lost after review -> 409 with no grant, notice or activity; fresh review requires explicit View consent",
+    "PROBE SHARE-009 erasure-and-authority: full-member send succeeds; revoked sender replay -> 404 unchanged; erased sender replay -> 401 and recipient message removed"
+  ]
+}

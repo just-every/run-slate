@@ -1,0 +1,54 @@
+{
+  "head": "9167d6df3012153be7636fc77d29a7b0ad2f6f5e",
+  "scope": "Builder proof map; no DONE or independent judge claim",
+  "rows": [
+    {
+      "id": "R1",
+      "item": "Optional plain-text message honors named seed limit at the server",
+      "proof": "shareMessageJourney lines 51\u201379 and 183\u2013184",
+      "status": "MET by native public-door journey in completed exact-head local desktop run"
+    },
+    {
+      "id": "R2",
+      "item": "Readable and unreadable native members are reviewed together without implicit grants",
+      "proof": "shareMessageJourney lines 46\u201379",
+      "status": "MET by native public-door journey in completed exact-head local desktop run"
+    },
+    {
+      "id": "R3",
+      "item": "Explicit grant consent atomically commits only accepted View access and one message per recipient",
+      "proof": "shareMessageJourney lines 86\u2013105",
+      "status": "MET by native public-door journey in completed exact-head local desktop run"
+    },
+    {
+      "id": "R4",
+      "item": "Inbox exposes sender, title, literal message and link; sender activity retains the message; body stays unchanged",
+      "proof": "shareMessageJourney lines 100\u2013135",
+      "status": "MET by native public-door journey in completed exact-head local desktop run"
+    },
+    {
+      "id": "R5",
+      "item": "Replay, recipient drift and revoked sender authority cannot grant or send again",
+      "proof": "shareMessageJourney lines 140\u2013200",
+      "status": "MET by native public-door journey in completed exact-head local desktop run"
+    },
+    {
+      "id": "R6",
+      "item": "Erased sender cannot replay or expose sent message through inbox or activity",
+      "proof": "shareMessageJourney lines 202\u2013206",
+      "status": "MET by native public-door journey in completed exact-head local desktop run"
+    },
+    {
+      "id": "R7",
+      "item": "Changed Share, Inbox and sender Activity screens have desktop and phone browser evidence",
+      "proof": "existing helper plus task-side browser capture of retained sender activity",
+      "status": "MET by exact-head local browser captures at 1440 and 390; screenshot receipts carry commit and build provenance"
+    },
+    {
+      "id": "R8",
+      "item": "Email delivery and settings, groups, email-address and guest admission and complete audience behavior",
+      "proof": "none; explicitly retained Gap",
+      "status": "UNPROVEN; full clause PARTIAL"
+    }
+  ]
+}

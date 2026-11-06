@@ -1,0 +1,7 @@
+PROBE SHARE-009 consent: native review, cancel and unaccepted grant -> no grant, message or activity; over-limit send -> 400
+PROBE SHARE-009 1: native published-page Share -> readable Morgan and unreadable Casey reviewed; explicit consent commits only Casey View grant
+PROBE SHARE-009 2-inbox: native inbox and reload -> exactly one plain-text message per recipient with sender, page title and link; unchanged page body
+PROBE SHARE-009 3: add-grant confirmation and exact capture replay -> one accepted grant, one item per recipient and one sender activity
+PROBE SHARE-009 current-access: revoke Casey then replay -> grant remains revoked and inbox empty; read-only send -> 404
+PROBE SHARE-009 recipient-drift: native access lost after review -> 409 with no grant, notice or activity; fresh review requires explicit View consent
+PROBE SHARE-009 erasure-and-authority: full-member send succeeds; revoked sender replay -> 404 unchanged; erased sender replay -> 401 and recipient message removed

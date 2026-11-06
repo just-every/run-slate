@@ -1,0 +1,15 @@
+Exact candidate: 9167d6df3012153be7636fc77d29a7b0ad2f6f5e
+Verify Slate push run: 42206008866, completed failure
+
+Command: gh run view 42206008866 --repo just-every/run-slate --job 127852759521 --log-failed
+App job: 127852759521
+Failed command: node src/base/runtime/contract-docs.mjs check
+Observed error: ACCEPTANCE.md: generated content differs; run contract-docs write.
+Exit: 1
+
+Command: gh run view 42206008866 --repo just-every/run-slate --job 127853001770 --log-failed
+Aggregate job: 127853001770
+Observed result: plan success; app failure; shards and contract skipped.
+Exit: 1
+
+This is the explicitly permitted generated-view-only failure. No workflow rerun, dispatch or product repair was made. The guarded lander regenerates the views and reruns Verify before landing. CI environment blocks are deliberately excluded from this public receipt.
