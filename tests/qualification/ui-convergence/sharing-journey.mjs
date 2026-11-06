@@ -8,6 +8,7 @@ import { root } from '../../e2e/runtime-harness.mjs';
 import { publicPageJourney } from './public-page-journey.mjs';
 import { expiryRegrantJourney } from './expiry-journey.mjs';
 import { inheritanceChainJourney } from './sharing-inheritance-journey.mjs';
+import { permissionLifecycleMatrix, permissionArchiveMatrix } from './sharing-lifecycle-matrix.mjs';
 import { permissionPageEditsMatrix } from './sharing-page-edit-matrix.mjs';
 import { permissionDiscussionMatrix, assertDiscussionMutation } from './sharing-discussion-matrix.mjs';
 import { call, editable, grant, ok, restrictedPage, withSecondPerson } from './two-people-support.mjs';
@@ -295,6 +296,10 @@ export async function permissionLevelsJourney(state, { extended = true } = {}) {
       await accessible(view, `${level} member page after reload`);
       if (extended) await permissionPageEditsMatrix({ state, bob, api, level, pageId, blockId, recipientId: recipient.id, snapshot, refuse, records });
 
+      if (extended) {
+        await permissionLifecycleMatrix({ state, bob, api, level, pageId, snapshot, refuse, records });
+        await permissionArchiveMatrix({ state, bob, api, level, pageId, snapshot, records, refusals });
+      }
       await view.getByRole('button', { name: 'Comments', exact: true }).click();
       await expect(view.locator(`#comment-${ownerComment}`)).toContainText(`Owner context for ${level}.`);
       const composer = view.getByRole('textbox', { name: 'Comment text', exact: true });
