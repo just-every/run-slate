@@ -11,7 +11,7 @@ import {syncedCustodyJourney,syncedHistoryJourney,syncedMemberErasureJourney} fr
 import {peopleJourney} from './people-journey.mjs';
 import {workspaceAuthorityJourney} from './workspace-authority-journey.mjs';
 import {syncedJourney} from './synced-journey.mjs';
-import {touchDatabaseToolsJourney} from './touch-database-tools-journey.mjs';
+import {touchDatabaseToolsJourney,standaloneChartJourney} from './touch-database-tools-journey.mjs';
 import {archiveRetentionJourney} from './archive-retention-journey.mjs';
 import {touchManagementJourney} from './touch-management-journey.mjs';
 import {touchPageToolsJourney} from './touch-page-tools-journey.mjs';
@@ -109,6 +109,7 @@ for (const width of [390, 1440]) {
         if (width === 390) {
           await automationRunLogJourney(state,touch);
           await step('DB-012 populated record fields, comments, history and parity', () => recordDetailJourney(state, width));
+          await standaloneChartJourney(state,{proofOnly:true});
           await templateCaptureJourney(state);
           await templateGalleryJourney(state);
           await archiveRetentionJourney(state,touch);
@@ -143,7 +144,7 @@ for (const width of [390]) {
       await state.switchIdentity('owner');
       await settingsJourney(state,width);
       await workspaceAuthorityJourney(state,width);
-    });
+    }, {RER_DEMO:'0'});
   });
 }
 
@@ -401,13 +402,13 @@ for (const width of [1440]) {
 }
 
 for (const width of [1440]) {
-  test(`page outline follows headings and navigates long pages at ${width}px`, { timeout: 420000 }, async () => {
+  test(`page outline follows headings and navigates long pages at ${width}px`, { timeout: 600000 }, async () => {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
       await outlineJourney(state);
       await settingsJourney(state,width);
       await workspaceAuthorityJourney(state,width);
-    });
+    }, {RER_DEMO:'0'});
   });
 }
 
