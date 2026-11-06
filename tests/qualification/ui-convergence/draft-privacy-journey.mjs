@@ -11,9 +11,9 @@ export async function draftPrivacyJourney(state) {
   const {page,context,origin}=state,width=page.viewportSize().width,returnUrl=page.url();
   const directory=`.artifacts/ui-convergence/draft-privacy/${width}`;
   await mkdir(directory,{recursive:true});
-  const openSharing=async()=>{
-    const heading=page.getByRole('heading',{name:'Share this page',exact:true});
-    if(!await heading.isVisible())await page.getByRole('button',{name:'Share',exact:true}).click();
+  const openSharing=async(view=page)=>{
+    const heading=view.getByRole('heading',{name:'Share this page',exact:true});
+    if(!await heading.isVisible())await view.getByRole('button',{name:'Share',exact:true}).click();
     await expect(heading).toBeVisible();
   };
   const anonymous=await context.browser().newContext({viewport:page.viewportSize()});
@@ -157,14 +157,14 @@ export async function draftPrivacyJourney(state) {
       await page.screenshot({path:`${directory}/refused-owner.png`,fullPage:true});
       // An ordinary author selects a group through the same safe principal directory.
       const reviewers=(await ok(context,origin,'POST','/api/groups',{operationKey:randomUUID(),name:`Member draft reviewers ${width}`,memberIds:['browser-owner']})).value.id;
-      await people.bob.page.getByRole('button',{name:'Share',exact:true}).click();
+      await openSharing(people.bob.page);
       const authorPanel=people.bob.page.locator('.right');
       await authorPanel.locator('select[name="principal"]').selectOption(`group:${reviewers}`);
       await authorPanel.getByRole('button',{name:'Share page',exact:true}).click();
       await expect.poll(async()=>(await ok(people.bob.context,origin,'GET',`/api/sharing/pages/${memberDraft}`)).items.map(g=>[g.principalKind,g.principalId,g.status])).toEqual([['group',reviewers,'active']]);
       assert.equal((await call(people.bob.context,origin,'GET','/api/groups')).status,403);
       await people.bob.page.reload({waitUntil:'networkidle'});
-      await people.bob.page.getByRole('button',{name:'Share',exact:true}).click();
+      await openSharing(people.bob.page);
       await expect(people.bob.page.getByRole('combobox',{name:`Access for Member draft reviewers ${width}`,exact:true})).toHaveValue('view');
       await page.goto(`${origin}/app/pages/${memberDraft}`,{waitUntil:'networkidle'});
       await expect(page.locator('.page-document')).toContainText(memberText);
