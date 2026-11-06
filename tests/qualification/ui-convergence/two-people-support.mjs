@@ -4,6 +4,7 @@ import { mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { expect, request } from '@playwright/test';
 import { root } from '../../e2e/runtime-harness.mjs';
+import { apiErrorDiagnostics } from './error-diagnostics.mjs';
 
 /**
  * Two signed-in people at once: the harness's owner context is Alex Owner, and a
@@ -26,7 +27,7 @@ export async function withSecondPerson(state, width, run) {
     if (!url.pathname.startsWith('/api/') || response.status() < 400) return;
     const entry = { person, method: response.request().method(), path: url.pathname, status: response.status(), at: new Date().toISOString() };
     refusals.push(entry);
-    response.json().then(body => { entry.code = body?.code; }, () => {});
+    response.json().then(body => { entry.code = body?.code; Object.assign(entry, apiErrorDiagnostics(body)); }, () => {});
   });
   let ordinal = 0;
   const people = {

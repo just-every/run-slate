@@ -10,6 +10,7 @@ import { chromium, expect, request } from '@playwright/test';
 import { applyMigrations, executeD1, root, stop, testSessionSecret } from '../../e2e/runtime-harness.mjs';
 import { startShellWorker } from '../release-shell/runtime.mjs';
 import { accessible, insideViewport, withinViewport } from './browser-evidence.mjs';
+import { apiErrorDiagnostics } from './error-diagnostics.mjs';
 import { initializeSlackEdge, setSlackFailure, readSlackMessages, setTeamsFailure, readTeamsMessages } from '../../helpers/slack-edge.mjs';
 import { initializeS3Edge, setS3Failure, readS3Requests, readS3Objects } from '../../helpers/s3-edge.mjs';
 import { initializeFolderEdge, readFolderRequests, setFileCardFixture } from '../../helpers/folder-edge.mjs';
@@ -99,7 +100,7 @@ export async function withWorkspace(viewport, profile, run, overrides = {}, { sc
         delete submitted.token;
         requestBody = JSON.stringify(submitted);
       }
-      const pending = response.text().then(body => { if(new URL(response.url()).pathname.match(/^\/api\/(developer\/(tokens|webhooks|scim(?:\/[^/]+\/rotate)?)|activity\/streams)$/) && request.method() === 'POST' && response.ok()){const value=JSON.parse(body);delete value.secret;body=JSON.stringify(value);} network.push({ url: response.url(), method: request.method(), requestBody, status: response.status(), responseBody: body }); })
+      const pending = response.text().then(body => { if(new URL(response.url()).pathname.match(/^\/api\/(developer\/(tokens|webhooks|scim(?:\/[^/]+\/rotate)?)|activity\/streams)$/) && request.method() === 'POST' && response.ok()){const value=JSON.parse(body);delete value.secret;body=JSON.stringify(value);} network.push({ url: response.url(), method: request.method(), ...(!response.ok() ? apiErrorDiagnostics(body) : {}), requestBody, status: response.status(), responseBody: body }); })
         .catch(cause => {
           // A committing action (first run, page creation) navigates to its new
           // page. Chromium may discard that document's body buffer before this
