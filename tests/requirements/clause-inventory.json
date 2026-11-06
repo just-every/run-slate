@@ -952,6 +952,10 @@
         {
           "file": "tests/flagship/content/http.test.ts",
           "testName": "content durable HTTP content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state"
+        },
+        {
+          "file": "tests/qualification/core/audit-content.test.ts",
+          "testName": "ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time"
         }
       ]
     },

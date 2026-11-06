@@ -1,6 +1,7 @@
 import type { FeatureContext } from "../../app/feature-context";
 import { ApiProblem } from "../../app/problems";
-import { requireContainerLevel, resolveCurrentAccess } from "../sharing/current-access";
+import { compareTreePages } from "../pages/tree-position";
+import { requireContainerLevel, resolveCurrentAccess, resolveCurrentAccessMany } from "../sharing/current-access";
 
 /** Location labels use the same current authority and published title as their native doors. */
 async function priorLocation(ctx: FeatureContext, item: Record<string, any>) {
@@ -32,6 +33,14 @@ async function visibleTitle(ctx: FeatureContext, page: {title:string;working_rev
             .bind(page.published_revision_id).first<{properties_json:string}>())?.properties_json ?? '{}').title ?? '';
     return page.title;
 }
+/** The displayed restore position counts only siblings the caller may currently read. */
+async function visibleSiblings(ctx: FeatureContext, item: Record<string, any>) {
+    const rows = (await ctx.db.prepare(`SELECT id,tree_position AS treePosition FROM pages
+        WHERE workspace_id=? AND container_id=? AND parent_page_id IS ? AND deleted_at IS NULL`)
+        .bind(ctx.actor.workspaceId, item.priorContainerId, item.priorParentId).all<{id:string;treePosition:string|null}>()).results;
+    const access = await resolveCurrentAccessMany(ctx, rows.map(row => row.id), {includeTrashed:true});
+    return rows.filter(row => access.get(row.id)?.decision.allowed);
+}
 export async function listArchive(ctx: FeatureContext) {
     const rows = (await ctx.db.prepare(`SELECT p.id,p.title,p.container_id AS containerId,p.revision_id AS revisionId,
         p.archived_at AS archivedAt,p.trashed_at AS trashedAt,l.reason,l.occurred_at AS occurredAt,
@@ -42,14 +51,18 @@ export async function listArchive(ctx: FeatureContext) {
         LEFT JOIN members m ON m.id=l.actor_member_id AND m.workspace_id=p.workspace_id
         WHERE p.workspace_id=? AND p.deleted_at IS NULL AND (p.archived_at IS NOT NULL OR p.trashed_at IS NOT NULL)
         ORDER BY COALESCE(p.trashed_at,p.archived_at) DESC,p.id`).bind(ctx.actor.workspaceId).all<Record<string, any>>()).results;
-    const out = [];
+    const out = [], siblings = new Map<string, ReturnType<typeof visibleSiblings>>();
     for (const row of rows) {
         try {
             const access = await resolveCurrentAccess(ctx, row.id, { includeTrashed: true });
             if (!access.decision.allowed) continue;
             const { working_revision_id, published_revision_id, ...item } = row;
             item.title = await visibleTitle(ctx, row as any, access.decision.level);
-            out.push({ ...item, ...await priorLocation(ctx, item) });
+            const location = JSON.stringify([item.priorContainerId, item.priorParentId]);
+            if (!siblings.has(location)) siblings.set(location, visibleSiblings(ctx, item));
+            const ordered = (await siblings.get(location)!).map(row => row.id === item.id ? {...row,treePosition:item.priorPosition} : row).sort(compareTreePages);
+            const index = ordered.findIndex(row => row.id === item.id);
+            out.push({ ...item, priorOrder: index < 0 ? null : index + 1, ...await priorLocation(ctx, item) });
         } catch (error) {
             if (!(error instanceof ApiProblem) || error.status !== 404) throw error;
         }

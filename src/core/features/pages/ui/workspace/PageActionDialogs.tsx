@@ -1,7 +1,9 @@
 import { X } from "lucide-react";
 import { useState } from "react";
+import { useNavigate } from "@tanstack/react-router";
 import { ActionDialog } from "../../../../app/ui/ActionDialog";
 import type { DocumentView } from "../../../../client/content";
+import { suspendPageCollaboration } from "../../../../client/useCollaboration";
 import { mutate, operationKey } from "../../../../client/transport";
 import { CreateDecisionDialog } from "../../../decisions/ui/CreateDecisionDialog";
 import { ReadableExportDialog } from "../../../workspace-export/ui/ReadableExportDialog";
@@ -27,12 +29,19 @@ export function PageActionDialogs({
   reload: () => void;
   onClose: () => void;
 }) {
+  const navigate = useNavigate();
   const [templateSaved, setTemplateSaved] = useState(false);
   const id = document.page.id;
   async function perform(path: string, extra: object = {}) {
-    await mutate(path, { operationKey: operationKey(), expectedRevisionId: revision, ...extra });
-    await reload();
-    window.dispatchEvent(new Event("slate:navigation-changed"));
+    const trash = "action" in extra && extra.action === "trash";
+    const resume = trash ? await suspendPageCollaboration(id) : () => {};
+    try {
+      await mutate(path, { operationKey: operationKey(), expectedRevisionId: revision, ...extra });
+      // A committed trash action retires this editor; rereading it would correctly return 404.
+      if (trash) await navigate({ to: "/app/archive", hash: "trash" });
+      else await reload();
+      window.dispatchEvent(new Event("slate:navigation-changed"));
+    } finally { resume(); }
   }
   return (
     <>

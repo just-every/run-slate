@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useResource } from "../../../client/useResource";
 import { mutate, operationKey, errorMessage, ApiError } from "../../../client/transport";
 import { RequestState } from "../../../app/ui/RequestState";
@@ -21,11 +21,13 @@ interface Archived {
   priorParentId: string | null;
   priorParentTitle: string | null;
   priorPosition: string | null;
+  priorOrder: number | null;
 }
 /** `embedded` puts the list inside a space's Trash tab, which already has its own top bar and title. */
 export function WorkspaceArchive({containerId,embedded}:{containerId?:string;embedded?:boolean}={}) {
   const resource = useResource<{ items: Archived[] }>("/api/archive");
   const [tab, setTab] = useState(containerId?"trash":"archive");
+  useEffect(() => { if (window.location.hash === "#trash") setTab("trash"); }, []);
   const [query, setQuery] = useState("");
   const [actor, setActor] = useState("");
   const [space, setSpace] = useState("");
@@ -74,10 +76,10 @@ export function WorkspaceArchive({containerId,embedded}:{containerId?:string;emb
         >
           {tab === "trash" ? <div className="trash-filters">
             <label>Search trash<input type="search" value={query} onChange={event => setQuery(event.target.value)} /></label>
-            <label>Deleted by<select value={actor} onChange={event => setActor(event.target.value)}>
+            <label>Deleted by<select aria-label="Deleted by" value={actor} onChange={event => setActor(event.target.value)}>
               <option value="">Anyone</option>{actors.map(([id, name]) => <option key={id} value={id!}>{name ?? "Former member"}</option>)}
             </select></label>
-            {!containerId ? <label>Prior space<select value={space} onChange={event => setSpace(event.target.value)}>
+            {!containerId ? <label>Prior space<select aria-label="Prior space" value={space} onChange={event => setSpace(event.target.value)}>
               <option value="">All spaces</option>{spaces.map(([id, name]) => <option key={id} value={id!}>{name}</option>)}
             </select></label> : null}
             <label>Deleted after<input type="date" value={after} onChange={event => setAfter(event.target.value)} /></label>
@@ -94,7 +96,7 @@ export function WorkspaceArchive({containerId,embedded}:{containerId?:string;emb
                       {item.occurredAt ? <> · <time dateTime={item.occurredAt}>{new Date(item.occurredAt).toLocaleString()}</time></> : null}
                     </p>
                     <p className="muted">Prior place: {item.priorContainerName ?? "Unavailable space"} → {item.priorParentId ? item.priorParentTitle ?? "Unavailable parent" : "Top level"}
-                      {" · "}Saved order: {item.priorPosition ?? "Unplaced"}</p>
+                      {" · "}{item.priorOrder ? `Restore position: ${item.priorOrder}` : "Original ordering retained"}</p>
                   </div>
                   <button className="secondary-button" type="button" onClick={() => void restore(item)}>
                     Restore

@@ -41,7 +41,9 @@ export async function retentionFixture(door:RetentionDoor) {
   await write(`/api/pages/${root.pageId}/blocks`,{expectedRevisionId:root.revisionId,blocks},'PUT');
   await write(`/api/comments/page/${root.pageId}`,{body:[{text:'Retained discussion'}]});
   await write('/api/sharing',{targetKind:'page',targetId:root.pageId,principalKind:'member',principalId:door.memberId,level:'full'});
-  for(const pageId of [child.pageId,database.pageId,record.pageId])await write('/api/sharing',{targetKind:'page',targetId:pageId,principalKind:'member',principalId:door.memberId,level:'full'});
+  // A different deleting member needs explicit grants on private drafts; the author already owns them.
+  if((await read(`/api/pages/${root.pageId}`)).authorMemberId!==door.memberId)
+    for(const pageId of [child.pageId,database.pageId,record.pageId])await write('/api/sharing',{targetKind:'page',targetId:pageId,principalKind:'member',principalId:door.memberId,level:'full'});
   await write('/api/status',{key:'retention-review',label:'Retention review',color:'#225588',requiresVerification:false});
   await write(`/api/status/page/${root.pageId}`,{expectedRevisionId:(await read(`/api/pages/${root.pageId}`)).page.revisionId,statusKey:'retention-review'});
   const ids=[root.pageId,child.pageId,database.pageId,record.pageId];

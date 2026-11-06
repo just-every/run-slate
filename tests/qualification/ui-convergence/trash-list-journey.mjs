@@ -25,6 +25,8 @@ export async function trashListJourney(state,touch,f) {
   assert.equal(deleted.status(),200);
   const {receipt}=await deleted.json();
   await expect(dialog).toBeHidden();
+  await expect(page).toHaveURL(origin+'/app/archive#trash');
+  await expect(page.getByRole('button',{name:'Trash',exact:true})).toHaveAttribute('aria-pressed','true');
   const rows=(await touch.api('/api/archive')).items.filter(item=>f.ids.includes(item.id));
   assert.deepEqual(rows.map(item=>item.id).sort(),[...f.ids].sort());
   for(const item of rows) {
@@ -34,6 +36,7 @@ export async function trashListJourney(state,touch,f) {
     assert.equal(item.priorContainerId,containerId);assert.equal(item.priorContainerName,touch.containerName);
     assert.equal(item.priorParentId,prior.parentPageId);assert.equal(item.priorPosition,prior.treePosition);
     assert.equal(item.priorParentTitle,item.id===f.root.pageId?'Retention parent':item.id===f.record.pageId?'Retained database':'Retained archive tree');
+    assert.equal(item.priorOrder,f.originalInventory.filter(row=>row.parentPageId===prior.parentPageId).findIndex(row=>row.id===item.id)+1);
   }
   assert.deepEqual(await f.inventory(),f.originalInventory.filter(item=>!f.ids.includes(item.id)));
   await page.goto(origin+'/app/archive',{waitUntil:'networkidle'});
@@ -48,7 +51,7 @@ export async function trashListJourney(state,touch,f) {
     await expect(row).toContainText('Deleted by Morgan Reader');
     await expect(row.locator('time')).toHaveAttribute('datetime',receipt.committedAt);
     await expect(row).toContainText(`Prior place: ${touch.containerName} → ${item.priorParentTitle}`);
-    await expect(row).toContainText(`Saved order: ${item.priorPosition??'Unplaced'}`);
+    await expect(row).toContainText(`Restore position: ${item.priorOrder}`);
   }
   await checkpoint(page,'trash provenance and prior place');
   await page.reload({waitUntil:'networkidle'});

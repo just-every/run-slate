@@ -97,6 +97,7 @@ export async function archiveRetentionProof(f:Awaited<ReturnType<typeof auditFix
   const {seedMember}=await import('../../e2e/setup/fixtures');
   const denied=await seedMember(f.workspaceId,{role:'member',displayName:'Archive outsider',email:['synthetic-slate-61','test.invalid'].join('@')});
   f.cookies[denied.memberId]=await sessionFor(denied.memberId,{freshProof:true});
+  expect((await f.request('GET','/api/archive',undefined,denied.memberId)).data.items.some((item:any)=>ids.includes(item.id))).toBe(false);
   expect((await destroy(ids,denied.memberId)).status).toBe(404);
   expect((await f.request('GET',`/api/archive/${root.pageId}/permanent-delete-preview`,undefined,denied.memberId)).status).toBe(404);
   expect(await stored(),'missing full access refuses preview and erasure unchanged').toEqual(retained);

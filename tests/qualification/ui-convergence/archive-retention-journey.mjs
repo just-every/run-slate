@@ -45,6 +45,8 @@ export async function archiveRetentionJourney(state,touch) {
   await checkpoint(page,'retained archive restored');
   await trashListJourney(state,touch,f);
   const doc=await f.read(`/api/pages/${f.root.pageId}`);
+  // This HTTP setup prepares a trash-list confirmation, so retire the restored editor first.
+  await page.goto(origin+'/app/archive',{waitUntil:'networkidle'});
   await ok(context,origin,'POST',`/api/archive/${f.root.pageId}`,{operationKey:randomUUID(),expectedRevisionId:doc.page.revisionId,action:'trash'});
   await page.goto(origin+'/app/archive',{waitUntil:'networkidle'});
   await tap(page.getByRole('button',{name:'Trash',exact:true}));

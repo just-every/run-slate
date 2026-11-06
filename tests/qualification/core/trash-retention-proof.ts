@@ -25,13 +25,17 @@ export async function trashRetentionProof(f:Awaited<ReturnType<typeof auditFixtu
     const prior=locations.find((item:any)=>item.id===row.id)!;
     expect(row).toMatchObject({actorMemberId:f.readerId,actorDisplayName:'Core reader',occurredAt:receipt.committedAt,
       trashedAt:receipt.committedAt,priorContainerId:f.containerId,priorContainerName:'Core team',
-      priorParentId:prior.parentPageId,priorPosition:prior.treePosition});
+      priorParentId:prior.parentPageId,priorPosition:prior.treePosition,
+      priorOrder:originalInventory.filter((item:any)=>item.parentPageId===prior.parentPageId).findIndex((item:any)=>item.id===row.id)+1});
     expect(row.priorParentTitle).toBe(row.id===root.pageId?'Retention parent':row.id===tree.record.pageId?'Retained database':'Retained archive tree');
   }
   expect((await listed()).map((item:any)=>item.id)).toEqual([...ids].sort());
   const readerRows=await listed(f.readerId);
   expect(readerRows.map((item:any)=>item.id)).toEqual([...ids].sort());
-  expect(readerRows.find((item:any)=>item.id===root.pageId)).toMatchObject({priorParentTitle:null});
+  expect(readerRows.find((item:any)=>item.id===root.pageId)).toMatchObject({priorParentTitle:null,priorOrder:1});
+  const firstDeletion=await listed();
+  expect((await f.request('POST',`/api/archive/${root.pageId}`,{...input,operationKey:createUlid(),reason:'Repeated trash attempt'})).status).toBe(200);
+  expect(await listed(),'a later trash operation keeps the original deleting member, time and placement').toEqual(firstDeletion);
   expect(await inventory()).toEqual(originalInventory.filter((item:any)=>!ids.includes(item.id)));
   const locationsBefore=(await env.DB.prepare(`SELECT * FROM content_archive_locations WHERE page_id IN (${ids.map(()=>'?').join(',')}) ORDER BY page_id`).bind(...ids).all()).results;
   expect(locationsBefore.map((item:any)=>item.actor_member_id)).toEqual(ids.map(()=>f.readerId));
