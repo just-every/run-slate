@@ -34,6 +34,7 @@ export async function searchQuery(ctx: FeatureContext, subject: MemberSubject, i
  const score = `COALESCE((SELECT SUM(CASE WHEN v.title_fold=q.value THEN 20 WHEN instr(v.title_fold,q.value)>0 THEN 10 WHEN instr(v.text_fold,q.value)>0 THEN 1 ELSE 0 END) FROM json_each(${termList}) q),0)`;
  const snapshotFilter = snapshot ? `AND v.key IN (SELECT j.value FROM discovery_snapshots snap,json_each(snap.ids_json) j WHERE snap.id=${bind(snapshot)})` : '';
  const ready = generation ? `EXISTS(SELECT 1 FROM search_record_cache WHERE scope=${recordProjection} AND workspace_id=${workspace} AND generation=${recordGeneration} AND epoch=(SELECT epoch FROM search_record_epoch WHERE id=1) AND acl=(SELECT epoch FROM core_acl_epoch WHERE id=1) AND (expires_at IS NULL OR expires_at>${nowParameter}) AND as_of<=${nowParameter})` : '1';
+ // Direct draft access never admits its page or discussion to discovery.
  const published = `(v.access_level<3 AND v.published_revision_id IS NOT NULL AND v.published_revision_id<>v.working_revision_id)`;
  // Text candidates precede live ACL resolution; metadata operators are evaluated
  // only after selecting the reader's authorized working/published variant.
@@ -49,12 +50,13 @@ export async function searchQuery(ctx: FeatureContext, subject: MemberSubject, i
  AND rc.epoch=(SELECT epoch FROM search_record_epoch WHERE id=1) AND rc.acl=(SELECT epoch FROM core_acl_epoch WHERE id=1) AND (rc.expires_at IS NULL OR rc.expires_at>${nowParameter}) AND rc.as_of<=${nowParameter}
  ),${aclSql}, permissions AS (
  SELECT t.*,p.published_revision_id,p.working_revision_id,p.status_key AS page_status,p.owner_member_id,p.updated_at AS page_updated,
+ CASE WHEN p.lifecycle IN ('draft','scheduled') OR p.lifecycle='archived' AND l.prior_lifecycle IN ('draft','scheduled') THEN 1 ELSE 0 END AS private_lifecycle,
  pv.id AS verification_id,pv.status_key AS verified_status,pv.revision_id AS verified_revision,pv.owner_member_id AS verification_owner,pv.expires_at AS verification_expiry,
  ${pageAccessLevelSql} AS access_level,c.id AS live_container,c.owned,c.visibility,s.guest,s.workspace,s.now,cl.level AS container_level
  FROM candidates t LEFT JOIN pages p ON p.id=t.page_id LEFT JOIN page_levels pl ON pl.id=t.page_id LEFT JOIN page_grants_live g ON g.page_id=t.page_id LEFT JOIN containers_live c ON c.id=t.container_id LEFT JOIN container_levels cl ON cl.id=c.id LEFT JOIN content_archive_locations l ON l.page_id=p.id
  LEFT JOIN page_verifications pv ON pv.id=${latestVerificationSql('p')},subject s
  ), variants AS (
- SELECT * FROM permissions t WHERE
+ SELECT * FROM permissions t WHERE private_lifecycle=0 AND
  (t.page_id IS NOT NULL AND access_level>0 AND (t.variant='dynamic' AND json_extract(t.document_json,'$.revisionId')=CASE WHEN access_level<3 AND published_revision_id IS NOT NULL AND published_revision_id<>working_revision_id THEN published_revision_id ELSE (SELECT revision_id FROM pages WHERE id=t.page_id) END OR t.variant=CASE WHEN access_level<3 AND published_revision_id IS NOT NULL AND published_revision_id<>working_revision_id THEN 'published' ELSE 'working' END)
  OR t.page_id IS NULL AND t.variant='working' AND (t.kind='template' AND t.container_id IS NULL AND NOT guest OR live_container IS NOT NULL AND (owned OR visibility<>'personal' AND COALESCE(container_level,0)>0)))
  ), projections AS (
