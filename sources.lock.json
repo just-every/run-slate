@@ -11976,7 +11976,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/draft-privacy-journey.mjs": {
-      "sha256": "40e9b5f9f34b7f14a040f1e46443dae30c9a5dacb1f1b285411465b1cf41b304",
+      "sha256": "9482257497984ca79e59748673324fda28929c8269350e6149eb63a8964d5b7e",
       "executable": false
     },
     "tests/qualification/ui-convergence/embed-timeout-journey.mjs": {
