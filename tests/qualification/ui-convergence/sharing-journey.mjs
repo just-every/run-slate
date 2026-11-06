@@ -8,7 +8,7 @@ import { root } from '../../e2e/runtime-harness.mjs';
 import { publicPageJourney } from './public-page-journey.mjs';
 import { expiryRegrantJourney } from './expiry-journey.mjs';
 import { inheritanceChainJourney } from './sharing-inheritance-journey.mjs';
-import { permissionLifecycleMatrix, permissionArchiveMatrix } from './sharing-lifecycle-matrix.mjs';
+import { permissionLifecycleMatrix, permissionArchiveMatrix, permissionPermanentDeleteMatrix } from './sharing-lifecycle-matrix.mjs';
 import { permissionPageEditsMatrix } from './sharing-page-edit-matrix.mjs';
 import { permissionDiscussionMatrix, assertDiscussionMutation } from './sharing-discussion-matrix.mjs';
 import { call, editable, grant, ok, restrictedPage, withSecondPerson } from './two-people-support.mjs';
@@ -299,6 +299,10 @@ export async function permissionLevelsJourney(state, { extended = true } = {}) {
       if (extended) {
         await permissionLifecycleMatrix({ state, bob, api, level, pageId, snapshot, refuse, records });
         await permissionArchiveMatrix({ state, bob, api, level, pageId, snapshot, records, refusals });
+        const unrelated = await snapshot();
+        await permissionPermanentDeleteMatrix({ state, bob, api, level, records });
+        assert.deepEqual(await snapshot(), unrelated, 'Erasing or retaining a separately granted page never changes the other page.');
+        await view.goto(`${origin}/app/pages/${pageId}`, { waitUntil: 'networkidle' });
       }
       await view.getByRole('button', { name: 'Comments', exact: true }).click();
       await expect(view.locator(`#comment-${ownerComment}`)).toContainText(`Owner context for ${level}.`);

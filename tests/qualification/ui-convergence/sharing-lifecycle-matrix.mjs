@@ -2,7 +2,8 @@ import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
 import { expect } from '@playwright/test';
 import { accessible, closeDetails, openPageAction } from './browser-support.mjs';
-import { call, ok } from './two-people-support.mjs';
+import { call, ok, restrictedPage } from './two-people-support.mjs';
+import { signInWithOutbox } from '../../e2e/outbox-auth.mjs';
 
 const content = blocks => blocks.map(({ id, blockType, content, parentBlockId, treePosition }) => ({ id, blockType, content, parentBlockId, treePosition }));
 
@@ -132,7 +133,11 @@ export async function permissionLifecycleMatrix({ state, bob, api, level, pageId
     await openPageAction(view, 'Publish workspace revision');
     let dialog = view.getByRole('dialog', { name: 'Publish this revision', exact: true });
     await expect(dialog.getByRole('button', { name: 'Review publication', exact: true })).toBeEnabled();
-    await dialog.locator('input[name="publishAt"]').fill(new Date(Date.now() + 3600000).toISOString().slice(0, 16));
+    const future = await view.evaluate(() => {
+      const instant = new Date(Date.now() + 3600000);
+      return new Date(instant.getTime() - instant.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
+    });
+    await dialog.locator('input[name="publishAt"]').fill(future);
     await dialog.getByRole('button', { name: 'Review publication', exact: true }).click();
     await capture(`${route}/publish`, 'pages.publish', () => dialog.getByRole('button', { name: 'Publish workspace revision', exact: true }).click(),
       async (_before, after, result) => {
@@ -266,4 +271,109 @@ export async function permissionArchiveMatrix({ state, bob, api, level, pageId, 
   }
   await ok(context, origin, 'POST', '/api/sharing', { ...authority, id: destinationGrant.value.id, revoke: true, operationKey: randomUUID() });
   await view.reload({ waitUntil: 'networkidle' });
+}
+
+/** A full direct grant permits erasure without authorship or workspace ownership. */
+export async function permissionPermanentDeleteMatrix({ state, bob, api, level, records }) {
+  const { context, origin } = state, view = bob.page;
+  // Mailbox possession is refreshed through the native development edge, never
+  // by changing a proof row or relaxing the server's sensitive-operation window.
+  const member = (await ok(bob.context, origin, 'GET', '/api/session')).member;
+  const signedIn = await signInWithOutbox(origin, member.email);
+  assert.equal(signedIn.body.member.id, bob.id);
+  assert.equal(signedIn.body.member.role, 'member');
+  await bob.context.addCookies([{ name: 'slate_session', value: signedIn.cookie.split('=')[1], url: origin }]);
+  const title = `Retired ${level} permission note`, body = `Retained ${level} escalation guidance.`;
+  const { pageId, blockIds: [blockId] } = await restrictedPage(state, title, [body]);
+  const route = `/api/pages/${pageId}`, target = `/api/archive/${pageId}/permanent-delete`;
+  const grantInput = { operationKey: randomUUID(), targetKind: 'page', targetId: pageId, principalKind: 'member', principalId: bob.id, level };
+  const granted = await ok(context, origin, 'POST', '/api/sharing', grantInput);
+  let document = await api(route);
+  const writeInput = { operationKey: randomUUID(), expectedRevisionId: document.page.revisionId, properties: { labels: [`retired-${level}`] } };
+  const written = await ok(context, origin, 'PATCH', route, writeInput);
+  document = await api(route);
+  await ok(context, origin, 'POST', `${route}/publish`, { operationKey: randomUUID(), expectedRevisionId: document.page.revisionId });
+  await ok(context, origin, 'POST', `/api/comments/page/${pageId}`, { operationKey: randomUUID(), body: [{ text: `Discussion for ${level} retirement.` }] });
+  const before = { document: await api(route), revisions: await api(`/api/revisions/${pageId}`), comments: await api(`/api/comments/page/${pageId}`), grants: await api(`/api/sharing/pages/${pageId}`) };
+  assert.equal(before.document.authorMemberId, 'browser-owner');
+  assert.equal(before.document.properties.ownerMemberId, 'browser-owner');
+  assert.equal((await ok(bob.context, origin, 'GET', route)).permissions.level, level);
+  const revisionId = before.document.publishedRevisionId;
+  await ok(context, origin, 'POST', `/api/archive/${pageId}`, { operationKey: randomUUID(), expectedRevisionId: before.document.page.revisionId, action: 'trash' });
+  await view.goto(`${origin}/app/archive`, { waitUntil: 'networkidle' });
+  await view.getByRole('button', { name: 'Trash', exact: true }).click();
+  const row = view.locator('.archive-list > li').filter({ has: view.getByRole('heading', { name: title, exact: true }) });
+  await expect(row).toHaveCount(1);
+  const afterErasure = async () => {
+    const activity = []; let cursor;
+    do {
+      const result = await api('/api/activity?' + new URLSearchParams({ limit: '100', ...(cursor ? { cursor } : {}) }));
+      activity.push(...result.items); cursor = result.nextCursor;
+    } while (cursor);
+    return {
+      reads: await Promise.all([route, `/api/revisions/${pageId}`, `/api/comments/page/${pageId}`, `/api/sharing/pages/${pageId}`].map(target => call(context, origin, 'GET', target))),
+      archive: (await api('/api/archive')).items.filter(item => item.id === pageId),
+      activity: activity.filter(item => item.target.id === pageId || item.context?.pageId === pageId),
+    };
+  };
+  const refusal = [];
+  if (level === 'full') {
+    await row.getByRole('button', { name: 'Delete permanently', exact: true }).click();
+    const dialog = view.getByRole('dialog', { name: `Permanently delete ${title}?`, exact: true });
+    await dialog.getByRole('checkbox', { name: title, exact: true }).check();
+    await dialog.getByRole('textbox', { name: 'Type the page title', exact: true }).fill(title);
+    await accessible(view, 'full non-owner confirmed permanent deletion');
+    const pending = view.waitForResponse(response => new URL(response.url()).pathname === target && response.request().method() === 'POST');
+    await dialog.getByRole('button', { name: 'Delete permanently', exact: true }).click();
+    const response = await pending;
+    assert.equal(response.status(), 200, await response.text());
+    const input = response.request().postDataJSON(), result = await response.json();
+    await expect(dialog).toBeHidden();
+    await expect(row).toHaveCount(0);
+    assert.deepEqual(input.confirmedPageIds, [pageId]);
+    assert.deepEqual(result.value.deletedPageIds, [pageId]);
+    const after = await afterErasure();
+    assert.ok(after.reads.every(item => item.status === 404));
+    assert.deepEqual(after.archive, []);
+    assert.ok(!JSON.stringify(after.activity).includes(title));
+    assert.ok(!JSON.stringify(after.activity).includes(body));
+    const erased = after.activity.filter(item => item.operationKey === input.operationKey);
+    assert.equal(erased.length, 1);
+    assert.deepEqual([erased[0].id, erased[0].actor.id], [result.receipt.activityId, bob.id]);
+    assert.deepEqual((await ok(bob.context, origin, 'POST', target, input)).receipt, result.receipt);
+    assert.deepEqual(await afterErasure(), after, 'Repeating erasure cannot repeat activity or restore content.');
+    for (const [method, endpoint, input] of [
+      ['PATCH', route, writeInput],
+      ['POST', '/api/sharing', grantInput],
+      ['POST', `/api/revisions/${pageId}/${revisionId}/restore`, { operationKey: randomUUID(), expectedRevisionId: written.receipt.revisionId }],
+      ['PATCH', `${route}/blocks/${blockId}`, { operationKey: randomUUID(), expectedRevisionId: before.document.blocks[0].revisionId, content: { text: [{ text: body }] } }],
+    ]) {
+      const denied = await call(context, origin, method, endpoint, input);
+      assert.equal(denied.status, 404);
+      assert.deepEqual(await afterErasure(), after, 'Old content and grant captures cannot resurrect an erased page.');
+      refusal.push({ method, target: endpoint, input, result: denied });
+    }
+    records.push({ level, erasure: { pageId, before, input, result, after, refusal, grantReceipt: granted.receipt } });
+    await accessible(view, 'full non-owner erased page remains absent');
+  } else {
+    await expect(row.getByRole('button', { name: 'Delete permanently', exact: true })).toHaveCount(0);
+    const retained = await afterErasure();
+    for (const [method, endpoint, input] of [
+      ['GET', `/api/archive/${pageId}/permanent-delete-preview`, undefined],
+      ['POST', target, { operationKey: randomUUID(), confirmedPageIds: [pageId] }],
+    ]) {
+      const denied = await call(bob.context, origin, method, endpoint, input);
+      assert.equal(denied.status, 404);
+      assert.deepEqual(await afterErasure(), retained, 'An under-scoped erasure attempt changes no retained projection or activity.');
+      refusal.push({ method, target: endpoint, input, result: denied });
+    }
+    await accessible(view, `${level} permanent deletion unavailable`);
+    await ok(context, origin, 'POST', `/api/archive/${pageId}`, { operationKey: randomUUID(), expectedRevisionId: before.document.page.revisionId, action: 'restore' });
+    const restored = { document: await api(route), revisions: await api(`/api/revisions/${pageId}`), comments: await api(`/api/comments/page/${pageId}`), grants: await api(`/api/sharing/pages/${pageId}`) };
+    assert.ok(restored.document.updatedAt >= before.document.updatedAt);
+    assert.deepEqual({ ...restored, document: { ...restored.document, updatedAt: before.document.updatedAt } }, before,
+      'After refused deletion, owner restoration recovers every page, block, version, comment and grant unchanged.');
+    records.push({ level, erasure: { pageId, before, retained, refusal, restored } });
+  }
+  console.log(`PROBE SHARE-002 erasure ${level}: ${level === 'full' ? 'non-owner confirmed deletion and old-capture refusal' : 'preview and delete refused with fresh native proof and exact restored inventory'}`);
 }
