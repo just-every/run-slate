@@ -1,0 +1,16 @@
+{
+  "at": "2026-11-06T11:49:15.920392+00:00",
+  "hostname": "f67aa91a26d8",
+  "node": "v22.20.0",
+  "pnpm": "10.12.4",
+  "chromium": "Chromium 154.0.8037.57 built on Debian GNU/Linux 13 (trixie)",
+  "node_exec": "/home/agent/.rer/toolchain/node-22.20.0/node_modules/node/bin/node",
+  "head": "bc567c9b6f6b25c98cb6fa05b9ab0fe37628a547",
+  "package_pins": {
+    "@playwright/test": "1.63.0",
+    "vitest": "4.1.11",
+    "wrangler": "4.129.1",
+    "@runeditrun/rer": "0.2.80"
+  },
+  "matches_candidate_runner": true
+}

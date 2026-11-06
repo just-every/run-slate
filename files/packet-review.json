@@ -1,0 +1,177 @@
+{
+  "at": "2026-11-06T12:01:33.477377+00:00",
+  "scope": "Explicit public report packet only; not a product publication scan.",
+  "selected_files": [
+    {
+      "file": "REPORT.md",
+      "bytes": 14475,
+      "sha256": "757686ad6fdb5781eae86fdba68397925d45d546f121d9de5169c2e3e4c7c2e6"
+    },
+    {
+      "file": "RECEIPT.json",
+      "bytes": 2097,
+      "sha256": "6583b16da6f48325a20ea15229c562adae964a8b6324fec25fec4ac033bb45c6"
+    },
+    {
+      "file": "PLAN.md",
+      "bytes": 1341,
+      "sha256": "7f874358ff6f944d86aa66049f7f8b2677b42e1d682975eba75337e85e42a6fd"
+    },
+    {
+      "file": "OPERATIONS.md",
+      "bytes": 4885,
+      "sha256": "d74d6c87ecc786d3171c7c317d4e0e377e0d30382b18e85262cf154f6ef5bdc3"
+    },
+    {
+      "file": "SOURCE-TRACE.md",
+      "bytes": 7320,
+      "sha256": "325a2b59f84a46d4f792c0fccb584d0c3600216d48dc68b2caa89932ac58eed1"
+    },
+    {
+      "file": "commands.jsonl",
+      "bytes": 7017,
+      "sha256": "32c04d9b4178c95b2db4e7b59b8a2bbf34ed49cafc112f1bc9b6eeb81cea88dc"
+    },
+    {
+      "file": "provenance.json",
+      "bytes": 906,
+      "sha256": "8272f019ee53716d1353760290869e125079fd93641e924a7809b398280abdaf"
+    },
+    {
+      "file": "runner-identity.json",
+      "bytes": 894,
+      "sha256": "cc8032e9d75b6840d3043bbcb25e3d2e042b83db743cf21beda3a6c06ba762c3"
+    },
+    {
+      "file": "main-runner-identity.json",
+      "bytes": 515,
+      "sha256": "99c068e35abb4e0f0e8fd0a069091385ad1a31f6adc45a9c0a4e988a3fb91364"
+    },
+    {
+      "file": "source-identities.json",
+      "bytes": 4876,
+      "sha256": "2bdb2fabb8b890e33654225596f51e619c0f68d0a753ed9bab42d18d9f0ea35c"
+    },
+    {
+      "file": "counts-and-partial-remainder.json",
+      "bytes": 2957,
+      "sha256": "afcac816a88b160665bbf3253789f9b2f04f61713abb43a2f82880935c6a1066"
+    },
+    {
+      "file": "candidate-delta.patch",
+      "bytes": 5448,
+      "sha256": "97a9825f66a7332b98afc2350a88d875b4d46df507bda4d14e327de47ffa6a36"
+    },
+    {
+      "file": "candidate-delta-stat.txt",
+      "bytes": 957,
+      "sha256": "91b9e3dee175775422436276028cf69296f323b88b8bc1fa9b5458319504eb1e"
+    },
+    {
+      "file": "candidate-install.log",
+      "bytes": 3153,
+      "sha256": "863a1ece39cb1b3146c690453900de1a15a695c080ed9e1fdde648efd14a0e72"
+    },
+    {
+      "file": "candidate-setup.log",
+      "bytes": 808974,
+      "sha256": "dd3b655eb780edb262c9c49086664bd00256480636c13b340d163cb55c38c8da"
+    },
+    {
+      "file": "candidate-build.log",
+      "bytes": 29058,
+      "sha256": "23e918f1a6f6846794f5c4a4dfdda6d555c43955792153d25e38f1a8de4fdf6e"
+    },
+    {
+      "file": "candidate-build-source.json",
+      "bytes": 359,
+      "sha256": "73a74b4d442fd7801751aaf13efc0025b12a2d6bba8c4c749d380edf51265afe"
+    },
+    {
+      "file": "candidate-automation.log",
+      "bytes": 2503,
+      "sha256": "c0c987502f9ddf03e4af5473422dc42c4845fa6f4f43da561ec1575638c73613"
+    },
+    {
+      "file": "candidate-chat.log",
+      "bytes": 3237,
+      "sha256": "83492ad8b2101da45355a3cd60d0c7a408b8f5fa68e1fb7285d70f54d071b713"
+    },
+    {
+      "file": "candidate-mobile.log",
+      "bytes": 3060,
+      "sha256": "b3fe2b460c29b461874603ef9cad866239d8198c2a5911eef95351a9b09aa415"
+    },
+    {
+      "file": "candidate-ui-checkpoints.json",
+      "bytes": 109919,
+      "sha256": "5626268cda074612a83e51e7ec1c25fe362556714a24acc7c6c7282ea682cc7e"
+    },
+    {
+      "file": "candidate-cleanup.json",
+      "bytes": 507,
+      "sha256": "c4e89b6673bae1622b51e0674eafd08cddeb55697147f9e7a4bfe2b9db4495b5"
+    },
+    {
+      "file": "main-install.log",
+      "bytes": 1771,
+      "sha256": "1c408004b254993dd41f406f88347bfd990053cf220fece5084dfad295cbb5c3"
+    },
+    {
+      "file": "main-setup.log",
+      "bytes": 808999,
+      "sha256": "2fbfa03267efcc02d19c2b6c6b86d9a992f3ce3c197d0b4f427adbf0f1031ba6"
+    },
+    {
+      "file": "main-build.log",
+      "bytes": 29028,
+      "sha256": "1fd02b57cccdd9c4c843675bd08e609bbd277c9dcc3eb7d6166c08dd484cf395"
+    },
+    {
+      "file": "main-build-source.json",
+      "bytes": 359,
+      "sha256": "bf16ac6d7cc0381ea4ca58371fb75e80b04958f4d0944d1452e9b821265967c9"
+    },
+    {
+      "file": "main-automation.log",
+      "bytes": 2503,
+      "sha256": "472451c4f20946e94b05b6b2c0d284347d42c12e7bcdb7420e823b7f636e6d4b"
+    },
+    {
+      "file": "main-chat.log",
+      "bytes": 3237,
+      "sha256": "9e87a52061c1215a4b865947f43ea4e37ad5e37afb921ae695217cacccf0f2de"
+    },
+    {
+      "file": "main-mobile.log",
+      "bytes": 3060,
+      "sha256": "8c1f16b77c788b8734d31ddae50ae65eb1a4cddcf8bc0f5fefddb41dc1d23f9d"
+    },
+    {
+      "file": "main-ui-checkpoints.json",
+      "bytes": 109919,
+      "sha256": "c60511d257671efa1f3ee5db1d92db21fbc022a5b540d0d7ff387aa9b35ca862"
+    },
+    {
+      "file": "main-preflight.json",
+      "bytes": 200,
+      "sha256": "d7166dfec0f99447c049ac4b0bb942674e5e64adebe9171ea2ae2ea6282b2416"
+    },
+    {
+      "file": "cleanup.json",
+      "bytes": 967,
+      "sha256": "0fba98d4606c3471c28566a55998a4594911ed1f89198b891e36c2d274663489"
+    }
+  ],
+  "credential_shaped_values_found": 0,
+  "symlinks": 0,
+  "excluded": [
+    "credentials and environment files",
+    "raw network/session records",
+    "databases and archives",
+    "screenshots",
+    "private held-out gate material"
+  ],
+  "identity": "Run Edit Run fleet <fleet@runeditrun.com>",
+  "product_branch_pushes": 0
+}

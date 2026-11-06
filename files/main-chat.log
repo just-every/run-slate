@@ -1,0 +1,36 @@
+COMMAND pnpm exec vitest run tests/e2e/notifications/destinations.test.ts --testNamePattern '^CHAT-001 — Owners connect several chat destinations, each with its own event selection, and every destination sends one link-only message, fails and disconnects on its own$' --reporter=default
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mProxy environment variables detected. We'll use your proxy for fetch requests.[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mProxy environment variables detected. We'll use your proxy for fetch requests.[0m
+
+
+(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:
+  - import "./source-fixtures" without a file extension (scripts/import-scale/generate-server-dc.ts:2:91). Add the file extension
+  - import "./types" without a file extension (scripts/import-scale/generate-server-dc.ts:3:82). Add the file extension
+  - import "./source-fixtures" without a file extension (scripts/import-scale/generate-server-dc.ts:4:22). Add the file extension
+  - import "./csv" without a file extension (scripts/import-scale/source-fixtures.ts:4:46). Add the file extension
+Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.
+
+ RUN  v4.1.11 /home/agent/rer-consolidation/work/sd-slate190-ci-triage-1/run-slate
+
+stdout | tests/e2e/notifications/destinations.test.ts > CHAT-001 — Owners connect several chat destinations, each with its own event selection, and every destination sends one link-only message, fails and disconnects on its own
+PASS CHAT-001 Teams/Nook audience refusal, twenty-event coalescing, 24-hour threading and per-destination daily digest
+
+stdout | tests/e2e/notifications/destinations.test.ts > CHAT-001 — Owners connect several chat destinations, each with its own event selection, and every destination sends one link-only message, fails and disconnects on its own
+PASS CHAT-001 withdrawal after page deletion, audience narrowing and actor erasure; durable receipts omit erased references
+
+stdout | tests/e2e/notifications/destinations.test.ts > CHAT-001 — Owners connect several chat destinations, each with its own event selection, and every destination sends one link-only message, fails and disconnects on its own
+PASS CHAT-001 populated v0.4.0 upgrade through 0046, and populated c7a upgrade, public legacy route and delivery; export credentials omitted
+
+stdout | tests/e2e/notifications/destinations.test.ts > CHAT-001 — Owners connect several chat destinations, each with its own event selection, and every destination sends one link-only message, fails and disconnects on its own
+PASS CHAT-001 per-destination selection, access, retry, authorization, custody, erasure and disconnect
+
+ ✓ tests/e2e/notifications/destinations.test.ts (3 tests | 2 skipped) 15690ms
+   ✓ CHAT-001 — Owners connect several chat destinations, each with its own event selection, and every destination sends one link-only message, fails and disconnects on its own  15689ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 2 skipped (3)
+   Start at  11:50:35
+   Duration  31.28s (transform 7.88s, setup 696ms, import 14.23s, tests 15.69s, environment 0ms)
+

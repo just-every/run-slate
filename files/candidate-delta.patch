@@ -1,0 +1,87 @@
+diff --git a/package.json b/package.json
+index 6fc64c4..a5cb81b 100644
+--- a/package.json
++++ b/package.json
+@@ -75,6 +75,7 @@
+     "@types/react": "19.2.18",
+     "@types/react-dom": "19.2.7",
+     "@vitejs/plugin-react": "6.1.1",
++    "docx-preview": "0.3.7",
+     "highlight.js": "10.7.3",
+     "react-markdown": "6.0.3",
+     "remark-gfm": "1.0.0",
+diff --git a/src/core/features/workspace-export/docx-layout.ts b/src/core/features/workspace-export/docx-layout.ts
+new file mode 100644
+index 0000000..519262b
+--- /dev/null
++++ b/src/core/features/workspace-export/docx-layout.ts
+@@ -0,0 +1,24 @@
++import type {BlockView} from '../../shared/api/content';
++import {columnBlocks, layoutRoots} from '../editor/layout';
++import {bookmark, wordBlock, type WordContentContext} from './docx-content';
++import {paragraph} from './docx-xml';
++
++// A fixed, borderless table keeps independent column heights together. Unlike
++// newspaper sections, a long left column cannot flow into the next column.
++// Rows deliberately remain splittable so content continues on the next page.
++export function wordLayout(blocks:BlockView[], context:WordContentContext):string {
++  return layoutRoots(blocks).map(block=>{
++    if(block.blockType!=='columns')return wordBlock(block,blocks,context);
++    const columns=blocks.filter(child=>child.parentBlockId===block.id&&child.blockType==='column');
++    const pageWidth=11906-2*1440;
++    const widths=columns.map((_,index)=>Math.floor(pageWidth*(index+1)/columns.length)-Math.floor(pageWidth*index/columns.length));
++    const cells=columns.map((column,index)=>{
++      const content=columnBlocks(blocks,column.id).map(child=>wordBlock(child,blocks,context)).join('');
++      return `<w:tc><w:tcPr><w:tcW w:w="${widths[index]}" w:type="dxa"/><w:vAlign w:val="top"/></w:tcPr>${paragraph(bookmark(context,column.id,''))}${content}${paragraph('')}</w:tc>`;
++    }).join('');
++    const borders=['top','left','bottom','right','insideH','insideV'].map(edge=>`<w:${edge} w:val="nil"/>`).join('');
++    return paragraph(context.comments.mark(block.id,bookmark(context,block.id,'')))+
++      `<w:tbl><w:tblPr><w:tblW w:w="${pageWidth}" w:type="dxa"/><w:tblLayout w:type="fixed"/><w:tblBorders>${borders}</w:tblBorders><w:tblCellMar><w:top w:w="0" w:type="dxa"/><w:left w:w="120" w:type="dxa"/><w:bottom w:w="0" w:type="dxa"/><w:right w:w="120" w:type="dxa"/></w:tblCellMar></w:tblPr><w:tblGrid>${widths.map(width=>`<w:gridCol w:w="${width}"/>`).join('')}</w:tblGrid><w:tr>${cells}</w:tr></w:tbl>`+
++      paragraph('');
++  }).join('');
++}
+diff --git a/src/core/features/workspace-export/docx.ts b/src/core/features/workspace-export/docx.ts
+index a95a81f..275977e 100644
+--- a/src/core/features/workspace-export/docx.ts
++++ b/src/core/features/workspace-export/docx.ts
+@@ -1,12 +1,12 @@
+ import {materializeSynced} from '../editor/synced/read';
+-import {layoutOrder} from '../editor/layout';
++import {wordLayout} from './docx-layout';
+ import { strToU8, zipSync } from 'fflate';
+ import type { FeatureContext } from '../../app/feature-context';
+ import type { BlockView } from '../../shared/api/content';
+ import { readPage } from '../pages/service';
+ import { exportComments } from './comments';
+ import { WordComments } from './docx-comments';
+-import { bookmark, wordBlock, type WordContentContext } from './docx-content';
++import { bookmark, type WordContentContext } from './docx-content';
+ import { wordImages, wordDrawing } from './docx-media';
+ import { contentTypesXml, stylesXml, numberingXml, listDefinition } from './docx-parts';
+ import { declaration, wordNamespace, relationshipNamespace, paragraph, run, relation, relationshipsXml } from './docx-xml';
+@@ -48,7 +48,7 @@ export async function renderDocx(ctx:FeatureContext, ids:ReadonlySet<string>, ex
+         return `<w:hyperlink r:id="${id}">${content}</w:hyperlink>`;
+       },
+     };
+-    return paragraph(comments.mark(page.page.id,bookmark(context,page.page.id,run(page.page.title))),`<w:pStyle w:val="Title"/>${index?'<w:pageBreakBefore/>':''}`)+layoutOrder(page.blocks).filter(block=>!['columns','column'].includes(block.blockType)).map(block=>wordBlock(block,page.blocks,context)).join('');
++    return paragraph(comments.mark(page.page.id,bookmark(context,page.page.id,run(page.page.title))),`<w:pStyle w:val="Title"/>${index?'<w:pageBreakBefore/>':''}`)+wordLayout(page.blocks,context);
+   }).join('');
+   const entries:Record<string,Uint8Array>={};
+   const put=(path:string,text:string)=>{entries[path]=strToU8(text);};
+diff --git a/tests/qualification/ui-convergence/columns-journey.mjs b/tests/qualification/ui-convergence/columns-journey.mjs
+index 2813904..7815c56 100644
+--- a/tests/qualification/ui-convergence/columns-journey.mjs
++++ b/tests/qualification/ui-convergence/columns-journey.mjs
+@@ -1,4 +1,5 @@
+ import assert from 'node:assert/strict';
++import {wordColumnsJourney} from './word-columns-journey.mjs';
+ import {randomUUID} from 'node:crypto';
+ import {expect} from '@playwright/test';
+ import {ok} from './two-people-support.mjs';
+@@ -85,5 +86,6 @@ export async function columnsJourney(state,width,touch){
+ 
+  await checkpoint(targetPage,'columns insert drag and edit');
+  await targetPage.screenshot({path:`.artifacts/ui-convergence/columns-${width}-touch.png`,fullPage:true});
++ await wordColumnsJourney(state,width,container.id);
+  console.log(`BLOCK-012 columns insert, desktop drag and touch layout passed at ${width}px`);
+ }

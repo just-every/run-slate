@@ -1,0 +1,30 @@
+COMMAND pnpm exec vitest run tests/flagship/structured/automation-repairs.test.ts --testNamePattern '^automation admission, resumed effects and schedules preserve current scope and exactly-once recovery$' --reporter=default
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mProxy environment variables detected. We'll use your proxy for fetch requests.[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mProxy environment variables detected. We'll use your proxy for fetch requests.[0m
+
+
+(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:
+  - import "./source-fixtures" without a file extension (scripts/import-scale/generate-server-dc.ts:2:91). Add the file extension
+  - import "./types" without a file extension (scripts/import-scale/generate-server-dc.ts:3:82). Add the file extension
+  - import "./source-fixtures" without a file extension (scripts/import-scale/generate-server-dc.ts:4:22). Add the file extension
+  - import "./csv" without a file extension (scripts/import-scale/source-fixtures.ts:4:46). Add the file extension
+Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.
+
+ RUN  v4.1.11 /home/agent/rer-consolidation/work/sd-slate190-ci-triage-1/run-slate
+
+stdout | tests/flagship/structured/automation-repairs.test.ts > automation admission, resumed effects and schedules preserve current scope and exactly-once recovery
+PROBE AUTO-003 history budget: 2 entries=13 D1 requests; 100 populated entries=13; current-access redaction=13; paid limit=1000, reserved margin=90%
+PROBE AUTO-003 run-record: native rule and run HTTP plus real content outbox -> all ten states, readable trigger and records, actor and time, duplicate-safe receipts and activity, current-access redaction
+PROBE AUTO-003 1: controlled native D1 action faults -> durable error retries, terminal failures, production repeated-failure disable reason and rule-list failure summary
+PROBE AUTO-003 2: real native events at production rate boundary -> retained throttled and disabled logs; no duplicated effects after replay
+
+ ✓ tests/flagship/structured/automation-repairs.test.ts (1 test) 14347ms
+   ✓ automation admission, resumed effects and schedules preserve current scope and exactly-once recovery  14345ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  11:50:02
+   Duration  29.29s (transform 7.36s, setup 711ms, import 13.44s, tests 14.35s, environment 0ms)
+

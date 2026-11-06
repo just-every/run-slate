@@ -1,0 +1,18 @@
+{
+  "candidate": "ca90559bbd29bca4e0d86329d384e81a68289481",
+  "source": "03e7b8a3f2ebace8330a11b03ce868026efdecda",
+  "fresh_main": "bc567c9b6f6b25c98cb6fa05b9ab0fe37628a547",
+  "recorded_at": "2026-11-06T11:39:49.167616+00:00",
+  "original_observed_main": "bc567c9b6f6b25c98cb6fa05b9ab0fe37628a547",
+  "original_verify_run": 42208156074,
+  "original_verify_attempt": 1,
+  "original_verify_conclusion": "failure (supplied brief; not refetched)",
+  "github_api_calls": 0,
+  "control_main": "bc567c9b6f6b25c98cb6fa05b9ab0fe37628a547",
+  "control_main_fetched_at": "2026-11-06T11:48:31.477652+00:00",
+  "main_drift": false,
+  "control_runner_hostname": "f67aa91a26d8",
+  "github_api_calls_scope": "Explicit diagnostic API/log/CI commands only; excludes mandatory launcher auth check and ordinary Git transport.",
+  "launcher_gh_auth_status_invocations": 1,
+  "launcher_internal_http_count": "not observed"
+}

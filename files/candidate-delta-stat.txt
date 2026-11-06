@@ -1,0 +1,15 @@
+ ACCEPTANCE.md                                      |   4 +-
+ CONTRACT.md                                        |   2 +-
+ package.json                                       |   1 +
+ pnpm-lock.yaml                                     |  87 +++++++++++++++++
+ sources.lock.json                                  |  34 +++++--
+ src/core/features/workspace-export/docx-layout.ts  |  24 +++++
+ src/core/features/workspace-export/docx.ts         |   6 +-
+ tests/e2e/editor/columns-case.ts                   |  42 ++++++++
+ tests/helpers/word-columns-fixture.d.mts           |   5 +
+ tests/helpers/word-columns-fixture.mjs             |  29 ++++++
+ .../ui-convergence/columns-journey.mjs             |   2 +
+ .../ui-convergence/word-columns-journey.mjs        | 106 +++++++++++++++++++++
+ tests/requirements/clause-inventory.json           |   9 +-
+ tests/requirements/test-evidence.json              |   5 +-
+ 14 files changed, 337 insertions(+), 19 deletions(-)

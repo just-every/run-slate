@@ -1,0 +1,39 @@
+COMMAND node --test --test-concurrency=1 '--test-name-pattern=^real core-wiki and touch-member journeys at 390px$' tests/qualification/ui-convergence/journeys.test.mjs
+TAP version 13
+# PROBE PORT-003 1: failed native export and restore replay and reload -> failed, no download or successful restore action
+# PROBE PORT-003 2: Settings export and empty-deployment restore -> queued, running, completed and failed persisted; counts equal native archive; safe reports identify commit failures
+# NAV-006 touch create, type, insert and drag persisted
+# BLOCK-012 columns insert, desktop drag and touch layout passed at 390px
+# PROBE COMM-002 acceptance 1–2: native comment controls and HTTP at 390px -> two authors edit/delete; cross-author and owner override 403; edited times, two in-place tombstones and six activities survive replay/reload
+# NAV-006 touch comment and resolve persisted
+# WEB-006 native unpublish response {"width":390,"elapsedMs":593}
+# NAV-006 touch workspace publication and sharing persisted
+# PAGE-007 Details, replay and edit-only refusal passed at 390px
+# NAV-006 touch Search, Inbox, My tasks, requested reviews and verification health passed
+# Chat docs dimensions { width: 390, height: 8088 }
+# PROBE AUTO-003 browser 390: native database Automations -> trigger, actor, readable touched record and time; error retries, visible failure beside rule and persisted disable reason
+# PROBE DB-012 ordinary edit: native record Quantity 7 -> 11; computed value 22 and reload retained
+# PROBE DB-012 record-is-page: viewer fields, retained comments, exact historical body and unchanged stored current body passed
+# PROBE DB-012 record-is-row: viewer fields, retained comments, exact historical body and unchanged stored current body passed
+# PROBE DB-012 record-is-page: viewer fields, retained comments, exact historical body and unchanged stored current body passed
+# PROBE DB-012 read-only: all six fields readable; native viewer PATCH -> 404 and unchanged record and history
+# PROBE TMPL-005 children off: More > Save as template, preview and Use this template -> 1 exact copies, all seven source record families excluded at 390px
+# PROBE TMPL-005 children on: More > Save as template, preview and Use this template -> 4 exact copies, all seven source record families excluded at 390px
+# PROBE ARCH-004 native browser 390: archive and restore retain populated data; cancelled and incomplete confirmation preserve it; exact confirmed cascade deletes
+# PROBE REV-006 1: edit-only, current, published and autosnapshot DELETE requests -> refused without revision or activity changes
+# PROBE REV-006 2: full-member History confirmation -> version 2 content removed, attributed timed tombstone after reload; every other revision retained; replay has one activity
+# Subtest: real core-wiki and touch-member journeys at 390px
+ok 1 - real core-wiki and touch-member journeys at 390px
+  ---
+  duration_ms: 558383.827513
+  type: 'test'
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 1
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 576646.478407

@@ -1,0 +1,27 @@
+{
+  "at": "2026-11-06T12:00:55.132650+00:00",
+  "head": "bc567c9b6f6b25c98cb6fa05b9ab0fe37628a547",
+  "branch": "cloud/sd-slate190-ci-triage-1",
+  "before_status": "",
+  "after_status": "",
+  "selected_test_receipts_complete": true,
+  "active_owned_application_browser_processes": [],
+  "manually_signalled_pids": [],
+  "generated_paths_removed": [
+    ".artifacts",
+    ".cache",
+    ".dev.vars",
+    ".rer",
+    ".seed",
+    ".vitest",
+    ".wrangler",
+    "dist",
+    "node_modules"
+  ],
+  "product_candidate_commits": 0,
+  "identity_audit_command": "git log origin/main..HEAD --format=\"%an <%ae>%n%cn <%ce>%n%(trailers:only,unfold)\"",
+  "product_identity_audit_output": "",
+  "clone_path": "/home/agent/rer-consolidation/work/sd-slate190-ci-triage-1/run-slate",
+  "clone_disposition": "Retained only until report-only evidence transfer verification, then removed; final deletion confirmed in terminal receipt.",
+  "private_state_selected_for_evidence": false
+}

@@ -1,0 +1,26 @@
+{
+  "main": {
+    "acceptance_summary_rows": [
+      "| Core | 57 | 240 | 35 | 332 |",
+      "| Agent surface | 0 | 0 | 6 | 6 |",
+      "| Later | 0 | 0 | 0 | 0 |",
+      "| Full target | 57 | 240 | 41 | 338 |"
+    ],
+    "declared_test_registrations": 205,
+    "default_test_cap": 200,
+    "block012_status": "partial",
+    "block012_row": "| `BLOCK-012` | Columns and page layouts | target | partial | `tests/e2e/editor/tables.test.ts` \u2014 \"BLOCK-014 \u2014 tables, columns and synced paragraphs preserve structured content through editing, validation, exports and access\" calls `tests/e2e/editor/columns-case.ts` (2\u20135 columns, refused nesting, HTML/Markdown round trips, Notion HTML and Confluence storage layouts, ordered Word content, copies, comments, revisions, public rendering and reader access); `tests/qualification/ui-convergence/columns-journey.mjs` \u2014 \"columnsJourney\" in the existing core-wiki/touch-member launch at 1440px/390px (three columns, native and touch drag into and out of columns, count changes, phone stacking, persistence, overflow and accessibility). | One level only: nested columns are refused. PDF and Word exports flow column content in reading order rather than preserving side-by-side layout. |"
+  },
+  "candidate": {
+    "acceptance_summary_rows": [
+      "| Core | 57 | 240 | 35 | 332 |",
+      "| Agent surface | 0 | 0 | 6 | 6 |",
+      "| Later | 0 | 0 | 0 | 0 |",
+      "| Full target | 57 | 240 | 41 | 338 |"
+    ],
+    "declared_test_registrations": 205,
+    "default_test_cap": 200,
+    "block012_status": "partial",
+    "block012_row": "| `BLOCK-012` | Columns and page layouts | target | partial | `tests/e2e/editor/tables.test.ts` \u2014 \"BLOCK-014 \u2014 tables, columns and synced paragraphs preserve structured content through editing, validation, exports and access\" calls `tests/e2e/editor/columns-case.ts` (2\u20135 columns, refused nesting, HTML/Markdown round trips, Notion HTML and Confluence storage layouts, ordered Word content and fixed side-by-side 2\u20135-column paragraph and heading layouts, copies, comments, revisions, public rendering and reader access); `tests/qualification/ui-convergence/columns-journey.mjs` \u2014 \"columnsJourney\" in the existing core-wiki/touch-member launch at 1440px/390px (three columns, native and touch drag into and out of columns, count changes, phone stacking, persistence, overflow and accessibility); its \"wordColumnsJourney\" helper in `tests/qualification/ui-convergence/word-columns-journey.mjs` downloads Word through the native Export page dialog at both widths and renders exact content, wrapping, top alignment and following blocks at 1440px. | One level only: nested columns are refused. PDF still flows columns in reading order. Word layout is qualified only for supported one-level 2\u20135-column paragraph and heading sections; other column content and export cases and complete PORT-007 coverage remain unproven. |"
+  }
+}

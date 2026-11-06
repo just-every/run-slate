@@ -1,0 +1,18 @@
+{
+  "at": "2026-11-06T11:48:31.022937+00:00",
+  "phase": "candidate-to-main",
+  "head": "ca90559bbd29bca4e0d86329d384e81a68289481",
+  "tracked_status": "",
+  "generated_paths_removed": [
+    ".artifacts",
+    ".cache",
+    ".dev.vars",
+    ".rer",
+    ".seed",
+    ".vitest",
+    ".wrangler",
+    "dist",
+    "node_modules"
+  ],
+  "process_cleanup": "Selected test commands completed through cloud_run subreaper; browser/runtime/state finally blocks retained. No manual signals or blanket process stops."
+}

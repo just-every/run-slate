@@ -1,0 +1,69 @@
+{
+  "schema": 1,
+  "tag": "sd-slate190-ci-triage-1",
+  "kind": "read-only technical diagnosis",
+  "result": "NOT REPRODUCED",
+  "candidate": "ca90559bbd29bca4e0d86329d384e81a68289481",
+  "source": "03e7b8a3f2ebace8330a11b03ce868026efdecda",
+  "control_main": "bc567c9b6f6b25c98cb6fa05b9ab0fe37628a547",
+  "diagnostic_branch": "cloud/sd-slate190-ci-triage-1",
+  "diagnostic_branch_head": "bc567c9b6f6b25c98cb6fa05b9ab0fe37628a547",
+  "main_drift": false,
+  "github_api_calls": 0,
+  "original_ci_run": 42208156074,
+  "original_ci_attempt": 1,
+  "original_ci_conclusion": "failure (supplied; not refetched)",
+  "product_commits": 0,
+  "product_pushes": 0,
+  "pr": null,
+  "ready": false,
+  "clause_status_changes": [],
+  "test_results": [
+    {
+      "label": "candidate-automation",
+      "head": "ca90559bbd29bca4e0d86329d384e81a68289481",
+      "exit": 0,
+      "test_body_seconds": 13.754,
+      "command_wall_seconds": 30.211
+    },
+    {
+      "label": "candidate-chat",
+      "head": "ca90559bbd29bca4e0d86329d384e81a68289481",
+      "exit": 0,
+      "test_body_seconds": 15.677,
+      "command_wall_seconds": 33.328
+    },
+    {
+      "label": "candidate-mobile",
+      "head": "ca90559bbd29bca4e0d86329d384e81a68289481",
+      "exit": 0,
+      "test_body_seconds": 558.383828,
+      "command_wall_seconds": 576.688
+    },
+    {
+      "label": "main-automation",
+      "head": "bc567c9b6f6b25c98cb6fa05b9ab0fe37628a547",
+      "exit": 0,
+      "test_body_seconds": 14.345,
+      "command_wall_seconds": 33.072
+    },
+    {
+      "label": "main-chat",
+      "head": "bc567c9b6f6b25c98cb6fa05b9ab0fe37628a547",
+      "exit": 0,
+      "test_body_seconds": 15.689,
+      "command_wall_seconds": 34.356
+    },
+    {
+      "label": "main-mobile",
+      "head": "bc567c9b6f6b25c98cb6fa05b9ab0fe37628a547",
+      "exit": 0,
+      "test_body_seconds": 564.450177,
+      "command_wall_seconds": 585.614
+    }
+  ],
+  "candidate_passed": 3,
+  "main_passed": 3,
+  "diagnostic_blockers": [],
+  "default": "preserve original holds and runtimeCI/scan/main/site guards; no CI retry or acceptance authority"
+}
