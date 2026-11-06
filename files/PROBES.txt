@@ -1,0 +1,4 @@
+desktop-final.log: PROBE LINK-001 1: Update from a page, move into a private space and back, archive and archived-gallery restore -> /app/templates/01M6R29RGP7RKTQPZ6RCHN7MRB reopened and reloaded after every commit, exact populated inventories and snapshot retained
+desktop-final.log: PROBE LINK-001 2: same template address for owner and current reader -> workspace reads succeed, private-space reads refuse 404 without title or snapshot, returned workspace reads succeed
+phone-final.log: PROBE LINK-001 1: Update from a page, move into a private space and back, archive and archived-gallery restore -> /app/templates/01M6R2RDXYCB1WS6942T5SA6Y7 reopened and reloaded after every commit, exact populated inventories and snapshot retained
+phone-final.log: PROBE LINK-001 2: same template address for owner and current reader -> workspace reads succeed, private-space reads refuse 404 without title or snapshot, returned workspace reads succeed

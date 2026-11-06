@@ -1,0 +1,5 @@
+
+> slate@0.4.0 integration:sync /home/agent/rer-consolidation/work/sd-slate-c-f185/run-slate
+> node scripts/sync-integration.mjs --write
+
+Integration resource, migration and source identities match.

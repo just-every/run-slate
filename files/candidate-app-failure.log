@@ -1,0 +1,6 @@
+verify (app)	Run node src/base/runtime/contract-docs.mjs check	﻿2026-11-06T09:20:39.3688294Z ##[group]Run node src/base/runtime/contract-docs.mjs check
+verify (app)	Run node src/base/runtime/contract-docs.mjs check	2026-11-06T09:20:39.3688858Z [36;1mnode src/base/runtime/contract-docs.mjs check[0m
+verify (app)	Run node src/base/runtime/contract-docs.mjs check	2026-11-06T09:20:39.3709409Z shell: /usr/bin/bash -e {0}
+verify (app)	Run node src/base/runtime/contract-docs.mjs check	2026-11-06T09:20:39.3710399Z ##[endgroup]
+verify (app)	Run node src/base/runtime/contract-docs.mjs check	2026-11-06T09:20:39.5351890Z ACCEPTANCE.md: generated content differs; run contract-docs write.
+verify (app)	Run node src/base/runtime/contract-docs.mjs check	2026-11-06T09:20:39.5448890Z ##[error]Process completed with exit code 1.

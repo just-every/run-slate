@@ -1,0 +1,23 @@
+{
+  "head": "191b47ea1174c7873fc9310365191420dc32d43c",
+  "clause": "LINK-001",
+  "scope": "authored-template address only; full acceptance remains unproven",
+  "journey": "templateScopeJourney",
+  "file": "tests/qualification/ui-convergence/template-scope-journey.mjs",
+  "lines": {
+    "retained_address": 50,
+    "current_reader": 69,
+    "native_retry": 105,
+    "rename": 178,
+    "scope_moves": 188,
+    "archive": 217,
+    "restore": 233
+  },
+  "registrations": [
+    "TMPL-007 starter templates are found by category; touch spaces, templates, archive and workspace settings work at 1440px",
+    "real core-wiki and touch-member journeys at 390px"
+  ],
+  "verify_registration_file": "tests/qualification/ui-convergence/journeys.test.mjs",
+  "registration_delta": 0,
+  "acceptance_changes": 0
+}

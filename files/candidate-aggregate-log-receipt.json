@@ -1,0 +1,7 @@
+{
+  "command": "gh run view 42194222280 --repo just-every/run-slate --job 127813696985 --log-failed",
+  "exit": 0,
+  "raw_bytes": 2984,
+  "published_bytes": 2048,
+  "sanitization": "standard workflow environment header omitted; actual command and failure retained"
+}

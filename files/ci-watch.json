@@ -1,0 +1,12 @@
+{
+  "run_id": 42194222280,
+  "head": "191b47ea1174c7873fc9310365191420dc32d43c",
+  "last_call_epoch": 1793957119.3671598,
+  "minimum_next_call_epoch": 1793957419.36716,
+  "github_calls_used": 9,
+  "github_call_budget": 10,
+  "status": "completed",
+  "conclusion": "failure",
+  "url": "https://github.com/just-every/run-slate/actions/runs/42194222280",
+  "permitted_generated_view_failure": true
+}

@@ -1,0 +1,13 @@
+{
+  "repository": "just-every/run-slate",
+  "branch": "cloud/sd-slate-c-f185",
+  "head": "191b47ea1174c7873fc9310365191420dc32d43c",
+  "product_push": "succeeded",
+  "push_log": "product-push.log",
+  "candidate_verify_run": 42194222280,
+  "candidate_verify": "completed; only permitted generated-view failure",
+  "product_checkout": "clean",
+  "main_push": false,
+  "pr": null,
+  "shallow": "false"
+}

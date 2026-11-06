@@ -1,0 +1,21 @@
+{
+  "head": "191b47ea1174c7873fc9310365191420dc32d43c",
+  "base": "bc567c9b6f6b25c98cb6fa05b9ab0fe37628a547",
+  "commits": [
+    "191b47ea1174c7873fc9310365191420dc32d43c",
+    "3f019daf2c132ee644be40f29bf8f6690f59eaf9"
+  ],
+  "identities": "pass",
+  "trailers": "pass",
+  "parent_rows": "retained",
+  "generated_views": "unchanged",
+  "added_emails": 0,
+  "changed_paths": [
+    "CONTRACT.md",
+    "sources.lock.json",
+    "tests/qualification/ui-convergence/journeys.test.mjs",
+    "tests/qualification/ui-convergence/template-scope-journey.mjs",
+    "tests/requirements/clause-inventory.json",
+    "tests/requirements/cli-journey.md"
+  ]
+}

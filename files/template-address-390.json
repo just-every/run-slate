@@ -1,0 +1,496 @@
+{
+  "width": 390,
+  "address": "/app/templates/01M6R2RDXYCB1WS6942T5SA6Y7",
+  "receipts": [
+    {
+      "route": "/api/templates",
+      "status": 201,
+      "request": {
+        "operationKey": "3857a0c1-538c-403b-b844-24cef5516b33",
+        "expectedRevisionId": "01M6R2RDXYR9PK1X33M44909YP",
+        "id": "01M6R2RDXYCB1WS6942T5SA6Y7",
+        "sourcePageId": "01M6R2RDX2NA22Q5R0MSVHQP1F",
+        "includeChildren": false,
+        "title": "A renamed workspace movable",
+        "description": "Reusable A workspace movable",
+        "category": "Scope proof",
+        "containerId": null
+      },
+      "value": {
+        "id": "01M6R2RDXYCB1WS6942T5SA6Y7",
+        "revisionId": "01M6R2RTSDH0MBR9CA939ZQ685"
+      },
+      "receipt": {
+        "operationKey": "3857a0c1-538c-403b-b844-24cef5516b33",
+        "entity": {
+          "id": "01M6R2RDXYCB1WS6942T5SA6Y7",
+          "kind": "template",
+          "revisionId": "01M6R2RTSDH0MBR9CA939ZQ685"
+        },
+        "revisionId": "01M6R2RTSDH0MBR9CA939ZQ685",
+        "activityId": "01M6R2RTSD4ZZNT65ARDM838PJ",
+        "committedAt": "2026-11-06T09:24:23.450Z"
+      },
+      "activity": {
+        "id": "01M6R2RTSD4ZZNT65ARDM838PJ",
+        "actor": {
+          "id": "browser-owner",
+          "displayName": "Alex Owner"
+        },
+        "feature": "templates",
+        "action": "templates.save",
+        "target": {
+          "kind": "template",
+          "id": "01M6R2RDXYCB1WS6942T5SA6Y7"
+        },
+        "occurredAt": "2026-11-06T09:24:23.450Z",
+        "operationKey": "3857a0c1-538c-403b-b844-24cef5516b33",
+        "automationRunId": null,
+        "aiRunId": null,
+        "deleted": false,
+        "context": {}
+      }
+    },
+    {
+      "route": "/api/templates/01M6R2RDXYCB1WS6942T5SA6Y7/change",
+      "status": 200,
+      "request": {
+        "operationKey": "32ac5d25-ab37-4978-a424-3ab51774bc40",
+        "expectedRevisionId": "01M6R2RTSDH0MBR9CA939ZQ685",
+        "action": "move",
+        "containerId": "01M6R2RDT3MAS9VW3BKMPMSCEQ"
+      },
+      "value": {
+        "id": "01M6R2RDXYCB1WS6942T5SA6Y7",
+        "revisionId": "01M6R2S6AZ27KSHDG50RDGH157"
+      },
+      "receipt": {
+        "operationKey": "32ac5d25-ab37-4978-a424-3ab51774bc40",
+        "entity": {
+          "id": "01M6R2RDXYCB1WS6942T5SA6Y7",
+          "kind": "template",
+          "revisionId": "01M6R2S6AZ27KSHDG50RDGH157"
+        },
+        "revisionId": "01M6R2S6AZ27KSHDG50RDGH157",
+        "activityId": "01M6R2S6AZDPFEWNZ7R7N19V9Q",
+        "committedAt": "2026-11-06T09:24:35.289Z"
+      },
+      "activity": {
+        "id": "01M6R2S6AZDPFEWNZ7R7N19V9Q",
+        "actor": {
+          "id": "browser-owner",
+          "displayName": "Alex Owner"
+        },
+        "feature": "templates",
+        "action": "templates.move",
+        "target": {
+          "kind": "template",
+          "id": "01M6R2RDXYCB1WS6942T5SA6Y7"
+        },
+        "occurredAt": "2026-11-06T09:24:35.289Z",
+        "operationKey": "32ac5d25-ab37-4978-a424-3ab51774bc40",
+        "automationRunId": null,
+        "aiRunId": null,
+        "deleted": false,
+        "context": {}
+      }
+    },
+    {
+      "route": "/api/templates/01M6R2RDXYCB1WS6942T5SA6Y7/change",
+      "status": 200,
+      "request": {
+        "operationKey": "b4da8ff4-68a4-4125-88fa-fb4d86940410",
+        "expectedRevisionId": "01M6R2S6AZ27KSHDG50RDGH157",
+        "action": "move",
+        "containerId": null
+      },
+      "value": {
+        "id": "01M6R2RDXYCB1WS6942T5SA6Y7",
+        "revisionId": "01M6R2SJ2DCFF8S5TCTF60ECQ1"
+      },
+      "receipt": {
+        "operationKey": "b4da8ff4-68a4-4125-88fa-fb4d86940410",
+        "entity": {
+          "id": "01M6R2RDXYCB1WS6942T5SA6Y7",
+          "kind": "template",
+          "revisionId": "01M6R2SJ2DCFF8S5TCTF60ECQ1"
+        },
+        "revisionId": "01M6R2SJ2DCFF8S5TCTF60ECQ1",
+        "activityId": "01M6R2SJ2DYBQAS83ZQ4RD715Q",
+        "committedAt": "2026-11-06T09:24:47.299Z"
+      },
+      "activity": {
+        "id": "01M6R2SJ2DYBQAS83ZQ4RD715Q",
+        "actor": {
+          "id": "browser-owner",
+          "displayName": "Alex Owner"
+        },
+        "feature": "templates",
+        "action": "templates.move",
+        "target": {
+          "kind": "template",
+          "id": "01M6R2RDXYCB1WS6942T5SA6Y7"
+        },
+        "occurredAt": "2026-11-06T09:24:47.299Z",
+        "operationKey": "b4da8ff4-68a4-4125-88fa-fb4d86940410",
+        "automationRunId": null,
+        "aiRunId": null,
+        "deleted": false,
+        "context": {}
+      }
+    },
+    {
+      "route": "/api/templates/01M6R2RDXYCB1WS6942T5SA6Y7/change",
+      "status": 200,
+      "request": {
+        "operationKey": "9927bc59-6a05-4104-8491-d1606e0976b1",
+        "expectedRevisionId": "01M6R2SJ2DCFF8S5TCTF60ECQ1",
+        "action": "archive"
+      },
+      "value": {
+        "id": "01M6R2RDXYCB1WS6942T5SA6Y7",
+        "revisionId": "01M6R2SVFSWS8GCSWSQYHAT30J"
+      },
+      "receipt": {
+        "operationKey": "9927bc59-6a05-4104-8491-d1606e0976b1",
+        "entity": {
+          "id": "01M6R2RDXYCB1WS6942T5SA6Y7",
+          "kind": "template",
+          "revisionId": "01M6R2SVFSWS8GCSWSQYHAT30J"
+        },
+        "revisionId": "01M6R2SVFSWS8GCSWSQYHAT30J",
+        "activityId": "01M6R2SVFSVHJ9A2YBQ3WVX6E4",
+        "committedAt": "2026-11-06T09:24:56.947Z"
+      },
+      "activity": {
+        "id": "01M6R2SVFSVHJ9A2YBQ3WVX6E4",
+        "actor": {
+          "id": "browser-owner",
+          "displayName": "Alex Owner"
+        },
+        "feature": "templates",
+        "action": "templates.archive",
+        "target": {
+          "kind": "template",
+          "id": "01M6R2RDXYCB1WS6942T5SA6Y7"
+        },
+        "occurredAt": "2026-11-06T09:24:56.947Z",
+        "operationKey": "9927bc59-6a05-4104-8491-d1606e0976b1",
+        "automationRunId": null,
+        "aiRunId": null,
+        "deleted": false,
+        "context": {}
+      }
+    },
+    {
+      "route": "/api/templates/01M6R2RDXYCB1WS6942T5SA6Y7/change",
+      "status": 200,
+      "request": {
+        "operationKey": "0da90d70-ace9-44fe-8cef-9befd0cdfc56",
+        "expectedRevisionId": "01M6R2SVFSWS8GCSWSQYHAT30J",
+        "action": "restore"
+      },
+      "value": {
+        "id": "01M6R2RDXYCB1WS6942T5SA6Y7",
+        "revisionId": "01M6R2T6CF3JWBEJY1NJY38PPQ"
+      },
+      "receipt": {
+        "operationKey": "0da90d70-ace9-44fe-8cef-9befd0cdfc56",
+        "entity": {
+          "id": "01M6R2RDXYCB1WS6942T5SA6Y7",
+          "kind": "template",
+          "revisionId": "01M6R2T6CF3JWBEJY1NJY38PPQ"
+        },
+        "revisionId": "01M6R2T6CF3JWBEJY1NJY38PPQ",
+        "activityId": "01M6R2T6CF8E29EGSHTC2ESF92",
+        "committedAt": "2026-11-06T09:25:08.105Z"
+      },
+      "activity": {
+        "id": "01M6R2T6CF8E29EGSHTC2ESF92",
+        "actor": {
+          "id": "browser-owner",
+          "displayName": "Alex Owner"
+        },
+        "feature": "templates",
+        "action": "templates.restore",
+        "target": {
+          "kind": "template",
+          "id": "01M6R2RDXYCB1WS6942T5SA6Y7"
+        },
+        "occurredAt": "2026-11-06T09:25:08.105Z",
+        "operationKey": "0da90d70-ace9-44fe-8cef-9befd0cdfc56",
+        "automationRunId": null,
+        "aiRunId": null,
+        "deleted": false,
+        "context": {}
+      }
+    }
+  ],
+  "readbacks": [
+    {
+      "label": "Created",
+      "path": "/app/templates/01M6R2RDXYCB1WS6942T5SA6Y7",
+      "id": "01M6R2RDXYCB1WS6942T5SA6Y7",
+      "title": "A workspace movable",
+      "revisionId": "01M6R2RDXYR9PK1X33M44909YP",
+      "containerId": null,
+      "archived": false,
+      "snapshot": {
+        "title": "Scope source",
+        "properties": {
+          "icon": null,
+          "coverFileId": null,
+          "labels": [],
+          "typeface": "default",
+          "smallText": false,
+          "fullWidth": false
+        },
+        "blocks": [
+          {
+            "id": "614050f4-10ca-480d-bbc6-351774516dff",
+            "blockType": "paragraph",
+            "content": {
+              "text": [
+                {
+                  "text": "Retained scope snapshot"
+                }
+              ]
+            },
+            "parentBlockId": null,
+            "treePosition": "a0"
+          }
+        ],
+        "children": [],
+        "fieldDefinitions": [],
+        "fileFieldIds": [],
+        "relationFieldIds": []
+      }
+    },
+    {
+      "label": "Workspace reader before changes",
+      "readerStatus": 200,
+      "path": "/app/templates/01M6R2RDXYCB1WS6942T5SA6Y7"
+    },
+    {
+      "label": "Renamed through Update from a page",
+      "path": "/app/templates/01M6R2RDXYCB1WS6942T5SA6Y7",
+      "id": "01M6R2RDXYCB1WS6942T5SA6Y7",
+      "title": "A renamed workspace movable",
+      "revisionId": "01M6R2RTSDH0MBR9CA939ZQ685",
+      "containerId": null,
+      "archived": false,
+      "snapshot": {
+        "title": "Scope source",
+        "properties": {
+          "icon": null,
+          "coverFileId": null,
+          "labels": [],
+          "typeface": "default",
+          "smallText": false,
+          "fullWidth": false
+        },
+        "blocks": [
+          {
+            "id": "614050f4-10ca-480d-bbc6-351774516dff",
+            "blockType": "paragraph",
+            "content": {
+              "text": [
+                {
+                  "text": "Retained scope snapshot"
+                }
+              ]
+            },
+            "parentBlockId": null,
+            "treePosition": "a0"
+          }
+        ],
+        "children": [],
+        "fieldDefinitions": [],
+        "fileFieldIds": [],
+        "relationFieldIds": []
+      }
+    },
+    {
+      "label": "Renamed workspace address",
+      "readerStatus": 200,
+      "path": "/app/templates/01M6R2RDXYCB1WS6942T5SA6Y7"
+    },
+    {
+      "label": "Moved into private Atlas",
+      "path": "/app/templates/01M6R2RDXYCB1WS6942T5SA6Y7",
+      "id": "01M6R2RDXYCB1WS6942T5SA6Y7",
+      "title": "A renamed workspace movable",
+      "revisionId": "01M6R2S6AZ27KSHDG50RDGH157",
+      "containerId": "01M6R2RDT3MAS9VW3BKMPMSCEQ",
+      "archived": false,
+      "snapshot": {
+        "title": "Scope source",
+        "properties": {
+          "icon": null,
+          "coverFileId": null,
+          "labels": [],
+          "typeface": "default",
+          "smallText": false,
+          "fullWidth": false
+        },
+        "blocks": [
+          {
+            "id": "614050f4-10ca-480d-bbc6-351774516dff",
+            "blockType": "paragraph",
+            "content": {
+              "text": [
+                {
+                  "text": "Retained scope snapshot"
+                }
+              ]
+            },
+            "parentBlockId": null,
+            "treePosition": "a0"
+          }
+        ],
+        "children": [],
+        "fieldDefinitions": [],
+        "fileFieldIds": [],
+        "relationFieldIds": []
+      }
+    },
+    {
+      "label": "Current reader refused after move",
+      "readerStatus": 404,
+      "refusedReplayStatus": 404,
+      "path": "/app/templates/01M6R2RDXYCB1WS6942T5SA6Y7"
+    },
+    {
+      "label": "Returned to workspace",
+      "path": "/app/templates/01M6R2RDXYCB1WS6942T5SA6Y7",
+      "id": "01M6R2RDXYCB1WS6942T5SA6Y7",
+      "title": "A renamed workspace movable",
+      "revisionId": "01M6R2SJ2DCFF8S5TCTF60ECQ1",
+      "containerId": null,
+      "archived": false,
+      "snapshot": {
+        "title": "Scope source",
+        "properties": {
+          "icon": null,
+          "coverFileId": null,
+          "labels": [],
+          "typeface": "default",
+          "smallText": false,
+          "fullWidth": false
+        },
+        "blocks": [
+          {
+            "id": "614050f4-10ca-480d-bbc6-351774516dff",
+            "blockType": "paragraph",
+            "content": {
+              "text": [
+                {
+                  "text": "Retained scope snapshot"
+                }
+              ]
+            },
+            "parentBlockId": null,
+            "treePosition": "a0"
+          }
+        ],
+        "children": [],
+        "fieldDefinitions": [],
+        "fileFieldIds": [],
+        "relationFieldIds": []
+      }
+    },
+    {
+      "label": "Current reader restored after move",
+      "readerStatus": 200,
+      "path": "/app/templates/01M6R2RDXYCB1WS6942T5SA6Y7"
+    },
+    {
+      "label": "Archived",
+      "path": "/app/templates/01M6R2RDXYCB1WS6942T5SA6Y7",
+      "id": "01M6R2RDXYCB1WS6942T5SA6Y7",
+      "title": "A renamed workspace movable",
+      "revisionId": "01M6R2SVFSWS8GCSWSQYHAT30J",
+      "containerId": null,
+      "archived": true,
+      "snapshot": {
+        "title": "Scope source",
+        "properties": {
+          "icon": null,
+          "coverFileId": null,
+          "labels": [],
+          "typeface": "default",
+          "smallText": false,
+          "fullWidth": false
+        },
+        "blocks": [
+          {
+            "id": "614050f4-10ca-480d-bbc6-351774516dff",
+            "blockType": "paragraph",
+            "content": {
+              "text": [
+                {
+                  "text": "Retained scope snapshot"
+                }
+              ]
+            },
+            "parentBlockId": null,
+            "treePosition": "a0"
+          }
+        ],
+        "children": [],
+        "fieldDefinitions": [],
+        "fileFieldIds": [],
+        "relationFieldIds": []
+      }
+    },
+    {
+      "label": "Archived workspace address",
+      "readerStatus": 200,
+      "path": "/app/templates/01M6R2RDXYCB1WS6942T5SA6Y7"
+    },
+    {
+      "label": "Restored through archived gallery",
+      "path": "/app/templates/01M6R2RDXYCB1WS6942T5SA6Y7",
+      "id": "01M6R2RDXYCB1WS6942T5SA6Y7",
+      "title": "A renamed workspace movable",
+      "revisionId": "01M6R2T6CF3JWBEJY1NJY38PPQ",
+      "containerId": null,
+      "archived": false,
+      "snapshot": {
+        "title": "Scope source",
+        "properties": {
+          "icon": null,
+          "coverFileId": null,
+          "labels": [],
+          "typeface": "default",
+          "smallText": false,
+          "fullWidth": false
+        },
+        "blocks": [
+          {
+            "id": "614050f4-10ca-480d-bbc6-351774516dff",
+            "blockType": "paragraph",
+            "content": {
+              "text": [
+                {
+                  "text": "Retained scope snapshot"
+                }
+              ]
+            },
+            "parentBlockId": null,
+            "treePosition": "a0"
+          }
+        ],
+        "children": [],
+        "fieldDefinitions": [],
+        "fileFieldIds": [],
+        "relationFieldIds": []
+      }
+    },
+    {
+      "label": "Restored workspace address",
+      "readerStatus": 200,
+      "path": "/app/templates/01M6R2RDXYCB1WS6942T5SA6Y7"
+    }
+  ]
+}

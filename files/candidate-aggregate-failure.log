@@ -1,0 +1,17 @@
+verify	Require the plan and every expected job	﻿2026-11-06T09:20:46.2458750Z ##[group]Run set -euo pipefail
+verify	Require the plan and every expected job	2026-11-06T09:20:46.2459547Z [36;1mset -euo pipefail[0m
+verify	Require the plan and every expected job	2026-11-06T09:20:46.2460193Z [36;1mtest "$PLAN" = success[0m
+verify	Require the plan and every expected job	2026-11-06T09:20:46.2460995Z [36;1mif [ "$SKIP" = true ]; then exit 0; fi[0m
+verify	Require the plan and every expected job	2026-11-06T09:20:46.2461827Z [36;1m# Dispatch has always been the installer/local-only entry point.[0m
+verify	Require the plan and every expected job	2026-11-06T09:20:46.2462727Z [36;1mif [ "$EVENT" != workflow_dispatch ]; then[0m
+verify	Require the plan and every expected job	2026-11-06T09:20:46.2463575Z [36;1m  for result in "$APP" "$SHARDS" "$CONTRACT"; do test "$result" = success; done[0m
+verify	Require the plan and every expected job	2026-11-06T09:20:46.2464393Z [36;1mfi[0m
+verify	Require the plan and every expected job	2026-11-06T09:20:46.2465147Z [36;1mif [ "$EVENT" = schedule ] || [ "$EVENT" = workflow_dispatch ] || [[ "$REF" == refs/tags/* ]]; then[0m
+verify	Require the plan and every expected job	2026-11-06T09:20:46.2466024Z [36;1m  test "$LOCAL" = success[0m
+verify	Require the plan and every expected job	2026-11-06T09:20:46.2466716Z [36;1mfi[0m
+verify	Require the plan and every expected job	2026-11-06T09:20:46.2467313Z [36;1mif [ "$EVENT" = schedule ] || [[ "$REF" == refs/tags/* ]]; then[0m
+verify	Require the plan and every expected job	2026-11-06T09:20:46.2468295Z [36;1m  test "$SCALE" = success[0m
+verify	Require the plan and every expected job	2026-11-06T09:20:46.2469056Z [36;1mfi[0m
+verify	Require the plan and every expected job	2026-11-06T09:20:46.4659716Z shell: /usr/bin/bash -e {0}
+verify	Require the plan and every expected job	2026-11-06T09:20:46.4667286Z ##[endgroup]
+verify	Require the plan and every expected job	2026-11-06T09:20:46.4899970Z ##[error]Process completed with exit code 1.

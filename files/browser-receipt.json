@@ -1,0 +1,16 @@
+{
+  "head": "191b47ea1174c7873fc9310365191420dc32d43c",
+  "node": "v22.20.0",
+  "browser": "/usr/bin/chromium",
+  "desktop": {
+    "exit": 0,
+    "log": "desktop-final.log",
+    "pattern": "^TMPL-007 starter templates"
+  },
+  "phone": {
+    "exit": 0,
+    "log": "phone-final.log",
+    "pattern": "^real core-wiki and touch-member journeys at 390px"
+  },
+  "timeout_seconds": 1200
+}

@@ -1,0 +1,92 @@
+{
+  "head": "191b47ea1174c7873fc9310365191420dc32d43c",
+  "artifact": {
+    "schema": 1,
+    "commit": "191b47ea1174c7873fc9310365191420dc32d43c",
+    "tree": "9303f57aa790e82d8dac15c96bc76e7d73f4779f",
+    "sourceSha256": "bb0bbcb883a8e25bd735cdad2f4aeac39d7c6c2b6f30eb6d35cd7dfbab8d56f8",
+    "lockSha256": "ef90530cc799b1dc6535ae73c7547e962c3874e736d24fee48ab8a9d8658defa",
+    "outputSha256": "090e47f4609ecbb233b75f31c127e810699657cff2739c980382d51bbc37ac3c"
+  },
+  "checks": [
+    {
+      "name": "integration",
+      "command": "pnpm integration:sync",
+      "exit": 0,
+      "log": "integration-sync-final.log",
+      "log_sha256": "d22b637cb662b2af28ef660ca910caab9535bca245ccd287fb4dfd1c6a9b2fc6"
+    },
+    {
+      "name": "views_write",
+      "command": "node src/base/runtime/contract-docs.mjs write",
+      "exit": 0,
+      "log": "views-write-final.log",
+      "log_sha256": "df91012bf66fb476e9cd1a30c002829398beb55f869e07cc7be477197fa5a276"
+    },
+    {
+      "name": "views_check",
+      "command": "node src/base/runtime/contract-docs.mjs check",
+      "exit": 0,
+      "log": "views-check-final.log",
+      "log_sha256": "c21aae40192141751d6d5c7a3a1d0eb701a6852f305d592d77b4dcab9c2536ab"
+    },
+    {
+      "name": "lock_write",
+      "command": "pnpm source:lock",
+      "exit": 0,
+      "log": "source-lock-final.log",
+      "log_sha256": "4d859fb9e405ba40fb788fe4f862fab33521da13e1c472a3169e7f7d3b0f46f6"
+    },
+    {
+      "name": "lock_check",
+      "command": "pnpm source:check",
+      "exit": 0,
+      "log": "source-check-final.log",
+      "log_sha256": "4f06362f49682856dbee5a9113a790f139a19581a276e16b5547946298d1e507"
+    },
+    {
+      "name": "typecheck",
+      "command": "pnpm typecheck",
+      "exit": 0,
+      "log": "typecheck-final.log",
+      "log_sha256": "5a825629f6ef03faa8000c8e3e1bcfab0b8630dd6d2b646b46ca2396be708869"
+    },
+    {
+      "name": "first_party",
+      "command": "npx -y @runeditrun/rer check --profile first-party",
+      "exit": 0,
+      "log": "first-party-final.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "generated_views": "write and check succeeded locally; both views restored from origin/main and absent from candidate diff",
+  "migration_ledger": {
+    "command": "none; no migration changed",
+    "exit": 0
+  },
+  "publication_scan": "not run in cloud; guarded lander required",
+  "registrations": {
+    "before": 205,
+    "after": 205,
+    "added": 0
+  },
+  "status_counts": {
+    "before": {
+      "done": 57,
+      "partial": 240,
+      "missing": 41,
+      "total": 338
+    },
+    "after": {
+      "done": 57,
+      "partial": 240,
+      "missing": 41,
+      "total": 338
+    }
+  },
+  "prepush_source_check": {
+    "command": "pnpm source:check",
+    "exit": 0,
+    "log": "source-check-prepush.log"
+  }
+}
