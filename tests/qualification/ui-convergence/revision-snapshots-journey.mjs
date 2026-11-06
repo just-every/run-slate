@@ -3,7 +3,6 @@ import {createHash,randomUUID} from 'node:crypto';
 import {mkdir,writeFile} from 'node:fs/promises';
 import {expect} from '@playwright/test';
 import {ok} from './two-people-support.mjs';
-import {signInWithOutbox} from '../../e2e/outbox-auth.mjs';
 
 /** Native ordinary-page writes retain every snapshot after subsequent edits and reload. */
 export async function revisionSnapshotsJourney(state,width) {
@@ -86,18 +85,4 @@ export async function revisionSnapshotsJourney(state,width) {
   await writeFile(`${directory}/receipts.json`,JSON.stringify({pageId,width,retained,storedRows:stored.results,reopenedAfterReload:true},null,2)+'\n');
   console.log(`PROBE REV-001 1: native create, title and body edits, workspace publication -> ${retained.length} immutable ordinary-page snapshots; independent hashes and D1 rows agree; reopened after reload at ${width}px`);
  } finally {await profile(workspace.policies);}
- // This added journey must not consume the later sensitive flows' ten-minute proof window.
- // Renew through native email confirmation, preserving the same member and all authority checks.
- const member=(await api('/api/session')).member;
- const {cookie}=await signInWithOutbox(origin,member.email);
- const [name,value]=cookie.split('=',2);
- await context.addCookies([{name,value,url:origin}]);
- assert.equal((await api('/api/session')).member.id,member.id);
- const readerResponse=await context.request.get(origin+'/api/session',{headers:{cookie:state.readerCookie}});
- assert.equal(readerResponse.status(),200);
- const reader=(await readerResponse.json()).member;
- assert.equal(reader.id,'browser-reader');
- const signedIn=await signInWithOutbox(origin,reader.email);
- assert.equal(signedIn.body.member.id,reader.id);
- state.readerCookie=signedIn.cookie;
 }

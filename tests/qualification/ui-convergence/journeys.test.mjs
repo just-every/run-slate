@@ -80,7 +80,8 @@ import { todayOutcomesJourney } from './today-outcomes-journey.mjs';
 // Retain both responsive branches: desktop sidebar visibility and horizontal
 // column geometry are unique assertions, while the phone case checks stacking.
 for (const width of [390, 1440]) {
-  test(`real core-wiki and touch-member journeys at ${width}px`, { timeout: width === 390 ? 780000 : 720000 }, async () => {
+  // The added native revision proof extends this multi-screen harness; business deadlines stay asserted below.
+  test(`real core-wiki and touch-member journeys at ${width}px`, { timeout: width === 390 ? 1500000 : 1200000 }, async () => {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
       if(width===390)await transferJobsJourney(state);
@@ -104,6 +105,7 @@ for (const width of [390, 1440]) {
         await step('STAT-002 — member status changes retain one status, activity and exact search/query membership', () => pageStatusJourney(state));
         // Finish earlier page notifications before connecting the chat journey destinations.
         await state.runScheduled();
+        await state.refreshSessions(touch.context);
         await chatJourney(state, width);
         await step('STAT-005 — status profiles preserve vocabulary and page revisions', () => statusProfileJourney(state, width));
         if (width === 390) {
@@ -111,6 +113,7 @@ for (const width of [390, 1440]) {
           await step('DB-012 populated record fields, comments, history and parity', () => recordDetailJourney(state, width));
           await templateCaptureJourney(state);
           await templateGalleryJourney(state);
+          await state.refreshSessions(touch.context);
           await archiveRetentionJourney(state,touch);
           await withSecondPerson(state, width, people => step('DB-015 — template handover and revoked-saver pause on a phone', () => recordTemplatesJourney(state, people)));
           await withSecondPerson(state, width, people => step('REV-006 — numbered deletion tombstone on a phone', () => versionDeletionJourney(state, people)));

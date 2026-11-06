@@ -11896,7 +11896,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/browser-support.mjs": {
-      "sha256": "cc53a48b3fb77c63a39f196e8439a37cda39ef74596f26e38d29ea66fcd4d155",
+      "sha256": "63e279cb5e3ca83822c459136f31726983bf1ed493ea705b68ffe7b849268f39",
       "executable": false
     },
     "tests/qualification/ui-convergence/chat-journey.mjs": {
@@ -12112,7 +12112,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
-      "sha256": "2c577b319326a67d991e81cc9b2a6a35d9193015e761f2e19755b44a1cd5126e",
+      "sha256": "e01b1aa6be7fff83adc1365d9831566d4223a53a3a3e1e82dfd421fd2d6e6837",
       "executable": false
     },
     "tests/qualification/ui-convergence/link-access-journey.mjs": {
@@ -12204,7 +12204,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/revision-snapshots-journey.mjs": {
-      "sha256": "7cbb574d39c613e060009f9dea57ee30dfcdb8d10765469ee0452751003d6001",
+      "sha256": "ecc46287839349c273f527599ccdd8f17c41a290574b1d380aaa778e1f871a42",
       "executable": false
     },
     "tests/qualification/ui-convergence/saml-journey.mjs": {

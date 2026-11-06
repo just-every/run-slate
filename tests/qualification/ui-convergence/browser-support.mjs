@@ -72,7 +72,7 @@ export async function withWorkspace(viewport, profile, run, overrides = {}, { sc
     runtime = await startWorker();
     const ownerSession=await signInWithOutbox(runtime.baseUrl,ownerEmail);
     const readerSession=await signInWithOutbox(runtime.baseUrl,readerEmail);
-    const token=ownerSession.cookie.split('=')[1],readerToken=readerSession.cookie.split('=')[1];
+    let token=ownerSession.cookie.split('=')[1],readerToken=readerSession.cookie.split('=')[1];
     // Software raster, one raster thread, fixed colour and text handling: captures of the same page match across browser launches.
     const rasterArgs = ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--disable-gpu-rasterization', '--disable-lcd-text', '--font-render-hinting=none', '--force-color-profile=srgb', '--num-raster-threads=1', '--disable-partial-raster', '--disable-skia-runtime-opts'];
     browser = await chromium.launch({ headless: true, ...(process.env.SLATE_CHROMIUM_PATH ? { executablePath: process.env.SLATE_CHROMIUM_PATH } : {}), args: ['--no-sandbox', '--use-mock-keychain', '--password-store=basic', ...rasterArgs] });
@@ -132,6 +132,18 @@ export async function withWorkspace(viewport, profile, run, overrides = {}, { sc
       await context.clearCookies();
       await context.addCookies([{ name: 'slate_session', value: identity === 'reader' ? readerToken : token, url: runtime.baseUrl }]);
     };
+    // Sensitive positive flows obtain fresh native proof at their own boundary.
+    // Keep identity switches on those renewed sessions instead of the initial cookies.
+    const refreshSessions = async readerContext => {
+      const owner = await signInWithOutbox(runtime.baseUrl, ownerEmail);
+      const reader = await signInWithOutbox(runtime.baseUrl, readerEmail);
+      assert.equal(owner.body.member.id, 'browser-owner');
+      assert.equal(reader.body.member.id, 'browser-reader');
+      token = owner.cookie.split('=')[1];
+      readerToken = reader.cookie.split('=')[1];
+      await context.addCookies([{ name: 'slate_session', value: token, url: runtime.baseUrl }]);
+      if (readerContext) await readerContext.addCookies([{ name: 'slate_session', value: readerToken, url: runtime.baseUrl }]);
+    };
     const records = async () => {
       // Unmount the page before the deliberate Worker restart so background
       // presence/session requests cannot race the fixture's stopped listener.
@@ -185,7 +197,7 @@ export async function withWorkspace(viewport, profile, run, overrides = {}, { sc
       assert.equal(response.status, 200, await response.text());
     };
     try {
-      await run({transferGate:(action,method)=>transferControl(runtime.child,action,method), readEmbedRequests:()=>readEmbedRequests(state), page, context, origin: runtime.baseUrl, api, records, atRest, fixtureSql, runScheduled, switchIdentity, modelRequests, readerCookie: `slate_session=${readerToken}`,
+      await run({transferGate:(action,method)=>transferControl(runtime.child,action,method), readEmbedRequests:()=>readEmbedRequests(state), page, context, origin: runtime.baseUrl, api, records, atRest, fixtureSql, runScheduled, switchIdentity, refreshSessions, modelRequests, get readerCookie() { return `slate_session=${readerToken}`; },
         assertNoConsoleErrors: () => assert.deepEqual(consoleErrors, [], 'The browser must have no console errors or uncaught page errors.'),
         ...(webhooks ? {setWebhookFailure:failure=>setWebhookFailure(state,failure)} : {}),
         ...(backups ? { setS3Failure: failure => setS3Failure(state, failure), readS3Requests: () => readS3Requests(state), readS3Objects: () => readS3Objects(state) } : {}),
