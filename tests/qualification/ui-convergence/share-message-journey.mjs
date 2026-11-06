@@ -70,6 +70,11 @@ export async function shareMessageJourney(state) {
     const input = { operationKey: key(), memberIds: ['browser-reader', person.id], message, grantMemberIds: [] };
     const refused = await call(context, origin, 'POST', route, input);
     assert.equal(refused.status, 409); assert.equal(refused.body.code, 'ACCESS_GRANT_REQUIRED');
+    for (const grantMemberIds of [[person.id, person.id], ['browser-owner']]) {
+      const invalidConsent = await call(context, origin, 'POST', route, { ...input, operationKey: key(), grantMemberIds });
+      assert.equal(invalidConsent.status, 400);
+      assert.equal(invalidConsent.body.code, 'INVALID_GRANT_CONSENT');
+    }
     const tooLong = await call(context, origin, 'POST', route, { ...input, operationKey: key(), message: 'x'.repeat(seed.limits.shareMessageCharacters + 1), grantMemberIds: [person.id] });
     assert.equal(tooLong.status, 400, 'The server enforces the named message limit independently of the browser.');
     assert.equal((await call(context, origin, 'POST', route, { ...input, operationKey: key(), memberIds: ['browser-reader', 'browser-reader'] })).status, 400);
@@ -83,11 +88,48 @@ export async function shareMessageJourney(state) {
     await expect(review).toBeVisible();
     await panel.getByRole('button', { name: 'Add View access and send', exact: true }).scrollIntoViewIfNeeded();
     await accessible(page, 'share message reviewed before explicit consent');
+    // Hold only transport: the emitted Worker commits the real grant, message
+    // and activity before its successful response is deliberately lost.
+    const sendButton = panel.getByRole('button', { name: 'Add View access and send', exact: true });
+    const matches = url => url.pathname === route;
+    let interrupted, committed, firstCapture;
+    const hold = request => { interrupted = request; };
+    await page.route(matches, hold);
+    try {
+      await sendButton.click();
+      await expect.poll(() => !!interrupted).toBe(true);
+      await expect(sendButton).toBeDisabled();
+      await expect(panel.getByRole('button', { name: 'Cancel message', exact: true })).toBeDisabled();
+      assert.deepEqual(await grants(), original.grants);
+      assert.deepEqual(await notices(reader), original.reader);
+      assert.deepEqual(await notices(third), original.third);
+      assert.deepEqual(await activity(), original.activity);
+      const result = await interrupted.fetch({ maxRetries: 0 });
+      assert.equal(result.status(), 200, await result.text());
+      committed = await result.json();
+      firstCapture = interrupted.request().postDataJSON();
+      await interrupted.abort('connectionfailed');
+      interrupted = undefined;
+      await expect(panel.getByRole('alert')).toContainText('Current server state is unconfirmed.');
+      await expect(panel.getByRole('status')).toHaveCount(0);
+      await expect(review).toContainText(message);
+      await expect(sendButton).toBeEnabled();
+    } finally {
+      await interrupted?.abort().catch(() => {});
+      await page.unroute(matches, hold);
+    }
+    const beforeRetry = { grants: await grants(), reader: await notices(reader), third: await notices(third), activity: await activity() };
+    assert.equal(beforeRetry.activity.length, 1, 'The interrupted response followed a real commit.');
+    assert.equal(beforeRetry.activity[0].id, committed.receipt.activityId);
     const submitted = page.waitForResponse(response => new URL(response.url()).pathname === route && response.request().method() === 'POST');
-    await panel.getByRole('button', { name: 'Add View access and send', exact: true }).click();
+    await sendButton.click();
     const response = await submitted;
     assert.equal(response.status(), 200, await response.text());
     const captured = response.request().postDataJSON(), receipt = await response.json();
+    assert.deepEqual(captured, firstCapture, 'Retry retains the reviewed recipients, message, consent and operation key.');
+    assert.deepEqual(receipt, committed, 'The retry recovers the exact native committed receipt.');
+    assert.deepEqual({ grants: await grants(), reader: await notices(reader), third: await notices(third), activity: await activity() }, beforeRetry, 'Retry adds no grant, inbox item or activity.');
+    probes.push('PROBE SHARE-009 transport-replay: lose the real committed response, then retry in Share -> same capture and receipt; no duplicate grant, inbox item or activity');
     assert.deepEqual(captured.grantMemberIds, [person.id]);
     assert.deepEqual(captured.memberIds.sort(), ['browser-reader', person.id].sort());
     assert.equal(captured.message, message);
@@ -119,6 +161,11 @@ export async function shareMessageJourney(state) {
         await expect(notice).toContainText('From Alex Owner');
         await expect(notice).toContainText('Published message recipient guide');
         await expect(notice.locator('plain'), 'The plain-text message never becomes markup.').toHaveCount(0);
+        await view.reload({ waitUntil: 'networkidle' });
+        await expect(notice).toHaveCount(1);
+        await expect(notice).toContainText(message);
+        await expect(notice).toContainText('From Alex Owner');
+        await expect(notice.getByRole('link')).toHaveAttribute('href', `/app/pages/${target}`);
         if (ctx === third) {
           await accessible(view, 'share message accepted grant inbox');
           await notice.getByRole('link').click();
@@ -132,7 +179,7 @@ export async function shareMessageJourney(state) {
     await page.goto(origin + '/app/settings/activity', { waitUntil: 'networkidle' });
     const entry = page.locator(`[data-activity-id="${receipt.receipt.activityId}"]`);
     await expect(entry).toContainText(message); await page.reload({ waitUntil: 'networkidle' }); await expect(entry).toContainText(message);
-    captures.push({ pageId: target, receipt, grantsBefore: original.grants, grantsAfter: after, activity: rows, notifications: { reader: await notices(reader), addedMember: await notices(third) } });
+    captures.push({ pageId: target, receipt, interruptedReceipt: committed, firstCapture, retryCapture: captured, beforeRetry, grantsBefore: original.grants, grantsAfter: after, activity: rows, notifications: { reader: await notices(reader), addedMember: await notices(third) } });
     probes.push('PROBE SHARE-009 1: native published-page Share -> readable Morgan and unreadable Casey reviewed; explicit consent commits only Casey View grant');
     probes.push('PROBE SHARE-009 2-inbox: native inbox and reload -> exactly one plain-text message per recipient with sender, page title and link; unchanged page body');
     probes.push('PROBE SHARE-009 3: add-grant confirmation and exact capture replay -> one accepted grant, one item per recipient and one sender activity');

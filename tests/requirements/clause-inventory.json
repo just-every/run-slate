@@ -3122,7 +3122,7 @@
       "id": "SHARE-009",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Native-member message review, explicit View-grant consent, atomic inbox delivery, sender activity, replay and current-authority proof are exercised by shareMessageJourney in the existing desktop core journey. Email and delivery settings under NOTIF-005 and NOTIF-006, groups, email-address and guest admission, and complete preference, delivery and audience behavior remain unproven. ADMIN-007 and shared company-policy prerequisites remain unchanged.",
+      "unmetReason": "Native-member message review, explicit View-grant consent, atomic inbox delivery, sender activity, interrupted-response recovery through the Share button, persisted inbox reload, rejected invalid grant consent, replay and current-authority proof are exercised by shareMessageJourney in the existing desktop core journey. Email and delivery settings under NOTIF-005 and NOTIF-006, groups, email-address and guest admission, and complete preference, delivery and audience behavior remain unproven. ADMIN-007 and shared company-policy prerequisites remain unchanged.",
       "supportingTests": []
     },
     {
