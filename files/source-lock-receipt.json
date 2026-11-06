@@ -1,0 +1,13 @@
+{
+  "node": "v22.20.0",
+  "label": "source-lock",
+  "command": [
+    "pnpm",
+    "source:lock"
+  ],
+  "head": "03e7b8a3f2ebace8330a11b03ce868026efdecda",
+  "started_at": "2026-11-06T10:53:57.930430+00:00",
+  "ended_at": "2026-11-06T10:53:58.730228+00:00",
+  "exit": 0,
+  "log_sha256": "097a9f25a27b5925f6748488555ac28c9bb5243f082a8182cdec0a932f7b2c07"
+}

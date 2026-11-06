@@ -1,0 +1,14 @@
+{
+  "node": "v22.20.0",
+  "label": "views-write",
+  "command": [
+    "node",
+    "src/base/runtime/contract-docs.mjs",
+    "write"
+  ],
+  "head": "03e7b8a3f2ebace8330a11b03ce868026efdecda",
+  "started_at": "2026-11-06T10:53:57.587722+00:00",
+  "ended_at": "2026-11-06T10:53:57.724174+00:00",
+  "exit": 0,
+  "log_sha256": "df91012bf66fb476e9cd1a30c002829398beb55f869e07cc7be477197fa5a276"
+}

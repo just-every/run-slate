@@ -1,0 +1,15 @@
+{
+  "node": "v22.20.0",
+  "label": "browser",
+  "command": [
+    "timeout",
+    "1200",
+    "node",
+    "/tmp/slate-columns-proof.mjs"
+  ],
+  "head": "03e7b8a3f2ebace8330a11b03ce868026efdecda",
+  "started_at": "2026-11-06T10:50:33.641937+00:00",
+  "ended_at": "2026-11-06T10:52:20.201928+00:00",
+  "exit": 0,
+  "log_sha256": "d4936676e5e8aadd2d00777216b80345e0c75b6378d38bf885326935529f7714"
+}

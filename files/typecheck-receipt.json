@@ -1,0 +1,13 @@
+{
+  "node": "v22.20.0",
+  "label": "typecheck",
+  "command": [
+    "pnpm",
+    "typecheck"
+  ],
+  "head": "03e7b8a3f2ebace8330a11b03ce868026efdecda",
+  "started_at": "2026-11-06T10:50:11.074342+00:00",
+  "ended_at": "2026-11-06T10:50:33.575975+00:00",
+  "exit": 0,
+  "log_sha256": "df7db33e89957b693c18629695e0bbbce9f15d3d47fc56dfad1134a59262d45d"
+}

@@ -1,0 +1,14 @@
+{
+  "node": "v22.20.0",
+  "label": "views-check",
+  "command": [
+    "node",
+    "src/base/runtime/contract-docs.mjs",
+    "check"
+  ],
+  "head": "03e7b8a3f2ebace8330a11b03ce868026efdecda",
+  "started_at": "2026-11-06T10:53:57.758324+00:00",
+  "ended_at": "2026-11-06T10:53:57.896875+00:00",
+  "exit": 0,
+  "log_sha256": "c21aae40192141751d6d5c7a3a1d0eb701a6852f305d592d77b4dcab9c2536ab"
+}

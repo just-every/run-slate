@@ -1,0 +1,17 @@
+{
+  "node": "v22.20.0",
+  "label": "workers",
+  "command": [
+    "pnpm",
+    "exec",
+    "vitest",
+    "run",
+    "tests/e2e/editor/tables.test.ts",
+    "tests/e2e/imports/word-export.test.ts"
+  ],
+  "head": "03e7b8a3f2ebace8330a11b03ce868026efdecda",
+  "started_at": "2026-11-06T10:49:46.232430+00:00",
+  "ended_at": "2026-11-06T10:50:11.043026+00:00",
+  "exit": 0,
+  "log_sha256": "78c665fb1e1aa64f720504a5178dfc9bee0decbbe9f1565170e1798acad62e56"
+}

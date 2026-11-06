@@ -1,0 +1,47 @@
+{
+  "probe": "BLOCK-012 Word page boundary",
+  "renderer": "LibreOffice Writer PDF export with PyMuPDF readback",
+  "source_sha256": "c64c4f786a175d057ee62a3957bfa1ca90eb7da341ed35fb64e3ab6ca15628f2",
+  "rendered_sha256": "d34b1c19c1995b006ea280f32e5e6d5d248b34219f12f68073aecc127421be40",
+  "pages": 7,
+  "exact_word_multiset": true,
+  "checkpoint_count": 155,
+  "continuations": [
+    {
+      "page": 1,
+      "minimum_x": 130.75698852539062,
+      "maximum_x": 130.75698852539062,
+      "checkpoints": 21
+    },
+    {
+      "page": 2,
+      "minimum_x": 130.75698852539062,
+      "maximum_x": 130.75698852539062,
+      "checkpoints": 26
+    },
+    {
+      "page": 3,
+      "minimum_x": 130.75698852539062,
+      "maximum_x": 130.75698852539062,
+      "checkpoints": 25
+    },
+    {
+      "page": 4,
+      "minimum_x": 130.75698852539062,
+      "maximum_x": 130.75698852539062,
+      "checkpoints": 4
+    }
+  ],
+  "side_by_side_heading_baseline": true,
+  "following_paragraph_after_tall_cell": true,
+  "exit": 0,
+  "head": "03e7b8a3f2ebace8330a11b03ce868026efdecda",
+  "build_source": {
+    "schema": 1,
+    "commit": "03e7b8a3f2ebace8330a11b03ce868026efdecda",
+    "tree": "365d2f76ea3c7c1d5c2fc7b4c911c4cbbdc157c1",
+    "sourceSha256": "f76a33f44547724e44db69fe1666954ac3440bb09495d63cdd4bfceba9c510a8",
+    "lockSha256": "3e6498ecc9f5a7ad9adc9400160941716f1e14f144aec6541c836990f1afa286",
+    "outputSha256": "618bec79f303d422b73a0a9427bc5b1964ca649d313637ef838a0018894a9895"
+  }
+}

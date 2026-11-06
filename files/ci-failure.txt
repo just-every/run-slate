@@ -1,0 +1,7 @@
+Run 42204900657; exact head 03e7b8a3f2ebace8330a11b03ce868026efdecda; event push.
+App job 127849021923 failed command: node src/base/runtime/contract-docs.mjs check
+ACCEPTANCE.md: generated content differs; run contract-docs write.
+Exit: 1
+Aggregate job 127849255425 failed because APP=failure; dependent shards and contract aggregation were skipped.
+Both failed-job log archive commands succeeded and were invoked once. No rerun or dispatch was requested.
+Generated views are deliberately restored from main under the cloud handoff protocol.

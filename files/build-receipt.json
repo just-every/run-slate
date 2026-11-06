@@ -1,0 +1,15 @@
+{
+  "node": "v22.20.0",
+  "label": "build",
+  "command": [
+    "npx",
+    "-y",
+    "@runeditrun/rer",
+    "build"
+  ],
+  "head": "03e7b8a3f2ebace8330a11b03ce868026efdecda",
+  "started_at": "2026-11-06T10:49:18.637803+00:00",
+  "ended_at": "2026-11-06T10:49:46.182008+00:00",
+  "exit": 0,
+  "log_sha256": "ebf1628c81c14eab06fb2d9a9abe519a9df5df8d309b9a4014dc45961cdc3238"
+}
