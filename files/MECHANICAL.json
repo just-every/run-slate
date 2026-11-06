@@ -1,0 +1,65 @@
+{
+  "head": "e6f8de70f3c2fc5baddcf256221d844a047b13c7",
+  "utc": "2026-11-06T06:26:18.494043+00:00",
+  "steps": [
+    {
+      "name": "views-write",
+      "command": [
+        "node",
+        "src/base/runtime/contract-docs.mjs",
+        "write"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "views-check",
+      "command": [
+        "node",
+        "src/base/runtime/contract-docs.mjs",
+        "check"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "restore-generated",
+      "command": [
+        "git",
+        "checkout",
+        "origin/main",
+        "--",
+        "ACCEPTANCE.md",
+        "docs/CLAIMS.md"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "integration",
+      "command": [
+        "pnpm",
+        "integration:sync"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "lock",
+      "command": [
+        "pnpm",
+        "source:lock"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "source-check",
+      "command": [
+        "pnpm",
+        "source:check"
+      ],
+      "exit": 0
+    }
+  ],
+  "ledger": {
+    "command": null,
+    "exit": 0,
+    "reason": "No migration changed"
+  }
+}

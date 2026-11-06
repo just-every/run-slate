@@ -1,0 +1,19 @@
+{
+  "head": "0bd55a4900182ab1bd64b6bf2ae117c5df3cb2ff",
+  "exit": 1,
+  "command": "SLATE_CHROMIUM_PATH=/usr/bin/chromium node --test --test-concurrency=1 --test-name-pattern='^(real core-wiki and touch-member journeys at 390px|presentation paginates read-only slides; touch history, details and exports work at 1440px)$' tests/qualification/ui-convergence/journeys.test.mjs",
+  "failures": [
+    {
+      "test": "real core-wiki and touch-member journeys at 390px",
+      "failure": "locator.scrollIntoViewIfNeeded: Timeout 30000ms exceeded; waiting for Expand Retention parent",
+      "line": "tests/qualification/ui-convergence/trash-list-journey.mjs:16"
+    },
+    {
+      "test": "presentation paginates read-only slides; touch history, details and exports work at 1440px",
+      "failure": "expect(locator).toBeVisible() failed; Expand Retention parent not found",
+      "line": "tests/qualification/ui-convergence/trash-list-journey.mjs:16"
+    }
+  ],
+  "cause": "The new test inspected an Expand label before persisted expansion loaded. After restoration the retained preference changed the control to Collapse. The native tree was already correctly restored.",
+  "repair": "Keep one locator for both labels, wait for the native expansion request to enable it, then inspect aria-expanded before tapping. Retain every outcome assertion."
+}

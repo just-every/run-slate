@@ -1,0 +1,68 @@
+{
+  "repository": "just-every/run-slate",
+  "branch": "cloud/sd-slate-c-f177",
+  "head": "e6f8de70f3c2fc5baddcf256221d844a047b13c7",
+  "base": "93b7327adee97ac0ff691bfb5cbff68f4412a27a",
+  "toolchain": {
+    "node": "22.20.0",
+    "pnpm": "10.12.4",
+    "chromium": "/usr/bin/chromium, 154.0.8037.57, headless with --no-sandbox"
+  },
+  "checks": [
+    {
+      "command": "pnpm exec vitest run tests/qualification/core/audit-content.test.ts",
+      "exit": 0,
+      "head": "e6f8de70f3c2fc5baddcf256221d844a047b13c7",
+      "testsPassed": 1
+    },
+    {
+      "command": "pnpm typecheck",
+      "exit": 0
+    },
+    {
+      "command": "pnpm exec rer check --profile first-party",
+      "exit": 0
+    },
+    {
+      "command": "pnpm check:contract",
+      "exit": 0
+    },
+    {
+      "command": "npx -y @runeditrun/rer build",
+      "exit": 0
+    }
+  ],
+  "browser": {
+    "registeredDesktop": {
+      "test": "presentation paginates read-only slides; touch history, details and exports work at 1440px",
+      "passed": true,
+      "output": "ok 2 - presentation paginates read-only slides; touch history, details and exports work at 1440px\n  ---\n  duration_ms: 160171.015736\n  type: 'test'\n  ...",
+      "durationMs": 160171.015736
+    },
+    "registeredPhone": {
+      "test": "real core-wiki and touch-member journeys at 390px",
+      "passed": false,
+      "output": "not ok 1 - real core-wiki and touch-member journeys at 390px\n  ---\n  duration_ms: 667002.578442\n  type: 'test'\n  location: '/workspace/run-slate/tests/qualification/ui-convergence/journey-shard.mjs:23:97'\n  failureType: 'testCodeFailure'\n  error: |-\n    expect(locator).toContainText(expected) failed\n    \n    Locator: getByRole('alert')\n    Expected pattern: /private Slack channel.*not shared/\n    Received string:  \"Confirm this with your email first. Slate sent a confirmation link to your address. Open it, then try again within 10 minutes.\"\n    Timeout: 5000ms\n    \n    Call log:\n      - Expect \"toContainText\" getByRole('alert') with timeout 5000ms\n      - waiting for getByRole('alert')\n        12 \u00d7 locator resolved to <p role=\"alert\">Confirm this with your email first. Slate sent a \u2026</p>\n           - unexpected value \"Confirm this with your email first. Slate sent a confirmation link to your address. Open it, then try again within 10 minutes.\"\n    \n  code: 'ERR_TEST_FAILURE'\n  stack: |-\n    captureRawStack (/workspace/run-slate/node_modules/.pnpm/playwright-core@1.63.0/node_modules/playwright-core/lib/coreBundle.js:8588:17)\n    callMatcherAsStep (/workspace/run-slate/node_modules/.pnpm/playwright@1.63.0/node_modules/playwright/lib/matchers/expect.js:13310:57)\n    Object.toContainText (/workspace/run-slate/node_modules/.pnpm/playwright@1.63.0/node_modules/playwright/lib/matchers/expect.js:13302:23)\n    chatJourney (/workspace/run-slate/tests/qualification/ui-convergence/chat-journey.mjs:55:41)\n    async withWorkspace.scheduled (/workspace/run-slate/tests/qualification/ui-convergence/journeys.test.mjs:107:9)\n    async withWorkspace (/workspace/run-slate/tests/qualification/ui-convergence/browser-support.mjs:188:7)\n    async TestContext.<anonymous> (/workspace/run-slate/tests/qualification/ui-convergence/journeys.test.mjs:84:5)\n  ...",
+      "durationMs": 667002.578442
+    },
+    "mainComparison": {
+      "test": "real core-wiki and touch-member journeys at 390px",
+      "passed": false,
+      "output": "not ok 1 - real core-wiki and touch-member journeys at 390px\n  ---\n  duration_ms: 253487.325494\n  type: 'test'\n  location: '/workspace/run-slate-main-check/tests/qualification/ui-convergence/journey-shard.mjs:23:97'\n  failureType: 'testCodeFailure'\n  error: 'Step BLOCK-001 \u2014 a new page body takes real keystrokes, including before it finishes loading, and keeps them through committed save, failed save, explicit retry and leaving; touch member creates, inserts and drags blocks failed: Typed shortcut \"## \" failed'\n  code: 'ERR_TEST_FAILURE'\n  stack: |-\n    typedShortcutsJourney (file:///workspace/run-slate-main-check/tests/qualification/ui-convergence/typed-shortcuts-journey.mjs:113:13)\n    async writeJourney (file:///workspace/run-slate-main-check/tests/qualification/ui-convergence/write-journey.mjs:143:3)\n    async file:///workspace/run-slate-main-check/tests/qualification/ui-convergence/journeys.test.mjs:96:262\n    async step (file:///workspace/run-slate-main-check/tests/qualification/ui-convergence/journeys.test.mjs:41:9)\n    async withWorkspace.scheduled (file:///workspace/run-slate-main-check/tests/qualification/ui-convergence/journeys.test.mjs:96:9)\n    async withWorkspace (file:///workspace/run-slate-main-check/tests/qualification/ui-convergence/browser-support.mjs:188:7)\n    async TestContext.<anonymous> (file:///workspace/run-slate-main-check/tests/qualification/ui-convergence/journeys.test.mjs:84:5)\n    async Test.run (node:internal/test_runner/test:1054:7)\n    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)\n  ...",
+      "durationMs": 253487.325494
+    },
+    "focusedArchivePhone": {
+      "command": "node /tmp/slate-archive-phone-probe.mjs",
+      "head": "e6f8de70f3c2fc5baddcf256221d844a047b13c7",
+      "exit": 0,
+      "preExistingNativeTrashPreserved": true
+    }
+  },
+  "mechanicalReceipt": "MECHANICAL.json",
+  "ciReceipt": "CI.json",
+  "recoveryReceipt": "RECOVERY.json",
+  "sourceAndTestAssertionsRemoved": false,
+  "newTestRegistrations": 0,
+  "countsReceipt": "COUNTS.json",
+  "status": "ARCH-005 remains partial; selected native points passed; unrelated composite phone failures reported for fv"
+}

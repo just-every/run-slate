@@ -1,0 +1,21 @@
+{
+  "state": "touch aged trash after repeated scheduled processing",
+  "url": "http://127.0.0.1:33917/app/archive",
+  "artifact": {
+    "schema": 1,
+    "commit": "e6f8de70f3c2fc5baddcf256221d844a047b13c7",
+    "tree": "8282437155c60455069ffcf8933ff1febfc7dbed",
+    "sourceSha256": "557390a87bda0aec351f3f6c5d8ec9b256e458b364160c0de8839ca32bb36eb4",
+    "lockSha256": "cfd868367dbc9cbf1b610098a1e813591dd1d3d03e6877d78538c2a71993e005",
+    "outputSha256": "17f9cb9afffc66b8b8862cf969b9e5572c87287952683a2f29878688a1e3338f"
+  },
+  "geometry": {
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "documentWidth": 1440,
+    "toolbar": []
+  },
+  "axeViolations": []
+}

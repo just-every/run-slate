@@ -1,0 +1,8 @@
+{
+  "head": "e6f8de70f3c2fc5baddcf256221d844a047b13c7",
+  "exit": 0,
+  "test": "presentation paginates read-only slides; touch history, details and exports work at 1440px",
+  "passed": true,
+  "output": "ok 2 - presentation paginates read-only slides; touch history, details and exports work at 1440px\n  ---\n  duration_ms: 160171.015736\n  type: 'test'\n  ...",
+  "durationMs": 160171.015736
+}

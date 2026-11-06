@@ -1,0 +1,70 @@
+{
+  "run": {
+    "conclusion": "failure",
+    "event": "push",
+    "head_sha": "e6f8de70f3c2fc5baddcf256221d844a047b13c7",
+    "html_url": "https://github.com/just-every/run-slate/actions/runs/42174432150",
+    "id": 42174432150,
+    "name": "Verify Slate",
+    "status": "completed"
+  },
+  "jobs": [
+    {
+      "conclusion": "success",
+      "id": 127749504807,
+      "name": "plan",
+      "steps": []
+    },
+    {
+      "conclusion": "failure",
+      "id": 127749544249,
+      "name": "verify (app)",
+      "steps": [
+        {
+          "conclusion": "failure",
+          "name": "Run node src/base/runtime/contract-docs.mjs check"
+        }
+      ]
+    },
+    {
+      "conclusion": "skipped",
+      "id": 127749546253,
+      "name": "import-scale",
+      "steps": []
+    },
+    {
+      "conclusion": "failure",
+      "id": 127749750331,
+      "name": "verify",
+      "steps": [
+        {
+          "conclusion": "failure",
+          "name": "Require the plan and every expected job"
+        }
+      ]
+    },
+    {
+      "conclusion": "skipped",
+      "id": 127749751087,
+      "name": "local-journeys",
+      "steps": []
+    },
+    {
+      "conclusion": "skipped",
+      "id": 127749751122,
+      "name": "verify (${{ matrix.suite }})",
+      "steps": []
+    },
+    {
+      "conclusion": "skipped",
+      "id": 127749751241,
+      "name": "contract",
+      "steps": []
+    }
+  ],
+  "generatedViewExceptionOnly": true,
+  "nativeShardsExecuted": false,
+  "githubCommandInvocations": 10,
+  "publicationScan": "Not run in cloud; guarded lander required",
+  "runSite": "Guarded lander required"
+}

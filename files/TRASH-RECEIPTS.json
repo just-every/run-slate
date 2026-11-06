@@ -1,0 +1,634 @@
+[
+  {
+    "head": "e6f8de70f3c2fc5baddcf256221d844a047b13c7",
+    "execution": "desktop",
+    "width": 1440,
+    "committedAt": "2026-11-06T06:34:53.038Z",
+    "listed": [
+      {
+        "id": "01M6QS1D4DQK8XQ5YNWSSD0GKX",
+        "title": "Retained archive tree",
+        "containerId": "01M6QS1CZDV5ADZXAHHEQDCYNQ",
+        "revisionId": "01M6QS1DZQ9E1RZCZAF4Z72756",
+        "archivedAt": null,
+        "trashedAt": "2026-11-06T06:34:53.038Z",
+        "reason": "Retain until an explicit restore.",
+        "occurredAt": "2026-11-06T06:34:53.038Z",
+        "actorMemberId": "browser-reader",
+        "actorDisplayName": "Morgan Reader",
+        "priorContainerId": "01M6QS1CZDV5ADZXAHHEQDCYNQ",
+        "priorParentId": "01M6QS1D0KZHEJ7N0FC86N9X07",
+        "priorPosition": "m",
+        "priorOrder": 2,
+        "priorContainerName": "Archive retention",
+        "priorParentTitle": "Retention parent"
+      },
+      {
+        "id": "01M6QS1D5PT861DGDEE43NZPBZ",
+        "title": "Retained child",
+        "containerId": "01M6QS1CZDV5ADZXAHHEQDCYNQ",
+        "revisionId": "01M6QS1D5P5A4EKCS5T9FFE6D7",
+        "archivedAt": null,
+        "trashedAt": "2026-11-06T06:34:53.038Z",
+        "reason": "Retain until an explicit restore.",
+        "occurredAt": "2026-11-06T06:34:53.038Z",
+        "actorMemberId": "browser-reader",
+        "actorDisplayName": "Morgan Reader",
+        "priorContainerId": "01M6QS1CZDV5ADZXAHHEQDCYNQ",
+        "priorParentId": "01M6QS1D4DQK8XQ5YNWSSD0GKX",
+        "priorPosition": "a",
+        "priorOrder": 2,
+        "priorContainerName": "Archive retention",
+        "priorParentTitle": "Retained archive tree"
+      },
+      {
+        "id": "01M6QS1D6ZW4V05QY4PMVSNTVS",
+        "title": "Retained database",
+        "containerId": "01M6QS1CZDV5ADZXAHHEQDCYNQ",
+        "revisionId": "01M6QS1D6ZXRY5TJ24BWT17MD0",
+        "archivedAt": null,
+        "trashedAt": "2026-11-06T06:34:53.038Z",
+        "reason": "Retain until an explicit restore.",
+        "occurredAt": "2026-11-06T06:34:53.038Z",
+        "actorMemberId": "browser-reader",
+        "actorDisplayName": "Morgan Reader",
+        "priorContainerId": "01M6QS1CZDV5ADZXAHHEQDCYNQ",
+        "priorParentId": "01M6QS1D4DQK8XQ5YNWSSD0GKX",
+        "priorPosition": "2026-11-06T06:34:18.712Z:01M6QS1D6ZW4V05QY4PMVSNTVS",
+        "priorOrder": 1,
+        "priorContainerName": "Archive retention",
+        "priorParentTitle": "Retained archive tree"
+      },
+      {
+        "id": "01M6QS1DBBRPXG9R5655DJTSAX",
+        "title": "Retained record",
+        "containerId": "01M6QS1CZDV5ADZXAHHEQDCYNQ",
+        "revisionId": "01M6QS1DCWS8PX4X0MNC9MN794",
+        "archivedAt": null,
+        "trashedAt": "2026-11-06T06:34:53.038Z",
+        "reason": "Retain until an explicit restore.",
+        "occurredAt": "2026-11-06T06:34:53.038Z",
+        "actorMemberId": "browser-reader",
+        "actorDisplayName": "Morgan Reader",
+        "priorContainerId": "01M6QS1CZDV5ADZXAHHEQDCYNQ",
+        "priorParentId": "01M6QS1D6ZW4V05QY4PMVSNTVS",
+        "priorPosition": "2026-11-06T06:34:18.833Z:01M6QS1DBBRPXG9R5655DJTSAX",
+        "priorOrder": 1,
+        "priorContainerName": "Archive retention",
+        "priorParentTitle": "Retained database"
+      }
+    ],
+    "priorInventory": [
+      {
+        "id": "01M6QS1D6ZW4V05QY4PMVSNTVS",
+        "containerId": "01M6QS1CZDV5ADZXAHHEQDCYNQ",
+        "parentPageId": "01M6QS1D4DQK8XQ5YNWSSD0GKX",
+        "treePosition": "2026-11-06T06:34:18.712Z:01M6QS1D6ZW4V05QY4PMVSNTVS"
+      },
+      {
+        "id": "01M6QS1DBBRPXG9R5655DJTSAX",
+        "containerId": "01M6QS1CZDV5ADZXAHHEQDCYNQ",
+        "parentPageId": "01M6QS1D6ZW4V05QY4PMVSNTVS",
+        "treePosition": "2026-11-06T06:34:18.833Z:01M6QS1DBBRPXG9R5655DJTSAX"
+      },
+      {
+        "id": "01M6QS1D21PVKSPW33HG79BH3G",
+        "containerId": "01M6QS1CZDV5ADZXAHHEQDCYNQ",
+        "parentPageId": "01M6QS1D0KZHEJ7N0FC86N9X07",
+        "treePosition": "a"
+      },
+      {
+        "id": "01M6QS1D5PT861DGDEE43NZPBZ",
+        "containerId": "01M6QS1CZDV5ADZXAHHEQDCYNQ",
+        "parentPageId": "01M6QS1D4DQK8XQ5YNWSSD0GKX",
+        "treePosition": "a"
+      },
+      {
+        "id": "01M6QS1D0KZHEJ7N0FC86N9X07",
+        "containerId": "01M6QS1CZDV5ADZXAHHEQDCYNQ",
+        "parentPageId": null,
+        "treePosition": "m"
+      },
+      {
+        "id": "01M6QS1D4DQK8XQ5YNWSSD0GKX",
+        "containerId": "01M6QS1CZDV5ADZXAHHEQDCYNQ",
+        "parentPageId": "01M6QS1D0KZHEJ7N0FC86N9X07",
+        "treePosition": "m"
+      },
+      {
+        "id": "01M6QS1D3631ESNYRMMRVEHW95",
+        "containerId": "01M6QS1CZDV5ADZXAHHEQDCYNQ",
+        "parentPageId": "01M6QS1D0KZHEJ7N0FC86N9X07",
+        "treePosition": "z"
+      }
+    ],
+    "restoredInventory": [
+      {
+        "id": "01M6QS1D6ZW4V05QY4PMVSNTVS",
+        "containerId": "01M6QS1CZDV5ADZXAHHEQDCYNQ",
+        "parentPageId": "01M6QS1D4DQK8XQ5YNWSSD0GKX",
+        "treePosition": "2026-11-06T06:34:18.712Z:01M6QS1D6ZW4V05QY4PMVSNTVS"
+      },
+      {
+        "id": "01M6QS1DBBRPXG9R5655DJTSAX",
+        "containerId": "01M6QS1CZDV5ADZXAHHEQDCYNQ",
+        "parentPageId": "01M6QS1D6ZW4V05QY4PMVSNTVS",
+        "treePosition": "2026-11-06T06:34:18.833Z:01M6QS1DBBRPXG9R5655DJTSAX"
+      },
+      {
+        "id": "01M6QS1D21PVKSPW33HG79BH3G",
+        "containerId": "01M6QS1CZDV5ADZXAHHEQDCYNQ",
+        "parentPageId": "01M6QS1D0KZHEJ7N0FC86N9X07",
+        "treePosition": "a"
+      },
+      {
+        "id": "01M6QS1D5PT861DGDEE43NZPBZ",
+        "containerId": "01M6QS1CZDV5ADZXAHHEQDCYNQ",
+        "parentPageId": "01M6QS1D4DQK8XQ5YNWSSD0GKX",
+        "treePosition": "a"
+      },
+      {
+        "id": "01M6QS1D0KZHEJ7N0FC86N9X07",
+        "containerId": "01M6QS1CZDV5ADZXAHHEQDCYNQ",
+        "parentPageId": null,
+        "treePosition": "m"
+      },
+      {
+        "id": "01M6QS1D4DQK8XQ5YNWSSD0GKX",
+        "containerId": "01M6QS1CZDV5ADZXAHHEQDCYNQ",
+        "parentPageId": "01M6QS1D0KZHEJ7N0FC86N9X07",
+        "treePosition": "m"
+      },
+      {
+        "id": "01M6QS1D3631ESNYRMMRVEHW95",
+        "containerId": "01M6QS1CZDV5ADZXAHHEQDCYNQ",
+        "parentPageId": "01M6QS1D0KZHEJ7N0FC86N9X07",
+        "treePosition": "z"
+      }
+    ],
+    "visibleBefore": [
+      {
+        "title": "Retention parent",
+        "href": "/app/pages/01M6QS1D0KZHEJ7N0FC86N9X07",
+        "parent": null
+      },
+      {
+        "title": "Before retained tree",
+        "href": "/app/pages/01M6QS1D21PVKSPW33HG79BH3G",
+        "parent": "/app/pages/01M6QS1D0KZHEJ7N0FC86N9X07"
+      },
+      {
+        "title": "Retained archive tree",
+        "href": "/app/pages/01M6QS1D4DQK8XQ5YNWSSD0GKX",
+        "parent": "/app/pages/01M6QS1D0KZHEJ7N0FC86N9X07"
+      },
+      {
+        "title": "Retained database",
+        "href": "/app/databases/01M6QS1D6Z7E900ENTN5GYQ99Q",
+        "parent": "/app/pages/01M6QS1D4DQK8XQ5YNWSSD0GKX"
+      },
+      {
+        "title": "Retained record",
+        "href": "/app/databases/01M6QS1D6Z7E900ENTN5GYQ99Q/records/01M6QS1DBBRPXG9R5655DJTSAX",
+        "parent": "/app/databases/01M6QS1D6Z7E900ENTN5GYQ99Q"
+      },
+      {
+        "title": "Retained child",
+        "href": "/app/pages/01M6QS1D5PT861DGDEE43NZPBZ",
+        "parent": "/app/pages/01M6QS1D4DQK8XQ5YNWSSD0GKX"
+      },
+      {
+        "title": "After retained tree",
+        "href": "/app/pages/01M6QS1D3631ESNYRMMRVEHW95",
+        "parent": "/app/pages/01M6QS1D0KZHEJ7N0FC86N9X07"
+      }
+    ],
+    "visibleAfter": [
+      {
+        "title": "Retention parent",
+        "href": "/app/pages/01M6QS1D0KZHEJ7N0FC86N9X07",
+        "parent": null
+      },
+      {
+        "title": "Before retained tree",
+        "href": "/app/pages/01M6QS1D21PVKSPW33HG79BH3G",
+        "parent": "/app/pages/01M6QS1D0KZHEJ7N0FC86N9X07"
+      },
+      {
+        "title": "Retained archive tree",
+        "href": "/app/pages/01M6QS1D4DQK8XQ5YNWSSD0GKX",
+        "parent": "/app/pages/01M6QS1D0KZHEJ7N0FC86N9X07"
+      },
+      {
+        "title": "Retained database",
+        "href": "/app/databases/01M6QS1D6Z7E900ENTN5GYQ99Q",
+        "parent": "/app/pages/01M6QS1D4DQK8XQ5YNWSSD0GKX"
+      },
+      {
+        "title": "Retained record",
+        "href": "/app/databases/01M6QS1D6Z7E900ENTN5GYQ99Q/records/01M6QS1DBBRPXG9R5655DJTSAX",
+        "parent": "/app/databases/01M6QS1D6Z7E900ENTN5GYQ99Q"
+      },
+      {
+        "title": "Retained child",
+        "href": "/app/pages/01M6QS1D5PT861DGDEE43NZPBZ",
+        "parent": "/app/pages/01M6QS1D4DQK8XQ5YNWSSD0GKX"
+      },
+      {
+        "title": "After retained tree",
+        "href": "/app/pages/01M6QS1D3631ESNYRMMRVEHW95",
+        "parent": "/app/pages/01M6QS1D0KZHEJ7N0FC86N9X07"
+      }
+    ],
+    "aged": [
+      {
+        "id": "01M6QS1D4DQK8XQ5YNWSSD0GKX",
+        "title": "Retained archive tree",
+        "containerId": "01M6QS1CZDV5ADZXAHHEQDCYNQ",
+        "revisionId": "01M6QS1DZQ9E1RZCZAF4Z72756",
+        "archivedAt": null,
+        "trashedAt": "2001-02-03T04:05:06.000Z",
+        "reason": "Retain until an explicit restore.",
+        "occurredAt": "2001-02-03T04:05:06.000Z",
+        "actorMemberId": "browser-reader",
+        "actorDisplayName": "Morgan Reader",
+        "priorContainerId": "01M6QS1CZDV5ADZXAHHEQDCYNQ",
+        "priorParentId": "01M6QS1D0KZHEJ7N0FC86N9X07",
+        "priorPosition": "m",
+        "priorOrder": 2,
+        "priorContainerName": "Archive retention",
+        "priorParentTitle": "Retention parent"
+      },
+      {
+        "id": "01M6QS1D5PT861DGDEE43NZPBZ",
+        "title": "Retained child",
+        "containerId": "01M6QS1CZDV5ADZXAHHEQDCYNQ",
+        "revisionId": "01M6QS1D5P5A4EKCS5T9FFE6D7",
+        "archivedAt": null,
+        "trashedAt": "2001-02-03T04:05:06.000Z",
+        "reason": "Retain until an explicit restore.",
+        "occurredAt": "2001-02-03T04:05:06.000Z",
+        "actorMemberId": "browser-reader",
+        "actorDisplayName": "Morgan Reader",
+        "priorContainerId": "01M6QS1CZDV5ADZXAHHEQDCYNQ",
+        "priorParentId": "01M6QS1D4DQK8XQ5YNWSSD0GKX",
+        "priorPosition": "a",
+        "priorOrder": 2,
+        "priorContainerName": "Archive retention",
+        "priorParentTitle": "Retained archive tree"
+      },
+      {
+        "id": "01M6QS1D6ZW4V05QY4PMVSNTVS",
+        "title": "Retained database",
+        "containerId": "01M6QS1CZDV5ADZXAHHEQDCYNQ",
+        "revisionId": "01M6QS1D6ZXRY5TJ24BWT17MD0",
+        "archivedAt": null,
+        "trashedAt": "2001-02-03T04:05:06.000Z",
+        "reason": "Retain until an explicit restore.",
+        "occurredAt": "2001-02-03T04:05:06.000Z",
+        "actorMemberId": "browser-reader",
+        "actorDisplayName": "Morgan Reader",
+        "priorContainerId": "01M6QS1CZDV5ADZXAHHEQDCYNQ",
+        "priorParentId": "01M6QS1D4DQK8XQ5YNWSSD0GKX",
+        "priorPosition": "2026-11-06T06:34:18.712Z:01M6QS1D6ZW4V05QY4PMVSNTVS",
+        "priorOrder": 1,
+        "priorContainerName": "Archive retention",
+        "priorParentTitle": "Retained archive tree"
+      },
+      {
+        "id": "01M6QS1DBBRPXG9R5655DJTSAX",
+        "title": "Retained record",
+        "containerId": "01M6QS1CZDV5ADZXAHHEQDCYNQ",
+        "revisionId": "01M6QS1DCWS8PX4X0MNC9MN794",
+        "archivedAt": null,
+        "trashedAt": "2001-02-03T04:05:06.000Z",
+        "reason": "Retain until an explicit restore.",
+        "occurredAt": "2001-02-03T04:05:06.000Z",
+        "actorMemberId": "browser-reader",
+        "actorDisplayName": "Morgan Reader",
+        "priorContainerId": "01M6QS1CZDV5ADZXAHHEQDCYNQ",
+        "priorParentId": "01M6QS1D6ZW4V05QY4PMVSNTVS",
+        "priorPosition": "2026-11-06T06:34:18.833Z:01M6QS1DBBRPXG9R5655DJTSAX",
+        "priorOrder": 1,
+        "priorContainerName": "Archive retention",
+        "priorParentTitle": "Retained database"
+      }
+    ]
+  },
+  {
+    "head": "e6f8de70f3c2fc5baddcf256221d844a047b13c7",
+    "execution": "phone",
+    "width": 390,
+    "committedAt": "2026-11-06T06:44:47.008Z",
+    "listed": [
+      {
+        "id": "01M6QSKVF84515M7DR85YB77P6",
+        "title": "Retained archive tree",
+        "containerId": "01M6QSKV5C9X7XD1PBZMC7AGPC",
+        "revisionId": "01M6QSKWS0TZP7BVC3BSY1HDYK",
+        "archivedAt": null,
+        "trashedAt": "2026-11-06T06:44:47.008Z",
+        "reason": "Retain until an explicit restore.",
+        "occurredAt": "2026-11-06T06:44:47.008Z",
+        "actorMemberId": "browser-reader",
+        "actorDisplayName": "Morgan Reader",
+        "priorContainerId": "01M6QSKV5C9X7XD1PBZMC7AGPC",
+        "priorParentId": "01M6QSKV92K7S37G9MXZ67A7C4",
+        "priorPosition": "m",
+        "priorOrder": 2,
+        "priorContainerName": "Archive retention",
+        "priorParentTitle": "Retention parent"
+      },
+      {
+        "id": "01M6QSKVH0YRAYT1GBWS3NH2JE",
+        "title": "Retained child",
+        "containerId": "01M6QSKV5C9X7XD1PBZMC7AGPC",
+        "revisionId": "01M6QSKVH001HGT77EXTDJ89XA",
+        "archivedAt": null,
+        "trashedAt": "2026-11-06T06:44:47.008Z",
+        "reason": "Retain until an explicit restore.",
+        "occurredAt": "2026-11-06T06:44:47.008Z",
+        "actorMemberId": "browser-reader",
+        "actorDisplayName": "Morgan Reader",
+        "priorContainerId": "01M6QSKV5C9X7XD1PBZMC7AGPC",
+        "priorParentId": "01M6QSKVF84515M7DR85YB77P6",
+        "priorPosition": "a",
+        "priorOrder": 2,
+        "priorContainerName": "Archive retention",
+        "priorParentTitle": "Retained archive tree"
+      },
+      {
+        "id": "01M6QSKW0F1H6Y41GG28FM984G",
+        "title": "Retained database",
+        "containerId": "01M6QSKV5C9X7XD1PBZMC7AGPC",
+        "revisionId": "01M6QSKW0F43BG5CWTVM5EEJHW",
+        "archivedAt": null,
+        "trashedAt": "2026-11-06T06:44:47.008Z",
+        "reason": "Retain until an explicit restore.",
+        "occurredAt": "2026-11-06T06:44:47.008Z",
+        "actorMemberId": "browser-reader",
+        "actorDisplayName": "Morgan Reader",
+        "priorContainerId": "01M6QSKV5C9X7XD1PBZMC7AGPC",
+        "priorParentId": "01M6QSKVF84515M7DR85YB77P6",
+        "priorPosition": "2026-11-06T06:44:23.689Z:01M6QSKW0F1H6Y41GG28FM984G",
+        "priorOrder": 1,
+        "priorContainerName": "Archive retention",
+        "priorParentTitle": "Retained archive tree"
+      },
+      {
+        "id": "01M6QSKW6KHRJ9BDAEF9MG9H3A",
+        "title": "Retained record",
+        "containerId": "01M6QSKV5C9X7XD1PBZMC7AGPC",
+        "revisionId": "01M6QSKW8AM3KETH52N1ZBMCQ6",
+        "archivedAt": null,
+        "trashedAt": "2026-11-06T06:44:47.008Z",
+        "reason": "Retain until an explicit restore.",
+        "occurredAt": "2026-11-06T06:44:47.008Z",
+        "actorMemberId": "browser-reader",
+        "actorDisplayName": "Morgan Reader",
+        "priorContainerId": "01M6QSKV5C9X7XD1PBZMC7AGPC",
+        "priorParentId": "01M6QSKW0F1H6Y41GG28FM984G",
+        "priorPosition": "2026-11-06T06:44:23.855Z:01M6QSKW6KHRJ9BDAEF9MG9H3A",
+        "priorOrder": 1,
+        "priorContainerName": "Archive retention",
+        "priorParentTitle": "Retained database"
+      }
+    ],
+    "priorInventory": [
+      {
+        "id": "01M6QSKW0F1H6Y41GG28FM984G",
+        "containerId": "01M6QSKV5C9X7XD1PBZMC7AGPC",
+        "parentPageId": "01M6QSKVF84515M7DR85YB77P6",
+        "treePosition": "2026-11-06T06:44:23.689Z:01M6QSKW0F1H6Y41GG28FM984G"
+      },
+      {
+        "id": "01M6QSKW6KHRJ9BDAEF9MG9H3A",
+        "containerId": "01M6QSKV5C9X7XD1PBZMC7AGPC",
+        "parentPageId": "01M6QSKW0F1H6Y41GG28FM984G",
+        "treePosition": "2026-11-06T06:44:23.855Z:01M6QSKW6KHRJ9BDAEF9MG9H3A"
+      },
+      {
+        "id": "01M6QSKVAR718V4WB93G6RZBE2",
+        "containerId": "01M6QSKV5C9X7XD1PBZMC7AGPC",
+        "parentPageId": "01M6QSKV92K7S37G9MXZ67A7C4",
+        "treePosition": "a"
+      },
+      {
+        "id": "01M6QSKVH0YRAYT1GBWS3NH2JE",
+        "containerId": "01M6QSKV5C9X7XD1PBZMC7AGPC",
+        "parentPageId": "01M6QSKVF84515M7DR85YB77P6",
+        "treePosition": "a"
+      },
+      {
+        "id": "01M6QSKV92K7S37G9MXZ67A7C4",
+        "containerId": "01M6QSKV5C9X7XD1PBZMC7AGPC",
+        "parentPageId": null,
+        "treePosition": "m"
+      },
+      {
+        "id": "01M6QSKVF84515M7DR85YB77P6",
+        "containerId": "01M6QSKV5C9X7XD1PBZMC7AGPC",
+        "parentPageId": "01M6QSKV92K7S37G9MXZ67A7C4",
+        "treePosition": "m"
+      },
+      {
+        "id": "01M6QSKVD2ZEGB0YCHVGQ2685G",
+        "containerId": "01M6QSKV5C9X7XD1PBZMC7AGPC",
+        "parentPageId": "01M6QSKV92K7S37G9MXZ67A7C4",
+        "treePosition": "z"
+      }
+    ],
+    "restoredInventory": [
+      {
+        "id": "01M6QSKW0F1H6Y41GG28FM984G",
+        "containerId": "01M6QSKV5C9X7XD1PBZMC7AGPC",
+        "parentPageId": "01M6QSKVF84515M7DR85YB77P6",
+        "treePosition": "2026-11-06T06:44:23.689Z:01M6QSKW0F1H6Y41GG28FM984G"
+      },
+      {
+        "id": "01M6QSKW6KHRJ9BDAEF9MG9H3A",
+        "containerId": "01M6QSKV5C9X7XD1PBZMC7AGPC",
+        "parentPageId": "01M6QSKW0F1H6Y41GG28FM984G",
+        "treePosition": "2026-11-06T06:44:23.855Z:01M6QSKW6KHRJ9BDAEF9MG9H3A"
+      },
+      {
+        "id": "01M6QSKVAR718V4WB93G6RZBE2",
+        "containerId": "01M6QSKV5C9X7XD1PBZMC7AGPC",
+        "parentPageId": "01M6QSKV92K7S37G9MXZ67A7C4",
+        "treePosition": "a"
+      },
+      {
+        "id": "01M6QSKVH0YRAYT1GBWS3NH2JE",
+        "containerId": "01M6QSKV5C9X7XD1PBZMC7AGPC",
+        "parentPageId": "01M6QSKVF84515M7DR85YB77P6",
+        "treePosition": "a"
+      },
+      {
+        "id": "01M6QSKV92K7S37G9MXZ67A7C4",
+        "containerId": "01M6QSKV5C9X7XD1PBZMC7AGPC",
+        "parentPageId": null,
+        "treePosition": "m"
+      },
+      {
+        "id": "01M6QSKVF84515M7DR85YB77P6",
+        "containerId": "01M6QSKV5C9X7XD1PBZMC7AGPC",
+        "parentPageId": "01M6QSKV92K7S37G9MXZ67A7C4",
+        "treePosition": "m"
+      },
+      {
+        "id": "01M6QSKVD2ZEGB0YCHVGQ2685G",
+        "containerId": "01M6QSKV5C9X7XD1PBZMC7AGPC",
+        "parentPageId": "01M6QSKV92K7S37G9MXZ67A7C4",
+        "treePosition": "z"
+      }
+    ],
+    "visibleBefore": [
+      {
+        "title": "Retention parent",
+        "href": "/app/pages/01M6QSKV92K7S37G9MXZ67A7C4",
+        "parent": null
+      },
+      {
+        "title": "Before retained tree",
+        "href": "/app/pages/01M6QSKVAR718V4WB93G6RZBE2",
+        "parent": "/app/pages/01M6QSKV92K7S37G9MXZ67A7C4"
+      },
+      {
+        "title": "Retained archive tree",
+        "href": "/app/pages/01M6QSKVF84515M7DR85YB77P6",
+        "parent": "/app/pages/01M6QSKV92K7S37G9MXZ67A7C4"
+      },
+      {
+        "title": "Retained database",
+        "href": "/app/databases/01M6QSKW0FQM6VRD65H7TQBBFE",
+        "parent": "/app/pages/01M6QSKVF84515M7DR85YB77P6"
+      },
+      {
+        "title": "Retained record",
+        "href": "/app/databases/01M6QSKW0FQM6VRD65H7TQBBFE/records/01M6QSKW6KHRJ9BDAEF9MG9H3A",
+        "parent": "/app/databases/01M6QSKW0FQM6VRD65H7TQBBFE"
+      },
+      {
+        "title": "Retained child",
+        "href": "/app/pages/01M6QSKVH0YRAYT1GBWS3NH2JE",
+        "parent": "/app/pages/01M6QSKVF84515M7DR85YB77P6"
+      },
+      {
+        "title": "After retained tree",
+        "href": "/app/pages/01M6QSKVD2ZEGB0YCHVGQ2685G",
+        "parent": "/app/pages/01M6QSKV92K7S37G9MXZ67A7C4"
+      }
+    ],
+    "visibleAfter": [
+      {
+        "title": "Retention parent",
+        "href": "/app/pages/01M6QSKV92K7S37G9MXZ67A7C4",
+        "parent": null
+      },
+      {
+        "title": "Before retained tree",
+        "href": "/app/pages/01M6QSKVAR718V4WB93G6RZBE2",
+        "parent": "/app/pages/01M6QSKV92K7S37G9MXZ67A7C4"
+      },
+      {
+        "title": "Retained archive tree",
+        "href": "/app/pages/01M6QSKVF84515M7DR85YB77P6",
+        "parent": "/app/pages/01M6QSKV92K7S37G9MXZ67A7C4"
+      },
+      {
+        "title": "Retained database",
+        "href": "/app/databases/01M6QSKW0FQM6VRD65H7TQBBFE",
+        "parent": "/app/pages/01M6QSKVF84515M7DR85YB77P6"
+      },
+      {
+        "title": "Retained record",
+        "href": "/app/databases/01M6QSKW0FQM6VRD65H7TQBBFE/records/01M6QSKW6KHRJ9BDAEF9MG9H3A",
+        "parent": "/app/databases/01M6QSKW0FQM6VRD65H7TQBBFE"
+      },
+      {
+        "title": "Retained child",
+        "href": "/app/pages/01M6QSKVH0YRAYT1GBWS3NH2JE",
+        "parent": "/app/pages/01M6QSKVF84515M7DR85YB77P6"
+      },
+      {
+        "title": "After retained tree",
+        "href": "/app/pages/01M6QSKVD2ZEGB0YCHVGQ2685G",
+        "parent": "/app/pages/01M6QSKV92K7S37G9MXZ67A7C4"
+      }
+    ],
+    "aged": [
+      {
+        "id": "01M6QSKVF84515M7DR85YB77P6",
+        "title": "Retained archive tree",
+        "containerId": "01M6QSKV5C9X7XD1PBZMC7AGPC",
+        "revisionId": "01M6QSKWS0TZP7BVC3BSY1HDYK",
+        "archivedAt": null,
+        "trashedAt": "2001-02-03T04:05:06.000Z",
+        "reason": "Retain until an explicit restore.",
+        "occurredAt": "2001-02-03T04:05:06.000Z",
+        "actorMemberId": "browser-reader",
+        "actorDisplayName": "Morgan Reader",
+        "priorContainerId": "01M6QSKV5C9X7XD1PBZMC7AGPC",
+        "priorParentId": "01M6QSKV92K7S37G9MXZ67A7C4",
+        "priorPosition": "m",
+        "priorOrder": 2,
+        "priorContainerName": "Archive retention",
+        "priorParentTitle": "Retention parent"
+      },
+      {
+        "id": "01M6QSKVH0YRAYT1GBWS3NH2JE",
+        "title": "Retained child",
+        "containerId": "01M6QSKV5C9X7XD1PBZMC7AGPC",
+        "revisionId": "01M6QSKVH001HGT77EXTDJ89XA",
+        "archivedAt": null,
+        "trashedAt": "2001-02-03T04:05:06.000Z",
+        "reason": "Retain until an explicit restore.",
+        "occurredAt": "2001-02-03T04:05:06.000Z",
+        "actorMemberId": "browser-reader",
+        "actorDisplayName": "Morgan Reader",
+        "priorContainerId": "01M6QSKV5C9X7XD1PBZMC7AGPC",
+        "priorParentId": "01M6QSKVF84515M7DR85YB77P6",
+        "priorPosition": "a",
+        "priorOrder": 2,
+        "priorContainerName": "Archive retention",
+        "priorParentTitle": "Retained archive tree"
+      },
+      {
+        "id": "01M6QSKW0F1H6Y41GG28FM984G",
+        "title": "Retained database",
+        "containerId": "01M6QSKV5C9X7XD1PBZMC7AGPC",
+        "revisionId": "01M6QSKW0F43BG5CWTVM5EEJHW",
+        "archivedAt": null,
+        "trashedAt": "2001-02-03T04:05:06.000Z",
+        "reason": "Retain until an explicit restore.",
+        "occurredAt": "2001-02-03T04:05:06.000Z",
+        "actorMemberId": "browser-reader",
+        "actorDisplayName": "Morgan Reader",
+        "priorContainerId": "01M6QSKV5C9X7XD1PBZMC7AGPC",
+        "priorParentId": "01M6QSKVF84515M7DR85YB77P6",
+        "priorPosition": "2026-11-06T06:44:23.689Z:01M6QSKW0F1H6Y41GG28FM984G",
+        "priorOrder": 1,
+        "priorContainerName": "Archive retention",
+        "priorParentTitle": "Retained archive tree"
+      },
+      {
+        "id": "01M6QSKW6KHRJ9BDAEF9MG9H3A",
+        "title": "Retained record",
+        "containerId": "01M6QSKV5C9X7XD1PBZMC7AGPC",
+        "revisionId": "01M6QSKW8AM3KETH52N1ZBMCQ6",
+        "archivedAt": null,
+        "trashedAt": "2001-02-03T04:05:06.000Z",
+        "reason": "Retain until an explicit restore.",
+        "occurredAt": "2001-02-03T04:05:06.000Z",
+        "actorMemberId": "browser-reader",
+        "actorDisplayName": "Morgan Reader",
+        "priorContainerId": "01M6QSKV5C9X7XD1PBZMC7AGPC",
+        "priorParentId": "01M6QSKW0F1H6Y41GG28FM984G",
+        "priorPosition": "2026-11-06T06:44:23.855Z:01M6QSKW6KHRJ9BDAEF9MG9H3A",
+        "priorOrder": 1,
+        "priorContainerName": "Archive retention",
+        "priorParentTitle": "Retained database"
+      }
+    ]
+  }
+]

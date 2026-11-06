@@ -1,0 +1,24 @@
+{
+  "before": {
+    "head": "93b7327adee97ac0ff691bfb5cbff68f4412a27a",
+    "counts": {
+      "done": 57,
+      "partial": 240,
+      "missing": 41
+    },
+    "tableRows": 698,
+    "statusRows": 338,
+    "registrations": 207
+  },
+  "after": {
+    "head": "e6f8de70f3c2fc5baddcf256221d844a047b13c7",
+    "counts": {
+      "done": 57,
+      "partial": 240,
+      "missing": 41
+    },
+    "tableRows": 698,
+    "statusRows": 338,
+    "registrations": 207
+  }
+}

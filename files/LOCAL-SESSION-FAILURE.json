@@ -1,0 +1,23 @@
+{
+  "head": "7567c70f93dde61fe6e98218ffde4071747a9145",
+  "exit": 1,
+  "test": "real core-wiki and touch-member journeys at 390px",
+  "durationMs": 731064.880892,
+  "failure": "The late permanent-delete request returned 403; touch.close reported the refused request and browser resource error.",
+  "diagnosis": {
+    "stale": {
+      "status": 403,
+      "code": "STEP_UP_REQUIRED",
+      "message": "Confirm this with your email first. Slate sent a confirmation link to your address. Open it, then try again within 10 minutes.",
+      "unchanged": true
+    },
+    "freshNativeSignIn": {
+      "memberId": "browser-reader",
+      "deleteStatus": 200,
+      "deletedPageIds": [
+        "01M6QR481WZ2SNRXMY3X96F55C"
+      ]
+    }
+  },
+  "repair": "Confirm the same ordinary member again through the native magic-link door before the positive sensitive deletion; keep stale-proof refusals in the existing Worker journey. Give the composite phone caller a 15-minute harness budget for its remaining registered flows; change no product deadline or assertion."
+}

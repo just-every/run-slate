@@ -1,0 +1,101 @@
+{
+  "head": "e6f8de70f3c2fc5baddcf256221d844a047b13c7",
+  "scope": "ARCH-005 selected native points; full clause remains partial",
+  "browser": {
+    "file": "tests/qualification/ui-convergence/trash-list-journey.mjs",
+    "function": "trashListJourney",
+    "anchors": [
+      {
+        "line": 10,
+        "source": "const place=async()=>{"
+      },
+      {
+        "line": 51,
+        "source": "const rows=(await touch.api('/api/archive')).items.filter(item=>f.ids.includes(item.id));"
+      },
+      {
+        "line": 53,
+        "source": "for(const item of rows) {"
+      },
+      {
+        "line": 70,
+        "source": "for(const item of rows) {"
+      },
+      {
+        "line": 85,
+        "source": "await page.getByLabel('Prior space',{exact:true}).selectOption(containerId);await membership([...f.ids,sibling.pageId]);"
+      },
+      {
+        "line": 92,
+        "source": "await page.getByLabel('Prior space',{exact:true}).selectOption(otherSpace.id);await membership([other.pageId]);"
+      },
+      {
+        "line": 96,
+        "source": "await page.getByLabel('Prior space',{exact:true}).selectOption(containerId);await membership([...f.ids,sibling.pageId]);"
+      },
+      {
+        "line": 105,
+        "source": "await page.getByLabel('Prior space',{exact:true}).selectOption(containerId);"
+      },
+      {
+        "line": 107,
+        "source": "const aged='2001-02-03T04:05:06.000Z';"
+      },
+      {
+        "line": 112,
+        "source": "await state.runScheduled();await state.runScheduled();"
+      },
+      {
+        "line": 117,
+        "source": "await page.getByLabel('Prior space',{exact:true}).selectOption(containerId);"
+      },
+      {
+        "line": 126,
+        "source": "const visibleAfter=await place();"
+      },
+      {
+        "line": 130,
+        "source": "assert.deepEqual(await place(),visibleBefore,'The restored native tree remains in place after reload.');"
+      }
+    ]
+  },
+  "worker": {
+    "file": "tests/qualification/core/trash-retention-proof.ts",
+    "function": "trashRetentionProof",
+    "anchors": [
+      {
+        "line": 26,
+        "source": "expect(row).toMatchObject({actorMemberId:f.readerId,actorDisplayName:'Core reader',occurredAt:receipt.committedAt,"
+      },
+      {
+        "line": 39,
+        "source": "expect(await inventory()).toEqual(originalInventory.filter((item:any)=>!ids.includes(item.id)));"
+      },
+      {
+        "line": 51,
+        "source": "await scheduledJobs({...env,SLATE_PROFILE:'core-wiki'});"
+      },
+      {
+        "line": 52,
+        "source": "await scheduledJobs({...env,SLATE_PROFILE:'core-wiki'});"
+      },
+      {
+        "line": 53,
+        "source": "expect(await stored(),'repeated native scheduled processing never expires old trash or retained bytes').toEqual(agedState);"
+      },
+      {
+        "line": 62,
+        "source": "expect(await stored(),'an unauthorized restore and its retry change no retained page, location, receipt, activity or bytes').toEqual(agedState);"
+      },
+      {
+        "line": 67,
+        "source": "expect(await inventory(),'the entire subtree returns between the same surviving siblings').toEqual(originalInventory);"
+      },
+      {
+        "line": 68,
+        "source": "expect(await tree.snapshot(),'trash and restore retain populated data').toEqual(tree.before);"
+      }
+    ]
+  },
+  "held": "Complete exclusion beyond the selected native trash listing, ADMIN-007 and shared company-policy prerequisites remain unproven; no Slate clause is released."
+}

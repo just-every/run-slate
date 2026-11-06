@@ -1,0 +1,10 @@
+PROBE ARCH-005 2 provenance at 1440: native POST /api/archive/01M6QS1D4DQK8XQ5YNWSSD0GKX action=trash and GET /api/archive -> four descendants, deleting member browser-reader, receipt time 2026-11-06T06:34:53.038Z, original container, parent and order; visible reload agrees.
+PROBE ARCH-005 2 search and filters at 1440: native Search trash, Deleted by, Prior space and inclusive date controls -> exact asserted populated membership, empty result and clear behavior.
+PROBE ARCH-005 requirement restoration at 1440: native Restore on /api/archive/01M6QS1D4DQK8XQ5YNWSSD0GKX -> original seven-page inventory, identical visible addresses and parent relationships, root between original siblings, retained populated content and reload.
+PROBE ARCH-005 1 timer at 1440: actual trash aged to 2001 and two native scheduled passes -> all four retained rows survive, with bytes and content restored unchanged.
+PROBE ARCH-005 2 provenance at 390: native POST /api/archive/01M6QSKVF84515M7DR85YB77P6 action=trash and GET /api/archive -> four descendants, deleting member browser-reader, receipt time 2026-11-06T06:44:47.008Z, original container, parent and order; visible reload agrees.
+PROBE ARCH-005 2 search and filters at 390: native Search trash, Deleted by, Prior space and inclusive date controls -> exact asserted populated membership, empty result and clear behavior.
+PROBE ARCH-005 requirement restoration at 390: native Restore on /api/archive/01M6QSKVF84515M7DR85YB77P6 -> original seven-page inventory, identical visible addresses and parent relationships, root between original siblings, retained populated content and reload.
+PROBE ARCH-005 1 timer at 390: actual trash aged to 2001 and two native scheduled passes -> all four retained rows survive, with bytes and content restored unchanged.
+PROBE ARCH-005 restore authority: native outsider restore and replay -> 404, unchanged retained subtree, locations, receipts, activity and bytes; authorized restore succeeds in the passing Worker audit.
+PROBE ARCH-005 full exclusions: none, outside the selected scope and still named in the unchanged Gap with ADMIN-007 and shared company-policy prerequisites.

@@ -1,0 +1,20 @@
+{
+  "head": "7567c70f93dde61fe6e98218ffde4071747a9145",
+  "command": "node /tmp/slate-step-up-probe.mjs",
+  "exit": 0,
+  "probe": {
+    "stale": {
+      "status": 403,
+      "code": "STEP_UP_REQUIRED",
+      "message": "Confirm this with your email first. Slate sent a confirmation link to your address. Open it, then try again within 10 minutes.",
+      "unchanged": true
+    },
+    "freshNativeSignIn": {
+      "memberId": "browser-reader",
+      "deleteStatus": 200,
+      "deletedPageIds": [
+        "01M6QR481WZ2SNRXMY3X96F55C"
+      ]
+    }
+  }
+}

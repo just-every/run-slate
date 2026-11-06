@@ -1,0 +1,8 @@
+{
+  "path": "/home/agent/rer-consolidation/work/sd-slate-c-f177/product.bundle",
+  "sha256": "ec744d6548d5011096b03e8cd4653177c0ec36f7aa275ebb512bd43d8f8217e8",
+  "head": "e6f8de70f3c2fc5baddcf256221d844a047b13c7",
+  "basePrerequisite": "93b7327adee97ac0ff691bfb5cbff68f4412a27a",
+  "verifyExit": 0,
+  "verifyOutput": "/home/agent/rer-consolidation/work/sd-slate-c-f177/product.bundle.new is okay\nThe bundle contains this ref:\ne6f8de70f3c2fc5baddcf256221d844a047b13c7 refs/heads/cloud/sd-slate-c-f177\nThe bundle requires this ref:\n93b7327adee97ac0ff691bfb5cbff68f4412a27a \nThe bundle uses this hash algorithm: sha1\n"
+}
