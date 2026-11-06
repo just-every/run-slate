@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import {createHash} from 'node:crypto';
 import {mkdir,mkdtemp,readFile,rm} from 'node:fs/promises';
 import path from 'node:path';
 import {expect} from '@playwright/test';
@@ -121,6 +122,7 @@ export async function transferJobsJourney(state) {
   assert.equal(upload.status(),200,await upload.text());
   const uploaded=await upload.json();
   const referential=await prepareReferentialRestore(state,evidence);
+  await open();
   await state.fixtureSql(["CREATE TRIGGER qualification_transfer_abort BEFORE UPDATE OF state ON federation_exports WHEN NEW.state='completed' BEGIN SELECT RAISE(ABORT,'labelled late recovery fault'); END"]);
   let failed;
   try {
@@ -184,7 +186,7 @@ export async function transferJobsJourney(state) {
     }
     const recoveredFile=await context.request.get(target.origin+`/api/media/${uploaded.value.id}`);
     assert.equal(recoveredFile.status(),200);assert.deepEqual(await recoveredFile.body(),original);
-    await proveReferentialRestore(destination,target,referential,archive,evidence);
+    await proveReferentialRestore(destination,target,referential,archive,evidence,{export:complete,restore:restored,archive:{bytes:bytes.length,sha256:createHash('sha256').update(bytes).digest('hex')}});
     console.log(`PROBE PORT-003 1: failed native export and restore replay and reload -> failed, no download or successful restore action`);
     console.log(`PROBE PORT-003 2: Settings export and empty-deployment restore -> queued, running, completed and failed persisted; counts equal native archive; safe reports identify commit failures`);
   } finally {await context?.close();await target?.close();await rm(scratch,{recursive:true,force:true});}

@@ -229,7 +229,7 @@ Changing the reviewed destination's membership invalidates its old native sessio
 
 ## Selected referential restore
 
-`referentialRestore` proof is folded into `transferJobsJourney` in
+The PORT-002 proof is folded into `transferJobsJourney` in
 `./tests/qualification/ui-convergence/transfer-jobs-journey.mjs` by the focused
 `prepareReferentialRestore` and `proveReferentialRestore` helpers in
 `./tests/qualification/ui-convergence/referential-restore-journey.mjs`.

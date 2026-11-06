@@ -25,16 +25,16 @@ export async function prepareReferentialRestore(state,evidence) {
   try {
     const reader=(await ok(readerContext,origin,'GET','/api/session')).member;
     const containerId=(await ok(context,origin,'POST','/api/containers',{operationKey:key(),name:'Transfer field guide',visibility:'private'})).value.id;
-    const create=async(title,treePosition,parentPageId,text)=>{
+    const create=async(title,treePosition,parentPageId,text,link)=>{
       const blockId=key();
-      const result=await ok(context,origin,'POST','/api/pages',{operationKey:key(),containerId,parentPageId,title,treePosition,blocks:[{id:blockId,blockType:'paragraph',content:{text:[{text}]},treePosition:'a'}]});
+      const result=await ok(context,origin,'POST','/api/pages',{operationKey:key(),containerId,parentPageId,title,treePosition,blocks:[{id:blockId,blockType:'paragraph',content:{text:[{text},...(link?[{text:'Open group checklist',link:{href:pagePath(link)}}]:[])]},treePosition:'a'}]});
       return {id:result.value.pageId,blockId,title};
     };
     const parent=await create('Transfer guide','a',undefined,oldText);
     // Deliberately create the siblings in an order different from their retained positions.
     const groupChild=await create('Group checklist','c',parent.id,'synthetic-slate-313: inherited group checklist');
     const denied=await create('Owner annex','b',parent.id,'synthetic-slate-314: owner-only annex');
-    const direct=await create('Member appendix','a',parent.id,'synthetic-slate-315: direct member appendix');
+    const direct=await create('Member appendix','a',parent.id,'synthetic-slate-315: direct member appendix. ',groupChild.id);
     const pages=[parent,direct,denied,groupChild];
     const groupId=(await ok(context,origin,'POST','/api/groups',{operationKey:key(),name:'Transfer reviewers',memberIds:[reader.id]})).value.id;
     await ok(context,origin,'POST','/api/sharing',{operationKey:key(),targetKind:'page',targetId:parent.id,principalKind:'group',principalId:groupId,level:'edit'});
@@ -140,10 +140,9 @@ async function treeScreen(page,origin,fixture,evidence,label) {
 }
 
 /** Retained addresses, exact history, selected text and originals through a fresh restored session. */
-export async function proveReferentialRestore(state,target,fixture,archive,evidence) {
+export async function proveReferentialRestore(state,target,fixture,archive,evidence,transfer) {
   const {context,page,origin}=state,width=page.viewportSize().width;
   const before=selected(archive,fixture);
-  assert.equal(before.pages.length,4);assert.equal(before.comment_threads.length,1);assert.equal(before.files.length,2);
   for(const item of fixture.pages) {
     const row=before.pages.find(row=>row.id===item.id),source=fixture.source.documents[item.id];
     assert.equal(row.working_revision_id,source.workingRevisionId);
@@ -164,10 +163,10 @@ export async function proveReferentialRestore(state,target,fixture,archive,evide
   }
   const ownerReadback=await snapshot(context,origin,fixture);
   assert.deepEqual(ownerReadback,fixture.source,'Fresh restored owner reads the same selected documents, full page history, tree, grants, group and anchored discussion.');
-  const out=path.join(evidence,`${width}-selected-restored.zip`);
+  const out=path.join(path.dirname(target.persist),'selected-restored.zip');
   const cookie=(await context.cookies(origin)).find(item=>item.name==='slate_session');
   await target.cli('export',out,`slate_session=${cookie.value}`);
-  const destination=unpack(await readFile(out));
+  const destinationBytes=await readFile(out),destination=unpack(destinationBytes);
   assert.deepEqual(selected(destination,fixture),before,'The destination native export retains every selected archived field.');
   for(const original of fixture.originals) {
     const file=destination.manifest.tables.files.find(row=>row.id===original.id);
@@ -215,13 +214,19 @@ export async function proveReferentialRestore(state,target,fixture,archive,evide
       const response=await context.request.get(origin+`/api/media/${original.id}`);
       assert.equal(response.status(),200);assert.deepEqual(await response.body(),original.bytes);
     }
-    await memberPage.goto(origin+pagePath(fixture.parent.id),{waitUntil:'networkidle'});
-    await memberPage.locator(`[data-block-id="${fixture.parent.blockId}"]`).getByRole('link',{name:'Open member appendix',exact:true}).click();
-    await expect(memberPage).toHaveURL(origin+pagePath(fixture.direct.id));
-    await expect(memberPage.getByRole('textbox',{name:'Page title',exact:true})).toHaveValue(fixture.direct.title);
-    await memberPage.reload({waitUntil:'networkidle'});
-    await expect(memberPage.locator(`[data-block-id="${fixture.direct.blockId}"]`)).toContainText('direct member appendix');
-    await memberPage.screenshot({path:path.join(evidence,`${width}-restored-member-link.png`),fullPage:true});
+    await memberPage.goto(origin+pagePath(fixture.direct.id),{waitUntil:'networkidle'});
+    const opened=memberPage.waitForEvent('popup');
+    const link=memberPage.locator(`[data-block-id="${fixture.direct.blockId}"]`).getByRole('link',{name:'Open group checklist',exact:true});
+    await expect(link).toHaveAttribute('href',pagePath(fixture.groupChild.id));
+    await link.click();
+    const linked=await opened;
+    try {
+      await expect(linked).toHaveURL(origin+pagePath(fixture.groupChild.id));
+      await expect(linked.getByRole('textbox',{name:'Page title',exact:true})).toHaveValue(fixture.groupChild.title);
+      await linked.reload({waitUntil:'networkidle'});
+      await expect(linked.locator(`[data-block-id="${fixture.groupChild.blockId}"]`)).toContainText('inherited group checklist');
+      await linked.screenshot({path:path.join(evidence,`${width}-restored-member-link.png`),fullPage:true});
+    } finally {await linked.close();}
     await memberPage.goto(origin+pagePath(fixture.parent.id)+`?detail=history&revision=${fixture.revision}`,{waitUntil:'networkidle'});
     await expect(memberPage.locator('.revision-preview')).toContainText(oldText);
     await expect(memberPage.locator('.revision-preview')).not.toContainText(bodyText);
@@ -243,7 +248,8 @@ export async function proveReferentialRestore(state,target,fixture,archive,evide
     await memberPage.reload({waitUntil:'networkidle'});
     await expect(memberPage.locator('body')).not.toContainText('owner-only annex');
     await memberPage.screenshot({path:path.join(evidence,`${width}-restored-refusal.png`),fullPage:true});
-    await writeFile(path.join(evidence,`${width}-referential-restore.json`),JSON.stringify({width,source:fixture.source,archive:before,destination:ownerReadback,restoredArchive:selected(destination,fixture),sourceAccess:fixture.sourceAccess,restoredAccess,sessionRefusals,files:fixture.originals.map(({bytes,...item})=>({...item,bytes:bytes.length,sha256:hash(bytes)})),retainedAddresses:{pages:fixture.pages.map(item=>pagePath(item.id)),revision:pagePath(fixture.parent.id)+`?revision=${fixture.revision}`,discussion:pagePath(fixture.parent.id)+`?thread=${fixture.threadId}&comment=${fixture.commentId}`}},null,2));
+    assert.deepEqual(await snapshot(context,origin,fixture),ownerReadback,'Following retained addresses and refused member mutations leave the selected documents, histories, grants, group and discussion unchanged.');
+    await writeFile(path.join(evidence,`${width}-referential-restore.json`),JSON.stringify({width,transfer,destinationArchive:{bytes:destinationBytes.length,sha256:hash(destinationBytes)},source:fixture.source,archive:before,destination:ownerReadback,restoredArchive:selected(destination,fixture),sourceAccess:fixture.sourceAccess,restoredAccess,sessionRefusals,files:fixture.originals.map(({bytes,...item})=>({...item,bytes:bytes.length,sha256:hash(bytes)})),retainedAddresses:{pages:fixture.pages.map(item=>pagePath(item.id)),revision:pagePath(fixture.parent.id)+`?revision=${fixture.revision}`,discussion:pagePath(fixture.parent.id)+`?thread=${fixture.threadId}&comment=${fixture.commentId}`}},null,2));
     console.log(`PROBE PORT-002 1: downloaded Settings ZIP -> native empty restore; four retained page IDs, exact history, ordered siblings, direct and group grants, internal page link, selected discussion anchor and original bytes match source`);
     console.log(`PROBE PORT-002 2: fresh restored owner and invited member at ${width}px -> retained links, exact earlier version and anchor survive reload; revoked page, history, comments and original refused; view-only write 404 with unchanged content`);
   } finally {await invited.close();}
