@@ -11456,7 +11456,7 @@
       "executable": false
     },
     "tests/portability/runtime.mjs": {
-      "sha256": "ada6f347adb510358b436e0ac7a2dcf996cb2a527be40da30be0611fea2d54ee",
+      "sha256": "e884acc3bc2665b8e84ca120c34613190d265b162d756b4c1f7176593333e208",
       "executable": false
     },
     "tests/profile/body-blocks-journey.ts": {
@@ -11884,7 +11884,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/automation-restart-journey.mjs": {
-      "sha256": "e262ed8150d2b60efc3545c9519f614d931569ef0fe28f5df3ac0ddabca5a75f",
+      "sha256": "4ce85043887c0dd217e19b3bd9fb144f60c96e3e75f56251074222e5a36b3cba",
       "executable": false
     },
     "tests/qualification/ui-convergence/automation-run-log-journey.mjs": {
@@ -12416,11 +12416,11 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "102d9342e27e9d77cd6c1e95f0f06731d71acd2a74e9b3c3a4c40fc86d64e459",
+      "sha256": "40a2bcb095d925b33fd30667f0d8ebb164638fd5829aef921ea045e3c55b3a9a",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
-      "sha256": "782543139762ccc58d2afe7fc79fc80ee53e7a786bee1246d2485ee1b8bdb2d2",
+      "sha256": "9edc3e7cb18ac79b44a7ae79dfa3ee44791e64570b301618b49ca35791e4f525",
       "executable": false
     },
     "tests/requirements/count-registrations.mjs": {
@@ -12432,7 +12432,7 @@
       "executable": false
     },
     "tests/requirements/test-evidence.json": {
-      "sha256": "3f3b1a0c840694fabc83d438abed7848b851e541dffb2de62bfacef4d7c9c791",
+      "sha256": "5a58b6cb55db6e13b86010ccd14cbb673c5679e8afc92d632207ddecff7103a0",
       "executable": false
     },
     "tests/rer/editor.test.mjs": {
