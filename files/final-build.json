@@ -1,0 +1,14 @@
+{
+  "command": [
+    "bash",
+    "-c",
+    ". /tmp/rer-cloud-toolchain.sh; cloud_run npx -y @runeditrun/rer build"
+  ],
+  "exit": 0,
+  "finished": "2026-11-06T10:06:01.018684+00:00",
+  "head": "ce491094246d05d3e9a04881553ffc31b4b005df",
+  "log": "final-build.log",
+  "seconds": 25.734,
+  "sha256": "5ddab026a634bdf1e35ee18623a1bbf39086339e8d52ca526b17385cc3dd5c76",
+  "started": "2026-11-06T10:05:35.284933+00:00"
+}

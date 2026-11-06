@@ -1,0 +1,27 @@
+{
+  "allLogHashesMatch": true,
+  "count": 21,
+  "verifiedLogReceipts": [
+    "final-typecheck.json",
+    "ci-app-failed-log.json",
+    "final-integration.json",
+    "pre-push-main-merge.json",
+    "desktop-journey.json",
+    "pre-push-mechanical.json",
+    "final-build.json",
+    "final-views.json",
+    "build.json",
+    "phone-journey.json",
+    "screen-proof.json",
+    "product-push.json",
+    "pre-candidate-lock.json",
+    "final-phone-journey.json",
+    "final-lock.json",
+    "exact-head-mechanical.json",
+    "final-first-party.json",
+    "pre-candidate-views.json",
+    "final-main-merge.json",
+    "pre-candidate-integration.json",
+    "desktop-port-invocation.json"
+  ]
+}

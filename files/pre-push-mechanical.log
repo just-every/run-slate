@@ -1,0 +1,5 @@
+rer toolchain: node v24.19.0 pnpm 10.12.4 (pins 22.20.0 / 10.12.4)
+Wrote 1 contract documents.
+Contract documents are current.
+Integration resource, migration and source identities match.
+MECHANICAL lock=node scripts/edition-authoring/cli.mjs lock then check exit=0; views=node src/base/runtime/contract-docs.mjs write then check and restore views exit=0; ledger=none exit=0

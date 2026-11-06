@@ -1,0 +1,17 @@
+{
+  "verified": true,
+  "actual": {
+    "commit": "ce491094246d05d3e9a04881553ffc31b4b005df",
+    "tree": "eda1d63b138cd9921c4156426e959d5a0d9735bf",
+    "sourceSha256": "06e6cc5f530940222cef571834dd3a9c93cf77750a8a662fbb47370ec0556899",
+    "lockSha256": "c4769a9f5561cc0a7af842ef215f48fb54b8caa387545df7429d4fb5c97815ea"
+  },
+  "artifact": {
+    "schema": 1,
+    "commit": "ce491094246d05d3e9a04881553ffc31b4b005df",
+    "tree": "eda1d63b138cd9921c4156426e959d5a0d9735bf",
+    "sourceSha256": "06e6cc5f530940222cef571834dd3a9c93cf77750a8a662fbb47370ec0556899",
+    "lockSha256": "c4769a9f5561cc0a7af842ef215f48fb54b8caa387545df7429d4fb5c97815ea",
+    "outputSha256": "d3fc933e04ff2a0e269638159d563b0e3d66b3ffc6968afd4a35fdd1c98f523d"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "base": "bc567c9b6f6b25c98cb6fa05b9ab0fe37628a547",
+  "head": "ce491094246d05d3e9a04881553ffc31b4b005df",
+  "kind": "incremental Git bundle containing both product commits; requires the stated main base",
+  "path": "/home/agent/rer-consolidation/work/sd-slate-c-f186/product.bundle",
+  "purpose": "recovery only; no READY or push inference",
+  "sha256": "e990a5c95b8faaf81fe057c60908915502c60beb5b4fc45148604f4b3337edd4",
+  "verified": true
+}

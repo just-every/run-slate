@@ -1,0 +1,18 @@
+PROBE NAV-006 table populated native creation: native member HTTP and touch controls -> saved, reloaded and complete native content reconciled
+PROBE NAV-006 table heading edit: native member HTTP and touch controls -> saved, reloaded and complete native content reconciled
+PROBE NAV-006 table cell edit: native member HTTP and touch controls -> saved, reloaded and complete native content reconciled
+PROBE NAV-006 table add row: native member HTTP and touch controls -> saved, reloaded and complete native content reconciled
+PROBE NAV-006 table edit added row: native member HTTP and touch controls -> saved, reloaded and complete native content reconciled
+PROBE NAV-006 table remove selected row: native member HTTP and touch controls -> saved, reloaded and complete native content reconciled
+PROBE NAV-006 table add column: native member HTTP and touch controls -> saved, reloaded and complete native content reconciled
+PROBE NAV-006 table edit added heading: native member HTTP and touch controls -> saved, reloaded and complete native content reconciled
+PROBE NAV-006 table edit added column: native member HTTP and touch controls -> saved, reloaded and complete native content reconciled
+PROBE NAV-006 table remove selected column: native member HTTP and touch controls -> saved, reloaded and complete native content reconciled
+PROBE NAV-006 table merge populated rectangle: native member HTTP and touch controls -> saved, reloaded and complete native content reconciled
+PROBE NAV-006 table edit merged anchor: native member HTTP and touch controls -> saved, reloaded and complete native content reconciled
+PROBE NAV-006 table unmerge retains covered cells: native member HTTP and touch controls -> saved, reloaded and complete native content reconciled
+PROBE NAV-006 table edit uncovered cell: native member HTTP and touch controls -> saved, reloaded and complete native content reconciled
+PROBE NAV-006 table merge far-right populated rectangle: native member HTTP and touch controls -> saved, reloaded and complete native content reconciled
+PROBE NAV-006 table edit far-right merged anchor: native member HTTP and touch controls -> saved, reloaded and complete native content reconciled
+PROBE NAV-006 table unmerge far-right retains covered cells: native member HTTP and touch controls -> saved, reloaded and complete native content reconciled
+PROBE NAV-006 table edit coloured covered cell after far-right unmerge: native member HTTP and touch controls -> saved, reloaded and complete native content reconciled

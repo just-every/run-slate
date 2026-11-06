@@ -1,0 +1,14 @@
+{
+  "command": [
+    "bash",
+    "-c",
+    ". /tmp/rer-cloud-toolchain.sh; cloud_run npx -y @runeditrun/rer check --profile first-party"
+  ],
+  "exit": 0,
+  "finished": "2026-11-06T10:05:30.216646+00:00",
+  "head": "ce491094246d05d3e9a04881553ffc31b4b005df",
+  "log": "final-first-party.log",
+  "seconds": 1.805,
+  "sha256": "0be1c32f376f15c72452fd602286b701e3a1fc7ff2cc7add4b5b721266c84cbc",
+  "started": "2026-11-06T10:05:28.411492+00:00"
+}

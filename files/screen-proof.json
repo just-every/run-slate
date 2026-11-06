@@ -1,0 +1,14 @@
+{
+  "command": [
+    "bash",
+    "-c",
+    ". /tmp/rer-cloud-toolchain.sh; cloud_run env SLATE_PACKET=\"$HOME/rer-consolidation/work/sd-slate-c-f186/packet\" SLATE_CHROMIUM_PATH=/usr/bin/chromium timeout 1200 node /tmp/slate-screen-proof.mjs"
+  ],
+  "exit": 0,
+  "finished": "2026-11-06T10:07:39.395495+00:00",
+  "head": "ce491094246d05d3e9a04881553ffc31b4b005df",
+  "log": "screen-proof.log",
+  "seconds": 85.121,
+  "sha256": "19d0d6c2f881503fa19f664df31b2fbc623195ba2d432590f6e0721bd8cc4073",
+  "started": "2026-11-06T10:06:14.274816+00:00"
+}

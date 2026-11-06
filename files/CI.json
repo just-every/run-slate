@@ -1,0 +1,22 @@
+{
+  "aggregateJob": 127837328487,
+  "appJob": 127837035010,
+  "ciTestShards": "skipped; not counted as passing tests",
+  "classification": "Only generated ACCEPTANCE.md freshness fails; aggregate follows its dependency; browser and contract shards skipped.",
+  "conclusion": "failure",
+  "event": "push",
+  "failedJobArchiveCommand": "gh run view 42201308575 --repo just-every/run-slate --job 127837035010 --log-failed",
+  "failedJobArchiveExit": 0,
+  "githubCallsUsedIncludingBaseline": 5,
+  "head_sha": "ce491094246d05d3e9a04881553ffc31b4b005df",
+  "html_url": "https://github.com/just-every/run-slate/actions/runs/42201308575",
+  "id": 42201308575,
+  "localTouchedChecksPass": true,
+  "name": "Verify Slate",
+  "observedAt": "2026-11-06T10:21:10.974436+00:00",
+  "permittedGeneratedViewException": true,
+  "repairs": 0,
+  "reruns": 0,
+  "status": "completed",
+  "watcherCalls": 2
+}

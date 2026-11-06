@@ -1,0 +1,14 @@
+{
+  "command": [
+    "bash",
+    "-c",
+    ". /tmp/rer-cloud-toolchain.sh; pnpm typecheck"
+  ],
+  "exit": 0,
+  "finished": "2026-11-06T10:05:28.375806+00:00",
+  "head": "ce491094246d05d3e9a04881553ffc31b4b005df",
+  "log": "final-typecheck.log",
+  "seconds": 19.642,
+  "sha256": "0eaac8cbb325b5f5aa564ed49b0a5febfcec1f0c1d6edcc452ee45305ae1d6a7",
+  "started": "2026-11-06T10:05:08.734029+00:00"
+}

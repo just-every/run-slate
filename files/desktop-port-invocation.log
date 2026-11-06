@@ -1,0 +1,24 @@
+rer toolchain: node v24.19.0 pnpm 10.12.4 (pins 22.20.0 / 10.12.4)
+✖ spreadsheet tables merge, sort and round-trip through edited database records at 1440px (1373.473163ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 18235.282109
+
+✖ failing tests:
+
+test at tests/qualification/ui-convergence/journey-shard.mjs:23:97
+✖ spreadsheet tables merge, sort and round-trip through edited database records at 1440px (1373.473163ms)
+  Error: Explicit ports in 57000-57019 required
+      at qualificationPorts (file:///home/agent/rer-consolidation/work/sd-slate-c-f186/run-slate/tests/qualification/local/ports.mjs:7:118)
+      at startShellWorker (file:///home/agent/rer-consolidation/work/sd-slate-c-f186/run-slate/tests/qualification/release-shell/runtime.mjs:10:13)
+      at startWorker (file:///home/agent/rer-consolidation/work/sd-slate-c-f186/run-slate/tests/qualification/ui-convergence/browser-support.mjs:68:29)
+      at withWorkspace (file:///home/agent/rer-consolidation/work/sd-slate-c-f186/run-slate/tests/qualification/ui-convergence/browser-support.mjs:72:21)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async TestContext.<anonymous> (file:///home/agent/rer-consolidation/work/sd-slate-c-f186/run-slate/tests/qualification/ui-convergence/journeys.test.mjs:155:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3)

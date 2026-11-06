@@ -1,0 +1,172 @@
+{
+  "CI": {
+    "aggregateJob": 127837328487,
+    "appJob": 127837035010,
+    "ciTestShards": "skipped; not counted as passing tests",
+    "classification": "Only generated ACCEPTANCE.md freshness fails; aggregate follows its dependency; browser and contract shards skipped.",
+    "conclusion": "failure",
+    "event": "push",
+    "failedJobArchiveCommand": "gh run view 42201308575 --repo just-every/run-slate --job 127837035010 --log-failed",
+    "failedJobArchiveExit": 0,
+    "githubCallsUsedIncludingBaseline": 5,
+    "head_sha": "ce491094246d05d3e9a04881553ffc31b4b005df",
+    "html_url": "https://github.com/just-every/run-slate/actions/runs/42201308575",
+    "id": 42201308575,
+    "localTouchedChecksPass": true,
+    "name": "Verify Slate",
+    "observedAt": "2026-11-06T10:21:10.974436+00:00",
+    "permittedGeneratedViewException": true,
+    "repairs": 0,
+    "reruns": 0,
+    "status": "completed",
+    "watcherCalls": 2
+  },
+  "NAV-006": {
+    "R-9": "not run",
+    "after": "partial",
+    "before": "partial",
+    "broaderCoverage": "unproven"
+  },
+  "branch": "cloud/sd-slate-c-f186",
+  "checks": {
+    "desktop-journey": {
+      "command": [
+        "bash",
+        "-c",
+        ". /tmp/rer-cloud-toolchain.sh; cloud_run env SLATE_CHROMIUM_PATH=/usr/bin/chromium timeout 1200 node --test --test-concurrency=1 \"--test-name-pattern=^spreadsheet tables merge, sort and round-trip through edited database records at 1440px$\" tests/qualification/ui-convergence/journeys.test.mjs"
+      ],
+      "exit": 0,
+      "finished": "2026-11-06T10:00:13.642449+00:00",
+      "head": "c18b6814dccddfffc6c72c3c3ec9871df473a909",
+      "log": "desktop-journey.log",
+      "seconds": 142.837,
+      "sha256": "9780fe854948a05bb4c5f722a3877df5df302a8cc96d960f1213e188d6f39dfa",
+      "started": "2026-11-06T09:57:50.805284+00:00"
+    },
+    "final-build": {
+      "command": [
+        "bash",
+        "-c",
+        ". /tmp/rer-cloud-toolchain.sh; cloud_run npx -y @runeditrun/rer build"
+      ],
+      "exit": 0,
+      "finished": "2026-11-06T10:06:01.018684+00:00",
+      "head": "ce491094246d05d3e9a04881553ffc31b4b005df",
+      "log": "final-build.log",
+      "seconds": 25.734,
+      "sha256": "5ddab026a634bdf1e35ee18623a1bbf39086339e8d52ca526b17385cc3dd5c76",
+      "started": "2026-11-06T10:05:35.284933+00:00"
+    },
+    "final-first-party": {
+      "command": [
+        "bash",
+        "-c",
+        ". /tmp/rer-cloud-toolchain.sh; cloud_run npx -y @runeditrun/rer check --profile first-party"
+      ],
+      "exit": 0,
+      "finished": "2026-11-06T10:05:30.216646+00:00",
+      "head": "ce491094246d05d3e9a04881553ffc31b4b005df",
+      "log": "final-first-party.log",
+      "seconds": 1.805,
+      "sha256": "0be1c32f376f15c72452fd602286b701e3a1fc7ff2cc7add4b5b721266c84cbc",
+      "started": "2026-11-06T10:05:28.411492+00:00"
+    },
+    "final-phone-journey": {
+      "command": [
+        "bash",
+        "-c",
+        ". /tmp/rer-cloud-toolchain.sh; cloud_run env SLATE_CHROMIUM_PATH=/usr/bin/chromium timeout 1200 node --test --test-concurrency=1 \"--test-name-pattern=^real core-wiki and touch-member journeys at 390px$\" tests/qualification/ui-convergence/journeys.test.mjs"
+      ],
+      "exit": 0,
+      "finished": "2026-11-06T10:15:24.218671+00:00",
+      "head": "ce491094246d05d3e9a04881553ffc31b4b005df",
+      "log": "final-phone-journey.log",
+      "seconds": 563.171,
+      "sha256": "189aa385c591a55b48ed82ae4b885028af1025778f1c86b598ec9623fabed2c1",
+      "started": "2026-11-06T10:06:01.047766+00:00"
+    },
+    "final-typecheck": {
+      "command": [
+        "bash",
+        "-c",
+        ". /tmp/rer-cloud-toolchain.sh; pnpm typecheck"
+      ],
+      "exit": 0,
+      "finished": "2026-11-06T10:05:28.375806+00:00",
+      "head": "ce491094246d05d3e9a04881553ffc31b4b005df",
+      "log": "final-typecheck.log",
+      "seconds": 19.642,
+      "sha256": "0eaac8cbb325b5f5aa564ed49b0a5febfcec1f0c1d6edcc452ee45305ae1d6a7",
+      "started": "2026-11-06T10:05:08.734029+00:00"
+    },
+    "pre-push-mechanical": {
+      "command": [
+        "bash",
+        "/tmp/slate-mechanical.sh"
+      ],
+      "exit": 0,
+      "finished": "2026-11-06T10:15:41.840422+00:00",
+      "head": "ce491094246d05d3e9a04881553ffc31b4b005df",
+      "log": "pre-push-mechanical.log",
+      "seconds": 1.62,
+      "sha256": "84aa5edcb59cd6e906136433615a3e498e2b4d2e3546468f494cad0c2995841e",
+      "started": "2026-11-06T10:15:40.220139+00:00"
+    },
+    "screen-proof": {
+      "command": [
+        "bash",
+        "-c",
+        ". /tmp/rer-cloud-toolchain.sh; cloud_run env SLATE_PACKET=\"$HOME/rer-consolidation/work/sd-slate-c-f186/packet\" SLATE_CHROMIUM_PATH=/usr/bin/chromium timeout 1200 node /tmp/slate-screen-proof.mjs"
+      ],
+      "exit": 0,
+      "finished": "2026-11-06T10:07:39.395495+00:00",
+      "head": "ce491094246d05d3e9a04881553ffc31b4b005df",
+      "log": "screen-proof.log",
+      "seconds": 85.121,
+      "sha256": "19d0d6c2f881503fa19f664df31b2fbc623195ba2d432590f6e0721bd8cc4073",
+      "started": "2026-11-06T10:06:14.274816+00:00"
+    }
+  },
+  "cleanProductCheckout": true,
+  "countsAfter": {
+    "done": 57,
+    "missing": 41,
+    "partial": 240
+  },
+  "countsBefore": {
+    "done": 57,
+    "missing": 41,
+    "partial": 240
+  },
+  "desktopEquivalence": {
+    "allProductSourceBytesEqual": true,
+    "desktopFunctionSha256": "ae9a6db528df0d260a735565a79d99d5e7f93d1758e9cc81ba06690748d02390",
+    "desktopTableJourneyBytesEqual": true,
+    "entireJourneyCallerBytesEqual": true,
+    "finalPhoneRegistration": {
+      "exit": 0,
+      "head": "ce491094246d05d3e9a04881553ffc31b4b005df",
+      "readbackCheckpoints": 18,
+      "seconds": 563.171
+    },
+    "head": "ce491094246d05d3e9a04881553ffc31b4b005df",
+    "passingDesktopSource": "c18b6814dccddfffc6c72c3c3ec9871df473a909"
+  },
+  "evidenceIsIndependentOfProductCustody": true,
+  "guardedLanding": "pending",
+  "handoff": "READY under the explicit generated-view exception; guarded regeneration, exact-head green Verify, publication scan and landing remain pending",
+  "head": "ce491094246d05d3e9a04881553ffc31b4b005df",
+  "main": "bc567c9b6f6b25c98cb6fa05b9ab0fe37628a547",
+  "nativeTablePoint": "closed",
+  "productPushExit": 0,
+  "productPushed": true,
+  "publicationScan": "pending guarded lander",
+  "readbackCheckpoints": 18,
+  "remoteHead": "ce491094246d05d3e9a04881553ffc31b4b005df",
+  "remoteRef": "refs/heads/cloud/sd-slate-c-f186",
+  "repository": "just-every/run-slate",
+  "runSite": "pending after guarded landing",
+  "statusRows": 338,
+  "testsAfter": 207,
+  "testsBefore": 207
+}

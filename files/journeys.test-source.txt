@@ -1,0 +1,426 @@
+1: import {automationRunLogJourney} from "./automation-run-log-journey.mjs";
+2: import {contentQueryJourney} from './content-query-journey.mjs';
+3: import {publicProfileJourney} from './public-profile-journey.mjs';
+4: import {transferJobsJourney} from './transfer-jobs-journey.mjs';
+5: import { commentAuthorshipJourney } from './comments-journey.mjs';
+6: import { pageStatusJourney } from './page-status-journey.mjs';
+7: import { publicationJourney } from './publication-journey.mjs';
+8: import {unpublishedChangesJourney} from './unpublished-changes-journey.mjs';
+9: import {pageDetailsJourney} from './page-details-journey.mjs';
+10: import {syncedCustodyJourney,syncedHistoryJourney,syncedMemberErasureJourney} from './synced-custody.mjs';
+11: import {peopleJourney} from './people-journey.mjs';
+12: import {workspaceAuthorityJourney} from './workspace-authority-journey.mjs';
+13: import {syncedJourney} from './synced-journey.mjs';
+14: import {touchDatabaseToolsJourney} from './touch-database-tools-journey.mjs';
+15: import {archiveRetentionJourney} from './archive-retention-journey.mjs';
+16: import {touchManagementJourney} from './touch-management-journey.mjs';
+17: import {touchPageToolsJourney} from './touch-page-tools-journey.mjs';
+18: import {touchOperatorJourney} from './touch-operator-journey.mjs';
+19: import {columnsJourney} from './columns-journey.mjs';
+20: import {beginTouchJourney} from './touch-journey.mjs';
+21: import {touchCommentJourney,touchPublishShareJourney} from './touch-page.mjs';
+22: import {touchDatabaseJourney} from './touch-database.mjs';
+23: import { samlJourney } from './saml-journey.mjs';
+24: import { folderJourney } from './folder-journey.mjs';
+25: import {tablesJourney,touchTablesJourney} from './tables-journey.mjs';
+26: import {providerEmbedsJourney} from './provider-embeds-journey.mjs';
+27: import { exportCommentsJourney } from './export-comments-journey.mjs';
+28: import { backupsJourney } from './backups-journey.mjs';
+29: import { presentationJourney } from './presentation-journey.mjs';
+30: import { analyticsJourney } from './analytics-journey.mjs';
+31: import { reactionsJourney } from './reactions-journey.mjs';
+32: import { pageDisplayJourney } from './page-display-journey.mjs';
+33: import { createInPlaceJourney } from './create-in-place-journey.mjs';
+34: import { statusProfileJourney } from './status-profile-journey.mjs';
+35: import assert from 'node:assert/strict';
+36: import { journeyTest as test } from './journey-shard.mjs';
+37: import { expect } from '@playwright/test';
+38: 
+39: // Consecutive steps share their parent journey's workspace and registration.
+40: async function step(name, run) {
+41:   try { await run(); }
+42:   catch (cause) {
+43:     if (cause instanceof Error) { cause.message = `Step ${name} failed: ${cause.message}`; throw cause; }
+44:     throw new Error(`Step ${name} failed: ${String(cause)}`);
+45:   }
+46: }
+47: import { accessible, setupWorkspace, withWorkspace } from './browser-support.mjs';
+48: import { commentJourney, searchJourney, settingsJourney, shareJourney, writeJourney } from './core-journeys.mjs';
+49: import { askDraftJourney } from './ask-journey.mjs';
+50: import { withSecondPerson, call } from './two-people-support.mjs';
+51: import { concurrentEditingJourney } from './two-people-editing.mjs';
+52: import { accessChangeJourney } from './two-people-access.mjs';
+53: import { versionDeletionJourney } from './version-deletion-journey.mjs';
+54: import { historyJourney } from './two-people-history.mjs';
+55: import { databaseJourney } from './database-journey.mjs';
+56: import { recordDetailJourney } from './record-detail-journey.mjs';
+57: import { reviewRequestJourney } from './review-request-journey.mjs';
+58: import { hubJourney } from './hub-journey.mjs';
+59: import { blogJourney } from './blog-journey.mjs';
+60: import { followingJourney } from './following-journey.mjs';
+61: import { treeFilterJourney } from './tree-filter-journey.mjs';
+62: import { failedSaveJourney } from './failed-save-journey.mjs';
+63: import { sharedNavigationJourney } from './shared-navigation-journey.mjs';
+64: import { globalCreateJourney } from './global-create-journey.mjs';
+65: import { templateCaptureJourney } from './template-capture-journey.mjs';
+66: import { starterTemplatesJourney } from './starter-templates-journey.mjs';
+67: import { templateGalleryJourney } from './template-gallery-journey.mjs';
+68: import { templateSnapshotJourney } from './template-snapshot-journey.mjs';
+69: import { taskAssignmentJourney } from './task-assignment-journey.mjs';
+70: import { recordTemplatesJourney } from './record-templates-journey.mjs';
+71: import { pageLockBrowserJourney } from './page-lock-journey.mjs';
+72: import { outlineJourney } from './outline-journey.mjs';
+73: import { groupMentionJourney } from './group-mentions-journey.mjs';
+74: import { taskReportJourney } from './task-report-journey.mjs';
+75: import { myTasksJourney } from './my-tasks-journey.mjs';
+76: import { trustRankingJourney } from './trust-ranking-journey.mjs';
+77: import { chatJourney } from './chat-journey.mjs';
+78: import { todayOutcomesJourney } from './today-outcomes-journey.mjs';
+79: 
+80: // Retain both responsive branches: desktop sidebar visibility and horizontal
+81: // column geometry are unique assertions, while the phone case checks stacking.
+82: for (const width of [390, 1440]) {
+83:   test(`real core-wiki and touch-member journeys at ${width}px`, { timeout: width === 390 ? 780000 : 720000 }, async () => {
+84:     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
+85:       await setupWorkspace(state);
+86:       if(width===390)await transferJobsJourney(state);
+87:       const refused = await state.context.request.get(state.origin + '/api/ai/availability');
+88:       assert.equal(refused.status(), 403);
+89:       assert.equal((await refused.json()).code, 'FEATURE_DISABLED');
+90:       await expect(state.page.getByRole('button', { name: 'Ask', exact: true })).toHaveCount(0);
+91:       await state.page.getByRole('button', { name: 'More', exact: true }).click();
+92:       await expect(state.page.getByRole('menu').getByRole('menuitem', { name: 'Ask', exact: true })).toHaveCount(0);
+93:       await state.page.keyboard.press('Escape');
+94:       let pageId,touch;
+95:       try {
+96:         await step('BLOCK-001 — a new page body takes real keystrokes, including before it finishes loading, and keeps them through committed save, failed save, explicit retry and leaving; touch member creates, inserts and drags blocks', async () => { pageId = await writeJourney(state, width); touch=await beginTouchJourney(state,width);await columnsJourney(state,width,touch); });
+97:         assert.ok(pageId, 'Writing must complete before dependent journeys.');
+98:         assert.ok(touch, 'Touch-member writing must complete before its dependent journeys.');
+99:         if(width===390)await step('NAV-006 native populated table edits and lossless structure changes by touch',()=>touchTablesJourney(touch));
+100:         await step('anchored comment, reset composer, reply and resolve; touch member comments and resolves', async () => {await commentJourney(state, pageId);await commentAuthorshipJourney(state, width);await touchCommentJourney(touch,touch.pageId);});
+101:         await step('invite existing member, persisted grant and canonical copied link; touch member publishes and shares', async () => {await shareJourney(state, pageId);await touchPublishShareJourney(touch,touch.pageId);});
+102:         await step('PAGE-007 populated Details and full-member ownership preserve grants under replay and edit-only refusal', async () => {await withSecondPerson(state,width,people=>pageDetailsJourney(state,people));});
+103:         await step('query, highlighted results and opening exact page; touch Search, Inbox, My tasks and review queues', async () => {await searchJourney(state, pageId);await touchOperatorJourney(state,touch);});
+104:         await step('published readers, editor indication, republish and lossless discard', () => withSecondPerson(state, width, people => unpublishedChangesJourney(state, people)));
+105:         await step('STAT-002 — member status changes retain one status, activity and exact search/query membership', () => pageStatusJourney(state));
+106:         // Finish earlier page notifications before connecting the chat journey destinations.
+107:         await state.runScheduled();
+108:         await chatJourney(state, width);
+109:         await step('STAT-005 — status profiles preserve vocabulary and page revisions', () => statusProfileJourney(state, width));
+110:         if (width === 390) {
+111:           await automationRunLogJourney(state,touch);
+112:           await step('DB-012 populated record fields, comments, history and parity', () => recordDetailJourney(state, width));
+113:           await templateCaptureJourney(state);
+114:           await templateGalleryJourney(state);
+115:           // Permanent deletion requires a current native email proof, independent of earlier journey duration.
+116:           await state.refreshReaderIdentity();
+117:           await touch.context.addCookies([{name:'slate_session',value:state.readerCookie.split('=')[1],url:touch.origin}]);
+118:           await archiveRetentionJourney(state,touch);
+119:           await withSecondPerson(state, width, people => step('DB-015 — template handover and revoked-saver pause on a phone', () => recordTemplatesJourney(state, people)));
+120:           await withSecondPerson(state, width, people => step('REV-006 — numbered deletion tombstone on a phone', () => versionDeletionJourney(state, people)));
+121:           // One phone smoke visits the main screens; functional journeys use desktop
+122:           // except where an assertion distinguishes the phone layout or touch input.
+123:           for (const route of ['/app', `/app/pages/${pageId}`, '/app/search', '/app/inbox', '/app/tasks', '/app/review', '/app/templates', '/app/settings']) {
+124:             const response = await state.page.goto(state.origin + route, { waitUntil: 'networkidle' });
+125:             assert.equal(response.status(), 200, `Phone smoke: ${route}`);
+126:             await expect(state.page.getByRole('main')).toHaveCount(1);
+127:             await accessible(state.page, `phone smoke ${route}`);
+128:           }
+129:         }
+130:       } finally {await touch?.close();}
+131:     }, {}, { scheduled: true, slack: true });
+132:   });
+133: }
+134: 
+135: for (const width of [1440]) {
+136:   test(`provider embeds load only on interaction and [EMBED-004] files respect reader access at ${width}px`, {timeout:240000}, async()=>{
+137:     await withWorkspace({width,height:width===1440?1000:844},'core-wiki',async state=>{await setupWorkspace(state);await providerEmbedsJourney(state);}, {}, {folders:true});
+138:   });
+139: }
+140: 
+141: for (const width of [390]) {
+142:   test(`space tree title filtering preserves ancestors, access and expansion at ${width}px`, { timeout: 420000 }, async () => {
+143:     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
+144:       await setupWorkspace(state);
+145:       await treeFilterJourney(state);
+146:       await state.switchIdentity('owner');
+147:       await settingsJourney(state,width);
+148:       await workspaceAuthorityJourney(state,width);
+149:     }, {RER_DEMO:'0'});
+150:   });
+151: }
+152: 
+153: for (const width of [1440]) {
+154:   test(`spreadsheet tables merge, sort and round-trip through edited database records at ${width}px`, {timeout:480000}, async ()=>{
+155:     await withWorkspace({width,height:width===1440?1000:844},'core-wiki',async state=>{
+156:       await setupWorkspace(state);
+157:       await tablesJourney(state);
+158:       // Keep the independently set up database case with database round trips.
+159:       // Its assertions and member authority remain unchanged.
+160:       const touch=await beginTouchJourney(state,width,{writePage:false});
+161:       try {
+162:         await step('remove a field with impact confirmation and export current view CSV; touch member edits all six layouts and uses charts, templates and automations', async () => {await databaseJourney(state);await touchDatabaseJourney(touch,touch.containerId);await touchDatabaseToolsJourney(state,touch);});
+163:       } finally {await touch.close();}
+164:     }, {}, {scheduled:true});
+165:   });
+166: }
+167: 
+168: for (const width of [1440]) {
+169:   test(`shared page invitations name their space and disappear on revocation at ${width}px`, { timeout: 240000 }, async () => {
+170:     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
+171:       await setupWorkspace(state);
+172:       await withSecondPerson(state, width, people => sharedNavigationJourney(state, people));
+173:       await syncedCustodyJourney(state,width);
+174:       await syncedHistoryJourney(state,width);
+175:       await syncedMemberErasureJourney(state,width);
+176:     });
+177:   });
+178: }
+179: 
+180: for (const width of [1440]) {
+181:   test(`SEARCH-011 — verified, unverified and lapsed pages rank in order with badges, near-duplicates collapse and published views carry no trust at ${width}px`, { timeout: 240000 }, async () => {
+182:     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
+183:       await setupWorkspace(state);
+184:       await trustRankingJourney(state);
+185:     });
+186:   });
+187: }
+188: 
+189: for (const width of [1440]) {
+190:   test(`named review request, reviewer queue, exact verify and overdue escalation at ${width}px`, { timeout: 240000 }, async () => {
+191:     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
+192:       await setupWorkspace(state);
+193:       await withSecondPerson(state, width, people => reviewRequestJourney(state, people));
+194:       await syncedJourney(state,width);
+195:       await peopleJourney(state,width);
+196:       // Publication reviews here do not race a suite lane starting beside the journeys.
+197:       await withSecondPerson(state, width, people => step('REV-006 — numbered deletion leaves an attributed tombstone', () => versionDeletionJourney(state, people)));
+198:     }, {}, { scheduled: true });
+199:   });
+200: }
+201: 
+202: for (const width of [1440]) {
+203:   test(`TMPL-007 starter templates are found by category; touch spaces, templates, archive and workspace settings work at ${width}px`, { timeout: 240000 }, async () => {
+204:     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
+205:       await setupWorkspace(state);
+206:       await templateCaptureJourney(state);
+207:       await starterTemplatesJourney(state).catch(async cause => {
+208:         await state.page.screenshot({ path: `.artifacts/ui-convergence/starter-templates-${width}-failure.png`, fullPage: true });
+209:         throw cause;
+210:       });
+211:       const touch=await beginTouchJourney(state,width);try{await touchManagementJourney(state,touch);}finally{await touch.close();}
+212:     });
+213:   });
+214: }
+215: 
+216: for (const width of [1440]) {
+217:   test(`two people edit at once, lose access mid-edit and restore history at ${width}px`, { timeout: 420000 }, async () => {
+218:     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
+219:       await setupWorkspace(state);
+220:       await withSecondPerson(state, width, async people => {
+221:         await step('different blocks, same block, title and unreachable server', () => concurrentEditingJourney(state, people));
+222:         await step('removed, narrowed and expired access with unsaved typing', () => accessChangeJourney(state, people, width));
+223:         await step('restore writes a new revision; citations resolve to theirs', () => historyJourney(state, people));
+224:       });
+225:     });
+226:   });
+227: }
+228: 
+229: for (const width of [1440]) {
+230:   test(`readable exports retain discussions through HTML and Markdown re-import at ${width}px`, { timeout: 360000 }, async () => {
+231:     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
+232:       await setupWorkspace(state);
+233:       await withSecondPerson(state, width, people => exportCommentsJourney(state, people));
+234:       await backupsJourney(state);
+235:       await folderJourney(state);
+236:       await transferJobsJourney(state);
+237:     }, {}, { backups: true, folders: true, scheduled: true });
+238:   });
+239: }
+240: 
+241: for (const width of [1440]) {
+242:   test(`global create names destinations for every content kind at ${width}px`, { timeout: 240000 }, async () => {
+243:     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
+244:       await setupWorkspace(state);
+245:       await globalCreateJourney(state).catch(async cause => {
+246:         await state.page.screenshot({ path: `.artifacts/ui-convergence/global-create-${width}-failure.png`, fullPage: true });
+247:         console.error(cause);
+248:         throw cause;
+249:       });
+250:       // Template snapshots keep their own registration's time and request budget;
+251:       // globalCreateJourney ends signed in as the reader, so return to the owner.
+252:       await state.switchIdentity('owner');
+253:       await step('TMPL-003 — native template copies retain their snapshot through template update, archive and delete', () => templateSnapshotJourney(state));
+254:     });
+255:   });
+256: }
+257: 
+258: for (const width of [1440]) {
+259:   test(`BLOCK-016 — task reports, My tasks and typed assignments preserve reader access and completion at ${width}px`, { timeout: 240000 }, async () => {
+260:     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
+261:       await setupWorkspace(state);
+262:       await withSecondPerson(state, width, async people => {
+263:         const retained = new Set((await state.api('/api/pages')).items.map(item => item.id));
+264:         const retireTaskPages = async () => {
+265:           await Promise.all([people.alice.page.goto('about:blank'), people.bob.page.goto('about:blank')]);
+266:           for (const item of (await state.api('/api/pages')).items.filter(item => !retained.has(item.id))) {
+267:             const document = await state.api(`/api/pages/${item.id}`);
+268:             const response = await call(state.context, state.origin, 'POST', `/api/archive/${item.id}`, {operationKey:crypto.randomUUID(),expectedRevisionId:document.page.revisionId,action:'trash'});
+269:             assert.equal(response.status, 200, `Retire completed task scenario page ${item.id}`);
+270:           }
+271:         };
+272:         await step('BLOCK-016 — task report access, inline completion and published sign-in notice', () => taskReportJourney(state, people));
+273:         await retireTaskPages();
+274:         await step('NAV-007 — assigned open tasks, due dates, completion and revoked access', () => myTasksJourney(state, people));
+275:         await retireTaskPages();
+276:         await step('BLOCK-015 — typed assignment, due date, exactly one notification and overdue state', () => taskAssignmentJourney(state, people));
+277:       });
+278:     });
+279:   });
+280: }
+281: 
+282: for (const width of [1440]) {
+283:   test(`page creation destinations and editor locks preserve readable content at ${width}px`, { timeout: 300000 }, async () => {
+284:     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
+285:       await setupWorkspace(state);
+286:       await step('TREE-005 — create in place names root and child destinations', () => createInPlaceJourney(state));
+287:       await state.switchIdentity('owner');
+288:       await step('review, publish, edit and cancel a scheduled publication', () => publicationJourney(state));
+289:       await step('WEB-007 — public profiles retain exposure and current publication authority', () => publicProfileJourney(state));
+290:       await state.switchIdentity('owner');
+291:       await withSecondPerson(state, width, people => step('PAGE-015 — locks protect content while editors comment and unlock', () => pageLockBrowserJourney(state, people)));
+292:     }, {}, {scheduled:true});
+293:   });
+294: }
+295: 
+296: for (const width of [1440]) {
+297:   test(`DB-015 — a database's Templates tab says a schedule runs as its last saver, and a re-save hands it over at ${width}px`, { timeout: 240000 }, async () => {
+298:     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
+299:       await setupWorkspace(state);
+300:       await withSecondPerson(state, width, people => recordTemplatesJourney(state, people));
+301:     }, {}, { scheduled: true });
+302:   });
+303: }
+304: 
+305: for (const width of [1440]) {
+306:   test(`SAML sign-in verifies the domain and signatures while preserving guest and designated-owner access at ${width}px`, { timeout: 180000 }, async () => {
+307:     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
+308:       await setupWorkspace(state);
+309:       await samlJourney(state);
+310:     }, {}, { scheduled: true, saml: true });
+311:   });
+312: }
+313: 
+314: for (const width of [1440]) {
+315:   test(`editable space home and curated company hub for a new member at ${width}px`, { timeout: 240000 }, async () => {
+316:     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
+317:       await setupWorkspace(state);
+318:       await withSecondPerson(state, width, people => hubJourney(state, people));
+319:     });
+320:   });
+321: }
+322: 
+323: for (const width of [1440]) {
+324:   test(`page and space readership show people, author views and inclusive dates at ${width}px`, { timeout: 180000 }, async () => {
+325:     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
+326:       await setupWorkspace(state);
+327:       await withSecondPerson(state, width, people => analyticsJourney(state, people));
+328:     }, {}, {scheduled:true,webhooks:true});
+329:   });
+330: }
+331: 
+332: for (const width of [1440]) {
+333:   test(`group mentions preview readers and refuse oversized groups at ${width}px`, { timeout: 240000 }, async () => {
+334:     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
+335:       await setupWorkspace(state);
+336:       await withSecondPerson(state, width, people => groupMentionJourney(state, people));
+337:     });
+338:   });
+339: }
+340: 
+341: for (const width of [1440]) {
+342:   test(`CONT-012 a watched space's create, edit sessions and comment appear once each in Home's Following at ${width}px`, { timeout: 240000 }, async () => {
+343:     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
+344:       await setupWorkspace(state);
+345:       await withSecondPerson(state, width, people => followingJourney(state, people));
+346:     });
+347:   });
+348: }
+349: 
+350: for (const width of [1440]) {
+351:   test(`space blog post reaches a follower's inbox and Home at ${width}px`, { timeout: 240000 }, async () => {
+352:     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
+353:       await setupWorkspace(state);
+354:       await withSecondPerson(state, width, people => blogJourney(state, people));
+355:     });
+356:   });
+357: }
+358: 
+359: for (const width of [1440]) {
+360:   test(`rejected writes retain drafts and require explicit retry at ${width}px`, { timeout: 180000 }, async () => {
+361:     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
+362:       await setupWorkspace(state);
+363:       await failedSaveJourney(state);
+364:     });
+365:   });
+366: }
+367: 
+368: for (const width of [1440]) {
+369:   test(`page and comment reactions identify people without notifications or views at ${width}px`, { timeout: 180000 }, async () => {
+370:     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
+371:       await setupWorkspace(state);
+372:       await withSecondPerson(state, width, people => reactionsJourney(state, people));
+373:     });
+374:   });
+375: }
+376: 
+377: for (const width of [1440]) {
+378:   test(`flagship no-provider Ask retains a page-scoped draft at ${width}px`, { timeout: 180000 }, async () => {
+379:     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'flagship', async state => {
+380:       await setupWorkspace(state);
+381:       await askDraftJourney(state);
+382:       await todayOutcomesJourney(state);
+383:     }, {}, {scheduled:true});
+384:   });
+385: }
+386: 
+387: for (const width of [1440]) {
+388:   test(`presentation paginates read-only slides; touch history, details and exports work at ${width}px`, { timeout: 180000 }, async () => {
+389:     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
+390:       await setupWorkspace(state);
+391:       await presentationJourney(state);
+392:       const touch=await beginTouchJourney(state,width);try{await touchPageToolsJourney(touch);await step('ARCH-004 — populated archive retention and exact cascade confirmation by touch', () => archiveRetentionJourney(state,touch));}finally{await touch.close();}
+393:     });
+394:   });
+395: }
+396: 
+397: for (const width of [1440]) {
+398:   test(`page display settings are shared and survive export and import at ${width}px`, { timeout: 180000 }, async () => {
+399:     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
+400:       await setupWorkspace(state);
+401:       await withSecondPerson(state, width, people => pageDisplayJourney(state, people));
+402:     });
+403:   });
+404: }
+405: 
+406: for (const width of [1440]) {
+407:   test(`page outline follows headings and navigates long pages at ${width}px`, { timeout: 600000 }, async () => {
+408:     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
+409:       await setupWorkspace(state);
+410:       await outlineJourney(state);
+411:       await settingsJourney(state,width);
+412:       await workspaceAuthorityJourney(state,width);
+413:     }, {RER_DEMO:'0'});
+414:   });
+415: }
+416: 
+417: // Give the complete query journey its own workspace and deadline, keeping the
+418: // established member journey's timeout and every query assertion unchanged.
+419: for (const width of [1440, 390]) {
+420:   test(`BLOCK-010 — native content queries retain criteria and current-reader results at ${width}px`, { timeout: 180000 }, async () => {
+421:     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
+422:       await setupWorkspace(state);
+423:       await contentQueryJourney(state, width);
+424:     });
+425:   });
+426: }

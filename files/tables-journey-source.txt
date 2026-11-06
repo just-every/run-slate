@@ -1,0 +1,226 @@
+1: import assert from 'node:assert/strict';
+2: import {randomUUID} from 'node:crypto';
+3: import {expect} from '@playwright/test';
+4: import {ok} from './two-people-support.mjs';
+5: import {writeFile} from 'node:fs/promises';
+6: import {tap,type,reachable,checkpoint} from './touch-controls.mjs';
+7: 
+8: /** Native member edits use labeled touch controls, including cells offscreen to the right. */
+9: export async function touchTablesJourney({page,context,origin,api,containerId}) {
+10:   const blockId=randomUUID(),rowIds=Array.from({length:3},()=>randomUUID());
+11:   let expected={caption:'Response handover',columns:['Task','Owner','Status','Handoff'],
+12:     rows:rowIds.map((id,index)=>({id,cells:[`Response ${index+1}`,`Lead ${index+1}`,`Ready ${index+1}`,`Note ${index+1}`]})),
+13:     headerColumn:true,widths:[160,160,160,160],colours:{[`${rowIds[1]}:2`]:'green'},merges:[]};
+14:   assert.equal((await api('/api/members/current')).role,'member');
+15:   const {value:{pageId}}=await ok(context,origin,'POST','/api/pages',{operationKey:randomUUID(),containerId,
+16:     title:'Touch table handover',blocks:[{id:blockId,blockType:'table',content:expected,treePosition:'a'}]});
+17:   const route=`/api/pages/${pageId}`,block=page.locator(`[data-block-id="${blockId}"]`),receipts=[];
+18:   const content=async()=>{
+19:     const document=await api(route);
+20:     assert.equal(document.blocks.length,1,'Table operations preserve the page block inventory.');
+21:     assert.equal(document.blocks[0].id,blockId);
+22:     return document.blocks[0].content;
+23:   };
+24:   const tools=async()=>{
+25:     const details=block.locator('details');
+26:     if(!await details.evaluate(element=>element.open))await tap(details.locator('summary'));
+27:   };
+28:   const select=async(label,value)=>{
+29:     const control=block.getByRole('combobox',{name:label,exact:true});
+30:     await tap(control);await control.selectOption({value:String(value)});
+31:     await expect(control).toHaveValue(String(value));
+32:   };
+33:   const edit=async(input,value)=>{
+34:     await reachable(input);
+35:     const unclipped=await input.evaluate(element=>{
+36:       const box=element.getBoundingClientRect(),viewport=element.closest('table').parentElement.getBoundingClientRect();
+37:       return box.left>=viewport.left&&box.right<=viewport.right;
+38:     });
+39:     assert.ok(unclipped,'The entire table input fits inside its horizontal scroll viewport.');
+40:     await type(page,input,value);
+41:   };
+42:   const reconcile=async operation=>{
+43:     await expect.poll(content,{message:`${operation}: complete native content is committed`}).toEqual(expected);
+44:     await expect(page.getByRole('status').filter({hasText:/^Saved/}).first()).toBeVisible();
+45:     await page.reload({waitUntil:'networkidle'});
+46:     assert.deepEqual(await content(),expected,`${operation}: native reload retains every cell and table setting`);
+47:     for(let column=0;column<expected.columns.length;column++){
+48:       await expect(block.getByRole('textbox',{name:`Column ${column+1} heading`,exact:true})).toHaveText(expected.columns[column]);
+49:     }
+50:     for(let row=0;row<expected.rows.length;row++)for(let column=0;column<expected.columns.length;column++){
+51:       const merge=expected.merges.find(m=>{
+52:         const start=expected.rows.findIndex(r=>r.id===m.rowId);
+53:         return row>=start&&row<start+m.rowSpan&&column>=m.column&&column<m.column+m.colSpan;
+54:       });
+55:       const cell=block.locator(`tbody [data-table-row="${row}"][data-table-column="${column}"]`);
+56:       if(merge&&(expected.rows[row].id!==merge.rowId||column!==merge.column))await expect(cell).toHaveCount(0);
+57:       else {
+58:         await expect(cell.getByRole('textbox')).toHaveText(expected.rows[row].cells[column]);
+59:         if(merge){
+60:           await expect(cell).toHaveAttribute('rowspan',String(merge.rowSpan));
+61:           await expect(cell).toHaveAttribute('colspan',String(merge.colSpan));
+62:           const start=expected.rows.findIndex(r=>r.id===merge.rowId);
+63:           for(let r=start;r<start+merge.rowSpan;r++)for(let c=merge.column;c<merge.column+merge.colSpan;c++)
+64:             await expect(cell).toContainText(expected.rows[r].cells[c]);
+65:         }
+66:       }
+67:     }
+68:     receipts.push({operation,content:await content()});
+69:     console.log(`PROBE NAV-006 table ${operation}: member touch controls -> saved, reloaded and native content reconciled`);
+70:   };
+71:   await page.goto(origin+route.replace('/api/','/app/'),{waitUntil:'networkidle'});
+72:   await reconcile('populated native creation');
+73:   // Scroll a real wide table to the last column rather than shrinking the fixture to fit.
+74:   await edit(block.getByRole('textbox',{name:'Column 4 heading',exact:true}),'Next handover');
+75:   expected={...expected,columns:['Task','Owner','Status','Next handover']};
+76:   await reconcile('heading edit');
+77:   await edit(block.getByRole('textbox',{name:'Row 3, Next handover',exact:true}),'Dispatch confirmed');
+78:   expected={...expected,rows:expected.rows.map((row,i)=>i===2?{...row,cells:[...row.cells.slice(0,3),'Dispatch confirmed']}:row)};
+79:   await reconcile('cell edit');
+80: 
+81:   await tools();await select('Table row',0);await tap(block.getByRole('button',{name:'Add row',exact:true}));
+82:   // Only the new row identity is generated; position, empty cells and all retained data are independently expected.
+83:   await expect.poll(async()=> (await content()).rows.map(row=>row.cells)).toEqual([
+84:     expected.rows[0].cells,['','','',''],...expected.rows.slice(1).map(row=>row.cells),
+85:   ]);
+86:   const addedRow=(await content()).rows[1];
+87:   assert.ok(addedRow.id&&!rowIds.includes(addedRow.id),'Adding a row allocates a new identity.');
+88:   expected={...expected,rows:[expected.rows[0],{id:addedRow.id,cells:['','','','']},...expected.rows.slice(1)]};
+89:   await reconcile('add row');
+90:   await edit(block.getByRole('textbox',{name:'Row 2, Task',exact:true}),'Temporary response');
+91:   expected={...expected,rows:expected.rows.map((row,i)=>i===1?{...row,cells:['Temporary response','','','']}:row)};
+92:   await reconcile('edit added row');
+93:   await tools();await select('Table row',1);await tap(block.getByRole('button',{name:'Remove row',exact:true}));
+94:   expected={...expected,rows:expected.rows.filter(row=>row.id!==addedRow.id)};
+95:   await reconcile('remove selected row');
+96: 
+97:   await tools();await select('Table column',1);await tap(block.getByRole('button',{name:'Add column',exact:true}));
+98:   expected={...expected,columns:['Task','Owner','','Status','Next handover'],widths:[160,160,180,160,160],
+99:     rows:expected.rows.map(row=>({...row,cells:[...row.cells.slice(0,2),'',...row.cells.slice(2)]})),colours:{[`${rowIds[1]}:3`]:'green'}};
+100:   await reconcile('add column');
+101:   await edit(block.getByRole('textbox',{name:'Column 3 heading',exact:true}),'Temporary checkpoint');
+102:   expected={...expected,columns:['Task','Owner','Temporary checkpoint','Status','Next handover']};
+103:   await reconcile('edit added heading');
+104:   await edit(block.getByRole('textbox',{name:'Row 2, Temporary checkpoint',exact:true}),'Temporary coverage');
+105:   expected={...expected,rows:expected.rows.map((row,i)=>i===1?{...row,cells:[...row.cells.slice(0,2),'Temporary coverage',...row.cells.slice(3)]}:row)};
+106:   await reconcile('edit added column');
+107:   await tools();await select('Table column',2);await tap(block.getByRole('button',{name:'Remove column',exact:true}));
+108:   expected={...expected,columns:['Task','Owner','Status','Next handover'],widths:[160,160,160,160],
+109:     rows:expected.rows.map(row=>({...row,cells:row.cells.filter((_,i)=>i!==2)})),colours:{[`${rowIds[1]}:2`]:'green'}};
+110:   await reconcile('remove selected column');
+111: 
+112:   await tools();await select('Table row',0);await select('Table column',0);
+113:   for(const label of ['Merge rows','Merge columns'])await type(page,block.getByRole('spinbutton',{name:label,exact:true}),'2');
+114:   await tap(block.getByRole('button',{name:'Merge cells',exact:true}));
+115:   expected={...expected,merges:[{rowId:rowIds[0],column:0,rowSpan:2,colSpan:2}]};
+116:   await reconcile('merge populated rectangle');
+117:   await tools();await reachable(block.getByRole('button',{name:'Unmerge cells',exact:true}));
+118:   await checkpoint(page,'table merged with covered content');
+119:   await edit(block.getByRole('textbox',{name:'Row 1, Task',exact:true}),'Response lead confirmed');
+120:   expected={...expected,rows:expected.rows.map((row,i)=>i===0?{...row,cells:['Response lead confirmed',...row.cells.slice(1)]}:row)};
+121:   await reconcile('edit merged anchor');
+122:   await tools();await tap(block.getByRole('button',{name:'Unmerge cells',exact:true}));
+123:   expected={...expected,merges:[]};
+124:   await reconcile('unmerge retains covered cells');
+125:   // Previously concealed content is editable again and survives its own save.
+126:   await edit(block.getByRole('textbox',{name:'Row 2, Owner',exact:true}),'Relief lead confirmed');
+127:   expected={...expected,rows:expected.rows.map((row,i)=>i===1?{...row,cells:[row.cells[0],'Relief lead confirmed',...row.cells.slice(2)]}:row)};
+128:   await reconcile('edit uncovered cell');
+129:   // A merged anchor at the far edge must remain editable after horizontal scrolling.
+130:   await tools();await select('Table row',0);await select('Table column',2);
+131:   for(const label of ['Merge rows','Merge columns'])await type(page,block.getByRole('spinbutton',{name:label,exact:true}),'2');
+132:   await tap(block.getByRole('button',{name:'Merge cells',exact:true}));
+133:   expected={...expected,merges:[{rowId:rowIds[0],column:2,rowSpan:2,colSpan:2}]};
+134:   await reconcile('merge far-right populated rectangle');
+135:   await edit(block.getByRole('textbox',{name:'Row 1, Status',exact:true}),'Ready for handover');
+136:   expected={...expected,rows:expected.rows.map((row,i)=>i===0?{...row,cells:[...row.cells.slice(0,2),'Ready for handover',row.cells[3]]}:row)};
+137:   await reconcile('edit far-right merged anchor');
+138:   await tools();await tap(block.getByRole('button',{name:'Unmerge cells',exact:true}));
+139:   expected={...expected,merges:[]};
+140:   await reconcile('unmerge far-right retains covered cells');
+141:   // The restored covered cell keeps its colour and accepts its own touch edit.
+142:   await expect(block.locator('tbody [data-table-row="1"][data-table-column="2"]')).toHaveCSS('background-color','rgb(220, 252, 231)');
+143:   await edit(block.getByRole('textbox',{name:'Row 2, Status',exact:true}),'Coverage retained and confirmed');
+144:   expected={...expected,rows:expected.rows.map((row,i)=>i===1?{...row,cells:[...row.cells.slice(0,2),'Coverage retained and confirmed',row.cells[3]]}:row)};
+145:   await reconcile('edit coloured covered cell after far-right unmerge');
+146:   await tools();
+147:   for(const name of ['Add row','Remove row','Add column','Remove column','Merge cells'])
+148:     await reachable(block.getByRole('button',{name,exact:true}));
+149:   await checkpoint(page,'table editing and structure controls');
+150:   await writeFile(`.artifacts/ui-convergence/touch-tables-${page.viewportSize().width}.json`,JSON.stringify({pageId,blockId,receipts},null,2));
+151:   return pageId;
+152: }
+153: 
+154: export async function tablesJourney({page,context,origin,api}) {
+155:   const space=(await api('/api/containers')).items.find(s=>s.name==='Handbook'),blockId=randomUUID();
+156:   const {value:{pageId}}=await ok(context,origin,'POST','/api/pages',{operationKey:randomUUID(),containerId:space.id,title:'Launch readiness',blocks:[{id:blockId,blockType:'table',content:{caption:'Release handover',columns:['',''],rows:[{id:randomUUID(),cells:['','']}]},treePosition:'a'}]});
+157:   await page.goto(`${origin}/app/pages/${pageId}`,{waitUntil:'networkidle'});
+158:   const block=page.locator(`[data-block-id="${blockId}"]`);
+159:   const cells=[['Workstream','Owner',...Array.from({length:18},(_,i)=>`Checkpoint ${i+1}`)],...Array.from({length:9},(_,r)=>[`Workstream ${r+1}`,r%2?'Morgan':'Alex',...Array.from({length:18},(_,c)=>`Ready ${r+1}.${c+1}`)])];
+160:   cells[1][2]='Approval "ready"\nHold until Monday';
+161:   const quote=value=>/["\t\r\n]/.test(value)?'"'+value.replaceAll('"','""')+'"':value;
+162:   await page.evaluate(text=>navigator.clipboard.writeText(text),cells.map(row=>row.map(quote).join('\t')).join('\r\n'));
+163:   await block.getByRole('textbox',{name:'Column 1 heading',exact:true}).click();
+164:   await page.keyboard.press('ControlOrMeta+V');
+165:   await expect(block.locator('thead th')).toHaveCount(20);
+166:   await expect(block.locator('tbody tr')).toHaveCount(9);
+167:   await expect.poll(async()=> (await api(`/api/pages/${pageId}`)).blocks[0].content.rows.map(row=>row.cells)).toEqual(cells.slice(1));
+168:   await block.locator('summary').filter({hasText:'Table tools'}).click();
+169:   await block.getByLabel('Cell colour',{exact:true}).selectOption('green');
+170:   await block.getByLabel('Column width',{exact:true}).fill('240');
+171:   await block.getByLabel('Header column',{exact:true}).check();
+172:   await block.getByRole('button',{name:'Merge cells',exact:true}).click();
+173:   await expect(block.locator('tbody tr').first().locator('[colspan="2"]')).toHaveCount(1);
+174:   await block.getByLabel('Table column',{exact:true}).selectOption('19');
+175:   await block.getByRole('button',{name:'Sort descending',exact:true}).click();
+176:   await expect.poll(async()=>{const d=await api(`/api/pages/${pageId}`);return d.blocks[0].content.rows[0].cells[0];}).toBe('Workstream 9');
+177:   const before=(await api(`/api/pages/${pageId}`)).blocks[0].content;
+178:   assert.equal(before.rows.length,9);assert.equal(before.columns.length,20);
+179:   // All four structure actions also work from the keyboard and preserve cell data.
+180:   const last=block.getByRole('textbox',{name:'Row 1, Workstream',exact:true});
+181:   await last.click();await page.keyboard.press('Alt+Shift+ArrowDown');
+182:   await expect(block.locator('tbody tr')).toHaveCount(10);
+183:   await page.keyboard.press('Alt+Shift+ArrowDown');
+184:   await expect(block.locator('tbody tr')).toHaveCount(11);
+185:   for(let i=0;i<2;i++){await block.getByRole('textbox',{name:'Row 2, Workstream',exact:true}).click();await page.keyboard.press('Alt+Shift+ArrowUp');}
+186:   await expect(block.locator('tbody tr')).toHaveCount(9);
+187:   await block.getByRole('textbox',{name:'Row 1, Workstream',exact:true}).click();
+188:   await page.keyboard.press('Alt+Shift+ArrowRight');
+189:   await expect(block.locator('thead th')).toHaveCount(21);
+190:   await block.getByRole('textbox',{name:'Row 1, column 2',exact:true}).click();
+191:   await page.keyboard.press('Alt+Shift+ArrowLeft');
+192:   await expect(block.locator('thead th')).toHaveCount(20);
+193:   // Reapply the merge after structure editing, retaining every underlying cell.
+194:   await block.getByLabel('Table row',{exact:true}).selectOption('0');
+195:   await block.getByLabel('Table column',{exact:true}).selectOption('0');
+196:   await block.getByRole('button',{name:'Merge cells',exact:true}).click();
+197:   await expect.poll(async()=> (await api(`/api/pages/${pageId}`)).blocks[0].content.merges?.[0]?.rowId).toBe(before.rows[0].id);
+198:   const committed=(await api(`/api/pages/${pageId}`)).blocks[0].content;
+199:   await page.screenshot({path:`.artifacts/ui-convergence/tables-${page.viewportSize().width}-editing.png`});
+200:   await block.getByRole('button',{name:'Convert to database',exact:true}).click();
+201:   await expect(page).toHaveURL(/\/app\/databases\//);
+202:   await expect(page.getByRole('button',{name:'Convert back to table',exact:true})).toBeVisible();
+203:   const input=page.getByRole('textbox',{name:'Workstream',exact:true}).first();
+204:   const old=await input.inputValue(),updated='Launch lead updated';
+205:   await input.fill(updated);
+206:   const databaseId=new URL(page.url()).pathname.split('/').pop();
+207:   const database=await api(`/api/databases/${databaseId}`),view=database.views[0],field=database.fields.find(f=>f.name==='Workstream');
+208:   await expect.poll(async()=> (await api(`/api/databases/${databaseId}/views/${view.id}`)).records.some(r=>r.values[field.id]===updated)).toBe(true);
+209:   await page.screenshot({path:`.artifacts/ui-convergence/tables-${page.viewportSize().width}-database.png`});
+210:   await page.getByRole('button',{name:'Convert back to table',exact:true}).click();
+211:   await expect(page).toHaveURL(`${origin}/app/pages/${pageId}`);
+212:   const restored=(await api(`/api/pages/${pageId}`)).blocks[0].content;
+213:   assert.deepEqual(restored,{...committed,rows:committed.rows.map(row=>({...row,cells:row.cells.map((value,i)=>i===0&&value===old?updated:value)}))});
+214:   await page.screenshot({path:`.artifacts/ui-convergence/tables-${page.viewportSize().width}-restored.png`});
+215:   await page.keyboard.press('ControlOrMeta+/');
+216:   const reference=page.getByRole('dialog',{name:'Keyboard shortcuts'});
+217:   await expect(reference).toContainText('Add a column after this cell');
+218:   await reference.getByLabel('Search shortcuts').fill('row');
+219:   await page.screenshot({path:`.artifacts/ui-convergence/tables-${page.viewportSize().width}-shortcuts.png`});
+220:   await page.getByRole('button',{name:'Close shortcuts'}).click();
+221:   const document=await api(`/api/pages/${pageId}`);
+222:   await ok(context,origin,'POST',`/api/publishing/${pageId}`,{operationKey:randomUUID(),expectedRevisionId:document.page.revisionId,host:new URL(origin).host,slug:'release-readiness'});
+223:   await page.goto(origin+'/p/release-readiness',{waitUntil:'networkidle'});
+224:   await expect(page.locator('td[colspan="2"],th[colspan="2"]')).toHaveCount(1);
+225:   await page.screenshot({path:`.artifacts/ui-convergence/tables-${page.viewportSize().width}-published.png`});
+226: }

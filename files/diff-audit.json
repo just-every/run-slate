@@ -1,0 +1,24 @@
+{
+  "head": "ce491094246d05d3e9a04881553ffc31b4b005df",
+  "candidateIdentity": "fleet author and committer; no trailers",
+  "parentRows": [
+    {
+      "commit": "ce491094246d05d3e9a04881553ffc31b4b005df",
+      "parent": "c18b6814dccddfffc6c72c3c3ec9871df473a909",
+      "beforeStatusRows": 338,
+      "afterStatusRows": 338,
+      "retained": true
+    },
+    {
+      "commit": "c18b6814dccddfffc6c72c3c3ec9871df473a909",
+      "parent": "bc567c9b6f6b25c98cb6fa05b9ab0fe37628a547",
+      "beforeStatusRows": 338,
+      "afterStatusRows": 338,
+      "retained": true
+    }
+  ],
+  "generatedViewsCommitted": false,
+  "workflowChanged": false,
+  "newEmailShapedValues": false,
+  "newBareSlashTokens": []
+}

@@ -1,0 +1,13 @@
+{
+  "command": [
+    "bash",
+    "/tmp/slate-mechanical.sh"
+  ],
+  "exit": 0,
+  "finished": "2026-11-06T10:15:41.840422+00:00",
+  "head": "ce491094246d05d3e9a04881553ffc31b4b005df",
+  "log": "pre-push-mechanical.log",
+  "seconds": 1.62,
+  "sha256": "84aa5edcb59cd6e906136433615a3e498e2b4d2e3546468f494cad0c2995841e",
+  "started": "2026-11-06T10:15:40.220139+00:00"
+}

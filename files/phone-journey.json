@@ -1,0 +1,14 @@
+{
+  "command": [
+    "bash",
+    "-c",
+    ". /tmp/rer-cloud-toolchain.sh; cloud_run env SLATE_CHROMIUM_PATH=/usr/bin/chromium timeout 1200 node --test --test-concurrency=1 \"--test-name-pattern=^real core-wiki and touch-member journeys at 390px$\" tests/qualification/ui-convergence/journeys.test.mjs"
+  ],
+  "exit": 0,
+  "finished": "2026-11-06T10:04:52.700874+00:00",
+  "head": "c18b6814dccddfffc6c72c3c3ec9871df473a909",
+  "log": "phone-journey.log",
+  "seconds": 580.012,
+  "sha256": "8e11ac6c747d968f4a0a1127109f125ac5c497f38cc7ae5bb6bba702c21e4993",
+  "started": "2026-11-06T09:55:12.689174+00:00"
+}

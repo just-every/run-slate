@@ -1,0 +1,14 @@
+{
+  "allProductSourceBytesEqual": true,
+  "desktopFunctionSha256": "ae9a6db528df0d260a735565a79d99d5e7f93d1758e9cc81ba06690748d02390",
+  "desktopTableJourneyBytesEqual": true,
+  "entireJourneyCallerBytesEqual": true,
+  "finalPhoneRegistration": {
+    "exit": 0,
+    "head": "ce491094246d05d3e9a04881553ffc31b4b005df",
+    "readbackCheckpoints": 18,
+    "seconds": 563.171
+  },
+  "head": "ce491094246d05d3e9a04881553ffc31b4b005df",
+  "passingDesktopSource": "c18b6814dccddfffc6c72c3c3ec9871df473a909"
+}

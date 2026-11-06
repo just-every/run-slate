@@ -1,0 +1,19 @@
+{
+  "command": [
+    "env",
+    "GIT_AUTHOR_NAME=Run Edit Run fleet",
+    "GIT_AUTHOR_EMAIL=fleet@runeditrun.com",
+    "GIT_COMMITTER_NAME=Run Edit Run fleet",
+    "GIT_COMMITTER_EMAIL=fleet@runeditrun.com",
+    "git",
+    "merge",
+    "origin/main"
+  ],
+  "exit": 0,
+  "finished": "2026-11-06T10:15:40.194085+00:00",
+  "head": "ce491094246d05d3e9a04881553ffc31b4b005df",
+  "log": "pre-push-main-merge.log",
+  "seconds": 0.003,
+  "sha256": "e5d6c99aec87ec07a2d1b5c1222d8b690d0a61c3548a55c795fff56db9450d0d",
+  "started": "2026-11-06T10:15:40.191099+00:00"
+}

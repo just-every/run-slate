@@ -1,0 +1,51 @@
+import assert from 'node:assert/strict';
+import {randomUUID} from 'node:crypto';
+import {writeFile} from 'node:fs/promises';
+import {pathToFileURL} from 'node:url';
+import {createRequire} from 'node:module';
+const root=process.cwd(),packet=process.env.SLATE_PACKET;
+const require=createRequire(root+'/package.json');
+const {expect}=require('@playwright/test');
+const AxeModule=require('@axe-core/playwright'),AxeBuilder=AxeModule.default??AxeModule;
+const {withWorkspace,setupWorkspace}=await import(pathToFileURL(root+'/tests/qualification/ui-convergence/browser-support.mjs'));
+const {beginTouchJourney}=await import(pathToFileURL(root+'/tests/qualification/ui-convergence/touch-journey.mjs'));
+const {ok}=await import(pathToFileURL(root+'/tests/qualification/ui-convergence/two-people-support.mjs'));
+const {tap,type,reachable}=await import(pathToFileURL(root+'/tests/qualification/ui-convergence/touch-controls.mjs'));
+for(const width of [1440,390])await withWorkspace({width,height:width===390?844:1000},'core-wiki',async state=>{
+ await setupWorkspace(state);
+ const touch=await beginTouchJourney(state,width,{writePage:false});
+ try{
+  const {page,context,origin,api,containerId}=touch,blockId=randomUUID(),rowIds=[randomUUID(),randomUUID(),randomUUID()];
+  const content={caption:'Response handover',columns:['Task','Owner','Status','Handoff'],rows:rowIds.map((id,i)=>({id,cells:[`Response ${i+1}`,`Lead ${i+1}`,`Ready ${i+1}`,`Note ${i+1}`]})),headerColumn:true,widths:[160,160,160,160],colours:{[rowIds[1]+':2']:'green'},merges:[{rowId:rowIds[0],column:2,rowSpan:2,colSpan:2}]};
+  assert.equal((await api('/api/members/current')).role,'member');
+  const {value:{pageId}}=await ok(context,origin,'POST','/api/pages',{operationKey:randomUUID(),containerId,title:'Touch table handover',blocks:[{id:blockId,blockType:'table',content,treePosition:'a'}]});
+  await page.goto(origin+'/app/pages/'+pageId,{waitUntil:'networkidle'});
+  const block=page.locator(`[data-block-id="${blockId}"]`);
+  await tap(block.locator('summary'));
+  const input=block.getByRole('textbox',{name:'Row 1, Status',exact:true});
+  await reachable(input);
+  await type(page,input,'Ready for handover');
+  const expected={...content,rows:content.rows.map((r,i)=>i===0?{...r,cells:[...r.cells.slice(0,2),'Ready for handover',r.cells[3]]}:r)};
+  await expect.poll(async()=>(await api('/api/pages/'+pageId)).blocks[0].content).toEqual(expected);
+  await expect(page.getByRole('status').filter({hasText:/^Saved/}).first()).toBeVisible();
+  await page.reload({waitUntil:'networkidle'});
+  assert.deepEqual((await api('/api/pages/'+pageId)).blocks[0].content,expected);
+  await tap(block.locator('summary'));
+  for(const name of ['Add row','Remove row','Add column','Remove column','Merge cells','Unmerge cells'])await reachable(block.getByRole('button',{name,exact:true}));
+  await reachable(input);
+  const geometry=await input.evaluate(element=>{
+   const r=element.getBoundingClientRect(),scroll=element.closest('table').parentElement.getBoundingClientRect();
+   return {viewport:{width:innerWidth,height:innerHeight},documentWidth:document.documentElement.scrollWidth,input:r.toJSON(),scrollport:scroll.toJSON(),fontSize:parseFloat(getComputedStyle(element).fontSize)};
+  });
+  assert.ok(geometry.documentWidth<=width);
+  assert.ok(geometry.fontSize>=13);
+  assert.ok(geometry.input.left>=geometry.scrollport.left&&geometry.input.right<=geometry.scrollport.right);
+  const axe=await new AxeBuilder({page}).analyze();
+  assert.deepEqual(axe.violations.filter(v=>['serious','critical'].includes(v.impact)),[]);
+  const iconControls=await page.locator('button').evaluateAll(buttons=>buttons.filter(b=>{const r=b.getBoundingClientRect();return r.width>0&&r.height>0&&r.top>=0&&r.bottom<=innerHeight&&!b.textContent.trim()&&b.querySelector('svg');}).map(b=>({label:b.getAttribute('aria-label')??b.getAttribute('title'),tooltip:b.getAttribute('data-tooltip')??b.getAttribute('data-state'),html:b.outerHTML.slice(0,900)})));
+  assert.ok(iconControls.every(b=>b.label),'Every visible icon control has an accessible name.');
+  await page.screenshot({path:packet+`/table-${width}.png`,fullPage:false});
+  await writeFile(packet+`/table-${width}.json`,JSON.stringify({geometry,axe,iconControls,content:expected},null,2));
+  console.log(`PROBE NAV-006 screen ${width}: member touch merged anchor -> persisted content, reachable controls, no overflow or serious accessibility finding`);
+ }finally{await touch.close();}
+});

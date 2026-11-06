@@ -1,0 +1,14 @@
+{
+  "command": [
+    "bash",
+    "-c",
+    ". /tmp/rer-cloud-toolchain.sh; cloud_run env SLATE_CHROMIUM_PATH=/usr/bin/chromium timeout 1200 node --test --test-concurrency=1 \"--test-name-pattern=^spreadsheet tables merge, sort and round-trip through edited database records at 1440px$\" tests/qualification/ui-convergence/journeys.test.mjs"
+  ],
+  "exit": 0,
+  "finished": "2026-11-06T10:00:13.642449+00:00",
+  "head": "c18b6814dccddfffc6c72c3c3ec9871df473a909",
+  "log": "desktop-journey.log",
+  "seconds": 142.837,
+  "sha256": "9780fe854948a05bb4c5f722a3877df5df302a8cc96d960f1213e188d6f39dfa",
+  "started": "2026-11-06T09:57:50.805284+00:00"
+}

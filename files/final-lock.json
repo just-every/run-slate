@@ -1,0 +1,14 @@
+{
+  "command": [
+    "bash",
+    "-c",
+    "node scripts/edition-authoring/cli.mjs lock >/tmp/slate-candidate-lock.json && node scripts/edition-authoring/cli.mjs check >/tmp/slate-candidate-lock-check.json && node scripts/sync-integration.mjs --check"
+  ],
+  "exit": 0,
+  "finished": "2026-11-06T10:04:18.424970+00:00",
+  "head": "c18b6814dccddfffc6c72c3c3ec9871df473a909",
+  "log": "final-lock.log",
+  "seconds": 1.07,
+  "sha256": "52e4dcb51bb2eb89347a02b791f9b939e16a6ebf214e5f01cc8be1ce2dc0b2ec",
+  "started": "2026-11-06T10:04:17.354789+00:00"
+}

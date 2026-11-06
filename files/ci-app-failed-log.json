@@ -1,0 +1,21 @@
+{
+  "command": [
+    "python3",
+    "/tmp/fleet-gh.py",
+    "run",
+    "view",
+    "42201308575",
+    "--repo",
+    "just-every/run-slate",
+    "--job",
+    "127837035010",
+    "--log-failed"
+  ],
+  "exit": 0,
+  "finished": "2026-11-06T10:21:40.235303+00:00",
+  "head": "ce491094246d05d3e9a04881553ffc31b4b005df",
+  "log": "ci-app-failed-log.log",
+  "seconds": 4.464,
+  "sha256": "7c2ad127a850005f785a9480144c27592f97e574efc40cef94c8fc0550765420",
+  "started": "2026-11-06T10:21:35.771167+00:00"
+}

@@ -1,0 +1,14 @@
+{
+  "command": [
+    "bash",
+    "-c",
+    ". /tmp/rer-cloud-toolchain.sh; pnpm integration:sync"
+  ],
+  "exit": 0,
+  "finished": "2026-11-06T10:00:46.125543+00:00",
+  "head": "c18b6814dccddfffc6c72c3c3ec9871df473a909",
+  "log": "pre-candidate-integration.log",
+  "seconds": 0.984,
+  "sha256": "7e4c9cd5b0688bf97efbb8cad40601cde8e4c4055bfba3e53263a833fe293c14",
+  "started": "2026-11-06T10:00:45.141895+00:00"
+}

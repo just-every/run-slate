@@ -1,0 +1,14 @@
+{
+  "command": [
+    "bash",
+    "-c",
+    "node src/base/runtime/contract-docs.mjs write && node src/base/runtime/contract-docs.mjs check"
+  ],
+  "exit": 0,
+  "finished": "2026-11-06T10:00:46.514044+00:00",
+  "head": "c18b6814dccddfffc6c72c3c3ec9871df473a909",
+  "log": "pre-candidate-views.log",
+  "seconds": 0.353,
+  "sha256": "a0dc3e5a57608862eebb5d81291a8613096d4984f76019b102a0ac55b950fe97",
+  "started": "2026-11-06T10:00:46.161320+00:00"
+}

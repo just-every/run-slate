@@ -1,0 +1,13 @@
+{
+  "main": "bc567c9b6f6b25c98cb6fa05b9ab0fe37628a547",
+  "statusRows": 338,
+  "counts": {
+    "partial": 240,
+    "done": 57,
+    "missing": 41
+  },
+  "registrationMetadata": 205,
+  "verify": 42183473801,
+  "runSite": 42183473597,
+  "unfinishedPredecessor": "fe0ab7c96b6205ebd8ce32561e51188098e47a70"
+}

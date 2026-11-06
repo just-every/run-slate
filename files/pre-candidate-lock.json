@@ -1,0 +1,14 @@
+{
+  "command": [
+    "bash",
+    "-c",
+    ". /tmp/rer-cloud-toolchain.sh; pnpm source:lock >/tmp/slate-final-lock-output.json && pnpm source:check"
+  ],
+  "exit": 0,
+  "finished": "2026-11-06T10:00:48.465113+00:00",
+  "head": "c18b6814dccddfffc6c72c3c3ec9871df473a909",
+  "log": "pre-candidate-lock.log",
+  "seconds": 1.901,
+  "sha256": "d6ef68ca55d67491b1c5cab0c7faa34ba51764216984d58f2c8c504244aea7ed",
+  "started": "2026-11-06T10:00:46.563897+00:00"
+}

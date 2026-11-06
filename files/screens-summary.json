@@ -1,0 +1,86 @@
+[
+  {
+    "width": 1440,
+    "fontSize": 14,
+    "documentWidth": 1440,
+    "viewportWidth": 1440,
+    "allVisibleIconControlsNamedAndHaveTooltips": true,
+    "controls": [
+      {
+        "label": "Collapse sidebar",
+        "tooltip": "Collapse sidebar"
+      },
+      {
+        "label": "Move Welcome in tree",
+        "tooltip": "Move page"
+      },
+      {
+        "label": "Create child of Welcome",
+        "tooltip": "Add child"
+      },
+      {
+        "label": "Move Response operations home in tree",
+        "tooltip": "Move page"
+      },
+      {
+        "label": "Create child of Response operations home",
+        "tooltip": "Add child"
+      },
+      {
+        "label": "Move Touch table handover in tree",
+        "tooltip": "Move page"
+      },
+      {
+        "label": "Create child of Touch table handover",
+        "tooltip": "Add child"
+      },
+      {
+        "label": "Comments",
+        "tooltip": "Comments"
+      },
+      {
+        "label": "History",
+        "tooltip": "History"
+      },
+      {
+        "label": "Details",
+        "tooltip": "Details"
+      },
+      {
+        "label": "Insert a block after table",
+        "tooltip": "Insert block"
+      },
+      {
+        "label": "Block actions for table",
+        "tooltip": "Block actions"
+      }
+    ],
+    "seriousOrCriticalAxeFindings": 0
+  },
+  {
+    "width": 390,
+    "fontSize": 14,
+    "documentWidth": 390,
+    "viewportWidth": 390,
+    "allVisibleIconControlsNamedAndHaveTooltips": true,
+    "controls": [
+      {
+        "label": "Open navigation",
+        "tooltip": "Open navigation"
+      },
+      {
+        "label": "Comments",
+        "tooltip": "Comments"
+      },
+      {
+        "label": "Insert a block after table",
+        "tooltip": "Insert block"
+      },
+      {
+        "label": "Block actions for table",
+        "tooltip": "Block actions"
+      }
+    ],
+    "seriousOrCriticalAxeFindings": 0
+  }
+]
