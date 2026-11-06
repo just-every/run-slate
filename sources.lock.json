@@ -6912,7 +6912,7 @@
       "executable": false
     },
     "src/core/features/editor/ui/blocks/TableBlock.tsx": {
-      "sha256": "0396e70350fc4ef44394e15b6a51e327f239f5c48c01b19710280783fd25b2d4",
+      "sha256": "bd07293f018750b6ab6055748046e84d1c6c379ed10a972c066ccbc38b4a24f1",
       "executable": false
     },
     "src/core/features/editor/ui/blocks/TableOfContentsBlock.tsx": {
@@ -12252,7 +12252,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/tables-journey.mjs": {
-      "sha256": "9f935511e435064963f3810a16bf13b6c5fbd76378a353fb940064664e63a156",
+      "sha256": "d81351c012bc1c07dab67ad5196865e1591caad70ada8303a1ca2fb4831d2eea",
       "executable": false
     },
     "tests/qualification/ui-convergence/task-assignment-journey.mjs": {
@@ -12404,7 +12404,7 @@
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
-      "sha256": "d79fbd4311ef2a75723c74eef5e4b0d0a3ed9e3d796543c5ee0179e1f935bd0d",
+      "sha256": "77ca182b888539b77cb42da99ec0faab6f2da4c98b0835b229c926873913809d",
       "executable": false
     },
     "tests/requirements/count-registrations.mjs": {

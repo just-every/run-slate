@@ -27,7 +27,17 @@ export async function touchTablesJourney({page,context,origin,api,containerId}) 
   };
   const select=async(label,value)=>{
     const control=block.getByRole('combobox',{name:label,exact:true});
-    await tap(control);await control.selectOption(String(value));
+    await tap(control);await control.selectOption({value:String(value)});
+    await expect(control).toHaveValue(String(value));
+  };
+  const edit=async(input,value)=>{
+    await reachable(input);
+    const unclipped=await input.evaluate(element=>{
+      const box=element.getBoundingClientRect(),viewport=element.closest('table').parentElement.getBoundingClientRect();
+      return box.left>=viewport.left&&box.right<=viewport.right;
+    });
+    assert.ok(unclipped,'The entire table input fits inside its horizontal scroll viewport.');
+    await type(page,input,value);
   };
   const reconcile=async operation=>{
     await expect.poll(content,{message:`${operation}: complete native content is committed`}).toEqual(expected);
@@ -61,10 +71,10 @@ export async function touchTablesJourney({page,context,origin,api,containerId}) 
   await page.goto(origin+route.replace('/api/','/app/'),{waitUntil:'networkidle'});
   await reconcile('populated native creation');
   // Scroll a real wide table to the last column rather than shrinking the fixture to fit.
-  await type(page,block.getByRole('textbox',{name:'Column 4 heading',exact:true}),'Next handover');
+  await edit(block.getByRole('textbox',{name:'Column 4 heading',exact:true}),'Next handover');
   expected={...expected,columns:['Task','Owner','Status','Next handover']};
   await reconcile('heading edit');
-  await type(page,block.getByRole('textbox',{name:'Row 3, Next handover',exact:true}),'Dispatch confirmed');
+  await edit(block.getByRole('textbox',{name:'Row 3, Next handover',exact:true}),'Dispatch confirmed');
   expected={...expected,rows:expected.rows.map((row,i)=>i===2?{...row,cells:[...row.cells.slice(0,3),'Dispatch confirmed']}:row)};
   await reconcile('cell edit');
 
@@ -77,7 +87,7 @@ export async function touchTablesJourney({page,context,origin,api,containerId}) 
   assert.ok(addedRow.id&&!rowIds.includes(addedRow.id),'Adding a row allocates a new identity.');
   expected={...expected,rows:[expected.rows[0],{id:addedRow.id,cells:['','','','']},...expected.rows.slice(1)]};
   await reconcile('add row');
-  await type(page,block.getByRole('textbox',{name:'Row 2, Task',exact:true}),'Temporary response');
+  await edit(block.getByRole('textbox',{name:'Row 2, Task',exact:true}),'Temporary response');
   expected={...expected,rows:expected.rows.map((row,i)=>i===1?{...row,cells:['Temporary response','','','']}:row)};
   await reconcile('edit added row');
   await tools();await select('Table row',1);await tap(block.getByRole('button',{name:'Remove row',exact:true}));
@@ -88,10 +98,10 @@ export async function touchTablesJourney({page,context,origin,api,containerId}) 
   expected={...expected,columns:['Task','Owner','','Status','Next handover'],widths:[160,160,180,160,160],
     rows:expected.rows.map(row=>({...row,cells:[...row.cells.slice(0,2),'',...row.cells.slice(2)]})),colours:{[`${rowIds[1]}:3`]:'green'}};
   await reconcile('add column');
-  await type(page,block.getByRole('textbox',{name:'Column 3 heading',exact:true}),'Temporary checkpoint');
+  await edit(block.getByRole('textbox',{name:'Column 3 heading',exact:true}),'Temporary checkpoint');
   expected={...expected,columns:['Task','Owner','Temporary checkpoint','Status','Next handover']};
   await reconcile('edit added heading');
-  await type(page,block.getByRole('textbox',{name:'Row 2, Temporary checkpoint',exact:true}),'Temporary coverage');
+  await edit(block.getByRole('textbox',{name:'Row 2, Temporary checkpoint',exact:true}),'Temporary coverage');
   expected={...expected,rows:expected.rows.map((row,i)=>i===1?{...row,cells:[...row.cells.slice(0,2),'Temporary coverage',...row.cells.slice(3)]}:row)};
   await reconcile('edit added column');
   await tools();await select('Table column',2);await tap(block.getByRole('button',{name:'Remove column',exact:true}));
@@ -106,14 +116,14 @@ export async function touchTablesJourney({page,context,origin,api,containerId}) 
   await reconcile('merge populated rectangle');
   await tools();await reachable(block.getByRole('button',{name:'Unmerge cells',exact:true}));
   await checkpoint(page,'table merged with covered content');
-  await type(page,block.getByRole('textbox',{name:'Row 1, Task',exact:true}),'Response lead confirmed');
+  await edit(block.getByRole('textbox',{name:'Row 1, Task',exact:true}),'Response lead confirmed');
   expected={...expected,rows:expected.rows.map((row,i)=>i===0?{...row,cells:['Response lead confirmed',...row.cells.slice(1)]}:row)};
   await reconcile('edit merged anchor');
   await tools();await tap(block.getByRole('button',{name:'Unmerge cells',exact:true}));
   expected={...expected,merges:[]};
   await reconcile('unmerge retains covered cells');
   // Previously concealed content is editable again and survives its own save.
-  await type(page,block.getByRole('textbox',{name:'Row 2, Owner',exact:true}),'Relief lead confirmed');
+  await edit(block.getByRole('textbox',{name:'Row 2, Owner',exact:true}),'Relief lead confirmed');
   expected={...expected,rows:expected.rows.map((row,i)=>i===1?{...row,cells:[row.cells[0],'Relief lead confirmed',...row.cells.slice(2)]}:row)};
   await reconcile('edit uncovered cell');
   await tools();
