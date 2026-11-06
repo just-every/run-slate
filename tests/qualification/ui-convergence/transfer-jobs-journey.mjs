@@ -5,6 +5,7 @@ import {expect} from '@playwright/test';
 import {runtime,signIn,root} from '../../portability/runtime.mjs';
 import {unpack} from '../../portability/equivalence.mjs';
 import {call} from './two-people-support.mjs';
+import {prepareReferentialRestore,proveReferentialRestore} from './referential-restore-journey.mjs';
 
 const jobPanel = page => page.getByRole('region',{name:'Workspace transfer job',exact:true});
 const jobPath = id => `/api/exports/jobs/${id}`;
@@ -119,6 +120,7 @@ export async function transferJobsJourney(state) {
   const upload=await state.context.request.post(state.origin+'/api/media',{headers:{Origin:state.origin},multipart:{operationKey:crypto.randomUUID(),pageId:created.body.value.pageId,file:{name:'recovery-notes.txt',mimeType:'text/plain',buffer:original}}});
   assert.equal(upload.status(),200,await upload.text());
   const uploaded=await upload.json();
+  const referential=await prepareReferentialRestore(state,evidence);
   await state.fixtureSql(["CREATE TRIGGER qualification_transfer_abort BEFORE UPDATE OF state ON federation_exports WHEN NEW.state='completed' BEGIN SELECT RAISE(ABORT,'labelled late recovery fault'); END"]);
   let failed;
   try {
@@ -182,6 +184,7 @@ export async function transferJobsJourney(state) {
     }
     const recoveredFile=await context.request.get(target.origin+`/api/media/${uploaded.value.id}`);
     assert.equal(recoveredFile.status(),200);assert.deepEqual(await recoveredFile.body(),original);
+    await proveReferentialRestore(destination,target,referential,archive,evidence);
     console.log(`PROBE PORT-003 1: failed native export and restore replay and reload -> failed, no download or successful restore action`);
     console.log(`PROBE PORT-003 2: Settings export and empty-deployment restore -> queued, running, completed and failed persisted; counts equal native archive; safe reports identify commit failures`);
   } finally {await context?.close();await target?.close();await rm(scratch,{recursive:true,force:true});}

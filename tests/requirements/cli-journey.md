@@ -226,3 +226,43 @@ The matching Workers registration in `tests/e2e/imports/preview-undo.test.ts` ru
 The same native journey also expires a mapped guest after request validation and before the actual Apply transaction: the transaction refuses and the selected native state remains unchanged. The same responsive Settings journey expires its reviewed destination after completion, shows that the mapped principal is no longer available while retaining the exact source-ID choice, and refuses that person's native page reads before restoring the identity fixture. No registration or prior assertion is removed or narrowed.
 
 Changing the reviewed destination's membership invalidates its old native session. The browser fixture therefore obtains a fresh native sign-in after restoring membership, updates its retained reader cookie, and verifies the restored reader through the current-member route. It never clears a session revocation or rewinds the membership authority version. Following Settings and authority journeys retain their original assertions and use the fresh session.
+
+## Selected referential restore
+
+`referentialRestore` proof is folded into `transferJobsJourney` in
+`./tests/qualification/ui-convergence/transfer-jobs-journey.mjs` by the focused
+`prepareReferentialRestore` and `proveReferentialRestore` helpers in
+`./tests/qualification/ui-convergence/referential-restore-journey.mjs`.
+The existing desktop readable-export caller and phone core caller in
+`./tests/qualification/ui-convergence/journeys.test.mjs` load it on push Verify;
+no registration is added.
+
+Native product routes create an ordinary private parent with three children,
+several exact page versions, direct and inherited group access, a revoked page
+grant, a real inline selection and discussion, a relative internal page link,
+a page mention and two original attachments with different bytes. Sibling
+creation order differs from the retained tree order. The real Settings ZIP is
+downloaded, opened and restored through the empty-deployment form into separate
+D1 and R2. Fresh owner reads and a new destination export compare the selected
+archive rows with the source documents, history, tree, grants, group membership,
+comment anchor and original bytes.
+
+The restored member remains historical until a native invitation is accepted.
+A separate fresh sign-in retains the original member ID. Direct view and
+inherited group edit access agree with the source; a revoked page, its history,
+discussion and original attachment are refused without exposing their content.
+A refused view-only write leaves the document unchanged. The member follows
+the retained internal link, opens the exact earlier revision, jumps from the
+retained discussion to its selected text and reloads each selected screen.
+The owner also reopens every selected permanent page address and checks all
+three children in native tree order after reload. Both established widths
+capture the restored screens. Non-secret selected snapshots and file digests
+are written to the existing transfer artifact directory.
+
+This is supporting evidence for portions of PORT-002 acceptance 1 and 2.
+Every other record family, unselected link, mention, anchor and file form,
+public slug preservation and controlled re-enablement, complete principal,
+revision and grant inventories, imported-original custody and universal
+same-record resolution remain unproven. PORT-003, PORT-006 and PORT-007 scopes
+and all privacy, erasure, import and search prerequisites remain unchanged;
+ADMIN-007 and shared company-policy prerequisites remain authoritative.
