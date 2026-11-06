@@ -682,8 +682,8 @@ Core · published · **partial**
 1. Each survives export and import and each has a Markdown or import equivalent named in `IMP-002` and `IMP-003`. a table-of-contents block (`BLOCK-017`), status labels (`BLOCK-018`) and diagrams.net diagrams (`BLOCK-019`) join them, and `IMP-010` names the Confluence macro each one replaces.
 2. Each structured block type survives export and import with its named import equivalent.
 
-**Evidence.** `tests/qualification/interface/blocks.mjs`
-**Gap.** evidence tests are not loaded by any Verify job or named scheduled job: `tests/qualification/interface/blocks.mjs`.
+**Evidence.** `tests/qualification/ui-convergence/structured-blocks-journey.mjs` — authorStructuredBlocks and inspectStructuredArchive, loaded by the responsive writeJourney and readable exportCommentsJourney; `tests/e2e/imports/readable-comments.test.ts` — HTML and Markdown exports restore authored page and inline replies, tombstones, resolution and block anchors in a fresh deployment.
+**Gap.** Native authoring and readable HTML and Markdown archive round trips cover the selected structured kinds. Complete named IMP-002 and IMP-003 incumbent-equivalent qualification, BLOCK-017, BLOCK-018, BLOCK-019 and IMP-010 macro obligations remain unproved. Genuine Confluence fixtures require owner source; BLOCK-018 still needs the ct ruling on table-cell colour, and diagrams.net remains missing. Native round trips do not satisfy these omitted duties.
 
 #### BLOCK-007 — Task items
 
@@ -1489,8 +1489,8 @@ Core · published · **partial**
 3. These switches carry no plan, tier or upgrade gate.
 4. Three switches per container; containers may only narrow the workspace value; forbidding applies at once.
 
-**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
-**Gap.** No validated CI-run proof for this acceptance point: "A container carries three switches — guests, public links and anonymous access — each `allowed` or `forbidden`."<br>No validated CI-run proof for this acceptance point: "A workspace owner sets a workspace-wide value and a container administrator may only narrow it."<br>No validated CI-run proof for this acceptance point: "Forbidding takes effect at once under `WEB-001` and `SHARE-007`."<br>No validated CI-run proof for this acceptance point: "These switches carry no plan, tier or upgrade gate."
+**Evidence.** `tests/qualification/ui-convergence/journeys.test.mjs` — "page outline follows headings and navigates long pages at 1440px" and "space tree title filtering preserves ancestors, access and expansion at 390px", calling `tests/qualification/ui-convergence/guest-scope-journey.mjs` — "guestScopeJourney" and "externalSwitchesJourney": acceptance 1, 3 and 4 use independent native workspace-owner and container-administrator controls, unchanged ordinary-member and personal-container refusals, persisted switch snapshots and effective workspace ceilings; acceptance 2 native guest and public-access duties use issued guest sessions, explicit always-live published revisions and anonymous local-publication preconditions, retained exposure addresses, next-request refusals, populated page, tree, search and inbox removal and open-editor closure within five seconds with unsaved text retained. Existing supporting HTTP publication and media assertions in `tests/flagship/content/http.test.ts` — "publication, human verification and media enforce current reader authority" remain intact.
+**Gap.** Inherited AI-answer removal through SHARE-007 remains unproved under ADMIN-007 and the shared company-policy prerequisites, as held by sd-slate-c-f164. The general grant-narrowing scope conflict in SHARE-007 is not resolved or claimed by this forbidding-only slice. Full inherited acceptance and every existing release prerequisite remain retained; no Slate clause is released.
 
 #### CONT-008 — Container access profile
 
@@ -1630,8 +1630,8 @@ Core · published · **partial**
 1. It reads the same filtered records the view shows and states which view it reads.
 2. A chart over one view states its view and embeds in a page.
 
-**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
-**Gap.** No validated CI-run proof for this acceptance point: "A chart is built over one view, showing counts or a numeric field aggregated by a grouping field, and can be embedded in a page (`DB-011`)."<br>No validated CI-run proof for this acceptance point: "It reads the same filtered records the view shows and states which view it reads."
+**Evidence.** `tests/flagship/structured/http.test.ts` — Worker HTTP rejects missing expired revoked and denied sessions and persists authorized input (chartHttpJourney); `tests/qualification/ui-convergence/touch-database-tools-journey.mjs` — standaloneChartJourney, loaded by the existing spreadsheet database journey in `tests/qualification/ui-convergence/journeys.test.mjs`; the existing phone core journey shows its named-view screen.
+**Gap.** Acceptance 2 page embedding and the requirement’s `DB-011` live embedded-view duties remain unimplemented or unproven: reader-scoped embedded results, source changes within 5 seconds and independent embedded filters and sorts. Standalone native controls, source names, filtered record counts and numeric aggregates are covered; no embedded-chart acceptance is claimed.
 
 #### DB-009 — Lock structure
 
@@ -2279,8 +2279,8 @@ Core · published · **partial** · From IMP-003 · Cites BASE-INPUT-001, BASE-I
 6. No import publishes an anonymous page.
 7. A general grant is container-scoped, never workspace-wide (`SHARE-005`), and a personal container carries no general grant (`SHARE-004`).
 
-**Evidence.** `tests/e2e/imports/real-exports.test.ts`
-**Gap.** Missing a public reviewed-mapping journey that applies active and unresolved restrictions and tries unsafe principal mapping without widening; the cited incumbent-export test reads parsed source restrictions only.
+**Evidence.** `tests/e2e/imports/preview-undo.test.ts` — reviews, applies and reverses real Notion and Confluence content without losing native edits, including reviewedPrincipalsJourney for acceptance 2, 3, 5 and 6; `tests/qualification/ui-convergence/journeys.test.mjs` — existing responsive Settings callers with importReviewJourney; `tests/e2e/imports/real-exports.test.ts` — incumbent-produced archives preserve pages, relationships, media and explicit losses.
+**Gap.** Acceptance 1's complete content, tree, labels, versions, comments, ordinals, status, publication, links and named user and group restriction matrix; acceptance 4's complete empty, unknown and unmapped restriction and recovery-access matrix; and acceptance 7's complete general-grant and personal-space matrix remain unproven. The genuine incumbent fixture lacks the missing cases; synthetic parser cases do not replace them. ADMIN-007 and shared company-policy, IMP-001, full PORT-004 and imported-record SEARCH-001 through SEARCH-006 prerequisites remain unchanged.
 
 #### IMP-004 — Import safety
 
@@ -3834,8 +3834,8 @@ Core · target · **partial**
 1. a Workers journey kills a job mid-run and finds it resumed once with no duplicate effect.
 2. A forced failure appears on the owner's Home, and stopping a queued job cancels its pending sends.
 
-**Evidence.** `src/core/features/automation/jobs.ts`
-**Gap.** No validated CI-run proof for this acceptance point: "a Workers journey kills a job mid-run and finds it resumed once with no duplicate effect."<br>No validated CI-run proof for this acceptance point: "A forced failure appears on the owner's Home, and stopping a queued job cancels its pending sends."
+**Evidence.** `tests/qualification/ui-convergence/journeys.test.mjs` — "spreadsheet tables merge, sort and round-trip through edited database records at 1440px" calls `tests/qualification/ui-convergence/automation-run-log-journey.mjs` — "automationRunLogJourney" and `tests/qualification/ui-convergence/automation-restart-journey.mjs` — "automationRestartJourney": authenticated native rule and committed record update, SIGKILL after durable record, comment and inbox intent, restart against the same store, unexpired lease refusal and genuine lease expiry, repeated scheduled drains, one admitted job and run, exact canonical effects, action and operation receipts, activity, trigger replay and recovered run log at 1440 and 390 (acceptance 1, native rules only). Existing `tests/flagship/structured/automation-repairs.test.ts` — "automation admission, resumed effects and schedules preserve current scope and exactly-once recovery" retains supporting current-authority and exception-recovery checks.
+**Gap.** Acceptance 1 remains unproven for other background-job families. Acceptance 2's owner Home failure and stuck projection and explicit stop cancelling pending sends remain unproven. Complete accountable owner, due condition, progress, failure and stop or resolution semantics across schedules, reminders, review escalations, connector syncs, verification rules and agent work, and complete message, record and issue deduplication remain unfinished. Connector, agent, provider, ADMIN-007 and shared company-policy prerequisites remain authoritative; no external boundary is released. Exact candidate Verify and guarded landing remain required.
 
 ### Moving in and out
 

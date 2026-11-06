@@ -3,9 +3,11 @@ import {randomUUID} from 'node:crypto';
 import {expect} from '@playwright/test';
 import {ok} from './two-people-support.mjs';
 import {tap,checkpoint} from './touch-controls.mjs';
+import {automationRestartJourney} from './automation-restart-journey.mjs';
 
 /** Real content events and D1 failures exercise the emitted automation worker. */
 export async function automationRunLogJourney(state,touch) {
+  if(touch.page.viewportSize().width===1440)await automationRestartJourney(state);
   const {page,context,origin,api,containerId}=touch;
   const mutate=(route,data)=>ok(context,origin,'POST',route,{operationKey:randomUUID(),...data});
   const database=(await mutate('/api/databases',{containerId,title:'Run log inspection'})).value;
