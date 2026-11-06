@@ -1,0 +1,4 @@
+PROBE ARCH-005 native browser 1440: exact who, receipt time, prior container, parent and order; title and location search, actor and space filters, inclusive dates and combined membership; actual aged trash survives two schedules; native restore retains populated subtree and sibling order
+PROBE ARCH-004 native browser 1440: archive and restore retain populated data; cancelled and incomplete confirmation preserve it; exact confirmed cascade deletes
+PROBE ARCH-005 native browser 390: exact who, receipt time, prior container, parent and order; title and location search, actor and space filters, inclusive dates and combined membership; actual aged trash survives two schedules; native restore retains populated subtree and sibling order
+PROBE ARCH-004 native browser 390: archive and restore retain populated data; cancelled and incomplete confirmation preserve it; exact confirmed cascade deletes

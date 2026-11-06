@@ -1,0 +1,138 @@
+{
+  "schema": 1,
+  "recorded_at": "2026-11-06T03:03:15.193818+00:00",
+  "checks": [
+    {
+      "name": "views-write",
+      "command": [
+        "node",
+        "src/base/runtime/contract-docs.mjs",
+        "write"
+      ],
+      "exit": 0,
+      "log": "/tmp/slate-final-views-write.log",
+      "log_sha256": "df91012bf66fb476e9cd1a30c002829398beb55f869e07cc7be477197fa5a276"
+    },
+    {
+      "name": "views-check",
+      "command": [
+        "node",
+        "src/base/runtime/contract-docs.mjs",
+        "check"
+      ],
+      "exit": 0,
+      "log": "/tmp/slate-final-views-check.log",
+      "log_sha256": "c21aae40192141751d6d5c7a3a1d0eb701a6852f305d592d77b4dcab9c2536ab"
+    },
+    {
+      "name": "restore-generated",
+      "command": [
+        "git",
+        "checkout",
+        "origin/main",
+        "--",
+        "ACCEPTANCE.md",
+        "docs/CLAIMS.md"
+      ],
+      "exit": 0,
+      "log": "/tmp/slate-final-restore-generated.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "integration",
+      "command": [
+        "pnpm",
+        "integration:sync"
+      ],
+      "exit": 0,
+      "log": "/tmp/slate-final-integration.log",
+      "log_sha256": "a977a430ff743ababa5929d84f98ef287070c4002ebae621052b9066f85fca57"
+    },
+    {
+      "name": "stage",
+      "command": [
+        "git",
+        "add",
+        "-u"
+      ],
+      "exit": 0,
+      "log": "/tmp/slate-final-stage.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "lock",
+      "command": [
+        "pnpm",
+        "source:lock"
+      ],
+      "exit": 0,
+      "log": "/tmp/slate-final-lock.log",
+      "log_sha256": "1721a1bee104881aaad028313837553bf2f07e8cc4b006be330745e8f8b66281"
+    },
+    {
+      "name": "lock-check",
+      "command": [
+        "pnpm",
+        "source:check"
+      ],
+      "exit": 0,
+      "log": "/tmp/slate-final-lock-check.log",
+      "log_sha256": "efa4392b524ff2e32d52fdc7cc73b607ceddfbb543609c242751caa2d2b458c2"
+    },
+    {
+      "name": "typecheck",
+      "command": [
+        "pnpm",
+        "typecheck"
+      ],
+      "exit": 0,
+      "log": "/tmp/slate-final-typecheck.log",
+      "log_sha256": "d6992c4e9a686a795f311899bbf89beef012724dbce000731e20c21b69e71e56"
+    },
+    {
+      "name": "first-party",
+      "command": [
+        "pnpm",
+        "exec",
+        "rer",
+        "check",
+        "--profile",
+        "first-party"
+      ],
+      "exit": 0,
+      "log": "/tmp/slate-final-first-party.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "audit",
+      "command": [
+        "python3",
+        "/tmp/rer-reap.py",
+        "pnpm",
+        "exec",
+        "vitest",
+        "run",
+        "tests/qualification/core/audit-content.test.ts"
+      ],
+      "exit": 0,
+      "log": "/tmp/slate-final-audit.log",
+      "log_sha256": "916849a570688992cae6056d55ed1a4ba14f1a2a81ec80008cfb567c24b71006"
+    },
+    {
+      "name": "stage-lock",
+      "command": [
+        "git",
+        "add",
+        "sources.lock.json"
+      ],
+      "exit": 0,
+      "log": "/tmp/slate-final-stage-lock.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "source_parent": "181ec7e8a3ff3ea7903a33eb3718eb848c71282e",
+  "candidate_tree": "d0aa67c61e91267db901bf26678068ae87f1fb63",
+  "result": "passed",
+  "bound_head": "6b0f03aa3597a81350ffe611d8ec2827f009935b",
+  "binding": "Executed before commit on the identical candidate tree; bound by Git tree equality after commit."
+}

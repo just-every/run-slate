@@ -1,0 +1,38 @@
+{
+  "head": "6b0f03aa3597a81350ffe611d8ec2827f009935b",
+  "tree": "d0aa67c61e91267db901bf26678068ae87f1fb63",
+  "before": {
+    "status_rows": 338,
+    "table_rows": 698,
+    "counts": {
+      "partial": 240,
+      "done": 57,
+      "missing": 41
+    }
+  },
+  "after": {
+    "status_rows": 338,
+    "table_rows": 698,
+    "counts": {
+      "partial": 240,
+      "done": 57,
+      "missing": 41
+    }
+  },
+  "parent_row_checks": [
+    {
+      "head": "6b0f03aa3597a81350ffe611d8ec2827f009935b",
+      "parent": "181ec7e8a3ff3ea7903a33eb3718eb848c71282e",
+      "status_rows_preserved": true
+    },
+    {
+      "head": "181ec7e8a3ff3ea7903a33eb3718eb848c71282e",
+      "parent": "93b7327adee97ac0ff691bfb5cbff68f4412a27a",
+      "status_rows_preserved": true
+    }
+  ],
+  "generated_views_committed": false,
+  "registration_before": 207,
+  "registration_after": 207,
+  "unresolved_registration_sites": []
+}

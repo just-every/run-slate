@@ -1,0 +1,34 @@
+{
+  "head": "9364638dbd9b6f00967abaac8bf72d3b21f4a959",
+  "artifact": {
+    "schema": 1,
+    "commit": "9364638dbd9b6f00967abaac8bf72d3b21f4a959",
+    "tree": "8721128ec7038a83d4ec17e9930a7727621bbc68",
+    "sourceSha256": "e330d2aaa673deb388fdc9bff66249607f94d47d92a766ccd0c4d79588033f56",
+    "lockSha256": "b9402ed2839245d18c6f42413dd509a21b30029a684b1dbb86fed1ce33d96b64",
+    "outputSha256": "e011545ea4df82e343fd99f3a5d16b3736fb6740e78bf95392ae68211d727aed"
+  },
+  "checks": [
+    {
+      "command": "node --test --test-concurrency=1 --test-name-pattern=presentation paginates tests/qualification/ui-convergence/journeys.test.mjs",
+      "viewport": 1440,
+      "exit": 0,
+      "log": "logs/exact-desktop-registration.log"
+    },
+    {
+      "command": "node --test --test-concurrency=1 --test-name-pattern=real core-wiki and touch-member journeys at 390px tests/qualification/ui-convergence/journeys.test.mjs",
+      "viewport": 390,
+      "exit": 0,
+      "log": "logs/exact-phone-registration.log"
+    },
+    {
+      "command": "node /tmp/slate-trash-receipts.mjs",
+      "viewports": [
+        1440,
+        390
+      ],
+      "exit": 0,
+      "notes": "Same committed native archive helper, with an independently created older trash page whose title overlaps the search query."
+    }
+  ]
+}

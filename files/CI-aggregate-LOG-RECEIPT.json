@@ -1,0 +1,7 @@
+{
+  "run": 42156734698,
+  "job": 127692819372,
+  "command": "gh run view 42156734698 --repo just-every/run-slate --job 127692819372 --log-failed",
+  "exit": 0,
+  "recorded_at": "2026-11-06T03:47:14.761234+00:00"
+}

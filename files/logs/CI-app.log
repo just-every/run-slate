@@ -1,0 +1,7 @@
+CI environment setup lines omitted; the command and complete failure are retained.
+verify (app)	Run node src/base/runtime/contract-docs.mjs check	﻿2026-11-06T03:28:55.6372005Z ##[group]Run node src/base/runtime/contract-docs.mjs check
+verify (app)	Run node src/base/runtime/contract-docs.mjs check	2026-11-06T03:28:55.6373001Z [36;1mnode src/base/runtime/contract-docs.mjs check[0m
+verify (app)	Run node src/base/runtime/contract-docs.mjs check	2026-11-06T03:28:55.6393419Z shell: /usr/bin/bash -e {0}
+verify (app)	Run node src/base/runtime/contract-docs.mjs check	2026-11-06T03:28:55.6394289Z ##[endgroup]
+verify (app)	Run node src/base/runtime/contract-docs.mjs check	2026-11-06T03:28:55.8005573Z ACCEPTANCE.md: generated content differs; run contract-docs write.
+verify (app)	Run node src/base/runtime/contract-docs.mjs check	2026-11-06T03:28:55.8102033Z ##[error]Process completed with exit code 1.

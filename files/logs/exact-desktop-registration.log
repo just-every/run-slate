@@ -1,0 +1,13 @@
+NAV-006 touch create, type, insert and drag persisted
+NAV-006 touch history, details, readable export and presentation passed
+PROBE ARCH-005 native browser 1440: exact who, receipt time, prior container, parent and order; title and location search, actor and space filters, inclusive dates and combined membership; actual aged trash survives two schedules; native restore retains populated subtree and sibling order
+PROBE ARCH-004 native browser 1440: archive and restore retain populated data; cancelled and incomplete confirmation preserve it; exact confirmed cascade deletes
+✔ presentation paginates read-only slides; touch history, details and exports work at 1440px (99801.820513ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 118138.785823

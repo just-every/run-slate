@@ -1,0 +1,17 @@
+CI environment setup and a non-executable comment omitted; executable commands and complete failure retained.
+verify	Require the plan and every expected job	﻿2026-11-06T03:29:02.5008289Z ##[group]Run set -euo pipefail
+verify	Require the plan and every expected job	2026-11-06T03:29:02.5009035Z [36;1mset -euo pipefail[0m
+verify	Require the plan and every expected job	2026-11-06T03:29:02.5009599Z [36;1mtest "$PLAN" = success[0m
+verify	Require the plan and every expected job	2026-11-06T03:29:02.5010753Z [36;1mif [ "$SKIP" = true ]; then exit 0; fi[0m
+verify	Require the plan and every expected job	2026-11-06T03:29:02.5012432Z [36;1mif [ "$EVENT" != workflow_dispatch ]; then[0m
+verify	Require the plan and every expected job	2026-11-06T03:29:02.5013331Z [36;1m  for result in "$APP" "$SHARDS" "$CONTRACT"; do test "$result" = success; done[0m
+verify	Require the plan and every expected job	2026-11-06T03:29:02.5014112Z [36;1mfi[0m
+verify	Require the plan and every expected job	2026-11-06T03:29:02.5014905Z [36;1mif [ "$EVENT" = schedule ] || [ "$EVENT" = workflow_dispatch ] || [[ "$REF" == refs/tags/* ]]; then[0m
+verify	Require the plan and every expected job	2026-11-06T03:29:02.5015770Z [36;1m  test "$LOCAL" = success[0m
+verify	Require the plan and every expected job	2026-11-06T03:29:02.5016305Z [36;1mfi[0m
+verify	Require the plan and every expected job	2026-11-06T03:29:02.5016956Z [36;1mif [ "$EVENT" = schedule ] || [[ "$REF" == refs/tags/* ]]; then[0m
+verify	Require the plan and every expected job	2026-11-06T03:29:02.5017647Z [36;1m  test "$SCALE" = success[0m
+verify	Require the plan and every expected job	2026-11-06T03:29:02.5018346Z [36;1mfi[0m
+verify	Require the plan and every expected job	2026-11-06T03:29:02.5561677Z shell: /usr/bin/bash -e {0}
+verify	Require the plan and every expected job	2026-11-06T03:29:02.5567865Z ##[endgroup]
+verify	Require the plan and every expected job	2026-11-06T03:29:02.5751466Z ##[error]Process completed with exit code 1.

@@ -1,0 +1,43 @@
+{
+  "head": "9364638dbd9b6f00967abaac8bf72d3b21f4a959",
+  "tree": "8721128ec7038a83d4ec17e9930a7727621bbc68",
+  "before": {
+    "status_rows": 338,
+    "table_rows": 698,
+    "counts": {
+      "partial": 240,
+      "done": 57,
+      "missing": 41
+    }
+  },
+  "after": {
+    "status_rows": 338,
+    "table_rows": 698,
+    "counts": {
+      "partial": 240,
+      "done": 57,
+      "missing": 41
+    }
+  },
+  "parent_row_checks": [
+    {
+      "head": "9364638dbd9b6f00967abaac8bf72d3b21f4a959",
+      "parent": "6b0f03aa3597a81350ffe611d8ec2827f009935b",
+      "status_rows_preserved": true
+    },
+    {
+      "head": "6b0f03aa3597a81350ffe611d8ec2827f009935b",
+      "parent": "181ec7e8a3ff3ea7903a33eb3718eb848c71282e",
+      "status_rows_preserved": true
+    },
+    {
+      "head": "181ec7e8a3ff3ea7903a33eb3718eb848c71282e",
+      "parent": "93b7327adee97ac0ff691bfb5cbff68f4412a27a",
+      "status_rows_preserved": true
+    }
+  ],
+  "generated_views_committed": false,
+  "registration_before": 207,
+  "registration_after": 207,
+  "unresolved_registration_sites": []
+}

@@ -1,0 +1,8 @@
+{
+  "head": "9364638dbd9b6f00967abaac8bf72d3b21f4a959",
+  "path": "/home/agent/rer-consolidation/work/sd-slate-c-f170/candidate.bundle",
+  "sha256": "bd73ba973f4e9871225e2f16b0131f97fbf8bc5f4866c697a8337c5fb7aa03b6",
+  "verified": true,
+  "prerequisite": "93b7327adee97ac0ff691bfb5cbff68f4412a27a",
+  "kind": "incremental recovery bundle; product branch was separately pushed"
+}

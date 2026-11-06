@@ -1,0 +1,8 @@
+{
+  "head": "6b0f03aa3597a81350ffe611d8ec2827f009935b",
+  "command": "node --test --test-concurrency=1 --test-name-pattern=real core-wiki and touch-member journeys at 390px tests/qualification/ui-convergence/journeys.test.mjs",
+  "test": "real core-wiki and touch-member journeys at 390px",
+  "exit": 1,
+  "failure": "trashListJourney initial membership expected its six new rows but received one additional legitimate trash row from an earlier shared-workspace scenario.",
+  "repair": "Record and retain the complete prior trash inventory; create a dedicated native retention space and exercise its scoped search and filter corpus. No earlier assertion is removed."
+}
