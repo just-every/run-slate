@@ -1,12 +1,12 @@
 import {materializeSynced} from '../editor/synced/read';
-import {layoutOrder} from '../editor/layout';
+import {wordLayout} from './docx-layout';
 import { strToU8, zipSync } from 'fflate';
 import type { FeatureContext } from '../../app/feature-context';
 import type { BlockView } from '../../shared/api/content';
 import { readPage } from '../pages/service';
 import { exportComments } from './comments';
 import { WordComments } from './docx-comments';
-import { bookmark, wordBlock, type WordContentContext } from './docx-content';
+import { bookmark, type WordContentContext } from './docx-content';
 import { wordImages, wordDrawing } from './docx-media';
 import { contentTypesXml, stylesXml, numberingXml, listDefinition } from './docx-parts';
 import { declaration, wordNamespace, relationshipNamespace, paragraph, run, relation, relationshipsXml } from './docx-xml';
@@ -48,7 +48,7 @@ export async function renderDocx(ctx:FeatureContext, ids:ReadonlySet<string>, ex
         return `<w:hyperlink r:id="${id}">${content}</w:hyperlink>`;
       },
     };
-    return paragraph(comments.mark(page.page.id,bookmark(context,page.page.id,run(page.page.title))),`<w:pStyle w:val="Title"/>${index?'<w:pageBreakBefore/>':''}`)+layoutOrder(page.blocks).filter(block=>!['columns','column'].includes(block.blockType)).map(block=>wordBlock(block,page.blocks,context)).join('');
+    return paragraph(comments.mark(page.page.id,bookmark(context,page.page.id,run(page.page.title))),`<w:pStyle w:val="Title"/>${index?'<w:pageBreakBefore/>':''}`)+wordLayout(page.blocks,context);
   }).join('');
   const entries:Record<string,Uint8Array>={};
   const put=(path:string,text:string)=>{entries[path]=strToU8(text);};

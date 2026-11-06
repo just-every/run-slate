@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import {wordColumnsJourney} from './word-columns-journey.mjs';
 import {randomUUID} from 'node:crypto';
 import {expect} from '@playwright/test';
 import {ok} from './two-people-support.mjs';
@@ -85,5 +86,6 @@ export async function columnsJourney(state,width,touch){
 
  await checkpoint(targetPage,'columns insert drag and edit');
  await targetPage.screenshot({path:`.artifacts/ui-convergence/columns-${width}-touch.png`,fullPage:true});
+ await wordColumnsJourney(state,width,container.id);
  console.log(`BLOCK-012 columns insert, desktop drag and touch layout passed at ${width}px`);
 }
