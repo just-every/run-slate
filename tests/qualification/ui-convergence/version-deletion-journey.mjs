@@ -43,8 +43,30 @@ export async function versionDeletionJourney(state, people) {
       await dialog.getByLabel('Version label', { exact: true }).fill(label);
       await dialog.getByRole('button', { name: 'Review publication', exact: true }).click();
       await expect(dialog.getByRole('region', { name: 'Reviewed publication', exact: true })).toBeVisible();
-      await dialog.getByRole('button', { name: 'Publish workspace revision', exact: true }).click();
-      await expect(dialog).toBeHidden();
+      // Publication's refresh starts an exact-revision open in a client effect.
+      // Settle that write before the journey's next block PATCH advances the ACL
+      // epoch. Dialog closure alone does not confirm that background response.
+      const publication = alice.page.waitForResponse(item => item.request().method() === 'POST'
+        && new URL(item.url()).pathname === `/api/pages/${pageId}/publish`
+        && item.request().postDataJSON().label === label, { timeout: 5000 });
+      const revision = publication.then(async response => {
+        assert.equal(response.status(), 200, await response.text());
+        return (await response.json()).value.revisionId;
+      });
+      const opened = alice.page.waitForResponse(async item => item.request().method() === 'POST'
+        && new URL(item.url()).pathname === `/api/pages/${pageId}/open`
+        && item.request().postDataJSON().revisionId === await revision, { timeout: 5000 });
+      await Promise.all([
+        revision,
+        opened.then(async response => {
+          assert.equal(response.status(), 200, await response.text());
+          await response.finished();
+        }),
+        (async () => {
+          await dialog.getByRole('button', { name: 'Publish workspace revision', exact: true }).click();
+          await expect(dialog).toBeHidden();
+        })(),
+      ]);
       return (await read()).publishedRevisionId;
     };
     const first = await publish('First publication');
