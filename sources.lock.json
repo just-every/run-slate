@@ -4620,11 +4620,11 @@
       "executable": false
     },
     "package.json": {
-      "sha256": "4dc738d494eec95fe589885601d277f6d3287941c17849f5f1aa583b2148c41f",
+      "sha256": "56045d5ff1fa381e674e1b81d73e7fe707427dbe478681f34238053547f837cd",
       "executable": false
     },
     "pnpm-lock.yaml": {
-      "sha256": "13dba99e2ce491e5cea95ddb529db1db0493506020cda3fc5f8ed98fb224be71",
+      "sha256": "5064c62fd026432cc732f9b938463a9de45f466df458d50be3271372bc1f1505",
       "executable": false
     },
     "pnpm-workspace.yaml": {
@@ -9719,6 +9719,10 @@
       "sha256": "20aadf0587aa41068993d3e493ede096839c9c7b1fb52c2b67c0e29b87caefe9",
       "executable": false
     },
+    "src/core/features/workspace-export/docx-layout.ts": {
+      "sha256": "45e2d6515280382a0dce25a741189b9f614112325484f881075d4cc494aaade3",
+      "executable": false
+    },
     "src/core/features/workspace-export/docx-media.ts": {
       "sha256": "d6f5e374460a4e22cc2c532f73e3765f87fe8c6bd6ca1be072138e20b615d57c",
       "executable": false
@@ -9736,7 +9740,7 @@
       "executable": false
     },
     "src/core/features/workspace-export/docx.ts": {
-      "sha256": "d85c3b210d2b49a76b5716005b14f955868ae320d5dae1c28b79073465c6e9cd",
+      "sha256": "a9f9338b3244250295767b105d29c0a47c6332495f68886a7a61a82e9566249a",
       "executable": false
     },
     "src/core/features/workspace-export/html.ts": {
@@ -10416,7 +10420,7 @@
       "executable": false
     },
     "tests/e2e/editor/columns-case.ts": {
-      "sha256": "7067ffd4ba32571ca8971f1046537fcf10078128b2fbda4b872f15dfbd1bc4ce",
+      "sha256": "8d48f9f99269f449bac1d69ac7e80699a4d80317050525839adf745ef18b4a68",
       "executable": false
     },
     "tests/e2e/editor/embed-refusals-journey.ts": {
@@ -11367,6 +11371,14 @@
       "sha256": "c7d46426691e5e0a4aff99c8014bad22425713ddf0d67921a8f7d86c80b5b288",
       "executable": false
     },
+    "tests/helpers/word-columns-fixture.d.mts": {
+      "sha256": "1eff77bb3fd011c09d8538c0ec38ad755a896d22e837cf46cabf985d424c225e",
+      "executable": false
+    },
+    "tests/helpers/word-columns-fixture.mjs": {
+      "sha256": "1d668e1eb6e5d712db1271754bffc41f4fa6deb8ed3a6467cc98ff853590e490",
+      "executable": false
+    },
     "tests/installer/helpers.mjs": {
       "sha256": "4283e92e295032fed086a04a7f29d8d17a270538e28e36fa786f71f202f25db9",
       "executable": false
@@ -11912,7 +11924,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/columns-journey.mjs": {
-      "sha256": "9842535ecf7e27e59d6bb3fca57d8d1c64ab29149d45743f3c9c5d0d9cd0d19f",
+      "sha256": "c4f61e5fddf1e188bedc89f80673f3ed970b878ccd4b07ec694e6c07f046a443",
       "executable": false
     },
     "tests/qualification/ui-convergence/comment-anchors.mjs": {
@@ -12379,6 +12391,10 @@
       "sha256": "3f0dfbce6d93dd7be4879cce565407e42d24cc39454df0c47fbf22d40828fcba",
       "executable": false
     },
+    "tests/qualification/ui-convergence/word-columns-journey.mjs": {
+      "sha256": "9409ac84b179c03bb290a943d0ccba75c9ac05774d5edbb0f356dfce36fdec80",
+      "executable": false
+    },
     "tests/qualification/ui-convergence/workspace-authority-journey.mjs": {
       "sha256": "2b3165cb2a450be99323d087d0e58329ff188c6b87959b434ef942171565cbf6",
       "executable": false
@@ -12416,7 +12432,7 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "102d9342e27e9d77cd6c1e95f0f06731d71acd2a74e9b3c3a4c40fc86d64e459",
+      "sha256": "87b67ba92ff08835c9f9e9181687ca9aacdbba3ebcc3f65dc5a1ba752fa80b12",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
@@ -12432,7 +12448,7 @@
       "executable": false
     },
     "tests/requirements/test-evidence.json": {
-      "sha256": "3f3b1a0c840694fabc83d438abed7848b851e541dffb2de62bfacef4d7c9c791",
+      "sha256": "36623f042411592b8ef91bc4605b5bb838d5fce1a2715db8c66c9af1f83865b0",
       "executable": false
     },
     "tests/rer/editor.test.mjs": {
