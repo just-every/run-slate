@@ -1,5 +1,5 @@
 import {env} from 'cloudflare:test';
-import {expect} from 'vitest';
+import {expect,vi} from 'vitest';
 import {createApi} from '../../../src/core/app/hono';
 import {createUlid} from '../../../src/core/shared/ulid';
 import {seedWorkspace,seedMember,sessionFor} from '../../e2e/setup/fixtures';
@@ -46,6 +46,12 @@ export async function draftPrivacyCase() {
   };
   expect((await read()).blocks[0].content.text).toEqual([{text}]);
   expect((await grants()).items).toEqual([]);
+  const principals=(await grants()).principals;
+  expect(principals.filter((p:any)=>p.kind==='group')).toEqual([{id:groupId,label:'Draft reviewers',kind:'group'}]);
+  expect(principals.filter((p:any)=>p.kind==='member').map((p:any)=>p.id).sort()).toEqual(identities.map(p=>p.id).sort());
+  expect(principals.every((p:any)=>!('memberIds' in p)&&!('email' in p))).toBe(true);
+  // The author may select a named group without acquiring group administration.
+  expect((await request(author!.id,'GET','/api/groups')).status).toBe(403);
   for(const person of [owner!,reader!,groupReader!,outsider!])await refused(person.id,'GET',`/api/pages/${id}`);
   await refused(null,'GET',`/api/pages/${id}`);
   await refused(null,'PATCH',`/api/pages/${id}`,{operationKey:createUlid(),expectedRevisionId:(await read()).page.revisionId,properties:{title:'Anonymous replacement'}});
@@ -137,6 +143,52 @@ export async function draftPrivacyCase() {
   const exported=await request(owner!.id,'POST','/api/exports/jobs/workspace',{operationKey:createUlid()});
   expect(exported.status,exported.body).toBe(403);expect(JSON.parse(exported.body).code).toBe('EXPORT_SCOPE_INCOMPLETE');
   expect(await snapshot()).toEqual(exportBefore);expect(await rows('portability_jobs')).toEqual(jobsBefore);
+  // A delivered invitation link creates a grant only for the accepting session.
+  const delivered:string[]=[];
+  const provider=vi.spyOn(globalThis,'fetch').mockImplementation(async(_url,init)=>{
+    delivered.push(String(init?.body));return Response.json({id:'synthetic-slate-175'});
+  });
+  try {
+    for(const cancel of [false,true]) {
+      const email=[`synthetic-slate-guest-${cancel?'cancel':'accept'}`,'example.test'].join('@');
+      const input={operationKey:createUlid(),kind:'guest',pageId:id,email,level:'view'};
+      await ok(author!.id,'POST','/api/invitations',input);
+      const invitation=(await grants()).items.find((g:any)=>g.invitationEmail===email);
+      expect(invitation).toMatchObject({status:'pending',effective:false,level:'view'});
+      const token=delivered.at(-1)!.match(/\/api\/auth\/invitation\/accept\?token=([A-Za-z0-9_-]+)/)![1]!;
+      const accept=()=>app.request(origin+'/api/auth/invitation/accept',{method:'POST',headers:{origin,'content-type':'application/x-www-form-urlencoded'},body:new URLSearchParams({token})},env);
+      const beforePreview=await snapshot();
+      const preview=await request(null,'GET',`/api/auth/invitation/accept?token=${token}`);
+      expect(preview.status).toBe(200);expect(preview.body).not.toContain(text);
+      expect(await snapshot()).toEqual(beforePreview);
+      await refused(null,'GET',`/api/pages/${id}`);
+      await refused(null,'GET',`/api/sharing/pages/${id}`);
+      for(const route of ['/api/sharing','/api/invitations',`/api/publishing/${id}`]) {
+        await refused(null,'POST',route,route==='/api/sharing'?{operationKey:createUlid(),targetKind:'page',targetId:id,principalKind:'member',principalId:outsider!.id,level:'full'}:route==='/api/invitations'?{...input,operationKey:createUlid()}:{operationKey:createUlid(),expectedRevisionId:(await read()).page.revisionId,host:String(env.PUBLIC_PAGE_HOST),slug:'sessionless-draft'});
+      }
+      if(cancel) {
+        await ok(author!.id,'POST','/api/sharing',{operationKey:createUlid(),targetKind:'page',targetId:id,id:invitation.id,principalKind:'member',principalId:invitation.principalId,level:'view',revoke:true});
+        const before=await snapshot(),members=await rows('members');
+        expect((await accept()).status).toBe(400);
+        expect(await snapshot()).toEqual(before);expect(await rows('members')).toEqual(members);
+        expect((await grants()).items.find((g:any)=>g.id===invitation.id)).toMatchObject({status:'revoked',effective:false});
+      } else {
+        const accepted=await accept();expect(accepted.status).toBe(303);
+        const cookie=accepted.headers.get('set-cookie')!.split(';')[0]!;
+        const guest=(await env.DB.prepare('SELECT id,member_kind FROM members WHERE email=?').bind(email).first<{id:string;member_kind:string}>())!;
+        expect(guest.member_kind).toBe('guest');sessions.set(guest.id,cookie);
+        expect((await grants()).items.find((g:any)=>g.id===invitation.id)).toMatchObject({principalId:guest.id,status:'active',effective:true});
+        expect((await ok(guest.id,'GET',`/api/pages/${id}`)).blocks[0].content.text).toEqual([{text}]);
+        await refused(guest.id,'PATCH',`/api/pages/${id}`,{operationKey:createUlid(),expectedRevisionId:(await read()).page.revisionId,properties:{title:'Guest replacement'}});
+        await ok(author!.id,'POST','/api/sharing',{operationKey:createUlid(),targetKind:'page',targetId:id,id:invitation.id,principalKind:'member',principalId:guest.id,level:'view',revoke:true});
+        await refused(guest.id,'GET',`/api/pages/${id}`);
+        const revoked=await snapshot();expect((await accept()).status).toBe(400);
+        await ok(author!.id,'POST','/api/invitations',input);
+        expect(await snapshot()).toEqual(revoked);
+      }
+    }
+  } finally {provider.mockRestore();}
+  console.log('PROBE LIFE-002 link: delivered draft invitation -> pending grant, explicit acceptance and session-bound body; cancelled link and revoked guest session refused, replay unchanged');
   console.log('PROBE LIFE-002 exclusion: native populated search, query, tree, inbox and analytics -> live control present, draft absent; unauthorized complete export refused without creating a job');
   console.log('PROBE LIFE-002 1: native author, address grant and group sessions -> exact body and persisted grants; owner and outsider refused; same sessions refused after full revocation, replay unchanged');
   console.log('PROBE LIFE-002 2: both access profiles -> general grants and anonymous publication refused; content, grants, exposures, receipts and activity unchanged');
