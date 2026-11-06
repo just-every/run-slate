@@ -12204,7 +12204,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/revision-snapshots-journey.mjs": {
-      "sha256": "079222cc0b85fcf4dee668265043f554b665e11b86dc5940616cd004284291e8",
+      "sha256": "7cbb574d39c613e060009f9dea57ee30dfcdb8d10765469ee0452751003d6001",
       "executable": false
     },
     "tests/qualification/ui-convergence/saml-journey.mjs": {

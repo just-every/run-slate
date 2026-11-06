@@ -3,6 +3,7 @@ import {createHash,randomUUID} from 'node:crypto';
 import {mkdir,writeFile} from 'node:fs/promises';
 import {expect} from '@playwright/test';
 import {ok} from './two-people-support.mjs';
+import {signInWithOutbox} from '../../e2e/outbox-auth.mjs';
 
 /** Native ordinary-page writes retain every snapshot after subsequent edits and reload. */
 export async function revisionSnapshotsJourney(state,width) {
@@ -79,9 +80,24 @@ export async function revisionSnapshotsJourney(state,width) {
    if(index===retained.length-1){await expect(preview).not.toContainText('first snapshot');await page.screenshot({path:`${directory}/new-snapshot.png`,fullPage:true});}
   }
   // Read storage only with the emitted Worker stopped; every write above used its native session.
+  await page.goto('about:blank');
   const [stored]=await state.atRest(`SELECT * FROM page_revisions WHERE page_id='${pageId}' ORDER BY created_at,id`);
   assert.deepEqual(stored.results,retained.map(item=>({id:item.receipt.revisionId,page_id:pageId,author_member_id:'browser-owner',origin:item.origin,content_hash:item.expectedHash,body_json:JSON.stringify(item.snapshot.blocks),properties_json:JSON.stringify(item.snapshot.properties),status_key:null,ordinal:null,label:item.label,created_at:item.receipt.committedAt,deleted_at:null,deleted_by_member_id:null})));
   await writeFile(`${directory}/receipts.json`,JSON.stringify({pageId,width,retained,storedRows:stored.results,reopenedAfterReload:true},null,2)+'\n');
   console.log(`PROBE REV-001 1: native create, title and body edits, workspace publication -> ${retained.length} immutable ordinary-page snapshots; independent hashes and D1 rows agree; reopened after reload at ${width}px`);
  } finally {await profile(workspace.policies);}
+ // This added journey must not consume the later sensitive flows' ten-minute proof window.
+ // Renew through native email confirmation, preserving the same member and all authority checks.
+ const member=(await api('/api/session')).member;
+ const {cookie}=await signInWithOutbox(origin,member.email);
+ const [name,value]=cookie.split('=',2);
+ await context.addCookies([{name,value,url:origin}]);
+ assert.equal((await api('/api/session')).member.id,member.id);
+ const readerResponse=await context.request.get(origin+'/api/session',{headers:{cookie:state.readerCookie}});
+ assert.equal(readerResponse.status(),200);
+ const reader=(await readerResponse.json()).member;
+ assert.equal(reader.id,'browser-reader');
+ const signedIn=await signInWithOutbox(origin,reader.email);
+ assert.equal(signedIn.body.member.id,reader.id);
+ state.readerCookie=signedIn.cookie;
 }
