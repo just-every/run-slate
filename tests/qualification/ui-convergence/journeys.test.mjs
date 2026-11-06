@@ -22,7 +22,7 @@ import {touchCommentJourney,touchPublishShareJourney} from './touch-page.mjs';
 import {touchDatabaseJourney} from './touch-database.mjs';
 import { samlJourney } from './saml-journey.mjs';
 import { folderJourney } from './folder-journey.mjs';
-import {tablesJourney} from './tables-journey.mjs';
+import {tablesJourney,touchTablesJourney} from './tables-journey.mjs';
 import {providerEmbedsJourney} from './provider-embeds-journey.mjs';
 import { exportCommentsJourney } from './export-comments-journey.mjs';
 import { backupsJourney } from './backups-journey.mjs';
@@ -96,6 +96,7 @@ for (const width of [390, 1440]) {
         await step('BLOCK-001 — a new page body takes real keystrokes, including before it finishes loading, and keeps them through committed save, failed save, explicit retry and leaving; touch member creates, inserts and drags blocks', async () => { pageId = await writeJourney(state, width); touch=await beginTouchJourney(state,width);await columnsJourney(state,width,touch); });
         assert.ok(pageId, 'Writing must complete before dependent journeys.');
         assert.ok(touch, 'Touch-member writing must complete before its dependent journeys.');
+        if(width===390)await step('NAV-006 native populated table edits and lossless structure changes by touch',()=>touchTablesJourney(touch));
         await step('anchored comment, reset composer, reply and resolve; touch member comments and resolves', async () => {await commentJourney(state, pageId);await commentAuthorshipJourney(state, width);await touchCommentJourney(touch,touch.pageId);});
         await step('invite existing member, persisted grant and canonical copied link; touch member publishes and shares', async () => {await shareJourney(state, pageId);await touchPublishShareJourney(touch,touch.pageId);});
         await step('PAGE-007 populated Details and full-member ownership preserve grants under replay and edit-only refusal', async () => {await withSecondPerson(state,width,people=>pageDetailsJourney(state,people));});
@@ -111,6 +112,9 @@ for (const width of [390, 1440]) {
           await step('DB-012 populated record fields, comments, history and parity', () => recordDetailJourney(state, width));
           await templateCaptureJourney(state);
           await templateGalleryJourney(state);
+          // Permanent deletion requires a current native email proof, independent of earlier journey duration.
+          await state.refreshReaderIdentity();
+          await touch.context.addCookies([{name:'slate_session',value:state.readerCookie.split('=')[1],url:touch.origin}]);
           await archiveRetentionJourney(state,touch);
           await withSecondPerson(state, width, people => step('DB-015 — template handover and revoked-saver pause on a phone', () => recordTemplatesJourney(state, people)));
           await withSecondPerson(state, width, people => step('REV-006 — numbered deletion tombstone on a phone', () => versionDeletionJourney(state, people)));
