@@ -1,0 +1,8 @@
+{
+  "path": "/home/agent/rer-consolidation/work/sd-slate-c-f201/product-02700389.bundle",
+  "sha256": "994e33ccda51870cb344ee1cdbb4a2a4ca5146759f5ac8fa4902af9063347cb3",
+  "verified": true,
+  "prerequisite": "1f16db6cb1d9b26717cb30519a925902c1f9a9a8",
+  "head": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+  "note": "Recovery data, not a READY claim or proof of landing. Product push succeeded."
+}

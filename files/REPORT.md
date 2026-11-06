@@ -45,7 +45,7 @@ DONE riders
 | --- | --- | --- |
 | 1 | UNMET for DONE | The clause quantifies over every operation and interface. Selected ordinary-page proof does not establish the complete matrix. |
 | 2 | PASS for the selected native scope | Supported writes and unsafe refusals use populated native data, exact receipts and complete inventories; no empty-list or self-derived expected result substitutes for behavior. |
-| 3 | PENDING exact candidate Verify | The existing sharing registration invokes the expanded helper. Both original responsive core callers retain the selected matrix; no flag or nightly-only path is added. |
+| 3 | FAIL, exact candidate Verify red | The existing sharing registration invokes the expanded helper. Both original responsive core callers retain the selected matrix; no flag or nightly-only path is added. |
 | 4 | PASS, exact candidate | Every selected final screen and canonical matrix binds to the same built artifact and candidate 02700389cd02ebdeaa7808d96382801de3ecd0ce; no later source difference exists. |
 | 5 | PASS, INSPECTED | SHARE-002 already cites BASE-ROLE-001 in the receiving contract metadata. |
 | 6 | PASS locally; landing bookkeeping pending | Generator write and check pass; generated views are restored from main, Status rows are untouched and the source lock is generated last. |
@@ -80,7 +80,7 @@ Exact product custody
 - Candidate publication scan: commit=02700389cd02ebdeaa7808d96382801de3ecd0ce; complete=unestablished; historyScanned=unestablished; findings=unestablished. The cloud adaptation assigns the full-history scan to the guarded Mac lander. No scan result or landing is fabricated.
 
 Per-outcome proof map
-All following journeys are invoked by the existing registration at ./tests/qualification/ui-convergence/journeys.test.mjs:166, named “shared page invitations name their space and disappear on revocation at 1440px”. Its matrix call is at line 178. Verify event is push, exact run 42254411032; final conclusion is pending.
+All following journeys are invoked by the existing registration at ./tests/qualification/ui-convergence/journeys.test.mjs:166, named “shared page invitations name their space and disappear on revocation at 1440px”. Its matrix call is at line 178. Verify event is push, exact run 42254411032; final conclusion is failure.
 - Read, title, body, comment creation and direct grant changes: ./tests/qualification/ui-convergence/sharing-journey.mjs:105, permissionLevelsJourney; configured-level loop line 133, complete snapshot line 180 and unchanged refusal line 187.
 - Native editing, display, ownership, structure and lock controls: ./tests/qualification/ui-convergence/sharing-page-edit-matrix.mjs:8, permissionPageEditsMatrix.
 - Replies, own-comment editing and deletion, resolution, cross-author refusal and explicitly permitted readable-content reactions: ./tests/qualification/ui-convergence/sharing-discussion-matrix.mjs:51, permissionDiscussionMatrix. PAGE-014 and COMM-005 remain authoritative for reactions; no policy change is claimed.
@@ -97,3 +97,22 @@ The exact candidate also passed pnpm typecheck and npx -y @runeditrun/rer check 
 CLAIM SHARE-002 PARTIAL points=none tests=tests/qualification/ui-convergence/journeys.test.mjs#shared page invitations name their space and disappear on revocation at 1440px
 GAP SHARE-002: The selected ordinary-page matrix is proved; the complete matrix across all other operations, records, profiles, principals and surfaces, plus ADMIN-007 and shared company-policy prerequisites, remains unproved. No full acceptance point or clause is promoted.
 
+
+Final CI result and blocker
+Exact-SHA Verify push run 42254411032 completed with FAILURE, observed 2026-11-06T17:06:28.053679Z. The returned head is exactly 02700389cd02ebdeaa7808d96382801de3ecd0ce.
+The ten-call GitHub budget was exhausted at that observation. Failed-job IDs, step details and failed assertions were not retrieved. There is no evidence establishing an infrastructure flake or a generated-view-only failure. The local generator and source checks pass, but those results do not classify the remote failure.
+No speculative CI repair, test weakening, rerun or dispatch is attempted. No VERIFY_REPRODUCED result is claimed: the failing job and assertion are unknown. The branch remains held for the lane's CI triage. The complete desktop registration, both native matrices, separate erasure trial, controls proof, typecheck, first-party checks and source checks passed locally on the same candidate.
+No READY, main landing, publication-scan completion, candidate Run site success or clause release is claimed.
+
+GitHub reads used, 10 total
+1. Predecessor exact-SHA run discovery.
+2. Predecessor failed-job metadata.
+3. One predecessor failed-app archive read; its known failed step was generated-view freshness.
+4. Exact existing-main workflow discovery.
+5. Candidate exact-SHA run discovery.
+6–10. One status watcher, no more than one read per five minutes, ending in the exact-SHA failure above.
+No further repository API read is made after the cap.
+
+Verified recovery bundle: /home/agent/rer-consolidation/work/sd-slate-c-f201/product-02700389.bundle; SHA-256 994e33ccda51870cb344ee1cdbb4a2a4ca5146759f5ac8fa4902af9063347cb3. It requires main 1f16db6cb1d9b26717cb30519a925902c1f9a9a8 and preserves all candidate work outside the clone.
+
+BLOCKED branch=cloud/sd-slate-c-f201 head=02700389cd02ebdeaa7808d96382801de3ecd0ce reason=Verify-42254411032-failed; failed-job triage unavailable within the exhausted ten-call budget.

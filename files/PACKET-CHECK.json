@@ -1,0 +1,133 @@
+{
+  "head": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+  "scope": "Every other selected packet file; this check file is hashed by the Git evidence manifest.",
+  "regularFilesOnly": true,
+  "textHygieneFindings": 0,
+  "files": [
+    {
+      "file": "INTEGRITY.json",
+      "bytes": 546,
+      "sha256": "a3e3518efcbb0f8be1faafddf9c687f6e0a214003c2efe9badaaec899976362c"
+    },
+    {
+      "file": "MECHANICAL.json",
+      "bytes": 978,
+      "sha256": "ab117f017cf66a86788c0e5bdf6493b7e83995010d9edafde0a70743910f1c1f"
+    },
+    {
+      "file": "PRODUCT.json",
+      "bytes": 472,
+      "sha256": "30567ff873a102cf66c93d9cad19d4e3f233b2fe51beb350be47a093813414a6"
+    },
+    {
+      "file": "RECEIPTS.json",
+      "bytes": 80084,
+      "sha256": "4599946dae703f249ede90bb5cb209539cd9e47c62fd64e901151dfd8f3c04e0"
+    },
+    {
+      "file": "RECOVERY.json",
+      "bytes": 398,
+      "sha256": "6d01d2d0734229f71e3df2c731503cf3a1dc5ffe0309966e5e1ad28d40da2d13"
+    },
+    {
+      "file": "REPORT.md",
+      "bytes": 16571,
+      "sha256": "af6f6027b744477b1d01d597a88f62ad189a2845d5e984a5c09f6aac010c1544"
+    },
+    {
+      "file": "audit-content.log",
+      "bytes": 1247,
+      "sha256": "721cb023b9a49914b4ec2c2e9bf760a1b20d2e8668fa73d143bad5468e8a270f"
+    },
+    {
+      "file": "browser-proof.zip",
+      "bytes": 3617826,
+      "sha256": "5a6c4b388f4bcc153e819ab19d8ee3876c592aa4b8dc7e4cc1f7dbcef5d5c001"
+    },
+    {
+      "file": "ci-observations.json",
+      "bytes": 1431,
+      "sha256": "33a6a2c5e070646ca2bd61c12b21afcb058dd900158bc91e46fd0ba87b5c02bd"
+    },
+    {
+      "file": "ci-runs.json",
+      "bytes": 231,
+      "sha256": "b49345a399c56bece482a81df4b56f54361589d7d431662a980e3a40b5280d33"
+    },
+    {
+      "file": "contract-generation.log",
+      "bytes": 60,
+      "sha256": "cdada4f46860989b6e41904b5bffd1be7976cfde8b8dba1b4a7dcf41c522fcda"
+    },
+    {
+      "file": "controls-command.json",
+      "bytes": 869,
+      "sha256": "616669e43528d718917aa93748529e6f7e7dcb84dcbc4b4777cd749fd7b6a82c"
+    },
+    {
+      "file": "controls-probe.mjs",
+      "bytes": 2503,
+      "sha256": "836f9f6e38eac6eb2f2d79c8b9e2df7065e0fb779b7060e7f324d7bc89c8684b"
+    },
+    {
+      "file": "controls-proof.log",
+      "bytes": 1000,
+      "sha256": "567db42fb8b1110e541417cc3f192d6c07af3dade987e2b0861ae916003e5eb2"
+    },
+    {
+      "file": "desktop-command.json",
+      "bytes": 1414,
+      "sha256": "209237876676200c3e65e1002710482b377a6b5e1d660dff3da7b0649860ce91"
+    },
+    {
+      "file": "erasure-command.json",
+      "bytes": 868,
+      "sha256": "0b52c746a0d8908aa0d97dc4e534b98486a63ab3460fa1d210debcbe2ec6f6f7"
+    },
+    {
+      "file": "erasure-probe.mjs",
+      "bytes": 780,
+      "sha256": "f39d904eadb778eb4d08adc8a0e9343f573d2b5524cbc93ad3809c92d1317be5"
+    },
+    {
+      "file": "erasure-proof.log",
+      "bytes": 416,
+      "sha256": "908c11e7c4c70f8611119cea30b7a95ba6a3f1d7ad9f7ababaff078ad5a11488"
+    },
+    {
+      "file": "native-1440.log",
+      "bytes": 2139,
+      "sha256": "2ca3fcdf7363004a2d7000e2d10f409b4b37a7ed37e647d38264a04354e20903"
+    },
+    {
+      "file": "native-390.log",
+      "bytes": 1099,
+      "sha256": "c4b6f958f706a06579c9a6c32319798928830106acb9e7fcd537f72ec4c3bf8d"
+    },
+    {
+      "file": "native-matrix-1440.json.gz",
+      "bytes": 2022765,
+      "sha256": "68be6b51a346e372f27e6eca0f345b5443582acdd1261a00c67a878e7555dfaa"
+    },
+    {
+      "file": "native-matrix-390.json.gz",
+      "bytes": 2019709,
+      "sha256": "a66ad537f6589135f13934bae843143787d60d6198491d0cf253a0882e849407"
+    },
+    {
+      "file": "phone-command.json",
+      "bytes": 1194,
+      "sha256": "17c8a849f650e24614ecd54ced53dcd8733db229a3ae9bcd671eea07693ccd98"
+    },
+    {
+      "file": "phone-probe.mjs",
+      "bytes": 541,
+      "sha256": "89b3ecfab23351b04f51f65b0795d564587de5ef9eaeb14eef8ea99e18664c08"
+    },
+    {
+      "file": "typecheck.log",
+      "bytes": 102,
+      "sha256": "13245170a11bc56044dea7b96d44e9b0134fef21e9c262479674c08ce712aae0"
+    }
+  ]
+}

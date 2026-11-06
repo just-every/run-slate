@@ -1776,5 +1776,23 @@
       "exit": 0,
       "reason": "No migration changed."
     }
+  },
+  "ci": {
+    "runId": 42254411032,
+    "event": "push",
+    "head": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+    "status": "completed",
+    "conclusion": "failure",
+    "observedAt": "2026-11-06T17:06:28.053679Z",
+    "failedJobDetailsRetrieved": false,
+    "apiCallsUsed": 10,
+    "apiBudget": 10,
+    "repairsAttempted": 0
+  },
+  "custody": {
+    "productPushed": true,
+    "ready": false,
+    "blocked": "Exact-SHA Verify failed; failed-job triage not available within the exhausted GitHub budget.",
+    "landingClaimed": false
   }
 }

@@ -6,5 +6,37 @@
     "head_sha": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
     "html_url": "https://github.com/just-every/run-slate/actions/runs/42254411032",
     "status": "in_progress"
+  },
+  {
+    "observedAt": "2026-11-06T16:50:53.134283+00:00",
+    "runId": 42254411032,
+    "conclusion": null,
+    "head_sha": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+    "html_url": "https://github.com/just-every/run-slate/actions/runs/42254411032",
+    "status": "in_progress"
+  },
+  {
+    "observedAt": "2026-11-06T16:55:53.558715+00:00",
+    "runId": 42254411032,
+    "conclusion": null,
+    "head_sha": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+    "html_url": "https://github.com/just-every/run-slate/actions/runs/42254411032",
+    "status": "in_progress"
+  },
+  {
+    "observedAt": "2026-11-06T17:01:27.598050+00:00",
+    "runId": 42254411032,
+    "conclusion": null,
+    "head_sha": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+    "html_url": "https://github.com/just-every/run-slate/actions/runs/42254411032",
+    "status": "in_progress"
+  },
+  {
+    "observedAt": "2026-11-06T17:06:28.053679+00:00",
+    "runId": 42254411032,
+    "conclusion": "failure",
+    "head_sha": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+    "html_url": "https://github.com/just-every/run-slate/actions/runs/42254411032",
+    "status": "completed"
   }
 ]
