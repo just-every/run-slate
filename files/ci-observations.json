@@ -1,0 +1,64 @@
+{
+  "head": "26f7a08151f30f85511a27638b9f2eaf8e43a142",
+  "github_calls": 6,
+  "observations": [
+    {
+      "call": 2,
+      "kind": "discovery",
+      "queried_at": 1793971586.5741003,
+      "workflow_runs": []
+    },
+    {
+      "call": 3,
+      "kind": "discovery",
+      "queried_at": 1793971886.5742233,
+      "workflow_runs": [
+        {
+          "conclusion": null,
+          "event": "push",
+          "head_sha": "26f7a08151f30f85511a27638b9f2eaf8e43a142",
+          "html_url": "https://github.com/just-every/run-slate/actions/runs/42225509049",
+          "id": 42225509049,
+          "name": "Verify Slate",
+          "status": "in_progress"
+        }
+      ]
+    },
+    {
+      "call": 4,
+      "kind": "run",
+      "queried_at": 1793972186.5743546,
+      "conclusion": null,
+      "event": "push",
+      "head_sha": "26f7a08151f30f85511a27638b9f2eaf8e43a142",
+      "html_url": "https://github.com/just-every/run-slate/actions/runs/42225509049",
+      "id": 42225509049,
+      "name": "Verify Slate",
+      "status": "in_progress"
+    },
+    {
+      "call": 5,
+      "kind": "run",
+      "queried_at": 1793972486.5745096,
+      "conclusion": null,
+      "event": "push",
+      "head_sha": "26f7a08151f30f85511a27638b9f2eaf8e43a142",
+      "html_url": "https://github.com/just-every/run-slate/actions/runs/42225509049",
+      "id": 42225509049,
+      "name": "Verify Slate",
+      "status": "in_progress"
+    },
+    {
+      "call": 6,
+      "kind": "run",
+      "queried_at": 1793972786.5746481,
+      "conclusion": "failure",
+      "event": "push",
+      "head_sha": "26f7a08151f30f85511a27638b9f2eaf8e43a142",
+      "html_url": "https://github.com/just-every/run-slate/actions/runs/42225509049",
+      "id": 42225509049,
+      "name": "Verify Slate",
+      "status": "completed"
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+rer toolchain: node v22.20.0 pnpm 10.12.4 (pins 22.20.0 / 10.12.4)
+v22.20.0
+10.12.4
+26f7a08151f30f85511a27638b9f2eaf8e43a142
+TAP version 13
+# BLOCK-011 visible copy rendered 986 ms after Save.
+# BLOCK-011 synced paragraphs, live copy, access needed and static deletion passed at 1440px
+# WORK-016 searchable expertise, owned/verified pages, hidden tag and scoped guest people passed at 1440px
+# PROBE REV-006 1: edit-only, current, published and autosnapshot DELETE requests -> refused without revision or activity changes
+# PROBE REV-006 2: full-member History confirmation -> version 2 content removed, attributed timed tombstone after reload; every other revision retained; replay has one activity
+# Subtest: named review request, reviewer queue, exact verify and overdue escalation at 1440px
+ok 1 - named review request, reviewer queue, exact verify and overdue escalation at 1440px
+  ---
+  duration_ms: 109175.928212
+  type: 'test'
+  ...
+# Subtest: BLOCK-016 — task reports, My tasks and typed assignments preserve reader access and completion at 1440px
+ok 2 - BLOCK-016 — task reports, My tasks and typed assignments preserve reader access and completion at 1440px
+  ---
+  duration_ms: 50634.914948
+  type: 'test'
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 2
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 176912.954733
+TAP version 13
+# Subtest: genuine insertion focus lifecycle at 1440px
+ok 1 - genuine insertion focus lifecycle at 1440px
+  ---
+  duration_ms: 100054.548316
+  type: 'test'
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 1
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 116923.150279
+Shard lane results: journeys=0 worker-suite=0

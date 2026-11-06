@@ -1,0 +1,30 @@
+{
+  "head": "26f7a08151f30f85511a27638b9f2eaf8e43a142",
+  "run": 42225509049,
+  "job": 127918839748,
+  "command": "SLATE_UI_SHARD=5/8 SLATE_UI_ASSIGNMENTS=.github/scripts/journey-shards.json SERIAL_SUITE=true WORKER_SHARD=0 SUITE_COMMAND=\"node --test --test-concurrency=1 --test-name-pattern='^genuine insertion focus.*1440' tests/ui/polish-journeys.test.mjs\" bash .github/scripts/run-shard.sh",
+  "test": "named review request, reviewer queue, exact verify and overdue escalation at 1440px",
+  "exit": 0,
+  "failure": null,
+  "reproduced": false,
+  "ciFailure": "Step REV-006 \u2014 numbered deletion leaves an attributed tombstone failed: expect(locator).toBeHidden() failed; Publish this revision remained visible after 409 REVISION_CONFLICT",
+  "runner": {
+    "os": "Ubuntu 24.04.4",
+    "node": "22.20.0",
+    "pnpm": "10.12.4",
+    "playwright": "1.63.0",
+    "browserRevision": 1243,
+    "image": "mcr.microsoft.com/playwright@sha256:eff16c30e6f3f4af0a03fa4b706120d5e9b0891c344a27d64559aff5900a4a27",
+    "browserExecutable": "/usr/bin/chromium (symlink to bundled headless shell)"
+  },
+  "repairRounds": 0,
+  "reruns": 0,
+  "mainComparison": {
+    "head": "1f16db6cb1d9b26717cb30519a925902c1f9a9a8",
+    "sameRunner": true,
+    "originalFailingTest": "passed",
+    "fullShardExit": 0,
+    "failure": null,
+    "reproduced": false
+  }
+}

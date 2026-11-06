@@ -1,0 +1,42 @@
+{
+  "used": 9,
+  "limit": 10,
+  "calls": [
+    {
+      "number": 1,
+      "purpose": "main exact-SHA discovery"
+    },
+    {
+      "number": 2,
+      "purpose": "candidate immediate discovery"
+    },
+    {
+      "number": 3,
+      "purpose": "candidate discovery after 300 seconds"
+    },
+    {
+      "number": 4,
+      "purpose": "run status after 300 seconds"
+    },
+    {
+      "number": 5,
+      "purpose": "run status after 300 seconds"
+    },
+    {
+      "number": 6,
+      "purpose": "completed run status after 300 seconds"
+    },
+    {
+      "number": 7,
+      "purpose": "completed job list"
+    },
+    {
+      "number": 8,
+      "purpose": "failed ui-focus-desktop archive once"
+    },
+    {
+      "number": 9,
+      "purpose": "failed aggregate archive once"
+    }
+  ]
+}
