@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import {randomUUID} from 'node:crypto';
 import {mkdir} from 'node:fs/promises';
 import {expect} from '@playwright/test';
+import {inbox,newOutboxLink} from '../../e2e/outbox-auth.mjs';
 import {createPage} from '../interface/create-page.mjs';
 import {call,ok,withSecondPerson} from './two-people-support.mjs';
 
@@ -154,6 +155,61 @@ export async function draftPrivacyJourney(state) {
       await expect(people.bob.page.locator('.page-document')).toContainText(memberText);
       await people.bob.page.screenshot({path:`${directory}/member-author.png`,fullPage:true});
       await page.screenshot({path:`${directory}/refused-owner.png`,fullPage:true});
+      // An ordinary author selects a group through the same safe principal directory.
+      const reviewers=(await ok(context,origin,'POST','/api/groups',{operationKey:randomUUID(),name:`Member draft reviewers ${width}`,memberIds:['browser-owner']})).value.id;
+      await people.bob.page.getByRole('button',{name:'Share',exact:true}).click();
+      const authorPanel=people.bob.page.locator('.right');
+      await authorPanel.locator('select[name="principal"]').selectOption(`group:${reviewers}`);
+      await authorPanel.getByRole('button',{name:'Share page',exact:true}).click();
+      await expect.poll(async()=>(await ok(people.bob.context,origin,'GET',`/api/sharing/pages/${memberDraft}`)).items.map(g=>[g.principalKind,g.principalId,g.status])).toEqual([['group',reviewers,'active']]);
+      assert.equal((await call(people.bob.context,origin,'GET','/api/groups')).status,403);
+      await people.bob.page.reload({waitUntil:'networkidle'});
+      await people.bob.page.getByRole('button',{name:'Share',exact:true}).click();
+      await expect(people.bob.page.getByRole('combobox',{name:`Access for Member draft reviewers ${width}`,exact:true})).toHaveValue('view');
+      await page.goto(`${origin}/app/pages/${memberDraft}`,{waitUntil:'networkidle'});
+      await expect(page.locator('.page-document')).toContainText(memberText);
+      await people.bob.page.screenshot({path:`${directory}/member-author-group.png`,fullPage:true});
+      const memberGroupRow=authorPanel.locator('.grant-list > li').filter({has:people.bob.page.getByRole('combobox',{name:`Access for Member draft reviewers ${width}`,exact:true})});
+      await memberGroupRow.locator('details > summary').click();await memberGroupRow.getByRole('button',{name:'Remove access',exact:true}).click();
+      await expect.poll(async()=>(await ok(people.bob.context,origin,'GET',`/api/sharing/pages/${memberDraft}`)).effectiveItems).toEqual([]);
+      assert.equal((await call(context,origin,'GET',`/api/pages/${memberDraft}`)).status,404);
+      await page.reload({waitUntil:'networkidle'});await expect(page.locator('body')).not.toContainText(memberText);
+
+      // The real delivered link admits a new guest, never an anonymous body reader.
+      const guest=await context.browser().newContext({viewport:page.viewportSize()});
+      try {
+        await page.goto(address,{waitUntil:'networkidle'});await openSharing();
+        const beforeMail=await inbox(origin);
+        await panel.getByText('Invite by email',{exact:true}).click();
+        const email=[`synthetic-slate-guest-${width}`,'test.invalid'].join('@');
+        await panel.getByRole('textbox',{name:'Email address',exact:true}).fill(email);
+        await panel.getByRole('button',{name:'Send invitation',exact:true}).click();
+        await expect.poll(async()=>(await grants()).items.find(g=>g.invitationEmail===email)?.status).toBe('pending');
+        await page.reload({waitUntil:'networkidle'});await openSharing();
+        await expect(panel.locator('.grant-list')).toContainText(email);
+        const invitation=(await grants()).items.find(g=>g.invitationEmail===email);
+        assert.equal(invitation.effective,false);
+        const delivered=await newOutboxLink(origin,beforeMail),visitor=await guest.newPage();
+        await visitor.goto(delivered,{waitUntil:'networkidle'});
+        await expect(visitor.getByRole('button',{name:'Accept invitation',exact:true})).toBeVisible();
+        await expect(visitor.locator('body')).not.toContainText(text);
+        await refused(guest,'GET',`/api/pages/${id}`,undefined,401);
+        await visitor.getByRole('button',{name:'Accept invitation',exact:true}).click();
+        await visitor.waitForURL(url=>url.pathname==='/app');
+        await visitor.goto(address,{waitUntil:'networkidle'});await visitor.reload({waitUntil:'networkidle'});
+        await expect(visitor.locator('.page-document')).toContainText(text);
+        const accepted=(await grants()).items.find(g=>g.id===invitation.id);
+        assert.equal(accepted.status,'active');assert.equal(accepted.effective,true);
+        const session=await ok(guest,origin,'GET','/api/session');assert.equal(accepted.principalId,session.member.id);
+        await page.reload({waitUntil:'networkidle'});await openSharing();
+        await page.screenshot({path:`${directory}/accepted-guest-grant.png`,fullPage:true});
+        await visitor.screenshot({path:`${directory}/session-bound-guest.png`,fullPage:true});
+        const guestRow=panel.locator(`.grant-list > li[data-grant-id="${invitation.id}"]`);
+        await guestRow.locator('details > summary').click();await guestRow.getByRole('button',{name:'Remove access',exact:true}).click();
+        await expect.poll(async()=>(await grants()).items.find(g=>g.id===invitation.id)?.status).toBe('revoked');
+        await refused(guest,'GET',`/api/pages/${id}`,undefined,404);
+        await visitor.reload({waitUntil:'networkidle'});await expect(visitor.locator('body')).not.toContainText(text);
+      } finally {await guest.close();}
       await ok(context,origin,'POST','/api/sharing',{operationKey:randomUUID(),targetKind:'container',targetId:containerId,id:authoringGrant,principalKind:'member',principalId:'browser-reader',level:'full',revoke:true});
     });
     console.log(`PROBE LIFE-002 browser ${width}: native draft creation and saved body -> link alone refused; address grant persisted; named reader read; profile switches retained draft; revoked session refused after reload`);

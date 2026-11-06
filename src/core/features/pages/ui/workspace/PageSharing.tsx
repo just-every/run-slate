@@ -8,7 +8,6 @@ import {
   errorMessage,
 } from "../../../../client/transport";
 import type { DocumentView } from "../../../../client/content";
-import type { MemberView, GroupView } from "../../../../shared/api/workspace";
 import { RequestState } from "../../../../app/ui/RequestState";
 import { useWorkspace } from "../../../../app/ui/WorkspaceContext";
 interface Grant {
@@ -31,18 +30,11 @@ interface Grant {
 function accessLabel(level: string) { return ({view:"View",comment:"Comment",edit:"Edit",full:"Manage access"} as Record<string,string>)[level] ?? level; }
 /** `address` is the page's one address (SL1), which Copy page link writes. */
 export function PageSharing({ document, address }: { document: DocumentView; address?: string }) {
-  const { workspace, localDevelopment, member } = useWorkspace();
-  const grants = useResource<{ items: Grant[]; inheritedItems?:Grant[]; effectiveItems?:Grant[];levels?:string[];container?:{id:string;name:string};restricted?:boolean;restriction?:{scope:string;id:string|null;name:string}|null }>(
+  const { workspace } = useWorkspace();
+  const grants = useResource<{ items: Grant[]; principals?:{id:string;label:string;kind:"member"|"group"}[]; inheritedItems?:Grant[]; effectiveItems?:Grant[];levels?:string[];container?:{id:string;name:string};restricted?:boolean;restriction?:{scope:string;id:string|null;name:string}|null }>(
     document.permissions.canShare
       ? `/api/sharing/pages/${document.page.id}`
       : null,
-  );
-  const members = useResource<{ items: MemberView[] }>(
-    document.permissions.canShare ? "/api/members" : null,
-  );
-  const guests = useResource<{items:MemberView[]}>(document.permissions.canShare && member.role === "owner" ? "/api/guests" : null);
-  const groups = useResource<{ items: GroupView[] }>(
-    document.permissions.canShare && member.role === "owner" ? "/api/groups" : null,
   );
   const [error, setError] = useState<unknown>();
   const [pending, setPending] = useState(false);
@@ -80,12 +72,7 @@ export function PageSharing({ document, address }: { document: DocumentView; add
       return "Everyone in this workspace";
     if (grant.principalKind === "container")
       return `Everyone in ${grants.data?.container?.name ?? "this space"}`;
-    return (
-      members.data?.items.find((item) => item.id === grant.principalId)
-        ?.displayName ??
-      groups.data?.items.find((item) => item.id === grant.principalId)?.name ??
-      "Former member or group"
-    );
+    return "Former member or group";
   }
   return (
     <section>
@@ -185,14 +172,9 @@ export function PageSharing({ document, address }: { document: DocumentView; add
                 <option value="" disabled>
                   Choose a person or group
                 </option>
-                {[...(members.data?.items??[]),...(guests.data?.items??[])].map((member) => (
-                  <option key={member.id} value={`member:${member.id}`}>
-                    {member.displayName}
-                  </option>
-                ))}
-                {groups.data?.items.map((group) => (
-                  <option key={group.id} value={`group:${group.id}`}>
-                    {group.name}
+                {grants.data?.principals?.map(principal => (
+                  <option key={`${principal.kind}:${principal.id}`} value={`${principal.kind}:${principal.id}`}>
+                    {principal.label}
                   </option>
                 ))}
               </select>
