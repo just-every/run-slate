@@ -1,0 +1,81 @@
+{
+  "head": "2f341380ae581db24c4982b6ff5faf3f7b78b90b",
+  "node": "22.20.0",
+  "command": "cloud_run perl -e 'alarm 1800; exec @ARGV' -- env SLATE_CHROMIUM_PATH=/usr/bin/chromium node --test --test-concurrency=1 --test-name-pattern='^real core-wiki and touch-member journeys at 390px$|^readable exports retain discussions' tests/qualification/ui-convergence/journeys.test.mjs",
+  "exit": 0,
+  "tests": 2,
+  "passed": 2,
+  "failed": 0,
+  "phoneDurationMs": 516459.599901,
+  "desktopDurationMs": 196553.761717,
+  "totalDurationMs": 729721.530799,
+  "proof": [
+    {
+      "viewportWidth": 1440,
+      "sourceIdentity": {
+        "head": "2f341380ae581db24c4982b6ff5faf3f7b78b90b",
+        "journeySha256": "929204aa70cbd66b4125cf8628778b34e4a4508de01c4a192254793951badca6"
+      },
+      "rows": 37,
+      "tables": 10,
+      "pages": 4,
+      "revisions": 12,
+      "originals": [
+        {
+          "id": "01M6R7TQ1V2BSZJQ38DHG1AT4Q",
+          "name": "archive-notes.txt",
+          "bytes": 60,
+          "sha256": "06601ede0ea29a3c34381a139eb2496837c535bff62d21c9643f14475daa2123"
+        },
+        {
+          "id": "01M6R7TQ2Q45R0G8KQJKJ0WK3J",
+          "name": "archive-original.png",
+          "bytes": 68,
+          "sha256": "771346b338f38f7bfd6ab7538aed0a1d7e0accafc0f76eed922e08e8e8e6e37c"
+        }
+      ],
+      "archive": {
+        "bytes": 70455,
+        "sha256": "a7418a60c9bfef14fd2062b6d541516a75135bef6681347eaf3af74899028b3d"
+      },
+      "screenshotSize": [
+        1440,
+        10795
+      ]
+    },
+    {
+      "viewportWidth": 390,
+      "sourceIdentity": {
+        "head": "2f341380ae581db24c4982b6ff5faf3f7b78b90b",
+        "journeySha256": "929204aa70cbd66b4125cf8628778b34e4a4508de01c4a192254793951badca6"
+      },
+      "rows": 37,
+      "tables": 10,
+      "pages": 4,
+      "revisions": 12,
+      "originals": [
+        {
+          "id": "01M6R794Q3GKXKYGS0QX6MCZZN",
+          "name": "archive-notes.txt",
+          "bytes": 60,
+          "sha256": "06601ede0ea29a3c34381a139eb2496837c535bff62d21c9643f14475daa2123"
+        },
+        {
+          "id": "01M6R794QY6A6QKRSW8EKZ1595",
+          "name": "archive-original.png",
+          "bytes": 68,
+          "sha256": "771346b338f38f7bfd6ab7538aed0a1d7e0accafc0f76eed922e08e8e8e6e37c"
+        }
+      ],
+      "archive": {
+        "bytes": 19914,
+        "sha256": "fa92a05a920f3af9c211959b0cdab797fb5a31b63bfeff743383a60cd9a20e50"
+      },
+      "screenshotSize": [
+        390,
+        7873
+      ]
+    }
+  ],
+  "observedAt": "2026-11-06T10:56:31.888154+00:00"
+}

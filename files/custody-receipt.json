@@ -1,0 +1,23 @@
+{
+  "repository": "just-every/run-slate",
+  "branch": "cloud/sd-slate-c-f188",
+  "head": "2f341380ae581db24c4982b6ff5faf3f7b78b90b",
+  "pushed": true,
+  "remoteAdvertisedRefs": {
+    "refs/heads/cloud/sd-slate-c-f188": "2f341380ae581db24c4982b6ff5faf3f7b78b90b",
+    "refs/heads/main": "bc567c9b6f6b25c98cb6fa05b9ab0fe37628a547"
+  },
+  "observedAt": "2026-11-06T10:54:45.284432+00:00",
+  "productCommits": [
+    "3dc5ac2306a94aba6a350f991225399039346be2",
+    "2f341380ae581db24c4982b6ff5faf3f7b78b90b"
+  ],
+  "cleanProductCheckout": true,
+  "bundle": {
+    "path": "/home/agent/rer-consolidation/work/sd-slate-c-f188/product.bundle",
+    "sha256": "95660a77846569e07ad88a067c88677f4b592662989053e52c5fa437fe2d1fc1",
+    "verified": true,
+    "prerequisite": "bc567c9b6f6b25c98cb6fa05b9ab0fe37628a547"
+  },
+  "landing": "Not attempted; guarded fleet lander owns main, publication scan and Run site"
+}

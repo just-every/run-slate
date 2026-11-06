@@ -1,0 +1,24 @@
+{
+  "discoveredAt": 1793962381.5659773,
+  "githubCalls": 6,
+  "head": "2f341380ae581db24c4982b6ff5faf3f7b78b90b",
+  "runs": [
+    {
+      "conclusion": null,
+      "event": "push",
+      "head_sha": "2f341380ae581db24c4982b6ff5faf3f7b78b90b",
+      "html_url": "https://github.com/just-every/run-slate/actions/runs/42205971515",
+      "id": 42205971515,
+      "name": "Verify Slate",
+      "status": "in_progress"
+    }
+  ],
+  "lastPollAt": 1793962683.078933,
+  "final": {
+    "conclusion": "failure",
+    "head_sha": "2f341380ae581db24c4982b6ff5faf3f7b78b90b",
+    "html_url": "https://github.com/just-every/run-slate/actions/runs/42205971515",
+    "status": "completed"
+  },
+  "failureClass": "Expected generated ACCEPTANCE.md freshness failure only, with dependent aggregate failure and skipped shards."
+}

@@ -1,0 +1,53 @@
+{
+  "head": "2f341380ae581db24c4982b6ff5faf3f7b78b90b",
+  "journeyFile": "tests/qualification/ui-convergence/transfer-jobs-journey.mjs",
+  "journeySha256": "929204aa70cbd66b4125cf8628778b34e4a4508de01c4a192254793951badca6",
+  "rubric": [
+    {
+      "id": "R1",
+      "selectedOutcome": "Ordered parent, siblings and grandchild, retaining exact identifiers",
+      "line": 36
+    },
+    {
+      "id": "R2",
+      "selectedOutcome": "Native authored bodies, property edits and labels survive the downloaded ZIP",
+      "line": 88
+    },
+    {
+      "id": "R3",
+      "selectedOutcome": "All twelve created and edited page revisions remain readable and exported",
+      "line": 97
+    },
+    {
+      "id": "R4",
+      "selectedOutcome": "Explicit member and group page grants and group principal linkage retain every field",
+      "line": 70
+    },
+    {
+      "id": "R5",
+      "selectedOutcome": "Anchored thread, anchor revision and reply retain every stored field",
+      "line": 45
+    },
+    {
+      "id": "R6",
+      "selectedOutcome": "Two actual originals retain native download bytes, ZIP bytes, sizes and independent SHA-256",
+      "line": 108
+    },
+    {
+      "id": "R7",
+      "selectedOutcome": "Independent selected source snapshots are unchanged after workspace export",
+      "line": 112
+    }
+  ],
+  "registrations": [
+    {
+      "name": "real core-wiki and touch-member journeys at 390px",
+      "line": 84
+    },
+    {
+      "name": "readable exports retain discussions through HTML and Markdown re-import at 1440px",
+      "line": 226
+    }
+  ],
+  "status": "Selected supporting scope only, not full PORT-001 acceptance"
+}

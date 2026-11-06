@@ -1,0 +1,26 @@
+{
+  "head": "2f341380ae581db24c4982b6ff5faf3f7b78b90b",
+  "runId": 42205971515,
+  "failedJobs": [
+    127852631608,
+    127852940847
+  ],
+  "githubCalls": 6,
+  "logs": [
+    {
+      "file": "verify-app-failed.log",
+      "rawSha256": "89be90d54a30167319e8b6f9b9813ada2c2095e7986dafd4643e96a9f7dfd2cb",
+      "publishedSha256": "527b1cb4fa18fe420812586629a8c4709fb44d3b47258210cc9600ad8bd83ff7",
+      "redaction": "CI environment value blocks omitted; failed command and actual error preserved."
+    },
+    {
+      "file": "verify-aggregate-failed.log",
+      "rawSha256": "66c8b46e4617f2d185fffa24cfadac626a4ab9841d882e9ab89426552d75c1b3",
+      "publishedSha256": "4811dd0656878ad9d30fcc88244ef9e861d07759957e2287196adad638c956db",
+      "redaction": "CI environment value blocks omitted; failed command and actual error preserved."
+    }
+  ],
+  "error": "ACCEPTANCE.md: generated content differs; run contract-docs write.",
+  "expectedViewOnlyFailure": true,
+  "rerunOrDispatch": false
+}

@@ -1,0 +1,36 @@
+Journey failure context {
+  "rejected": [],
+  "consoleErrors": []
+}
+✖ readable exports retain discussions through HTML and Markdown re-import at 1440px (87743.096028ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 103045.780234
+
+✖ failing tests:
+
+test at tests/qualification/ui-convergence/journey-shard.mjs:23:97
+✖ readable exports retain discussions through HTML and Markdown re-import at 1440px (87743.096028ms)
+  AssertionError [ERR_ASSERTION]: {"code":"UNSUPPORTED_FILE_TYPE","message":"This file type is not allowed."}
+  
+  400 !== 200
+  
+      at authoredSubtree (file:///home/agent/rer-consolidation/work/sd-slate-c-f188/run-slate/tests/qualification/ui-convergence/transfer-jobs-journey.mjs:48:12)
+      at async transferJobsJourney (file:///home/agent/rer-consolidation/work/sd-slate-c-f188/run-slate/tests/qualification/ui-convergence/transfer-jobs-journey.mjs:220:16)
+      at async withWorkspace.backups (file:///home/agent/rer-consolidation/work/sd-slate-c-f188/run-slate/tests/qualification/ui-convergence/journeys.test.mjs:232:7)
+      at async withWorkspace (file:///home/agent/rer-consolidation/work/sd-slate-c-f188/run-slate/tests/qualification/ui-convergence/browser-support.mjs:188:7)
+      at async TestContext.<anonymous> (file:///home/agent/rer-consolidation/work/sd-slate-c-f188/run-slate/tests/qualification/ui-convergence/journeys.test.mjs:227:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 400,
+    expected: 200,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

@@ -1,0 +1,44 @@
+{
+  "head": "2f341380ae581db24c4982b6ff5faf3f7b78b90b",
+  "node": "v22.20.0",
+  "typecheck": {
+    "command": "pnpm typecheck",
+    "exit": 0
+  },
+  "firstParty": {
+    "command": "pnpm exec rer check --profile first-party",
+    "exit": 0
+  },
+  "views": {
+    "write": "node src/base/runtime/contract-docs.mjs write",
+    "check": "node src/base/runtime/contract-docs.mjs check",
+    "exit": 0,
+    "generatedFilesRestoredFrom": "origin/main"
+  },
+  "lock": {
+    "regenerate": "pnpm source:lock",
+    "check": "pnpm source:check",
+    "exit": 0
+  },
+  "ledger": {
+    "command": "none; no migration changed",
+    "exit": 0
+  },
+  "statusCounts": {
+    "done": 57,
+    "partial": 240,
+    "missing": 41
+  },
+  "statusRows": 338,
+  "tableRows": 698,
+  "registrationCount": 207,
+  "productionSourceDiff": "",
+  "build": {
+    "command": "cloud_run npx -y @runeditrun/rer build",
+    "exit": 0,
+    "note": "Built after initial setup; no production-source, migration, dependency or workflow byte differs in the candidate."
+  },
+  "originalAssertionsRetained": 41,
+  "registrationCountBefore": 207,
+  "registrationCountAfter": 207
+}
