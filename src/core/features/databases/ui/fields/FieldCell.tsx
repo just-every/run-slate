@@ -114,6 +114,7 @@ export function FieldCell({
         {canEdit ? (
           <button
             aria-label={`Edit ${field.name}`}
+            data-tooltip={`Edit ${field.name}`}
             className="inline-flex size-5 shrink-0 items-center justify-center rounded-control text-ink-faint hover:bg-sidebar-hover hover:text-ink"
             onClick={() => onEdit?.(field.id)}
             type="button"

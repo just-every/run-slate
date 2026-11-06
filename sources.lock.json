@@ -6280,7 +6280,7 @@
       "executable": false
     },
     "src/core/features/databases/service.ts": {
-      "sha256": "a11da981de13312e6c18b3e54ebced09a54677e18332bceec4a88909f151fb14",
+      "sha256": "8fce0a36e717bd35f47b41dd5a0353f510849ee9da3867c7472b1c7aa695ad28",
       "executable": false
     },
     "src/core/features/databases/STRUCTURED-HANDOVER.md": {
@@ -6304,7 +6304,7 @@
       "executable": false
     },
     "src/core/features/databases/ui/fields/FieldCell.tsx": {
-      "sha256": "3871888e647d6fd96e6dfb44b9f3ec447d1d04d2f4cdb199955ad230c652d48d",
+      "sha256": "b920e3b74d0f43093751d7401c9b4e4c0820fd4b5f13205b2b3c0b7a53a6c439",
       "executable": false
     },
     "src/core/features/databases/ui/fields/FieldDisplay.tsx": {
@@ -11292,7 +11292,7 @@
       "executable": false
     },
     "tests/flagship/structured/http.test.ts": {
-      "sha256": "022c948a3285c8043af2bfd1978aee0fb4e26b446b79c50b6c43401683f5feac",
+      "sha256": "dbf6360c506487d049afd9534e5e51b2809eec8d8fdd9384f0efa93a1395bf91",
       "executable": false
     },
     "tests/flagship/structured/migration.py": {
@@ -12188,7 +12188,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/record-detail-journey.mjs": {
-      "sha256": "83bbd05121fa3cbb18046d2e630cfa86966dadda0912f6b4121b535de7689e69",
+      "sha256": "11f054b04fd53e2a57ce1195a0532b8ca6509ca323e10fc6225f296d2ed605d7",
       "executable": false
     },
     "tests/qualification/ui-convergence/record-templates-journey.mjs": {

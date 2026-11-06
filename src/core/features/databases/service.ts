@@ -182,6 +182,25 @@ export async function saveField(
             "FIELD_DATA_LOSS",
             "Clear field values before deleting this field.",
           );
+        // A new relation destination cannot invalidate already-retained record identities.
+        if (
+          !input.delete &&
+          f.type === "relation" &&
+          (same?.type !== "relation" || same.config.databaseId !== f.config.databaseId)
+        ) {
+          for (const target of (validateValue(f, v[f.id] ?? null) ?? []) as string[]) {
+            const record = await ctx.db
+              .prepare("SELECT database_id FROM database_records WHERE page_id=?")
+              .bind(target)
+              .first<{ database_id: string }>();
+            if (!record || record.database_id !== f.config.databaseId)
+              throw new ApiProblem(
+                409,
+                "FIELD_DATA_LOSS",
+                "Clear relation values before changing their target database.",
+              );
+          }
+        }
         if (same?.type !== f.type && v[f.id] != null) {
           try {
             validateValue(f, v[f.id]);

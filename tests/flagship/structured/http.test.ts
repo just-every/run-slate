@@ -188,7 +188,81 @@ test("Worker HTTP rejects missing expired revoked and denied sessions and persis
     expect(retained.page.blocks).toEqual(edited.page.blocks);
     expect(retained.values).toEqual(edited.values);
   }
-});
+  await mutate("POST", "/sharing", {id: memberGrant.id, targetKind: "page", targetId: dbPage, principalKind: "member", principalId: reader.actor.id, level: "edit"});
+  // A relation is a retained target identity, selected under each native reader's grants.
+  const target = await mutate("POST", "/databases", {containerId, title: "Relation targets"});
+  const targetBase = `/databases/${target.id}`;
+  const first = await mutate("POST", targetBase + "/records", {title: "First actual target", values: {}});
+  const second = await mutate("POST", targetBase + "/records", {title: "Second actual target", values: {}});
+  const ordinary = await mutate("POST", "/pages", {containerId, title: "An ordinary page"});
+  await mutate("POST", "/sharing", {targetKind: "page", targetId: target.pageId, principalKind: "member", principalId: reader.actor.id, level: "view"});
+  await mutate("POST", "/sharing", {targetKind: "page", targetId: ordinary.pageId, principalKind: "member", principalId: reader.actor.id, level: "view"});
+  const relation = {id: "related", name: "Related records", type: "relation", position: 6, config: {databaseId: target.id}};
+  await mutate("POST", base + "/fields", {expectedRevisionId: (await call("GET", base)).body.database.revision_id, field: relation});
+  const optionsPath = base + "/references/related";
+  const choices = (await call("GET", optionsPath, memberCookie)).body.items;
+  expect(choices).toEqual([
+    {id: first.pageId, label: "First actual target", kind: "record", url: `/app/databases/${target.id}/records/${first.pageId}`},
+    {id: second.pageId, label: "Second actual target", kind: "record", url: `/app/databases/${target.id}/records/${second.pageId}`},
+  ].sort((a, b) => a.id.localeCompare(b.id)));
+  const writeRelation = async (ids: string[]) => {
+    const current = (await call("GET", recordPath, memberCookie)).body;
+    return mutate("PATCH", recordPath, {expectedRevisionId: current.revisionId, values: {related: ids}}, memberCookie);
+  };
+  await writeRelation([]);
+  expect((await call("GET", recordPath, memberCookie)).body.values.related).toEqual([]);
+  const selected = [first.pageId, second.pageId];
+  const selectionInput = {operationKey: "case:retained-relation", expectedRevisionId: (await call("GET", recordPath, memberCookie)).body.revisionId, values: {related: selected}};
+  expect((await call("PATCH", recordPath, memberCookie, selectionInput)).status).toBe(200);
+  expect((await call("GET", recordPath, memberCookie)).body.values.related).toEqual(selected);
+  const firstPage = (await call("GET", `/pages/${first.pageId}`)).body;
+  await mutate("PATCH", `/pages/${first.pageId}`, {expectedRevisionId: firstPage.page.revisionId, properties: {title: "Renamed actual target"}});
+  const hydrated = (await call("POST", "/databases/references", memberCookie, {pageIds: selected})).body.items;
+  expect(hydrated.find((item: any) => item.id === first.pageId)).toEqual({id: first.pageId, label: "Renamed actual target", kind: "record", url: `/app/databases/${target.id}/records/${first.pageId}`});
+  expect((await call("GET", `${targetBase}/records/${first.pageId}`, memberCookie)).body.page.page.title).toBe("Renamed actual target");
+  expect((await call("GET", recordPath, memberCookie)).body.values.related).toEqual(selected);
+  const snapshot = async () => ({
+    record: (await call("GET", recordPath)).body,
+    page: (await call("GET", `/pages/${record.pageId}`)).body,
+    history: (await call("GET", `/revisions/${record.pageId}`)).body,
+    structure: (await call("GET", base)).body,
+    activity: (await call("GET", "/activity?limit=100")).body,
+  });
+  for (const [bad, status, code] of [["missing-record", 404, "NOT_FOUND"], [ordinary.pageId, 400, "INVALID_RELATION"], [record.pageId, 400, "INVALID_RELATION"]] as const) {
+    const before = await snapshot();
+    const refused = await call("PATCH", recordPath, memberCookie, {operationKey: `case:bad-relation-${++operation}`, expectedRevisionId: before.record.revisionId, values: {related: [first.pageId, bad]}});
+    expect(refused.status, JSON.stringify(refused.body)).toBe(status);
+    expect(refused.body.code).toBe(code);
+    expect(await snapshot()).toEqual(before);
+  }
+  // Restrict one real target, then revoke the independently signed-in reader.
+  await mutate("POST", "/sharing", {targetKind: "page", targetId: second.pageId, principalKind: "member", principalId: ctx.actor.id, level: "full"});
+  const targetGrant = await mutate("POST", "/sharing", {targetKind: "page", targetId: second.pageId, principalKind: "member", principalId: reader.actor.id, level: "view"});
+  await mutate("PUT", `/sharing/pages/${second.pageId}/inheritance`, {expectedRevisionId: (await call("GET", `/pages/${second.pageId}`)).body.page.revisionId, restricted: true});
+  expect((await call("GET", recordPath, memberCookie)).body.values.related).toEqual(selected);
+  await mutate("POST", "/sharing", {id: targetGrant.id, targetKind: "page", targetId: second.pageId, principalKind: "member", principalId: reader.actor.id, level: "view", revoke: true});
+  const retainedAfterRevocation = await snapshot();
+  expect((await call("GET", recordPath, memberCookie)).body.values.related).toEqual([first.pageId]);
+  expect((await call("GET", optionsPath, memberCookie)).body.items).toEqual([{id: first.pageId, label: "Renamed actual target", kind: "record", url: `/app/databases/${target.id}/records/${first.pageId}`}]);
+  expect((await call("POST", "/databases/references", memberCookie, {pageIds: selected})).body.items.map((item: any) => item.id)).toEqual([first.pageId]);
+  expect((await call("GET", `${targetBase}/records/${second.pageId}`, memberCookie)).status).toBe(404);
+  const refused = await call("PATCH", recordPath, memberCookie, {operationKey: "case:revoked-relation", expectedRevisionId: retainedAfterRevocation.record.revisionId, values: {related: selected}});
+  expect(refused.status).toBe(404);
+  expect(refused.body.code).toBe("NOT_FOUND");
+  const replay = await call("PATCH", recordPath, memberCookie, selectionInput);
+  expect(replay.status).toBe(200);
+  expect(replay.body.value.values.related).toEqual([first.pageId]);
+  expect(await snapshot()).toEqual(retainedAfterRevocation);
+  expect(retainedAfterRevocation.record.values.related).toEqual(selected);
+  // Repointing a populated relation must not turn retained identities into wrong-database links.
+  const beforeRetarget = await snapshot();
+  const retarget = await call("POST", base + "/fields", cookie, {operationKey: "case:retarget-relation", expectedRevisionId: beforeRetarget.structure.database.revision_id, field: {...relation, config: {databaseId: body.value.id}}});
+  expect(retarget.status).toBe(409);
+  expect(retarget.body.code).toBe("FIELD_DATA_LOSS");
+  expect(await snapshot()).toEqual(beforeRetarget);
+
+
+}, 90_000);
 
 test("database file references list only attachments the reader could open", async () => {
   const { SELF } = await import("cloudflare:test");
