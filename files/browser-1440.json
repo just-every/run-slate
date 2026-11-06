@@ -1,0 +1,25 @@
+{
+  "schema": 1,
+  "head": "1cdf1136e9c96585ff79237cc00f24c3fe0f396d",
+  "width": 1440,
+  "result": "PASS",
+  "sourceDatabaseId": "01M6QGT1YHYEXJ4F57FSYPRSKZ",
+  "targetDatabaseId": "01M6QGT1ZQAKZZJ6RMJ96GBJ7C",
+  "fieldId": "3233aa63-8bbe-4a53-9142-6fe349b48e66",
+  "sourceRecordId": "01M6QGT23DY0PBVRR3RT43EDB0",
+  "ownerRetainedTargetIds": [
+    "01M6QGT20W66XYCGB2V21C4NYE",
+    "01M6QGT2251REBAT9AWKV47Y0F"
+  ],
+  "readerVisibleTargetIds": [
+    "01M6QGT20W66XYCGB2V21C4NYE"
+  ],
+  "artifact": {
+    "schema": 1,
+    "commit": "1cdf1136e9c96585ff79237cc00f24c3fe0f396d",
+    "tree": "91b537b6f592b8303fee9430b1fd4a04306519de",
+    "sourceSha256": "d628d104604afd55f760e1d02c939f01c9852690d099cda6e4df9db1cd8c9992",
+    "lockSha256": "a4c7109dcb0c98b882180a5b9225e1eaf9413b80e40d9aeee368c032ade5e62e",
+    "outputSha256": "28bd470dd0268d83c4a6d375f0c2bbf4aee947d3ec35e3fbf5ab422b3d90b46d"
+  }
+}

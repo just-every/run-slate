@@ -1,0 +1,44 @@
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mProxy environment variables detected. We'll use your proxy for fetch requests.[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mProxy environment variables detected. We'll use your proxy for fetch requests.[0m
+
+
+(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:
+  - import "./source-fixtures" without a file extension (scripts/import-scale/generate-server-dc.ts:2:91). Add the file extension
+  - import "./types" without a file extension (scripts/import-scale/generate-server-dc.ts:3:82). Add the file extension
+  - import "./source-fixtures" without a file extension (scripts/import-scale/generate-server-dc.ts:4:22). Add the file extension
+  - import "./csv" without a file extension (scripts/import-scale/source-fixtures.ts:4:46). Add the file extension
+Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.
+
+ RUN  v4.1.11 /home/agent/rer-consolidation/work/sd-slate-c-f174/run-slate
+
+ ❯ tests/flagship/structured/http.test.ts (2 tests | 1 failed | 1 skipped) 11577ms
+   × Worker HTTP rejects missing expired revoked and denied sessions and persists authorized input 11574ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/flagship/structured/http.test.ts > Worker HTTP rejects missing expired revoked and denied sessions and persists authorized input
+AssertionError: expected [ '01M6QG7YKJSJBMV8VXD4GPWBR4', …(3) ] to deeply equal [ '01M6QG7YKJSJBMV8VXD4GPWBR4', …(1) ]
+
+- Expected
++ Received
+
+  [
+    "01M6QG7YKJSJBMV8VXD4GPWBR4",
+    "01M6QG7YMBA10WJW2V3M7PQD3Q",
++   "01M6QG7YMR0E3BTTYJVGN0S1AW",
++   "01M6QG7Y38BHYSWE8YAV79425M",
+  ]
+
+ ❯ tests/flagship/structured/http.test.ts:221:48
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 1 skipped (2)
+   Start at  04:00:22
+   Duration  13.28s (transform 5.74s, setup 1.01s, import 76ms, tests 11.58s, environment 0ms)
+

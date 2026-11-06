@@ -1,0 +1,64 @@
+{
+  "head": "1cdf1136e9c96585ff79237cc00f24c3fe0f396d",
+  "state": "relation configured database",
+  "geometry": {
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "documentWidth": 390,
+    "toolbar": [
+      {
+        "x": 140.0625,
+        "y": 103,
+        "width": 67.28125,
+        "height": 44,
+        "top": 103,
+        "right": 207.34375,
+        "bottom": 147,
+        "left": 140.0625
+      },
+      {
+        "x": 215.34375,
+        "y": 103,
+        "width": 44,
+        "height": 44,
+        "top": 103,
+        "right": 259.34375,
+        "bottom": 147,
+        "left": 215.34375
+      },
+      {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      {
+        "x": 267.34375,
+        "y": 103,
+        "width": 106.65625,
+        "height": 44,
+        "top": 103,
+        "right": 374,
+        "bottom": 147,
+        "left": 267.34375
+      }
+    ]
+  },
+  "violations": []
+}

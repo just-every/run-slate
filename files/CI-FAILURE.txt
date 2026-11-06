@@ -1,0 +1,9 @@
+Archive command: gh run view 42161129966 --repo just-every/run-slate --job 127706834391 --log-failed
+Archive command exit: 0
+Actual failure excerpt, environment preamble excluded:
+verify (app)	Run node src/base/runtime/contract-docs.mjs check	2026-11-06T04:13:25.1883994Z ACCEPTANCE.md: generated content differs; run contract-docs write.
+verify (app)	Run node src/base/runtime/contract-docs.mjs check	2026-11-06T04:13:25.1968613Z ##[error]Process completed with exit code 1.
+
+Exact-candidate local command: node src/base/runtime/contract-docs.mjs check
+Exit: 1
+ACCEPTANCE.md: generated content differs; run contract-docs write.

@@ -1,0 +1,76 @@
+{
+  "head": "1cdf1136e9c96585ff79237cc00f24c3fe0f396d",
+  "state": "relation retained multiple records",
+  "geometry": {
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "documentWidth": 390,
+    "body": {
+      "x": 19.5,
+      "y": 403,
+      "width": 351,
+      "height": 206,
+      "top": 403,
+      "right": 370.5,
+      "bottom": 609,
+      "left": 19.5
+    },
+    "toolbar": [
+      {
+        "x": 140.0625,
+        "y": 73,
+        "width": 67.28125,
+        "height": 44,
+        "top": 73,
+        "right": 207.34375,
+        "bottom": 117,
+        "left": 140.0625
+      },
+      {
+        "x": 215.34375,
+        "y": 73,
+        "width": 44,
+        "height": 44,
+        "top": 73,
+        "right": 259.34375,
+        "bottom": 117,
+        "left": 215.34375
+      },
+      {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      {
+        "x": 267.34375,
+        "y": 73,
+        "width": 106.65625,
+        "height": 44,
+        "top": 73,
+        "right": 374,
+        "bottom": 117,
+        "left": 267.34375
+      }
+    ]
+  },
+  "violations": [
+    "region"
+  ]
+}

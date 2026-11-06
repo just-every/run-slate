@@ -1,0 +1,74 @@
+{
+  "head": "1cdf1136e9c96585ff79237cc00f24c3fe0f396d",
+  "state": "relation multiple target picker",
+  "geometry": {
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "documentWidth": 1440,
+    "body": {
+      "x": 652,
+      "y": 322.390625,
+      "width": 716,
+      "height": 176,
+      "top": 322.390625,
+      "right": 1368,
+      "bottom": 498.390625,
+      "left": 652
+    },
+    "toolbar": [
+      {
+        "x": 1102.0625,
+        "y": 9.5,
+        "width": 67.28125,
+        "height": 36,
+        "top": 9.5,
+        "right": 1169.34375,
+        "bottom": 45.5,
+        "left": 1102.0625
+      },
+      {
+        "x": 1177.34375,
+        "y": 9.5,
+        "width": 36,
+        "height": 36,
+        "top": 9.5,
+        "right": 1213.34375,
+        "bottom": 45.5,
+        "left": 1177.34375
+      },
+      {
+        "x": 1221.34375,
+        "y": 9.5,
+        "width": 36,
+        "height": 36,
+        "top": 9.5,
+        "right": 1257.34375,
+        "bottom": 45.5,
+        "left": 1221.34375
+      },
+      {
+        "x": 1265.34375,
+        "y": 9.5,
+        "width": 36,
+        "height": 36,
+        "top": 9.5,
+        "right": 1301.34375,
+        "bottom": 45.5,
+        "left": 1265.34375
+      },
+      {
+        "x": 1309.34375,
+        "y": 9.5,
+        "width": 106.65625,
+        "height": 36,
+        "top": 9.5,
+        "right": 1416,
+        "bottom": 45.5,
+        "left": 1309.34375
+      }
+    ]
+  },
+  "violations": []
+}
