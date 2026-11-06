@@ -166,6 +166,16 @@ export async function draftPrivacyCase() {
     const rejected=await request(person.id,'POST','/api/notifications/actions',{operationKey:createUlid(),action:'read',id:legacyIds.at(-1)});
     expect(rejected.status).toBe(404);expect(await rows('notifications')).toEqual(beforeNotices);expect(await snapshot()).toEqual(before);
   }
+  // Policy switches cannot re-expose a retained notice or rewrite the stored draft.
+  for(const access of ['workspace-general','container-general'])for(const lifecycle of ['always-live','draft-then-publish']) {
+    const retained=await storedDraft();await profile(access,lifecycle);expect(await storedDraft()).toEqual(retained);
+    for(const person of identities) {
+      const inbox=await ok(person.id,'GET','/api/notifications?limit=100');
+      expect({items:inbox.items,unreadCount:inbox.unreadCount}).toEqual(priorInboxes.get(person.id));
+      const tree=await ok(person.id,'GET',`/api/pages?containerId=${containerId}`);
+      expect(tree.items.map((item:any)=>item.id).sort()).toEqual(([author!.id,reader!.id,groupReader!.id].includes(person.id)?[id,control,homeId]:[control,homeId]).sort());
+    }
+  }
   // A queued legacy event is not newly delivered just because a grant is active.
   const queued:string[]=[];
   for(const sourceOnly of [false,true]) {
@@ -251,6 +261,7 @@ export async function draftPrivacyCase() {
     }
   } finally {provider.mockRestore();}
   console.log('PROBE LIFE-002 link: delivered draft invitation -> pending grant, explicit acceptance and session-bound body; cancelled link and revoked guest session refused, replay unchanged');
+  console.log('PROBE LIFE-002 inbox: active member and group grants -> no new draft notice; retained direct and source notices hidden from five sessions across both lifecycle and access profiles; unread totals, native actions and queued delivery preserve privacy');
   console.log('PROBE LIFE-002 exclusion: native populated search, query, tree, inbox and analytics -> live control present, draft absent; unauthorized complete export refused without creating a job');
   console.log('PROBE LIFE-002 1: native author, address grant and group sessions -> exact body and persisted grants; owner and outsider refused; same sessions refused after full revocation, replay unchanged');
   console.log('PROBE LIFE-002 2: both access profiles -> general grants and anonymous publication refused; content, grants, exposures, receipts and activity unchanged');

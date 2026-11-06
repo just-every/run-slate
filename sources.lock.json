@@ -10844,7 +10844,7 @@
       "executable": false
     },
     "tests/flagship/content/draft-privacy.case.ts": {
-      "sha256": "327f494afcaae1b33d2f07f32bac4c6cbd08b48fb09377d805a42531b179da86",
+      "sha256": "9c4be19bc3dadbf46bb12cc96f092987b15f0f1425fc4538eab736c8785a837d",
       "executable": false
     },
     "tests/flagship/content/http.test.ts": {
@@ -11952,7 +11952,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/draft-privacy-journey.mjs": {
-      "sha256": "17e3ceb6490edd81ca034556b8de6d1cf97542fad5d7ebdcdc63e50c21ab9747",
+      "sha256": "fd02ceaca0d6772900b29f8194b2b3f9b476d7597b6b5f6dea8b544e374942a1",
       "executable": false
     },
     "tests/qualification/ui-convergence/embed-timeout-journey.mjs": {

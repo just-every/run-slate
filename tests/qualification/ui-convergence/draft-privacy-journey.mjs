@@ -107,6 +107,12 @@ export async function draftPrivacyJourney(state) {
         await page.goto(address,{waitUntil:'networkidle'});await page.reload({waitUntil:'networkidle'});
         await expect(page.locator('.page-document')).toContainText(text);
         await people.bob.page.reload({waitUntil:'networkidle'});await expect(people.bob.page.locator('.page-document')).toContainText(text);
+        await people.bob.page.goto(`${origin}/app/inbox`,{waitUntil:'networkidle'});
+        await people.bob.page.reload({waitUntil:'networkidle'});
+        await expect(people.bob.page.locator('.main')).toContainText('DraftCustody published response');
+        await expect(people.bob.page.locator('.main')).not.toContainText('DraftCustody private response');
+        await people.bob.page.goto(address,{waitUntil:'networkidle'});
+        await expect(people.bob.page.locator('.page-document')).toContainText(text);
         await openSharing();
         await expect(page.locator('.right').getByRole('button',{name:'Allow general read access',exact:true})).toHaveCount(0);
         await expect(page.locator('.right')).toContainText('Private drafts have no general access.');
