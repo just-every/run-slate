@@ -75,6 +75,7 @@
     "@types/react": "19.2.18",
     "@types/react-dom": "19.2.7",
     "@vitejs/plugin-react": "6.1.1",
+    "docx-preview": "0.3.7",
     "highlight.js": "10.7.3",
     "react-markdown": "6.0.3",
     "remark-gfm": "1.0.0",
