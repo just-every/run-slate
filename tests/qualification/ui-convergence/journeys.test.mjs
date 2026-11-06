@@ -112,6 +112,9 @@ for (const width of [390, 1440]) {
           await step('DB-012 populated record fields, comments, history and parity', () => recordDetailJourney(state, width));
           await templateCaptureJourney(state);
           await templateGalleryJourney(state);
+          // Permanent deletion requires a current native email proof, independent of earlier journey duration.
+          await state.refreshReaderIdentity();
+          await touch.context.addCookies([{name:'slate_session',value:state.readerCookie.split('=')[1],url:touch.origin}]);
           await archiveRetentionJourney(state,touch);
           await withSecondPerson(state, width, people => step('DB-015 — template handover and revoked-saver pause on a phone', () => recordTemplatesJourney(state, people)));
           await withSecondPerson(state, width, people => step('REV-006 — numbered deletion tombstone on a phone', () => versionDeletionJourney(state, people)));
