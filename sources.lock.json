@@ -960,7 +960,7 @@
       "executable": false
     },
     "ACCEPTANCE.md": {
-      "sha256": "f6a0a168b6d0a65582876a0bbe94ea455319e25d5a9073918def7806b50260e1",
+      "sha256": "3ecba8aec050000e6466a8917c1f307f33c377eb4a555c45b4c8f2d89ca0a23f",
       "executable": false
     },
     "AGENTS.consumer.md": {
@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "40390cececb0c58b1cd7d2bc39fb7e514fe9c30d1c7d819ad1c9697acb207dbe",
+      "sha256": "efe0d6c64a1004caf177dc1d0aca383e2da9bdf47955e008828735a317669f31",
       "executable": false
     },
     "DEMO.md": {
@@ -12096,7 +12096,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/guest-scope-journey.mjs": {
-      "sha256": "8a142fba54b1302e6d89f34d9732505e9454250cc1a73202f31fc75902bcb0e1",
+      "sha256": "afc57351a87faac8ec19445c50559a5c038c4f629d7684ee26b36532103ca41b",
       "executable": false
     },
     "tests/qualification/ui-convergence/home-journey.mjs": {
@@ -12116,7 +12116,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
-      "sha256": "4083fec316ff14db2d1f19862069bbdc343bcd47708c5c194b237b96990ce2f3",
+      "sha256": "713a5453f386f3b8bed365911777df082ed903869954a77d5b33688c351492ed",
       "executable": false
     },
     "tests/qualification/ui-convergence/link-access-journey.mjs": {
@@ -12408,7 +12408,7 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "3d1b128427a06c1d44714fcaadd7fe423098034fbfb43a7d7019e51eaaac8929",
+      "sha256": "9ef032ec47cb68ca147632f8f29477e233117c85d186273cd9ea2baaac77af2b",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
@@ -12424,7 +12424,7 @@
       "executable": false
     },
     "tests/requirements/test-evidence.json": {
-      "sha256": "b0e4e7212c33ea023f6639517ba5549cdf95ad583cdd877ccff8b893ee4d13f2",
+      "sha256": "31fee2180c0a7e0afd67d3e24db6aef60a4bd50108ed5b72e024e26bb1d4fca5",
       "executable": false
     },
     "tests/rer/editor.test.mjs": {

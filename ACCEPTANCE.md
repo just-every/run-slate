@@ -8,10 +8,10 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 57 | 240 | 35 | 332 |
+| Core | 58 | 239 | 35 | 332 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 57 | 240 | 41 | 338 |
+| Full target | 58 | 239 | 41 | 338 |
 
 Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e6612` (29 October 2026); SEARCH-001 native source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. DB-012 record-detail proof reviewed from source `63a0e8f` (31 October 2026); its exact candidate and Verify are named by the branch handoff. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
@@ -1489,8 +1489,8 @@ Core · published · **partial**
 3. These switches carry no plan, tier or upgrade gate.
 4. Three switches per container; containers may only narrow the workspace value; forbidding applies at once.
 
-**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
-**Gap.** No validated CI-run proof for this acceptance point: "A container carries three switches — guests, public links and anonymous access — each `allowed` or `forbidden`."<br>No validated CI-run proof for this acceptance point: "A workspace owner sets a workspace-wide value and a container administrator may only narrow it."<br>No validated CI-run proof for this acceptance point: "Forbidding takes effect at once under `WEB-001` and `SHARE-007`."<br>No validated CI-run proof for this acceptance point: "These switches carry no plan, tier or upgrade gate."
+**Evidence.** `tests/qualification/ui-convergence/journeys.test.mjs` — "page outline follows headings and navigates long pages at 1440px" and "space tree title filtering preserves ancestors, access and expansion at 390px", calling `tests/qualification/ui-convergence/guest-scope-journey.mjs` — "guestScopeJourney" and "externalSwitchesJourney": acceptance 1, 3 and 4 use independent native workspace-owner and container-administrator controls, unchanged ordinary-member and personal-container refusals, persisted switch snapshots and effective workspace ceilings; acceptance 2 native guest and public-access duties use issued guest sessions, explicit always-live published revisions and anonymous local-publication preconditions, retained exposure addresses, next-request refusals, populated page, tree, search and inbox removal and open-editor closure within five seconds with unsaved text retained. Existing supporting HTTP publication and media assertions in `tests/flagship/content/http.test.ts` — "publication, human verification and media enforce current reader authority" remain intact.
+**Gap.** Inherited AI-answer removal through SHARE-007 remains unproved under ADMIN-007 and the shared company-policy prerequisites, as held by sd-slate-c-f164. The general grant-narrowing scope conflict in SHARE-007 is not resolved or claimed by this forbidding-only slice. Full inherited acceptance and every existing release prerequisite remain retained; no Slate clause is released.
 
 #### CONT-008 — Container access profile
 
@@ -1744,7 +1744,7 @@ Core · published · **partial**
 
 #### AUTO-005 — Automation profile
 
-Core · published · **partial**
+Core · published · **done**
 
 **Requirement.** *Policy: `automation.scope.v1`; default: `source`, following Notion.
 
@@ -1754,8 +1754,8 @@ Core · published · **partial**
 3. The scope field and the run log are stored under every value, so an imported container or site rule keeps its scope and its history.*
 4. Profile journeys for `source`, `container` and `site` scopes show and hide exactly the listed controls.
 
-**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
-**Gap.** No validated CI-run proof for this acceptance point: "`source` creates rules from a database's own toolbar, scopes them to that database, shows one When-and-Do form, scopes the run log to that database, and hides the scope selector, the site option, the branch rail and the cross-container rule list."<br>No validated CI-run proof for this acceptance point: "`container` and `site` create rules from a rule list, expose the scope selector and the branch rail, and hide nothing from each other."<br>No validated CI-run proof for this acceptance point: "The scope field and the run log are stored under every value, so an imported container or site rule keeps its scope and its history."
+**Evidence.** `tests/qualification/ui-convergence/journeys.test.mjs` — "spreadsheet tables merge, sort and round-trip through edited database records at 1440px" calls `tests/qualification/ui-convergence/database-journey.mjs` — "databaseJourney", which calls `tests/qualification/ui-convergence/automation-profile-journey.mjs` — "automationProfileJourney": the default source policy, creation and storage from a database toolbar, one fixed-database When-and-Do form without the scope selector, site option, space or branch rail, execution in two populated databases checked against independent events, the database-only list and run log while the workspace list stays hidden, container and site creation from the rule list with all three scopes and the branch rail, lists and run logs equal to the native inventory under both, and lossless native Settings switches across every value (acceptance 1–4). "real core-wiki and touch-member journeys at 390px" in the same file calls "automationProfilePhoneProof": the three forms at 390px (acceptance 4). `tests/portability/roundtrip.test.mjs` — "BASE-DATA-001 PORT-001 PORT-002 PORT-003 PORT-005 — native ZIP backup, failed restore, retry and backup preserve populated D1 and original R2 bytes in a separate empty deployment", using "populateAutomation" and "restoredAutomation" in `tests/portability/automation.mjs`: genuine container and site executions keep their scope and history through restore and every profile, and restored authority stays disabled, so a new event changes nothing (acceptance 3).
+**Gap.** None.
 
 ### Search
 
