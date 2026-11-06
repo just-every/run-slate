@@ -226,3 +226,17 @@ The matching Workers registration in `tests/e2e/imports/preview-undo.test.ts` ru
 The same native journey also expires a mapped guest after request validation and before the actual Apply transaction: the transaction refuses and the selected native state remains unchanged. The same responsive Settings journey expires its reviewed destination after completion, shows that the mapped principal is no longer available while retaining the exact source-ID choice, and refuses that person's native page reads before restoring the identity fixture. No registration or prior assertion is removed or narrowed.
 
 Changing the reviewed destination's membership invalidates its old native session. The browser fixture therefore obtains a fresh native sign-in after restoring membership, updates its retained reader cookie, and verifies the restored reader through the current-member route. It never clears a session revocation or rewinds the membership authority version. Following Settings and authority journeys retain their original assertions and use the fresh session.
+
+The PORT-001 supporting subtree in the existing transfer journey also edits and
+resolves its anchored discussion and changes, revokes and regrants explicit page
+grants through native routes. Each native receipt must have its retained
+discussion or grant revision in an independent stored snapshot before export.
+The actual Settings workspace ZIP is opened and its complete selected rows,
+including historical content, actors and revision identities, must equal that
+snapshot. Native member reads of the allowed parent and revoked private child,
+original-file downloads and a second stored snapshot must remain unchanged
+after export. The existing desktop export caller and phone core caller retain
+this proof without another registration. This covers the ordinary authored
+page subtree only; other workspace families, complete cross-family histories
+and grants, other original cases and requirement-wide completeness remain
+unproven, with no acceptance edit, status promotion or prerequisite release.

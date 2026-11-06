@@ -1063,7 +1063,7 @@
       "clauses": [
         "PORT-001"
       ],
-      "reason": "PORT-001 supporting slice through transferJobsJourney: native authored ordered page subtree, body and property edits, retained revisions, explicit member and group page grants, anchored thread and reply, two uploaded originals, actual Settings ZIP download and independent stored-row, hash, byte and source-invariance reconciliation. Other workspace families and requirement-wide completeness remain unproven; no full acceptance or release claim."
+      "reason": "PORT-001 supporting slice through transferJobsJourney: native authored ordered page subtree, body and property edits, retained revisions, changed, revoked and regranted explicit member and group page grants, edited and resolved anchored thread and reply with retained discussion and grant histories, two uploaded originals, actual Settings ZIP download and independent stored-row, hash, byte and source-invariance reconciliation. Native downloads and allowed or revoked page reads are unchanged after export. Other workspace families and requirement-wide completeness remain unproven; no full acceptance or release claim."
     },
     {
       "file": "tests/qualification/ui-convergence/journeys.test.mjs",
@@ -1072,7 +1072,7 @@
       "clauses": [
         "PORT-001"
       ],
-      "reason": "PORT-001 supporting slice through transferJobsJourney: native authored ordered page subtree, body and property edits, retained revisions, explicit member and group page grants, anchored thread and reply, two uploaded originals, actual Settings ZIP download and independent stored-row, hash, byte and source-invariance reconciliation. Other workspace families and requirement-wide completeness remain unproven; no full acceptance or release claim."
+      "reason": "PORT-001 supporting slice through transferJobsJourney: native authored ordered page subtree, body and property edits, retained revisions, changed, revoked and regranted explicit member and group page grants, edited and resolved anchored thread and reply with retained discussion and grant histories, two uploaded originals, actual Settings ZIP download and independent stored-row, hash, byte and source-invariance reconciliation. Native downloads and allowed or revoked page reads are unchanged after export. Other workspace families and requirement-wide completeness remain unproven; no full acceptance or release claim."
     }
   ]
 }

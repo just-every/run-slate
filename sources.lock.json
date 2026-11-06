@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "fccb4a98fce69c44b52fa07a35ecf929c57437dc1090ca38d2a1596720aee30d",
+      "sha256": "b4de62d65b92b59a48f44e68e861416aac693b3783543bab41da634a2ef0fafa",
       "executable": false
     },
     "DEMO.md": {
@@ -12328,7 +12328,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/transfer-jobs-journey.mjs": {
-      "sha256": "929204aa70cbd66b4125cf8628778b34e4a4508de01c4a192254793951badca6",
+      "sha256": "8c448ad3a495d4341fb82f9a413bf7b15f9d9e5897becad1da7a5c3bd50f4609",
       "executable": false
     },
     "tests/qualification/ui-convergence/tree-filter-journey.mjs": {
@@ -12408,11 +12408,11 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "85bb203e9a9f65ebe4a5d5a0d03dbf44d193a4e0c6790a68682b07ad2b996d6d",
+      "sha256": "f61f2028ce04acbbf2dfb1383845cdc61321e5013613f5373891fcdccf2f79f5",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
-      "sha256": "01de75201f5b840aad1b1bab67fd0c568fdadefc4ed815bb83d6fb43ff6a21ca",
+      "sha256": "2e05b9662132942807702aa05aefaab9ef88bd2a72d092be771e08cfbf524775",
       "executable": false
     },
     "tests/requirements/count-registrations.mjs": {
@@ -12424,7 +12424,7 @@
       "executable": false
     },
     "tests/requirements/test-evidence.json": {
-      "sha256": "29d6b7c8b5c6d44cd21906116c64b57b1da28570ba60f732c974c049439fcebe",
+      "sha256": "bae9cec06752a1800bbb2ce36bccdcb5f3a1c6733414f1d4a92b6fe08dca353a",
       "executable": false
     },
     "tests/rer/editor.test.mjs": {

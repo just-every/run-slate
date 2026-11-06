@@ -39,11 +39,48 @@ async function authoredSubtree(state) {
   const first=await create('first child',parent.id,'a');
   const grandchild=await create('grandchild',first.id,'a');
   const pages=[parent,first,second,grandchild];
-  for(const [page,principalKind,principalId,level]of [[parent,'member','browser-reader','comment'],[first,'group',group.id,'view']])
-    await mutate('POST','/api/sharing',{targetKind:'page',targetId:page.id,principalKind,principalId,level});
+  const grants=[];
+  for(const [page,principalKind,principalId,level]of [[parent,'member','browser-reader','comment'],[first,'group',group.id,'view']]){
+    const input={targetKind:'page',targetId:page.id,principalKind,principalId,level};
+    const saved=await mutate('POST','/api/sharing',input);
+    grants.push({...input,id:saved.id});
+  }
+  await mutate('POST','/api/sharing',{...grants[0],level:'edit'});
+  await mutate('POST','/api/sharing',{...grants[1],revoke:true});
+  await mutate('POST','/api/sharing',{...grants[1],level:'comment'});
+  const revokedInput={targetKind:'page',targetId:second.id,principalKind:'member',principalId:'browser-reader',level:'edit'};
+  const revoked=await mutate('POST','/api/sharing',revokedInput);
+  await mutate('POST','/api/sharing',{...revokedInput,id:revoked.id,revoke:true});
+  await mutate('POST','/api/sharing',{targetKind:'page',targetId:second.id,principalKind:'member',principalId:'browser-owner',level:'full'});
+  const privateChild=await state.api(`/api/pages/${second.id}`);
+  await mutate('PUT',`/api/sharing/pages/${second.id}/inheritance`,{expectedRevisionId:privateChild.page.revisionId,restricted:true});
   const current=await state.api(`/api/pages/${parent.id}`);
   const discussion=await mutate('POST',`/api/comments/page/${parent.id}`,{kind:'inline',blockId:parent.blockId,anchor:{anchorId:parent.anchorId,quote:'synthetic-slate-404: parent reviewed body'},anchorRevisionId:current.workingRevisionId,body:[{text:'synthetic-slate-405: preserve this anchored discussion'}]});
   await mutate('POST',`/api/comments/page/${parent.id}`,{threadId:discussion.threadId,parentCommentId:discussion.id,body:[{text:'synthetic-slate-406: preserve this reply'}]});
+  let comments=await state.api(`/api/comments/page/${parent.id}`);
+  await mutate('PATCH',`/api/comments/${discussion.id}`,{expectedRevisionId:comments.comments.find(comment=>comment.id===discussion.id).revisionId,body:[{text:'synthetic-slate-408: edited anchored discussion'}]});
+  comments=await state.api(`/api/comments/page/${parent.id}`);
+  await mutate('POST',`/api/comments/thread/${discussion.threadId}/resolve`,{expectedRevisionId:comments.threads.find(thread=>thread.id===discussion.threadId).revision_id,resolved:true});
+  comments=await state.api(`/api/comments/page/${parent.id}`);
+  const thread=comments.threads.find(thread=>thread.id===discussion.threadId);
+  assert.equal(thread.state,'resolved');
+  assert.equal(thread.block_id,parent.blockId);
+  assert.equal(thread.anchor_revision_id,current.workingRevisionId);
+  assert.deepEqual(JSON.parse(thread.anchor_json),{anchorId:parent.anchorId,quote:'synthetic-slate-404: parent reviewed body'});
+  assert.deepEqual(comments.comments.find(comment=>comment.id===discussion.id).body,[{text:'synthetic-slate-408: edited anchored discussion'}]);
+  assert.equal(comments.comments.find(comment=>comment.parentCommentId===discussion.id).threadId,discussion.threadId);
+  const access=async()=>{
+    await state.switchIdentity('reader');
+    try{
+      const allowed=await call(state.context,state.origin,'GET',`/api/pages/${parent.id}`);
+      assert.equal(allowed.status,200,'The active edited grant still serves its authored page.');
+      assert.equal(allowed.body.page.id,parent.id);
+      const denied=await call(state.context,state.origin,'GET',`/api/pages/${second.id}`);
+      assert.equal(denied.status,404,'A retained revoked grant discloses no private child.');
+      return {allowed:{id:parent.id,status:allowed.status,title:allowed.body.page.title},revoked:{id:second.id,status:denied.status,body:denied.body}};
+    }finally{await state.switchIdentity('owner');}
+  };
+  const accessBefore=await access();
   for(const [page,name,bytes]of [[parent,'archive-notes.txt',Buffer.from('synthetic-slate-407: original notes\nwith a retained newline\n')],[grandchild,'archive-original.png',Buffer.from([137,80,78,71,13,10,26,10,0,0,0,13,73,72,68,82,0,0,0,1,0,0,0,1,8,4,0,0,0,181,28,12,2,0,0,0,11,73,68,65,84,120,218,99,252,255,31,0,3,3,2,0,239,191,157,100,0,0,0,0,73,69,78,68,174,66,96,130])]]){
     const response=await state.context.request.post(state.origin+'/api/media',{headers:{Origin:state.origin},multipart:{operationKey:randomUUID(),pageId:page.id,file:{name,mimeType:name.endsWith('.txt')?'text/plain':'image/png',buffer:bytes}}});
     assert.equal(response.status(),200,await response.text());
@@ -57,7 +94,7 @@ async function authoredSubtree(state) {
     const document=await state.api(`/api/pages/${page.id}`);
     assert.equal(document.parentPageId,page.parentPageId);
     const history=await state.api(`/api/revisions/${page.id}`);
-    assert.equal(history.items.length,3,'Creation, property edit and body edit each retain a version.');
+    assert.equal(history.items.length,page.id===second.id?4:3,'Creation, property and body edits retain three versions; the restricted child also retains its access-boundary version.');
     const revisions=[];
     for(const version of history.items)revisions.push(await state.api(`/api/revisions/${page.id}/${version.id}`));
     documents.push({id:page.id,document,history,revisions,sharing:await state.api(`/api/sharing/pages/${page.id}`),discussion:await state.api(`/api/comments/page/${page.id}`)});
@@ -67,13 +104,45 @@ async function authoredSubtree(state) {
   const ids=pages.map(page=>page.id);
   for(const id of [...ids,group.id])assert.match(id,/^[a-z0-9-]+$/i);
   const list=ids.map(id=>`'${id}'`).join(',');
-  const selections={pages:`id IN (${list})`,page_blocks:`page_id IN (${list})`,page_revisions:`page_id IN (${list})`,page_labels:`page_id IN (${list})`,page_grants:`page_id IN (${list})`,comment_threads:`page_id IN (${list})`,comments:`thread_id IN (SELECT id FROM comment_threads WHERE page_id IN (${list}))`,files:`page_id IN (${list})`,groups:`id='${group.id}'`,group_members:`group_id='${group.id}'`};
+  const selections={
+    pages:`id IN (${list})`,
+    page_blocks:`page_id IN (${list})`,
+    page_revisions:`page_id IN (${list})`,
+    page_labels:`page_id IN (${list})`,
+    page_grants:`page_id IN (${list})`,
+    comment_threads:`page_id IN (${list})`,
+    comments:`thread_id IN (SELECT id FROM comment_threads WHERE page_id IN (${list}))`,
+    files:`page_id IN (${list})`,
+    record_revisions:`entity_kind='comment-thread' AND entity_id IN (SELECT id FROM comment_threads WHERE page_id IN (${list}))`,
+    core_entity_revisions:`(entity_kind='page-grant' AND entity_id IN (SELECT id FROM page_grants WHERE page_id IN (${list}))) OR (entity_kind='group' AND entity_id='${group.id}')`,
+    groups:`id='${group.id}'`,
+    group_members:`group_id='${group.id}'`,
+  };
   // Independent read-only D1 snapshots include every stored field, including fields omitted by UI projections.
   const snapshot=async()=>{
     const results=await state.atRest(Object.entries(selections).map(([table,where])=>`SELECT * FROM ${table} WHERE ${where};`).join('\n'));
     return Object.fromEntries(Object.keys(selections).map((table,index)=>[table,results[index].results]));
   };
-  return {pages,documents,receipts,originals,snapshot,before:await snapshot()};
+  const before=await snapshot();
+  for(const receipt of receipts.filter(item=>item.route==='/api/sharing'||item.route==='/api/groups')){
+    const history=before.core_entity_revisions.find(row=>row.id===receipt.receipt.revisionId);
+    assert.ok(history,'Every native group or page-grant commit has retained history before export.');
+    assert.equal(history.entity_id,receipt.value.id);
+    if(receipt.route==='/api/sharing'){
+      assert.equal(history.entity_kind,'page-grant');
+      const content=JSON.parse(history.content_json);
+      assert.equal(content.targetId,receipt.input.targetId);
+      assert.equal(content.revoked,!!receipt.input.revoke);
+      assert.equal(content.level,receipt.input.level);
+    }
+  }
+  for(const receipt of receipts.filter(item=>item.route.startsWith('/api/comments/'))){
+    const history=before.record_revisions.find(row=>row.id===receipt.receipt.revisionId);
+    assert.ok(history,'Every native discussion commit has retained history before export.');
+    assert.equal(history.entity_kind,'comment-thread');
+    assert.equal(history.entity_id,discussion.threadId);
+  }
+  return {pages,documents,receipts,originals,snapshot,before,access,accessBefore};
 }
 
 const ordered=rows=>rows.map(row=>JSON.stringify(Object.fromEntries(Object.entries(row).sort(([a],[b])=>a.localeCompare(b))))).sort();
@@ -82,9 +151,18 @@ async function reconcileSubtree(state,source,archive,bytes,job,evidence){
   const selected={};
   const pageIds=new Set(source.pages.map(page=>page.id)),threadIds=new Set(source.before.comment_threads.map(thread=>thread.id));
   const groupId=source.before.groups[0].id;
+  const grantIds=new Set(source.before.page_grants.map(row=>row.id));
+  const includes={
+    pages:row=>pageIds.has(row.id),
+    comments:row=>threadIds.has(row.thread_id),
+    groups:row=>row.id===groupId,
+    group_members:row=>row.group_id===groupId,
+    record_revisions:row=>row.entity_kind==='comment-thread'&&threadIds.has(row.entity_id),
+    core_entity_revisions:row=>(row.entity_kind==='page-grant'&&grantIds.has(row.entity_id))||(row.entity_kind==='group'&&row.entity_id===groupId),
+  };
   for(const [table,expected]of Object.entries(source.before)){
     assert.ok(expected.length,`The source snapshot for ${table} is populated.`);
-    selected[table]=archive.manifest.tables[table].filter(row=>table==='pages'?pageIds.has(row.id):table==='comments'?threadIds.has(row.thread_id):table==='groups'?row.id===groupId:table==='group_members'?row.group_id===groupId:pageIds.has(row.page_id));
+    selected[table]=archive.manifest.tables[table].filter(includes[table]??(row=>pageIds.has(row.page_id)));
     assert.deepEqual(ordered(selected[table]),ordered(expected),`The Settings ZIP retains every source field in ${table}.`);
   }
   for(const page of source.pages){
@@ -108,12 +186,19 @@ async function reconcileSubtree(state,source,archive,bytes,job,evidence){
     assert.deepEqual(actual,file.bytes);assert.equal(createHash('sha256').update(actual).digest('hex'),file.hash);
     originalReceipts.push({id:file.id,pageId:file.pageId,name:file.name,blob,bytes:[...actual]});
   }
+  for(const file of source.originals){
+    const downloaded=await state.context.request.get(state.origin+`/api/media/${file.id}`);
+    assert.equal(downloaded.status(),200);
+    assert.deepEqual(await downloaded.body(),file.bytes,'Export leaves each native original download unchanged.');
+  }
+  const accessAfter=await source.access();
+  assert.deepEqual(accessAfter,source.accessBefore,'Export cannot reactivate a revoked grant or revoke an active grant.');
   const after=await source.snapshot();
   for(const table of Object.keys(source.before))assert.deepEqual(ordered(after[table]),ordered(source.before[table]),`Export leaves source ${table} unchanged.`);
   const sourceIdentity={head:execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim(),journeySha256:createHash('sha256').update(await readFile(new URL(import.meta.url))).digest('hex')};
-  const receipt={scope:'Ordinary authored page subtree only; other workspace families and requirement-wide completeness remain unproven.',sourceIdentity,viewport:state.page.viewportSize(),jobId:job.id,archive:{bytes:bytes.length,sha256:createHash('sha256').update(bytes).digest('hex')},mutations:source.receipts,nativeReads:source.documents,sourceBefore:source.before,archived:selected,originals:originalReceipts,sourceAfter:after};
+  const receipt={scope:'Ordinary authored page subtree only; other workspace families and requirement-wide completeness remain unproven.',sourceIdentity,viewport:state.page.viewportSize(),jobId:job.id,archive:{bytes:bytes.length,sha256:createHash('sha256').update(bytes).digest('hex')},mutations:source.receipts,nativeReads:source.documents,sourceBefore:source.before,archived:selected,originals:originalReceipts,accessBefore:source.accessBefore,accessAfter,sourceAfter:after};
   await writeFile(path.join(evidence,`${state.page.viewportSize().width}-authored-subtree.json`),JSON.stringify(receipt,null,2)+'\n');
-  console.log(`PROBE PORT-001 1: native authored subtree -> Settings workspace ZIP retains ${source.pages.length} ordered pages, bodies, properties, twelve revisions, explicit member and group grants, anchored thread and reply`);
+  console.log(`PROBE PORT-001 1: native authored subtree -> Settings workspace ZIP retains ${source.pages.length} ordered pages, bodies, properties, thirteen revisions, changed, revoked and regranted member and group grants, edited and resolved anchored thread and reply with retained histories`);
   console.log(`PROBE PORT-001 2: native original downloads -> Settings ZIP has both exact original byte sequences and SHA-256 hashes; independent source snapshots unchanged`);
 }
 
