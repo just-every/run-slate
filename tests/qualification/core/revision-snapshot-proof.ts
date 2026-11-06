@@ -12,9 +12,9 @@ export async function revisionSnapshotProof(f:Awaited<ReturnType<typeof auditFix
  const hash=async(text:string)=>Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(text.normalize('NFC').replace(/\s+/gu,' ').trim()))),byte=>byte.toString(16).padStart(2,'0')).join('');
  vi.useFakeTimers({toFake:['Date'],now:epoch});
  try {
-  const commit=async(method:string,path:string,input:any,expectedText:string,origin='autosave')=>{
+  const commit=async(method:string,path:string,input:any,expectedText:string,origin='autosave',actor=f.ownerId)=>{
    vi.setSystemTime(epoch+(retained.length+1)*1000);
-   const result=await f.request(method,path,{operationKey:createUlid(),...input});
+   const result=await f.request(method,path,{operationKey:createUlid(),...input},actor);
    expect(result.status,JSON.stringify(result)).toBe(200);
    const {receipt,value}=result.data;
    if(!pageId)pageId=value.pageId;
@@ -25,10 +25,10 @@ export async function revisionSnapshotProof(f:Awaited<ReturnType<typeof auditFix
    expect(document.properties).toEqual(props);
    expect(document.blocks.map((b:any)=>({id:b.id,blockType:b.blockType,treePosition:b.treePosition,parentBlockId:b.parentBlockId,content:b.content}))).toEqual(blocks);
    const row=await env.DB.prepare('SELECT * FROM page_revisions WHERE page_id=? AND id=?').bind(pageId,receipt.revisionId).first<any>();
-   expect(row).toEqual({id:receipt.revisionId,page_id:pageId,author_member_id:f.ownerId,origin,content_hash:await hash(expectedText),body_json:JSON.stringify(document.blocks),properties_json:JSON.stringify(props),status_key:null,ordinal:null,label:null,created_at:new Date().toISOString(),deleted_at:null,deleted_by_member_id:null});
+   expect(row).toEqual({id:receipt.revisionId,page_id:pageId,author_member_id:actor,origin,content_hash:await hash(expectedText),body_json:JSON.stringify(document.blocks),properties_json:JSON.stringify(props),status_key:null,ordinal:null,label:null,created_at:new Date().toISOString(),deleted_at:null,deleted_by_member_id:null});
    expect(receipt.committedAt).toBe(row.created_at);
    const history=(await f.request('GET',`/api/revisions/${pageId}`)).data.items;
-   expect(history.find((item:any)=>item.id===row.id)).toMatchObject({authorMemberId:f.ownerId,createdAt:row.created_at,origin});
+   expect(history.find((item:any)=>item.id===row.id)).toMatchObject({authorMemberId:actor,createdAt:row.created_at,origin});
    const snapshot=await f.request('GET',`/api/revisions/${pageId}/${row.id}`);
    expect(snapshot.status).toBe(200);
    expect(snapshot.data).toEqual({id:row.id,blocks:document.blocks,properties:props,createdAt:row.created_at,newerRevisionExists:false});
@@ -44,8 +44,9 @@ export async function revisionSnapshotProof(f:Awaited<ReturnType<typeof auditFix
   props={...props,title:'synthetic-slate-later',icon:'📗',labels:['later'],typeface:'mono',smallText:false,fullWidth:false};
   await commit('PATCH',`/api/pages/${pageId}`,{expectedRevisionId:await f.revision(pageId),properties:{title:props.title,icon:props.icon,labels:props.labels,typeface:props.typeface,smallText:props.smallText,fullWidth:props.fullWidth}},'Café first second line later synthetic-slate-later');
   blocks=[{...blocks[0],content:{text:[{text:'synthetic-slate-new-body'}]}},blocks[1]];
+  await f.mutation('revision writer access','sharing.grant','POST','/api/sharing',{targetKind:'page',targetId:pageId,principalKind:'member',principalId:f.readerId,level:'edit'});
   const current=(await f.request('GET',`/api/pages/${pageId}`)).data;
-  await commit('PATCH',`/api/pages/${pageId}/blocks/${first}`,{expectedRevisionId:current.blocks[0].revisionId,content:blocks[0].content},'synthetic-slate-new-body second line later synthetic-slate-later');
+  await commit('PATCH',`/api/pages/${pageId}/blocks/${first}`,{expectedRevisionId:current.blocks[0].revisionId,content:blocks[0].content},'synthetic-slate-new-body second line later synthetic-slate-later','autosave',f.readerId);
   const rows=(await env.DB.prepare('SELECT * FROM page_revisions WHERE page_id=? ORDER BY created_at,id').bind(pageId).all()).results;
   expect(rows).toEqual(retained.map(item=>item.row));
   for(const item of retained){
