@@ -53,6 +53,15 @@ export async function trashRetentionProof(f:Awaited<ReturnType<typeof auditFixtu
   expect(await stored(),'repeated native scheduled processing never expires old trash or retained bytes').toEqual(agedState);
   expect(await listed(),'aged trash remains listed with its original metadata').toEqual(agedRows);
   expect(agedRows.every((item:any)=>item.trashedAt===aged&&item.occurredAt===aged)).toBe(true);
+  const {seedMember,sessionFor}=await import('../../e2e/setup/fixtures');
+  const outsider=await seedMember(f.workspaceId,{role:'member',displayName:'Trash outsider',email:['synthetic-slate-62','test.invalid'].join('@')});
+  f.cookies[outsider.memberId]=await sessionFor(outsider.memberId);
+  const restore={operationKey:createUlid(),expectedRevisionId:revisionId,action:'restore'};
+  for(let attempt=0;attempt<2;attempt++) {
+    expect((await f.request('POST',`/api/archive/${root.pageId}`,restore,outsider.memberId)).status).toBe(404);
+    expect(await stored(),'an unauthorized restore and its retry change no retained page, location, receipt, activity or bytes').toEqual(agedState);
+    expect(await listed()).toEqual(agedRows);
+  }
   await write(`/api/archive/${root.pageId}`,{expectedRevisionId:revisionId,action:'restore'});
   expect(await listed()).toEqual([]);
   expect(await inventory(),'the entire subtree returns between the same surviving siblings').toEqual(originalInventory);
@@ -62,4 +71,5 @@ export async function trashRetentionProof(f:Awaited<ReturnType<typeof auditFixtu
     .toEqual((before as any).pages.map(({archived_at,trashed_at,lifecycle,updated_at,...page}:any)=>page));
   console.info('PROBE ARCH-005 metadata: native member trash and replay -> exact deleting member and receipt time, complete descendant inventory and prior container, parent and order; unauthorized parent labels withheld');
   console.info('PROBE ARCH-005 retention: actual trash aged to 2001, two native scheduled runs -> no expiry, bodies and bytes retained; native restore -> same populated subtree and sibling order');
+  console.info('PROBE ARCH-005 restore authority: native outsider restore and retry -> 404 with the complete retained subtree, metadata, receipts, activity and bytes unchanged');
 }

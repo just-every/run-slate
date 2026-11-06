@@ -12,9 +12,10 @@ export async function trashListJourney(state,touch,f) {
     const content=page.locator('.space-detail');
     await tap(content.getByRole('button',{name:'Content',exact:true}));
     for(const title of ['Retention parent','Retained archive tree','Retained database']) {
-      const expand=content.getByRole('button',{name:`Expand ${title}`,exact:true});
-      if(await expand.count())await tap(expand);
-      await expect(content.getByRole('button',{name:`Collapse ${title}`,exact:true})).toHaveAttribute('aria-expanded','true');
+      const toggle=content.getByRole('button',{name:new RegExp(`^(Expand|Collapse) ${title}$`)});
+      await expect(toggle).toBeEnabled();
+      if(await toggle.getAttribute('aria-expanded')==='false')await tap(toggle);
+      await expect(toggle).toHaveAttribute('aria-expanded','true');
     }
     const parent=content.getByRole('link',{name:'Retention parent',exact:true}).locator('xpath=../..');
     await expect(parent.locator(':scope > .page-tree > li > .tree-row > a')).toHaveText(['Before retained tree','Retained archive tree','After retained tree']);
@@ -122,7 +123,8 @@ export async function trashListJourney(state,touch,f) {
   assert.equal((await restored).status(),200);await membership([]);
   assert.deepEqual(await f.inventory(),f.originalInventory,'All descendants return between the same sibling pages in the same order.');
   assert.deepEqual(await f.snapshot(),f.before,'Native trash and restore preserve populated descendants.');
-  assert.deepEqual(await place(),visibleBefore,'Native Content shows the same populated subtree, addresses, parent relationships and sibling order after restore.');
+  const visibleAfter=await place();
+  assert.deepEqual(visibleAfter,visibleBefore,'Native Content shows the same populated subtree, addresses, parent relationships and sibling order after restore.');
   await checkpoint(page,'restored subtree in original visible order');
   await page.reload({waitUntil:'networkidle'});
   assert.deepEqual(await place(),visibleBefore,'The restored native tree remains in place after reload.');
@@ -132,5 +134,7 @@ export async function trashListJourney(state,touch,f) {
   const baselineIds=new Set(baseline.map(item=>item.id));
   const retained=(await touch.api('/api/archive')).items.filter(item=>baselineIds.has(item.id)).sort((a,b)=>a.id.localeCompare(b.id));
   assert.deepEqual(retained,baseline,'Every earlier scenario trash row and its provenance remains unchanged.');
+  console.log('TRASH_RECEIPT',JSON.stringify({width:page.viewportSize().width,committedAt:receipt.committedAt,
+    listed:rows,priorInventory:f.originalInventory,restoredInventory:await f.inventory(),visibleBefore,visibleAfter,aged:agedRows}));
   console.log(`PROBE ARCH-005 native browser ${page.viewportSize().width}: exact who, receipt time, prior container, parent and order; title and location search, actor and space filters, inclusive dates and combined membership; actual aged trash survives two schedules; native restore retains populated subtree and sibling order in the API and visible Content tree after reload`);
 }
