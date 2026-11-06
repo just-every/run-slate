@@ -231,3 +231,42 @@ Changing the reviewed destination's membership invalidates its old native sessio
 AUTO-008 acceptance 1, native automation rules only: `automationRestartJourney` in `tests/qualification/ui-convergence/automation-restart-journey.mjs` is called by the existing desktop `automationRunLogJourney`. Authenticated native HTTP admits a source rule and commits a record update. The emitted Worker creates one record, comment and inbox intent; a test-process D1 observer pauses before confirming the last action after its semantic transaction has committed. The parent sends SIGKILL to the owned runtime process group, observes that signal and the interrupted scheduled request, then restarts against the same persistent store. A pre-expiry drain leaves the running job and effects unchanged; the journey waits for the genuine production lease deadline without writing any job, receipt or clock row, then repeatedly drains. Canonical routes and read-only native D1 inspection reconcile one job and firing, unchanged effect identities and bytes, three confirmed action and operation receipts, exactly one semantic activity per action and one completion. Replaying the actual record command and further drains changes nothing. The recovered run log is asserted at 1440 and captured at 1440 and 390. Existing Workers exception-recovery and access assertions and the phone run-log caller remain unchanged; no registration is added.
 
 This is supporting evidence only for AUTO-008 as a whole. Owner Home failure and stuck projection, explicit stop and cancellation, other background-job families, full owner, due, progress, failure and resolution semantics and complete message, record and issue deduplication remain omitted and unproven. Connector, agent, provider, ADMIN-007 and shared company-policy prerequisites remain authoritative.
+## Selected referential restore
+
+`referentialRestore` proof is folded into `transferJobsJourney` in
+`./tests/qualification/ui-convergence/transfer-jobs-journey.mjs` by the focused
+`prepareReferentialRestore` and `proveReferentialRestore` helpers in
+`./tests/qualification/ui-convergence/referential-restore-journey.mjs`.
+The existing desktop readable-export caller and phone core caller in
+`./tests/qualification/ui-convergence/journeys.test.mjs` load it on push Verify;
+no registration is added.
+
+Native product routes create an ordinary private parent with three children,
+several exact page versions, direct and inherited group access, a revoked page
+grant, a real inline selection and discussion, a relative internal page link,
+a page mention and two original attachments with different bytes. Sibling
+creation order differs from the retained tree order. The real Settings ZIP is
+downloaded, opened and restored through the empty-deployment form into separate
+D1 and R2. Fresh owner reads and a new destination export compare the selected
+archive rows with the source documents, history, tree, grants, group membership,
+comment anchor and original bytes.
+
+The restored member remains historical until a native invitation is accepted.
+A separate fresh sign-in retains the original member ID. Direct view and
+inherited group edit access agree with the source; a revoked page, its history,
+discussion and original attachment are refused without exposing their content.
+A refused view-only write leaves the document unchanged. The member follows
+the retained internal link, opens the exact earlier revision, jumps from the
+retained discussion to its selected text and reloads each selected screen.
+The owner also reopens every selected permanent page address and checks all
+three children in native tree order after reload. Both established widths
+capture the restored screens. Non-secret selected snapshots and file digests
+are written to the existing transfer artifact directory.
+
+This is supporting evidence for portions of PORT-002 acceptance 1 and 2.
+Every other record family, unselected link, mention, anchor and file form,
+public slug preservation and controlled re-enablement, complete principal,
+revision and grant inventories, imported-original custody and universal
+same-record resolution remain unproven. PORT-003, PORT-006 and PORT-007 scopes
+and all privacy, erasure, import and search prerequisites remain unchanged;
+ADMIN-007 and shared company-policy prerequisites remain authoritative.

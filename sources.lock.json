@@ -12211,6 +12211,10 @@
       "sha256": "39600e52c1f2fbf730ac145b69f19bc72d40a6db9828b4dacac1a0d1c8e24ba1",
       "executable": false
     },
+    "tests/qualification/ui-convergence/referential-restore-journey.mjs": {
+      "sha256": "04d38a10a994d439caea72a5fceacf606585291e5d0453651a9881aeb0164514",
+      "executable": false
+    },
     "tests/qualification/ui-convergence/review-request-journey.mjs": {
       "sha256": "b530886b8acd20ff0cd2e1730cbc6596a61f1c383256ff63638636af6c71f918",
       "executable": false
@@ -12336,7 +12340,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/transfer-jobs-journey.mjs": {
-      "sha256": "fbe52f4d2d2af6812a6fa651b5f82ceffab44fe81ffbdc5d871b38d51ad05577",
+      "sha256": "d6891d63ffb5dcad673bc1ec8cf897af9b528e92fd1fcfb8608f3e834807f06a",
       "executable": false
     },
     "tests/qualification/ui-convergence/tree-filter-journey.mjs": {
@@ -12420,7 +12424,7 @@
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
-      "sha256": "782543139762ccc58d2afe7fc79fc80ee53e7a786bee1246d2485ee1b8bdb2d2",
+      "sha256": "b80f8b4b7d6a1d67dc6f59f3de13fb34e32219920cdd88ca4d40995eb57d4fd2",
       "executable": false
     },
     "tests/requirements/count-registrations.mjs": {
