@@ -953,9 +953,10 @@
       "testName": "BLOCK-014 — tables, columns and synced paragraphs preserve structured content through editing, validation, exports and access",
       "kind": "supporting-regression",
       "clauses": [
-        "BLOCK-014"
+        "BLOCK-014",
+        "BLOCK-011"
       ],
-      "reason": "Structured tables remain covered; the same HTTP case also proves column bounds, round trips, incumbent layout imports and reader-safe page operations. Side-by-side PDF and Word layout remain open."
+      "reason": "Structured tables remain covered; the same HTTP case also proves column bounds, round trips, incumbent layout imports and reader-safe page operations. Side-by-side PDF and Word layout remain open. Synced paragraph support in syncedCase proves content-free access requests through native sessions, generic receipts for existing and absent records, replay and same-day suppression to one current grantor, unchanged grants and authoring data, and readback only after an explicit grant. Other synced kinds and incumbent synced imports remain open."
     },
     {
       "file": "tests/e2e/notifications/destinations.test.ts",

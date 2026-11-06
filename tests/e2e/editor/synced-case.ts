@@ -1,4 +1,4 @@
-import {expect} from 'vitest';
+import {expect,vi} from 'vitest';
 import {unzipSync} from 'fflate';
 export async function syncedCase(request:(method:string,path:string,body?:unknown,actor?:'owner'|'reader'|'public')=>Response|Promise<Response>,readerId:string,db:D1Database){
  const json=async(method:string,path:string,body?:unknown,actor:'owner'|'reader'='owner')=>{const r=await request(method,path,body,actor),data=await r.json<any>();expect(r.status,JSON.stringify(data)).toBe(200);return data;};
@@ -23,6 +23,26 @@ export async function syncedCase(request:(method:string,path:string,body?:unknow
  expect((await request('PATCH',`/pages/${copies[0]}/synced/${block.id}`,{...edit,operationKey:key(),expectedSourceRevisionId:block.synced.sourceRevisionId},'reader')).status).toBe(404);
  await grant(source,'view',sourceGrant,true);
  one=await json('GET',`/pages/${copies[0]}`,undefined,'reader');expect(one.blocks[0].synced).toEqual({state:'access-needed'});expect(JSON.stringify(one)).not.toContain(changed);expect(JSON.stringify(one)).not.toContain(sourceTitle);
+ // Access requests use the reader's native session and never mutate authoring or grants.
+ const protectedState=async()=>Promise.all(['pages','page_blocks','page_revisions','page_grants','container_grants'].map(async table=>(await db.prepare(`SELECT * FROM ${table} ORDER BY id`).all()).results));
+ vi.useFakeTimers({toFake:['Date']});
+ try {
+ const beforeRequests=await protectedState(),ownerId=(await json('GET','/session')).member.id,requestKey=key();
+ for(const [id,operationKey] of [[source,requestKey],[source,requestKey],[source,key()],[key(),key()]]){
+  const response=await request('POST',`/sharing/pages/${id}/request-access`,{operationKey},'reader');
+  expect(response.status).toBe(202);expect(await response.json()).toEqual({accepted:true});
+ }
+ expect(await protectedState()).toEqual(beforeRequests);
+ const notices=(await json('GET','/notifications')).items.filter((item:any)=>item.event==='access-requested'&&item.pageId===source);
+ expect(notices).toHaveLength(1);expect(notices[0].detail).toEqual({requesterMemberId:readerId});
+ const outbox=(await db.prepare("SELECT recipients_json FROM notification_outbox WHERE event='access-requested' AND page_id=?").bind(source).all<{recipients_json:string}>()).results;
+ expect(outbox).toHaveLength(1);expect(JSON.parse(outbox[0].recipients_json)).toEqual([ownerId]);
+ }finally{vi.useRealTimers();}
+ expect((await request('GET',`/pages/${source}`,undefined,'reader')).status).toBe(404);
+ expect((await json('GET',`/pages/${copies[0]}`,undefined,'reader')).blocks[0].synced).toEqual({state:'access-needed'});
+ await grant(source,'view',sourceGrant);
+ expect((await json('GET',`/pages/${copies[0]}`,undefined,'reader')).blocks[0].synced).toMatchObject({state:'ready',sourceTitle,text:[{text:changed}],canEdit:false});
+ await grant(source,'view',sourceGrant,true);
  const history=await json('GET',`/revisions/${copies[0]}/${one.workingRevisionId}`,undefined,'reader');expect(JSON.stringify(history)).not.toContain(changed);expect(JSON.stringify(history)).not.toContain(sourceTitle);
  const search=await json('GET','/search?q='+encodeURIComponent('duty lead immediately'),undefined,'reader');expect(JSON.stringify(search)).not.toContain(source);
  const publish=async(id:string,slug:string,revoke=false)=>json('POST',`/publishing/${id}`,{operationKey:key(),expectedRevisionId:(await json('GET',`/pages/${id}`)).page.revisionId,host:'slate.test',slug,revoke});

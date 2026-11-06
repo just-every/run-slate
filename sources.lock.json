@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "e253f3d68a6498117e4ae73bda455fbbf31d150b273542b7aecc544ef7090598",
+      "sha256": "cd60e1e7ac88afb96ed7b40b5870f4436e7de7dfd648b3a3fc4bfc21f8e74416",
       "executable": false
     },
     "DEMO.md": {
@@ -6908,7 +6908,7 @@
       "executable": false
     },
     "src/core/features/editor/ui/blocks/SyncedBlock.tsx": {
-      "sha256": "88d38b1519aa90245168a61c4529926b70f16ab17b2b858a81a20118cbd8a33b",
+      "sha256": "108afb2ee541a5aa983660d6078a42022060db7ac2ed019ea53334036c60e231",
       "executable": false
     },
     "src/core/features/editor/ui/blocks/TableBlock.tsx": {
@@ -10440,7 +10440,7 @@
       "executable": false
     },
     "tests/e2e/editor/synced-case.ts": {
-      "sha256": "7e24d3dbd833060f5d2047628e759d8a1ef70ddac59694565d50128e687f25cd",
+      "sha256": "0a32dc2a94316391cbda7f7e49d2ec156c8e914cb82f64cfb552dabbdf72871e",
       "executable": false
     },
     "tests/e2e/editor/tables.test.ts": {
@@ -12252,7 +12252,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/synced-journey.mjs": {
-      "sha256": "b5ad8a4ff8d1823901556a584c2f7043c3111b2bc64b91a19f725d25a25f5bc5",
+      "sha256": "28d8052252e838c0fd47c985b7a81f6e36fdfde8f4ab8c6641a94a1b5811f762",
       "executable": false
     },
     "tests/qualification/ui-convergence/synced-refresh.mjs": {
@@ -12408,7 +12408,7 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "d74430f07716b77458f662a7b5a62f0de4182cf0e7ed500bd207b94c50bb7f84",
+      "sha256": "89b86a7b0117a6f49dd2c58a2a3c85d2a00220cd9699751452e67772b271ef93",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
@@ -12424,7 +12424,7 @@
       "executable": false
     },
     "tests/requirements/test-evidence.json": {
-      "sha256": "0a8344d30c140538c56bdafe2f4e9988dd65c459787b7d47c9f34d7148194e55",
+      "sha256": "1b346e9e05b369a21a219216f47d74394a7c8b67cce22d4943471873003e832e",
       "executable": false
     },
     "tests/rer/editor.test.mjs": {
