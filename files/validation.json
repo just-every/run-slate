@@ -1,0 +1,73 @@
+{
+  "head": "b0867df7c91dbbd7d462418b8d83f697b5390187",
+  "node": "v22.20.0",
+  "pnpm": "10.12.4",
+  "checks": [
+    {
+      "command": "npx -y @runeditrun/rer build",
+      "exit": 0,
+      "log": "final-build-tail.txt"
+    },
+    {
+      "command": "pnpm typecheck",
+      "exit": 0,
+      "log": "typecheck.txt"
+    },
+    {
+      "command": "pnpm exec rer check --profile first-party",
+      "exit": 0,
+      "log": "first-party.txt"
+    },
+    {
+      "command": "pnpm check:contract",
+      "exit": 0,
+      "log": "contract-structure.json"
+    },
+    {
+      "command": "pnpm exec vitest run tests/flagship/structured/automation-repairs.test.ts",
+      "exit": 0,
+      "log": "workers.txt",
+      "filesPassed": 1,
+      "registrationsPassed": 1
+    },
+    {
+      "command": "node src/base/runtime/contract-docs.mjs write && node src/base/runtime/contract-docs.mjs check",
+      "exit": 0,
+      "log": "generated-views.txt",
+      "generatedViewsRestored": true
+    },
+    {
+      "command": "pnpm source:lock && pnpm source:check",
+      "exit": 0,
+      "sourceLockRegenerated": true,
+      "generatedViewsCommitted": false
+    }
+  ],
+  "browser": {
+    "status": "passed",
+    "command": "timeout 1200 node --test --test-concurrency=1 --test-name-pattern='^spreadsheet tables merge, sort and round-trip through edited database records at 1440px$' tests/qualification/ui-convergence/journeys.test.mjs",
+    "chromium": "/usr/bin/chromium",
+    "args": [
+      "--no-sandbox"
+    ],
+    "assertionWidth": 1440,
+    "proofWidths": [
+      1440,
+      390
+    ],
+    "exit": 0,
+    "registrationsPassed": 1,
+    "log": "browser.txt",
+    "proof": [
+      "run-log-1440.json",
+      "run-log-1440.png",
+      "run-log-390.json",
+      "run-log-390.png"
+    ]
+  },
+  "migrationLedger": {
+    "command": null,
+    "exit": 0,
+    "reason": "No migration added or changed."
+  }
+}

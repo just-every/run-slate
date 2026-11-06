@@ -1,0 +1,52 @@
+{
+  "tag": "sd-slate-c-f196",
+  "repository": "just-every/run-slate",
+  "branch": "cloud/sd-slate-c-f196",
+  "head": "b0867df7c91dbbd7d462418b8d83f697b5390187",
+  "custody": "READY",
+  "basis": "All touched local gates passed on the exact candidate; exact-head Verify failed only the explicitly permitted generated-view check.",
+  "clause": "AUTO-008",
+  "before": "partial",
+  "after": "partial",
+  "closed": "Acceptance 1 for native automation-rule jobs: actual kill, restart, lease boundary, exact effects and replay, recovered visible log.",
+  "remaining": "Owner Home failure and stuck projection, explicit stop and cancellation, other job families, full accountable follow-through and complete message, record and issue deduplication; existing connector, agent, provider, ADMIN-007 and company-policy prerequisites.",
+  "countsBefore": {
+    "done": 57,
+    "partial": 240,
+    "missing": 41
+  },
+  "countsAfter": {
+    "done": 57,
+    "partial": 240,
+    "missing": 41
+  },
+  "ci": {
+    "head": "b0867df7c91dbbd7d462418b8d83f697b5390187",
+    "runId": 42217406810,
+    "event": "push",
+    "status": "completed",
+    "conclusion": "failure",
+    "appJob": 127890814746,
+    "aggregateJob": 127891091516,
+    "failedCommand": "node src/base/runtime/contract-docs.mjs check",
+    "diagnostic": "ACCEPTANCE.md: generated content differs; run contract-docs write.",
+    "permittedGeneratedViewException": true,
+    "dependentJobs": "skipped",
+    "fullBranchTestGreenClaimed": false,
+    "logRead": {
+      "command": "gh run view 42217406810 --repo just-every/run-slate --job 127890814746 --log-failed",
+      "exit": 0,
+      "calls": 1
+    },
+    "githubCallsTotal": 5,
+    "rerunOrDispatch": false
+  },
+  "pr": null,
+  "landingClaimed": false,
+  "publicationScan": "guarded lander required",
+  "runSite": "guarded lander required",
+  "sourceLockFresh": true,
+  "generatedViewsCommitted": false,
+  "newTestRegistrations": 0,
+  "knownProductFailure": null
+}

@@ -1,0 +1,374 @@
+{
+  "source": {
+    "commit": "eb8fa4d8f609b44b1789a1a1c2c70fea0be5adad",
+    "tree": "5c64dfc7757f8609d650f3be29ce63b1f7ffaf6a",
+    "sourceSha256": "142fe0d91ba42774a6867ec4149b0c9ad5caaae94f9bd645a2e0ff2c941f4e9f",
+    "lockSha256": "c2072fa69775e2c561f14d117d4c7a25bb501e1977bc141f70804d1a8e401f9e"
+  },
+  "artifact": {
+    "schema": 1,
+    "commit": "eb8fa4d8f609b44b1789a1a1c2c70fea0be5adad",
+    "tree": "5c64dfc7757f8609d650f3be29ce63b1f7ffaf6a",
+    "sourceSha256": "142fe0d91ba42774a6867ec4149b0c9ad5caaae94f9bd645a2e0ff2c941f4e9f",
+    "lockSha256": "c2072fa69775e2c561f14d117d4c7a25bb501e1977bc141f70804d1a8e401f9e",
+    "outputSha256": "b23afc77627785ae9d03fe0713c89155d9a726e445a3999c3f773f8be661e641"
+  },
+  "killed": {
+    "pid": 4093,
+    "signal": "SIGKILL"
+  },
+  "persistedStoreReused": true,
+  "leaseUntil": "2026-11-06T12:16:25.302Z",
+  "interrupted": {
+    "jobs": [
+      {
+        "id": "01M6RCJ05AQVRB71KCF789CFCX",
+        "run_id": "01M6RCJ05A0A2ZA3DAC5XMM16M",
+        "event_key": "content:3",
+        "state": "running",
+        "cursor": 1,
+        "lease_until": "2026-11-06T12:16:25.302Z"
+      }
+    ],
+    "runs": [
+      {
+        "id": "01M6RCJ05A0A2ZA3DAC5XMM16M",
+        "state": "running",
+        "started_at": "2026-11-06T12:15:25.302Z",
+        "finished_at": null
+      }
+    ],
+    "actions": [
+      {
+        "action_index": 0,
+        "target_id": "01M6RCJ012NGT56NPH1MRYHESG",
+        "state": "confirmed",
+        "receipt_json": "{\"value\":{\"pageId\":\"01M6RCJ07W4RKSN6ETRFQK6K7M\",\"revisionId\":\"01M6RCJ07DHS80Z5VRNF9FFHSM\",\"values\":{}},\"receipt\":{\"operationKey\":\"auto:01M6RCJ05A0A2ZA3DAC5XMM16M:0:01M6RCJ012NGT56NPH1MRYHESG\",\"entity\":{\"id\":\"01M6RCJ07W4RKSN6ETRFQK6K7M\",\"kind\":\"page\",\"revisionId\":\"01M6RCJ07DHS80Z5VRNF9FFHSM\"},\"revisionId\":\"01M6RCJ07DHS80Z5VRNF9FFHSM\",\"activityId\":\"01M6RCJ07DG7RC6E5P5R6APMDK\",\"committedAt\":\"2026-11-06T12:15:25.392Z\"}}"
+      },
+      {
+        "action_index": 1,
+        "target_id": "01M6RCJ012NGT56NPH1MRYHESG",
+        "state": "confirmed",
+        "receipt_json": "{\"value\":{\"id\":\"01M6RCJ098QCNFG16MT5C3YGXE\",\"threadId\":\"01M6RCJ098ZHYZVK7KAQNRBCJM\",\"revisionId\":\"01M6RCJ096NYXE47D5REFQSSKJ\"},\"receipt\":{\"operationKey\":\"auto:01M6RCJ05A0A2ZA3DAC5XMM16M:1:01M6RCJ012NGT56NPH1MRYHESG\",\"entity\":{\"id\":\"01M6RCJ098ZHYZVK7KAQNRBCJM\",\"kind\":\"comment-thread\",\"revisionId\":\"01M6RCJ096NYXE47D5REFQSSKJ\"},\"revisionId\":\"01M6RCJ096NYXE47D5REFQSSKJ\",\"activityId\":\"01M6RCJ0961W9NX8ZFGCRZBM6T\",\"committedAt\":\"2026-11-06T12:15:25.455Z\"}}"
+      },
+      {
+        "action_index": 2,
+        "target_id": "01M6RCJ012NGT56NPH1MRYHESG",
+        "state": "prepared",
+        "receipt_json": "{\"action\":{\"type\":\"notify\",\"recipientMemberIds\":[\"01M6RCHZTVGW06K1J5Z6Q58YMT\"],\"message\":\"One recovered inbox outcome.\"},\"pageId\":\"01M6RCJ012NGT56NPH1MRYHESG\",\"operationKey\":\"auto:01M6RCJ05A0A2ZA3DAC5XMM16M:2:01M6RCJ012NGT56NPH1MRYHESG\",\"expectedRevisionId\":\"01M6RCJ02N96MK8CX20BQWYK09\"}"
+      }
+    ],
+    "operations": [
+      {
+        "operation_key": "auto:01M6RCJ05A0A2ZA3DAC5XMM16M:0:01M6RCJ012NGT56NPH1MRYHESG",
+        "target_kind": "page",
+        "target_id": "01M6RCJ07W4RKSN6ETRFQK6K7M",
+        "response_json": "{\"value\":{\"pageId\":\"01M6RCJ07W4RKSN6ETRFQK6K7M\",\"revisionId\":\"01M6RCJ07DHS80Z5VRNF9FFHSM\",\"values\":{}},\"receipt\":{\"operationKey\":\"auto:01M6RCJ05A0A2ZA3DAC5XMM16M:0:01M6RCJ012NGT56NPH1MRYHESG\",\"entity\":{\"id\":\"01M6RCJ07W4RKSN6ETRFQK6K7M\",\"kind\":\"page\",\"revisionId\":\"01M6RCJ07DHS80Z5VRNF9FFHSM\"},\"revisionId\":\"01M6RCJ07DHS80Z5VRNF9FFHSM\",\"activityId\":\"01M6RCJ07DG7RC6E5P5R6APMDK\",\"committedAt\":\"2026-11-06T12:15:25.392Z\"}}"
+      },
+      {
+        "operation_key": "auto:01M6RCJ05A0A2ZA3DAC5XMM16M:1:01M6RCJ012NGT56NPH1MRYHESG",
+        "target_kind": "comment-thread",
+        "target_id": "01M6RCJ098ZHYZVK7KAQNRBCJM",
+        "response_json": "{\"value\":{\"id\":\"01M6RCJ098QCNFG16MT5C3YGXE\",\"threadId\":\"01M6RCJ098ZHYZVK7KAQNRBCJM\",\"revisionId\":\"01M6RCJ096NYXE47D5REFQSSKJ\"},\"receipt\":{\"operationKey\":\"auto:01M6RCJ05A0A2ZA3DAC5XMM16M:1:01M6RCJ012NGT56NPH1MRYHESG\",\"entity\":{\"id\":\"01M6RCJ098ZHYZVK7KAQNRBCJM\",\"kind\":\"comment-thread\",\"revisionId\":\"01M6RCJ096NYXE47D5REFQSSKJ\"},\"revisionId\":\"01M6RCJ096NYXE47D5REFQSSKJ\",\"activityId\":\"01M6RCJ0961W9NX8ZFGCRZBM6T\",\"committedAt\":\"2026-11-06T12:15:25.455Z\"}}"
+      },
+      {
+        "operation_key": "auto:01M6RCJ05A0A2ZA3DAC5XMM16M:2:01M6RCJ012NGT56NPH1MRYHESG",
+        "target_kind": "notification",
+        "target_id": "01M6RCHZTVGW06K1J5Z6Q58YMT",
+        "response_json": "{\"value\":{\"id\":\"01M6RCJ0AJZAT9PJBXK05NQ6DZ\",\"state\":\"queued\"},\"receipt\":{\"operationKey\":\"auto:01M6RCJ05A0A2ZA3DAC5XMM16M:2:01M6RCJ012NGT56NPH1MRYHESG\",\"entity\":{\"id\":\"01M6RCHZTVGW06K1J5Z6Q58YMT\",\"kind\":\"notification\",\"revisionId\":\"01M6RCJ0AJZAT9PJBXK05NQ6DZ\"},\"revisionId\":\"01M6RCJ0AJZAT9PJBXK05NQ6DZ\",\"activityId\":\"01M6RCJ0AJ8Y0F7FGWDYRKCZ4N\",\"committedAt\":\"2026-11-06T12:15:25.497Z\"}}"
+      }
+    ],
+    "activity": [
+      {
+        "id": "01M6RCJ05BXR8GQKNVQ8AYYSZM",
+        "action": "automation.queued",
+        "target_id": "01M6RCJ05A0A2ZA3DAC5XMM16M",
+        "operation_key": null,
+        "automation_run_id": "01M6RCJ05A0A2ZA3DAC5XMM16M"
+      },
+      {
+        "id": "01M6RCJ07DG7RC6E5P5R6APMDK",
+        "action": "databases.record.create",
+        "target_id": "01M6RCJ07W4RKSN6ETRFQK6K7M",
+        "operation_key": "auto:01M6RCJ05A0A2ZA3DAC5XMM16M:0:01M6RCJ012NGT56NPH1MRYHESG",
+        "automation_run_id": null
+      },
+      {
+        "id": "01M6RCJ0961W9NX8ZFGCRZBM6T",
+        "action": "comments.create",
+        "target_id": "01M6RCJ098ZHYZVK7KAQNRBCJM",
+        "operation_key": "auto:01M6RCJ05A0A2ZA3DAC5XMM16M:1:01M6RCJ012NGT56NPH1MRYHESG",
+        "automation_run_id": null
+      },
+      {
+        "id": "01M6RCJ0AJ8Y0F7FGWDYRKCZ4N",
+        "action": "notification.send",
+        "target_id": "01M6RCHZTVGW06K1J5Z6Q58YMT",
+        "operation_key": "auto:01M6RCJ05A0A2ZA3DAC5XMM16M:2:01M6RCJ012NGT56NPH1MRYHESG",
+        "automation_run_id": null
+      }
+    ],
+    "records": [
+      {
+        "page_id": "01M6RCJ07W4RKSN6ETRFQK6K7M",
+        "title": "One recovered record"
+      }
+    ],
+    "comments": [
+      {
+        "id": "01M6RCJ098QCNFG16MT5C3YGXE",
+        "body_json": "[{\"text\":\"One recovered comment.\"}]"
+      }
+    ],
+    "outbox": [
+      {
+        "id": "01M6RCJ0AJZAT9PJBXK05NQ6DZ",
+        "detail_json": "{\"outcome\":\"One recovered inbox outcome.\"}"
+      }
+    ]
+  },
+  "recovered": {
+    "jobs": [
+      {
+        "id": "01M6RCJ05AQVRB71KCF789CFCX",
+        "run_id": "01M6RCJ05A0A2ZA3DAC5XMM16M",
+        "event_key": "content:3",
+        "state": "success",
+        "cursor": 2,
+        "lease_until": null
+      }
+    ],
+    "runs": [
+      {
+        "id": "01M6RCJ05A0A2ZA3DAC5XMM16M",
+        "state": "success",
+        "started_at": "2026-11-06T12:15:25.302Z",
+        "finished_at": "2026-11-06T12:16:25.472Z"
+      }
+    ],
+    "actions": [
+      {
+        "action_index": 0,
+        "target_id": "01M6RCJ012NGT56NPH1MRYHESG",
+        "state": "confirmed",
+        "receipt_json": "{\"value\":{\"pageId\":\"01M6RCJ07W4RKSN6ETRFQK6K7M\",\"revisionId\":\"01M6RCJ07DHS80Z5VRNF9FFHSM\",\"values\":{}},\"receipt\":{\"operationKey\":\"auto:01M6RCJ05A0A2ZA3DAC5XMM16M:0:01M6RCJ012NGT56NPH1MRYHESG\",\"entity\":{\"id\":\"01M6RCJ07W4RKSN6ETRFQK6K7M\",\"kind\":\"page\",\"revisionId\":\"01M6RCJ07DHS80Z5VRNF9FFHSM\"},\"revisionId\":\"01M6RCJ07DHS80Z5VRNF9FFHSM\",\"activityId\":\"01M6RCJ07DG7RC6E5P5R6APMDK\",\"committedAt\":\"2026-11-06T12:15:25.392Z\"}}"
+      },
+      {
+        "action_index": 1,
+        "target_id": "01M6RCJ012NGT56NPH1MRYHESG",
+        "state": "confirmed",
+        "receipt_json": "{\"value\":{\"id\":\"01M6RCJ098QCNFG16MT5C3YGXE\",\"threadId\":\"01M6RCJ098ZHYZVK7KAQNRBCJM\",\"revisionId\":\"01M6RCJ096NYXE47D5REFQSSKJ\"},\"receipt\":{\"operationKey\":\"auto:01M6RCJ05A0A2ZA3DAC5XMM16M:1:01M6RCJ012NGT56NPH1MRYHESG\",\"entity\":{\"id\":\"01M6RCJ098ZHYZVK7KAQNRBCJM\",\"kind\":\"comment-thread\",\"revisionId\":\"01M6RCJ096NYXE47D5REFQSSKJ\"},\"revisionId\":\"01M6RCJ096NYXE47D5REFQSSKJ\",\"activityId\":\"01M6RCJ0961W9NX8ZFGCRZBM6T\",\"committedAt\":\"2026-11-06T12:15:25.455Z\"}}"
+      },
+      {
+        "action_index": 2,
+        "target_id": "01M6RCJ012NGT56NPH1MRYHESG",
+        "state": "confirmed",
+        "receipt_json": "{\"value\":{\"id\":\"01M6RCJ0AJZAT9PJBXK05NQ6DZ\",\"state\":\"queued\"},\"receipt\":{\"operationKey\":\"auto:01M6RCJ05A0A2ZA3DAC5XMM16M:2:01M6RCJ012NGT56NPH1MRYHESG\",\"entity\":{\"id\":\"01M6RCHZTVGW06K1J5Z6Q58YMT\",\"kind\":\"notification\",\"revisionId\":\"01M6RCJ0AJZAT9PJBXK05NQ6DZ\"},\"revisionId\":\"01M6RCJ0AJZAT9PJBXK05NQ6DZ\",\"activityId\":\"01M6RCJ0AJ8Y0F7FGWDYRKCZ4N\",\"committedAt\":\"2026-11-06T12:15:25.497Z\"}}"
+      }
+    ],
+    "operations": [
+      {
+        "operation_key": "auto:01M6RCJ05A0A2ZA3DAC5XMM16M:0:01M6RCJ012NGT56NPH1MRYHESG",
+        "target_kind": "page",
+        "target_id": "01M6RCJ07W4RKSN6ETRFQK6K7M",
+        "response_json": "{\"value\":{\"pageId\":\"01M6RCJ07W4RKSN6ETRFQK6K7M\",\"revisionId\":\"01M6RCJ07DHS80Z5VRNF9FFHSM\",\"values\":{}},\"receipt\":{\"operationKey\":\"auto:01M6RCJ05A0A2ZA3DAC5XMM16M:0:01M6RCJ012NGT56NPH1MRYHESG\",\"entity\":{\"id\":\"01M6RCJ07W4RKSN6ETRFQK6K7M\",\"kind\":\"page\",\"revisionId\":\"01M6RCJ07DHS80Z5VRNF9FFHSM\"},\"revisionId\":\"01M6RCJ07DHS80Z5VRNF9FFHSM\",\"activityId\":\"01M6RCJ07DG7RC6E5P5R6APMDK\",\"committedAt\":\"2026-11-06T12:15:25.392Z\"}}"
+      },
+      {
+        "operation_key": "auto:01M6RCJ05A0A2ZA3DAC5XMM16M:1:01M6RCJ012NGT56NPH1MRYHESG",
+        "target_kind": "comment-thread",
+        "target_id": "01M6RCJ098ZHYZVK7KAQNRBCJM",
+        "response_json": "{\"value\":{\"id\":\"01M6RCJ098QCNFG16MT5C3YGXE\",\"threadId\":\"01M6RCJ098ZHYZVK7KAQNRBCJM\",\"revisionId\":\"01M6RCJ096NYXE47D5REFQSSKJ\"},\"receipt\":{\"operationKey\":\"auto:01M6RCJ05A0A2ZA3DAC5XMM16M:1:01M6RCJ012NGT56NPH1MRYHESG\",\"entity\":{\"id\":\"01M6RCJ098ZHYZVK7KAQNRBCJM\",\"kind\":\"comment-thread\",\"revisionId\":\"01M6RCJ096NYXE47D5REFQSSKJ\"},\"revisionId\":\"01M6RCJ096NYXE47D5REFQSSKJ\",\"activityId\":\"01M6RCJ0961W9NX8ZFGCRZBM6T\",\"committedAt\":\"2026-11-06T12:15:25.455Z\"}}"
+      },
+      {
+        "operation_key": "auto:01M6RCJ05A0A2ZA3DAC5XMM16M:2:01M6RCJ012NGT56NPH1MRYHESG",
+        "target_kind": "notification",
+        "target_id": "01M6RCHZTVGW06K1J5Z6Q58YMT",
+        "response_json": "{\"value\":{\"id\":\"01M6RCJ0AJZAT9PJBXK05NQ6DZ\",\"state\":\"queued\"},\"receipt\":{\"operationKey\":\"auto:01M6RCJ05A0A2ZA3DAC5XMM16M:2:01M6RCJ012NGT56NPH1MRYHESG\",\"entity\":{\"id\":\"01M6RCHZTVGW06K1J5Z6Q58YMT\",\"kind\":\"notification\",\"revisionId\":\"01M6RCJ0AJZAT9PJBXK05NQ6DZ\"},\"revisionId\":\"01M6RCJ0AJZAT9PJBXK05NQ6DZ\",\"activityId\":\"01M6RCJ0AJ8Y0F7FGWDYRKCZ4N\",\"committedAt\":\"2026-11-06T12:15:25.497Z\"}}"
+      }
+    ],
+    "activity": [
+      {
+        "id": "01M6RCJ05BXR8GQKNVQ8AYYSZM",
+        "action": "automation.queued",
+        "target_id": "01M6RCJ05A0A2ZA3DAC5XMM16M",
+        "operation_key": null,
+        "automation_run_id": "01M6RCJ05A0A2ZA3DAC5XMM16M"
+      },
+      {
+        "id": "01M6RCJ07DG7RC6E5P5R6APMDK",
+        "action": "databases.record.create",
+        "target_id": "01M6RCJ07W4RKSN6ETRFQK6K7M",
+        "operation_key": "auto:01M6RCJ05A0A2ZA3DAC5XMM16M:0:01M6RCJ012NGT56NPH1MRYHESG",
+        "automation_run_id": null
+      },
+      {
+        "id": "01M6RCJ0961W9NX8ZFGCRZBM6T",
+        "action": "comments.create",
+        "target_id": "01M6RCJ098ZHYZVK7KAQNRBCJM",
+        "operation_key": "auto:01M6RCJ05A0A2ZA3DAC5XMM16M:1:01M6RCJ012NGT56NPH1MRYHESG",
+        "automation_run_id": null
+      },
+      {
+        "id": "01M6RCJ0AJ8Y0F7FGWDYRKCZ4N",
+        "action": "notification.send",
+        "target_id": "01M6RCHZTVGW06K1J5Z6Q58YMT",
+        "operation_key": "auto:01M6RCJ05A0A2ZA3DAC5XMM16M:2:01M6RCJ012NGT56NPH1MRYHESG",
+        "automation_run_id": null
+      },
+      {
+        "id": "01M6RCKTW01E7SBFRZ75EH1B4F",
+        "action": "automation.success",
+        "target_id": "01M6RCJ05A0A2ZA3DAC5XMM16M",
+        "operation_key": null,
+        "automation_run_id": "01M6RCJ05A0A2ZA3DAC5XMM16M"
+      }
+    ],
+    "records": [
+      {
+        "page_id": "01M6RCJ07W4RKSN6ETRFQK6K7M",
+        "title": "One recovered record"
+      }
+    ],
+    "comments": [
+      {
+        "id": "01M6RCJ098QCNFG16MT5C3YGXE",
+        "body_json": "[{\"text\":\"One recovered comment.\"}]"
+      }
+    ],
+    "outbox": [
+      {
+        "id": "01M6RCJ0AJZAT9PJBXK05NQ6DZ",
+        "detail_json": "{\"outcome\":\"One recovered inbox outcome.\"}"
+      }
+    ]
+  },
+  "run": {
+    "id": "01M6RCJ05A0A2ZA3DAC5XMM16M",
+    "rule_id": "01M6RCJ024K49FQFKA7R1KDNVC",
+    "workspace_id": "01M6RCHZTVHMHWD2Q7J13VKRCF",
+    "actor_member_id": "01M6RCHZTVGW06K1J5Z6Q58YMT",
+    "state": "success",
+    "trigger_json": "{\"key\":\"content:3\",\"occurredAt\":\"2026-11-06T12:15:25.267Z\",\"event\":\"record-updated\",\"pageId\":\"01M6RCJ012NGT56NPH1MRYHESG\",\"databaseId\":\"01M6RCHZY9XFGPXDSSXS8MVMBS\",\"containerId\":\"01M6RCHZX6K0Z6YGTDSBQYS9M8\",\"depth\":0,\"chainRuleIds\":[]}",
+    "records_json": "[\"01M6RCJ012NGT56NPH1MRYHESG\",\"01M6RCJ07W4RKSN6ETRFQK6K7M\"]",
+    "detail_json": "{}",
+    "parent_run_id": null,
+    "chain_depth": 0,
+    "queued_at": "2026-11-06T12:15:25.302Z",
+    "started_at": "2026-11-06T12:15:25.302Z",
+    "finished_at": "2026-11-06T12:16:25.472Z",
+    "created_at": "2026-11-06T12:15:25.302Z",
+    "actor": {
+      "id": "01M6RCHZTVGW06K1J5Z6Q58YMT",
+      "name": "archive-owner"
+    },
+    "trigger": {
+      "key": "content:3",
+      "occurredAt": "2026-11-06T12:15:25.267Z",
+      "event": "record-updated",
+      "pageId": "01M6RCJ012NGT56NPH1MRYHESG",
+      "databaseId": "01M6RCHZY9XFGPXDSSXS8MVMBS",
+      "containerId": "01M6RCHZX6K0Z6YGTDSBQYS9M8",
+      "depth": 0,
+      "chainRuleIds": []
+    },
+    "records": [
+      {
+        "id": "01M6RCJ012NGT56NPH1MRYHESG",
+        "title": "Interrupted intake"
+      },
+      {
+        "id": "01M6RCJ07W4RKSN6ETRFQK6K7M",
+        "title": "One recovered record"
+      }
+    ],
+    "detail": {},
+    "receipts": [
+      {
+        "actionIndex": 0,
+        "targetId": "01M6RCJ012NGT56NPH1MRYHESG",
+        "state": "confirmed",
+        "receipt": {
+          "value": {
+            "pageId": "01M6RCJ07W4RKSN6ETRFQK6K7M",
+            "revisionId": "01M6RCJ07DHS80Z5VRNF9FFHSM",
+            "values": {}
+          },
+          "receipt": {
+            "operationKey": "auto:01M6RCJ05A0A2ZA3DAC5XMM16M:0:01M6RCJ012NGT56NPH1MRYHESG",
+            "entity": {
+              "id": "01M6RCJ07W4RKSN6ETRFQK6K7M",
+              "kind": "page",
+              "revisionId": "01M6RCJ07DHS80Z5VRNF9FFHSM"
+            },
+            "revisionId": "01M6RCJ07DHS80Z5VRNF9FFHSM",
+            "activityId": "01M6RCJ07DG7RC6E5P5R6APMDK",
+            "committedAt": "2026-11-06T12:15:25.392Z"
+          }
+        }
+      },
+      {
+        "actionIndex": 1,
+        "targetId": "01M6RCJ012NGT56NPH1MRYHESG",
+        "state": "confirmed",
+        "receipt": {
+          "value": {
+            "id": "01M6RCJ098QCNFG16MT5C3YGXE",
+            "threadId": "01M6RCJ098ZHYZVK7KAQNRBCJM",
+            "revisionId": "01M6RCJ096NYXE47D5REFQSSKJ"
+          },
+          "receipt": {
+            "operationKey": "auto:01M6RCJ05A0A2ZA3DAC5XMM16M:1:01M6RCJ012NGT56NPH1MRYHESG",
+            "entity": {
+              "id": "01M6RCJ098ZHYZVK7KAQNRBCJM",
+              "kind": "comment-thread",
+              "revisionId": "01M6RCJ096NYXE47D5REFQSSKJ"
+            },
+            "revisionId": "01M6RCJ096NYXE47D5REFQSSKJ",
+            "activityId": "01M6RCJ0961W9NX8ZFGCRZBM6T",
+            "committedAt": "2026-11-06T12:15:25.455Z"
+          }
+        }
+      },
+      {
+        "actionIndex": 2,
+        "targetId": "01M6RCJ012NGT56NPH1MRYHESG",
+        "state": "confirmed",
+        "receipt": {
+          "value": {
+            "id": "01M6RCJ0AJZAT9PJBXK05NQ6DZ",
+            "state": "queued"
+          },
+          "receipt": {
+            "operationKey": "auto:01M6RCJ05A0A2ZA3DAC5XMM16M:2:01M6RCJ012NGT56NPH1MRYHESG",
+            "entity": {
+              "id": "01M6RCHZTVGW06K1J5Z6Q58YMT",
+              "kind": "notification",
+              "revisionId": "01M6RCJ0AJZAT9PJBXK05NQ6DZ"
+            },
+            "revisionId": "01M6RCJ0AJZAT9PJBXK05NQ6DZ",
+            "activityId": "01M6RCJ0AJ8Y0F7FGWDYRKCZ4N",
+            "committedAt": "2026-11-06T12:15:25.497Z"
+          }
+        }
+      }
+    ]
+  },
+  "notices": [
+    {
+      "id": "01M6RCJ0AJZAT9PJBXK05NQ6DZ:01M6RCHZTVGW06K1J5Z6Q58YMT",
+      "event": "maintenance",
+      "pageId": "01M6RCJ012NGT56NPH1MRYHESG",
+      "containerId": null,
+      "commentId": null,
+      "title": "Interrupted intake",
+      "detail": {
+        "outcome": "One recovered inbox outcome."
+      },
+      "createdAt": "2026-11-06T12:15:25.497Z",
+      "readAt": null,
+      "audience": "direct",
+      "href": "/app/pages/01M6RCJ012NGT56NPH1MRYHESG",
+      "period": "2026-11-06"
+    }
+  ]
+}

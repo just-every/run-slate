@@ -1,0 +1,12 @@
+
+✓ built in 10.94s
+[PLUGIN_TIMINGS] JavaScript callbacks ran for 10.4s of this 10.9s build (95%).
+4 callbacks are listed without a time. Their calls overlapped, so the time inside one call includes work from other calls. To find their cost, profile the build with `node --cpu-prof`:
+  - plugin tanstack-start-core:import-protection resolveId (13972 calls)
+  - plugin vite:asset load (4 calls)
+  - plugin @tailwindcss/vite:generate:build transform (19 calls)
+  … and 1 more
+See https://rolldown.rs/reference/InputOptions.checks#bundlertimings for more details.
+
+Your application is built
+build: complete (exit 0)

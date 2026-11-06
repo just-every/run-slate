@@ -1,0 +1,17 @@
+{
+  "head": "b0867df7c91dbbd7d462418b8d83f697b5390187",
+  "acceptanceUnchanged": true,
+  "productionSourceUnchanged": true,
+  "migrationUnchanged": true,
+  "verifyWorkflowUnchanged": true,
+  "existingWorkerRegistrationUnchanged": true,
+  "existingBrowserRegistrationUnchanged": true,
+  "generatedViewsNotCommitted": true,
+  "newSourceEmailStrings": 0,
+  "statusRowsRetained": 338,
+  "tableRowsRetained": 698,
+  "testBudgetUnchanged": true,
+  "publicationScan": "not run in cloud; guarded lander required",
+  "policyDefaultsAdded": false,
+  "externalProviderClaimsAdded": false
+}

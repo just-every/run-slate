@@ -1,0 +1,21 @@
+{
+  "head": "b0867df7c91dbbd7d462418b8d83f697b5390187",
+  "runId": 42217406810,
+  "event": "push",
+  "status": "completed",
+  "conclusion": "failure",
+  "appJob": 127890814746,
+  "aggregateJob": 127891091516,
+  "failedCommand": "node src/base/runtime/contract-docs.mjs check",
+  "diagnostic": "ACCEPTANCE.md: generated content differs; run contract-docs write.",
+  "permittedGeneratedViewException": true,
+  "dependentJobs": "skipped",
+  "fullBranchTestGreenClaimed": false,
+  "logRead": {
+    "command": "gh run view 42217406810 --repo just-every/run-slate --job 127890814746 --log-failed",
+    "exit": 0,
+    "calls": 1
+  },
+  "githubCallsTotal": 5,
+  "rerunOrDispatch": false
+}
