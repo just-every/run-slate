@@ -295,3 +295,20 @@ No acceptance sentence or test registration changes. PORT-002 remains partial:
 other record families, unselected forms, requirement-wide inventories, remaining
 imported-original custody paths and universal same-record resolution are still
 unproven. All existing privacy and other clause prerequisites remain in force.
+
+
+Captured template images are included as retained originals in the streamed
+Settings ZIP, the compatibility export, archive validation and fresh restore.
+Template snapshot attachment references, including retained template history,
+move to that restore's own object addresses. Failed-transfer cleanup cannot
+claim a later retry's template objects. Authored content and record identities
+are unchanged. The native journey reads the source and restored template asset
+routes and compares original bytes, after a genuine late restore failure and
+successful retry.
+
+`./tests/qualification/ui-convergence/restore-guest-journey.mjs` admits a native
+scoped guest before export. That person is inactive after restore until newly
+invited, then signs in afresh with the same identity. The selected page and
+inherited child remain read-only, their image loads after reload, and private
+pages, history, originals and workspace indexes remain refused. Source session
+values never enter the written proof; only refusal statuses are retained.

@@ -30,6 +30,9 @@ export async function prepareRestoreRecords(state,fixture) {
     {text:'Open retained template',link:{href:templatePath}},
   ]}}]});
   const records={database,field,recordId:created.pageId,recordPath,recordAddress,databaseAddress,templateId:template.id,templatePath,blockId,earlierRevision:earlier.revisionId};
+  const original=fixture.originals[2];
+  const sourceAsset=await context.request.get(origin+`/api/templates/${template.id}/assets/${original.id}`);
+  assert.equal(sourceAsset.status(),200);assert.deepEqual(await sourceAsset.body(),original.bytes);
   return {...records,source:await recordSnapshot(context,origin,records)};
 }
 
@@ -49,6 +52,10 @@ export async function proveRestoreRecords(state,fixture,evidence) {
   const {context,origin,page}=state,records=fixture.records;
   const destination=await recordSnapshot(context,origin,records);
   assert.deepEqual(destination,records.source,'Database fields and views, record values and history, and captured template retain every public projected field.');
+  const original=fixture.originals[2];
+  const restoredAsset=await context.request.get(origin+`/api/templates/${records.templateId}/assets/${original.id}`);
+  assert.equal(restoredAsset.status(),200,'A captured template still serves its retained original after native restore.');
+  assert.deepEqual(await restoredAsset.body(),original.bytes);
   assert.equal(destination.record.values[records.field.id],11);
   const earlier=destination.revisions.find(item=>item.id===records.earlierRevision);
   assert.ok(earlier);assert.equal(earlier.properties.databaseFields[records.field.id],7);
@@ -70,7 +77,7 @@ export async function proveRestoreRecords(state,fixture,evidence) {
     await page.goto(origin+pagePath(fixture.groupChild.id),{waitUntil:'networkidle'});
     const link=page.locator(`[data-block-id="${records.blockId}"]`).getByRole('link',{name:label,exact:true});
     await expect(link).toHaveAttribute('href',address);
-    const opened=page.waitForEvent('popup');await link.click();const linked=await opened;
+    const opened=page.waitForEvent('popup');await link.click({modifiers:['ControlOrMeta']});const linked=await opened;
     try {
       await expect(linked).toHaveURL(origin+address);await check(linked);
       await linked.reload({waitUntil:'networkidle'});await check(linked);

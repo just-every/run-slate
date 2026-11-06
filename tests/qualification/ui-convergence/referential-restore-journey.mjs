@@ -11,6 +11,8 @@ import {openNavigation,openPageAction} from './browser-support.mjs';
 
 import {prepareRestoreRecords,proveRestoreRecords} from './restore-records-journey.mjs';
 
+import {prepareRestoreGuest,proveRestoreGuest} from './restore-guest-journey.mjs';
+
 const key=()=>randomUUID();
 const hash=bytes=>createHash('sha256').update(bytes).digest('hex');
 const pagePath=id=>`/app/pages/${id}`;
@@ -55,13 +57,20 @@ export async function prepareReferentialRestore(state,evidence) {
     for(const [item,name,mimeType,bytes]of [
       [parent,'transfer-original.txt','text/plain',Buffer.from('synthetic-slate-316: original text Ω\nKeep every byte.\n')],
       [denied,'annex-original.pdf','application/pdf',Buffer.concat([Buffer.from('%PDF-1.7\n'),Buffer.from(Array.from({length:2053},(_,i)=>(i*73+19)%256)),Buffer.from('\n%%EOF')])],
+      [parent,'transfer-figure.png','image/png',Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jRZkAAAAASUVORK5CYII=','base64')],
     ]) {
       const upload=await context.request.post(origin+'/api/media',{headers:{Origin:origin},multipart:{operationKey:key(),pageId:item.id,file:{name,mimeType,buffer:bytes}}});
       assert.equal(upload.status(),200,await upload.text());
-      originals.push({id:(await upload.json()).value.id,pageId:item.id,name,bytes});
+      originals.push({id:(await upload.json()).value.id,pageId:item.id,name,mimeType,bytes});
     }
     const current=await ok(context,origin,'GET',`/api/pages/${parent.id}`);
     await ok(context,origin,'PATCH',`/api/pages/${parent.id}/blocks/${parent.blockId}`,{operationKey:key(),expectedRevisionId:current.blocks[0].revisionId,content:{text:[{text:bodyText},{text:'. '},{text:'Open member appendix',link:{href:pagePath(direct.id)}},{text:' · '},{text:direct.title,mention:{kind:'page',id:direct.id,label:direct.title}},{text:' · '},{text:reader.displayName,mention:{kind:'person',id:reader.id,label:reader.displayName}},{text:' · '},{text:'Transfer reviewers',mention:{kind:'group',id:groupId,label:'Transfer reviewers'}}]}});
+    const imageBlockId=key();
+    const withMentions=await ok(context,origin,'GET',`/api/pages/${parent.id}`);
+    await ok(context,origin,'PUT',`/api/pages/${parent.id}/blocks`,{operationKey:key(),expectedRevisionId:withMentions.page.revisionId,blocks:[
+      ...withMentions.blocks.map(({id,parentBlockId,blockType,content,treePosition})=>({id,parentBlockId,blockType,content,treePosition})),
+      {id:imageBlockId,blockType:'media',treePosition:'b',content:{kind:'image',source:{fileId:originals[2].id,url:`/api/media/${originals[2].id}`,name:originals[2].name},caption:'',alt:'Retained transfer figure'}},
+    ]});
     await page.goto(origin+pagePath(parent.id),{waitUntil:'networkidle'});
     await editable(page,parent.blockId).focus();
     await page.keyboard.press('ControlOrMeta+Home');
@@ -86,9 +95,10 @@ export async function prepareReferentialRestore(state,evidence) {
     assert.equal(sourcePublic.status,200);assert.match(sourcePublic.body,new RegExp(bodyText));
     const exposure=(await ok(context,origin,'GET',`/api/publishing/${parent.id}`)).exposure;
     assert.equal(exposure.revokedAt,null);
-    const fixture={containerId,groupId,ownerId:owner.id,readerId:reader.id,readerName:reader.displayName,pages,parent,direct,denied,groupChild,revision,threadId:thread.id,commentId:comment.id,originals,publicInput,exposure};
+    const fixture={containerId,groupId,ownerId:owner.id,readerId:reader.id,readerName:reader.displayName,pages,parent,direct,denied,groupChild,revision,threadId:thread.id,commentId:comment.id,originals,imageBlockId,publicInput,exposure};
     fixture.records=await prepareRestoreRecords(state,fixture);
-    fixture.sourceSessions=[(await context.cookies(origin)).find(item=>item.name==='slate_session').value,state.readerCookie.split('=')[1]];
+    fixture.guest=await prepareRestoreGuest(state,fixture);
+    fixture.sourceSessions=[fixture.guest.session,(await context.cookies(origin)).find(item=>item.name==='slate_session').value,state.readerCookie.split('=')[1]];
     fixture.source=await snapshot(context,origin,fixture);
     fixture.sourceAccess=await access(readerContext,origin,fixture);
     assert.deepEqual(fixture.sourceAccess.levels,['edit','view','edit']);
@@ -251,7 +261,9 @@ export async function proveReferentialRestore(state,target,fixture,archive,evide
     const blob=destination.manifest.blobs.find(row=>row.key===file.storage_key);
     assert.deepEqual(Buffer.from(destination.entries[blob.entry]),original.bytes,'A new destination export still holds the exact original.');
   }
+  console.log(`PROBE PORT-002 archive inventory: ${inventory.records} retained rows, ${inventory.tables} declared tables and ${inventory.attachments} original objects agree after failed restore and retry`);
   const recordProof=await proveRestoreRecords(state,fixture,evidence);
+  const guestProof=await proveRestoreGuest(state,fixture,evidence);
   const stale=await context.browser().newContext();
   const sessionRefusals=[];
   try {
@@ -331,7 +343,7 @@ export async function proveReferentialRestore(state,target,fixture,archive,evide
     await expect(memberPage.locator('body')).not.toContainText('owner-only annex');
     await memberPage.screenshot({path:path.join(evidence,`${width}-restored-refusal.png`),fullPage:true});
     assert.deepEqual(await snapshot(context,origin,fixture),ownerReadback,'Following retained addresses and refused member mutations leave the selected documents, histories, grants, group and discussion unchanged.');
-    await writeFile(path.join(evidence,`${width}-referential-restore.json`),JSON.stringify({width,transfer,destinationArchive:{bytes:destinationBytes.length,sha256:hash(destinationBytes)},inventory,recordProof,source:fixture.source,archive:before,destination:ownerReadback,restoredArchive:selected(destination,fixture),sourceAccess:fixture.sourceAccess,restoredAccess,sessionRefusals,publicProof,files:fixture.originals.map(({bytes,...item})=>({...item,bytes:bytes.length,sha256:hash(bytes)})),retainedAddresses:{pages:fixture.pages.map(item=>pagePath(item.id)),revision:pagePath(fixture.parent.id)+`?revision=${fixture.revision}`,discussion:pagePath(fixture.parent.id)+`?thread=${fixture.threadId}&comment=${fixture.commentId}`}},null,2));
+    await writeFile(path.join(evidence,`${width}-referential-restore.json`),JSON.stringify({width,transfer,destinationArchive:{bytes:destinationBytes.length,sha256:hash(destinationBytes)},inventory,recordProof,guestProof,source:fixture.source,archive:before,destination:ownerReadback,restoredArchive:selected(destination,fixture),sourceAccess:fixture.sourceAccess,restoredAccess,sessionRefusals,publicProof,files:fixture.originals.map(({bytes,...item})=>({...item,bytes:bytes.length,sha256:hash(bytes)})),retainedAddresses:{pages:fixture.pages.map(item=>pagePath(item.id)),revision:pagePath(fixture.parent.id)+`?revision=${fixture.revision}`,discussion:pagePath(fixture.parent.id)+`?thread=${fixture.threadId}&comment=${fixture.commentId}`}},null,2));
     console.log(`PROBE PORT-002 1: downloaded Settings ZIP -> native empty restore; four retained page IDs, exact history, ordered siblings, direct and group grants, internal page link, selected discussion anchor and original bytes match source`);
     console.log(`PROBE PORT-002 inventory: native destination export -> ${inventory.records} retained rows across ${inventory.tables} declared tables and ${inventory.attachments} original objects agree with the actual downloaded source ZIP, with explicit safe restored custody`);
     console.log(`PROBE PORT-002 mentions and public slug: restored page mention opens the retained record; person and group labels survive reload; original public host and slug return 404 until explicit owner re-enablement; member attempt refused unchanged`);

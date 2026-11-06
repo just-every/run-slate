@@ -1,3 +1,4 @@
+import {retainedTemplateObjectKeys} from './template-assets';
 import {retainedImportObjectKeys} from '../imports/storage-inventory';
 import {zipSync,strToU8,unzipSync} from 'fflate';
 import {ApiProblem} from '../../app/problems';
@@ -20,6 +21,7 @@ export async function decodeArchive(bytes:Uint8Array){
   if(manifest.version!==1||await requestHash(manifest)!==integrity.manifestHash||!manifest.tables||!manifest.columns||!Array.isArray(manifest.blobs)||!Array.isArray(manifest.reconnect))throw new Error('manifest');
   for(const rows of Object.values(manifest.tables))if(!Array.isArray(rows)||rows.some(row=>!row||typeof row!=='object'||Array.isArray(row)))throw new Error('rows');
   const requiredKeys=retainedImportObjectKeys(manifest.tables);
+  for(const key of retainedTemplateObjectKeys(manifest.tables))requiredKeys.add(key);
   for(const row of manifest.tables.files??[])if(!row.deleted_at)requiredKeys.add(String(row.storage_key));
   for(const row of manifest.tables.federation_imports??[])if(row.state!=='deleted')requiredKeys.add(String(row.archive_key));
   const keys=new Set<string>(),names=new Set<string>();

@@ -25,6 +25,40 @@ export function equivalent(before,after,ownerEmail,newExportId,bootstrapAuditRow
     assert.deepEqual(after.entries[restoredBlob.entry],before.entries[originalBlob.entry],`Exact original bytes ${file.original_name}.`);
     assert.equal(createHash('sha256').update(after.entries[restoredBlob.entry]).digest('hex'),originalBlob.hash);
   }
+  // Storage addresses are implementation custody. Match template asset identities
+  // across the actual snapshots, then compare their independent original bytes.
+  const assetRefs=value=>{
+    const result=[];
+    const visit=(snapshot,location='root')=>{
+      if(!snapshot||typeof snapshot!=='object')return;
+      if(snapshot.snapshot)visit(snapshot.snapshot,location+'.snapshot');
+      for(const asset of snapshot.assets??[])result.push({identity:location+':'+asset.fileId,key:asset.storageKey});
+      for(const [index,child]of(snapshot.children??[]).entries())visit(child,location+'.child'+index);
+    };
+    visit(value);return result;
+  };
+  for(const table of ['knowledge_templates','structured_revisions'])for(const row of a.tables[table]??[]){
+    if(table==='structured_revisions'&&row.entity_kind!=='template')continue;
+    const restored=b.tables[table].find(item=>item.id===row.id);assert.ok(restored);
+    const expected=assetRefs(JSON.parse(row.snapshot_json)),actual=assetRefs(JSON.parse(restored.snapshot_json));
+    assert.deepEqual(actual.map(asset=>asset.identity),expected.map(asset=>asset.identity),'Template attachment identities and child order survive.');
+    for(const [index,asset]of expected.entries()){
+      const retained=actual[index].key;
+      assert.match(retained,/^federation\/restore\/[^/]+\/blobs\/\d+$/,'Template originals belong to this restore rather than a failed attempt.');
+      if(blobKeys.has(asset.key))assert.equal(retained,blobKeys.get(asset.key));
+      blobKeys.set(asset.key,retained);
+    }
+  }
+  const relocatedTemplate=json=>{
+    const value=JSON.parse(json);let changed=false;
+    const visit=snapshot=>{
+      if(!snapshot||typeof snapshot!=='object')return;
+      if(snapshot.snapshot)visit(snapshot.snapshot);
+      for(const asset of snapshot.assets??[])if(blobKeys.has(asset.storageKey)&&blobKeys.get(asset.storageKey)!==asset.storageKey){asset.storageKey=blobKeys.get(asset.storageKey);changed=true;}
+      for(const child of snapshot.children??[])visit(child);
+    };
+    visit(value);return changed?JSON.stringify(value):json;
+  };
   // Retained importer custody can include the original uploaded archive and
   // member data alongside ordinary files. It remains at its retained key.
   for(const original of a.blobs){
@@ -45,6 +79,7 @@ export function equivalent(before,after,ownerEmail,newExportId,bootstrapAuditRow
         expected.status=owner?'active':'historical';expected.is_setup_owner=owner?1:0;if(owner)expected.role='owner';
       }
       if(table==='files')expected.storage_key=blobKeys.get(expected.storage_key);
+      if(table==='knowledge_templates'||table==='structured_revisions'&&expected.entity_kind==='template')expected.snapshot_json=relocatedTemplate(expected.snapshot_json);
       if(table==='public_exposures'){
         const restored=actual.find(row=>row.id===expected.id);assert.ok(restored);
         assert.match(restored.revoked_at,/^\d{4}-\d{2}-\d{2}T/,'Restored public link is explicitly revoked.');

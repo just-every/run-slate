@@ -1,3 +1,4 @@
+import {retainedTemplateObjectKeys} from './template-assets';
 import {Zip,ZipDeflate,strToU8} from 'fflate';
 import type {FeatureContext} from '../../app/feature-context';
 import {ApiProblem} from '../../app/problems';
@@ -17,7 +18,7 @@ export async function writeWorkspaceArchive(ctx:FeatureContext,key:string,guard:
  const results=await ctx.db.batch(names.map(name=>ctx.db.prepare(`SELECT * FROM "${name}"`))),tables:Record<string,DataRow[]>={};
  for(const [i,name]of names.entries())tables[name]=(results[i]!.results as DataRow[]).map(row=>safeRow(name,row));
  const manifest:WorkspaceArchive={checkpoint:await redactionCheckpoint(ctx.db),version:1,createdAt:ctx.now,tables,columns,blobs:[],reconnect};
- const keys=retainedImportObjectKeys(tables);for(const row of tables.files??[])if(!row.deleted_at)keys.add(String(row.storage_key));for(const row of tables.federation_imports??[])if(row.state!=='deleted')keys.add(String(row.archive_key));
+ const keys=retainedImportObjectKeys(tables);for(const key of retainedTemplateObjectKeys(tables))keys.add(key);for(const row of tables.files??[])if(!row.deleted_at)keys.add(String(row.storage_key));for(const row of tables.federation_imports??[])if(row.state!=='deleted')keys.add(String(row.archive_key));
  const upload=await ctx.files.createMultipartUpload(key,{httpMetadata:{contentType:'application/zip'}}),parts:R2UploadedPart[]=[];
  const digest=new (crypto as Crypto & {DigestStream: typeof DigestStream}).DigestStream('SHA-256'),digestWriter=digest.getWriter();let pending:Uint8Array[]=[],pendingSize=0,total=0,originals=0;
  let archiveError:Error|undefined;

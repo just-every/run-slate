@@ -1,3 +1,4 @@
+import {restoreTemplateAssets} from './template-assets';
 import {forbiddenColumns,type DataRow} from './archive';
 
 export function safeRow(table:string,row:DataRow,now=new Date().toISOString()):DataRow{
@@ -54,6 +55,8 @@ row.is_setup_owner=row.status==='active'?1:0;if(row.status==='active')row.role='
 if(keys.has(String(row.archive_key)))row.archive_key=keys.get(String(row.archive_key))!;},
  'federation_exports':(row)=>{row.archive_key=null;if(row.state==='running'||row.state==='queued')row.state='failed';
 row.report_json=JSON.stringify({...JSON.parse(String(row.report_json)),recovery:{archiveOmitted:true,note:'Prior derived export archive omitted; create a new export from restored records.'}});},
+ 'knowledge_templates':(row,_ownerEmail,_now,keys)=>{row.snapshot_json=restoreTemplateAssets(String(row.snapshot_json),keys);},
+ 'structured_revisions':(row,_ownerEmail,_now,keys)=>{if(row.entity_kind==='template')row.snapshot_json=restoreTemplateAssets(String(row.snapshot_json),keys);},
  'files':(row,_ownerEmail,_now,keys)=>{if(keys.has(String(row.storage_key)))row.storage_key=keys.get(String(row.storage_key))!;},
 };
 /**
