@@ -517,7 +517,7 @@
       "id": "LIFE-002",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of LIFE-002 — A draft is private. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Selected native draft body, named member and group grants, address and session-bound link access, full revocation, general and anonymous-publication refusals and retained privacy across lifecycle profiles are covered. The complete exclusion corpus, every-role and automation invariant, held company-policy outcomes, inherited full sharing duties and five-second cross-surface and AI removal remain unproven. No full LIFE-002 acceptance or release is claimed.",
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
