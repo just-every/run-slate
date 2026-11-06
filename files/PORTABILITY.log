@@ -1,0 +1,17 @@
+TAP version 13
+# Subtest: BASE-DATA-001 PORT-001 PORT-002 PORT-003 PORT-005 — native ZIP backup, failed restore, retry and backup preserve populated D1 and original R2 bytes in a separate empty deployment
+ok 1 - BASE-DATA-001 PORT-001 PORT-002 PORT-003 PORT-005 — native ZIP backup, failed restore, retry and backup preserve populated D1 and original R2 bytes in a separate empty deployment
+  ---
+  duration_ms: 248672.790033
+  type: 'test'
+  ...
+# {"tables":195,"records":58,"attachments":2}
+1..1
+# tests 1
+# suites 0
+# pass 1
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 248786.508014

@@ -1,0 +1,22 @@
+{
+  "repository": "just-every/run-slate",
+  "branch": "cloud/sd-slate-c-f191",
+  "head": "1cc85571efb3b6fe2ca4e18d6e334e135b0eaf10",
+  "productPush": {
+    "exit": 0,
+    "attempts": 1,
+    "remoteHeadVerified": "1cc85571efb3b6fe2ca4e18d6e334e135b0eaf10"
+  },
+  "saveHead": "e7fbe9f6cd4cfb61ed2de529acd0f83eced6089b",
+  "bundle": {
+    "path": "/home/agent/rer-consolidation/work/sd-slate-c-f191/product.bundle",
+    "sha256": "fdb3f008ed2435a5f1a2edb40044b560491eb151ae524b2d91235810fbad6c99",
+    "verified": true,
+    "completeHistory": true
+  },
+  "mainPushed": false,
+  "defaultBranchPushed": false,
+  "forcePushUsed": false,
+  "publishedHistoryRewritten": false,
+  "publicationScanPerformedInCloud": false
+}

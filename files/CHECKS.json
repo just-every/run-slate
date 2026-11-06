@@ -1,0 +1,100 @@
+{
+  "head": "1cc85571efb3b6fe2ca4e18d6e334e135b0eaf10",
+  "branch": "cloud/sd-slate-c-f191",
+  "node": "22.20.0",
+  "pnpm": "10.12.4",
+  "observedAt": "2026-11-06T10:52:25.114876+00:00",
+  "commands": [
+    {
+      "name": "build",
+      "command": "cloud_run npx -y @runeditrun/rer build",
+      "exit": 0
+    },
+    {
+      "name": "workers",
+      "command": "cloud_run pnpm exec vitest run tests/flagship/structured/automation-repairs.test.ts",
+      "exit": 0
+    },
+    {
+      "name": "desktop",
+      "command": "cloud_run perl -e 'alarm 1200; exec @ARGV' -- node --test --test-concurrency=1 --test-name-pattern='^spreadsheet tables merge' tests/qualification/ui-convergence/journeys.test.mjs",
+      "exit": 0
+    },
+    {
+      "name": "portability",
+      "command": "cloud_run perl -e 'alarm 1200; exec @ARGV' -- node --test --test-concurrency=1 tests/portability/roundtrip.test.mjs",
+      "exit": 0
+    },
+    {
+      "name": "typecheck",
+      "command": "cloud_run pnpm typecheck",
+      "exit": 0
+    },
+    {
+      "name": "first-party",
+      "command": "cloud_run npx -y @runeditrun/rer check --profile first-party",
+      "exit": 0
+    },
+    {
+      "name": "contract-structure",
+      "command": "node scripts/check-contract.mjs",
+      "exit": 0
+    },
+    {
+      "name": "views-write",
+      "command": "node src/base/runtime/contract-docs.mjs write",
+      "exit": 0
+    },
+    {
+      "name": "views-check",
+      "command": "node src/base/runtime/contract-docs.mjs check",
+      "exit": 0
+    },
+    {
+      "name": "integration",
+      "command": "pnpm integration:sync",
+      "exit": 0
+    },
+    {
+      "name": "source-lock",
+      "command": "pnpm source:lock",
+      "exit": 0
+    },
+    {
+      "name": "source-check",
+      "command": "pnpm source:check",
+      "exit": 0
+    },
+    {
+      "name": "ledger",
+      "command": "none; no migration changed",
+      "exit": 0
+    }
+  ],
+  "generatedViewsCommitted": false,
+  "contractStatus": {
+    "AUTO-008": {
+      "before": "partial",
+      "after": "partial"
+    }
+  },
+  "countsBefore": {
+    "done": 57,
+    "partial": 240,
+    "missing": 41
+  },
+  "countsAfter": {
+    "done": 57,
+    "partial": 240,
+    "missing": 41
+  },
+  "statusRows": 338,
+  "tableRows": 698,
+  "registrationsDeclaredBefore": 205,
+  "registrationsDeclaredAfter": 205,
+  "assertionsRemovedOrNarrowed": false,
+  "publicationScan": {
+    "status": "not run in cloud; guarded lander required"
+  },
+  "mainAtHandoff": "bc567c9b6f6b25c98cb6fa05b9ab0fe37628a547"
+}
