@@ -19,10 +19,10 @@
       "sha256": "6583b16da6f48325a20ea15229c562adae964a8b6324fec25fec4ac033bb45c6"
     },
     {
-      "blob": "36f21a7e53483b3d1c29085994f87175dc78572f",
-      "bytes": 14475,
+      "blob": "a6bc501e6b159cb13dee559e07461e4f796317b0",
+      "bytes": 14831,
       "path": "REPORT.md",
-      "sha256": "757686ad6fdb5781eae86fdba68397925d45d546f121d9de5169c2e3e4c7c2e6"
+      "sha256": "3a32aa4fea04f18d887a99ff16c716b23f8cc5877b95691b59484a6b898c9a61"
     },
     {
       "blob": "162532a6fa50c0a6135243efd5e95cecb3a04c57",
@@ -97,10 +97,10 @@
       "sha256": "5626268cda074612a83e51e7ec1c25fe362556714a24acc7c6c7282ea682cc7e"
     },
     {
-      "blob": "23fe9f0e59e48abf2f4b6be7b31475dea8175c3e",
-      "bytes": 967,
+      "blob": "a9f76ab035cb4c51bc2cf9ac9ded4d179e0d282b",
+      "bytes": 1112,
       "path": "cleanup.json",
-      "sha256": "0fba98d4606c3471c28566a55998a4594911ed1f89198b891e36c2d274663489"
+      "sha256": "78f0ce3580e882dd28641760d08e02aecf83a92e19c0f261390636591e5a7738"
     },
     {
       "blob": "6e86352095d41361e63f01fb8f7dd79991ee44f3",
@@ -113,6 +113,12 @@
       "bytes": 2957,
       "path": "counts-and-partial-remainder.json",
       "sha256": "afcac816a88b160665bbf3253789f9b2f04f61713abb43a2f82880935c6a1066"
+    },
+    {
+      "blob": "e75d258be90c8b3c6be6a7e850945085fffda0eb",
+      "bytes": 7544,
+      "path": "initial-transfer-verification.json",
+      "sha256": "a7fa283b7bbdeea32915d1fb3ebba570e8e996529b4ebd12986678c9d4718507"
     },
     {
       "blob": "9eb948ccff3e3767e39e85c3ecf02697b1333b0d",
@@ -175,10 +181,10 @@
       "sha256": "c60511d257671efa1f3ee5db1d92db21fbc022a5b540d0d7ff387aa9b35ca862"
     },
     {
-      "blob": "c1b85bea9d9ca5c230e4e87ad7ef1922aa294c84",
-      "bytes": 5402,
+      "blob": "d6e84e1a9223007de925db1596cf1b55294646de",
+      "bytes": 5736,
       "path": "packet-review.json",
-      "sha256": "bdbf40703397eb5f5da09f58f12ed139fb5d93cfc2313e69569d97193b1ea54e"
+      "sha256": "fcf0a41cad911d3b4aaeab92d9891676b5c482ff6f003b142ac0dbdb66c0fad3"
     },
     {
       "blob": "441900e39f1c22d63eebde9a36e927b44c87932c",
@@ -197,6 +203,12 @@
       "bytes": 4876,
       "path": "source-identities.json",
       "sha256": "2bdb2fabb8b890e33654225596f51e619c0f68d0a753ed9bab42d18d9f0ea35c"
+    },
+    {
+      "blob": "c2fff5e17f38811d53b1b97f38e2346afa46b244",
+      "bytes": 1140,
+      "path": "terminal-cleanup-receipt.json",
+      "sha256": "c420a112f35698d8478412591bb9e0fc0ea7a3acdcb89e32de92825c7a214c46"
     }
   ],
   "product_branch": "cloud/sd-slate190-ci-triage-1",

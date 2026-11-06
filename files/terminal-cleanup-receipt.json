@@ -1,0 +1,23 @@
+{
+  "at": "2026-11-06T12:02:13.577448+00:00",
+  "result": "Done \u2014 NOT REPRODUCED",
+  "product_branch": "cloud/sd-slate190-ci-triage-1",
+  "product_head": "bc567c9b6f6b25c98cb6fa05b9ab0fe37628a547",
+  "clone_path": "/home/agent/rer-consolidation/work/sd-slate190-ci-triage-1/run-slate",
+  "clone_deleted": true,
+  "clone_dependencies_deleted": true,
+  "evidence_repository": "just-every/run-slate",
+  "evidence_ref": "refs/heads/evidence/sd-slate190-ci-triage-1",
+  "evidence_head": "ee5791dafe77257cb309b6b15800c2bea5a72811",
+  "evidence_manifest_sha256": "af2242f3ddfa2a131fb94410d82f8cdd5c0d47da35764d6517a90005347f459c",
+  "verified_files": 33,
+  "packet_path": "/home/agent/rer-consolidation/work/sd-slate190-ci-triage-1/packet",
+  "candidate_cases": "3/3 PASS, once each",
+  "main_cases": "3/3 PASS, once each",
+  "product_pushes": 0,
+  "pr": null,
+  "ci_run": 42208156074,
+  "ci_state": "original supplied FAILURE; no rerun/retry/READY",
+  "clause_status_changes": [],
+  "receipt_scope": "Original verified evidence publication and completed product-clone cleanup; subsequent report-only custody update includes this receipt."
+}

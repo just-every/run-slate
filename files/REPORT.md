@@ -85,7 +85,7 @@ Original final runtimeCI/scan/main/site guards remain: the failed exact-SHA Veri
 
 candidate-cleanup.json records removal of candidate artifacts, caches, private local settings, installer/CLI state, native databases, Vitest state, build and node_modules before main. Both test phases completed under the subreaper and existing browser/runtime finally blocks. No manual signal or unrelated PID/process stop was used.
 
-cleanup.json records final runtime/process and generated-state/dependency cleanup. The product tree stayed clean. The disposable clone is removed after transport verification; terminal confirmation records that last deletion. No private settings, live session, environment dump, raw network capture, held-out gate material or symlink is selected for publication.
+cleanup.json records final runtime/process and generated-state/dependency cleanup. The product tree stayed clean. The disposable product clone and dependencies were removed at 2026-11-06T12:02:13.577448+00:00 after exact-ref transfer verification; terminal-cleanup-receipt.json records the completed deletion. initial-transfer-verification.json records the original 33-file restored packet and manifest hashes. The final report-only custody update includes these completed receipts using temporary bare Git metadata, with no product checkout, dependencies, tests or product commit. No private settings, live session, environment dump, raw network capture, held-out gate material or symlink is selected for publication.
 
 Reports/receipts go only through evidence/sd-slate190-ci-triage-1. That ref supplies evidence custody only; it is not product READY, acceptance, landing or green CI. No product push was necessary or authorized by this diagnosis.
 

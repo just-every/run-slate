@@ -22,6 +22,8 @@
   "identity_audit_command": "git log origin/main..HEAD --format=\"%an <%ae>%n%cn <%ce>%n%(trailers:only,unfold)\"",
   "product_identity_audit_output": "",
   "clone_path": "/home/agent/rer-consolidation/work/sd-slate190-ci-triage-1/run-slate",
-  "clone_disposition": "Retained only until report-only evidence transfer verification, then removed; final deletion confirmed in terminal receipt.",
-  "private_state_selected_for_evidence": false
+  "clone_disposition": "Product clone and node_modules removed after successful exact-ref evidence restore/hash verification. A bare report-transport metadata directory carries the final cleanup receipts only.",
+  "private_state_selected_for_evidence": false,
+  "clone_deleted": true,
+  "clone_deleted_at": "2026-11-06T12:02:13.577448+00:00"
 }
