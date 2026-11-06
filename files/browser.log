@@ -1,0 +1,5 @@
+NAV-006 touch create, type, insert and drag persisted
+PROBE BLOCK-012 Word: native dialog -> downloaded 2–5-column document -> exact rendered content, wrapping, independent heights and full-width following paragraphs across printed page boundaries
+BLOCK-012 columns insert, desktop drag and touch layout passed at 1440px
+NAV-006 touch create, type, insert and drag persisted
+BLOCK-012 columns insert, desktop drag and touch layout passed at 390px

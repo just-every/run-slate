@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "head": "ac34935544ae22a8a9c9204883f7c48754d4a70b",
+  "recordedAt": "2026-11-06T11:52:04.895856+00:00",
+  "checks": [
+    {
+      "name": "views-write",
+      "command": "node src/base/runtime/contract-docs.mjs write",
+      "exit": 0
+    },
+    {
+      "name": "views-check",
+      "command": "node src/base/runtime/contract-docs.mjs check",
+      "exit": 0
+    },
+    {
+      "name": "restore-generated",
+      "command": "git checkout origin/main -- ACCEPTANCE.md docs/CLAIMS.md",
+      "exit": 0
+    },
+    {
+      "name": "lock",
+      "command": "node scripts/edition-authoring/cli.mjs lock",
+      "exit": 0
+    },
+    {
+      "name": "lock-check",
+      "command": "pnpm source:check",
+      "exit": 0
+    }
+  ],
+  "migrationLedger": {
+    "command": null,
+    "reason": "No migration added or edited"
+  },
+  "clean": true
+}

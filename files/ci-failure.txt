@@ -1,0 +1,13 @@
+Repository: just-every/run-slate
+Head: ac34935544ae22a8a9c9204883f7c48754d4a70b
+Run: 42213005907; event=push; status=completed; conclusion=failure
+Command: gh run view 42213005907 --repo just-every/run-slate --job 127876071189 --log-failed
+Log retrieval exit: 0
+Only failing app step: node src/base/runtime/contract-docs.mjs check
+Actual error: ACCEPTANCE.md: generated content differs; run contract-docs write.
+Actual process exit: 1
+Command: gh run view 42213005907 --repo just-every/run-slate --job 127876291586 --log-failed
+Log retrieval exit: 0
+Aggregate step: Require the plan and every expected job
+Actual process exit: 1; dependent app failed and the other suites were skipped.
+This is the explicitly permitted generated-view freshness failure. No rerun, dispatch or Verify repair was performed. No product assertion failed in this run; the test shards were skipped, so they supply no passing CI proof.

@@ -1,0 +1,396 @@
+{
+  "pages": 7,
+  "geometry": [
+    {
+      "count": 2,
+      "cells": [
+        {
+          "first": {
+            "text": "Section 2 column 1",
+            "page": 1,
+            "x": 78.1,
+            "y": 175.80076377952798,
+            "width": 117.285,
+            "height": 15,
+            "position": 175.80076377952798
+          },
+          "last": {
+            "text": "End of section 2 column 1.",
+            "page": 4,
+            "x": 78.1,
+            "y": 203.75076377952803,
+            "width": 117.634,
+            "height": 11,
+            "position": 2729.420055118112
+          },
+          "pages": [
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        {
+          "first": {
+            "text": "Section 2 column 2",
+            "page": 1,
+            "x": 303.75,
+            "y": 173.85076377952805,
+            "width": 101.58199999999998,
+            "height": 13,
+            "position": 173.85076377952805
+          },
+          "last": {
+            "text": "End of section 2 column 2.",
+            "page": 1,
+            "x": 303.75,
+            "y": 349.200763779528,
+            "width": 117.63400000000006,
+            "height": 11,
+            "position": 349.200763779528
+          },
+          "pages": [
+            1
+          ]
+        }
+      ],
+      "after": {
+        "text": "After section 2: ordinary content spans the page again.",
+        "page": 4,
+        "x": 72.1,
+        "y": 257.550763779528,
+        "width": 243.28699999999998,
+        "height": 11,
+        "position": 2783.220055118112
+      }
+    },
+    {
+      "count": 3,
+      "cells": [
+        {
+          "first": {
+            "text": "Section 3 column 1",
+            "page": 4,
+            "x": 78.1,
+            "y": 315.2007637795281,
+            "width": 117.285,
+            "height": 15,
+            "position": 2840.8700551181123
+          },
+          "last": {
+            "text": "End of section 3 column 1.",
+            "page": 4,
+            "x": 78.1,
+            "y": 477.60076377952805,
+            "width": 117.634,
+            "height": 11,
+            "position": 3003.2700551181124
+          },
+          "pages": [
+            4
+          ]
+        },
+        {
+          "first": {
+            "text": "Section 3 column 2",
+            "page": 4,
+            "x": 228.5,
+            "y": 313.25076377952803,
+            "width": 101.58199999999998,
+            "height": 13,
+            "position": 2838.920055118112
+          },
+          "last": {
+            "text": "End of section 3 column 2.",
+            "page": 4,
+            "x": 228.5,
+            "y": 555.850763779528,
+            "width": 117.63400000000003,
+            "height": 11,
+            "position": 3081.5200551181124
+          },
+          "pages": [
+            4
+          ]
+        },
+        {
+          "first": {
+            "text": "Section 3 column 3",
+            "page": 4,
+            "x": 378.95,
+            "y": 311.35076377952805,
+            "width": 86.02,
+            "height": 11,
+            "position": 2837.0200551181124
+          },
+          "last": {
+            "text": "End of section 3 column 3.",
+            "page": 4,
+            "x": 378.95,
+            "y": 634.150763779528,
+            "width": 117.63400000000006,
+            "height": 11,
+            "position": 3159.820055118112
+          },
+          "pages": [
+            4
+          ]
+        }
+      ],
+      "after": {
+        "text": "After section 3: ordinary content spans the page again.",
+        "page": 4,
+        "x": 72.1,
+        "y": 687.9507637795281,
+        "width": 243.28699999999998,
+        "height": 11,
+        "position": 3213.6200551181123
+      }
+    },
+    {
+      "count": 4,
+      "cells": [
+        {
+          "first": {
+            "text": "Section 4",
+            "page": 4,
+            "x": 78.1,
+            "y": 745.600763779528,
+            "width": 56.730000000000004,
+            "height": 15,
+            "position": 3271.2700551181124
+          },
+          "last": {
+            "text": "column 1.",
+            "page": 5,
+            "x": 78.1,
+            "y": 284.4507637795281,
+            "width": 43.989,
+            "height": 11,
+            "position": 3652.0098188976403
+          },
+          "pages": [
+            4,
+            5
+          ]
+        },
+        {
+          "first": {
+            "text": "Section 4 column",
+            "page": 4,
+            "x": 190.9,
+            "y": 743.650763779528,
+            "width": 92.09200000000003,
+            "height": 13,
+            "position": 3269.320055118112
+          },
+          "last": {
+            "text": "column 2.",
+            "page": 5,
+            "x": 190.9,
+            "y": 392.05076377952804,
+            "width": 43.98900000000001,
+            "height": 11,
+            "position": 3759.6098188976403
+          },
+          "pages": [
+            4,
+            5
+          ]
+        },
+        {
+          "first": {
+            "text": "Section 4 column 3",
+            "page": 4,
+            "x": 303.75,
+            "y": 741.750763779528,
+            "width": 86.02,
+            "height": 11,
+            "position": 3267.420055118112
+          },
+          "last": {
+            "text": "column 3.",
+            "page": 5,
+            "x": 303.75,
+            "y": 486.200763779528,
+            "width": 43.98900000000001,
+            "height": 11,
+            "position": 3853.7598188976403
+          },
+          "pages": [
+            4,
+            5
+          ]
+        },
+        {
+          "first": {
+            "text": "Section 4",
+            "page": 4,
+            "x": 416.55,
+            "y": 745.600763779528,
+            "width": 56.730000000000004,
+            "height": 15,
+            "position": 3271.2700551181124
+          },
+          "last": {
+            "text": "column 4.",
+            "page": 5,
+            "x": 416.55,
+            "y": 607.250763779528,
+            "width": 43.98900000000001,
+            "height": 11,
+            "position": 3974.80981889764
+          },
+          "pages": [
+            4,
+            5
+          ]
+        }
+      ],
+      "after": {
+        "text": "After section 4: ordinary content spans the page again.",
+        "page": 5,
+        "x": 72.1,
+        "y": 661.0507637795281,
+        "width": 243.28699999999998,
+        "height": 11,
+        "position": 4028.6098188976403
+      }
+    },
+    {
+      "count": 5,
+      "cells": [
+        {
+          "first": {
+            "text": "Section 5",
+            "page": 5,
+            "x": 78.1,
+            "y": 718.7007637795281,
+            "width": 56.730000000000004,
+            "height": 15,
+            "position": 4086.2598188976403
+          },
+          "last": {
+            "text": "column 1.",
+            "page": 6,
+            "x": 78.1,
+            "y": 297.900763779528,
+            "width": 43.989,
+            "height": 11,
+            "position": 4507.349582677169
+          },
+          "pages": [
+            5,
+            6
+          ]
+        },
+        {
+          "first": {
+            "text": "Section 5",
+            "page": 5,
+            "x": 168.35,
+            "y": 716.750763779528,
+            "width": 49.114000000000026,
+            "height": 13,
+            "position": 4084.30981889764
+          },
+          "last": {
+            "text": "column 2.",
+            "page": 6,
+            "x": 168.35,
+            "y": 432.40076377952806,
+            "width": 43.98900000000001,
+            "height": 11,
+            "position": 4641.849582677169
+          },
+          "pages": [
+            5,
+            6
+          ]
+        },
+        {
+          "first": {
+            "text": "Section 5 column",
+            "page": 5,
+            "x": 258.6,
+            "y": 714.850763779528,
+            "width": 77.968,
+            "height": 11,
+            "position": 4082.4098188976404
+          },
+          "last": {
+            "text": "column 3.",
+            "page": 6,
+            "x": 258.6,
+            "y": 566.900763779528,
+            "width": 43.98900000000001,
+            "height": 11,
+            "position": 4776.349582677169
+          },
+          "pages": [
+            5,
+            6
+          ]
+        },
+        {
+          "first": {
+            "text": "Section 5",
+            "page": 5,
+            "x": 348.85,
+            "y": 718.7007637795281,
+            "width": 56.730000000000004,
+            "height": 15,
+            "position": 4086.2598188976403
+          },
+          "last": {
+            "text": "column 4.",
+            "page": 6,
+            "x": 348.85,
+            "y": 701.400763779528,
+            "width": 43.98900000000001,
+            "height": 11,
+            "position": 4910.849582677169
+          },
+          "pages": [
+            5,
+            6
+          ]
+        },
+        {
+          "first": {
+            "text": "Section 5",
+            "page": 5,
+            "x": 439.1,
+            "y": 716.750763779528,
+            "width": 49.114,
+            "height": 13,
+            "position": 4084.30981889764
+          },
+          "last": {
+            "text": "column 5.",
+            "page": 7,
+            "x": 439.1,
+            "y": 149.95076377952807,
+            "width": 43.98900000000001,
+            "height": 11,
+            "position": 5201.289346456696
+          },
+          "pages": [
+            5,
+            6,
+            7
+          ]
+        }
+      ],
+      "after": {
+        "text": "After section 5: ordinary content spans the page again.",
+        "page": 7,
+        "x": 72.1,
+        "y": 203.75076377952803,
+        "width": 243.28699999999998,
+        "height": 11,
+        "position": 5255.089346456696
+      }
+    }
+  ]
+}

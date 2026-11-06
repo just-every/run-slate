@@ -1,0 +1,186 @@
+{
+  "schema": 1,
+  "tag": "sd-slate-c-f195",
+  "repository": "just-every/run-slate",
+  "branch": "cloud/sd-slate-c-f195",
+  "head": "ac34935544ae22a8a9c9204883f7c48754d4a70b",
+  "tree": "29dc232ae58bfa735b22dd5f72e7662df2df32d7",
+  "main": "bc567c9b6f6b25c98cb6fa05b9ab0fe37628a547",
+  "save": "8b5e1947f85d8e1680b3fe2d6e28251f3e1cec76",
+  "recordedAt": "2026-11-06T11:53:50.090116+00:00",
+  "node": "22.20.0",
+  "pnpm": "10.12.4",
+  "chromium": "/usr/bin/chromium",
+  "checks": [
+    {
+      "command": "cloud_run npx -y @runeditrun/rer build",
+      "exit": 0,
+      "log": "Local build completed; exact provenance is build-source.json"
+    },
+    {
+      "command": "cloud_run pnpm exec vitest run tests/e2e/editor/tables.test.ts tests/e2e/imports/word-export.test.ts",
+      "exit": 0,
+      "log": "workers.log",
+      "files": 2,
+      "tests": 2
+    },
+    {
+      "command": "pnpm typecheck",
+      "exit": 0,
+      "log": "typecheck.log"
+    },
+    {
+      "command": "pnpm exec rer check --profile first-party",
+      "exit": 0
+    },
+    {
+      "command": "cloud_run perl -e 'alarm 1200; exec @ARGV' -- node /tmp/slate-columns-proof.mjs",
+      "exit": 0,
+      "log": "browser.log",
+      "description": "Actual alarm command and wrapper source are recorded in REPORT.md; invokes unchanged setupWorkspace and beginTouchJourney, then the committed columnsJourney at 1440 and 390"
+    },
+    {
+      "command": "cloud_run timeout 120 soffice --headless --convert-to pdf --outdir /tmp/slate-word-office-final .artifacts/ui-convergence/columns-word-1440.docx",
+      "exit": 0,
+      "description": "LibreOfficeDev 26.8.0.0.alpha0; downloaded candidate Word bytes"
+    },
+    {
+      "command": "cloud_run node /tmp/slate-test-pagination.mjs /tmp/slate-word-office-final/columns-word-1440.pdf",
+      "exit": 0,
+      "description": "Imports committed fixture and assertPaginatedWordColumns; uses printable width from the Word page dimensions"
+    }
+  ],
+  "countsBefore": {
+    "done": 57,
+    "partial": 240,
+    "missing": 41
+  },
+  "countsAfter": {
+    "done": 57,
+    "partial": 240,
+    "missing": 41
+  },
+  "registrationsBefore": 207,
+  "registrationsAfter": 207,
+  "statusRows": 338,
+  "parentTableLines": 698,
+  "candidateTableLines": 698,
+  "pagination": {
+    "browser": {
+      "pages": 5,
+      "firstColumnPages": [
+        1,
+        2,
+        3
+      ]
+    },
+    "office": {
+      "pages": 7,
+      "firstColumnPages": [
+        1,
+        2,
+        3,
+        4
+      ]
+    }
+  },
+  "ci": {
+    "run": 42213005907,
+    "event": "push",
+    "status": "completed",
+    "conclusion": "failure",
+    "failureClass": "expected generated-view freshness only",
+    "appJob": 127876071189,
+    "aggregateJob": 127876291586,
+    "testShards": "skipped",
+    "githubCalls": 7
+  },
+  "publicationScan": {
+    "status": "not run in cloud",
+    "complete": null,
+    "historyScanned": null,
+    "findings": null
+  },
+  "recoveryBundle": {
+    "path": "/home/agent/rer-consolidation/work/sd-slate-c-f195/product-final.bundle",
+    "sha256": "4cd279aa82ac5c0dd1559798465712ac28d13baff334660545a903d5a4b9434a",
+    "verified": true
+  },
+  "artifacts": [
+    {
+      "path": "browser.log",
+      "bytes": 449,
+      "sha256": "749a6f6d33952635d0991e6884663a9fbffaa7166e266a27cfb8f02b342aad92"
+    },
+    {
+      "path": "build-source.json",
+      "bytes": 359,
+      "sha256": "9238d7f71a3628b72d2c2ceea573dd5a9c343be5eca3da1a243b35ed122bb1fd"
+    },
+    {
+      "path": "columns-1440-populated.png",
+      "bytes": 77434,
+      "sha256": "06f75c7257504f44d54160e44cec2e5446a7f60ed49c44d2909d9386a0d56575"
+    },
+    {
+      "path": "columns-390-populated.png",
+      "bytes": 37352,
+      "sha256": "445e8fc708d1c54f6e282069106bcdc43acbcc3189bb77a748d8328028a3b598"
+    },
+    {
+      "path": "columns-word-1440-dialog.png",
+      "bytes": 216929,
+      "sha256": "7dd5fbdeecdbe569cc65f300b38835649af17f67703be8d547a27de68f8c64ca"
+    },
+    {
+      "path": "columns-word-1440.docx",
+      "bytes": 4859,
+      "sha256": "0341232bd37de7a7b1a72ba9c7a1473061382d0c1c6c8a4bb63bd29454433bb1"
+    },
+    {
+      "path": "columns-word-390-dialog.png",
+      "bytes": 56991,
+      "sha256": "89806c843f38e06e83b618be6298f76cfebb178a4ca83ef367a71549ef8f965f"
+    },
+    {
+      "path": "columns-word-390.docx",
+      "bytes": 4859,
+      "sha256": "b42404c49f9ff6360db7b64288abc98da8dae6086664a754496052800ff89e81"
+    },
+    {
+      "path": "columns-word-printed.pdf",
+      "bytes": 32003,
+      "sha256": "619249f2b5bdab0f58f8b87d4f7cbda067cf0ef91d3bbef7aba6a6fd3b7553bc"
+    },
+    {
+      "path": "columns-word-rendered.json",
+      "bytes": 17196,
+      "sha256": "0ed73c2d71ceed2f0cb0c23f5d30aa5d409f4c39ce40cb3b48b36df5ad76549e"
+    },
+    {
+      "path": "columns-word-rendered.png",
+      "bytes": 851009,
+      "sha256": "b1661d3865dd5e046cdef7513d58a790cb54642efdd96fad484f15d432c6ce76"
+    },
+    {
+      "path": "office-pagination.json",
+      "bytes": 9751,
+      "sha256": "9c23505839922cf29ddd0db79a7c5afd46ee6d3b19e554b2244aae0660454921"
+    },
+    {
+      "path": "office-word.pdf",
+      "bytes": 83928,
+      "sha256": "26defb163feb53d3ea713800ef68b605b8f7119d7864f35715d02b92cfa04629"
+    },
+    {
+      "path": "typecheck.log",
+      "bytes": 62,
+      "sha256": "6478a3b5c18c1dfbf212cd453d22246ddb18d1a4ae19d8ce9d65ac458ad588f7"
+    },
+    {
+      "path": "workers.log",
+      "bytes": 1206,
+      "sha256": "a9a41ad5dde9d9f720b650d8233550dc07a38e9c4ac5a17a15742c3e0e76c618"
+    }
+  ]
+}
