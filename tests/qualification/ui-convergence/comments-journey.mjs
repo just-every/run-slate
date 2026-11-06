@@ -220,12 +220,13 @@ export async function commentAuthorshipJourney(state, width) {
     for (const person of [alice, bob]) {
       await open(person);
       assert.deepEqual(await ok(person.context, origin, 'GET', commentsPath), deleted.comments);
-      assert.deepEqual(await article(person, first.id).locator('..').locator('.comment').evaluateAll(items => items.map(item => item.id)), order.map(id => `comment-${id}`));
       for (const comment of [first, second]) {
         await expect(article(person, comment.id)).toContainText('Comment deleted');
         await expect(article(person, comment.id)).not.toContainText(comment.body[0].text);
         await expect(article(person, comment.id).getByRole('button', { name: /^(Edit|Delete)$/ })).toHaveCount(0);
       }
+      // Read chronological order after both tombstones have rendered.
+      assert.deepEqual(await article(person, first.id).locator('..').locator('.comment').evaluateAll(items => items.map(item => item.id)), order.map(id => `comment-${id}`));
     }
     await showComments();
     for (const comment of [first, second]) await expect(article(bob, comment.id).getByText('Comment deleted', { exact: true })).toBeInViewport({ ratio: 1 });

@@ -110,7 +110,13 @@ export async function transferJobsJourney(state) {
   const width=state.page.viewportSize().width;
   const evidence=process.env.SLATE_TRANSFER_EVIDENCE_DIR??path.join(root,'.artifacts','ui-convergence','transfers');
   await mkdir(evidence,{recursive:true});
-  const shot=async(page,label)=>{await jobPanel(page).scrollIntoViewIfNeeded();await page.screenshot({path:path.join(evidence,`${width}-${label}.png`),fullPage:true});};
+  const shot=async(page,label)=>{
+    const panel=jobPanel(page),all=panel.getByText(/^All archive counts/);
+    // Every expanded count is asserted by shown(); capture the compact native summary.
+    if(await all.count()&&await all.evaluate(element=>element.parentElement.open))await all.click();
+    await panel.scrollIntoViewIfNeeded();
+    await page.screenshot({path:path.join(evidence,`${width}-${label}.png`),fullPage:true});
+  };
   const open=()=>state.page.goto(state.origin+'/app/settings?section=portability',{waitUntil:'networkidle'});
   await state.switchIdentity('owner');
   await open();
