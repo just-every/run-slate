@@ -10,6 +10,13 @@ const content = blocks => blocks.map(({ id, blockType, content, parentBlockId, t
 export async function permissionLifecycleMatrix({ state, bob, api, level, pageId, snapshot, refuse, records }) {
   const { origin } = state, view = bob.page, route = `/api/pages/${pageId}`;
   const canEdit = ['full', 'edit'].includes(level);
+  const workspace = await api('/api/workspace');
+  const policy = async policies => {
+    const { id, revisionId, ...fields } = await api('/api/workspace');
+    await ok(state.context, origin, 'PUT', '/api/workspace', { ...fields, operationKey: randomUUID(), expectedRevisionId: revisionId, policies });
+  };
+  await policy({ ...workspace.policies, 'page.lifecycle.v1': 'draft-then-publish' });
+  try {
   const read = () => api(route);
   const reopen = () => view.goto(`${origin}/app/pages/${pageId}`, { waitUntil: 'networkidle' });
   const capture = async (target, action, perform, verify) => {
@@ -37,7 +44,10 @@ export async function permissionLifecycleMatrix({ state, bob, api, level, pageId
     for (const item of before.revisions.items) assert.deepEqual(after.revisions.items.find(candidate => candidate.id === item.id), item);
     assert.equal(after.revisions.items.length, before.revisions.items.length + 1);
     assert.deepEqual(after.comments, before.comments);
-    assert.deepEqual(after.grants, before.grants);
+    const grants = structuredClone(before.grants);
+    for (const item of [...grants.items, ...grants.effectiveItems]) item.origin.name = after.document.page.title;
+    grants.restriction.name = after.document.page.title;
+    assert.deepEqual(after.grants, grants, 'Lifecycle writes retain every grant; only the displayed page title follows the revision.');
     await verify(before, after, result);
     assert.deepEqual((await ok(bob.context, origin, 'POST', target, input)).receipt, result.receipt);
     assert.deepEqual(await snapshot(), after, 'A publication or version replay changes no retained inventory.');
@@ -119,6 +129,7 @@ export async function permissionLifecycleMatrix({ state, bob, api, level, pageId
     await refuse('POST', `${route}/publish`, { operationKey: randomUUID(), expectedRevisionId: (await read()).page.revisionId, publishAt: new Date(Date.now() + 3600000).toISOString() });
   }
   await accessible(view, `${level} publication and discard after reload`);
+  } finally { await policy(workspace.policies); }
 }
 
 /** Archive rows expose only actions carried by the current page grant. */

@@ -7912,7 +7912,7 @@
       "executable": false
     },
     "src/core/features/lifecycle/service.ts": {
-      "sha256": "7b1083a25850df9e3d6b78a9d825d3d07d2c62b6107346229ff6fb4bac1b85ed",
+      "sha256": "25c70078f3187aff33461c391dd8ba8a9d9d3cfb7e4ea24faa8886374bdaf1a3",
       "executable": false
     },
     "src/core/features/lifecycle/ui/types.ts": {
@@ -12244,7 +12244,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/sharing-lifecycle-matrix.mjs": {
-      "sha256": "9167a0173d6999a977a55e36938b56c4c16d4897d57afddac04f78889dfa982a",
+      "sha256": "d17cf6ced0fa19f44a66cd1280a6046a9f4f9a9b03fc8db1b8609d77e910c883",
       "executable": false
     },
     "tests/qualification/ui-convergence/sharing-page-edit-matrix.mjs": {
