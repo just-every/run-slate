@@ -1,0 +1,16 @@
+{
+  "parent_rows": 338,
+  "candidate_rows": 338,
+  "parent_table_lines": 698,
+  "candidate_table_lines": 698,
+  "before": {
+    "partial": 240,
+    "done": 57,
+    "missing": 41
+  },
+  "after": {
+    "partial": 240,
+    "done": 57,
+    "missing": 41
+  }
+}

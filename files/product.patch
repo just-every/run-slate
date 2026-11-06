@@ -1,0 +1,313 @@
+diff --git a/CONTRACT.md b/CONTRACT.md
+index 90a239ea..dfd6c0d0 100644
+--- a/CONTRACT.md
++++ b/CONTRACT.md
+@@ -4153,7 +4153,7 @@ AUTO-003 is judged from the code and tests at commit `1c76d8836ddffd43d0ea70e168
+ | `NAV-003` | Favorites | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "Favorited pages and containers (`PAGE-008`) are listed in the navigation, reorderable by the member, and removed from the list in one action." |
+ | `NAV-004` | One navigation | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "The operator app has one sidebar holding the global destinations, the personal sections and the container trees, collapsible to leave the page full width."<br>No validated CI-run proof for this acceptance point: "Its order and which entries appear come from workspace configuration and from the navigation slot (`workspace.navigation.after.v1`); changing any policy value in this contract changes no entry in it and no entry's position."<br>No validated CI-run proof for this acceptance point: "A container's own navigation nests inside it rather than replacing it." |
+ | `NAV-005` | Global create | published | done | `tests/qualification/ui-convergence/global-create-journey.mjs` — "globalCreateJourney" |  |
+-| `NAV-006` | The touch client edits | published | partial | `tests/qualification/ui-convergence/touch-page.mjs` — "touchWriteJourney", "touchCommentJourney" and "touchPublishShareJourney"; `tests/qualification/ui-convergence/touch-database.mjs` — "touchDatabaseJourney"; `tests/qualification/ui-convergence/columns-journey.mjs` — "columnsJourney"; `tests/qualification/ui-convergence/touch-operator-journey.mjs` — "touchOperatorJourney" (Search, Inbox, My tasks and requested/health review queues); `tests/qualification/ui-convergence/touch-management-journey.mjs` — "touchManagementJourney" (space settings, Templates, Archive, owner workspace settings); `tests/qualification/ui-convergence/touch-page-tools-journey.mjs` — "touchPageToolsJourney" (history/restore, labels, readable export and presentation); `tests/qualification/ui-convergence/touch-database-tools-journey.mjs` — "touchDatabaseToolsJourney" (charts, record templates, automations and run log). Core-wiki/touch-member launches at 1440px/390px and presentation and starter-template launches at 1440px in `tests/qualification/ui-convergence/journeys.test.mjs` drive touch contexts; controls assert visual-viewport reachability, no overflow, no serious/critical accessibility finding, no browser error and no failed request. `tests/qualification/ui-convergence/synced-journey.mjs` — "syncedJourney" adds touch paragraph conversion, synced-copy insertion/editing and permanent deletion at 1440px in the existing review-request launch. `tests/qualification/ui-convergence/people-journey.mjs` — "peopleJourney" adds directory search, profile edits, hidden expertise and scoped guest people by touch at 1440px. | Touch-only editing remains unproven for block types beyond text, columns and synced paragraphs. |
++| `NAV-006` | The touch client edits | published | partial | `tests/qualification/ui-convergence/touch-page.mjs` — "touchWriteJourney", "touchCommentJourney" and "touchPublishShareJourney"; `tests/qualification/ui-convergence/touch-database.mjs` — "touchDatabaseJourney"; `tests/qualification/ui-convergence/columns-journey.mjs` — "columnsJourney"; `tests/qualification/ui-convergence/touch-operator-journey.mjs` — "touchOperatorJourney" (Search, Inbox, My tasks and requested/health review queues); `tests/qualification/ui-convergence/touch-management-journey.mjs` — "touchManagementJourney" (space settings, Templates, Archive, owner workspace settings); `tests/qualification/ui-convergence/touch-page-tools-journey.mjs` — "touchPageToolsJourney" (history/restore, labels, readable export and presentation); `tests/qualification/ui-convergence/touch-database-tools-journey.mjs` — "touchDatabaseToolsJourney" (charts, record templates, automations and run log). Core-wiki/touch-member launches at 1440px/390px and presentation and starter-template launches at 1440px in `tests/qualification/ui-convergence/journeys.test.mjs` drive touch contexts; controls assert visual-viewport reachability, no overflow, no serious/critical accessibility finding, no browser error and no failed request. `tests/qualification/ui-convergence/synced-journey.mjs` — "syncedJourney" adds touch paragraph conversion, synced-copy insertion/editing and permanent deletion at 1440px in the existing review-request launch. `tests/qualification/ui-convergence/people-journey.mjs` — "peopleJourney" adds directory search, profile edits, hidden expertise and scoped guest people by touch at 1440px. `tests/qualification/ui-convergence/tables-journey.mjs` — "touchTablesJourney", in the existing phone core launch at 390, adds native member table creation, offscreen heading and cell edits, selected row and column insertion and removal, populated merge, anchor editing and unmerge at both the left and far-right edges; every operation saves, reloads and reconciles complete native content including covered cells, row identities, widths, colour and caption, with unobscured touch controls, overflow and accessibility checks. The existing desktop table launch retains paste, keyboard structure, sorting and database round-trip assertions. | Touch-only editing remains unproven for block types beyond text, columns, synced paragraphs and native tables. Complete gesture substitutions in acceptance 1, acceptance 2 and requirement-wide operator and block coverage remain unproven; R-9 human review remains unrun. |
+ | `NOTIF-001` | Meaningful notifications | published | partial | `tests/flagship/discovery/meaningful-notifications.ts` — "meaningfulNotifications", called by "PAGE-016 — authoring watches respect durable unwatch, personal overrides and workspace defaults" in `tests/flagship/discovery/following.test.ts`; `tests/flagship/intelligence/attention-journey.ts` — "attentionJourney" and run failure and quiet-success cases in `tests/flagship/intelligence/lifecycle.test.ts`; `tests/flagship/release-clauses/authority/impact-scope.test.ts` — "EFFECT-003 — scoped rehearsal and pinned maintenance require exact current authority"; `tests/flagship/release-clauses/trials/outcomes.test.ts` — "TRIAL-003 — persisted conclusions use collected fields and independently checked precision". | Company-policy integration and delegated actionable pauses remain unproven under both held and all-autonomous dispositions. BASE-AGENT-007 owns the shared policy chokepoint; BASELINE.md records its conformance journey as planned and the pinned Base has no agent-door module. Retained default: exact explicit grants permit bounded maintenance, other proposed changes require their named person; no new policy authority is inferred. No live provider result is claimed. |
+ | `NOTIF-002` | Inbox | published | done | `tests/qualification/ui-convergence/inbox-journey.mjs` — "inboxJourney", called by "CONT-012 a watched space's create, edit sessions and comment appear once each in Home's Following at 1440px" in `tests/qualification/ui-convergence/journeys.test.mjs`: populated periods and newest-first order, unread count, Direct and Watching views, opening the referenced comment marks read, mark all read and archive read. `tests/flagship/discovery/meaningful-notifications.ts` — "meaningfulNotifications" in `tests/flagship/discovery/following.test.ts` covers native actions and current access after revocation and erasure. | |
+ | `NOTIF-003` | Chat notifications | published | done | `tests/e2e/notifications/chat.test.ts` — "NOTIF-007 — chat admission requires fresh authority and keeps link-only delivery inside the current audience"; `tests/qualification/ui-convergence/chat-journey.mjs` — "chatJourney" |  |
+diff --git a/sources.lock.json b/sources.lock.json
+index 4074e37c..a9dd755d 100644
+--- a/sources.lock.json
++++ b/sources.lock.json
+@@ -988,7 +988,7 @@
+       "executable": false
+     },
+     "CONTRACT.md": {
+-      "sha256": "e253f3d68a6498117e4ae73bda455fbbf31d150b273542b7aecc544ef7090598",
++      "sha256": "22db7c62fe565c1253e2308f31ecc0cdbf7e5e94e177d9bbc6f958dc521a85bf",
+       "executable": false
+     },
+     "DEMO.md": {
+@@ -6912,7 +6912,7 @@
+       "executable": false
+     },
+     "src/core/features/editor/ui/blocks/TableBlock.tsx": {
+-      "sha256": "0396e70350fc4ef44394e15b6a51e327f239f5c48c01b19710280783fd25b2d4",
++      "sha256": "bd07293f018750b6ab6055748046e84d1c6c379ed10a972c066ccbc38b4a24f1",
+       "executable": false
+     },
+     "src/core/features/editor/ui/blocks/TableOfContentsBlock.tsx": {
+@@ -12116,7 +12116,7 @@
+       "executable": false
+     },
+     "tests/qualification/ui-convergence/journeys.test.mjs": {
+-      "sha256": "56157a493201cd1559bc6a4de4e19295423496132ee7f9b7e7f3cfba4d54893e",
++      "sha256": "e4e95cf2a868fa0de0517a4b718fe41d8b5c73e202a02fd20adc49a2daa5d7d9",
+       "executable": false
+     },
+     "tests/qualification/ui-convergence/link-access-journey.mjs": {
+@@ -12260,7 +12260,7 @@
+       "executable": false
+     },
+     "tests/qualification/ui-convergence/tables-journey.mjs": {
+-      "sha256": "e8117e75070f236a26d712e3e505748132068c7fd0f4c21ca8fde14cb3523edd",
++      "sha256": "e2ffb9dc14acfd1cc8af6e9a8935da294c3520e15e6bb240e4a14708ed5d5d6f",
+       "executable": false
+     },
+     "tests/qualification/ui-convergence/task-assignment-journey.mjs": {
+@@ -12408,11 +12408,11 @@
+       "executable": false
+     },
+     "tests/requirements/clause-inventory.json": {
+-      "sha256": "d74430f07716b77458f662a7b5a62f0de4182cf0e7ed500bd207b94c50bb7f84",
++      "sha256": "66bcfd01031e0993bb1ef9f8742eb24957ee77868ea345ef1adb960d8aaae66b",
+       "executable": false
+     },
+     "tests/requirements/cli-journey.md": {
+-      "sha256": "01de75201f5b840aad1b1bab67fd0c568fdadefc4ed815bb83d6fb43ff6a21ca",
++      "sha256": "74fe4f45963a41b882dc407ace2e39a69f1b637f2cf933f3e05aa7fbde56e366",
+       "executable": false
+     },
+     "tests/requirements/count-registrations.mjs": {
+diff --git a/src/core/features/editor/ui/blocks/TableBlock.tsx b/src/core/features/editor/ui/blocks/TableBlock.tsx
+index cc39f11b..ac735c5b 100644
+--- a/src/core/features/editor/ui/blocks/TableBlock.tsx
++++ b/src/core/features/editor/ui/blocks/TableBlock.tsx
+@@ -5,26 +5,26 @@ import {EditableLine} from './Editable';
+ import {TableTools} from './TableTools';
+ import {cellLayout,pasteCells,resizeTable,spreadsheetCells,tableColours,tableLimits} from '../../tables/model';
+ 
+-/** Cell strings remain authoritative even when a merge conceals their individual inputs. */
++/** Cell strings remain authoritative when merged; inputs fit the table's scroll viewport. */
+ export function TableBlock({block,canEdit,onChange,actions}:BlockRenderProps<TableBlockData>) {
+   const [selected,setSelected]=useState<[number,number]>([0,0]);
+   const [error,setError]=useState('');
+   const [row,column]=selected;
+   const change=(next:TableBlockData)=>{if(next.columns.length>tableLimits.columns||next.rows.length>tableLimits.rows){setError('A table can have up to 50 columns and 500 rows. The pasted range was not applied.');return;}setError('');onChange(next);};
+-  return <div className="my-2 rounded-card border border-line" onFocusCapture={e=>{const cell=(e.target as HTMLElement).closest<HTMLElement>('[data-table-row]');if(cell)setSelected([Math.max(0,Number(cell.dataset.tableRow)),Number(cell.dataset.tableColumn)]);}}
++  return <div className="my-2 rounded-card border border-line" style={{containerType:'inline-size'}} onFocusCapture={e=>{const cell=(e.target as HTMLElement).closest<HTMLElement>('[data-table-row]');if(cell)setSelected([Math.max(0,Number(cell.dataset.tableRow)),Number(cell.dataset.tableColumn)]);}}
+     onPasteCapture={e=>{if(!canEdit)return;const cell=(e.target as HTMLElement).closest<HTMLElement>('[data-table-row]');const text=e.clipboardData.getData('text/plain');if(!cell||(!text.includes('\t')&&!text.includes('\n')))return;e.preventDefault();e.stopPropagation();const cells=spreadsheetCells(text);if(cells.length+Number(cell.dataset.tableRow)>tableLimits.rows||cells[0]!.length+Number(cell.dataset.tableColumn)>tableLimits.columns){setError('The pasted range exceeds this table’s row or column limit. Nothing was changed.');return;}change(pasteCells(block,Number(cell.dataset.tableRow),Number(cell.dataset.tableColumn),cells));}}
+     onKeyDownCapture={e=>{if(!canEdit||!e.altKey||!e.shiftKey||!['ArrowDown','ArrowUp','ArrowRight','ArrowLeft'].includes(e.key))return;e.preventDefault();e.stopPropagation();const axis=['ArrowDown','ArrowUp'].includes(e.key)?'row':'column',remove=['ArrowUp','ArrowLeft'].includes(e.key);if(remove&&axis==='column'&&block.columns.length===1)return;change(resizeTable(block,axis,axis==='row'?row:column,remove));}}>
+     <div className="overflow-x-auto"><Table style={{tableLayout:'fixed',width:'100%',minWidth:block.columns.reduce((n,_,i)=>n+(block.widths?.[i]??180),0)}}>
+       {block.caption?<TableCaption>{block.caption}</TableCaption>:null}
+       <colgroup>{block.columns.map((_,i)=><col key={i} style={{width:block.widths?.[i]??180}}/>)}</colgroup>
+-      <TableHeader><TableRow>{block.columns.map((value,index)=><TableHead key={index} scope="col" data-table-row={-1} data-table-column={index}><EditableLine canEdit={canEdit} label={`Column ${index+1} heading`} placeholder="Column" value={value} onTextChange={value=>change({...block,columns:block.columns.map((c,i)=>i===index?value:c)})}/></TableHead>)}</TableRow></TableHeader>
++      <TableHeader><TableRow>{block.columns.map((value,index)=><TableHead key={index} scope="col" data-table-row={-1} data-table-column={index}><EditableLine className="max-w-[calc(100cqw-1rem)]" canEdit={canEdit} label={`Column ${index+1} heading`} placeholder="Column" value={value} onTextChange={value=>change({...block,columns:block.columns.map((c,i)=>i===index?value:c)})}/></TableHead>)}</TableRow></TableHeader>
+       <TableBody>{block.rows.map((row,r)=><TableRow key={row.id}>{row.cells.map((value,c)=>{
+         const layout=cellLayout(block,r,c);if(layout.hidden)return null;
+         const Cell=block.headerColumn&&c===0?TableHead:TableCell;
+         const covered=block.rows.slice(r,r+layout.rowSpan).flatMap((row,i)=>row.cells.slice(c,c+layout.colSpan).filter((_,j)=>i!==0||j!==0)).filter(Boolean);
+         return <Cell key={c} scope={block.headerColumn&&c===0?'row':undefined} rowSpan={layout.rowSpan} colSpan={layout.colSpan} data-table-row={r} data-table-column={c} style={{backgroundColor:tableColours[block.colours?.[`${row.id}:${c}`]??'none'],color:block.colours?.[`${row.id}:${c}`]&&block.colours[`${row.id}:${c}`]!=='none'?'#17251f':undefined}}>
+-          <EditableLine canEdit={canEdit} label={`Row ${r+1}, ${block.columns[c]||`column ${c+1}`}`} placeholder="Empty" value={value} onTextChange={value=>change({...block,rows:block.rows.map((row,i)=>i===r?{...row,cells:row.cells.map((cell,j)=>j===c?value:cell)}:row)})}/>
+-          {covered.length?<div className="whitespace-pre-wrap text-small">{covered.join('\n')}</div>:null}
++          <EditableLine className="max-w-[calc(100cqw-1rem)]" canEdit={canEdit} label={`Row ${r+1}, ${block.columns[c]||`column ${c+1}`}`} placeholder="Empty" value={value} onTextChange={value=>change({...block,rows:block.rows.map((row,i)=>i===r?{...row,cells:row.cells.map((cell,j)=>j===c?value:cell)}:row)})}/>
++          {covered.length?<div className="max-w-[calc(100cqw-1rem)] whitespace-pre-wrap text-small">{covered.join('\n')}</div>:null}
+         </Cell>;
+       })}</TableRow>)}</TableBody>
+     </Table></div>
+diff --git a/tests/qualification/ui-convergence/journeys.test.mjs b/tests/qualification/ui-convergence/journeys.test.mjs
+index 3779285a..a37d0a98 100644
+--- a/tests/qualification/ui-convergence/journeys.test.mjs
++++ b/tests/qualification/ui-convergence/journeys.test.mjs
+@@ -22,7 +22,7 @@ import {touchCommentJourney,touchPublishShareJourney} from './touch-page.mjs';
+ import {touchDatabaseJourney} from './touch-database.mjs';
+ import { samlJourney } from './saml-journey.mjs';
+ import { folderJourney } from './folder-journey.mjs';
+-import {tablesJourney} from './tables-journey.mjs';
++import {tablesJourney,touchTablesJourney} from './tables-journey.mjs';
+ import {providerEmbedsJourney} from './provider-embeds-journey.mjs';
+ import { exportCommentsJourney } from './export-comments-journey.mjs';
+ import { backupsJourney } from './backups-journey.mjs';
+@@ -96,6 +96,7 @@ for (const width of [390, 1440]) {
+         await step('BLOCK-001 — a new page body takes real keystrokes, including before it finishes loading, and keeps them through committed save, failed save, explicit retry and leaving; touch member creates, inserts and drags blocks', async () => { pageId = await writeJourney(state, width); touch=await beginTouchJourney(state,width);await columnsJourney(state,width,touch); });
+         assert.ok(pageId, 'Writing must complete before dependent journeys.');
+         assert.ok(touch, 'Touch-member writing must complete before its dependent journeys.');
++        if(width===390)await step('NAV-006 native populated table edits and lossless structure changes by touch',()=>touchTablesJourney(touch));
+         await step('anchored comment, reset composer, reply and resolve; touch member comments and resolves', async () => {await commentJourney(state, pageId);await commentAuthorshipJourney(state, width);await touchCommentJourney(touch,touch.pageId);});
+         await step('invite existing member, persisted grant and canonical copied link; touch member publishes and shares', async () => {await shareJourney(state, pageId);await touchPublishShareJourney(touch,touch.pageId);});
+         await step('PAGE-007 populated Details and full-member ownership preserve grants under replay and edit-only refusal', async () => {await withSecondPerson(state,width,people=>pageDetailsJourney(state,people));});
+@@ -111,6 +112,9 @@ for (const width of [390, 1440]) {
+           await step('DB-012 populated record fields, comments, history and parity', () => recordDetailJourney(state, width));
+           await templateCaptureJourney(state);
+           await templateGalleryJourney(state);
++          // Permanent deletion requires a current native email proof, independent of earlier journey duration.
++          await state.refreshReaderIdentity();
++          await touch.context.addCookies([{name:'slate_session',value:state.readerCookie.split('=')[1],url:touch.origin}]);
+           await archiveRetentionJourney(state,touch);
+           await withSecondPerson(state, width, people => step('DB-015 — template handover and revoked-saver pause on a phone', () => recordTemplatesJourney(state, people)));
+           await withSecondPerson(state, width, people => step('REV-006 — numbered deletion tombstone on a phone', () => versionDeletionJourney(state, people)));
+diff --git a/tests/qualification/ui-convergence/tables-journey.mjs b/tests/qualification/ui-convergence/tables-journey.mjs
+index c495ff36..b613e5eb 100644
+--- a/tests/qualification/ui-convergence/tables-journey.mjs
++++ b/tests/qualification/ui-convergence/tables-journey.mjs
+@@ -2,6 +2,149 @@ import assert from 'node:assert/strict';
+ import {randomUUID} from 'node:crypto';
+ import {expect} from '@playwright/test';
+ import {ok} from './two-people-support.mjs';
++import {writeFile} from 'node:fs/promises';
++import {tap,type,reachable,checkpoint} from './touch-controls.mjs';
++
++/** Native member edits use labeled touch controls, including cells offscreen to the right. */
++export async function touchTablesJourney({page,context,origin,api,containerId}) {
++  const blockId=randomUUID(),rowIds=Array.from({length:3},()=>randomUUID());
++  let expected={caption:'Response handover',columns:['Task','Owner','Status','Handoff'],
++    rows:rowIds.map((id,index)=>({id,cells:[`Response ${index+1}`,`Lead ${index+1}`,`Ready ${index+1}`,`Note ${index+1}`]})),
++    headerColumn:true,widths:[160,160,160,160],colours:{[`${rowIds[1]}:2`]:'green'},merges:[]};
++  assert.equal((await api('/api/members/current')).role,'member');
++  const {value:{pageId}}=await ok(context,origin,'POST','/api/pages',{operationKey:randomUUID(),containerId,
++    title:'Touch table handover',blocks:[{id:blockId,blockType:'table',content:expected,treePosition:'a'}]});
++  const route=`/api/pages/${pageId}`,block=page.locator(`[data-block-id="${blockId}"]`),receipts=[];
++  const content=async()=>{
++    const document=await api(route);
++    assert.equal(document.blocks.length,1,'Table operations preserve the page block inventory.');
++    assert.equal(document.blocks[0].id,blockId);
++    return document.blocks[0].content;
++  };
++  const tools=async()=>{
++    const details=block.locator('details');
++    if(!await details.evaluate(element=>element.open))await tap(details.locator('summary'));
++  };
++  const select=async(label,value)=>{
++    const control=block.getByRole('combobox',{name:label,exact:true});
++    await tap(control);await control.selectOption({value:String(value)});
++    await expect(control).toHaveValue(String(value));
++  };
++  const edit=async(input,value)=>{
++    await reachable(input);
++    const unclipped=await input.evaluate(element=>{
++      const box=element.getBoundingClientRect(),viewport=element.closest('table').parentElement.getBoundingClientRect();
++      return box.left>=viewport.left&&box.right<=viewport.right;
++    });
++    assert.ok(unclipped,'The entire table input fits inside its horizontal scroll viewport.');
++    await type(page,input,value);
++  };
++  const reconcile=async operation=>{
++    await expect.poll(content,{message:`${operation}: complete native content is committed`}).toEqual(expected);
++    await expect(page.getByRole('status').filter({hasText:/^Saved/}).first()).toBeVisible();
++    await page.reload({waitUntil:'networkidle'});
++    assert.deepEqual(await content(),expected,`${operation}: native reload retains every cell and table setting`);
++    for(let column=0;column<expected.columns.length;column++){
++      await expect(block.getByRole('textbox',{name:`Column ${column+1} heading`,exact:true})).toHaveText(expected.columns[column]);
++    }
++    for(let row=0;row<expected.rows.length;row++)for(let column=0;column<expected.columns.length;column++){
++      const merge=expected.merges.find(m=>{
++        const start=expected.rows.findIndex(r=>r.id===m.rowId);
++        return row>=start&&row<start+m.rowSpan&&column>=m.column&&column<m.column+m.colSpan;
++      });
++      const cell=block.locator(`tbody [data-table-row="${row}"][data-table-column="${column}"]`);
++      if(merge&&(expected.rows[row].id!==merge.rowId||column!==merge.column))await expect(cell).toHaveCount(0);
++      else {
++        await expect(cell.getByRole('textbox')).toHaveText(expected.rows[row].cells[column]);
++        if(merge){
++          await expect(cell).toHaveAttribute('rowspan',String(merge.rowSpan));
++          await expect(cell).toHaveAttribute('colspan',String(merge.colSpan));
++          const start=expected.rows.findIndex(r=>r.id===merge.rowId);
++          for(let r=start;r<start+merge.rowSpan;r++)for(let c=merge.column;c<merge.column+merge.colSpan;c++)
++            await expect(cell).toContainText(expected.rows[r].cells[c]);
++        }
++      }
++    }
++    receipts.push({operation,content:await content()});
++    console.log(`PROBE NAV-006 table ${operation}: member touch controls -> saved, reloaded and native content reconciled`);
++  };
++  await page.goto(origin+route.replace('/api/','/app/'),{waitUntil:'networkidle'});
++  await reconcile('populated native creation');
++  // Scroll a real wide table to the last column rather than shrinking the fixture to fit.
++  await edit(block.getByRole('textbox',{name:'Column 4 heading',exact:true}),'Next handover');
++  expected={...expected,columns:['Task','Owner','Status','Next handover']};
++  await reconcile('heading edit');
++  await edit(block.getByRole('textbox',{name:'Row 3, Next handover',exact:true}),'Dispatch confirmed');
++  expected={...expected,rows:expected.rows.map((row,i)=>i===2?{...row,cells:[...row.cells.slice(0,3),'Dispatch confirmed']}:row)};
++  await reconcile('cell edit');
++
++  await tools();await select('Table row',0);await tap(block.getByRole('button',{name:'Add row',exact:true}));
++  // Only the new row identity is generated; position, empty cells and all retained data are independently expected.
++  await expect.poll(async()=> (await content()).rows.map(row=>row.cells)).toEqual([
++    expected.rows[0].cells,['','','',''],...expected.rows.slice(1).map(row=>row.cells),
++  ]);
++  const addedRow=(await content()).rows[1];
++  assert.ok(addedRow.id&&!rowIds.includes(addedRow.id),'Adding a row allocates a new identity.');
++  expected={...expected,rows:[expected.rows[0],{id:addedRow.id,cells:['','','','']},...expected.rows.slice(1)]};
++  await reconcile('add row');
++  await edit(block.getByRole('textbox',{name:'Row 2, Task',exact:true}),'Temporary response');
++  expected={...expected,rows:expected.rows.map((row,i)=>i===1?{...row,cells:['Temporary response','','','']}:row)};
++  await reconcile('edit added row');
++  await tools();await select('Table row',1);await tap(block.getByRole('button',{name:'Remove row',exact:true}));
++  expected={...expected,rows:expected.rows.filter(row=>row.id!==addedRow.id)};
++  await reconcile('remove selected row');
++
++  await tools();await select('Table column',1);await tap(block.getByRole('button',{name:'Add column',exact:true}));
++  expected={...expected,columns:['Task','Owner','','Status','Next handover'],widths:[160,160,180,160,160],
++    rows:expected.rows.map(row=>({...row,cells:[...row.cells.slice(0,2),'',...row.cells.slice(2)]})),colours:{[`${rowIds[1]}:3`]:'green'}};
++  await reconcile('add column');
++  await edit(block.getByRole('textbox',{name:'Column 3 heading',exact:true}),'Temporary checkpoint');
++  expected={...expected,columns:['Task','Owner','Temporary checkpoint','Status','Next handover']};
++  await reconcile('edit added heading');
++  await edit(block.getByRole('textbox',{name:'Row 2, Temporary checkpoint',exact:true}),'Temporary coverage');
++  expected={...expected,rows:expected.rows.map((row,i)=>i===1?{...row,cells:[...row.cells.slice(0,2),'Temporary coverage',...row.cells.slice(3)]}:row)};
++  await reconcile('edit added column');
++  await tools();await select('Table column',2);await tap(block.getByRole('button',{name:'Remove column',exact:true}));
++  expected={...expected,columns:['Task','Owner','Status','Next handover'],widths:[160,160,160,160],
++    rows:expected.rows.map(row=>({...row,cells:row.cells.filter((_,i)=>i!==2)})),colours:{[`${rowIds[1]}:2`]:'green'}};
++  await reconcile('remove selected column');
++
++  await tools();await select('Table row',0);await select('Table column',0);
++  for(const label of ['Merge rows','Merge columns'])await type(page,block.getByRole('spinbutton',{name:label,exact:true}),'2');
++  await tap(block.getByRole('button',{name:'Merge cells',exact:true}));
++  expected={...expected,merges:[{rowId:rowIds[0],column:0,rowSpan:2,colSpan:2}]};
++  await reconcile('merge populated rectangle');
++  await tools();await reachable(block.getByRole('button',{name:'Unmerge cells',exact:true}));
++  await checkpoint(page,'table merged with covered content');
++  await edit(block.getByRole('textbox',{name:'Row 1, Task',exact:true}),'Response lead confirmed');
++  expected={...expected,rows:expected.rows.map((row,i)=>i===0?{...row,cells:['Response lead confirmed',...row.cells.slice(1)]}:row)};
++  await reconcile('edit merged anchor');
++  await tools();await tap(block.getByRole('button',{name:'Unmerge cells',exact:true}));
++  expected={...expected,merges:[]};
++  await reconcile('unmerge retains covered cells');
++  // Previously concealed content is editable again and survives its own save.
++  await edit(block.getByRole('textbox',{name:'Row 2, Owner',exact:true}),'Relief lead confirmed');
++  expected={...expected,rows:expected.rows.map((row,i)=>i===1?{...row,cells:[row.cells[0],'Relief lead confirmed',...row.cells.slice(2)]}:row)};
++  await reconcile('edit uncovered cell');
++  // A merged anchor at the far edge must remain editable after horizontal scrolling.
++  await tools();await select('Table row',0);await select('Table column',2);
++  for(const label of ['Merge rows','Merge columns'])await type(page,block.getByRole('spinbutton',{name:label,exact:true}),'2');
++  await tap(block.getByRole('button',{name:'Merge cells',exact:true}));
++  expected={...expected,merges:[{rowId:rowIds[0],column:2,rowSpan:2,colSpan:2}]};
++  await reconcile('merge far-right populated rectangle');
++  await edit(block.getByRole('textbox',{name:'Row 1, Status',exact:true}),'Ready for handover');
++  expected={...expected,rows:expected.rows.map((row,i)=>i===0?{...row,cells:[...row.cells.slice(0,2),'Ready for handover',row.cells[3]]}:row)};
++  await reconcile('edit far-right merged anchor');
++  await tools();await tap(block.getByRole('button',{name:'Unmerge cells',exact:true}));
++  expected={...expected,merges:[]};
++  await reconcile('unmerge far-right retains covered cells');
++  await tools();
++  for(const name of ['Add row','Remove row','Add column','Remove column','Merge cells'])
++    await reachable(block.getByRole('button',{name,exact:true}));
++  await checkpoint(page,'table editing and structure controls');
++  await writeFile(`.artifacts/ui-convergence/touch-tables-${page.viewportSize().width}.json`,JSON.stringify({pageId,blockId,receipts},null,2));
++  return pageId;
++}
+ 
+ export async function tablesJourney({page,context,origin,api}) {
+   const space=(await api('/api/containers')).items.find(s=>s.name==='Handbook'),blockId=randomUUID();
+diff --git a/tests/requirements/clause-inventory.json b/tests/requirements/clause-inventory.json
+index b74708bc..a7a20b03 100644
+--- a/tests/requirements/clause-inventory.json
++++ b/tests/requirements/clause-inventory.json
+@@ -1380,7 +1380,7 @@
+       "id": "NAV-006",
+       "document": "CONTRACT.md",
+       "status": "unproven",
+-      "unmetReason": "No complete semantic journey is registered for NAV-006 — The touch client edits. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
++      "unmetReason": "The Workers registry does not certify browser acceptance. Supporting touchTablesJourney in ./tests/qualification/ui-convergence/tables-journey.mjs runs in the existing phone core registration in ./tests/qualification/ui-convergence/journeys.test.mjs: native member creation, heading and cell edits, row and column changes and lossless merge and unmerge with save, reload and complete native content readback. NAV-006 remains partial: complete gesture substitutions, acceptance 2, requirement-wide operator and block coverage and R-9 human review remain unproven. See CONTRACT.md for the existing broader touch journeys.",
+       "supportingTests": []
+     },
+     {
+diff --git a/tests/requirements/cli-journey.md b/tests/requirements/cli-journey.md
+index 2323ba54..7cb039c7 100644
+--- a/tests/requirements/cli-journey.md
++++ b/tests/requirements/cli-journey.md
+@@ -1,5 +1,7 @@
+ # Native CLI journey specification
+ 
++NAV-006 acceptance 3's native table subset uses `touchTablesJourney` in `tests/qualification/ui-convergence/tables-journey.mjs`, called by the existing `real core-wiki and touch-member journeys at 390px` registration. An ordinary member creates a populated four-column table through native HTTP, edits an offscreen heading and cell, adds and removes a selected row and column, merges a populated rectangle, edits its anchor, unmerges and edits a previously covered cell. A second populated merge at the far-right edge repeats anchor editing and unmerge after horizontal scrolling, including a covered coloured cell. Every operation reconciles complete native stored content before and after page reload, preserving untouched cells, row identities, widths, colour and caption. Reachability uses real touch taps with visual-viewport hit testing, and each edited input must fit wholly inside the table's horizontal scroll viewport even when its cell spans several columns. The merged and unmerged screens check overflow and serious or critical accessibility findings. Existing desktop spreadsheet paste, keyboard structure, sorting and database round-trip assertions remain unchanged. This supporting journey does not establish complete gesture substitutions, every operator or block surface, native apps or R-9 human review; NAV-006 remains partial.
++
+ `tests/local-journey/cli.test.mjs` runs the exact case “fresh README CLI setup, native sign-in at both widths, custody, transfer and reset” through a fresh source clone and the public rer commands. Its supporting scope includes WORK-013’s native `/setup` page, unfinished app-route redirect and completed redirect at 1440 and 390, with actual wizard completion. It also exercises setup idempotency and private-byte custody, key-gated native `RER_OPEN` sign-in, dev and preview lifecycle, confirmed reset and a D1/R2 installation archive round trip.
+ 
+ `tests/release/delivery-runtime.mjs` separately checks the unpacked delivery Worker through HTTP: an unfinished authenticated owner follows `/app` to `/setup`, where the document renders the current identity; real native first-run completion makes `/app` render the workspace and `/setup` return to `/app`. Native page editing, search, readable export, profile boundaries and served asset bytes remain checked. Its identity fixture and test-only mail transport substitution establish local packaged-runtime evidence, not empty-store bootstrap, browser, provider or hosted acceptance.

@@ -1,0 +1,17 @@
+{
+  "name": "candidate-first-party",
+  "head": "7fabbe4e4e7d99400e0dd8326e51d7d969ea483a",
+  "tracked_status": "",
+  "command": [
+    "npx",
+    "-y",
+    "@runeditrun/rer",
+    "check",
+    "--profile",
+    "first-party"
+  ],
+  "started": "2026-11-06T08:26:30.219084+00:00",
+  "seconds": 1.799,
+  "exit": 0,
+  "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

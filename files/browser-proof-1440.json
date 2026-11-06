@@ -1,0 +1,18 @@
+{
+  "name": "browser-proof-1440",
+  "head": "7fabbe4e4e7d99400e0dd8326e51d7d969ea483a",
+  "tracked_status": "",
+  "command": [
+    "env",
+    "SLATE_CHROMIUM_PATH=/usr/bin/chromium",
+    "timeout",
+    "1200",
+    "node",
+    "/home/agent/rer-consolidation/work/sd-slate-c-f184/packet/browser-proof.mjs",
+    "1440"
+  ],
+  "started": "2026-11-06T08:28:12.947421+00:00",
+  "seconds": 45.179,
+  "exit": 0,
+  "log_sha256": "912533aaf09ffd570f55e7bffa157b43201012c90a63c8791027c5c7362f5ed8"
+}

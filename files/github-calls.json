@@ -1,0 +1,123 @@
+[
+  {
+    "call": 1,
+    "purpose": "predecessor exact-head discovery",
+    "command": "gh api repos/just-every/run-slate/actions/runs?head_sha=a4cec6c722ebd036dc7f01034c4295aca5808768&per_page=100",
+    "observed": {
+      "id": 42182111695,
+      "name": "Verify Slate",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "failure"
+    }
+  },
+  {
+    "call": 2,
+    "purpose": "classify predecessor failure without guessing a product repair",
+    "command": "gh api repos/just-every/run-slate/actions/runs/42182111695/jobs",
+    "observed": {
+      "app_job": 127773900884,
+      "failed_step": "Run node src/base/runtime/contract-docs.mjs check",
+      "aggregate_job": 127774125650,
+      "test_shards": "skipped"
+    }
+  },
+  {
+    "call": 3,
+    "purpose": "baseline main exact-head health",
+    "command": "gh api repos/just-every/run-slate/actions/runs?head_sha=bc567c9b6f6b25c98cb6fa05b9ab0fe37628a547&per_page=100",
+    "observed": {
+      "head": "bc567c9b6f6b25c98cb6fa05b9ab0fe37628a547",
+      "verify": 42183473801,
+      "verify_conclusion": "success",
+      "run_site": 42183473597,
+      "run_site_conclusion": "success"
+    }
+  },
+  {
+    "call": 4,
+    "purpose": "final candidate exact-head discovery",
+    "at": "2026-11-06T08:53:11.783957+00:00",
+    "command": "gh api repos/just-every/run-slate/actions/runs?head_sha=fe0ab7c96b6205ebd8ce32561e51188098e47a70&per_page=100",
+    "observed": {
+      "workflow_runs": [
+        {
+          "conclusion": "failure",
+          "event": "push",
+          "head_sha": "fe0ab7c96b6205ebd8ce32561e51188098e47a70",
+          "html_url": "https://github.com/just-every/run-slate/actions/runs/42190606365",
+          "id": 42190606365,
+          "name": "Verify Slate",
+          "status": "completed"
+        }
+      ]
+    }
+  },
+  {
+    "call": 5,
+    "purpose": "completed candidate failure diagnosis",
+    "at": "2026-11-06T08:53:21.901363+00:00",
+    "command": "gh api repos/just-every/run-slate/actions/runs/42190606365/jobs",
+    "observed": {
+      "jobs": [
+        {
+          "conclusion": "success",
+          "id": 127801387311,
+          "name": "plan",
+          "steps": []
+        },
+        {
+          "conclusion": "failure",
+          "id": 127801454385,
+          "name": "verify (app)",
+          "steps": [
+            "Run node src/base/runtime/contract-docs.mjs check"
+          ]
+        },
+        {
+          "conclusion": "skipped",
+          "id": 127801457322,
+          "name": "import-scale",
+          "steps": []
+        },
+        {
+          "conclusion": "failure",
+          "id": 127801696580,
+          "name": "verify",
+          "steps": [
+            "Require the plan and every expected job"
+          ]
+        },
+        {
+          "conclusion": "skipped",
+          "id": 127801697011,
+          "name": "local-journeys",
+          "steps": []
+        },
+        {
+          "conclusion": "skipped",
+          "id": 127801697776,
+          "name": "verify (${{ matrix.suite }})",
+          "steps": []
+        },
+        {
+          "conclusion": "skipped",
+          "id": 127801698309,
+          "name": "contract",
+          "steps": []
+        }
+      ]
+    }
+  },
+  {
+    "call": 6,
+    "purpose": "single completed app failed-job archive read",
+    "at": "2026-11-06T08:53:47.658859+00:00",
+    "command": "gh run view 42190606365 --repo just-every/run-slate --job 127801454385 --log-failed",
+    "exit": 0,
+    "observed": [
+      "verify (app)\tRun node src/base/runtime/contract-docs.mjs check\t2026-11-06T08:51:32.0274656Z ACCEPTANCE.md: generated content differs; run contract-docs write.",
+      "verify (app)\tRun node src/base/runtime/contract-docs.mjs check\t2026-11-06T08:51:32.0370704Z ##[error]Process completed with exit code 1."
+    ]
+  }
+]

@@ -1,0 +1,9 @@
+{
+  "head": "7fabbe4e4e7d99400e0dd8326e51d7d969ea483a",
+  "job": "local phone core registration",
+  "command": "env SLATE_CHROMIUM_PATH=/usr/bin/chromium timeout 1200 node --test --test-concurrency=1 '--test-name-pattern=real core-wiki and touch-member journeys at 390px' tests/qualification/ui-convergence/journeys.test.mjs",
+  "test": "real core-wiki and touch-member journeys at 390px",
+  "exit": 1,
+  "failure": "AssertionError: Touch surfaces have no browser errors or hydration mismatch. Actual includes '/api/archive/<synthetic record>/permanent-delete: 403'; expected [].",
+  "repair": "Refresh the same synthetic member by native email sign-in immediately before permanent deletion; retain the production ten-minute proof guard and every archive assertion."
+}

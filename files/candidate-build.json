@@ -1,0 +1,15 @@
+{
+  "name": "candidate-build",
+  "head": "7fabbe4e4e7d99400e0dd8326e51d7d969ea483a",
+  "tracked_status": "",
+  "command": [
+    "npx",
+    "-y",
+    "@runeditrun/rer",
+    "build"
+  ],
+  "started": "2026-11-06T08:25:24.633955+00:00",
+  "seconds": 27.152,
+  "exit": 0,
+  "log_sha256": "b8b68f129b9a14a965cc1482e217d3ce001cf9a12d97f6eea6666a7d3caa178a"
+}

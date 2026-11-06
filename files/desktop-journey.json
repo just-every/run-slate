@@ -1,0 +1,20 @@
+{
+  "name": "desktop-journey",
+  "head": "7fabbe4e4e7d99400e0dd8326e51d7d969ea483a",
+  "tracked_status": "",
+  "command": [
+    "env",
+    "SLATE_CHROMIUM_PATH=/usr/bin/chromium",
+    "timeout",
+    "1200",
+    "node",
+    "--test",
+    "--test-concurrency=1",
+    "--test-name-pattern=spreadsheet tables merge, sort and round-trip through edited database records at 1440px",
+    "tests/qualification/ui-convergence/journeys.test.mjs"
+  ],
+  "started": "2026-11-06T08:26:04.603333+00:00",
+  "seconds": 182.538,
+  "exit": 0,
+  "log_sha256": "ede3f98841dcbe4f52550c98063a85077c7dd423e711910e7661e99ac6b0ea93"
+}

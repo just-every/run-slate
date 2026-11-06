@@ -1,0 +1,131 @@
+{
+  "head": "fe0ab7c96b6205ebd8ce32561e51188098e47a70",
+  "width": 1440,
+  "geometry": {
+    "box": {
+      "x": 818,
+      "y": 312.890625,
+      "width": 421,
+      "height": 22,
+      "top": 312.890625,
+      "right": 1239,
+      "bottom": 334.890625,
+      "left": 818
+    },
+    "scrollport": {
+      "x": 373,
+      "y": 254.390625,
+      "width": 874,
+      "height": 177,
+      "top": 254.390625,
+      "right": 1247,
+      "bottom": 431.390625,
+      "left": 373
+    },
+    "fontSize": "14px",
+    "documentWidth": 1440,
+    "viewport": 1440
+  },
+  "icons": [
+    {
+      "name": "Collapse sidebar",
+      "tooltip": "Collapse sidebar"
+    },
+    {
+      "name": "Move Welcome in tree",
+      "tooltip": "Move page"
+    },
+    {
+      "name": "Create child of Welcome",
+      "tooltip": "Add child"
+    },
+    {
+      "name": "Move Response operations home in tree",
+      "tooltip": "Move page"
+    },
+    {
+      "name": "Create child of Response operations home",
+      "tooltip": "Add child"
+    },
+    {
+      "name": "Move Touch table handover in tree",
+      "tooltip": "Move page"
+    },
+    {
+      "name": "Create child of Touch table handover",
+      "tooltip": "Add child"
+    },
+    {
+      "name": "Comments",
+      "tooltip": "Comments"
+    },
+    {
+      "name": "History",
+      "tooltip": "History"
+    },
+    {
+      "name": "Details",
+      "tooltip": "Details"
+    },
+    {
+      "name": "Insert a block after table",
+      "tooltip": "Insert block"
+    },
+    {
+      "name": "Block actions for table",
+      "tooltip": "Block actions"
+    }
+  ],
+  "content": {
+    "caption": "Response handover",
+    "columns": [
+      "Task",
+      "Owner",
+      "Status",
+      "Handoff"
+    ],
+    "rows": [
+      {
+        "id": "b05ace4c-8f44-4712-ac76-ce028ebe9650",
+        "cells": [
+          "Response 1",
+          "Lead 1",
+          "On-call lead confirmed by touch",
+          "Note 1"
+        ]
+      },
+      {
+        "id": "b3d467c3-b46b-4702-8f25-f3af7ae025dc",
+        "cells": [
+          "Response 2",
+          "Lead 2",
+          "Ready 2",
+          "Note 2"
+        ]
+      },
+      {
+        "id": "6524e331-b5cf-47f3-9ca7-2bb228297f93",
+        "cells": [
+          "Response 3",
+          "Lead 3",
+          "Ready 3",
+          "Note 3"
+        ]
+      }
+    ],
+    "widths": [
+      160,
+      160,
+      160,
+      160
+    ],
+    "merges": [
+      {
+        "rowId": "b05ace4c-8f44-4712-ac76-ce028ebe9650",
+        "column": 2,
+        "rowSpan": 2,
+        "colSpan": 2
+      }
+    ]
+  }
+}

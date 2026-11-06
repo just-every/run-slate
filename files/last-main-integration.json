@@ -1,0 +1,8 @@
+{
+  "command": "git fetch origin main then git merge --no-commit origin/main",
+  "observed": "Already up to date.",
+  "exit": 0,
+  "head": "fe0ab7c96b6205ebd8ce32561e51188098e47a70",
+  "main_at_integration": "bc567c9b6f6b25c98cb6fa05b9ab0fe37628a547",
+  "published_history_rewritten": false
+}

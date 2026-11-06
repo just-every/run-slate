@@ -1,0 +1,22 @@
+[
+  {
+    "head": "3525a310de6aac2ae0f6dbc1e8d3f86e258420c3",
+    "author_name": "Run Edit Run fleet",
+    "author_email": "fleet@runeditrun.com",
+    "committer_name": "Run Edit Run fleet",
+    "committer_email": "fleet@runeditrun.com",
+    "message": "Restore native touch table editing on current main [skip ci]",
+    "status_rows": 338,
+    "all_parent_status_rows_retained": true
+  },
+  {
+    "head": "fe0ab7c96b6205ebd8ce32561e51188098e47a70",
+    "author_name": "Run Edit Run fleet",
+    "author_email": "fleet@runeditrun.com",
+    "committer_name": "Run Edit Run fleet",
+    "committer_email": "fleet@runeditrun.com",
+    "message": "Prove touch table editing across horizontal merges",
+    "status_rows": 338,
+    "all_parent_status_rows_retained": true
+  }
+]

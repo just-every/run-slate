@@ -1,0 +1,16 @@
+{
+  "conclusion": "failure",
+  "event": "push",
+  "head_sha": "fe0ab7c96b6205ebd8ce32561e51188098e47a70",
+  "html_url": "https://github.com/just-every/run-slate/actions/runs/42190606365",
+  "id": 42190606365,
+  "name": "Verify Slate",
+  "status": "completed",
+  "app_job": 127801454385,
+  "aggregate_job": 127801696580,
+  "classification": "failure only at generated contract-view freshness; aggregate follows it and test shards skipped",
+  "permitted_generated_view_exception": true,
+  "local_runtime_tests_pass": true,
+  "github_calls_used": 6,
+  "failed_job_archive_exit": 0
+}

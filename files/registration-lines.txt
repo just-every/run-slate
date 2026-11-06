@@ -1,0 +1,91 @@
+    80	// Retain both responsive branches: desktop sidebar visibility and horizontal
+    81	// column geometry are unique assertions, while the phone case checks stacking.
+    82	for (const width of [390, 1440]) {
+    83	  test(`real core-wiki and touch-member journeys at ${width}px`, { timeout: width === 390 ? 780000 : 720000 }, async () => {
+    84	    await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
+    85	      await setupWorkspace(state);
+    86	      if(width===390)await transferJobsJourney(state);
+    87	      const refused = await state.context.request.get(state.origin + '/api/ai/availability');
+    88	      assert.equal(refused.status(), 403);
+    89	      assert.equal((await refused.json()).code, 'FEATURE_DISABLED');
+    90	      await expect(state.page.getByRole('button', { name: 'Ask', exact: true })).toHaveCount(0);
+    91	      await state.page.getByRole('button', { name: 'More', exact: true }).click();
+    92	      await expect(state.page.getByRole('menu').getByRole('menuitem', { name: 'Ask', exact: true })).toHaveCount(0);
+    93	      await state.page.keyboard.press('Escape');
+    94	      let pageId,touch;
+    95	      try {
+    96	        await step('BLOCK-001 — a new page body takes real keystrokes, including before it finishes loading, and keeps them through committed save, failed save, explicit retry and leaving; touch member creates, inserts and drags blocks', async () => { pageId = await writeJourney(state, width); touch=await beginTouchJourney(state,width);await columnsJourney(state,width,touch); });
+    97	        assert.ok(pageId, 'Writing must complete before dependent journeys.');
+    98	        assert.ok(touch, 'Touch-member writing must complete before its dependent journeys.');
+    99	        if(width===390)await step('NAV-006 native populated table edits and lossless structure changes by touch',()=>touchTablesJourney(touch));
+   100	        await step('anchored comment, reset composer, reply and resolve; touch member comments and resolves', async () => {await commentJourney(state, pageId);await commentAuthorshipJourney(state, width);await touchCommentJourney(touch,touch.pageId);});
+   101	        await step('invite existing member, persisted grant and canonical copied link; touch member publishes and shares', async () => {await shareJourney(state, pageId);await touchPublishShareJourney(touch,touch.pageId);});
+   102	        await step('PAGE-007 populated Details and full-member ownership preserve grants under replay and edit-only refusal', async () => {await withSecondPerson(state,width,people=>pageDetailsJourney(state,people));});
+   103	        await step('query, highlighted results and opening exact page; touch Search, Inbox, My tasks and review queues', async () => {await searchJourney(state, pageId);await touchOperatorJourney(state,touch);});
+   104	        await step('published readers, editor indication, republish and lossless discard', () => withSecondPerson(state, width, people => unpublishedChangesJourney(state, people)));
+   105	        await step('STAT-002 — member status changes retain one status, activity and exact search/query membership', () => pageStatusJourney(state));
+   106	        // Finish earlier page notifications before connecting the chat journey destinations.
+   107	        await state.runScheduled();
+   108	        await chatJourney(state, width);
+   109	        await step('STAT-005 — status profiles preserve vocabulary and page revisions', () => statusProfileJourney(state, width));
+   110	        if (width === 390) {
+   111	          await automationRunLogJourney(state,touch);
+   112	          await step('DB-012 populated record fields, comments, history and parity', () => recordDetailJourney(state, width));
+   113	          await templateCaptureJourney(state);
+   114	          await templateGalleryJourney(state);
+   115	          // Permanent deletion requires a current native email proof, independent of earlier journey duration.
+   116	          await state.refreshReaderIdentity();
+   117	          await touch.context.addCookies([{name:'slate_session',value:state.readerCookie.split('=')[1],url:touch.origin}]);
+   118	          await archiveRetentionJourney(state,touch);
+   119	          await withSecondPerson(state, width, people => step('DB-015 — template handover and revoked-saver pause on a phone', () => recordTemplatesJourney(state, people)));
+   120	          await withSecondPerson(state, width, people => step('REV-006 — numbered deletion tombstone on a phone', () => versionDeletionJourney(state, people)));
+   121	          // One phone smoke visits the main screens; functional journeys use desktop
+   122	          // except where an assertion distinguishes the phone layout or touch input.
+   123	          for (const route of ['/app', `/app/pages/${pageId}`, '/app/search', '/app/inbox', '/app/tasks', '/app/review', '/app/templates', '/app/settings']) {
+   124	            const response = await state.page.goto(state.origin + route, { waitUntil: 'networkidle' });
+   125	            assert.equal(response.status(), 200, `Phone smoke: ${route}`);
+   126	            await expect(state.page.getByRole('main')).toHaveCount(1);
+   127	            await accessible(state.page, `phone smoke ${route}`);
+   128	          }
+   129	        }
+   130	      } finally {await touch?.close();}
+   131	    }, {}, { scheduled: true, slack: true });
+   132	  });
+   133	}
+   134	
+   135	for (const width of [1440]) {
+   136	  test(`provider embeds load only on interaction and [EMBED-004] files respect reader access at ${width}px`, {timeout:240000}, async()=>{
+   137	    await withWorkspace({width,height:width===1440?1000:844},'core-wiki',async state=>{await setupWorkspace(state);await providerEmbedsJourney(state);}, {}, {folders:true});
+   138	  });
+   139	}
+   140	
+   141	for (const width of [390]) {
+   142	  test(`space tree title filtering preserves ancestors, access and expansion at ${width}px`, { timeout: 420000 }, async () => {
+   143	    await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
+   144	      await setupWorkspace(state);
+   145	      await treeFilterJourney(state);
+   146	      await state.switchIdentity('owner');
+   147	      await settingsJourney(state,width);
+   148	      await workspaceAuthorityJourney(state,width);
+   149	    }, {RER_DEMO:'0'});
+   150	  });
+   151	}
+   152	
+   153	for (const width of [1440]) {
+   154	  test(`spreadsheet tables merge, sort and round-trip through edited database records at ${width}px`, {timeout:480000}, async ()=>{
+   155	    await withWorkspace({width,height:width===1440?1000:844},'core-wiki',async state=>{
+   156	      await setupWorkspace(state);
+   157	      await tablesJourney(state);
+   158	      // Keep the independently set up database case with database round trips.
+   159	      // Its assertions and member authority remain unchanged.
+   160	      const touch=await beginTouchJourney(state,width,{writePage:false});
+   161	      try {
+   162	        await step('remove a field with impact confirmation and export current view CSV; touch member edits all six layouts and uses charts, templates and automations', async () => {await databaseJourney(state);await touchDatabaseJourney(touch,touch.containerId);await touchDatabaseToolsJourney(state,touch);});
+   163	      } finally {await touch.close();}
+   164	    }, {}, {scheduled:true});
+   165	  });
+   166	}
+   167	
+   168	for (const width of [1440]) {
+   169	  test(`shared page invitations name their space and disappear on revocation at ${width}px`, { timeout: 240000 }, async () => {
+   170	    await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {

@@ -1,0 +1,32 @@
+{
+  "head": "fe0ab7c96b6205ebd8ce32561e51188098e47a70",
+  "desktop_function_preserved": true,
+  "desktop_function_sha256": "57a289a0dcd3aa480491f795974086c41dc5b9ff1596e0019eee8104b3cbeec2",
+  "native_touch_checkpoints": [
+    "populated native creation",
+    "heading edit",
+    "cell edit",
+    "add row",
+    "edit added row",
+    "remove selected row",
+    "add column",
+    "edit added heading",
+    "edit added column",
+    "remove selected column",
+    "merge populated rectangle",
+    "edit merged anchor",
+    "unmerge retains covered cells",
+    "edit uncovered cell",
+    "merge far-right populated rectangle",
+    "edit far-right merged anchor",
+    "unmerge far-right retains covered cells"
+  ],
+  "registrations_before": 205,
+  "registrations_after": 205,
+  "acceptance_text_changed": false,
+  "changed_status_ids": [
+    "NAV-006"
+  ],
+  "status_transition": "partial -> partial",
+  "phone_setup_change": "Native same-member email confirmation refreshed immediately before permanent deletion, independently of earlier journey duration; no assertion or security guard changes."
+}

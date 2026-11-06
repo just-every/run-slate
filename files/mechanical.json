@@ -1,0 +1,13 @@
+{
+  "name": "mechanical",
+  "head": "3525a310de6aac2ae0f6dbc1e8d3f86e258420c3",
+  "tracked_status": " M CONTRACT.md\n M tests/qualification/ui-convergence/tables-journey.mjs\n M tests/requirements/cli-journey.md\n",
+  "command": [
+    "bash",
+    "/tmp/slate-mechanical.sh"
+  ],
+  "started": "2026-11-06T08:25:00.799094+00:00",
+  "seconds": 1.839,
+  "exit": 0,
+  "log_sha256": "0981ceb2443b8cd425c50658fa9b2c0f3671d4f4c9f5be5b2e0d5246716e9d28"
+}

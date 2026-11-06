@@ -1,0 +1,18 @@
+{
+  "name": "repaired-browser-1440",
+  "head": "fe0ab7c96b6205ebd8ce32561e51188098e47a70",
+  "tracked_status": "",
+  "command": [
+    "env",
+    "SLATE_CHROMIUM_PATH=/usr/bin/chromium",
+    "timeout",
+    "1200",
+    "node",
+    "/home/agent/rer-consolidation/work/sd-slate-c-f184/packet/browser-proof.mjs",
+    "1440"
+  ],
+  "started": "2026-11-06T08:39:28.822700+00:00",
+  "seconds": 39.356,
+  "exit": 0,
+  "log_sha256": "912533aaf09ffd570f55e7bffa157b43201012c90a63c8791027c5c7362f5ed8"
+}

@@ -1,0 +1,14 @@
+{
+  "name": "candidate-view-check",
+  "head": "fe0ab7c96b6205ebd8ce32561e51188098e47a70",
+  "tracked_status": "",
+  "command": [
+    "node",
+    "src/base/runtime/contract-docs.mjs",
+    "check"
+  ],
+  "started": "2026-11-06T08:54:14.025549+00:00",
+  "seconds": 0.188,
+  "exit": 1,
+  "log_sha256": "183372998615cc516043a5f66404b300281009a84349eda72da66d79fe542603"
+}

@@ -1,0 +1,18 @@
+{
+  "name": "repaired-browser-390",
+  "head": "fe0ab7c96b6205ebd8ce32561e51188098e47a70",
+  "tracked_status": "",
+  "command": [
+    "env",
+    "SLATE_CHROMIUM_PATH=/usr/bin/chromium",
+    "timeout",
+    "1200",
+    "node",
+    "/home/agent/rer-consolidation/work/sd-slate-c-f184/packet/browser-proof.mjs",
+    "390"
+  ],
+  "started": "2026-11-06T08:40:08.251289+00:00",
+  "seconds": 31.788,
+  "exit": 0,
+  "log_sha256": "f9a19fd4387da4f30a93ff81afff1315f01b6250be406747fd6790d1b00cbf6a"
+}

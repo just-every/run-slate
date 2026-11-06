@@ -1,0 +1,115 @@
+PROBE PORT-003 1: failed native export and restore replay and reload -> failed, no download or successful restore action
+PROBE PORT-003 2: Settings export and empty-deployment restore -> queued, running, completed and failed persisted; counts equal native archive; safe reports identify commit failures
+NAV-006 touch create, type, insert and drag persisted
+BLOCK-012 columns insert, desktop drag and touch layout passed at 390px
+PROBE NAV-006 table populated native creation: member touch controls -> saved, reloaded and native content reconciled
+PROBE NAV-006 table heading edit: member touch controls -> saved, reloaded and native content reconciled
+PROBE NAV-006 table cell edit: member touch controls -> saved, reloaded and native content reconciled
+PROBE NAV-006 table add row: member touch controls -> saved, reloaded and native content reconciled
+PROBE NAV-006 table edit added row: member touch controls -> saved, reloaded and native content reconciled
+PROBE NAV-006 table remove selected row: member touch controls -> saved, reloaded and native content reconciled
+PROBE NAV-006 table add column: member touch controls -> saved, reloaded and native content reconciled
+PROBE NAV-006 table edit added heading: member touch controls -> saved, reloaded and native content reconciled
+PROBE NAV-006 table edit added column: member touch controls -> saved, reloaded and native content reconciled
+PROBE NAV-006 table remove selected column: member touch controls -> saved, reloaded and native content reconciled
+PROBE NAV-006 table merge populated rectangle: member touch controls -> saved, reloaded and native content reconciled
+PROBE NAV-006 table edit merged anchor: member touch controls -> saved, reloaded and native content reconciled
+PROBE NAV-006 table unmerge retains covered cells: member touch controls -> saved, reloaded and native content reconciled
+PROBE NAV-006 table edit uncovered cell: member touch controls -> saved, reloaded and native content reconciled
+PROBE NAV-006 table merge far-right populated rectangle: member touch controls -> saved, reloaded and native content reconciled
+PROBE NAV-006 table edit far-right merged anchor: member touch controls -> saved, reloaded and native content reconciled
+PROBE NAV-006 table unmerge far-right retains covered cells: member touch controls -> saved, reloaded and native content reconciled
+PROBE COMM-002 acceptance 1–2: native comment controls and HTTP at 390px -> two authors edit/delete; cross-author and owner override 403; edited times, two in-place tombstones and six activities survive replay/reload
+NAV-006 touch comment and resolve persisted
+WEB-006 native unpublish response {"width":390,"elapsedMs":632}
+NAV-006 touch workspace publication and sharing persisted
+PAGE-007 Details, replay and edit-only refusal passed at 390px
+NAV-006 touch Search, Inbox, My tasks, requested reviews and verification health passed
+Chat docs dimensions { width: 390, height: 8088 }
+PROBE AUTO-003 browser 390: native database Automations -> trigger, actor, readable touched record and time; error retries, visible failure beside rule and persisted disable reason
+PROBE DB-012 ordinary edit: native record Quantity 7 -> 11; computed value 22 and reload retained
+PROBE DB-012 record-is-page: viewer fields, retained comments, exact historical body and unchanged stored current body passed
+PROBE DB-012 record-is-row: viewer fields, retained comments, exact historical body and unchanged stored current body passed
+PROBE DB-012 record-is-page: viewer fields, retained comments, exact historical body and unchanged stored current body passed
+PROBE DB-012 read-only: all six fields readable; native viewer PATCH -> 404 and unchanged record and history
+PROBE TMPL-005 children off: More > Save as template, preview and Use this template -> 1 exact copies, all seven source record families excluded at 390px
+PROBE TMPL-005 children on: More > Save as template, preview and Use this template -> 4 exact copies, all seven source record families excluded at 390px
+Journey failure context {
+  "rejected": [
+    {
+      "url": "http://127.0.0.1:33081/api/notifications/chat/destinations",
+      "method": "POST",
+      "requestBody": "{\"provider\":\"slack\",\"deliveryMode\":\"immediate\",\"containerId\":null,\"operationKey\":\"d556ad94-924c-4f17-bc27-7bf2b8fc570a\",\"channel\":\"GTEST\",\"token\":\"TEST-ONLY-SLACK-BOT-TOKEN\",\"events\":[\"mention\",\"comment\"]}",
+      "status": 422,
+      "responseBody": "{\"code\":\"CHAT_DESTINATION_REFUSED\",\"message\":\"Choose a private Slack channel that is not shared with another workspace or organization.\",\"details\":{\"reason\":\"private_unshared_channel_required\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:33081/api/notifications/chat/destinations",
+      "method": "POST",
+      "requestBody": "{\"provider\":\"nook\",\"deliveryMode\":\"daily\",\"containerId\":null,\"operationKey\":\"42482443-51fd-469b-98b1-07d6848011fb\",\"channel\":\"synthetic-slate-channel\",\"token\":\"synthetic-slate-103\",\"events\":[]}",
+      "status": 503,
+      "responseBody": "{\"code\":\"CHAT_PROVIDER_UNAVAILABLE\",\"message\":\"This installation has no Nook notification service. Ask the workspace owner to configure it.\"}"
+    },
+    {
+      "url": "http://127.0.0.1:33081/api/notifications/chat/destinations/synthetic-slate-restored",
+      "method": "PUT",
+      "requestBody": "{\"provider\":\"nook\",\"deliveryMode\":\"immediate\",\"containerId\":null,\"operationKey\":\"6a69aad4-8171-41de-bbbf-c3b36298e119\",\"expectedRevisionId\":\"synthetic-slate-restored-revision\",\"channel\":\"synthetic-slate-channel3\",\"token\":\"synthetic-slate-103\",\"events\":[\"comment\"]}",
+      "status": 409,
+      "responseBody": "{\"code\":\"CHAT_CHANNEL_FIXED\",\"message\":\"A Nook destination stays bound to its approved channel. Add a new destination for another channel; keep this one connected to withdraw its earlier messages.\"}"
+    }
+  ],
+  "consoleErrors": [
+    {
+      "url": "http://127.0.0.1:33081/app/pages/01M6QZKYPAPHXNC478WF6PY85C",
+      "message": "Failed to load resource: net::ERR_INTERNET_DISCONNECTED"
+    },
+    {
+      "url": "http://127.0.0.1:33081/app/settings/chat",
+      "message": "Failed to load resource: the server responded with a status of 422 (Unprocessable Entity)"
+    },
+    {
+      "url": "http://127.0.0.1:33081/app/settings/chat",
+      "message": "Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+    },
+    {
+      "url": "http://127.0.0.1:33081/app/settings/chat",
+      "message": "Failed to load resource: the server responded with a status of 409 (Conflict)"
+    }
+  ]
+}
+✖ real core-wiki and touch-member journeys at 390px (614576.696071ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 639083.399065
+
+✖ failing tests:
+
+test at tests/qualification/ui-convergence/journey-shard.mjs:23:97
+✖ real core-wiki and touch-member journeys at 390px (614576.696071ms)
+  AssertionError [ERR_ASSERTION]: Touch surfaces have no browser errors or hydration mismatch.
+  + actual - expected
+  
+  + [
+  +   '/api/archive/01M6R00X5XG3VFFETH6GJRFHD9/permanent-delete: 403',
+  +   'Failed to load resource: the server responded with a status of 403 (Forbidden)'
+  + ]
+  - []
+  
+      at touch.close (file:///home/agent/rer-consolidation/work/sd-slate-c-f184/run-slate/tests/qualification/ui-convergence/touch-journey.mjs:37:38)
+      at withWorkspace.scheduled (file:///home/agent/rer-consolidation/work/sd-slate-c-f184/run-slate/tests/qualification/ui-convergence/journeys.test.mjs:127:31)
+      at async withWorkspace (file:///home/agent/rer-consolidation/work/sd-slate-c-f184/run-slate/tests/qualification/ui-convergence/browser-support.mjs:188:7)
+      at async TestContext.<anonymous> (file:///home/agent/rer-consolidation/work/sd-slate-c-f184/run-slate/tests/qualification/ui-convergence/journeys.test.mjs:84:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [ '/api/archive/01M6R00X5XG3VFFETH6GJRFHD9/permanent-delete: 403', 'Failed to load resource: the server responded with a status of 403 (Forbidden)' ],
+    expected: [],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }

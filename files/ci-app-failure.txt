@@ -1,0 +1,2 @@
+verify (app)	Run node src/base/runtime/contract-docs.mjs check	2026-11-06T08:51:32.0274656Z ACCEPTANCE.md: generated content differs; run contract-docs write.
+verify (app)	Run node src/base/runtime/contract-docs.mjs check	2026-11-06T08:51:32.0370704Z ##[error]Process completed with exit code 1.

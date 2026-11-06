@@ -1,0 +1,213 @@
+{
+  "schema": 1,
+  "tag": "sd-slate-c-f184",
+  "repository": "just-every/run-slate",
+  "branch": "cloud/sd-slate-c-f184",
+  "head": "fe0ab7c96b6205ebd8ce32561e51188098e47a70",
+  "remote_head": "fe0ab7c96b6205ebd8ce32561e51188098e47a70",
+  "created": "2026-11-06T08:54:36.711106+00:00",
+  "tracked_clean": true,
+  "counts": {
+    "partial": 240,
+    "done": 57,
+    "missing": 41
+  },
+  "clause_changes": [
+    {
+      "id": "NAV-006",
+      "before": "partial",
+      "after": "partial",
+      "closed": "Selected native-table editing subset of acceptance 3, including both horizontal edges",
+      "remaining": "Acceptance 1 gesture substitutions, acceptance 2, wider operator and block coverage; R-9 human review unrun"
+    }
+  ],
+  "native_checkpoints": [
+    "populated native creation",
+    "heading edit",
+    "cell edit",
+    "add row",
+    "edit added row",
+    "remove selected row",
+    "add column",
+    "edit added heading",
+    "edit added column",
+    "remove selected column",
+    "merge populated rectangle",
+    "edit merged anchor",
+    "unmerge retains covered cells",
+    "edit uncovered cell",
+    "merge far-right populated rectangle",
+    "edit far-right merged anchor",
+    "unmerge far-right retains covered cells"
+  ],
+  "checks": {
+    "phone-journey": {
+      "name": "phone-journey",
+      "head": "fe0ab7c96b6205ebd8ce32561e51188098e47a70",
+      "tracked_status": "",
+      "command": [
+        "env",
+        "SLATE_CHROMIUM_PATH=/usr/bin/chromium",
+        "timeout",
+        "1200",
+        "node",
+        "--test",
+        "--test-concurrency=1",
+        "--test-name-pattern=real core-wiki and touch-member journeys at 390px",
+        "tests/qualification/ui-convergence/journeys.test.mjs"
+      ],
+      "started": "2026-11-06T08:39:28.820703+00:00",
+      "seconds": 651.795,
+      "exit": 0,
+      "log_sha256": "4a470f0f3babdb302b0a73eb7072979bd7bc1b8e4fb67ed940fe6080c53d59b5"
+    },
+    "desktop-journey": {
+      "name": "desktop-journey",
+      "head": "7fabbe4e4e7d99400e0dd8326e51d7d969ea483a",
+      "tracked_status": "",
+      "command": [
+        "env",
+        "SLATE_CHROMIUM_PATH=/usr/bin/chromium",
+        "timeout",
+        "1200",
+        "node",
+        "--test",
+        "--test-concurrency=1",
+        "--test-name-pattern=spreadsheet tables merge, sort and round-trip through edited database records at 1440px",
+        "tests/qualification/ui-convergence/journeys.test.mjs"
+      ],
+      "started": "2026-11-06T08:26:04.603333+00:00",
+      "seconds": 182.538,
+      "exit": 0,
+      "log_sha256": "ede3f98841dcbe4f52550c98063a85077c7dd423e711910e7661e99ac6b0ea93"
+    },
+    "repaired-candidate-build": {
+      "name": "repaired-candidate-build",
+      "head": "fe0ab7c96b6205ebd8ce32561e51188098e47a70",
+      "tracked_status": "",
+      "command": [
+        "npx",
+        "-y",
+        "@runeditrun/rer",
+        "build"
+      ],
+      "started": "2026-11-06T08:38:42.824725+00:00",
+      "seconds": 29.124,
+      "exit": 0,
+      "log_sha256": "03031e3eecd6e51a5a58031d6a48472e1778b5a172a79bba99a9635707d7af7d"
+    },
+    "repaired-typecheck": {
+      "name": "repaired-typecheck",
+      "head": "fe0ab7c96b6205ebd8ce32561e51188098e47a70",
+      "tracked_status": "",
+      "command": [
+        "pnpm",
+        "typecheck"
+      ],
+      "started": "2026-11-06T08:39:28.879648+00:00",
+      "seconds": 28.618,
+      "exit": 0,
+      "log_sha256": "7d8f3d6c31e0c4062251df20cb8aecb24f975c7e70991ea8b8c45711d218d4fc"
+    },
+    "repaired-first-party": {
+      "name": "repaired-first-party",
+      "head": "fe0ab7c96b6205ebd8ce32561e51188098e47a70",
+      "tracked_status": "",
+      "command": [
+        "npx",
+        "-y",
+        "@runeditrun/rer",
+        "check",
+        "--profile",
+        "first-party"
+      ],
+      "started": "2026-11-06T08:39:57.617420+00:00",
+      "seconds": 2.392,
+      "exit": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "repaired-mechanical": {
+      "name": "repaired-mechanical",
+      "head": "fe0ab7c96b6205ebd8ce32561e51188098e47a70",
+      "tracked_status": "",
+      "command": [
+        "bash",
+        "/home/agent/rer-consolidation/work/sd-slate-c-f184/packet/mechanical.sh"
+      ],
+      "started": "2026-11-06T08:40:00.091728+00:00",
+      "seconds": 3.378,
+      "exit": 0,
+      "log_sha256": "0981ceb2443b8cd425c50658fa9b2c0f3671d4f4c9f5be5b2e0d5246716e9d28"
+    },
+    "repaired-browser-1440": {
+      "name": "repaired-browser-1440",
+      "head": "fe0ab7c96b6205ebd8ce32561e51188098e47a70",
+      "tracked_status": "",
+      "command": [
+        "env",
+        "SLATE_CHROMIUM_PATH=/usr/bin/chromium",
+        "timeout",
+        "1200",
+        "node",
+        "/home/agent/rer-consolidation/work/sd-slate-c-f184/packet/browser-proof.mjs",
+        "1440"
+      ],
+      "started": "2026-11-06T08:39:28.822700+00:00",
+      "seconds": 39.356,
+      "exit": 0,
+      "log_sha256": "912533aaf09ffd570f55e7bffa157b43201012c90a63c8791027c5c7362f5ed8"
+    },
+    "repaired-browser-390": {
+      "name": "repaired-browser-390",
+      "head": "fe0ab7c96b6205ebd8ce32561e51188098e47a70",
+      "tracked_status": "",
+      "command": [
+        "env",
+        "SLATE_CHROMIUM_PATH=/usr/bin/chromium",
+        "timeout",
+        "1200",
+        "node",
+        "/home/agent/rer-consolidation/work/sd-slate-c-f184/packet/browser-proof.mjs",
+        "390"
+      ],
+      "started": "2026-11-06T08:40:08.251289+00:00",
+      "seconds": 31.788,
+      "exit": 0,
+      "log_sha256": "f9a19fd4387da4f30a93ff81afff1315f01b6250be406747fd6790d1b00cbf6a"
+    }
+  },
+  "desktop_proof_equivalence": {
+    "source_head": "7fabbe4e4e7d99400e0dd8326e51d7d969ea483a",
+    "candidate_head": "fe0ab7c96b6205ebd8ce32561e51188098e47a70",
+    "product_and_helper_identical": true,
+    "desktop_registration_identical": true
+  },
+  "initial_failure": {
+    "head": "7fabbe4e4e7d99400e0dd8326e51d7d969ea483a",
+    "job": "local phone core registration",
+    "command": "env SLATE_CHROMIUM_PATH=/usr/bin/chromium timeout 1200 node --test --test-concurrency=1 '--test-name-pattern=real core-wiki and touch-member journeys at 390px' tests/qualification/ui-convergence/journeys.test.mjs",
+    "test": "real core-wiki and touch-member journeys at 390px",
+    "exit": 1,
+    "failure": "AssertionError: Touch surfaces have no browser errors or hydration mismatch. Actual includes '/api/archive/<synthetic record>/permanent-delete: 403'; expected [].",
+    "repair": "Refresh the same synthetic member by native email sign-in immediately before permanent deletion; retain the production ten-minute proof guard and every archive assertion."
+  },
+  "ci": {
+    "conclusion": "failure",
+    "event": "push",
+    "head_sha": "fe0ab7c96b6205ebd8ce32561e51188098e47a70",
+    "html_url": "https://github.com/just-every/run-slate/actions/runs/42190606365",
+    "id": 42190606365,
+    "name": "Verify Slate",
+    "status": "completed",
+    "app_job": 127801454385,
+    "aggregate_job": 127801696580,
+    "classification": "failure only at generated contract-view freshness; aggregate follows it and test shards skipped",
+    "permitted_generated_view_exception": true,
+    "local_runtime_tests_pass": true,
+    "github_calls_used": 6,
+    "failed_job_archive_exit": 0
+  },
+  "publication_scan": "Required guarded-lander scan; not claimed from cloud",
+  "main_landed": false,
+  "pr": null
+}

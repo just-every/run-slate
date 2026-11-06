@@ -1,0 +1,13 @@
+{
+  "name": "candidate-typecheck",
+  "head": "7fabbe4e4e7d99400e0dd8326e51d7d969ea483a",
+  "tracked_status": "",
+  "command": [
+    "pnpm",
+    "typecheck"
+  ],
+  "started": "2026-11-06T08:26:04.679499+00:00",
+  "seconds": 25.467,
+  "exit": 0,
+  "log_sha256": "7d8f3d6c31e0c4062251df20cb8aecb24f975c7e70991ea8b8c45711d218d4fc"
+}

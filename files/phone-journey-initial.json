@@ -1,0 +1,20 @@
+{
+  "name": "phone-journey",
+  "head": "7fabbe4e4e7d99400e0dd8326e51d7d969ea483a",
+  "tracked_status": "",
+  "command": [
+    "env",
+    "SLATE_CHROMIUM_PATH=/usr/bin/chromium",
+    "timeout",
+    "1200",
+    "node",
+    "--test",
+    "--test-concurrency=1",
+    "--test-name-pattern=real core-wiki and touch-member journeys at 390px",
+    "tests/qualification/ui-convergence/journeys.test.mjs"
+  ],
+  "started": "2026-11-06T08:26:04.731118+00:00",
+  "seconds": 639.181,
+  "exit": 1,
+  "log_sha256": "5eb301063425273702872f10df0542f6b4ee1f684e5061f6d4007358d06f29ca"
+}
