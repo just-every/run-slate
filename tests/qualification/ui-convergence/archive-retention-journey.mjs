@@ -3,6 +3,7 @@ import {trashListJourney} from './trash-list-journey.mjs';
 import {randomUUID} from 'node:crypto';
 import {expect} from '@playwright/test';
 import {retentionFixture} from '../archive-retention-fixture.ts';
+import {signInWithOutbox} from '../../e2e/outbox-auth.mjs';
 import {call,ok} from './two-people-support.mjs';
 import {tap,type,checkpoint} from './touch-controls.mjs';
 
@@ -83,6 +84,12 @@ export async function archiveRetentionJourney(state,touch) {
     await expect(dialog).toBeVisible();
     for(const title of ['Retained child','Retained database','Retained record'])await tap(dialog.getByRole('checkbox',{name:title,exact:true}));
     await checkpoint(page,'confirmed cascade ready');
+    // The shared phone caller can outlast email proof; confirm the same member for this sensitive action.
+    const member=await touch.api('/api/members/current');
+    const session=await signInWithOutbox(origin,member.email);
+    assert.equal(session.body.member.id,member.id);
+    assert.equal(session.body.member.role,'member');
+    await context.addCookies(session.cookie.split('; ').map(item=>{const [name,value]=item.split('=');return {name,value,url:origin};}));
     await tap(dialog.getByRole('button',{name:'Delete permanently',exact:true}));
     await expect(dialog).toBeHidden();
     assert.deepEqual([...attempts[0].confirmedPageIds].sort(),[...f.ids].sort());
