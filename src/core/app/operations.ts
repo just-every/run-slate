@@ -8,20 +8,20 @@ import { requestHash } from './request-hash';
 export { requestHash } from './request-hash';
 interface GuardCheck { select: string; values: (string | number | null)[]; recheck?: { select: string; values: (string | number | null)[]; pageId?: string } }
 const guardChecks = new WeakMap<D1PreparedStatement, GuardCheck>();
-export interface MutationPlan<T> { statements: D1PreparedStatement[]; entity: EntityRef; value: T; detail?: JsonValue; feature?: string; noChange?: boolean }
+export interface MutationPlan<T, Response extends object = object> { response?: Response; statements: D1PreparedStatement[]; entity: EntityRef; value: T; detail?: JsonValue; feature?: string; noChange?: boolean }
 /** Domain callers must include immutable revision writes and SQL CAS guards in statements. */
-export async function commitOperation<T>(ctx: FeatureContext, input: {
+export async function commitOperation<T, Response extends object = object>(ctx: FeatureContext, input: {
   operationKey: string; action: string; request: unknown;
   commit?: (statements:D1PreparedStatement[]) => Promise<unknown>;
   authorize: () => Promise<void>;
-  prepare: (receipt: { revisionId: string; activityId: string }) => Promise<MutationPlan<T>>;
-}): Promise<{ value: T; receipt: MutationReceipt }> {
+  prepare: (receipt: { revisionId: string; activityId: string }) => Promise<MutationPlan<T, Response>>;
+}): Promise<{ value: T; receipt: MutationReceipt } & Response> {
   if (!/^[A-Za-z0-9_.:-]{8,160}$/.test(input.operationKey)) throw new ApiProblem(400,'INVALID_OPERATION_KEY','Supply an operation key of 8–160 safe characters.');
   ctx.authorizationEpoch = undefined;
   const lookup = async () => ctx.db.prepare('SELECT request_hash,response_json,expires_at FROM operation_receipts WHERE workspace_id=? AND actor_member_id=? AND operation_key=?').bind(ctx.actor.workspaceId,ctx.actor.id,input.operationKey).first<{request_hash:string;response_json:string;expires_at:string}>();
   const replay = (row: {request_hash:string;response_json:string;expires_at:string}) => {
     if (row.request_hash !== hash || row.expires_at <= ctx.now) throw new ApiProblem(409,'OPERATION_KEY_CONFLICT','This operation key cannot be reused.');
-    return JSON.parse(row.response_json) as {value:T;receipt:MutationReceipt};
+    return JSON.parse(row.response_json) as {value:T;receipt:MutationReceipt} & Response;
   };
   const [,previous]=await Promise.all([input.authorize(),lookup()]);
   const authorizationEpoch=ctx.authorizationEpoch;
@@ -30,7 +30,8 @@ export async function commitOperation<T>(ctx: FeatureContext, input: {
   const revisionId = createUlid(), activityId = createUlid();
   const plan = await input.prepare({revisionId,activityId});
   const receipt: MutationReceipt = {operationKey:input.operationKey,entity:plan.entity,revisionId:plan.entity.revisionId,activityId:plan.noChange?null:activityId,committedAt:ctx.now,...(plan.noChange?{unchanged:true as const}:{})};
-  const result = {value:plan.value,receipt};
+  // Capture response projections in the same atomic receipt as their mutation.
+  const result = {...plan.response,value:plan.value,receipt} as {value:T;receipt:MutationReceipt} & Response;
   const detail = plan.detail === undefined || (plan.detail && typeof plan.detail === 'object' && !Array.isArray(plan.detail))
     ? { revisionId: plan.entity.revisionId, ...(plan.detail as Record<string, JsonValue> | undefined) } : plan.detail;
   const expires = new Date(Date.parse(ctx.now)+86400000).toISOString();

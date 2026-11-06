@@ -57,7 +57,7 @@ export function createPagesRoutes() {
     r.get('/:id/synced/:blockId',async c=>c.json((await syncedSource(featureContext(c),c.req.param('id'),c.req.param('blockId'))).resolution));
     r.patch('/:id/synced/:blockId',async c=>c.json(await editSyncedCopy(featureContext(c),c.req.param('id'),c.req.param('blockId'),await c.req.json())));
     r.get('/:id', async (c) => c.json(await readPage(featureContext(c), c.req.param('id'))));
-    r.patch('/:id', async (c) => { const ctx=featureContext(c),id=c.req.param('id'); const result=await updatePage(ctx,id,await validatedJson(c,updatePageSchema)); return c.json({...result,document:await readPage(ctx,id)}); });
+    r.patch('/:id', async (c) => c.json(await updatePage(featureContext(c),c.req.param('id'),await validatedJson(c,updatePageSchema))));
     r.patch('/:id/blocks/:blockId', async (c) => c.json(await updateBlock(featureContext(c), c.req.param('id'), c.req.param('blockId'), await validatedJson(c, updateBlockSchema))));
     r.put('/:id/blocks', async (c) => c.json(await replaceBlocks(featureContext(c), c.req.param('id'), await validatedJson(c, replaceBlocksSchema))));
     r.post('/:id/lock', async c => c.json(await setPageLock(featureContext(c), c.req.param('id'), await c.req.json(), true)));

@@ -16,7 +16,7 @@ import { ApiProblem } from '../../app/problems';
 import { createUlid } from '../../shared/ulid';
 import { requirePageLevel, requireContainerLevel } from '../sharing/current-access';
 import type { PageDocument } from '../../shared/api/content';
-import type { PageCreateInput, PageUpdateInput, PageProperties } from './types';
+import type { PageCreateInput, PageUpdateInput, PageProperties, PageRow, RevisionSnapshot } from './types';
 import { pageRow, pageBlocks, properties, revisionStatement, pageGuard, writable, ref, contentEvent, revisionRow } from './repository';
 import { validateBlockTree } from '../editor/validation';
 import { contentPolicy } from './policy';
@@ -34,7 +34,11 @@ export async function destination(ctx: FeatureContext, containerId: string, pare
             throw new ApiProblem(400, 'INVALID_PARENT', 'Parent belongs to another container.');
     }
 }
-export async function readPage(ctx: FeatureContext, id: string): Promise<PageDocument & {
+export async function readPage(ctx: FeatureContext, id: string) {
+    return pageDocument(ctx, id);
+}
+/** Render the guarded mutation's intended revision before its atomic receipt is written. */
+async function pageDocument(ctx: FeatureContext, id: string, snapshot?: { page: PageRow; revision?: RevisionSnapshot }): Promise<PageDocument & {
     mentions: Record<string,MentionResolution>;
     authorDisplayName: string;
     ownerDisplayName: string | null;
@@ -50,15 +54,19 @@ export async function readPage(ctx: FeatureContext, id: string): Promise<PageDoc
     authorMemberId: string;
 }> {
     await rejectErasedPage(ctx,id);
-    const [access,p]=await Promise.all([requirePageLevel(ctx,id,'view'),pageRow(ctx,id)]);
+    const [access,p]=await Promise.all([requirePageLevel(ctx,id,'view'),snapshot ? Promise.resolve(snapshot.page) : pageRow(ctx,id)]);
     if (p.trashed_at)
         throw new ApiProblem(404, 'NOT_FOUND', 'Not found.');
     const canEdit = access.decision.level === 'edit' || access.decision.level === 'full';
     const [content, author, owner, contributors, schedule, v, projections, policyProfile, locker] = await Promise.all([
         (async () => {
             // Render immutable content for the revision named in this response, even if another edit commits mid-read.
-            const delivered = await revisionRow(ctx, id, canEdit ? p.working_revision_id : p.published_revision_id ?? p.working_revision_id);
-            let blocks = JSON.parse(delivered.body_json);
+            let delivered = snapshot?.revision;
+            if (!delivered) {
+                const revision = await revisionRow(ctx, id, canEdit ? p.working_revision_id : p.published_revision_id ?? p.working_revision_id);
+                delivered = { blocks: JSON.parse(revision.body_json), properties: JSON.parse(revision.properties_json) };
+            }
+            let blocks = delivered.blocks;
             // Discard points working content back to the immutable published
             // revision, while its restored live blocks have fresh write tokens.
             // Read those tokens at the same page revision, so an older document
@@ -70,9 +78,9 @@ export async function readPage(ctx: FeatureContext, id: string): Promise<PageDoc
                 // A snapshot remains readable without a live block projection.
                 // Keep its original tokens when the fenced lookup has no match;
                 // the write endpoint still refuses any stale token.
-                blocks = blocks.map((block:{id:string;revisionId:string}) => ({...block,revisionId:tokens.get(block.id) ?? block.revisionId}));
+                blocks = blocks.map(block => ({...block,revisionId:tokens.get(block.id) ?? block.revisionId}));
             }
-            const snapshotProperties: PageProperties = JSON.parse(delivered.properties_json);
+            const snapshotProperties: PageProperties = delivered.properties;
             const publishedOnly = !canEdit && p.published_revision_id && p.published_revision_id !== p.working_revision_id;
             const [props, mentions] = await Promise.all([
                 filterRecordProperties(ctx, id, { ...snapshotProperties, ...(!publishedOnly ? {statusKey: p.status_key} : {}), ownerMemberId: p.owner_member_id }),
@@ -140,7 +148,7 @@ export async function updatePage(ctx: FeatureContext, id: string, input: PageUpd
                 throw new ApiProblem(400, 'STATUS_COMMAND_REQUIRED', 'Use the status command to preserve human verification.');
             const p = mergeAppearance(before, input.properties);
             if (await requestHash(p) === await requestHash(before))
-                return { noChange: true, statements: [pageGuard(ctx, page, input.expectedRevisionId)], entity: { id, kind: 'page', revisionId: page.revision_id }, value: { pageId: id, revisionId: page.revision_id } };
+                return { noChange: true, statements: [pageGuard(ctx, page, input.expectedRevisionId)], entity: { id, kind: 'page', revisionId: page.revision_id }, value: { pageId: id, revisionId: page.revision_id }, response: { document: await pageDocument(ctx, id, { page }) } };
             if (p.ownerMemberId) {
                 const owner = await ctx.db.prepare("SELECT id FROM members WHERE id=? AND workspace_id=? AND status='active'").bind(p.ownerMemberId, ctx.actor.workspaceId).first();
                 if (!owner)
@@ -150,7 +158,15 @@ export async function updatePage(ctx: FeatureContext, id: string, input: PageUpd
             const policy = await contentPolicy(ctx);
             const live = policy['page.lifecycle.v1'] === 'always-live' && page.lifecycle !== 'draft' && page.lifecycle !== 'scheduled';
             const blocks = await pageBlocks(ctx.db, id);
-            return { statements: [pageGuard(ctx, page, input.expectedRevisionId), ctx.db.prepare('UPDATE pages SET title=?,icon=?,cover_file_id=?,owner_member_id=?,typeface=?,small_text=?,full_width=?,working_revision_id=?,revision_id=?,published_revision_id=CASE WHEN ? THEN ? ELSE published_revision_id END,lifecycle=CASE WHEN ? THEN lifecycle WHEN lifecycle IN (\'live\',\'live-with-unpublished-changes\') THEN \'live-with-unpublished-changes\' ELSE lifecycle END,updated_at=? WHERE id=?').bind(p.title, p.icon, p.coverFileId, p.ownerMemberId, p.typeface, +p.smallText, +p.fullWidth, revisionId, revisionId, +live, revisionId, +live, ctx.now, id), ctx.db.prepare('DELETE FROM page_labels WHERE page_id=?').bind(id), ...p.labels.map(label => ctx.db.prepare('INSERT INTO page_labels VALUES (?,?,?)').bind(id, label, ctx.now)), await revisionStatement(ctx, id, revisionId, { blocks, properties: p }), ...contentEvent(ctx, id, revisionId, 'properties')], entity: { id, kind: 'page', revisionId }, value: { pageId: id, revisionId } };
+            const savedPage: PageRow = {
+                ...page, title: p.title, icon: p.icon, cover_file_id: p.coverFileId, owner_member_id: p.ownerMemberId,
+                typeface: p.typeface, small_text: +p.smallText, full_width: +p.fullWidth,
+                working_revision_id: revisionId, revision_id: revisionId, published_revision_id: live ? revisionId : page.published_revision_id,
+                lifecycle: live ? page.lifecycle : page.lifecycle === 'live' || page.lifecycle === 'live-with-unpublished-changes' ? 'live-with-unpublished-changes' : page.lifecycle,
+                updated_at: ctx.now,
+            };
+            const document = await pageDocument(ctx, id, { page: savedPage, revision: { blocks, properties: p } });
+            return { response: { document }, statements: [pageGuard(ctx, page, input.expectedRevisionId), ctx.db.prepare('UPDATE pages SET title=?,icon=?,cover_file_id=?,owner_member_id=?,typeface=?,small_text=?,full_width=?,working_revision_id=?,revision_id=?,published_revision_id=CASE WHEN ? THEN ? ELSE published_revision_id END,lifecycle=CASE WHEN ? THEN lifecycle WHEN lifecycle IN (\'live\',\'live-with-unpublished-changes\') THEN \'live-with-unpublished-changes\' ELSE lifecycle END,updated_at=? WHERE id=?').bind(p.title, p.icon, p.coverFileId, p.ownerMemberId, p.typeface, +p.smallText, +p.fullWidth, revisionId, revisionId, +live, revisionId, +live, ctx.now, id), ctx.db.prepare('DELETE FROM page_labels WHERE page_id=?').bind(id), ...p.labels.map(label => ctx.db.prepare('INSERT INTO page_labels VALUES (?,?,?)').bind(id, label, ctx.now)), await revisionStatement(ctx, id, revisionId, { blocks, properties: p }), ...contentEvent(ctx, id, revisionId, 'properties')], entity: { id, kind: 'page', revisionId }, value: { pageId: id, revisionId } };
         } });
 }
 

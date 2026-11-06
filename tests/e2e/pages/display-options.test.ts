@@ -37,7 +37,11 @@ contract('PAGE-012', 'page display is shared, content preserving and retained by
     const id = created.value.pageId;
     const before = await json('GET', `/pages/${id}`);
     const edit = { operationKey: crypto.randomUUID(), expectedRevisionId: before.page.revisionId, properties: display };
-    const changed = await json('PATCH', `/pages/${id}`, edit);
+    const [changed, raced] = await Promise.all([json('PATCH', `/pages/${id}`, edit), json('PATCH', `/pages/${id}`, edit)]);
+    expect(raced).toEqual(changed);
+    expect(changed.document).toEqual(await json('GET', `/pages/${id}`));
+    expect(changed.document.page.revisionId).toBe(changed.value.revisionId);
+    expect(await json('PATCH', `/pages/${id}`, edit)).toEqual(changed);
     expect(changed.document.properties).toMatchObject(display);
     expect(changed.document.blocks).toEqual(before.blocks);
     expect((await json('GET', `/pages/${id}`, undefined, 'reader')).properties).toEqual(changed.document.properties);

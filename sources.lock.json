@@ -5284,7 +5284,7 @@
       "executable": false
     },
     "src/core/app/operations.ts": {
-      "sha256": "c14fc46ce4993fe7f24168bb9ee30c66e78ba2a05960c19c6db953b59a93d939",
+      "sha256": "23ecae7506214eca08d03f4d0214fb9a62cec4d1939a0eaa5012d700a47b4918",
       "executable": false
     },
     "src/core/app/operator-document-gate.ts": {
@@ -8344,11 +8344,11 @@
       "executable": false
     },
     "src/core/features/pages/routes.ts": {
-      "sha256": "8f90e250c9f499c225e8370a9fed1160af7408382020e87a5cf4a19b041844f1",
+      "sha256": "50cfa330da0d5173e3c063a355491a3293d799beaed89de9f5ea24bca942048f",
       "executable": false
     },
     "src/core/features/pages/service.ts": {
-      "sha256": "53280ef09143747ba5da28fb7e1703fa0f3ab27b45865d7f4313a6b7c077308b",
+      "sha256": "a30163e9228584ff02901907fb182e78219cdbac69cdc9276f0ffcc5fa2dd2b3",
       "executable": false
     },
     "src/core/features/pages/tree-access.ts": {
@@ -10648,7 +10648,7 @@
       "executable": false
     },
     "tests/e2e/pages/display-options.test.ts": {
-      "sha256": "0c8773f47210425c818e27a80e52ba38a07e3acb3a0c6fef21bf72f119f32124",
+      "sha256": "135e122494f8b3c174f7701c6fbd13b0253128faaa869e0846212bd236cbb533",
       "executable": false
     },
     "tests/e2e/pages/presentation.test.ts": {
@@ -10844,7 +10844,7 @@
       "executable": false
     },
     "tests/flagship/content/http.test.ts": {
-      "sha256": "2fbf89e5da65c910c8dc2fb26e2443729b7adff5b4d11f2ec530ba9ddc0b51c9",
+      "sha256": "096a51a75119de0797e7ad14eb6ea9da9351ccee9494e461140ab8aaab80c9c9",
       "executable": false
     },
     "tests/flagship/content/journeys.ts": {
@@ -10857,6 +10857,10 @@
     },
     "tests/flagship/content/mention-access.test.ts": {
       "sha256": "4a6502adaee0a5a9146ba920990cc451b4ef480c0819e7406a25e17120098b94",
+      "executable": false
+    },
+    "tests/flagship/content/operation-replay.case.ts": {
+      "sha256": "572fb48edd569561e6be16b3f9b9b02482fc5182d51dfc01559c978410c4df84",
       "executable": false
     },
     "tests/flagship/content/preview.test.ts": {
@@ -11544,7 +11548,7 @@
       "executable": false
     },
     "tests/qualification/core/audit-support.ts": {
-      "sha256": "a67bb272324475ec53483baa02d472eb4348005f3293ba933e2cefc16a2de2ec",
+      "sha256": "5afe67daecd7c15f2a017780e577dba88264956d92394e2517fdb71e0f391d0c",
       "executable": false
     },
     "tests/qualification/core/baseline.mjs": {
