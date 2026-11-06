@@ -1,0 +1,19 @@
+{
+  "cwd": "/home/agent/rer-consolidation/work/sd-slate185-ci-triage-1/run-slate",
+  "toolchain_source": ". /tmp/rer-cloud-toolchain.sh",
+  "pin_override": "export PATH=\"$HOME/.rer/toolchain/node-22.20.0/node_modules/node/bin:$PATH\"",
+  "install": "pnpm install --frozen-lockfile",
+  "setup": "cloud_run npx -y @runeditrun/rer setup --owner-email fleet@runeditrun.com --non-interactive",
+  "build": "cloud_run npx -y @runeditrun/rer build",
+  "test": "cloud_run env SLATE_UI_SHARD=5/8 SLATE_UI_ASSIGNMENTS=.github/scripts/journey-shards.json SLATE_CHROMIUM_PATH=/usr/bin/chromium node --test --test-concurrency=1 --test-name-pattern='^named review request, reviewer queue, exact verify and overdue escalation at 1440px$' tests/qualification/ui-convergence/journeys.test.mjs",
+  "invocations": {
+    "candidate": 1,
+    "main": 1
+  },
+  "limitations": [
+    "Dedicated Debian 13 Linux cloud runner, original GitHub job Ubuntu 24.04.",
+    "Required system Chromium 154.0.8037.57, not the CI Playwright-managed browser. Same binary for candidate/main.",
+    "Exact case only: no other shard lane or full suite is executed.",
+    "Saved original failure used; no GitHub Actions logs or run state fetched."
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "time": "2026-11-06T11:15:44.704781+00:00",
+  "product_head": "bc567c9b6f6b25c98cb6fa05b9ab0fe37628a547",
+  "product_branch": "cloud/sd-slate185-ci-triage-1",
+  "source_status_before_cleanup": "",
+  "remaining_owned_worktree_processes": [],
+  "runtime_cleanup": "Both cloud_run subreapers exited 0, after harness browser.close and owned Worker process-group stop. No broad process kill, server-stop command or foreign PID stop used.",
+  "worktree_and_node_modules_removed": true,
+  "private_logs_removed": [
+    "setup-private.log",
+    "main-setup-private.log",
+    "candidate-runtime-private.log",
+    "main-runtime-private.log",
+    "collect-receipts.py"
+  ],
+  "remaining_clone_entries": [
+    ".git"
+  ],
+  "remaining_git_metadata": "Retained only for required evidence publication; remove immediately after publish.",
+  "product_commits": 0,
+  "product_pushes": 0,
+  "pr_created": false,
+  "github_api_calls": 0
+}

@@ -1,0 +1,115 @@
+{
+  "time": "2026-11-06T11:07:44.842401+00:00",
+  "root_pid": 1898,
+  "note": "Observed descendants of this test cloud_run subreaper; no process arguments or environment captured.",
+  "processes": [
+    {
+      "pid": 1898,
+      "ppid": 1841,
+      "name": "python3",
+      "executable": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3.12"
+    },
+    {
+      "pid": 1899,
+      "ppid": 1898,
+      "name": "node",
+      "executable": "/home/agent/.rer/toolchain/node-22.20.0/node_modules/node/bin/node"
+    },
+    {
+      "pid": 1905,
+      "ppid": 1899,
+      "name": "node",
+      "executable": "/home/agent/.rer/toolchain/node-22.20.0/node_modules/node/bin/node"
+    },
+    {
+      "pid": 2372,
+      "ppid": 1905,
+      "name": "chromium",
+      "executable": "/usr/lib/chromium/chromium"
+    },
+    {
+      "pid": 2387,
+      "ppid": 1898,
+      "name": "chrome_crashpad",
+      "executable": "/usr/lib/chromium/chrome_crashpad_handler"
+    },
+    {
+      "pid": 2389,
+      "ppid": 2372,
+      "name": "chromium",
+      "executable": "/usr/lib/chromium/chromium"
+    },
+    {
+      "pid": 2390,
+      "ppid": 2372,
+      "name": "chromium",
+      "executable": "/usr/lib/chromium/chromium"
+    },
+    {
+      "pid": 2392,
+      "ppid": 1898,
+      "name": "chrome_crashpad",
+      "executable": "/usr/lib/chromium/chrome_crashpad_handler"
+    },
+    {
+      "pid": 2414,
+      "ppid": 2389,
+      "name": "chromium",
+      "executable": "/usr/lib/chromium/chromium"
+    },
+    {
+      "pid": 2423,
+      "ppid": 2372,
+      "name": "chromium",
+      "executable": "/usr/lib/chromium/chromium"
+    },
+    {
+      "pid": 2440,
+      "ppid": 2390,
+      "name": "chromium",
+      "executable": "/usr/lib/chromium/chromium"
+    },
+    {
+      "pid": 2454,
+      "ppid": 2390,
+      "name": "chromium",
+      "executable": "/usr/lib/chromium/chromium"
+    },
+    {
+      "pid": 2464,
+      "ppid": 2390,
+      "name": "chromium",
+      "executable": "/usr/lib/chromium/chromium"
+    },
+    {
+      "pid": 2864,
+      "ppid": 1905,
+      "name": "node",
+      "executable": "/home/agent/.rer/toolchain/node-22.20.0/node_modules/node/bin/node"
+    },
+    {
+      "pid": 2875,
+      "ppid": 2864,
+      "name": "workerd",
+      "executable": "/home/agent/rer-consolidation/work/sd-slate185-ci-triage-1/run-slate/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd"
+    },
+    {
+      "pid": 2880,
+      "ppid": 2390,
+      "name": "chromium",
+      "executable": "/usr/lib/chromium/chromium"
+    },
+    {
+      "pid": 2891,
+      "ppid": 2390,
+      "name": "chromium",
+      "executable": "/usr/lib/chromium/chromium"
+    },
+    {
+      "pid": 2954,
+      "ppid": 2390,
+      "name": "chromium",
+      "executable": "/usr/lib/chromium/chromium"
+    }
+  ]
+}

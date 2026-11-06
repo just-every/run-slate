@@ -1,0 +1,7 @@
+M	ACCEPTANCE.md
+M	CONTRACT.md
+M	sources.lock.json
+M	tests/qualification/ui-convergence/journeys.test.mjs
+M	tests/qualification/ui-convergence/template-scope-journey.mjs
+M	tests/requirements/clause-inventory.json
+M	tests/requirements/cli-journey.md

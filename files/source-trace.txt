@@ -1,0 +1,292 @@
+
+.github/workflows/verify.yml
+
+135:             browser: true
+136:             command: pnpm test:ui:reachability && pnpm test:ui:state && node --test --test-concurrency=1 --test-name-pattern='^insertion recovery' tests/ui/polish-journeys.test.mjs
+137:           - suite: ui-focus-desktop
+138:             serial: true
+139:             ui: 5
+140:             worker: 0
+141:             browser: true
+142:             command: node --test --test-concurrency=1 --test-name-pattern='^genuine insertion focus.*1440' tests/ui/polish-journeys.test.mjs
+143:           - suite: ui-focus-mobile
+144:             serial: true
+145:             ui: 6
+183:           SERIAL_SUITE: ${{ matrix.serial == true && 'true' || 'false' }}
+184:           WORKER_SHARD: ${{ matrix.worker }}
+185:           SUITE_COMMAND: ${{ matrix.command }}
+186:         run: bash .github/scripts/run-shard.sh
+187:       - uses: actions/upload-artifact@v4
+188:         if: always() && matrix.worker != 0
+189:         with:
+190:           name: contract-${{ matrix.worker }}
+191:           path: .artifacts/contract-${{ matrix.worker }}.json
+192:           if-no-files-found: error
+193:       - name: Retain failures
+194:         if: failure()
+195:         uses: actions/upload-artifact@v4
+
+.github/scripts/run-shard.sh
+
+1: #!/usr/bin/env bash
+2: set -euo pipefail
+3: 
+4: mkdir -p .artifacts/ci
+5: other_lane() {
+6:   if (( WORKER_SHARD != 0 )); then
+7:     pnpm exec vitest run --shard="$WORKER_SHARD/6" \
+8:       --testNamePattern="^(?!Undo removes unedited and merely shared imported pages).*$" \
+9:       --reporter=default --reporter=json --outputFile=".artifacts/contract-$WORKER_SHARD.json" || return "$?"
+10:   fi
+11:   bash -euo pipefail -c "$SUITE_COMMAND"
+12: }
+13: public_journeys() {
+14:   node --test --test-concurrency=1 tests/qualification/ui-convergence/journeys.test.mjs
+15: }
+16: journey_status=0
+17: other_status=0
+18: if [[ "${SERIAL_SUITE:-false}" = true ]]; then
+19:   # The focus lifecycles retain their existing deadlines and own the browser.
+20:   # Their small public partition finishes before the focus process starts.
+21:   test "$WORKER_SHARD" -eq 0
+22:   public_journeys || journey_status=$?
+23:   other_lane > .artifacts/ci/worker-suite.log 2>&1 || other_status=$?
+24: else
+25:   other_lane > .artifacts/ci/worker-suite.log 2>&1 &
+26:   other_pid=$!
+27:   # Join only the child we started, even when the foreground lane fails.
+28:   trap 'wait "$other_pid" || true' EXIT
+29:   public_journeys || journey_status=$?
+30:   wait "$other_pid" || other_status=$?
+31: fi
+32: cat .artifacts/ci/worker-suite.log
+33: printf 'Shard lane results: journeys=%s worker-suite=%s\n' "$journey_status" "$other_status"
+34: test "$journey_status" -eq 0
+35: test "$other_status" -eq 0
+
+.github/scripts/journey-shards.json
+
+27:   "real core-wiki and touch-member journeys at 390px": 1,
+28:   "real core-wiki and touch-member journeys at 1440px": 2,
+29:   "two people edit at once, lose access mid-edit and restore history at 1440px": 7,
+30:   "named review request, reviewer queue, exact verify and overdue escalation at 1440px": 5,
+31:   "space blog post reaches a follower's inbox and Home at 1440px": 4,
+32:   "flagship no-provider Ask retains a page-scoped draft at 1440px": 6,
+
+tests/qualification/ui-convergence/journeys.test.mjs
+
+187: for (const width of [1440]) {
+188:   test(`named review request, reviewer queue, exact verify and overdue escalation at ${width}px`, { timeout: 240000 }, async () => {
+189:     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
+190:       await setupWorkspace(state);
+191:       await withSecondPerson(state, width, people => reviewRequestJourney(state, people));
+192:       await syncedJourney(state,width);
+193:       await peopleJourney(state,width);
+194:       // Publication reviews here do not race a suite lane starting beside the journeys.
+195:       await withSecondPerson(state, width, people => step('REV-006 — numbered deletion leaves an attributed tombstone', () => versionDeletionJourney(state, people)));
+196:     }, {}, { scheduled: true });
+197:   });
+198: }
+
+tests/qualification/ui-convergence/version-deletion-journey.mjs
+
+20:   try {
+21:     await profile({ 'page.lifecycle.v1': 'draft-then-publish', 'page.version.v1': 'labelled' });
+22:     const { pageId, blockIds: [blockId] } = await restrictedPage(
+23:       { context: alice.context, origin }, 'Version deletion runbook', ['Keep the first publication.'],
+24:     );
+25:     await grant(alice.context, origin, pageId, bob.id, 'edit');
+26:     const read = () => ok(alice.context, origin, 'GET', `/api/pages/${pageId}`);
+27:     const history = async () => (await ok(alice.context, origin, 'GET', `/api/revisions/${pageId}`)).items;
+28:     const snapshot = id => ok(alice.context, origin, 'GET', `/api/revisions/${pageId}/${id}`);
+29:     const activity = async () => (await ok(alice.context, origin, 'GET', '/api/activity?action=versions.delete&limit=100')).items.filter(item => item.target.id === pageId);
+30:     const write = async text => {
+31:       const document = await read();
+32:       await ok(alice.context, origin, 'PATCH', `/api/pages/${pageId}/blocks/${blockId}`, {
+33:         operationKey: randomUUID(), expectedRevisionId: document.blocks[0].revisionId,
+34:         content: { text: [{ text }] },
+35:       });
+36:     };
+37:     // Publish through the actual review and confirmation controls, keeping each label.
+38:     const publish = async label => {
+39:       await alice.page.goto(`${origin}/app/pages/${pageId}`, { waitUntil: 'networkidle' });
+40:       await alice.page.getByRole('button', { name: 'More', exact: true }).click();
+41:       await alice.page.getByRole('menuitem', { name: 'Publish workspace revision', exact: true }).click();
+42:       const dialog = alice.page.getByRole('dialog');
+43:       await dialog.getByLabel('Version label', { exact: true }).fill(label);
+44:       await dialog.getByRole('button', { name: 'Review publication', exact: true }).click();
+45:       await expect(dialog.getByRole('region', { name: 'Reviewed publication', exact: true })).toBeVisible();
+46:       await dialog.getByRole('button', { name: 'Publish workspace revision', exact: true }).click();
+47:       await expect(dialog).toBeHidden();
+48:       return (await read()).publishedRevisionId;
+49:     };
+50:     const first = await publish('First publication');
+51:     await write('Remove only this intermediate content.');
+52:     const intermediate = await publish('Intermediate publication');
+53:     await write('Keep the current published content.');
+54:     const published = await publish('Latest publication');
+55:     await write('Keep the newer unpublished working content.');
+56:     const working = (await read()).workingRevisionId;
+57:     assert.notEqual(working, published, 'Current and published revisions are distinct.');
+58:     const before = await history(), documentBefore = await read();
+59:     const snapshotsBefore = new Map(await Promise.all(before.map(async item => [item.id, await snapshot(item.id)])));
+60:     const activityBefore = await activity();
+61:     const citation = id => `${origin}/app/pages/${pageId}?detail=history&revision=${id}`;
+62:     const deleteControl = page => page.getByRole('button', { name: 'Delete this intermediate revision', exact: true });
+91:     await expect(bob.page.locator('.revision-preview')).toContainText('Remove only this intermediate content.');
+92:     await expect(deleteControl(bob.page)).toHaveCount(0);
+93:     const hidden = await call(bob.context, origin, 'DELETE', `/api/revisions/${pageId}/${intermediate}`, { operationKey: randomUUID() });
+94:     assert.equal(hidden.status, 409);
+95:     assert.equal(hidden.body.code, 'POLICY_RESTRICTED');
+96:     // The profile itself changed, so compare deletion-owned data rather than workspace projection.
+97:     assert.deepEqual(await history(), before);
+98:     for (const item of before) assert.deepEqual(await snapshot(item.id), snapshotsBefore.get(item.id));
+99:     assert.deepEqual(await activity(), activityBefore);
+100:     await profile({ 'page.version.v1': 'labelled' });
+101: 
+150:     await expect(bob.page.locator('.revision-preview')).toHaveCount(0);
+151:     await expect(bob.page.getByText('This exact revision has been deleted. Its content is unavailable.', { exact: true })).toBeVisible();
+152:     await expect(bob.page.locator('.history-list li')).toHaveCount(before.length);
+153:     await expect(bob.page.locator('body')).not.toContainText('Remove only this intermediate content.');
+154:     await shot('bob', 'numbered tombstone with deleting member and time after reload');
+155:     await accessible(bob.page, 'numbered deletion tombstone');
+156:     record('versionDeletion', { pageId, first, intermediate, published, working, tombstone, activity: entry, replayActivityCount: entries.length });
+157:     console.info(`PROBE REV-006 1: edit-only, current, published and autosnapshot DELETE requests -> refused without revision or activity changes`);
+158:     console.info(`PROBE REV-006 2: full-member History confirmation -> version 2 content removed, attributed timed tombstone after reload; every other revision retained; replay has one activity`);
+159:   } finally {
+160:     await profile(originalPolicies);
+161:   }
+162: }
+
+tests/qualification/ui-convergence/browser-support.mjs
+
+29:   return path.join(template, 'v3', 'd1');
+30: })();
+31: async function initializeWorkspaceDatabase(state) {
+32:   await mkdir(path.join(state, 'v3'), { recursive: true });
+33:   await cp(pristineDatabase, path.join(state, 'v3', 'd1'), { recursive: true });
+34: }
+35: 
+36: /** Test-only identity records replace mailbox possession, never successful API responses. */
+37: /** `scheduled` exposes the Worker's own cron handler, which a journey fires in place of waiting for the clock. */
+87:       const request = response.request();
+88:       if (!new URL(response.url()).pathname.startsWith('/api/') || request.method() === 'GET') return;
+89:       // Backup credential custody includes test receipts: never persist the submitted credential fields.
+90:       let requestBody = request.postData();
+91:       if (new URL(response.url()).pathname === '/api/backups' && request.method() === 'POST' && requestBody) {
+230:       if (cookie) await view.addCookies([{ name: 'slate_session', value: cookie.split('=')[1], url: origin }]);
+231:       await run(view, await view.newPage());
+232:     } finally { await view.close(); }
+233:   };
+234:   // Separate native sessions keep the server's admission independent of an
+235:   // already-mounted owner's router or cached setup state.
+236:   const revoked = await signInWithOutbox(origin, ownerEmail);
+237:   const signOut = await fetch(origin + '/auth/signout', { method: 'POST', headers: { origin, cookie: revoked.cookie } });
+238:   assert.equal(signOut.status, 204);
+239:   for (const cookie of [undefined, 'slate_session=synthetic-slate-invalid', revoked.cookie]) {
+240:     await freshView(cookie, async (view, visitor) => {
+241:       await visitor.goto(origin + '/setup', { waitUntil: 'networkidle' });
+242:       assert.equal(new URL(visitor.url()).pathname, '/signin');
+243:       await expect(visitor.getByRole('heading', { name: 'Name this workspace', exact: true })).toHaveCount(0);
+244:       assert.equal((await view.request.get(origin + '/api/workspace/first-run')).status(), 401);
+245:       assert.equal((await view.request.post(origin + '/api/workspace/first-run', { headers: { origin }, data: completion() })).status(), 401);
+246:     });
+247:   }
+248:   for (const route of ['/app', '/app/search', '/app/settings']) {
+249:     await page.goto(origin + route, { waitUntil: 'networkidle' });
+250:     assert.equal(new URL(page.url()).pathname, '/setup', 'Every unfinished owner entry reaches the native wizard.');
+251:   }
+252:   assert.deepEqual(await api('/api/workspace/first-run'), { required: true, canComplete: true });
+253:   await page.goto(origin + '/app', { waitUntil: 'networkidle' });
+
+src/core/features/pages/ui/workspace/WorkspacePublicationDialog.tsx
+
+23:  const loading=preview.loading||sharing.loading;
+24:  const generalKind=current?.policyProfile['page.access.v1']==='container-general'?'container':'workspace';
+25:  return <ActionDialog title="Publish this revision" action={review?"Publish workspace revision":"Review publication"} submitDisabled={loading||Boolean(preview.error??sharing.error)} onClose={onClose} onSubmit={async data=>{
+26:   if(review){await mutate(`/api/pages/${document.page.id}/publish`,{...review.input,operationKey:operationKey(),previewFingerprint:review.response.previewFingerprint});await onSaved();window.dispatchEvent(new Event("slate:navigation-changed"));return;}
+27:   if(!current||loading||preview.error||sharing.error)throw new Error('Wait for the publication preview and current access to load.');
+28:   const input={
+29:    operationKey:operationKey(),expectedRevisionId:current.page.revisionId,label:String(data.get('label')??''),
+30:    ...(data.get('publishAt')?{publishAt:new Date(String(data.get('publishAt'))).toISOString()}:{}),
+31:    ...(data.get('attribution')?{publishAsMemberId:String(data.get('attribution'))}:{}),
+32:    ...(move?{destination:{containerId:destination,parentPageId:String(data.get('parent'))||null,treePosition:current.treePosition??'99999999'}}:{}),
+33:    ...(general==='keep'?{}:{generalAccess:{kind:general,...(general==='restricted'?{}:{level:String(data.get('level'))})}}),
+34:   };const response=await mutate<PublicationPreviewResponse>(`/api/pages/${document.page.id}/publish-preview`,input);setReview({response,input});return false;
+35:  }}><p>Review what the workspace audience will see. Web publishing is managed separately.</p>
+36:  <div hidden={!!review}><RequestState loading={loading} error={preview.error??sharing.error} retry={()=>{void preview.reload();void sharing.reload();}}>{current?<>
+
+src/core/app/ui/ActionDialog.tsx
+
+50:     const data = new FormData(event.currentTarget);
+51:     setSubmitting(true);
+52:     setError(undefined);
+53:     try {
+54:       const close = await onSubmit(data);
+55:       if (close !== false) onClose();
+56:       else setSubmitting(false);
+57:     } catch (cause) {
+58:       setError(cause);
+59:       setSubmitting(false);
+60:     }
+61:   }
+62:   return (
+63:     <dialog
+64:       ref={dialog}
+65:       className="folio-dialog"
+
+src/core/features/lifecycle/publication.ts
+
+24:   return commitOperation(ctx, {
+25:     operationKey: input.operationKey, action: 'pages.publish', request: { id, ...input },
+26:     authorize: async () => {
+27:       await requirePageLevel(ctx, id, input.generalAccess ? 'full' : 'edit');
+28:       // Replays also require current destination and access-setting authority.
+29:       const p = await pageRow(ctx, id); writable(p);
+30:       await publicationLocation(ctx, p, input);
+31:     },
+32:     prepare: async ({ revisionId }) => {
+33:       const p = await pageRow(ctx, id); writable(p);
+34:       const location = await publicationLocation(ctx, p, input);
+35:       if(p.revision_id!==input.expectedRevisionId)throw new ApiProblem(409,'REVISION_CONFLICT','The page changed. Reload before publishing.');
+36:       const scheduled = !!input.publishAt;
+37:       let reviewed: Awaited<ReturnType<typeof publicationReview>>|undefined;
+38:       if (firing && saved?.review) {
+39:         reviewed=await publicationReview(ctx,id,{...input,publishAt:saved.review.options.publishAt??undefined},saved);
+40:         if(await requestHash(releaseReview(reviewed))!==await requestHash(saved.review))previewConflict();
+41:       } else if (!firing && (input.destination || input.generalAccess || input.previewFingerprint)) {
+42:         reviewed=await publicationReview(ctx,id,input);
+43:         if(!input.previewFingerprint || input.previewFingerprint!==await requestHash({review:reviewed,epoch:ctx.authorizationEpoch,actorId:ctx.actor.id}))previewConflict();
+44:       }
+45:       if (scheduled && Date.parse(input.publishAt!) <= Date.parse(ctx.now)) throw new ApiProblem(400, 'INVALID_SCHEDULE', 'Schedule must be in the future.');
+46:       const s = await snapshot(ctx, p);
+
+src/core/features/lifecycle/publication-preview.ts
+
+12: export async function previewPublication(ctx:FeatureContext,id:string,raw:unknown) {
+13:   ctx.authorizationEpoch=undefined;
+14:   const input={...publicationPreviewSchema.parse(raw),operationKey:'publication-preview'};
+15:   await requirePageLevel(ctx,id,input.generalAccess?'full':'edit');
+16:   const page=await pageRow(ctx,id);
+17:   if(page.revision_id!==input.expectedRevisionId)throw new ApiProblem(409,'REVISION_CONFLICT','The page changed. Reload before reviewing publication.');
+18:   await publicationLocation(ctx,page,input);
+19:   const review=await publicationReview(ctx,id,input);
+20:   const epoch=(await ctx.db.prepare('SELECT epoch FROM core_acl_epoch WHERE id=1').first<{epoch:number}>())!.epoch;
+21:   if(epoch!==ctx.authorizationEpoch)throw new ApiProblem(409,'PUBLICATION_PREVIEW_CHANGED','Access changed. Review publication again.');
+22:   return {...review,previewFingerprint:await requestHash({review,epoch,actorId:ctx.actor.id})};
+23: }
+33:   const content=await snapshot(ctx,page);
+34:   if(input.publishAsMemberId) {
+35:     const member=await ctx.db.prepare("SELECT display_name FROM members WHERE id=? AND workspace_id=? AND status='active'").bind(input.publishAsMemberId,ctx.actor.workspaceId).first<{display_name:string}>();
+36:     if(!member)throw new ApiProblem(400,'INVALID_ATTRIBUTION','Choose an active member.');
+37:     content.properties.byline=member.display_name;
+38:   }
+39:   const destination=(await ctx.db.prepare('SELECT id,name FROM containers WHERE id=?').bind(location.target.containerId).first<{id:string;name:string}>())!;
+40:   const parent=location.target.parentPageId?await pageRow(ctx,location.target.parentPageId):null;
+41:   const audience=await publicationAudience(ctx,page,pages,location.target,input,saved);
+42:   return {pageId:id,expectedRevisionId:input.expectedRevisionId,destination:{...location.target,containerName:destination.name,parentTitle:parent?.title??null},content,
+43:     options:{generalAccess:input.generalAccess??null,label:input.label??null,publishAt:input.publishAt??null,publishAsMemberId:input.publishAsMemberId??null},
+44:     descendants:pages.filter(p=>p.id!==id).map(p=>({pageId:p.id,title:p.title,revisionId:p.revision_id,containerId:location.target.containerId,parentPageId:p.parent_page_id,lifecycle:p.lifecycle})),
+45:     audience,...(location.publicAccess.length?{publicAccess:location.publicAccess}:{}),policies:await contentPolicy(ctx)};
+46: }
+54: export function previewConflict():never {throw new ApiProblem(409,'PUBLICATION_PREVIEW_CHANGED','Publication content, destination or audience changed. Review publication again.');}

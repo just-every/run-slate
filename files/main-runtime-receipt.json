@@ -1,0 +1,189 @@
+{
+  "artifact": {
+    "schema": 1,
+    "commit": "bc567c9b6f6b25c98cb6fa05b9ab0fe37628a547",
+    "tree": "3f27994ae6e10a111ac83862d16fbf98f4886473",
+    "sourceSha256": "678f158b099343441602de7a4ddd6b7d9661f199da062afb02778001d13f9015",
+    "lockSha256": "066a2c5c21f3c8e452a152f89763761e72a76c7f9b81f6feac6dd665049fe58f",
+    "outputSha256": "feb4efc58e7aaaaec984d76a735cce98720e17be24b7c263284d97ceb0f1a2b3"
+  },
+  "viewport": {
+    "width": 1440,
+    "height": 1000
+  },
+  "profile": "core-wiki",
+  "network_summary": [
+    {
+      "path": "/api/workspace/first-run",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/workspace/first-run",
+      "method": "POST",
+      "status": 200
+    },
+    {
+      "path": "/api/workspace",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/containers",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/pages",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/workspace/first-run",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/workspace",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/workspace",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/status/requests/page/01M6R8XG16CXMZJWB4P190NSA5",
+      "method": "POST",
+      "status": 200
+    },
+    {
+      "path": "/api/status/requests/page/01M6R8XG16CXMZJWB4P190NSA5",
+      "method": "POST",
+      "status": 200
+    },
+    {
+      "path": "/api/collaboration/01M6R8XG16CXMZJWB4P190NSA5",
+      "method": "GET",
+      "status": null,
+      "failure": {
+        "errorText": "net::ERR_CONNECTION_REFUSED"
+      }
+    },
+    {
+      "path": "/api/status/rules/container/01M6R8X1XEDXWJYYNXSPTTM0HX/preview",
+      "method": "POST",
+      "status": 200
+    },
+    {
+      "path": "/api/status/rules/container/01M6R8X1XEDXWJYYNXSPTTM0HX",
+      "method": "PUT",
+      "status": 200
+    },
+    {
+      "path": "/api/pages/01M6R8Y9WYWAJYHT37XXTKENCN",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/pages/01M6R8Y9WYWAJYHT37XXTKENCN",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/collaboration/01M6R8Y9Y8C3PY0BGBSCP2RPQT/presence",
+      "method": "POST",
+      "status": 200
+    },
+    {
+      "path": "/api/pages/01M6R8Y9XS6SK0G8C5VB4RJ2QR",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/pages/01M6R8Y9Y8C3PY0BGBSCP2RPQT",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/pages/01M6R8YZPGAF2X5QBVKBPB8KCG",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/people/browser-owner",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/pages/01M6R8Y9Y8C3PY0BGBSCP2RPQT/open",
+      "method": "POST",
+      "status": 200
+    },
+    {
+      "path": "/api/collaboration/01M6R8Y9Y8C3PY0BGBSCP2RPQT/presence",
+      "method": "POST",
+      "status": 200
+    },
+    {
+      "path": "/api/pages/01M6R8ZF56QMY5CK09AB03SNDR/publish-preview",
+      "method": "POST",
+      "status": 200
+    },
+    {
+      "path": "/api/pages/01M6R8ZF56QMY5CK09AB03SNDR/publish",
+      "method": "POST",
+      "status": 200
+    },
+    {
+      "path": "/api/pages/01M6R8ZF56QMY5CK09AB03SNDR/open",
+      "method": "POST",
+      "status": 200
+    },
+    {
+      "path": "/api/pages/01M6R8ZF56QMY5CK09AB03SNDR/publish-preview",
+      "method": "POST",
+      "status": 200
+    },
+    {
+      "path": "/api/pages/01M6R8ZF56QMY5CK09AB03SNDR/publish",
+      "method": "POST",
+      "status": 200
+    },
+    {
+      "path": "/api/pages/01M6R8ZF56QMY5CK09AB03SNDR/open",
+      "method": "POST",
+      "status": 200
+    },
+    {
+      "path": "/api/pages/01M6R8ZF56QMY5CK09AB03SNDR/publish-preview",
+      "method": "POST",
+      "status": 200
+    },
+    {
+      "path": "/api/pages/01M6R8ZF56QMY5CK09AB03SNDR/publish",
+      "method": "POST",
+      "status": 200
+    },
+    {
+      "path": "/api/pages/01M6R8ZF56QMY5CK09AB03SNDR/open",
+      "method": "POST",
+      "status": 200
+    },
+    {
+      "path": "/api/pages/01M6R8ZF56QMY5CK09AB03SNDR/open",
+      "method": "POST",
+      "status": 200
+    }
+  ],
+  "console_error_count": 1,
+  "model_request_count": 0,
+  "selection": "All recorded request method/path/status and failure codes; session bodies, content payloads, secrets, query strings and headers are excluded.",
+  "console_errors": [
+    {
+      "path": "/app/pages/01M6R8XG16CXMZJWB4P190NSA5",
+      "message": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+    }
+  ]
+}

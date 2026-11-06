@@ -1,0 +1,57 @@
+{
+  "width": 1440,
+  "timings": {
+    "versionDeletion": {
+      "pageId": "01M6R8ZF56QMY5CK09AB03SNDR",
+      "first": "01M6R8ZHD587QH30X2B98YF791",
+      "intermediate": "01M6R8ZKN1TH9SXQ5DZFMKQ0GT",
+      "published": "01M6R8ZNWHPX8CQJFJ11NXM1R8",
+      "working": "01M6R8ZP6CKQK41VA0GDRRKQZM",
+      "tombstone": {
+        "id": "01M6R8ZKN1TH9SXQ5DZFMKQ0GT",
+        "origin": "publish",
+        "authorMemberId": null,
+        "authorDisplayName": "Former member",
+        "ordinal": 2,
+        "label": null,
+        "statusKey": null,
+        "createdAt": "2026-11-06T11:12:56.978Z",
+        "deletedAt": "2026-11-06T11:13:04.906Z",
+        "deletedByMemberId": "browser-reader",
+        "deletedByDisplayName": "Morgan Reader"
+      },
+      "activity": {
+        "id": "01M6R8ZVCF56PNYF1E595HAEG4",
+        "actor": {
+          "id": "browser-reader",
+          "displayName": "Morgan Reader"
+        },
+        "feature": "versions",
+        "action": "versions.delete",
+        "target": {
+          "kind": "page",
+          "id": "01M6R8ZF56QMY5CK09AB03SNDR"
+        },
+        "occurredAt": "2026-11-06T11:13:04.906Z",
+        "operationKey": "35ef9160-5c15-458e-8fe1-93715fac20dc",
+        "automationRunId": null,
+        "aiRunId": null,
+        "deleted": false,
+        "context": {
+          "pageId": "01M6R8ZF56QMY5CK09AB03SNDR",
+          "revisionId": "01M6R8ZP6CKQK41VA0GDRRKQZM"
+        }
+      },
+      "replayActivityCount": 1
+    }
+  },
+  "refusals": [],
+  "screenshots": [
+    {
+      "person": "bob",
+      "state": "numbered tombstone with deleting member and time after reload",
+      "file": "01-bob-numbered-tombstone-with-deleting-member-and-time-after-reload.png"
+    }
+  ],
+  "pageErrors": []
+}

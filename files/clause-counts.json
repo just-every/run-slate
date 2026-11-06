@@ -1,0 +1,19 @@
+{
+  "before": {
+    "4cf7176513f43ee62ca2908318ccc9ab42fb76f1": {
+      "status_table_counts": {
+        "partial": 240,
+        "done": 57
+      },
+      "status_row_rev006": "| `REV-006` | Deleting a version | published | partial | `CONTRACT.md` \u2014 requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: \"A member with `full` access can delete one intermediate version, which removes its content and leaves a numbered tombstone in history naming who deleted it and when.\"<br>No validated CI-run proof for this acceptance point: \"The current revision and the published revision cannot be deleted, and deletion is offered only where `REV-007` says so.\" |"
+    },
+    "origin/main": {
+      "status_table_counts": {
+        "partial": 240,
+        "done": 57
+      },
+      "status_row_rev006": "| `REV-006` | Deleting a version | published | partial | `CONTRACT.md` \u2014 requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: \"A member with `full` access can delete one intermediate version, which removes its content and leaves a numbered tombstone in history naming who deleted it and when.\"<br>No validated CI-run proof for this acceptance point: \"The current revision and the published revision cannot be deleted, and deletion is offered only where `REV-007` says so.\" |"
+    }
+  },
+  "after": "unchanged; no tracked source edits, test registrations added/removed=0/0, status changes=0"
+}

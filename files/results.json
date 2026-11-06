@@ -1,0 +1,55 @@
+{
+  "candidate": {
+    "exit": 0,
+    "start": "2026-11-06T11:06:46Z",
+    "end": "2026-11-06T11:08:57Z",
+    "tests": 1,
+    "pass": 1,
+    "fail": 0,
+    "skipped": 0,
+    "test_duration_ms": 112600.906811,
+    "command_duration_ms": 130860.891361,
+    "artifact": {
+      "schema": 1,
+      "commit": "4cf7176513f43ee62ca2908318ccc9ab42fb76f1",
+      "tree": "a9e8e03f81510521606759dd920a25083a51e82b",
+      "sourceSha256": "6623fb2f4084c4aab2b0317d3b5d08db58080437394232d89d28210d07b54736",
+      "lockSha256": "7a56153f78ed23ebc6a4cfd39ac5d18234c1868c74e35c38a29ac0245cd698e4",
+      "outputSha256": "feb4efc58e7aaaaec984d76a735cce98720e17be24b7c263284d97ceb0f1a2b3"
+    },
+    "rev006_probes": 2
+  },
+  "main": {
+    "exit": 0,
+    "start": "2026-11-06T11:11:00Z",
+    "end": "2026-11-06T11:13:07Z",
+    "tests": 1,
+    "pass": 1,
+    "fail": 0,
+    "skipped": 0,
+    "test_duration_ms": 108624.193432,
+    "command_duration_ms": 127114.826794,
+    "artifact": {
+      "schema": 1,
+      "commit": "bc567c9b6f6b25c98cb6fa05b9ab0fe37628a547",
+      "tree": "3f27994ae6e10a111ac83862d16fbf98f4886473",
+      "sourceSha256": "678f158b099343441602de7a4ddd6b7d9661f199da062afb02778001d13f9015",
+      "lockSha256": "066a2c5c21f3c8e452a152f89763761e72a76c7f9b81f6feac6dd665049fe58f",
+      "outputSha256": "feb4efc58e7aaaaec984d76a735cce98720e17be24b7c263284d97ceb0f1a2b3"
+    },
+    "rev006_probes": 2
+  },
+  "result": "NOT REPRODUCED",
+  "product_branch_created_not_pushed": "cloud/sd-slate185-ci-triage-1",
+  "product_head_at_finish": "bc567c9b6f6b25c98cb6fa05b9ab0fe37628a547",
+  "product_commits": 0,
+  "clause_status_changes": 0,
+  "new_ci_runs": [],
+  "saved_ci": {
+    "run_id": 42200640905,
+    "attempt": 1,
+    "job_id": 127835802909,
+    "name": "ui-focus-desktop",
+    "source": "brief only; not fetched/polled"
+  }
+}

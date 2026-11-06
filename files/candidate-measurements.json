@@ -1,0 +1,57 @@
+{
+  "width": 1440,
+  "timings": {
+    "versionDeletion": {
+      "pageId": "01M6R8QTRHJKEZP6T5P48V9RDX",
+      "first": "01M6R8QWYTPKX5WY5CYCJX7EH6",
+      "intermediate": "01M6R8QZ6X1W9WN3374H3RK51R",
+      "published": "01M6R8R20DM0HZD6DCPRGNB8C6",
+      "working": "01M6R8R2AG41E2FYZY8PJ3G94H",
+      "tombstone": {
+        "id": "01M6R8QZ6X1W9WN3374H3RK51R",
+        "origin": "publish",
+        "authorMemberId": null,
+        "authorDisplayName": "Former member",
+        "ordinal": 2,
+        "label": null,
+        "statusKey": null,
+        "createdAt": "2026-11-06T11:08:46.669Z",
+        "deletedAt": "2026-11-06T11:08:55.055Z",
+        "deletedByMemberId": "browser-reader",
+        "deletedByDisplayName": "Morgan Reader"
+      },
+      "activity": {
+        "id": "01M6R8R7CHS5TEG0CSEXGK8E5H",
+        "actor": {
+          "id": "browser-reader",
+          "displayName": "Morgan Reader"
+        },
+        "feature": "versions",
+        "action": "versions.delete",
+        "target": {
+          "kind": "page",
+          "id": "01M6R8QTRHJKEZP6T5P48V9RDX"
+        },
+        "occurredAt": "2026-11-06T11:08:55.055Z",
+        "operationKey": "68676219-6cca-4935-baca-354862e6603b",
+        "automationRunId": null,
+        "aiRunId": null,
+        "deleted": false,
+        "context": {
+          "pageId": "01M6R8QTRHJKEZP6T5P48V9RDX",
+          "revisionId": "01M6R8R2AG41E2FYZY8PJ3G94H"
+        }
+      },
+      "replayActivityCount": 1
+    }
+  },
+  "refusals": [],
+  "screenshots": [
+    {
+      "person": "bob",
+      "state": "numbered tombstone with deleting member and time after reload",
+      "file": "01-bob-numbered-tombstone-with-deleting-member-and-time-after-reload.png"
+    }
+  ],
+  "pageErrors": []
+}

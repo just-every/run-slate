@@ -1,0 +1,77 @@
+{
+  "captured_at": "2026-11-06T11:05:10.930554+00:00",
+  "candidate": "4cf7176513f43ee62ca2908318ccc9ab42fb76f1",
+  "main": "bc567c9b6f6b25c98cb6fa05b9ab0fe37628a547",
+  "brief_main": "bc567c9b6f6b25c98cb6fa05b9ab0fe37628a547",
+  "main_drift": false,
+  "candidate_tree": "a9e8e03f81510521606759dd920a25083a51e82b",
+  "main_tree": "3f27994ae6e10a111ac83862d16fbf98f4886473",
+  "runner": {
+    "environment_id": "ccarenv_b64_Y2NhcmVudl8xZWZkZmE2NmQxZjg4MTkxYTcxNzhhMDU4OTNjNDlkNg",
+    "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+    "os_release": {
+      "NAME": "Debian GNU/Linux",
+      "ID": "debian",
+      "PRETTY_NAME": "Debian GNU/Linux 13 (trixie)",
+      "VERSION_ID": "13",
+      "VERSION": "13 (trixie)",
+      "VERSION_CODENAME": "trixie",
+      "DEBIAN_VERSION_FULL": "13.6",
+      "HOME_URL": "https://www.debian.org/",
+      "SUPPORT_URL": "https://www.debian.org/support",
+      "BUG_REPORT_URL": "https://bugs.debian.org/"
+    },
+    "node": "22.20.0",
+    "pnpm": "10.12.4",
+    "playwright": "1.63.0",
+    "chromium": "Chromium 154.0.8037.57 built on Debian GNU/Linux 13 (trixie)",
+    "browser_path": "/usr/bin/chromium",
+    "browser_sha256": "4dc9f9f9b20e9bd95bf201f43d2d643f48938f36a70ddcb6fce3dd611a178180",
+    "playwright_browser_manifest": [
+      {
+        "name": "chromium",
+        "revision": "1243",
+        "installByDefault": true,
+        "browserVersion": "153.0.8010.12",
+        "title": "Chrome for Testing"
+      },
+      {
+        "name": "chromium-headless-shell",
+        "revision": "1243",
+        "installByDefault": true,
+        "browserVersion": "153.0.8010.12",
+        "title": "Chrome Headless Shell"
+      }
+    ]
+  },
+  "candidate_files": {
+    "package.json": "4dc738d494eec95fe589885601d277f6d3287941c17849f5f1aa583b2148c41f",
+    "pnpm-lock.yaml": "13dba99e2ce491e5cea95ddb529db1db0493506020cda3fc5f8ed98fb224be71",
+    ".github/workflows/verify.yml": "5652df6e0b05831fde5117895af5c55c98e635a8f0741a711132b83bffba3183",
+    ".github/scripts/run-shard.sh": "b6af437a89d227af0197a32e59736da6b352408444ae64956f6c9edd539d417d",
+    ".github/scripts/journey-shards.json": "aba4a3978cdd8f2e10a5b8ebd8fd9e2aec624d9f27b81ac5a0e47c5a2b538e6c",
+    "tests/qualification/ui-convergence/journeys.test.mjs": "3d4efd8c7759dba92268d4ce3d1697b8008b31a7f32ea250281a81e525ecdd6b",
+    "tests/qualification/ui-convergence/version-deletion-journey.mjs": "2dffb02cf858d4ffe39124a4e61ded1ec29345f24bb91cc75d9e61e558abd358",
+    "tests/qualification/ui-convergence/browser-support.mjs": "58b767178e50bf9c1a7f52bf53615282022edfaf7795a1ed572aed58fbe0bbfd",
+    "src/core/features/pages/ui/workspace/WorkspacePublicationDialog.tsx": "a44928cd513fb5713763c368d6250f5fcdad83681dd743e01150a430cce906ad",
+    "src/core/app/ui/ActionDialog.tsx": "963ecbf4e7fd7c4499b2fd0d69033bce4fe4441be3ad57198ff00c8fbc4bfc3c",
+    "src/core/features/lifecycle/publication.ts": "67b1d479c30733c801738ad43ed2cdaee20493739256c499ea2d0a2549ce1a1c",
+    "src/core/features/lifecycle/publication-preview.ts": "7564169b5298a05206a30544aeea6094db911d4c69bc07d4e8be14efba73e190"
+  },
+  "main_files": {
+    "package.json": "4dc738d494eec95fe589885601d277f6d3287941c17849f5f1aa583b2148c41f",
+    "pnpm-lock.yaml": "13dba99e2ce491e5cea95ddb529db1db0493506020cda3fc5f8ed98fb224be71",
+    ".github/workflows/verify.yml": "5652df6e0b05831fde5117895af5c55c98e635a8f0741a711132b83bffba3183",
+    ".github/scripts/run-shard.sh": "b6af437a89d227af0197a32e59736da6b352408444ae64956f6c9edd539d417d",
+    ".github/scripts/journey-shards.json": "aba4a3978cdd8f2e10a5b8ebd8fd9e2aec624d9f27b81ac5a0e47c5a2b538e6c",
+    "tests/qualification/ui-convergence/journeys.test.mjs": "56157a493201cd1559bc6a4de4e19295423496132ee7f9b7e7f3cfba4d54893e",
+    "tests/qualification/ui-convergence/version-deletion-journey.mjs": "2dffb02cf858d4ffe39124a4e61ded1ec29345f24bb91cc75d9e61e558abd358",
+    "tests/qualification/ui-convergence/browser-support.mjs": "58b767178e50bf9c1a7f52bf53615282022edfaf7795a1ed572aed58fbe0bbfd",
+    "src/core/features/pages/ui/workspace/WorkspacePublicationDialog.tsx": "a44928cd513fb5713763c368d6250f5fcdad83681dd743e01150a430cce906ad",
+    "src/core/app/ui/ActionDialog.tsx": "963ecbf4e7fd7c4499b2fd0d69033bce4fe4441be3ad57198ff00c8fbc4bfc3c",
+    "src/core/features/lifecycle/publication.ts": "67b1d479c30733c801738ad43ed2cdaee20493739256c499ea2d0a2549ce1a1c",
+    "src/core/features/lifecycle/publication-preview.ts": "7564169b5298a05206a30544aeea6094db911d4c69bc07d4e8be14efba73e190"
+  },
+  "github_api_calls": 0,
+  "actions_read_dispatch_poll_or_rerun": false
+}
