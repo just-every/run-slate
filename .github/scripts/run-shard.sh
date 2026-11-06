@@ -11,13 +11,12 @@ other_lane() {
   bash -euo pipefail -c "$SUITE_COMMAND"
 }
 public_journeys() {
-  node --test --test-concurrency=1 tests/qualification/ui-convergence/journeys.test.mjs
+  node --test --test-concurrency=1 --test-name-pattern="${JOURNEY_NAME_PATTERN:-.*}" tests/qualification/ui-convergence/journeys.test.mjs
 }
 journey_status=0
 other_status=0
 if [[ "${SERIAL_SUITE:-false}" = true ]]; then
-  # The focus lifecycles retain their existing deadlines and own the browser.
-  # Their small public partition finishes before the focus process starts.
+  # Each serial partition owns its runner; its optional focus suite follows.
   test "$WORKER_SHARD" -eq 0
   public_journeys || journey_status=$?
   other_lane > .artifacts/ci/worker-suite.log 2>&1 || other_status=$?

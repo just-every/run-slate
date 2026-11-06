@@ -139,7 +139,16 @@ jobs:
             ui: 5
             worker: 0
             browser: true
+            journey-pattern: '^(?!named review request,)'
             command: node --test --test-concurrency=1 --test-name-pattern='^genuine insertion focus.*1440' tests/ui/polish-journeys.test.mjs
+          # REV-006 owns a runner; retain its assertions and five-second bounds.
+          - suite: ui-review-desktop
+            serial: true
+            ui: 5
+            worker: 0
+            browser: true
+            journey-pattern: '^named review request,'
+            command: ':'
           - suite: ui-focus-mobile
             serial: true
             ui: 6
@@ -180,6 +189,7 @@ jobs:
         env:
           SLATE_UI_SHARD: ${{ matrix.ui }}/8
           SLATE_UI_ASSIGNMENTS: .github/scripts/journey-shards.json
+          JOURNEY_NAME_PATTERN: ${{ matrix.journey-pattern || '.*' }}
           SERIAL_SUITE: ${{ matrix.serial == true && 'true' || 'false' }}
           WORKER_SHARD: ${{ matrix.worker }}
           SUITE_COMMAND: ${{ matrix.command }}
