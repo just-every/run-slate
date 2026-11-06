@@ -226,3 +226,22 @@ The matching Workers registration in `tests/e2e/imports/preview-undo.test.ts` ru
 The same native journey also expires a mapped guest after request validation and before the actual Apply transaction: the transaction refuses and the selected native state remains unchanged. The same responsive Settings journey expires its reviewed destination after completion, shows that the mapped principal is no longer available while retaining the exact source-ID choice, and refuses that person's native page reads before restoring the identity fixture. No registration or prior assertion is removed or narrowed.
 
 Changing the reviewed destination's membership invalidates its old native session. The browser fixture therefore obtains a fresh native sign-in after restoring membership, updates its retained reader cookie, and verifies the restored reader through the current-member route. It never clears a session revocation or rewinds the membership authority version. Following Settings and authority journeys retain their original assertions and use the fresh session.
+## Retained authored-template address
+
+LINK-001 supporting proof extends `templateScopeJourney` in
+`tests/qualification/ui-convergence/template-scope-journey.mjs`, called by the
+existing desktop starter-template registration through `starterTemplatesJourney`
+and the existing phone core-wiki registration in
+`tests/qualification/ui-convergence/journeys.test.mjs`. No registration is added.
+A populated workspace and two readable private spaces retain exact local-first
+inventories. One authored-template address is reopened and reloaded after native
+Update from a page, each scope move, archive and restore through the archived
+gallery. Native receipts identify the same template and its newly committed
+revision; readback compares its complete snapshot, current title and scope.
+A second member opens the workspace address, receives a content-free refusal
+after the template moves into a private space, and regains that identical address
+when it returns to workspace scope. The archived and restored addresses also
+open for the current workspace reader. Browser captures and bounded native
+receipts remain outside product source. Other record kinds, reference forms,
+transitions and profiles remain unproven; the clause stays partial and no other
+template or page clause is promoted.
