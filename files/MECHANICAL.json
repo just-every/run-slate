@@ -1,0 +1,14 @@
+{
+  "label": "MECHANICAL",
+  "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+  "tree": "778c21be1b3a41ab8cf491179b7880d1c3045375",
+  "cleanAtStart": true,
+  "command": [
+    "bash",
+    "-euc",
+    "node src/base/runtime/contract-docs.mjs write > /tmp/slate-views-write-final.log 2>&1\nnode src/base/runtime/contract-docs.mjs check > /tmp/slate-views-check-final.log 2>&1\ngit checkout origin/main -- ACCEPTANCE.md docs/CLAIMS.md\npnpm source:lock > /tmp/slate-lock-final.log 2>&1\npnpm source:check > /tmp/slate-lock-check-final.log 2>&1\npnpm typecheck > /tmp/slate-typecheck-final.log 2>&1\npnpm exec rer check --profile first-party > /tmp/slate-first-party-final.log 2>&1\ngit diff --exit-code\nprintf \"MECHANICAL views=0 lock=0 ledger=none typecheck=0 first-party=0\\n\""
+  ],
+  "startedAt": "2026-11-06T11:06:30.319097+00:00",
+  "finishedAt": "2026-11-06T11:06:54.588368+00:00",
+  "exit": 0
+}

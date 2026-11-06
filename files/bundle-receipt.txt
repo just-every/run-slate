@@ -1,0 +1,5 @@
+/home/agent/rer-consolidation/work/sd-slate-c-f187/candidate.bundle is okay
+The bundle contains this ref:
+ccf90a9f0ab142051c0f5a7d3901d4c74607963f refs/heads/cloud/sd-slate-c-f187
+The bundle records a complete history.
+The bundle uses this hash algorithm: sha1

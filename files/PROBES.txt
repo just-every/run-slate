@@ -1,0 +1,8 @@
+PROBE SHARE-002 read: native ordinary member GET page and populated discussion, then page reload -> full, edit, comment and view receive their exact level and content at 1440 and 390.
+PROBE SHARE-002 title and body: native title and paragraph inputs -> full and edit persist both edits after reload; comment and view show read-only controls and HTTP writes return NOT_FOUND with unchanged inventories.
+PROBE SHARE-002 comment creation: native composer and Send comment -> full, edit and comment commit attributed comments; view has no composer and its direct request is refused without state changes.
+PROBE SHARE-002 direct grant change: native full-member Share panel -> an independently admitted recipient receives every configured level, then loses access on revocation; other levels cannot create, change or revoke grants.
+PROBE SHARE-002 discussion: native reply, own-comment edit and delete, resolve, reopen and resolve-all -> comment-capable levels persist each action; cross-author edits return FORBIDDEN and view mutations return NOT_FOUND with unchanged inventories.
+PROBE SHARE-002 reactions: native page and comment controls -> each readable level adds and removes its named reaction after reload, with unchanged notifications and readership.
+PROBE SHARE-002 replay and revocation: old captures after comment deletion, reaction removal and grant revocation -> no state restored; revoked member page reads, discussion reads and every captured mutation return NOT_FOUND; native page shows Access needed without prior content.
+MECHANICAL lock=pnpm source:lock and pnpm source:check exit=0; views=node src/base/runtime/contract-docs.mjs write then check exit=0, both generated files restored from origin/main; ledger=none exit=0.

@@ -1,0 +1,11 @@
+{
+  "run": 42205976764,
+  "job": 127852906535,
+  "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+  "command": "gh run view 42205976764 --repo just-every/run-slate --job 127852906535 --log-failed",
+  "exit": 0,
+  "sanitized": "Runner environment block and shell metadata omitted; failure text retained.",
+  "jobConclusion": "failure",
+  "stepExit": 1,
+  "cause": "Dependency aggregation after app generated-view failure; native shards and contract job skipped."
+}

@@ -1,0 +1,16 @@
+{
+  "diagnostics": [
+    {
+      "phase": "Uncommitted development tree; not candidate proof",
+      "command": "node --test --test-concurrency=1 --test-name-pattern=^real core-wiki and touch-member journeys at (1440|390)px$ tests/qualification/ui-convergence/journeys.test.mjs",
+      "exit": 1,
+      "failures": [
+        "429 !== 200; RATE_LIMITED: Too many requests. Try again later.",
+        "Replaying an allowed capture creates no extra content, revision, comment, grant or activity; an additional native pages.open entry arrived."
+      ],
+      "resolution": "Isolate the expanded matrix, pace diagnostic reads without changing limits, and await the real read receipt for the edited revision before replay measurement."
+    }
+  ],
+  "ciRepairRounds": 0,
+  "productionChanges": false
+}

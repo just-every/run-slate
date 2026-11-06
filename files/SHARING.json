@@ -1,0 +1,18 @@
+{
+  "label": "SHARING",
+  "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+  "tree": "778c21be1b3a41ab8cf491179b7880d1c3045375",
+  "cleanAtStart": true,
+  "command": [
+    "timeout",
+    "1200",
+    "node",
+    "--test",
+    "--test-concurrency=1",
+    "--test-name-pattern=^shared page invitations name their space and disappear on revocation at 1440px$",
+    "tests/qualification/ui-convergence/journeys.test.mjs"
+  ],
+  "startedAt": "2026-11-06T11:23:45.045800+00:00",
+  "finishedAt": "2026-11-06T11:31:35.882377+00:00",
+  "exit": 0
+}

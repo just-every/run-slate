@@ -1,0 +1,212 @@
+{
+  "schema": 1,
+  "repository": "just-every/run-slate",
+  "tag": "sd-slate-c-f187",
+  "branch": "cloud/sd-slate-c-f187",
+  "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+  "checks": [
+    {
+      "label": "CORE",
+      "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+      "tree": "778c21be1b3a41ab8cf491179b7880d1c3045375",
+      "cleanAtStart": true,
+      "command": [
+        "timeout",
+        "1800",
+        "node",
+        "--test",
+        "--test-concurrency=1",
+        "--test-name-pattern=^real core-wiki and touch-member journeys at (1440|390)px$",
+        "tests/qualification/ui-convergence/journeys.test.mjs"
+      ],
+      "startedAt": "2026-11-06T11:05:22.191042+00:00",
+      "finishedAt": "2026-11-06T11:23:44.967499+00:00",
+      "exit": 0
+    },
+    {
+      "label": "SHARING",
+      "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+      "tree": "778c21be1b3a41ab8cf491179b7880d1c3045375",
+      "cleanAtStart": true,
+      "command": [
+        "timeout",
+        "1200",
+        "node",
+        "--test",
+        "--test-concurrency=1",
+        "--test-name-pattern=^shared page invitations name their space and disappear on revocation at 1440px$",
+        "tests/qualification/ui-convergence/journeys.test.mjs"
+      ],
+      "startedAt": "2026-11-06T11:23:45.045800+00:00",
+      "finishedAt": "2026-11-06T11:31:35.882377+00:00",
+      "exit": 0
+    },
+    {
+      "label": "PHONE",
+      "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+      "tree": "778c21be1b3a41ab8cf491179b7880d1c3045375",
+      "cleanAtStart": true,
+      "command": [
+        "timeout",
+        "1200",
+        "node",
+        "/tmp/slate-candidate-phone.mjs"
+      ],
+      "startedAt": "2026-11-06T11:05:23.424804+00:00",
+      "finishedAt": "2026-11-06T11:11:42.774825+00:00",
+      "exit": 0
+    },
+    {
+      "label": "MECHANICAL",
+      "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+      "tree": "778c21be1b3a41ab8cf491179b7880d1c3045375",
+      "cleanAtStart": true,
+      "command": [
+        "bash",
+        "-euc",
+        "node src/base/runtime/contract-docs.mjs write > /tmp/slate-views-write-final.log 2>&1\nnode src/base/runtime/contract-docs.mjs check > /tmp/slate-views-check-final.log 2>&1\ngit checkout origin/main -- ACCEPTANCE.md docs/CLAIMS.md\npnpm source:lock > /tmp/slate-lock-final.log 2>&1\npnpm source:check > /tmp/slate-lock-check-final.log 2>&1\npnpm typecheck > /tmp/slate-typecheck-final.log 2>&1\npnpm exec rer check --profile first-party > /tmp/slate-first-party-final.log 2>&1\ngit diff --exit-code\nprintf \"MECHANICAL views=0 lock=0 ledger=none typecheck=0 first-party=0\\n\""
+      ],
+      "startedAt": "2026-11-06T11:06:30.319097+00:00",
+      "finishedAt": "2026-11-06T11:06:54.588368+00:00",
+      "exit": 0
+    }
+  ],
+  "ci": {
+    "id": 42205976764,
+    "event": "push",
+    "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+    "status": "completed",
+    "conclusion": "failure",
+    "expectedGeneratedViewException": true,
+    "failure": "ACCEPTANCE.md: generated content differs; run contract-docs write.",
+    "jobs": [
+      {
+        "id": 127852584694,
+        "name": "plan",
+        "head_sha": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 127852649279,
+        "name": "verify (app)",
+        "head_sha": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+        "status": "completed",
+        "conclusion": "failure"
+      },
+      {
+        "id": 127852651360,
+        "name": "import-scale",
+        "head_sha": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+        "status": "completed",
+        "conclusion": "skipped"
+      },
+      {
+        "id": 127852906535,
+        "name": "verify",
+        "head_sha": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+        "status": "completed",
+        "conclusion": "failure"
+      },
+      {
+        "id": 127852907356,
+        "name": "local-journeys",
+        "head_sha": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+        "status": "completed",
+        "conclusion": "skipped"
+      },
+      {
+        "id": 127852907941,
+        "name": "verify (${{ matrix.suite }})",
+        "head_sha": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+        "status": "completed",
+        "conclusion": "skipped"
+      },
+      {
+        "id": 127852907971,
+        "name": "contract",
+        "head_sha": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+        "status": "completed",
+        "conclusion": "skipped"
+      }
+    ],
+    "nativeShardsRan": false,
+    "logCommands": 2,
+    "githubBudgetCallsUsed": 5
+  },
+  "clause": {
+    "id": "SHARE-002",
+    "before": "partial",
+    "after": "partial",
+    "acceptanceTextChanged": false,
+    "countsBefore": {
+      "done": 57,
+      "partial": 240,
+      "missing": 41
+    },
+    "countsAfter": {
+      "done": 57,
+      "partial": 240,
+      "missing": 41
+    },
+    "statusRows": 338,
+    "tableRows": 698,
+    "registrationsAdded": 0
+  },
+  "matrices": {
+    "1440": {
+      "full": {
+        "nativeReadLevel": "full",
+        "allowedMutations": 19,
+        "refusedRequests": 23
+      },
+      "edit": {
+        "nativeReadLevel": "edit",
+        "allowedMutations": 13,
+        "refusedRequests": 23
+      },
+      "comment": {
+        "nativeReadLevel": "comment",
+        "allowedMutations": 11,
+        "refusedRequests": 23
+      },
+      "view": {
+        "nativeReadLevel": "view",
+        "allowedMutations": 4,
+        "refusedRequests": 20
+      }
+    },
+    "390": {
+      "full": {
+        "nativeReadLevel": "full",
+        "allowedMutations": 19,
+        "refusedRequests": 23
+      },
+      "edit": {
+        "nativeReadLevel": "edit",
+        "allowedMutations": 13,
+        "refusedRequests": 23
+      },
+      "comment": {
+        "nativeReadLevel": "comment",
+        "allowedMutations": 11,
+        "refusedRequests": 23
+      },
+      "view": {
+        "nativeReadLevel": "view",
+        "allowedMutations": 4,
+        "refusedRequests": 20
+      }
+    }
+  },
+  "screens": 56,
+  "generatedViewsCommitted": false,
+  "migrationLedger": "not applicable; migrations unchanged",
+  "publicationScan": "Deferred to the guarded Mac lander under the cloud contract; no scan result claimed.",
+  "mainLanding": false,
+  "recovery": {
+    "path": "/home/agent/rer-consolidation/work/sd-slate-c-f187/candidate.bundle",
+    "sha256": "566bf925eddbc861cd8b5a39609b8de3e26b8b8bfdba6cd672f03b83d7c9d921",
+    "verified": true
+  }
+}

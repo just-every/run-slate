@@ -1,0 +1,15 @@
+{
+  "label": "PHONE",
+  "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+  "tree": "778c21be1b3a41ab8cf491179b7880d1c3045375",
+  "cleanAtStart": true,
+  "command": [
+    "timeout",
+    "1200",
+    "node",
+    "/tmp/slate-candidate-phone.mjs"
+  ],
+  "startedAt": "2026-11-06T11:05:23.424804+00:00",
+  "finishedAt": "2026-11-06T11:11:42.774825+00:00",
+  "exit": 0
+}

@@ -1,0 +1,565 @@
+{
+  "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+  "screens": [
+    {
+      "width": 1440,
+      "state": "full member page after reload",
+      "image": "screens/1440/full-member-page-after-reload.png",
+      "metadata": "screens/1440/full-member-page-after-reload.json",
+      "sha256": "fac0da26c4faa7e51dcb7af4769b6d6a1c20f65ca485c26807c0d5eb983cd36c",
+      "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+      "seriousOrCriticalAxeFindings": 0,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 1440,
+      "state": "full member discussion after reload",
+      "image": "screens/1440/full-member-discussion-after-reload.png",
+      "metadata": "screens/1440/full-member-discussion-after-reload.json",
+      "sha256": "6c09a5a785ac8f3a4ed76654627ede132fbf428ee77715205d66859c45edcfb2",
+      "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+      "seriousOrCriticalAxeFindings": 0,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 1440,
+      "state": "full discussion authority after reload",
+      "image": "screens/1440/full-discussion-authority-after-reload.png",
+      "metadata": "screens/1440/full-discussion-authority-after-reload.json",
+      "sha256": "53d70c2ecdbcaf21d0e1b503d491c172435327adbf4e24f09845a39b1b3df7c0",
+      "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+      "seriousOrCriticalAxeFindings": 0,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 1440,
+      "state": "full comment reaction persisted after reload",
+      "image": "screens/1440/full-comment-reaction-persisted-after-reload.png",
+      "metadata": "screens/1440/full-comment-reaction-persisted-after-reload.json",
+      "sha256": "53d70c2ecdbcaf21d0e1b503d491c172435327adbf4e24f09845a39b1b3df7c0",
+      "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+      "seriousOrCriticalAxeFindings": 0,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 1440,
+      "state": "full page reaction persisted after reload",
+      "image": "screens/1440/full-page-reaction-persisted-after-reload.png",
+      "metadata": "screens/1440/full-page-reaction-persisted-after-reload.json",
+      "sha256": "d96a7b5e84c8e5196141086d2d36a363072c762583f1a7714407b26ac25033f5",
+      "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+      "seriousOrCriticalAxeFindings": 0,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 1440,
+      "state": "full member sharing after reload",
+      "image": "screens/1440/full-member-sharing-after-reload.png",
+      "metadata": "screens/1440/full-member-sharing-after-reload.json",
+      "sha256": "bdeebae9077afe76f717b0ca207c01475e9c0662cfba102118718fc148eaddf6",
+      "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+      "seriousOrCriticalAxeFindings": 0,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 1440,
+      "state": "full revoked member cannot recover prior content",
+      "image": "screens/1440/full-revoked-member-cannot-recover-prior-content.png",
+      "metadata": "screens/1440/full-revoked-member-cannot-recover-prior-content.json",
+      "sha256": "e904aa77e640d384ba0681d07942aebe3bc29b3390910028abba16bdc2d78bd5",
+      "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+      "seriousOrCriticalAxeFindings": 0,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 1440,
+      "state": "edit member page after reload",
+      "image": "screens/1440/edit-member-page-after-reload.png",
+      "metadata": "screens/1440/edit-member-page-after-reload.json",
+      "sha256": "891c918744fc03e72ad9fea65f2d1f476d8b83ac3274e00424c7b6f6317f3fdb",
+      "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+      "seriousOrCriticalAxeFindings": 0,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 1440,
+      "state": "edit member discussion after reload",
+      "image": "screens/1440/edit-member-discussion-after-reload.png",
+      "metadata": "screens/1440/edit-member-discussion-after-reload.json",
+      "sha256": "8f70658853762b9e8ab0c95d1d3aabd72ca0caa6eb288af9f9ae2cc86c41efac",
+      "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+      "seriousOrCriticalAxeFindings": 0,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 1440,
+      "state": "edit discussion authority after reload",
+      "image": "screens/1440/edit-discussion-authority-after-reload.png",
+      "metadata": "screens/1440/edit-discussion-authority-after-reload.json",
+      "sha256": "2311797de4f612402c0248f8717c097753ef7755ee45452e8eb94e9ba0342d1c",
+      "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+      "seriousOrCriticalAxeFindings": 0,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 1440,
+      "state": "edit comment reaction persisted after reload",
+      "image": "screens/1440/edit-comment-reaction-persisted-after-reload.png",
+      "metadata": "screens/1440/edit-comment-reaction-persisted-after-reload.json",
+      "sha256": "2311797de4f612402c0248f8717c097753ef7755ee45452e8eb94e9ba0342d1c",
+      "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+      "seriousOrCriticalAxeFindings": 0,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 1440,
+      "state": "edit page reaction persisted after reload",
+      "image": "screens/1440/edit-page-reaction-persisted-after-reload.png",
+      "metadata": "screens/1440/edit-page-reaction-persisted-after-reload.json",
+      "sha256": "bea1c3799cf78761eb616676768c54237c8a85a85b60ef49dd544d2cd80835db",
+      "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+      "seriousOrCriticalAxeFindings": 0,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 1440,
+      "state": "edit member sharing after reload",
+      "image": "screens/1440/edit-member-sharing-after-reload.png",
+      "metadata": "screens/1440/edit-member-sharing-after-reload.json",
+      "sha256": "06ad717829d5a58704c362d3625c742b9a18c94c7f28c9ce7bdd4ec5362b02a5",
+      "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+      "seriousOrCriticalAxeFindings": 0,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 1440,
+      "state": "edit revoked member cannot recover prior content",
+      "image": "screens/1440/edit-revoked-member-cannot-recover-prior-content.png",
+      "metadata": "screens/1440/edit-revoked-member-cannot-recover-prior-content.json",
+      "sha256": "e904aa77e640d384ba0681d07942aebe3bc29b3390910028abba16bdc2d78bd5",
+      "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+      "seriousOrCriticalAxeFindings": 0,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 1440,
+      "state": "comment member page after reload",
+      "image": "screens/1440/comment-member-page-after-reload.png",
+      "metadata": "screens/1440/comment-member-page-after-reload.json",
+      "sha256": "8d7740285e6169f7e7173522058a644c3725029b5997581a9973f2ca053aaa39",
+      "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+      "seriousOrCriticalAxeFindings": 0,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 1440,
+      "state": "comment member discussion after reload",
+      "image": "screens/1440/comment-member-discussion-after-reload.png",
+      "metadata": "screens/1440/comment-member-discussion-after-reload.json",
+      "sha256": "01966c3fcc250a4e1aa0dae42e8644717b78f4eff3265d73586c444d651731a5",
+      "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+      "seriousOrCriticalAxeFindings": 0,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 1440,
+      "state": "comment discussion authority after reload",
+      "image": "screens/1440/comment-discussion-authority-after-reload.png",
+      "metadata": "screens/1440/comment-discussion-authority-after-reload.json",
+      "sha256": "a6ddb626263168adecb4c8e9635eac96d2cbb7af63e86ec073337f73e3bba358",
+      "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+      "seriousOrCriticalAxeFindings": 0,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 1440,
+      "state": "comment comment reaction persisted after reload",
+      "image": "screens/1440/comment-comment-reaction-persisted-after-reload.png",
+      "metadata": "screens/1440/comment-comment-reaction-persisted-after-reload.json",
+      "sha256": "a6ddb626263168adecb4c8e9635eac96d2cbb7af63e86ec073337f73e3bba358",
+      "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+      "seriousOrCriticalAxeFindings": 0,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 1440,
+      "state": "comment page reaction persisted after reload",
+      "image": "screens/1440/comment-page-reaction-persisted-after-reload.png",
+      "metadata": "screens/1440/comment-page-reaction-persisted-after-reload.json",
+      "sha256": "159e658afeba3c7cccd4ec23352218bc224546b1157d0dd498691114951a36ed",
+      "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+      "seriousOrCriticalAxeFindings": 0,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 1440,
+      "state": "comment member sharing after reload",
+      "image": "screens/1440/comment-member-sharing-after-reload.png",
+      "metadata": "screens/1440/comment-member-sharing-after-reload.json",
+      "sha256": "ee7e947aaa8c1055e1aab8ff03a233fe5f1c39ba67de57d63a06505a52cfeaf7",
+      "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+      "seriousOrCriticalAxeFindings": 0,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 1440,
+      "state": "comment revoked member cannot recover prior content",
+      "image": "screens/1440/comment-revoked-member-cannot-recover-prior-content.png",
+      "metadata": "screens/1440/comment-revoked-member-cannot-recover-prior-content.json",
+      "sha256": "e904aa77e640d384ba0681d07942aebe3bc29b3390910028abba16bdc2d78bd5",
+      "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+      "seriousOrCriticalAxeFindings": 0,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 1440,
+      "state": "view member page after reload",
+      "image": "screens/1440/view-member-page-after-reload.png",
+      "metadata": "screens/1440/view-member-page-after-reload.json",
+      "sha256": "1a6e9937577dbd9be43a05592e794ebd9ef8207253379a6c78f1a8c2850dd588",
+      "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+      "seriousOrCriticalAxeFindings": 0,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 1440,
+      "state": "view member discussion after reload",
+      "image": "screens/1440/view-member-discussion-after-reload.png",
+      "metadata": "screens/1440/view-member-discussion-after-reload.json",
+      "sha256": "6eb38860f1c9f903881a3e582198f27d2b2dada03939bf39a65aa80696d77d77",
+      "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+      "seriousOrCriticalAxeFindings": 0,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 1440,
+      "state": "view discussion authority after reload",
+      "image": "screens/1440/view-discussion-authority-after-reload.png",
+      "metadata": "screens/1440/view-discussion-authority-after-reload.json",
+      "sha256": "6eb38860f1c9f903881a3e582198f27d2b2dada03939bf39a65aa80696d77d77",
+      "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+      "seriousOrCriticalAxeFindings": 0,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 1440,
+      "state": "view comment reaction persisted after reload",
+      "image": "screens/1440/view-comment-reaction-persisted-after-reload.png",
+      "metadata": "screens/1440/view-comment-reaction-persisted-after-reload.json",
+      "sha256": "a64d7786f84ff3d50950e4c3d5ecd5174ebad8b300d2765b0c31c86f61771e09",
+      "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+      "seriousOrCriticalAxeFindings": 0,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 1440,
+      "state": "view page reaction persisted after reload",
+      "image": "screens/1440/view-page-reaction-persisted-after-reload.png",
+      "metadata": "screens/1440/view-page-reaction-persisted-after-reload.json",
+      "sha256": "579e0172e735409d216c167a5bbcb31474e02259e19fc5715e8aa31883939c93",
+      "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+      "seriousOrCriticalAxeFindings": 0,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 1440,
+      "state": "view member sharing after reload",
+      "image": "screens/1440/view-member-sharing-after-reload.png",
+      "metadata": "screens/1440/view-member-sharing-after-reload.json",
+      "sha256": "b64e7ca4d401a5722ab3d47f9f60fe0ac3ce0efb8d5e70d224dcd8c9cc230ecc",
+      "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+      "seriousOrCriticalAxeFindings": 0,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 1440,
+      "state": "view revoked member cannot recover prior content",
+      "image": "screens/1440/view-revoked-member-cannot-recover-prior-content.png",
+      "metadata": "screens/1440/view-revoked-member-cannot-recover-prior-content.json",
+      "sha256": "e904aa77e640d384ba0681d07942aebe3bc29b3390910028abba16bdc2d78bd5",
+      "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+      "seriousOrCriticalAxeFindings": 0,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 390,
+      "state": "full member page after reload",
+      "image": "screens/390/full-member-page-after-reload.png",
+      "metadata": "screens/390/full-member-page-after-reload.json",
+      "sha256": "9732b6da05787c47adbc2697fc07660376873031584ec40a5776ba8e307dd994",
+      "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+      "seriousOrCriticalAxeFindings": 0,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 390,
+      "state": "full member discussion after reload",
+      "image": "screens/390/full-member-discussion-after-reload.png",
+      "metadata": "screens/390/full-member-discussion-after-reload.json",
+      "sha256": "bab2883dff8369d07145a5f95ad067f35ff487270850a4cd63d31d50ade4f543",
+      "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+      "seriousOrCriticalAxeFindings": 0,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 390,
+      "state": "full discussion authority after reload",
+      "image": "screens/390/full-discussion-authority-after-reload.png",
+      "metadata": "screens/390/full-discussion-authority-after-reload.json",
+      "sha256": "ed81eda9b0f06c937d2423dc0e4f575edf10d1abd3f00a7445f61e7186d78027",
+      "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+      "seriousOrCriticalAxeFindings": 0,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 390,
+      "state": "full comment reaction persisted after reload",
+      "image": "screens/390/full-comment-reaction-persisted-after-reload.png",
+      "metadata": "screens/390/full-comment-reaction-persisted-after-reload.json",
+      "sha256": "ed81eda9b0f06c937d2423dc0e4f575edf10d1abd3f00a7445f61e7186d78027",
+      "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+      "seriousOrCriticalAxeFindings": 0,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 390,
+      "state": "full page reaction persisted after reload",
+      "image": "screens/390/full-page-reaction-persisted-after-reload.png",
+      "metadata": "screens/390/full-page-reaction-persisted-after-reload.json",
+      "sha256": "5aa47fefc0a1faf8103851a9003330804f9c5e3acef81c691305f57ee8801730",
+      "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+      "seriousOrCriticalAxeFindings": 0,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 390,
+      "state": "full member sharing after reload",
+      "image": "screens/390/full-member-sharing-after-reload.png",
+      "metadata": "screens/390/full-member-sharing-after-reload.json",
+      "sha256": "b4a88fb012f50f6afc0b3b82220ecddcc27cf311efc6842fc480434078bb512b",
+      "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+      "seriousOrCriticalAxeFindings": 0,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 390,
+      "state": "full revoked member cannot recover prior content",
+      "image": "screens/390/full-revoked-member-cannot-recover-prior-content.png",
+      "metadata": "screens/390/full-revoked-member-cannot-recover-prior-content.json",
+      "sha256": "5c32190e9e6f3f9836a3f0903f78146177bf97280ad76435f187cc8df6111eca",
+      "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+      "seriousOrCriticalAxeFindings": 0,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 390,
+      "state": "edit member page after reload",
+      "image": "screens/390/edit-member-page-after-reload.png",
+      "metadata": "screens/390/edit-member-page-after-reload.json",
+      "sha256": "eab96cea93c6e66d8fc49534c709c007c1077e92e241f1627a450aac9122f93c",
+      "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+      "seriousOrCriticalAxeFindings": 0,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 390,
+      "state": "edit member discussion after reload",
+      "image": "screens/390/edit-member-discussion-after-reload.png",
+      "metadata": "screens/390/edit-member-discussion-after-reload.json",
+      "sha256": "411dd80ecf81a8fd2736f4c7493b7b144ead68909609a3f17e0a1bca43eba10b",
+      "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+      "seriousOrCriticalAxeFindings": 0,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 390,
+      "state": "edit discussion authority after reload",
+      "image": "screens/390/edit-discussion-authority-after-reload.png",
+      "metadata": "screens/390/edit-discussion-authority-after-reload.json",
+      "sha256": "66aa6d80f438572570c2500842f10f4f7a3bcbe65009262049c19fb6e0cadf47",
+      "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+      "seriousOrCriticalAxeFindings": 0,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 390,
+      "state": "edit comment reaction persisted after reload",
+      "image": "screens/390/edit-comment-reaction-persisted-after-reload.png",
+      "metadata": "screens/390/edit-comment-reaction-persisted-after-reload.json",
+      "sha256": "66aa6d80f438572570c2500842f10f4f7a3bcbe65009262049c19fb6e0cadf47",
+      "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+      "seriousOrCriticalAxeFindings": 0,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 390,
+      "state": "edit page reaction persisted after reload",
+      "image": "screens/390/edit-page-reaction-persisted-after-reload.png",
+      "metadata": "screens/390/edit-page-reaction-persisted-after-reload.json",
+      "sha256": "edca6f1a84693b15481123b73e0079bdb52b8dfff443349f1f6595276f7207cc",
+      "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+      "seriousOrCriticalAxeFindings": 0,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 390,
+      "state": "edit member sharing after reload",
+      "image": "screens/390/edit-member-sharing-after-reload.png",
+      "metadata": "screens/390/edit-member-sharing-after-reload.json",
+      "sha256": "2025bab2f2acaacdb920e357948d81f504e11f236add2f0cf898a4710b46e1aa",
+      "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+      "seriousOrCriticalAxeFindings": 0,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 390,
+      "state": "edit revoked member cannot recover prior content",
+      "image": "screens/390/edit-revoked-member-cannot-recover-prior-content.png",
+      "metadata": "screens/390/edit-revoked-member-cannot-recover-prior-content.json",
+      "sha256": "5c32190e9e6f3f9836a3f0903f78146177bf97280ad76435f187cc8df6111eca",
+      "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+      "seriousOrCriticalAxeFindings": 0,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 390,
+      "state": "comment member page after reload",
+      "image": "screens/390/comment-member-page-after-reload.png",
+      "metadata": "screens/390/comment-member-page-after-reload.json",
+      "sha256": "018a6d82488b9711f2e9bf742f5781df5171be7bdc1164fbe7a8c36be9630b35",
+      "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+      "seriousOrCriticalAxeFindings": 0,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 390,
+      "state": "comment member discussion after reload",
+      "image": "screens/390/comment-member-discussion-after-reload.png",
+      "metadata": "screens/390/comment-member-discussion-after-reload.json",
+      "sha256": "c7f9db48a4e91b3d40bbb48ac6216c503da809a1f4cb0f8068986b644a5c3263",
+      "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+      "seriousOrCriticalAxeFindings": 0,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 390,
+      "state": "comment discussion authority after reload",
+      "image": "screens/390/comment-discussion-authority-after-reload.png",
+      "metadata": "screens/390/comment-discussion-authority-after-reload.json",
+      "sha256": "33458dfc5f7ecb93a2fe87943fbe23961f5a4393f99b7ff57cfd7794cf2a2651",
+      "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+      "seriousOrCriticalAxeFindings": 0,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 390,
+      "state": "comment comment reaction persisted after reload",
+      "image": "screens/390/comment-comment-reaction-persisted-after-reload.png",
+      "metadata": "screens/390/comment-comment-reaction-persisted-after-reload.json",
+      "sha256": "33458dfc5f7ecb93a2fe87943fbe23961f5a4393f99b7ff57cfd7794cf2a2651",
+      "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+      "seriousOrCriticalAxeFindings": 0,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 390,
+      "state": "comment page reaction persisted after reload",
+      "image": "screens/390/comment-page-reaction-persisted-after-reload.png",
+      "metadata": "screens/390/comment-page-reaction-persisted-after-reload.json",
+      "sha256": "b5adea2a2c29be2732d5ed63bce2117bc3bb1c115964ba1c117bceb4e3e91cc7",
+      "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+      "seriousOrCriticalAxeFindings": 0,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 390,
+      "state": "comment member sharing after reload",
+      "image": "screens/390/comment-member-sharing-after-reload.png",
+      "metadata": "screens/390/comment-member-sharing-after-reload.json",
+      "sha256": "2025bab2f2acaacdb920e357948d81f504e11f236add2f0cf898a4710b46e1aa",
+      "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+      "seriousOrCriticalAxeFindings": 0,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 390,
+      "state": "comment revoked member cannot recover prior content",
+      "image": "screens/390/comment-revoked-member-cannot-recover-prior-content.png",
+      "metadata": "screens/390/comment-revoked-member-cannot-recover-prior-content.json",
+      "sha256": "5c32190e9e6f3f9836a3f0903f78146177bf97280ad76435f187cc8df6111eca",
+      "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+      "seriousOrCriticalAxeFindings": 0,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 390,
+      "state": "view member page after reload",
+      "image": "screens/390/view-member-page-after-reload.png",
+      "metadata": "screens/390/view-member-page-after-reload.json",
+      "sha256": "e2dfb29556c5a768da6c7ee705b4932c470fa59c6c560e9da843de9b6dbd5d9f",
+      "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+      "seriousOrCriticalAxeFindings": 0,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 390,
+      "state": "view member discussion after reload",
+      "image": "screens/390/view-member-discussion-after-reload.png",
+      "metadata": "screens/390/view-member-discussion-after-reload.json",
+      "sha256": "15ee62d984209bab9de68391c869f976b841d8d22fa54d17edef0450f1594375",
+      "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+      "seriousOrCriticalAxeFindings": 0,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 390,
+      "state": "view discussion authority after reload",
+      "image": "screens/390/view-discussion-authority-after-reload.png",
+      "metadata": "screens/390/view-discussion-authority-after-reload.json",
+      "sha256": "15ee62d984209bab9de68391c869f976b841d8d22fa54d17edef0450f1594375",
+      "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+      "seriousOrCriticalAxeFindings": 0,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 390,
+      "state": "view comment reaction persisted after reload",
+      "image": "screens/390/view-comment-reaction-persisted-after-reload.png",
+      "metadata": "screens/390/view-comment-reaction-persisted-after-reload.json",
+      "sha256": "84a2e17b70d0c27512c656009e099a87c6ae759314dffc960f93fbb4f5ff8913",
+      "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+      "seriousOrCriticalAxeFindings": 0,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 390,
+      "state": "view page reaction persisted after reload",
+      "image": "screens/390/view-page-reaction-persisted-after-reload.png",
+      "metadata": "screens/390/view-page-reaction-persisted-after-reload.json",
+      "sha256": "403f76f0860b29944ca2c00eeae1b5dac470807a50f8df986fb05c2a86f7f3a4",
+      "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+      "seriousOrCriticalAxeFindings": 0,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 390,
+      "state": "view member sharing after reload",
+      "image": "screens/390/view-member-sharing-after-reload.png",
+      "metadata": "screens/390/view-member-sharing-after-reload.json",
+      "sha256": "2025bab2f2acaacdb920e357948d81f504e11f236add2f0cf898a4710b46e1aa",
+      "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+      "seriousOrCriticalAxeFindings": 0,
+      "horizontalOverflow": false
+    },
+    {
+      "width": 390,
+      "state": "view revoked member cannot recover prior content",
+      "image": "screens/390/view-revoked-member-cannot-recover-prior-content.png",
+      "metadata": "screens/390/view-revoked-member-cannot-recover-prior-content.json",
+      "sha256": "5c32190e9e6f3f9836a3f0903f78146177bf97280ad76435f187cc8df6111eca",
+      "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+      "seriousOrCriticalAxeFindings": 0,
+      "horizontalOverflow": false
+    }
+  ]
+}

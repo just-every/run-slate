@@ -1,0 +1,12 @@
+{
+  "run": 42205976764,
+  "job": 127852649279,
+  "head": "ccf90a9f0ab142051c0f5a7d3901d4c74607963f",
+  "command": "gh run view 42205976764 --repo just-every/run-slate --job 127852649279 --log-failed",
+  "exit": 0,
+  "sanitized": "Runner environment block and shell metadata omitted; failure text retained.",
+  "jobConclusion": "failure",
+  "failedCommand": "node src/base/runtime/contract-docs.mjs check",
+  "stepExit": 1,
+  "failure": "ACCEPTANCE.md: generated content differs; run contract-docs write."
+}
