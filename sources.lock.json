@@ -12240,7 +12240,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/sharing-journey.mjs": {
-      "sha256": "3a89f06c68fae47fa0ccf52ffd1d5c6e8ecbb52c8c6a6afb6866e3df79818388",
+      "sha256": "120ec7959409e883bd06b53f2e36a854a7cb99195d3f75489b2a5a9d3643715b",
       "executable": false
     },
     "tests/qualification/ui-convergence/sharing-page-edit-matrix.mjs": {
@@ -12424,11 +12424,11 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "327772193375556537149e3c8b2233e2893e5fa572eedd058b717a2e51111cc8",
+      "sha256": "fce912d868f363865b395104399d50c66da1be4dccbd2eb3cd9c36c453153975",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
-      "sha256": "efa4b3a32b83a39070ca28e9680e2c673f1c7396fb2178b412787e778132f600",
+      "sha256": "5ecfe0b3d821c87b3b4a8c0fcf3ae1e95fac0dca7b0da9de1f988258a641c0a3",
       "executable": false
     },
     "tests/requirements/count-registrations.mjs": {

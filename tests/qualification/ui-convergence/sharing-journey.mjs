@@ -151,7 +151,20 @@ export async function permissionLevelsJourney(state, { extended = true } = {}) {
       assert.equal(current.blocks.find(block => block.id === blockId).content.text.map(span => span.text).join(''), initialBody);
       const memberDiscussion = await ok(bob.context, origin, 'GET', commentsRoute);
       assert.equal(memberDiscussion.comments[0].id, ownerComment);
-      records.push({ level, pageId, read: { document: current, discussion: memberDiscussion } });
+      const metadata = {};
+      if (extended) {
+        metadata.details = await ok(bob.context, origin, 'GET', `${route}/details`);
+        assert.equal(metadata.details.owner.id, 'browser-owner');
+        assert.equal(metadata.details.characterCount, initialBody.length);
+        metadata.linkCard = await ok(bob.context, origin, 'GET', `${route}/link-card`);
+        assert.equal(metadata.linkCard.title, initialTitle);
+        metadata.history = await ok(bob.context, origin, 'GET', `/api/revisions/${pageId}`);
+        assert.ok(metadata.history.items.some(item => item.id === current.publishedRevisionId));
+        metadata.published = await ok(bob.context, origin, 'GET', `/api/revisions/${pageId}/${current.publishedRevisionId}`);
+        assert.equal(metadata.published.properties.title, initialTitle);
+        assert.deepEqual(metadata.published.blocks.find(block => block.id === blockId).content, { text: [{ text: initialBody }] });
+      }
+      records.push({ level, pageId, read: { document: current, discussion: memberDiscussion, ...metadata } });
 
       const activity = async () => {
         const items = [];
@@ -391,6 +404,9 @@ export async function permissionLevelsJourney(state, { extended = true } = {}) {
       const revokedState = await snapshot();
       await refuse('GET', route, undefined, 404, revokedState);
       await refuse('GET', commentsRoute, undefined, 404, revokedState);
+      for (const target of [`${route}/details`, `${route}/link-card`, `/api/revisions/${pageId}`, `/api/revisions/${pageId}/${current.publishedRevisionId}`]) {
+        await refuse('GET', target, undefined, 404, revokedState);
+      }
       for (const captured of captures) await refuse(captured.method, captured.target, captured.input, 404, revokedState);
       await view.goto(`${origin}/app/pages/${pageId}`, { waitUntil: 'networkidle' });
       await expect(view.getByRole('heading', { name: 'Access needed', exact: true })).toBeVisible();
@@ -399,7 +415,7 @@ export async function permissionLevelsJourney(state, { extended = true } = {}) {
       await accessible(view, `${level} revoked member cannot recover prior content`);
       }
       records.push({ level, pageId, blockId, readerGrant, final: await snapshot() });
-      console.log(`PROBE SHARE-002 ${level}: ${extended ? 'expanded discussion, reactions, effective grants and revoked captures' : 'selected reads, title, body, comment and direct grants'}; ${refusals.filter(item => item.level === level).length} refused requests preserve inventories at ${width}px`);
+      console.log(`PROBE SHARE-002 ${level}: ${extended ? 'page edits, ownership, locks, metadata reads, discussion, reactions, grants and revoked captures' : 'selected reads, title, body, comment and direct grants'}; ${refusals.filter(item => item.level === level).length} refused requests preserve inventories at ${width}px`);
     }
   }); } finally { await recipientContext?.close(); }
   const directory = path.join(root, '.artifacts/ui-convergence/permission-levels', String(width));
