@@ -13,9 +13,9 @@ export async function draftPrivacyCase() {
   })));
   const [owner,author,reader,groupReader,outsider]=identities;
   const sessions=new Map(await Promise.all(identities.map(async person=>[person.id,await sessionFor(person.id,{freshProof:true})] as const)));
-  const origin=new URL(String(env.APP_URL)).origin,app=createApi();
+  const origin=new URL(String(env.APP_URL)).origin,app=createApi(),runtime={...env,SLATE_PROFILE:undefined};
   const request=async(actor:string|null,method:string,path:string,input?:unknown)=>{
-    const response=await app.request(origin+path,{method,headers:{origin,'content-type':'application/json',...(actor?{cookie:sessions.get(actor)!}:{})},body:input===undefined?undefined:JSON.stringify(input)},env);
+    const response=await app.request(origin+path,{method,headers:{origin,'content-type':'application/json',...(actor?{cookie:sessions.get(actor)!}:{})},body:input===undefined?undefined:JSON.stringify(input)},runtime);
     return {status:response.status,body:await response.text()};
   };
   const ok=async(actor:string,method:string,path:string,input?:unknown)=>{
@@ -129,14 +129,69 @@ export async function draftPrivacyCase() {
       const comments=await ok(person.id,'GET','/api/search?q=CustodyMarker&kind=comment-thread');
       expect(comments.items.map((item:any)=>item.id)).toEqual([liveThread]);expect(comments.total).toBe(1);
       expect(comments.facets).toEqual({kind:{'comment-thread':1},container:{[containerId]:1},status:{}});
+      const mixed=await ok(person.id,'GET','/api/search?q=CustodyMarker');
+      expect(mixed.items.map((item:any)=>item.id).sort()).toEqual([control,liveThread].sort());expect(mixed.total).toBe(2);
+      expect(mixed.facets).toEqual({kind:{page:1,'comment-thread':1},container:{[containerId]:2},status:{}});
+      const titleOnly=await ok(person.id,'GET','/api/search?q=title%3A%22CustodyMarker%20Private%20response%20draft%22');
+      expect(titleOnly.items).toEqual([]);expect(titleOnly.total).toBe(0);expect(titleOnly.facets).toEqual({kind:{},container:{},status:{}});
       const queried=await ok(person.id,'POST',`/api/pages/${control}/query`,{orderBy:'title',limit:100});
       expect(queried.items.map((item:any)=>item.id)).toEqual([control,homeId]);
       const tree=await ok(person.id,'GET','/api/pages');
       expect(tree.items.map((item:any)=>item.id).sort()).toEqual(([author!.id,reader!.id,groupReader!.id].includes(person.id)?[id,control,homeId]:[control,homeId]).sort());
     }
   }
+  expect((await rows('notifications')).filter((notice:any)=>notice.source_page_id===id)).toEqual([]);
+  expect((await rows('notification_outbox')).filter((notice:any)=>notice.page_id===id)).toEqual([]);
+  // Retained notices from a prior installation must be filtered at read time too.
+  const legacyIds:string[]=[];
+  const priorInboxes=new Map<string,any>();
+  for(const person of identities) {
+    const inbox=await ok(person.id,'GET','/api/notifications?limit=100');
+    priorInboxes.set(person.id,{items:inbox.items,unreadCount:inbox.unreadCount});
+    for(const sourceOnly of [false,true]) {
+      const noticeId=createUlid();legacyIds.push(noticeId);
+      await env.DB.prepare("INSERT INTO notifications(id,workspace_id,recipient_member_id,source_page_id,event,detail_json,created_at,audience) VALUES(?,?,?,?,?,?,?,?)")
+        .bind(noticeId,workspaceId,person.id,sourceOnly?null:id,'mention',sourceOnly?JSON.stringify({sourcePageIds:[id]}):'{}',new Date().toISOString(),sourceOnly?'watched':'direct').run();
+    }
+    const inboxAfter=await ok(person.id,'GET','/api/notifications?limit=100');
+    expect({items:inboxAfter.items,unreadCount:inboxAfter.unreadCount}).toEqual(priorInboxes.get(person.id));
+    for(const query of ['audience=direct','audience=watched','archived=true']) {
+      const filtered=await ok(person.id,'GET',`/api/notifications?${query}`);
+      expect(filtered.items.some((item:any)=>legacyIds.includes(item.id))).toBe(false);
+    }
+    const today=await ok(person.id,'GET','/api/notifications/today');
+    expect(JSON.stringify(today)).not.toContain(id);
+    expect((await ok(person.id,'GET','/api/navigation/following')).items.some((item:any)=>legacyIds.includes(item.id))).toBe(false);
+    const beforeNotices=await rows('notifications'),before=await snapshot();
+    const rejected=await request(person.id,'POST','/api/notifications/actions',{operationKey:createUlid(),action:'read',id:legacyIds.at(-1)});
+    expect(rejected.status).toBe(404);expect(await rows('notifications')).toEqual(beforeNotices);expect(await snapshot()).toEqual(before);
+  }
+  // A queued legacy event is not newly delivered just because a grant is active.
+  const queued:string[]=[];
+  for(const sourceOnly of [false,true]) {
+    const outboxId=createUlid();queued.push(outboxId);
+    await env.DB.prepare('INSERT INTO notification_outbox(id,workspace_id,actor_member_id,event,page_id,recipients_json,detail_json,created_at) VALUES(?,?,?,?,?,?,?,?)')
+      .bind(outboxId,workspaceId,author!.id,'mention',sourceOnly?null:id,JSON.stringify([reader!.id,groupReader!.id]),sourceOnly?JSON.stringify({sourcePageIds:[id]}):'{}',new Date().toISOString()).run();
+  }
+  await ok(reader!.id,'POST','/api/notifications/actions',{operationKey:createUlid(),action:'read-all'});
+  await ok(reader!.id,'POST','/api/notifications/actions',{operationKey:createUlid(),action:'archive-read'});
+  expect((await rows('notification_outbox')).filter((row:any)=>queued.includes(row.id)).every((row:any)=>!!row.processed_at)).toBe(true);
+  expect((await rows('notifications')).filter((row:any)=>queued.includes(row.outbox_id))).toEqual([]);
+  expect((await rows('notifications')).filter((row:any)=>legacyIds.includes(row.id)).every((row:any)=>row.read_at===null&&row.archived_at===null)).toBe(true);
+  // A readable draft is still absent from every inbox, including its grantees'.
+  // The live grant produces real notices, so an empty projection cannot pass.
+  for(const person of [reader!,groupReader!]) {
+    const inbox=await ok(person.id,'GET',`/api/notifications${person.id===reader!.id?'?archived=true':''}`);
+    expect(inbox.items.filter((item:any)=>item.pageId===control).length).toBeGreaterThan(0);
+    expect(inbox.items.filter((item:any)=>item.pageId===id)).toEqual([]);
+    expect(inbox.unreadCount).toBe(inbox.items.filter((item:any)=>!item.readAt).length);
+    const today=await ok(person.id,'GET','/api/notifications/today');
+    expect(today.notices.some((item:any)=>item.pageId===control)).toBe(person.id!==reader!.id);
+    expect(JSON.stringify(today)).not.toContain(id);
+  }
   for(const grant of searchGrants)await ok(author!.id,'POST','/api/sharing',{...grant,operationKey:createUlid(),revoke:true});
   for(const person of [reader!,groupReader!])await refused(person.id,'GET',`/api/pages/${id}`);
+  await ok(author!.id,'POST','/api/sharing',{operationKey:createUlid(),targetKind:'page',targetId:control,principalKind:'member',principalId:reader!.id,level:'view'});
   const notifications=await ok(reader!.id,'GET','/api/notifications');
   expect(notifications.items.some((item:any)=>item.pageId===control)).toBe(true);
   expect(notifications.items.some((item:any)=>item.pageId===id)).toBe(false);
@@ -163,7 +218,7 @@ export async function draftPrivacyCase() {
       const invitation=(await grants()).items.find((g:any)=>g.invitationEmail===email);
       expect(invitation).toMatchObject({status:'pending',effective:false,level:'view'});
       const token=delivered.at(-1)!.match(/\/api\/auth\/invitation\/accept\?token=([A-Za-z0-9_-]+)/)![1]!;
-      const accept=()=>app.request(origin+'/api/auth/invitation/accept',{method:'POST',headers:{origin,'content-type':'application/x-www-form-urlencoded'},body:new URLSearchParams({token})},env);
+      const accept=()=>app.request(origin+'/api/auth/invitation/accept',{method:'POST',headers:{origin,'content-type':'application/x-www-form-urlencoded'},body:new URLSearchParams({token})},runtime);
       const beforePreview=await snapshot();
       const preview=await request(null,'GET',`/api/auth/invitation/accept?token=${token}`);
       expect(preview.status).toBe(200);expect(preview.body).not.toContain(text);

@@ -84,6 +84,17 @@ export async function draftPrivacyJourney(state) {
         await expect(view.locator('.search-results > li')).toHaveCount(1);
       }
       await page.screenshot({path:`${directory}/private-draft-search.png`,fullPage:true});
+      // The named reader can open the draft body, while its inbox stays private.
+      const readerInbox=await ok(people.bob.context,origin,'GET','/api/notifications');
+      assert.ok(readerInbox.items.some(item=>item.pageId===control));
+      assert.deepEqual(readerInbox.items.filter(item=>item.pageId===id),[]);
+      await people.bob.page.goto(`${origin}/app/inbox`,{waitUntil:'networkidle'});
+      await expect(people.bob.page.locator('.main')).toContainText('DraftCustody published response');
+      await expect(people.bob.page.locator('.main')).not.toContainText('DraftCustody private response');
+      await people.bob.page.reload({waitUntil:'networkidle'});
+      await expect(people.bob.page.locator('.main')).toContainText('DraftCustody published response');
+      await expect(people.bob.page.locator('.main')).not.toContainText('DraftCustody private response');
+      await people.bob.page.screenshot({path:`${directory}/private-draft-inbox.png`,fullPage:true});
       await page.goto(address,{waitUntil:'networkidle'});await openSharing();
       await people.bob.page.goto(address,{waitUntil:'networkidle'});
       await expect(people.bob.page.locator('.page-document')).toContainText(text);

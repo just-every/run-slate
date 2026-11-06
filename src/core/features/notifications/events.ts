@@ -1,4 +1,4 @@
-import {pageReadableSql,containerReadableSql} from './creation-access';
+import {pageReadableSql,containerReadableSql,notificationPageSql} from './creation-access';
 import type { FeatureContext } from '../../app/feature-context';
 import type { NotificationDetail } from './visibility';
 import { ApiProblem } from '../../app/problems';
@@ -26,18 +26,18 @@ export function notificationStatements(ctx:FeatureContext,event:NotificationFact
  return [ctx.db.prepare(`WITH fact AS MATERIALIZED (SELECT ? AS workspace,? AS page,? AS container,? AS at,? AS detail),
  eligible AS MATERIALIZED (SELECT m.id FROM members m,fact f WHERE m.workspace_id=f.workspace AND m.status='active'
  AND (f.page IS NULL OR ${pageRead}) AND (f.container IS NULL OR ${containerReadableSql('m','f.container','f.workspace','f.at')})
- AND NOT EXISTS(SELECT 1 FROM json_each(json_extract(f.detail,'$.sourcePageIds')) source WHERE NOT (${pageReadableSql('m','source.value','f.workspace','f.at')})) AND (${extra.sql})),
+ AND NOT EXISTS(SELECT 1 FROM json_each(json_extract(f.detail,'$.sourcePageIds')) source WHERE NOT (${notificationPageSql('source.value')} AND ${pageReadableSql('m','source.value','f.workspace','f.at')})) AND (${extra.sql})),
  watched AS MATERIALIZED (SELECT member_id FROM page_watches WHERE page_id=? AND enabled=1
  UNION SELECT member_id FROM container_watches WHERE ?=1 AND container_id IN (SELECT container_id FROM pages WHERE id=? UNION SELECT value FROM json_each(?)))
  INSERT OR IGNORE INTO notification_outbox(id,workspace_id,actor_member_id,event,page_id,container_id,comment_id,recipients_json,watched_recipients_json,detail_json,created_at)
  SELECT ${id},?,?,?,?,?,?,
  (SELECT json_group_array(value) FROM (SELECT value FROM json_each(?) UNION SELECT author_member_id FROM pages WHERE id=? AND ? IN ('comment','reply')) WHERE value IN (SELECT id FROM eligible)),
  (SELECT json_group_array(member_id) FROM watched WHERE ?=1 AND member_id IN (SELECT id FROM eligible)
- AND EXISTS(SELECT 1 FROM pages p LEFT JOIN content_archive_locations a ON a.page_id=p.id WHERE p.id=? AND COALESCE(a.prior_lifecycle,p.lifecycle) NOT IN ('draft','scheduled'))),?,?
- WHERE ?=0 OR EXISTS(SELECT 1 FROM pages p LEFT JOIN content_archive_locations a ON a.page_id=p.id WHERE p.id=? AND COALESCE(a.prior_lifecycle,p.lifecycle) NOT IN ('draft','scheduled'))`)
+ AND ${notificationPageSql('?')}),?,?
+ WHERE ?=0 OR ${notificationPageSql('?')}`)
  .bind(ctx.actor.workspaceId,event.pageId??null,event.containerId??null,ctx.now,JSON.stringify(event.detail??{}),...extra.values,
  event.pageId??null,+(options.containerWatchers??true),event.pageId??null,JSON.stringify(options.containerIds??[]),...idValues,
  ctx.actor.workspaceId,event.actorId===undefined?ctx.actor.id:event.actorId,event.event,event.pageId??null,event.containerId??null,event.commentId??null,
- JSON.stringify(event.recipientIds??[]),event.pageId??null,event.event,+watched,event.pageId??null,JSON.stringify(event.detail??{}),ctx.now,+(event.event.startsWith('page-')||event.event==='post-published'),event.pageId??null)];
+ JSON.stringify(event.recipientIds??[]),event.pageId??null,event.event,+watched,event.pageId??null,JSON.stringify(event.detail??{}),ctx.now,+!!event.pageId,event.pageId??null)];
 }
 export interface OutboxRow {id:string;workspace_id:string;actor_member_id:string|null;event:NotificationEvent;page_id:string|null;container_id:string|null;comment_id:string|null;recipients_json:string;watched_recipients_json:string;detail_json:string;created_at:string}

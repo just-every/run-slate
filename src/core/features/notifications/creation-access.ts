@@ -26,3 +26,9 @@ export function pageReadableSql(member:string,page:string,workspace:string,now:s
    AND NOT EXISTS(SELECT 1 FROM chain WHERE parent_id IS NOT NULL AND inheritance<>'restricted' AND NOT EXISTS(SELECT 1 FROM chain child WHERE child.id=chain.parent_id))
  ) SELECT 1 FROM candidates g WHERE ${grantSql(member,'c',now)})))`;
 }
+
+/** Direct access to a private draft never makes it notification evidence. */
+export function notificationPageSql(page:string) {
+ return `EXISTS(SELECT 1 FROM pages np LEFT JOIN content_archive_locations nl ON nl.page_id=np.id
+ WHERE np.id=${page} AND COALESCE(nl.prior_lifecycle,np.lifecycle) NOT IN ('draft','scheduled'))`;
+}
