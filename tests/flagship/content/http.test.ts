@@ -1,3 +1,4 @@
+import {draftPrivacyCase} from './draft-privacy.case';
 import {statusVocabularyCase} from './status-vocabulary.case';
 import { lifecycleJourney } from './lifecycle';
 import {runFoldCases} from '../fold-cases';
@@ -257,7 +258,7 @@ expect(activities).toEqual([{actor_member_id:f.a,occurred_at:removed.deletedAt}]
 }}
 ]);});
 
-it("publication, human verification and media enforce current reader authority",async()=>{await runFoldCases([
+it("publication, human verification and media enforce current reader authority",async()=>{await draftPrivacyCase();await runFoldCases([
 {name:"content durable HTTP draft publication keeps working content private through publish, discard and scheduling",before:resetDeployment,run:async()=>{
  await runContentCases([
 {name:"content durable HTTP draft privacy and published snapshot protect working content from readers",run:async()=>{const f=await fixture();await env.DB.prepare('INSERT INTO workspace_policies VALUES (?,?,?)').bind(f.w,JSON.stringify({'page.lifecycle.v1':'draft-then-publish'}),now).run();const listedBefore=(await f.request('GET','/api/pages',undefined,f.b)).data.items;const c=await f.request('POST','/api/pages',{operationKey:createUlid(),containerId:f.containerId,title:'Private draft',blocks:[block(createUlid(),'private')]});const id=c.data.value.pageId;expect((await f.request('GET',`/api/pages/${id}`,undefined,f.b)).status).toBe(404);expect((await f.request('GET','/api/pages',undefined,f.b)).data.items).toEqual(listedBefore);const pub=await f.request('POST',`/api/pages/${id}/publish`,{operationKey:createUlid(),expectedRevisionId:c.data.value.revisionId});expect(pub.status,JSON.stringify(pub.data)).toBe(200);expect((await f.request('GET',`/api/pages/${id}`,undefined,f.b)).status).toBe(200);}},
