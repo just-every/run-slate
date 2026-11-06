@@ -46,8 +46,11 @@ export async function permissionLifecycleMatrix({ state, bob, api, level, pageId
     assert.deepEqual(after.comments, before.comments);
     const grants = structuredClone(before.grants);
     for (const item of [...grants.items, ...grants.effectiveItems]) item.origin.name = after.document.page.title;
-    grants.restriction.name = after.document.page.title;
-    assert.deepEqual(after.grants, grants, 'Lifecycle writes retain every grant; only the displayed page title follows the revision.');
+    // Private lifecycle pages suppress inheritance provenance. The direct
+    // grant rows, effective authority and restricted setting remain exact.
+    grants.restriction = ['draft', 'scheduled'].includes(after.document.page.lifecycle)
+      ? null : { scope: 'page', id: pageId, name: after.document.page.title };
+    assert.deepEqual(after.grants, grants, 'Lifecycle writes retain every grant and reconcile only title and private inheritance provenance.');
     await verify(before, after, result);
     assert.deepEqual((await ok(bob.context, origin, 'POST', target, input)).receipt, result.receipt);
     assert.deepEqual(await snapshot(), after, 'A publication or version replay changes no retained inventory.');
