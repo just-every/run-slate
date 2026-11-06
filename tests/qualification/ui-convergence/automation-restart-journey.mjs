@@ -15,6 +15,7 @@ export async function automationRestartJourney(state) {
   let instance,context;
   try {
     instance=await runtime(scratch);await instance.start();
+    const initialProcessId=instance.processId();
     const cookie=await signIn(instance);
     const read=async route=>(await api(instance,cookie,route)).json();
     const mutate=async(route,data,method='POST')=>{
@@ -37,7 +38,7 @@ export async function automationRestartJourney(state) {
     const rule=(await mutate('/api/automation',{
       name:'Recover committed intake',scope:'source',sourceDatabaseId:source.id,
       trigger:{event:'record-updated'},conditions:[],actions:[
-        {type:'create-record',databaseId:source.id,title:'One recovered record',values:{}},
+        {type:'create-record',databaseId:source.id,title:'One recovered record',values:{'recovery-stage':'completed'}},
         {type:'comment',body:'One recovered comment.'},
         {type:'notify',recipientMemberIds:[owner.id],message:'One recovered inbox outcome.'},
       ],
@@ -45,9 +46,9 @@ export async function automationRestartJourney(state) {
     const submitted={operationKey:randomUUID(),expectedRevisionId:initial.revisionId,values:{'recovery-stage':'admitted'}};
     const triggerRoute=`/api/databases/${source.id}/records/${initial.pageId}`;
     const trigger=(await mutate(triggerRoute,submitted,'PATCH')).value;
-    await instance.automationGate('arm',2);
+    await instance.automationGate('arm',0);
     // The pending request is settled after SIGKILL; its error cannot stand in for a kill.
-    const draining=instance.scheduled().then(()=>({completed:true}),()=>({interrupted:true}));
+    let draining=instance.scheduled().then(()=>({completed:true}),()=>({interrupted:true}));
     let point;
     await expect.poll(async()=>{point=(await instance.automationGate('status')).reached;return !!point;},{timeout:20000}).toBe(true);
     const runId=point.runId;
@@ -62,10 +63,46 @@ export async function automationRestartJourney(state) {
       comments:await instance.read('SELECT c.id,c.body_json FROM comments c JOIN comment_threads t ON t.id=c.thread_id WHERE t.page_id=?',trigger.pageId),
       outbox:await instance.read("SELECT id,detail_json FROM notification_outbox WHERE page_id=? AND event='maintenance'",trigger.pageId),
     });
+    // Interrupt while later actions are genuinely pending, then keep the existing
+    // last-action interruption to exercise both sides of durable confirmation.
+    const firstInterrupted=await snapshot();
+    assert.equal(firstInterrupted.jobs.length,1);assert.equal(firstInterrupted.runs.length,1);
+    const firstJob=firstInterrupted.jobs[0];
+    assert.equal(firstJob.run_id,runId);assert.equal(firstJob.state,'running');assert.equal(firstJob.cursor,1);
+    assert.equal(firstInterrupted.runs[0].state,'running');assert.equal(firstInterrupted.runs[0].finished_at,null);
+    assert.deepEqual(firstInterrupted.actions.map(row=>({index:row.action_index,state:row.state})),[{index:0,state:'prepared'}]);
+    assert.deepEqual(firstInterrupted.operations.map(row=>row.operation_key),[`auto:${runId}:0:${trigger.pageId}`]);
+    assert.deepEqual(firstInterrupted.records.map(row=>row.title),['One recovered record']);
+    assert.deepEqual(firstInterrupted.comments,[]);assert.deepEqual(firstInterrupted.outbox,[]);
+    assert.equal(firstInterrupted.activity.filter(row=>row.operation_key).length,1);
+    const firstKilled=await instance.crash();
+    assert.equal(firstKilled.pid,initialProcessId);assert.equal(firstKilled.signal,'SIGKILL');
+    assert.ok((await draining).interrupted);
+    const persist=instance.persist;
+    await instance.start();
+    const middleProcessId=instance.processId();
+    assert.ok(middleProcessId);assert.notEqual(middleProcessId,initialProcessId);
+    assert.equal(instance.persist,persist);
+    const firstBeforeLeaseDrainAt=new Date().toISOString();
+    assert.ok(Date.now()<Date.parse(firstJob.lease_until),'The first restart reaches the still-live lease.');
+    await instance.scheduled();
+    assert.deepEqual(await snapshot(),firstInterrupted,'The first live lease retains the pending comment and inbox work.');
+    const firstRemaining=Date.parse(firstJob.lease_until)-Date.now()+100;
+    assert.ok(firstRemaining>0&&firstRemaining<=60100);
+    await new Promise(resolve=>setTimeout(resolve,firstRemaining));
+    const firstAfterLeaseDrainAt=new Date().toISOString();
+    assert.ok(Date.parse(firstAfterLeaseDrainAt)>Date.parse(firstJob.lease_until));
+    await instance.automationGate('arm',2);
+    draining=instance.scheduled().then(()=>({completed:true}),()=>({interrupted:true}));
+    await expect.poll(async()=>{point=(await instance.automationGate('status')).reached;return !!point;},{timeout:20000}).toBe(true);
+    assert.equal(point.runId,runId);assert.equal(point.targetId,trigger.pageId);
     const interrupted=await snapshot();
+    assert.deepEqual(interrupted.records,firstInterrupted.records,'The first durable record is reused before later effects execute.');
+    assert.deepEqual(interrupted.operations.slice(0,1),firstInterrupted.operations);
+    assert.equal(interrupted.runs[0].started_at,firstInterrupted.runs[0].started_at);
     assert.equal(interrupted.jobs.length,1);assert.equal(interrupted.runs.length,1);
     const job=interrupted.jobs[0];
-    assert.equal(job.run_id,runId);assert.equal(job.state,'running');assert.equal(job.cursor,1);
+    assert.equal(job.run_id,runId);assert.equal(job.state,'running');assert.equal(job.cursor,2);
     assert.deepEqual(interrupted.runs,[{id:runId,state:'running',started_at:interrupted.runs[0].started_at,finished_at:null}]);
     assert.ok(interrupted.runs[0].started_at);
     assert.deepEqual(interrupted.actions.map(row=>row.state),['confirmed','confirmed','prepared']);
@@ -75,10 +112,13 @@ export async function automationRestartJourney(state) {
     assert.deepEqual(interrupted.outbox.map(row=>JSON.parse(row.detail_json)),[{outcome:'One recovered inbox outcome.'}]);
     assert.equal(interrupted.activity.filter(row=>row.operation_key).length,3);
     const killed=await instance.crash();
+    assert.equal(killed.pid,middleProcessId);
     assert.equal(killed.signal,'SIGKILL');assert.ok((await draining).interrupted);
-    const persist=instance.persist;
     await instance.start();
+    const restartedProcessId=instance.processId();
+    assert.ok(restartedProcessId);assert.notEqual(restartedProcessId,initialProcessId);assert.notEqual(restartedProcessId,middleProcessId);
     assert.equal(instance.persist,persist);
+    const beforeLeaseDrainAt=new Date().toISOString();
     assert.ok(Date.now()<Date.parse(job.lease_until),'The restarted runtime reaches the still-live lease.');
     await instance.scheduled();
     assert.deepEqual(await snapshot(),interrupted,'A drain before lease expiry neither reclaims the job nor changes effects.');
@@ -86,9 +126,11 @@ export async function automationRestartJourney(state) {
     assert.ok(remaining>0&&remaining<=60100);
     // Wait on the genuine production lease. Never modify the job, receipt or clock.
     await new Promise(resolve=>setTimeout(resolve,remaining));
+    const afterLeaseDrainAt=new Date().toISOString();
+    assert.ok(Date.parse(afterLeaseDrainAt)>Date.parse(job.lease_until));
     for(let attempt=0;attempt<3;attempt++)await instance.scheduled();
     const recovered=await snapshot();
-    assert.deepEqual(recovered.jobs,[{...job,state:'success',cursor:2,lease_until:null}]);
+    assert.deepEqual(recovered.jobs,[{...job,state:'success',cursor:3,lease_until:null}]);
     assert.equal(recovered.runs.length,1);assert.equal(recovered.runs[0].id,runId);
     assert.equal(recovered.runs[0].state,'success');assert.ok(recovered.runs[0].finished_at);
     assert.equal(recovered.runs[0].started_at,interrupted.runs[0].started_at);
@@ -110,6 +152,18 @@ export async function automationRestartJourney(state) {
     assert.deepEqual((await read(`/api/databases/${source.id}/views/${viewId}`)).records.map(record=>record.pageId).sort(),[trigger.pageId,recovered.records[0].page_id].sort());
     const notices=(await read('/api/notifications')).items.filter(item=>item.event==='maintenance');
     assert.deepEqual(notices.map(item=>({pageId:item.pageId,detail:item.detail})),[{pageId:trigger.pageId,detail:{outcome:'One recovered inbox outcome.'}}]);
+    const canonical=async()=>({
+      sourceRecord:await read(triggerRoute),
+      createdRecord:await read(`/api/databases/${source.id}/records/${recovered.records[0].page_id}`),
+      comments:await read(`/api/comments/page/${trigger.pageId}`),
+      inbox:(await read('/api/notifications')).items.filter(item=>item.event==='maintenance'),
+      run:(await read(`/api/automation/${rule.id}/runs`)).items.find(item=>item.id===runId),
+    });
+    const committed=await canonical();
+    assert.deepEqual(committed.sourceRecord.values,{'recovery-stage':'admitted'});
+    assert.equal(committed.createdRecord.page.page.title,'One recovered record');
+    assert.deepEqual(committed.createdRecord.values,{'recovery-stage':'completed'});
+    assert.deepEqual(committed.inbox,notices);
     const timeline=(await read('/api/activity?limit=100')).items;
     assert.deepEqual(timeline.filter(item=>item.operationKey?.startsWith(`auto:${runId}:`)).map(item=>item.operationKey).sort(),recovered.operations.map(row=>row.operation_key));
     assert.equal(timeline.filter(item=>item.automationRunId===runId&&item.action==='automation.success').length,1);
@@ -118,6 +172,7 @@ export async function automationRestartJourney(state) {
     assert.deepEqual(replay,trigger);
     for(let attempt=0;attempt<3;attempt++)await instance.scheduled();
     assert.deepEqual(await snapshot(),recovered,'Repeated drains and trigger replay cannot duplicate effects or completion.');
+    assert.deepEqual(await canonical(),committed,'Authenticated readback retains record values, comments, delivered inbox and run after replay and repeated drains.');
     context=await state.context.browser().newContext({viewport:{width:1440,height:1000},locale:'en-US'});
     await context.addCookies([{name:'slate_session',value:cookie.split('=')[1],url:instance.origin}]);
     const page=await context.newPage();
@@ -129,17 +184,18 @@ export async function automationRestartJourney(state) {
     await expect(row).toHaveCount(1);
     await expect(row).toContainText('Trigger: record updated');
     await expect(row).toContainText(`Actor: ${owner.displayName}`);
+    await expect(row).toContainText(new Date(log.created_at).toLocaleString('en-US'));
     await expect(row.getByRole('link',{name:'Interrupted intake',exact:true})).toHaveAttribute('href',`/app/pages/${trigger.pageId}`);
     await expect(row.getByRole('link',{name:'One recovered record',exact:true})).toHaveAttribute('href',`/app/pages/${recovered.records[0].page_id}`);
     for(const index of [1,2,3])await expect(row).toContainText(`Action ${index}: confirmed`);
     await accessible(page,'automation recovered run log 1440');
     await page.setViewportSize({width:390,height:844});
     await accessible(page,'automation recovered run log 390');
-    const receipt={source:sourceIdentityAtRun,artifact,killed,persistedStoreReused:true,leaseUntil:job.lease_until,interrupted,recovered,run:log,notices};
+    const receipt={source:sourceIdentityAtRun,artifact,firstKilled,middleProcessId,firstBeforeLeaseDrainAt,firstAfterLeaseDrainAt,firstInterrupted,killed,restartedProcessId,persistedStoreReused:true,leaseUntil:job.lease_until,beforeLeaseDrainAt,afterLeaseDrainAt,interrupted,recovered,run:log,notices,canonical:committed};
     const evidence=path.join(root,'.artifacts/ui-convergence/automation-restart');
     await mkdir(evidence,{recursive:true});
     await writeFile(path.join(evidence,'receipt.json'),JSON.stringify(receipt,null,2)+'\n');
-    console.log(`PROBE AUTO-008 1: authenticated rule and committed record -> SIGKILL pid=${killed.pid}; genuine lease ${job.lease_until}; same store, one job and run, one record, comment and inbox effect; three confirmed action and operation receipts; one success activity; replay unchanged; recovered log at 1440 and 390`);
+    console.log(`PROBE AUTO-008 1: authenticated rule and committed record -> two SIGKILL interruptions pid=${firstKilled.pid},${killed.pid}; pending comment and inbox completed after the first restart; genuine leases ${firstJob.lease_until}, ${job.lease_until}; same store, one job and run, one record, comment and inbox effect; three confirmed action and operation receipts; one success activity; replay unchanged; recovered log at 1440 and 390`);
     return receipt;
   } finally {await context?.close();await instance?.close();await rm(scratch,{recursive:true,force:true});}
 }
