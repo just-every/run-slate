@@ -1,0 +1,57 @@
+{
+  "schema": 1,
+  "range": "origin/main..HEAD",
+  "includesSideParents": true,
+  "commits": [
+    {
+      "head": "5ed704b7e73bb5100f7c8f12aaaadb4bb75880d4",
+      "authorAllowed": true,
+      "committerAllowed": true,
+      "trailersAllowed": true,
+      "openAiCoauthorAbsent": true
+    },
+    {
+      "head": "15a7cc27c566d3d928a52933e917c241824e4f8d",
+      "authorAllowed": true,
+      "committerAllowed": true,
+      "trailersAllowed": true,
+      "openAiCoauthorAbsent": true
+    },
+    {
+      "head": "94094121d1e0a18b99f86d8f03dd87e0389847a7",
+      "authorAllowed": true,
+      "committerAllowed": true,
+      "trailersAllowed": true,
+      "openAiCoauthorAbsent": true
+    },
+    {
+      "head": "5b67705d60823d5312c82d6a07ff7a90a9ba1c50",
+      "authorAllowed": true,
+      "committerAllowed": true,
+      "trailersAllowed": true,
+      "openAiCoauthorAbsent": true
+    },
+    {
+      "head": "1b028009054d5f10e27d9ba2cac3d1b8efebad17",
+      "authorAllowed": true,
+      "committerAllowed": true,
+      "trailersAllowed": true,
+      "openAiCoauthorAbsent": true
+    },
+    {
+      "head": "49721aeb3e3751e7c44b0aa8e2b388d22ce73c37",
+      "authorAllowed": true,
+      "committerAllowed": true,
+      "trailersAllowed": true,
+      "openAiCoauthorAbsent": true
+    },
+    {
+      "head": "c68fb65ca4f78ebdf73124538b3481a1eb40d0fc",
+      "authorAllowed": true,
+      "committerAllowed": true,
+      "trailersAllowed": true,
+      "openAiCoauthorAbsent": true
+    }
+  ],
+  "passed": true
+}

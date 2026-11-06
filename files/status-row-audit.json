@@ -1,0 +1,55 @@
+{
+  "schema": 1,
+  "checks": [
+    {
+      "commit": "5ed704b7e73bb5100f7c8f12aaaadb4bb75880d4",
+      "parent": "15a7cc27c566d3d928a52933e917c241824e4f8d",
+      "parentStatusRows": 338,
+      "candidateStatusRows": 338,
+      "dropped": []
+    },
+    {
+      "commit": "15a7cc27c566d3d928a52933e917c241824e4f8d",
+      "parent": "94094121d1e0a18b99f86d8f03dd87e0389847a7",
+      "parentStatusRows": 338,
+      "candidateStatusRows": 338,
+      "dropped": []
+    },
+    {
+      "commit": "94094121d1e0a18b99f86d8f03dd87e0389847a7",
+      "parent": "5b67705d60823d5312c82d6a07ff7a90a9ba1c50",
+      "parentStatusRows": 338,
+      "candidateStatusRows": 338,
+      "dropped": []
+    },
+    {
+      "commit": "5b67705d60823d5312c82d6a07ff7a90a9ba1c50",
+      "parent": "1b028009054d5f10e27d9ba2cac3d1b8efebad17",
+      "parentStatusRows": 338,
+      "candidateStatusRows": 338,
+      "dropped": []
+    },
+    {
+      "commit": "1b028009054d5f10e27d9ba2cac3d1b8efebad17",
+      "parent": "49721aeb3e3751e7c44b0aa8e2b388d22ce73c37",
+      "parentStatusRows": 338,
+      "candidateStatusRows": 338,
+      "dropped": []
+    },
+    {
+      "commit": "49721aeb3e3751e7c44b0aa8e2b388d22ce73c37",
+      "parent": "c68fb65ca4f78ebdf73124538b3481a1eb40d0fc",
+      "parentStatusRows": 338,
+      "candidateStatusRows": 338,
+      "dropped": []
+    },
+    {
+      "commit": "c68fb65ca4f78ebdf73124538b3481a1eb40d0fc",
+      "parent": "93b7327adee97ac0ff691bfb5cbff68f4412a27a",
+      "parentStatusRows": 338,
+      "candidateStatusRows": 338,
+      "dropped": []
+    }
+  ],
+  "passed": true
+}

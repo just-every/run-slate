@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "repository": "just-every/run-slate",
+  "branch": "cloud/sd-slate-c-f176",
+  "head": "5ed704b7e73bb5100f7c8f12aaaadb4bb75880d4",
+  "remoteRef": "refs/heads/cloud/sd-slate-c-f176",
+  "remoteHead": "5ed704b7e73bb5100f7c8f12aaaadb4bb75880d4",
+  "guardCommand": "python3 $HOME/rer-consolidation/.tools/cloud-push.py origin cloud/sd-slate-c-f176",
+  "exit": 0,
+  "attempts": 1,
+  "saveHead": "15a7cc27c566d3d928a52933e917c241824e4f8d",
+  "checkoutClean": true,
+  "main": "93b7327adee97ac0ff691bfb5cbff68f4412a27a",
+  "mainUpdated": false
+}

@@ -1,0 +1,854 @@
+{
+  "pageId": "01M6QMYM77FWARZBJCVD3NJZ56",
+  "width": 390,
+  "retained": [
+    {
+      "receipt": {
+        "operationKey": "bc035a01-6942-4652-94a5-0d090f5c6888",
+        "entity": {
+          "id": "01M6QMYM77FWARZBJCVD3NJZ56",
+          "kind": "page",
+          "revisionId": "01M6QMYM77SQZKFM7T2CRB0WK1"
+        },
+        "revisionId": "01M6QMYM77SQZKFM7T2CRB0WK1",
+        "activityId": "01M6QMYM7722K52FNEF0PTSZMH",
+        "committedAt": "2026-11-06T05:22:53.280Z"
+      },
+      "value": {
+        "pageId": "01M6QMYM77FWARZBJCVD3NJZ56",
+        "revisionId": "01M6QMYM77SQZKFM7T2CRB0WK1"
+      },
+      "origin": "autosave",
+      "label": null,
+      "body": "Café\t  first snapshot",
+      "cardTitle": null,
+      "expectedText": "Café first snapshot alpha zeta synthetic-slate-initial-snapshot",
+      "expectedHash": "717c6de09bc5b5d64f78a2b90369e2f3208906a15a88f0357e6fa5e95f686a8b",
+      "snapshot": {
+        "id": "01M6QMYM77SQZKFM7T2CRB0WK1",
+        "blocks": [
+          {
+            "id": "f76aed8e-9621-4f33-a088-55f410ef6230",
+            "blockType": "paragraph",
+            "content": {
+              "text": [
+                {
+                  "text": "Café\t  fi",
+                  "marks": [
+                    "bold"
+                  ]
+                },
+                {
+                  "text": "rst snapshot"
+                }
+              ]
+            },
+            "treePosition": "1",
+            "parentBlockId": null,
+            "pageId": "01M6QMYM77FWARZBJCVD3NJZ56",
+            "revisionId": "01M6QMYM7AQQK5SXCT8MQQ9KGE"
+          }
+        ],
+        "properties": {
+          "title": "synthetic-slate-initial-snapshot",
+          "icon": "📘",
+          "coverFileId": null,
+          "ownerMemberId": "browser-owner",
+          "statusKey": null,
+          "labels": [
+            "alpha",
+            "zeta"
+          ],
+          "typeface": "serif",
+          "smallText": false,
+          "fullWidth": true,
+          "cover": {
+            "kind": "gallery",
+            "id": "ocean"
+          }
+        },
+        "createdAt": "2026-11-06T05:22:53.280Z",
+        "newerRevisionExists": false
+      }
+    },
+    {
+      "receipt": {
+        "operationKey": "85ac1bc3-90f0-4e31-978f-8a0fc00517b9",
+        "entity": {
+          "id": "01M6QMYM77FWARZBJCVD3NJZ56",
+          "kind": "page",
+          "revisionId": "01M6QMYN67EP625432HHQJF5QT"
+        },
+        "revisionId": "01M6QMYN67EP625432HHQJF5QT",
+        "activityId": "01M6QMYN6715EAC9Q0G7Z5GTMX",
+        "committedAt": "2026-11-06T05:22:54.275Z"
+      },
+      "value": {
+        "pageId": "01M6QMYM77FWARZBJCVD3NJZ56",
+        "revisionId": "01M6QMYN67EP625432HHQJF5QT"
+      },
+      "submitted": {
+        "method": "PATCH",
+        "path": "/api/pages/01M6QMYM77FWARZBJCVD3NJZ56",
+        "input": {
+          "operationKey": "85ac1bc3-90f0-4e31-978f-8a0fc00517b9",
+          "expectedRevisionId": "01M6QMYM77SQZKFM7T2CRB0WK1",
+          "properties": {
+            "title": "Café  revised snapshot"
+          }
+        }
+      },
+      "origin": "autosave",
+      "label": null,
+      "body": "Café\t  first snapshot",
+      "cardTitle": null,
+      "expectedText": "Café first snapshot alpha zeta Café revised snapshot",
+      "expectedHash": "c6f48b51d8cc79d79b52bb048a8fc57ae33ab1a8b248224193eff7a9fbde6e97",
+      "snapshot": {
+        "id": "01M6QMYN67EP625432HHQJF5QT",
+        "blocks": [
+          {
+            "id": "f76aed8e-9621-4f33-a088-55f410ef6230",
+            "pageId": "01M6QMYM77FWARZBJCVD3NJZ56",
+            "parentBlockId": null,
+            "blockType": "paragraph",
+            "content": {
+              "text": [
+                {
+                  "text": "Café\t  fi",
+                  "marks": [
+                    "bold"
+                  ]
+                },
+                {
+                  "text": "rst snapshot"
+                }
+              ]
+            },
+            "treePosition": "1",
+            "revisionId": "01M6QMYM7AQQK5SXCT8MQQ9KGE"
+          }
+        ],
+        "properties": {
+          "cover": {
+            "kind": "gallery",
+            "id": "ocean"
+          },
+          "title": "Café  revised snapshot",
+          "icon": "📘",
+          "coverFileId": null,
+          "ownerMemberId": "browser-owner",
+          "statusKey": null,
+          "labels": [
+            "alpha",
+            "zeta"
+          ],
+          "typeface": "serif",
+          "smallText": false,
+          "fullWidth": true
+        },
+        "createdAt": "2026-11-06T05:22:54.275Z",
+        "newerRevisionExists": false
+      }
+    },
+    {
+      "receipt": {
+        "operationKey": "d494cc37-f2ab-4c4a-89ca-792350fbb824",
+        "entity": {
+          "id": "01M6QMYM77FWARZBJCVD3NJZ56",
+          "kind": "page",
+          "revisionId": "01M6QMYP3E9Z8A1DY3H0DPSHXX"
+        },
+        "revisionId": "01M6QMYP3E9Z8A1DY3H0DPSHXX",
+        "activityId": "01M6QMYP3ES2F4F6KQ8RSJY0RE",
+        "committedAt": "2026-11-06T05:22:55.207Z"
+      },
+      "value": {
+        "pageId": "01M6QMYM77FWARZBJCVD3NJZ56",
+        "revisionId": "01M6QMYP3E9Z8A1DY3H0DPSHXX",
+        "blockRevisionId": "01M6QMYP3K07071KP4T1PF0H62",
+        "previousRevisionId": "01M6QMYN67EP625432HHQJF5QT"
+      },
+      "submitted": {
+        "method": "PATCH",
+        "path": "/api/pages/01M6QMYM77FWARZBJCVD3NJZ56/blocks/f76aed8e-9621-4f33-a088-55f410ef6230",
+        "input": {
+          "operationKey": "d494cc37-f2ab-4c4a-89ca-792350fbb824",
+          "expectedRevisionId": "01M6QMYM7AQQK5SXCT8MQQ9KGE",
+          "content": {
+            "text": [
+              {
+                "text": "synthetic-slate-published-body"
+              }
+            ]
+          }
+        }
+      },
+      "origin": "autosave",
+      "label": null,
+      "body": "synthetic-slate-published-body",
+      "cardTitle": null,
+      "expectedText": "synthetic-slate-published-body alpha zeta Café revised snapshot",
+      "expectedHash": "0ca1b057f270492af5a6660b08fc4ab4a7b79f927246854da67a341b5f53ebf7",
+      "snapshot": {
+        "id": "01M6QMYP3E9Z8A1DY3H0DPSHXX",
+        "blocks": [
+          {
+            "id": "f76aed8e-9621-4f33-a088-55f410ef6230",
+            "pageId": "01M6QMYM77FWARZBJCVD3NJZ56",
+            "parentBlockId": null,
+            "blockType": "paragraph",
+            "content": {
+              "text": [
+                {
+                  "text": "synthetic-slate-published-body"
+                }
+              ]
+            },
+            "treePosition": "1",
+            "revisionId": "01M6QMYP3K07071KP4T1PF0H62"
+          }
+        ],
+        "properties": {
+          "cover": {
+            "kind": "gallery",
+            "id": "ocean"
+          },
+          "title": "Café  revised snapshot",
+          "icon": "📘",
+          "coverFileId": null,
+          "ownerMemberId": "browser-owner",
+          "statusKey": null,
+          "labels": [
+            "alpha",
+            "zeta"
+          ],
+          "typeface": "serif",
+          "smallText": false,
+          "fullWidth": true
+        },
+        "createdAt": "2026-11-06T05:22:55.207Z",
+        "newerRevisionExists": false
+      }
+    },
+    {
+      "receipt": {
+        "operationKey": "55f0593c-defa-4993-8752-92592dcb602a",
+        "entity": {
+          "id": "01M6QMYM77FWARZBJCVD3NJZ56",
+          "kind": "page",
+          "revisionId": "01M6QMYQB12QK8Z1D54BDNZRGX"
+        },
+        "revisionId": "01M6QMYQB12QK8Z1D54BDNZRGX",
+        "activityId": "01M6QMYQB2XFECAH7H5C1K3ND1",
+        "committedAt": "2026-11-06T05:22:56.448Z"
+      },
+      "value": {
+        "pageId": "01M6QMYM77FWARZBJCVD3NJZ56",
+        "revisionId": "01M6QMYQB12QK8Z1D54BDNZRGX",
+        "scheduled": false
+      },
+      "submitted": {
+        "method": "POST",
+        "path": "/api/pages/01M6QMYM77FWARZBJCVD3NJZ56/publish",
+        "input": {
+          "operationKey": "55f0593c-defa-4993-8752-92592dcb602a",
+          "expectedRevisionId": "01M6QMYP3E9Z8A1DY3H0DPSHXX",
+          "label": "",
+          "previewFingerprint": "e828b48c217804910795630b745d000f378bc693b7eba16ae9c91a122aa8ca68"
+        }
+      },
+      "origin": "publish",
+      "label": "",
+      "body": "synthetic-slate-published-body",
+      "cardTitle": null,
+      "expectedText": "synthetic-slate-published-body alpha zeta Café revised snapshot",
+      "expectedHash": "0ca1b057f270492af5a6660b08fc4ab4a7b79f927246854da67a341b5f53ebf7",
+      "snapshot": {
+        "id": "01M6QMYQB12QK8Z1D54BDNZRGX",
+        "blocks": [
+          {
+            "id": "f76aed8e-9621-4f33-a088-55f410ef6230",
+            "pageId": "01M6QMYM77FWARZBJCVD3NJZ56",
+            "parentBlockId": null,
+            "blockType": "paragraph",
+            "content": {
+              "text": [
+                {
+                  "text": "synthetic-slate-published-body"
+                }
+              ]
+            },
+            "treePosition": "1",
+            "revisionId": "01M6QMYP3K07071KP4T1PF0H62"
+          }
+        ],
+        "properties": {
+          "cover": {
+            "kind": "gallery",
+            "id": "ocean"
+          },
+          "title": "Café  revised snapshot",
+          "icon": "📘",
+          "coverFileId": null,
+          "ownerMemberId": "browser-owner",
+          "statusKey": null,
+          "labels": [
+            "alpha",
+            "zeta"
+          ],
+          "typeface": "serif",
+          "smallText": false,
+          "fullWidth": true
+        },
+        "createdAt": "2026-11-06T05:22:56.448Z",
+        "newerRevisionExists": false
+      }
+    },
+    {
+      "receipt": {
+        "operationKey": "c611f787-d96b-4d14-a98b-ecc95117b8d1",
+        "entity": {
+          "id": "01M6QMYM77FWARZBJCVD3NJZ56",
+          "kind": "page",
+          "revisionId": "01M6QMYQS7PJSR4P91H07F4P2X"
+        },
+        "revisionId": "01M6QMYQS7PJSR4P91H07F4P2X",
+        "activityId": "01M6QMYQS7DHBK9B77GMVN8S2M",
+        "committedAt": "2026-11-06T05:22:56.926Z"
+      },
+      "value": {
+        "pageId": "01M6QMYM77FWARZBJCVD3NJZ56",
+        "revisionId": "01M6QMYQS7PJSR4P91H07F4P2X"
+      },
+      "submitted": {
+        "method": "PATCH",
+        "path": "/api/pages/01M6QMYM77FWARZBJCVD3NJZ56",
+        "input": {
+          "operationKey": "c611f787-d96b-4d14-a98b-ecc95117b8d1",
+          "expectedRevisionId": "01M6QMYQB12QK8Z1D54BDNZRGX",
+          "properties": {
+            "title": "synthetic-slate-later-title"
+          }
+        }
+      },
+      "origin": "autosave",
+      "label": null,
+      "body": "synthetic-slate-published-body",
+      "cardTitle": null,
+      "expectedText": "synthetic-slate-published-body alpha zeta synthetic-slate-later-title",
+      "expectedHash": "5175cc90125766cf4de04d9b969bc4386b6121c4770e097206ced2638d34bd8a",
+      "snapshot": {
+        "id": "01M6QMYQS7PJSR4P91H07F4P2X",
+        "blocks": [
+          {
+            "id": "f76aed8e-9621-4f33-a088-55f410ef6230",
+            "pageId": "01M6QMYM77FWARZBJCVD3NJZ56",
+            "parentBlockId": null,
+            "blockType": "paragraph",
+            "content": {
+              "text": [
+                {
+                  "text": "synthetic-slate-published-body"
+                }
+              ]
+            },
+            "treePosition": "1",
+            "revisionId": "01M6QMYP3K07071KP4T1PF0H62"
+          }
+        ],
+        "properties": {
+          "cover": {
+            "kind": "gallery",
+            "id": "ocean"
+          },
+          "title": "synthetic-slate-later-title",
+          "icon": "📘",
+          "coverFileId": null,
+          "ownerMemberId": "browser-owner",
+          "statusKey": null,
+          "labels": [
+            "alpha",
+            "zeta"
+          ],
+          "typeface": "serif",
+          "smallText": false,
+          "fullWidth": true
+        },
+        "createdAt": "2026-11-06T05:22:56.926Z",
+        "newerRevisionExists": false
+      }
+    },
+    {
+      "receipt": {
+        "operationKey": "e96c46b8-e34f-4212-9070-1cff5bbbfa72",
+        "entity": {
+          "id": "01M6QMYM77FWARZBJCVD3NJZ56",
+          "kind": "page",
+          "revisionId": "01M6QMYRMV96P2C1E6W8PA409Z"
+        },
+        "revisionId": "01M6QMYRMV96P2C1E6W8PA409Z",
+        "activityId": "01M6QMYRMVXXMGQPZRAEEWQNW7",
+        "committedAt": "2026-11-06T05:22:57.814Z"
+      },
+      "value": {
+        "pageId": "01M6QMYM77FWARZBJCVD3NJZ56",
+        "revisionId": "01M6QMYRMV96P2C1E6W8PA409Z",
+        "blockRevisionId": "01M6QMYRN06Y6STDYAKZTVA27D",
+        "previousRevisionId": "01M6QMYQS7PJSR4P91H07F4P2X"
+      },
+      "submitted": {
+        "method": "PATCH",
+        "path": "/api/pages/01M6QMYM77FWARZBJCVD3NJZ56/blocks/f76aed8e-9621-4f33-a088-55f410ef6230",
+        "input": {
+          "operationKey": "e96c46b8-e34f-4212-9070-1cff5bbbfa72",
+          "expectedRevisionId": "01M6QMYP3K07071KP4T1PF0H62",
+          "content": {
+            "text": [
+              {
+                "text": "synthetic-slate-later-body"
+              }
+            ]
+          }
+        }
+      },
+      "origin": "autosave",
+      "label": null,
+      "body": "synthetic-slate-later-body",
+      "cardTitle": null,
+      "expectedText": "synthetic-slate-later-body alpha zeta synthetic-slate-later-title",
+      "expectedHash": "0e436bda5ec7f847c66c6ff4a08c7451749b961a72dae5533741a2395b59d4ab",
+      "snapshot": {
+        "id": "01M6QMYRMV96P2C1E6W8PA409Z",
+        "blocks": [
+          {
+            "id": "f76aed8e-9621-4f33-a088-55f410ef6230",
+            "pageId": "01M6QMYM77FWARZBJCVD3NJZ56",
+            "parentBlockId": null,
+            "blockType": "paragraph",
+            "content": {
+              "text": [
+                {
+                  "text": "synthetic-slate-later-body"
+                }
+              ]
+            },
+            "treePosition": "1",
+            "revisionId": "01M6QMYRN06Y6STDYAKZTVA27D"
+          }
+        ],
+        "properties": {
+          "cover": {
+            "kind": "gallery",
+            "id": "ocean"
+          },
+          "title": "synthetic-slate-later-title",
+          "icon": "📘",
+          "coverFileId": null,
+          "ownerMemberId": "browser-owner",
+          "statusKey": null,
+          "labels": [
+            "alpha",
+            "zeta"
+          ],
+          "typeface": "serif",
+          "smallText": false,
+          "fullWidth": true
+        },
+        "createdAt": "2026-11-06T05:22:57.814Z",
+        "newerRevisionExists": false
+      }
+    },
+    {
+      "receipt": {
+        "operationKey": "1fbd0413-dbf6-4c46-a586-5d861df624d9",
+        "entity": {
+          "id": "01M6QMYM77FWARZBJCVD3NJZ56",
+          "kind": "page",
+          "revisionId": "01M6QMYRS9AYDSC7SZ4WG6HH55"
+        },
+        "revisionId": "01M6QMYRS9AYDSC7SZ4WG6HH55",
+        "activityId": "01M6QMYRS9EP86C8XKD0G44ESH",
+        "committedAt": "2026-11-06T05:22:57.958Z"
+      },
+      "value": {
+        "pageId": "01M6QMYM77FWARZBJCVD3NJZ56",
+        "revisionId": "01M6QMYRS9AYDSC7SZ4WG6HH55"
+      },
+      "origin": "autosave",
+      "label": null,
+      "body": "synthetic-slate-later-body",
+      "cardTitle": null,
+      "expectedText": "synthetic-slate-later-body alpha zeta synthetic-slate-later-title",
+      "expectedHash": "0e436bda5ec7f847c66c6ff4a08c7451749b961a72dae5533741a2395b59d4ab",
+      "snapshot": {
+        "id": "01M6QMYRS9AYDSC7SZ4WG6HH55",
+        "blocks": [
+          {
+            "id": "f76aed8e-9621-4f33-a088-55f410ef6230",
+            "pageId": "01M6QMYM77FWARZBJCVD3NJZ56",
+            "parentBlockId": null,
+            "blockType": "paragraph",
+            "content": {
+              "text": [
+                {
+                  "text": "synthetic-slate-later-body"
+                }
+              ]
+            },
+            "treePosition": "1",
+            "revisionId": "01M6QMYRN06Y6STDYAKZTVA27D"
+          }
+        ],
+        "properties": {
+          "cover": null,
+          "title": "synthetic-slate-later-title",
+          "icon": "📘",
+          "coverFileId": null,
+          "ownerMemberId": "browser-owner",
+          "statusKey": null,
+          "labels": [
+            "alpha",
+            "zeta"
+          ],
+          "typeface": "serif",
+          "smallText": false,
+          "fullWidth": true
+        },
+        "createdAt": "2026-11-06T05:22:57.958Z",
+        "newerRevisionExists": false
+      }
+    },
+    {
+      "receipt": {
+        "operationKey": "cac3852b-39d3-46b9-9468-bc00075b273a",
+        "entity": {
+          "id": "01M6QMYM77FWARZBJCVD3NJZ56",
+          "kind": "page",
+          "revisionId": "01M6QMYRXRE2H6X6ET47Z3R8SM"
+        },
+        "revisionId": "01M6QMYRXRE2H6X6ET47Z3R8SM",
+        "activityId": "01M6QMYRXRKE0P12DRFJH2BZX4",
+        "committedAt": "2026-11-06T05:22:58.101Z"
+      },
+      "value": {
+        "pageId": "01M6QMYM77FWARZBJCVD3NJZ56",
+        "revisionId": "01M6QMYRXRE2H6X6ET47Z3R8SM",
+        "blocks": [
+          {
+            "id": "f76aed8e-9621-4f33-a088-55f410ef6230",
+            "blockType": "paragraph",
+            "content": {
+              "text": [
+                {
+                  "text": "synthetic-slate-later-body"
+                }
+              ]
+            },
+            "parentBlockId": null,
+            "treePosition": "1",
+            "pageId": "01M6QMYM77FWARZBJCVD3NJZ56",
+            "revisionId": "01M6QMYRN06Y6STDYAKZTVA27D"
+          },
+          {
+            "id": "f07dbe07-9012-4acd-9f26-8ce5fbac6ef7",
+            "blockType": "link-card",
+            "content": {
+              "url": "https://example.test/revision",
+              "display": "card",
+              "previewState": "ready",
+              "preview": {
+                "title": "Café reference",
+                "description": "Stored\t reference details",
+                "siteName": "Slate reference"
+              }
+            },
+            "parentBlockId": null,
+            "treePosition": "2",
+            "pageId": "01M6QMYM77FWARZBJCVD3NJZ56",
+            "revisionId": "01M6QMYRXWC0JZH7J6PRD1FCYW"
+          }
+        ]
+      },
+      "origin": "autosave",
+      "label": null,
+      "body": "synthetic-slate-later-body",
+      "cardTitle": "Café reference",
+      "expectedText": "synthetic-slate-later-body https://example.test/revision Café reference Stored reference details Slate reference alpha zeta synthetic-slate-later-title",
+      "expectedHash": "52f71df78be33f62dce9bc2dec61add1fbe9218cc617fbd694c8b48896e68c2f",
+      "snapshot": {
+        "id": "01M6QMYRXRE2H6X6ET47Z3R8SM",
+        "blocks": [
+          {
+            "id": "f76aed8e-9621-4f33-a088-55f410ef6230",
+            "blockType": "paragraph",
+            "content": {
+              "text": [
+                {
+                  "text": "synthetic-slate-later-body"
+                }
+              ]
+            },
+            "parentBlockId": null,
+            "treePosition": "1",
+            "pageId": "01M6QMYM77FWARZBJCVD3NJZ56",
+            "revisionId": "01M6QMYRN06Y6STDYAKZTVA27D"
+          },
+          {
+            "id": "f07dbe07-9012-4acd-9f26-8ce5fbac6ef7",
+            "blockType": "link-card",
+            "content": {
+              "url": "https://example.test/revision",
+              "display": "card",
+              "previewState": "ready",
+              "preview": {
+                "title": "Café reference",
+                "description": "Stored\t reference details",
+                "siteName": "Slate reference"
+              }
+            },
+            "parentBlockId": null,
+            "treePosition": "2",
+            "pageId": "01M6QMYM77FWARZBJCVD3NJZ56",
+            "revisionId": "01M6QMYRXWC0JZH7J6PRD1FCYW"
+          }
+        ],
+        "properties": {
+          "cover": null,
+          "title": "synthetic-slate-later-title",
+          "icon": "📘",
+          "coverFileId": null,
+          "ownerMemberId": "browser-owner",
+          "statusKey": null,
+          "labels": [
+            "alpha",
+            "zeta"
+          ],
+          "typeface": "serif",
+          "smallText": false,
+          "fullWidth": true
+        },
+        "createdAt": "2026-11-06T05:22:58.101Z",
+        "newerRevisionExists": false
+      }
+    },
+    {
+      "receipt": {
+        "operationKey": "7d117af6-d51f-4afd-8ef3-c110ce1068ae",
+        "entity": {
+          "id": "01M6QMYM77FWARZBJCVD3NJZ56",
+          "kind": "page",
+          "revisionId": "01M6QMYS26FMT80H5X8DZ4Q3AD"
+        },
+        "revisionId": "01M6QMYS26FMT80H5X8DZ4Q3AD",
+        "activityId": "01M6QMYS2625Z2EW4JSQVXZNS7",
+        "committedAt": "2026-11-06T05:22:58.244Z"
+      },
+      "value": {
+        "pageId": "01M6QMYM77FWARZBJCVD3NJZ56",
+        "revisionId": "01M6QMYS26FMT80H5X8DZ4Q3AD",
+        "blockRevisionId": "01M6QMYS29TW2NF8ZKK0GB18NN",
+        "previousRevisionId": "01M6QMYRXRE2H6X6ET47Z3R8SM"
+      },
+      "origin": "autosave",
+      "label": null,
+      "body": "synthetic-slate-later-body",
+      "cardTitle": "synthetic-slate-later-reference",
+      "expectedText": "synthetic-slate-later-body https://example.test/revision synthetic-slate-later-reference Stored reference details Slate reference alpha zeta synthetic-slate-later-title",
+      "expectedHash": "6db5d35e255d115a15dc6490cd4e71f2b8d532c5e358d7ffbf7538c23ff8c744",
+      "snapshot": {
+        "id": "01M6QMYS26FMT80H5X8DZ4Q3AD",
+        "blocks": [
+          {
+            "id": "f76aed8e-9621-4f33-a088-55f410ef6230",
+            "pageId": "01M6QMYM77FWARZBJCVD3NJZ56",
+            "parentBlockId": null,
+            "blockType": "paragraph",
+            "content": {
+              "text": [
+                {
+                  "text": "synthetic-slate-later-body"
+                }
+              ]
+            },
+            "treePosition": "1",
+            "revisionId": "01M6QMYRN06Y6STDYAKZTVA27D"
+          },
+          {
+            "id": "f07dbe07-9012-4acd-9f26-8ce5fbac6ef7",
+            "pageId": "01M6QMYM77FWARZBJCVD3NJZ56",
+            "parentBlockId": null,
+            "blockType": "link-card",
+            "content": {
+              "url": "https://example.test/revision",
+              "display": "card",
+              "previewState": "ready",
+              "preview": {
+                "title": "synthetic-slate-later-reference",
+                "description": "Stored\t reference details",
+                "siteName": "Slate reference"
+              }
+            },
+            "treePosition": "2",
+            "revisionId": "01M6QMYS29TW2NF8ZKK0GB18NN"
+          }
+        ],
+        "properties": {
+          "cover": null,
+          "title": "synthetic-slate-later-title",
+          "icon": "📘",
+          "coverFileId": null,
+          "ownerMemberId": "browser-owner",
+          "statusKey": null,
+          "labels": [
+            "alpha",
+            "zeta"
+          ],
+          "typeface": "serif",
+          "smallText": false,
+          "fullWidth": true
+        },
+        "createdAt": "2026-11-06T05:22:58.244Z",
+        "newerRevisionExists": false
+      }
+    }
+  ],
+  "storedRows": [
+    {
+      "id": "01M6QMYM77SQZKFM7T2CRB0WK1",
+      "page_id": "01M6QMYM77FWARZBJCVD3NJZ56",
+      "author_member_id": "browser-owner",
+      "origin": "autosave",
+      "content_hash": "717c6de09bc5b5d64f78a2b90369e2f3208906a15a88f0357e6fa5e95f686a8b",
+      "body_json": "[{\"id\":\"f76aed8e-9621-4f33-a088-55f410ef6230\",\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"Café\\t  fi\",\"marks\":[\"bold\"]},{\"text\":\"rst snapshot\"}]},\"treePosition\":\"1\",\"parentBlockId\":null,\"pageId\":\"01M6QMYM77FWARZBJCVD3NJZ56\",\"revisionId\":\"01M6QMYM7AQQK5SXCT8MQQ9KGE\"}]",
+      "properties_json": "{\"title\":\"synthetic-slate-initial-snapshot\",\"icon\":\"📘\",\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[\"alpha\",\"zeta\"],\"typeface\":\"serif\",\"smallText\":false,\"fullWidth\":true,\"cover\":{\"kind\":\"gallery\",\"id\":\"ocean\"}}",
+      "status_key": null,
+      "ordinal": null,
+      "label": null,
+      "created_at": "2026-11-06T05:22:53.280Z",
+      "deleted_at": null,
+      "deleted_by_member_id": null
+    },
+    {
+      "id": "01M6QMYN67EP625432HHQJF5QT",
+      "page_id": "01M6QMYM77FWARZBJCVD3NJZ56",
+      "author_member_id": "browser-owner",
+      "origin": "autosave",
+      "content_hash": "c6f48b51d8cc79d79b52bb048a8fc57ae33ab1a8b248224193eff7a9fbde6e97",
+      "body_json": "[{\"id\":\"f76aed8e-9621-4f33-a088-55f410ef6230\",\"pageId\":\"01M6QMYM77FWARZBJCVD3NJZ56\",\"parentBlockId\":null,\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"Café\\t  fi\",\"marks\":[\"bold\"]},{\"text\":\"rst snapshot\"}]},\"treePosition\":\"1\",\"revisionId\":\"01M6QMYM7AQQK5SXCT8MQQ9KGE\"}]",
+      "properties_json": "{\"cover\":{\"kind\":\"gallery\",\"id\":\"ocean\"},\"title\":\"Café  revised snapshot\",\"icon\":\"📘\",\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[\"alpha\",\"zeta\"],\"typeface\":\"serif\",\"smallText\":false,\"fullWidth\":true}",
+      "status_key": null,
+      "ordinal": null,
+      "label": null,
+      "created_at": "2026-11-06T05:22:54.275Z",
+      "deleted_at": null,
+      "deleted_by_member_id": null
+    },
+    {
+      "id": "01M6QMYP3E9Z8A1DY3H0DPSHXX",
+      "page_id": "01M6QMYM77FWARZBJCVD3NJZ56",
+      "author_member_id": "browser-owner",
+      "origin": "autosave",
+      "content_hash": "0ca1b057f270492af5a6660b08fc4ab4a7b79f927246854da67a341b5f53ebf7",
+      "body_json": "[{\"id\":\"f76aed8e-9621-4f33-a088-55f410ef6230\",\"pageId\":\"01M6QMYM77FWARZBJCVD3NJZ56\",\"parentBlockId\":null,\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"synthetic-slate-published-body\"}]},\"treePosition\":\"1\",\"revisionId\":\"01M6QMYP3K07071KP4T1PF0H62\"}]",
+      "properties_json": "{\"cover\":{\"kind\":\"gallery\",\"id\":\"ocean\"},\"title\":\"Café  revised snapshot\",\"icon\":\"📘\",\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[\"alpha\",\"zeta\"],\"typeface\":\"serif\",\"smallText\":false,\"fullWidth\":true}",
+      "status_key": null,
+      "ordinal": null,
+      "label": null,
+      "created_at": "2026-11-06T05:22:55.207Z",
+      "deleted_at": null,
+      "deleted_by_member_id": null
+    },
+    {
+      "id": "01M6QMYQB12QK8Z1D54BDNZRGX",
+      "page_id": "01M6QMYM77FWARZBJCVD3NJZ56",
+      "author_member_id": "browser-owner",
+      "origin": "publish",
+      "content_hash": "0ca1b057f270492af5a6660b08fc4ab4a7b79f927246854da67a341b5f53ebf7",
+      "body_json": "[{\"id\":\"f76aed8e-9621-4f33-a088-55f410ef6230\",\"pageId\":\"01M6QMYM77FWARZBJCVD3NJZ56\",\"parentBlockId\":null,\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"synthetic-slate-published-body\"}]},\"treePosition\":\"1\",\"revisionId\":\"01M6QMYP3K07071KP4T1PF0H62\"}]",
+      "properties_json": "{\"cover\":{\"kind\":\"gallery\",\"id\":\"ocean\"},\"title\":\"Café  revised snapshot\",\"icon\":\"📘\",\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[\"alpha\",\"zeta\"],\"typeface\":\"serif\",\"smallText\":false,\"fullWidth\":true}",
+      "status_key": null,
+      "ordinal": null,
+      "label": "",
+      "created_at": "2026-11-06T05:22:56.448Z",
+      "deleted_at": null,
+      "deleted_by_member_id": null
+    },
+    {
+      "id": "01M6QMYQS7PJSR4P91H07F4P2X",
+      "page_id": "01M6QMYM77FWARZBJCVD3NJZ56",
+      "author_member_id": "browser-owner",
+      "origin": "autosave",
+      "content_hash": "5175cc90125766cf4de04d9b969bc4386b6121c4770e097206ced2638d34bd8a",
+      "body_json": "[{\"id\":\"f76aed8e-9621-4f33-a088-55f410ef6230\",\"pageId\":\"01M6QMYM77FWARZBJCVD3NJZ56\",\"parentBlockId\":null,\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"synthetic-slate-published-body\"}]},\"treePosition\":\"1\",\"revisionId\":\"01M6QMYP3K07071KP4T1PF0H62\"}]",
+      "properties_json": "{\"cover\":{\"kind\":\"gallery\",\"id\":\"ocean\"},\"title\":\"synthetic-slate-later-title\",\"icon\":\"📘\",\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[\"alpha\",\"zeta\"],\"typeface\":\"serif\",\"smallText\":false,\"fullWidth\":true}",
+      "status_key": null,
+      "ordinal": null,
+      "label": null,
+      "created_at": "2026-11-06T05:22:56.926Z",
+      "deleted_at": null,
+      "deleted_by_member_id": null
+    },
+    {
+      "id": "01M6QMYRMV96P2C1E6W8PA409Z",
+      "page_id": "01M6QMYM77FWARZBJCVD3NJZ56",
+      "author_member_id": "browser-owner",
+      "origin": "autosave",
+      "content_hash": "0e436bda5ec7f847c66c6ff4a08c7451749b961a72dae5533741a2395b59d4ab",
+      "body_json": "[{\"id\":\"f76aed8e-9621-4f33-a088-55f410ef6230\",\"pageId\":\"01M6QMYM77FWARZBJCVD3NJZ56\",\"parentBlockId\":null,\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"synthetic-slate-later-body\"}]},\"treePosition\":\"1\",\"revisionId\":\"01M6QMYRN06Y6STDYAKZTVA27D\"}]",
+      "properties_json": "{\"cover\":{\"kind\":\"gallery\",\"id\":\"ocean\"},\"title\":\"synthetic-slate-later-title\",\"icon\":\"📘\",\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[\"alpha\",\"zeta\"],\"typeface\":\"serif\",\"smallText\":false,\"fullWidth\":true}",
+      "status_key": null,
+      "ordinal": null,
+      "label": null,
+      "created_at": "2026-11-06T05:22:57.814Z",
+      "deleted_at": null,
+      "deleted_by_member_id": null
+    },
+    {
+      "id": "01M6QMYRS9AYDSC7SZ4WG6HH55",
+      "page_id": "01M6QMYM77FWARZBJCVD3NJZ56",
+      "author_member_id": "browser-owner",
+      "origin": "autosave",
+      "content_hash": "0e436bda5ec7f847c66c6ff4a08c7451749b961a72dae5533741a2395b59d4ab",
+      "body_json": "[{\"id\":\"f76aed8e-9621-4f33-a088-55f410ef6230\",\"pageId\":\"01M6QMYM77FWARZBJCVD3NJZ56\",\"parentBlockId\":null,\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"synthetic-slate-later-body\"}]},\"treePosition\":\"1\",\"revisionId\":\"01M6QMYRN06Y6STDYAKZTVA27D\"}]",
+      "properties_json": "{\"cover\":null,\"title\":\"synthetic-slate-later-title\",\"icon\":\"📘\",\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[\"alpha\",\"zeta\"],\"typeface\":\"serif\",\"smallText\":false,\"fullWidth\":true}",
+      "status_key": null,
+      "ordinal": null,
+      "label": null,
+      "created_at": "2026-11-06T05:22:57.958Z",
+      "deleted_at": null,
+      "deleted_by_member_id": null
+    },
+    {
+      "id": "01M6QMYRXRE2H6X6ET47Z3R8SM",
+      "page_id": "01M6QMYM77FWARZBJCVD3NJZ56",
+      "author_member_id": "browser-owner",
+      "origin": "autosave",
+      "content_hash": "52f71df78be33f62dce9bc2dec61add1fbe9218cc617fbd694c8b48896e68c2f",
+      "body_json": "[{\"id\":\"f76aed8e-9621-4f33-a088-55f410ef6230\",\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"synthetic-slate-later-body\"}]},\"parentBlockId\":null,\"treePosition\":\"1\",\"pageId\":\"01M6QMYM77FWARZBJCVD3NJZ56\",\"revisionId\":\"01M6QMYRN06Y6STDYAKZTVA27D\"},{\"id\":\"f07dbe07-9012-4acd-9f26-8ce5fbac6ef7\",\"blockType\":\"link-card\",\"content\":{\"url\":\"https://example.test/revision\",\"display\":\"card\",\"previewState\":\"ready\",\"preview\":{\"title\":\"Café reference\",\"description\":\"Stored\\t reference details\",\"siteName\":\"Slate reference\"}},\"parentBlockId\":null,\"treePosition\":\"2\",\"pageId\":\"01M6QMYM77FWARZBJCVD3NJZ56\",\"revisionId\":\"01M6QMYRXWC0JZH7J6PRD1FCYW\"}]",
+      "properties_json": "{\"cover\":null,\"title\":\"synthetic-slate-later-title\",\"icon\":\"📘\",\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[\"alpha\",\"zeta\"],\"typeface\":\"serif\",\"smallText\":false,\"fullWidth\":true}",
+      "status_key": null,
+      "ordinal": null,
+      "label": null,
+      "created_at": "2026-11-06T05:22:58.101Z",
+      "deleted_at": null,
+      "deleted_by_member_id": null
+    },
+    {
+      "id": "01M6QMYS26FMT80H5X8DZ4Q3AD",
+      "page_id": "01M6QMYM77FWARZBJCVD3NJZ56",
+      "author_member_id": "browser-owner",
+      "origin": "autosave",
+      "content_hash": "6db5d35e255d115a15dc6490cd4e71f2b8d532c5e358d7ffbf7538c23ff8c744",
+      "body_json": "[{\"id\":\"f76aed8e-9621-4f33-a088-55f410ef6230\",\"pageId\":\"01M6QMYM77FWARZBJCVD3NJZ56\",\"parentBlockId\":null,\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"synthetic-slate-later-body\"}]},\"treePosition\":\"1\",\"revisionId\":\"01M6QMYRN06Y6STDYAKZTVA27D\"},{\"id\":\"f07dbe07-9012-4acd-9f26-8ce5fbac6ef7\",\"pageId\":\"01M6QMYM77FWARZBJCVD3NJZ56\",\"parentBlockId\":null,\"blockType\":\"link-card\",\"content\":{\"url\":\"https://example.test/revision\",\"display\":\"card\",\"previewState\":\"ready\",\"preview\":{\"title\":\"synthetic-slate-later-reference\",\"description\":\"Stored\\t reference details\",\"siteName\":\"Slate reference\"}},\"treePosition\":\"2\",\"revisionId\":\"01M6QMYS29TW2NF8ZKK0GB18NN\"}]",
+      "properties_json": "{\"cover\":null,\"title\":\"synthetic-slate-later-title\",\"icon\":\"📘\",\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[\"alpha\",\"zeta\"],\"typeface\":\"serif\",\"smallText\":false,\"fullWidth\":true}",
+      "status_key": null,
+      "ordinal": null,
+      "label": null,
+      "created_at": "2026-11-06T05:22:58.244Z",
+      "deleted_at": null,
+      "deleted_by_member_id": null
+    }
+  ],
+  "reopenedAfterReload": true
+}

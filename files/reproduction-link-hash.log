@@ -1,0 +1,92 @@
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mProxy environment variables detected. We'll use your proxy for fetch requests.[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mProxy environment variables detected. We'll use your proxy for fetch requests.[0m
+
+
+(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:
+  - import "./source-fixtures" without a file extension (scripts/import-scale/generate-server-dc.ts:2:91). Add the file extension
+  - import "./types" without a file extension (scripts/import-scale/generate-server-dc.ts:3:82). Add the file extension
+  - import "./source-fixtures" without a file extension (scripts/import-scale/generate-server-dc.ts:4:22). Add the file extension
+  - import "./csv" without a file extension (scripts/import-scale/source-fixtures.ts:4:46). Add the file extension
+Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.
+
+ RUN  v4.1.11 /home/agent/rer-consolidation/work/sd-slate-c-f176/run-slate
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"atomic page creation","id":"01M6QM5NHKZAZPNJ7615CFAG1V","action":"pages.create","actor_member_id":"01M6QM5NEQ0T0CBFQWGZ5RC8SR","feature":"pages","target_kind":"page","target_id":"01M6QM5NHK9YC4N9S0TST4APM2","occurred_at":"2026-11-06T05:09:15.437Z","operation_key":"01M6QM5NH942ZG3AFYM2F7DQKV"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"atomic page creation","id":"01M6QM5NHKZAZPNJ7615CFAG1V","action":"pages.create","actor_member_id":"01M6QM5NEQ0T0CBFQWGZ5RC8SR","feature":"pages","target_kind":"page","target_id":"01M6QM5NHK9YC4N9S0TST4APM2","occurred_at":"2026-11-06T05:09:15.437Z","operation_key":"01M6QM5NH942ZG3AFYM2F7DQKV"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"atomic native body","id":"01M6QM5NKXVCTBFW9CGFPVKQCC","action":"pages.blocks.replace","actor_member_id":"01M6QM5NEQ0T0CBFQWGZ5RC8SR","feature":"pages","target_kind":"page","target_id":"01M6QM5NHK9YC4N9S0TST4APM2","occurred_at":"2026-11-06T05:09:15.515Z","operation_key":"01M6QM5NKR3H8G2AMCEPTJ89C1"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"atomic native body","id":"01M6QM5NKXVCTBFW9CGFPVKQCC","action":"pages.blocks.replace","actor_member_id":"01M6QM5NEQ0T0CBFQWGZ5RC8SR","feature":"pages","target_kind":"page","target_id":"01M6QM5NHK9YC4N9S0TST4APM2","occurred_at":"2026-11-06T05:09:15.515Z","operation_key":"01M6QM5NKR3H8G2AMCEPTJ89C1"}
+
+stderr | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+Slate request failed with an internal error.
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"exact comment context","id":"01M6QM5NTYC0VRYPT2Z9QT4CJQ","action":"comments.create","actor_member_id":"01M6QM5NEQ0T0CBFQWGZ5RC8SR","feature":"comments","target_kind":"comment-thread","target_id":"01M6QM5NV2PQ4KRA6VD14T2YNH","occurred_at":"2026-11-06T05:09:15.740Z","operation_key":"01M6QM5NTRRM8BDZWCC7VAM8ME"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"exact comment context","id":"01M6QM5NTYC0VRYPT2Z9QT4CJQ","action":"comments.create","actor_member_id":"01M6QM5NEQ0T0CBFQWGZ5RC8SR","feature":"comments","target_kind":"comment-thread","target_id":"01M6QM5NV2PQ4KRA6VD14T2YNH","occurred_at":"2026-11-06T05:09:15.740Z","operation_key":"01M6QM5NTRRM8BDZWCC7VAM8ME"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"exact grant context","id":"01M6QM5NW4HW7VBMYT9WPRM40G","action":"sharing.grant","actor_member_id":"01M6QM5NEQ0T0CBFQWGZ5RC8SR","feature":"sharing","target_kind":"page","target_id":"01M6QM5NT8PQTN5J9PW0ENF2FY","occurred_at":"2026-11-06T05:09:15.774Z","operation_key":"01M6QM5NVW5RVMKPXPDAEYPMTQ"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"exact grant context","id":"01M6QM5NW4HW7VBMYT9WPRM40G","action":"sharing.grant","actor_member_id":"01M6QM5NEQ0T0CBFQWGZ5RC8SR","feature":"sharing","target_kind":"page","target_id":"01M6QM5NT8PQTN5J9PW0ENF2FY","occurred_at":"2026-11-06T05:09:15.774Z","operation_key":"01M6QM5NVW5RVMKPXPDAEYPMTQ"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"revoke context access","id":"01M6QM5NZK6218PFVAAF3GR856","action":"sharing.grant","actor_member_id":"01M6QM5NEQ0T0CBFQWGZ5RC8SR","feature":"sharing","target_kind":"page","target_id":"01M6QM5NT8PQTN5J9PW0ENF2FY","occurred_at":"2026-11-06T05:09:15.886Z","operation_key":"01M6QM5NZ961G6DS5AGQG0Y4YR"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"revoke context access","id":"01M6QM5NZK6218PFVAAF3GR856","action":"sharing.grant","actor_member_id":"01M6QM5NEQ0T0CBFQWGZ5RC8SR","feature":"sharing","target_kind":"page","target_id":"01M6QM5NT8PQTN5J9PW0ENF2FY","occurred_at":"2026-11-06T05:09:15.886Z","operation_key":"01M6QM5NZ961G6DS5AGQG0Y4YR"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"revision writer access","id":"01M6QM5TZHSZG1RBMDH5T9D9YH","action":"sharing.grant","actor_member_id":"01M6QM5NEQ0T0CBFQWGZ5RC8SR","feature":"sharing","target_kind":"page","target_id":"01M6QM5Q2H8BCWEFQW766GYPZ2","occurred_at":"2026-11-06T05:09:21.009Z","operation_key":"01M6QM5TZH7NNJMS5457MM1V9W"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"revision writer access","id":"01M6QM5TZHSZG1RBMDH5T9D9YH","action":"sharing.grant","actor_member_id":"01M6QM5NEQ0T0CBFQWGZ5RC8SR","feature":"sharing","target_kind":"page","target_id":"01M6QM5Q2H8BCWEFQW766GYPZ2","occurred_at":"2026-11-06T05:09:21.009Z","operation_key":"01M6QM5TZH7NNJMS5457MM1V9W"}
+
+ ❯ tests/qualification/core/audit-content.test.ts (1 test | 1 failed) 1185ms
+   × ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time 1183ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AssertionError: expected { …(13) } to deeply equal { …(13) }
+
+- Expected
++ Received
+
+@@ -49,11 +49,11 @@
+        "parentBlockId": null,
+        "revisionId": "01M6QM5WY1CAE10VWFN8D7WG7Q",
+        "treePosition": "3",
+      },
+    ],
+-   "content_hash": "2d2a330325b32ad28133b414ef431b18d148635c14da8c7f6b532b757284ff74",
++   "content_hash": "a8f0aabf399fbcb1fbbf32b88f18403bba8397a2148aac06aa3e44754d828abc",
+    "created_at": "2026-11-06T05:09:23.009Z",
+    "deleted_at": null,
+    "deleted_by_member_id": null,
+    "id": "01M6QM5WY16ANECP40VCDB7QZT",
+    "label": null,
+
+ ❯ commit tests/qualification/core/revision-snapshot-proof.ts:28:105
+
+ ❯ revisionSnapshotProof tests/qualification/core/revision-snapshot-proof.ts:51:3
+ ❯ tests/qualification/core/audit-content.test.ts:10:2
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed (1)
+   Start at  05:08:53
+   Duration  22.57s (transform 9.99s, setup 1.13s, import 18.79s, tests 1.19s, environment 0ms)
+

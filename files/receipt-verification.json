@@ -1,0 +1,26 @@
+{
+  "schema": 1,
+  "results": [
+    {
+      "width": 1440,
+      "retained": 9,
+      "uniqueRevisionIds": true,
+      "independentSha256Matches": true,
+      "completeRowsMatch": true,
+      "explicitClearedCoverRetained": true,
+      "changedLinkTextChangesHash": true,
+      "reopenedAfterReload": true
+    },
+    {
+      "width": 390,
+      "retained": 9,
+      "uniqueRevisionIds": true,
+      "independentSha256Matches": true,
+      "completeRowsMatch": true,
+      "explicitClearedCoverRetained": true,
+      "changedLinkTextChangesHash": true,
+      "reopenedAfterReload": true
+    }
+  ],
+  "passed": true
+}

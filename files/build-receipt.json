@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "head": "5ed704b7e73bb5100f7c8f12aaaadb4bb75880d4",
+  "command": "npx -y @runeditrun/rer build",
+  "exit": 0,
+  "artifact": {
+    "schema": 1,
+    "commit": "5ed704b7e73bb5100f7c8f12aaaadb4bb75880d4",
+    "tree": "5e68cc97e45152439c8e81b4db139de27c4590c1",
+    "sourceSha256": "ec70c193a51b62b3ed025ad57822e119c20b7d1a7d726d9d71e315b6ec19ea45",
+    "lockSha256": "115f98cd33fa4a1cb3b9541b5695299cabe5556500a6a92238a07d0746288db7",
+    "outputSha256": "7833a63c8ab594b83131d4ab232038c9d7c7e4179fd16cdf633c3a3dce10c458"
+  },
+  "log": "build.log"
+}

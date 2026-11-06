@@ -1,0 +1,31 @@
+{
+  "schema": 1,
+  "head": "5ed704b7e73bb5100f7c8f12aaaadb4bb75880d4",
+  "views": {
+    "write": "node src/base/runtime/contract-docs.mjs write",
+    "check": "node src/base/runtime/contract-docs.mjs check",
+    "writeExit": 0,
+    "checkExit": 0,
+    "generatedFilesRestoredFromMain": true,
+    "generatedFilesCommitted": false
+  },
+  "lock": {
+    "write": "pnpm source:lock",
+    "check": "pnpm source:check",
+    "writeExit": 0,
+    "checkExit": 0
+  },
+  "ledger": {
+    "command": null,
+    "exit": 0,
+    "reason": "No migration changed"
+  },
+  "statusRows": {
+    "before": 338,
+    "after": 338
+  },
+  "parentTableRows": {
+    "before": 698,
+    "after": 698
+  }
+}

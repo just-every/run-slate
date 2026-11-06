@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "tag": "sd-slate-c-f176",
+  "base": "94094121d1e0a18b99f86d8f03dd87e0389847a7",
+  "scope": "REV-001 ordinary-page acceptance 1",
+  "reproductions": [
+    {
+      "command": "pnpm exec vitest run tests/qualification/core/audit-content.test.ts",
+      "exit": 1,
+      "test": "ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time",
+      "failure": "Expected cover: null in complete properties; received properties omitted cover after a subsequent body edit",
+      "log": "reproduction-cover.log"
+    },
+    {
+      "command": "pnpm exec vitest run tests/qualification/core/audit-content.test.ts",
+      "exit": 1,
+      "test": "ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time",
+      "failure": "Independent SHA-256 of committed link address and preview text differs from stored content_hash, which omitted the link card",
+      "log": "reproduction-link-hash.log"
+    }
+  ],
+  "policy": "No acceptance sentence changed; no existing stored hash rewritten; broad matching-hash and all-family obligations remain partial."
+}

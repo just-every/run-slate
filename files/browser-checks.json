@@ -1,0 +1,27 @@
+{
+  "schema": 1,
+  "head": "5ed704b7e73bb5100f7c8f12aaaadb4bb75880d4",
+  "chromium": "/usr/bin/chromium",
+  "runs": [
+    {
+      "width": 1440,
+      "exit": 0,
+      "command": "SLATE_CHROMIUM_PATH=/usr/bin/chromium REVISION_WIDTH=1440 cloud_run perl -e 'alarm 1200; exec @ARGV' -- node /tmp/slate-revision-browser.mjs",
+      "caller": "revisionSnapshotsJourney",
+      "verifyCallers": "existing core journeys at both responsive widths",
+      "receipts": "receipts-1440.json",
+      "log": "browser-1440.log",
+      "runner": "focused-browser.mjs"
+    },
+    {
+      "width": 390,
+      "exit": 0,
+      "command": "SLATE_CHROMIUM_PATH=/usr/bin/chromium REVISION_WIDTH=390 cloud_run perl -e 'alarm 1200; exec @ARGV' -- node /tmp/slate-revision-browser.mjs",
+      "caller": "revisionSnapshotsJourney",
+      "verifyCallers": "existing core journeys at both responsive widths",
+      "receipts": "receipts-390.json",
+      "log": "browser-390.log",
+      "runner": "focused-browser.mjs"
+    }
+  ]
+}

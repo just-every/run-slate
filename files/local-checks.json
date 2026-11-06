@@ -1,0 +1,70 @@
+{
+  "schema": 1,
+  "head": "5ed704b7e73bb5100f7c8f12aaaadb4bb75880d4",
+  "node": "v22.20.0",
+  "checks": [
+    {
+      "name": "worker",
+      "command": [
+        "pnpm",
+        "exec",
+        "vitest",
+        "run",
+        "tests/qualification/core/audit-content.test.ts",
+        "--silent=false"
+      ],
+      "exit": 0,
+      "seconds": 39.84,
+      "head": "5ed704b7e73bb5100f7c8f12aaaadb4bb75880d4",
+      "log": "worker.log"
+    },
+    {
+      "name": "typecheck",
+      "command": [
+        "pnpm",
+        "typecheck"
+      ],
+      "exit": 0,
+      "seconds": 49.68,
+      "head": "5ed704b7e73bb5100f7c8f12aaaadb4bb75880d4",
+      "log": "typecheck.log"
+    },
+    {
+      "name": "first-party",
+      "command": [
+        "npx",
+        "-y",
+        "@runeditrun/rer",
+        "check",
+        "--profile",
+        "first-party"
+      ],
+      "exit": 0,
+      "seconds": 4.67,
+      "head": "5ed704b7e73bb5100f7c8f12aaaadb4bb75880d4",
+      "log": "first-party.log"
+    },
+    {
+      "name": "source-check",
+      "command": [
+        "pnpm",
+        "source:check"
+      ],
+      "exit": 0,
+      "seconds": 1.32,
+      "head": "5ed704b7e73bb5100f7c8f12aaaadb4bb75880d4",
+      "log": "source-check.log"
+    },
+    {
+      "name": "registrations",
+      "command": [
+        "node",
+        "tests/requirements/count-registrations.mjs"
+      ],
+      "exit": 0,
+      "seconds": 6.42,
+      "head": "5ed704b7e73bb5100f7c8f12aaaadb4bb75880d4",
+      "log": "registrations.log"
+    }
+  ]
+}
