@@ -1,3 +1,4 @@
+import {draftPrivacyJourney} from './draft-privacy-journey.mjs';
 import {mkdir} from 'node:fs/promises';
 import path from 'node:path';
 import assert from 'node:assert/strict';
@@ -8,6 +9,7 @@ import {call,ok,withSecondPerson} from './two-people-support.mjs';
 
 /** Fold the existing publication assertions into the loaded native browser journey. */
 export async function publicationJourney(state) {
+  await draftPrivacyJourney(state);
   const width=state.page.viewportSize().width;
   const directory=path.join(root,'.artifacts/ui-convergence/publication',String(width));
   await mkdir(directory,{recursive:true});
