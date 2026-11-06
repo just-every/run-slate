@@ -1,0 +1,29 @@
+{
+  "head": "94094121d1e0a18b99f86d8f03dd87e0389847a7",
+  "points": [
+    {
+      "clause": "REV-001",
+      "point": "1, selected ordinary pages",
+      "head": "94094121d1e0a18b99f86d8f03dd87e0389847a7",
+      "width": 1440,
+      "door": "native session create route, rendered title and body editor, workspace publication dialog, history route after reload",
+      "observed": "six retained immutable snapshots; exact D1 rows, complete properties, receipt metadata and independent hashes agree; all snapshots reopen with old and new visible content",
+      "receipt": "browser-1440.json"
+    },
+    {
+      "clause": "REV-001",
+      "point": "1, selected ordinary pages",
+      "head": "94094121d1e0a18b99f86d8f03dd87e0389847a7",
+      "width": 390,
+      "door": "native session create route, rendered title and body editor, workspace publication dialog, history route after reload",
+      "observed": "six retained immutable snapshots; exact D1 rows, complete properties, receipt metadata and independent hashes agree; all snapshots reopen with old and new visible content",
+      "receipt": "browser-390.json"
+    }
+  ],
+  "controlledNativeProof": {
+    "receipt": "worker-revision-receipts.json",
+    "revisions": 6,
+    "authors": 2,
+    "controlledCommitIntervalMilliseconds": 1000
+  }
+}

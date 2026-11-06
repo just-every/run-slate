@@ -1,0 +1,21 @@
+{
+  "scope": "Public packet only; diagnostic conclusions and test assertions retained",
+  "removed": "request-body debug lines, workflow environment sections, URL query strings",
+  "files": [
+    {
+      "file": "core-browser.log",
+      "removedLines": 1,
+      "urlQueriesOmitted": true
+    },
+    {
+      "file": "final-core-1440.log",
+      "removedLines": 1,
+      "urlQueriesOmitted": false
+    },
+    {
+      "file": "final-core-390.log",
+      "removedLines": 1,
+      "urlQueriesOmitted": false
+    }
+  ]
+}

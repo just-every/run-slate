@@ -1,0 +1,12 @@
+{
+  "head": "c68fb65ca4f78ebdf73124538b3481a1eb40d0fc",
+  "test": "real core-wiki and touch-member journeys at 390px",
+  "path": "tests/qualification/ui-convergence/chat-journey.mjs:55",
+  "failure": "Expected /private Slack channel.*not shared/; received Confirm this with your email first. Slate sent a confirmation link to your address. Open it, then try again within 10 minutes.",
+  "http": 403,
+  "code": "STEP_UP_REQUIRED",
+  "caseDurationSeconds": 643.562,
+  "commandExit": 124,
+  "combinedRunner": "20-minute outer timeout interrupted the subsequent desktop case",
+  "resolution": "New snapshot helper renews the same member through native email confirmation after it completes; no production guard or existing assertion changes."
+}

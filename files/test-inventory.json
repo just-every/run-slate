@@ -1,0 +1,17 @@
+{
+  "before": {
+    "ref": "origin/main",
+    "commit": "93b7327adee97ac0ff691bfb5cbff68f4412a27a",
+    "registrations": 207,
+    "sites": 203
+  },
+  "after": {
+    "ref": "HEAD",
+    "commit": "94094121d1e0a18b99f86d8f03dd87e0389847a7",
+    "registrations": 207,
+    "sites": 203
+  },
+  "unresolved": [],
+  "head": "94094121d1e0a18b99f86d8f03dd87e0389847a7",
+  "assertions": "No existing business assertion removed, narrowed or made conditional; no registration added. Existing core harness timeouts increased for added work; business timing assertions unchanged."
+}

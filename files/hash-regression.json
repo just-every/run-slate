@@ -1,0 +1,10 @@
+{
+  "productionSourceBeforeFix": "1b028009054d5f10e27d9ba2cac3d1b8efebad17",
+  "probe": "inline-hash-probe.log",
+  "probeExit": 1,
+  "expectedText": "Café first second line alpha zeta Café snapshot",
+  "defectiveText": "Café fi rst second line alpha zeta Café snapshot",
+  "expectedHash": "7f1fd1e25ca486cd88420075f0dccc0796cc58f415277ac30f21ba36a56e945d",
+  "observedOldHash": "c266e161a425bfc43a7d8fa7fc1e863541384756ba5c2a8f5ef4be1f51e8d437",
+  "correction": "Concatenate adjacent inline spans before NFC and whitespace normalization; retain separators for rows, cells and list items."
+}

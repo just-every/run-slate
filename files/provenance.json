@@ -1,0 +1,70 @@
+{
+  "repository": "just-every/run-slate",
+  "branch": "cloud/sd-slate-c-f169",
+  "head": "94094121d1e0a18b99f86d8f03dd87e0389847a7",
+  "parentAndCandidate": {
+    "origin/main": {
+      "commit": "93b7327adee97ac0ff691bfb5cbff68f4412a27a",
+      "statusRows": 338,
+      "counts": {
+        "partial": 240,
+        "done": 57,
+        "missing": 41
+      },
+      "pipeRows": 698
+    },
+    "HEAD": {
+      "commit": "94094121d1e0a18b99f86d8f03dd87e0389847a7",
+      "statusRows": 338,
+      "counts": {
+        "partial": 240,
+        "done": 57,
+        "missing": 41
+      },
+      "pipeRows": 698
+    }
+  },
+  "registeredTestsBefore": 207,
+  "registeredTestsAfter": 207,
+  "productPush": "All five real commits pushed successfully through cloud-push.py; no force push; no main push",
+  "generatedViewsCommitted": false,
+  "publicationScan": {
+    "status": "deferred-to-guarded-lander",
+    "complete": null,
+    "historyScanned": null,
+    "findings": null
+  },
+  "mainLanding": "not performed",
+  "pullRequest": null,
+  "githubApiCalls": 10,
+  "verify": {
+    "id": 42161573452,
+    "event": "push",
+    "status": "completed",
+    "conclusion": "failure",
+    "head": "94094121d1e0a18b99f86d8f03dd87e0389847a7",
+    "url": "https://github.com/just-every/run-slate/actions/runs/42161573452",
+    "onlyProductJobFailure": "generated contract view freshness: ACCEPTANCE.md generated content differs",
+    "appJob": 127708275078,
+    "aggregateJob": 127708469878,
+    "runtimeJobs": "skipped due to app dependency",
+    "permittedGeneratedViewException": true
+  },
+  "priorCandidates": [
+    {
+      "head": "c68fb65ca4f78ebdf73124538b3481a1eb40d0fc"
+    },
+    {
+      "head": "49721aeb3e3751e7c44b0aa8e2b388d22ce73c37"
+    },
+    {
+      "head": "1b028009054d5f10e27d9ba2cac3d1b8efebad17"
+    },
+    {
+      "head": "5b67705d60823d5312c82d6a07ff7a90a9ba1c50"
+    }
+  ],
+  "initialMainVerify": 42144247270,
+  "initialMainRunSite": 42144247238,
+  "recordedAt": "2026-11-06T04:30:56.797373+00:00"
+}

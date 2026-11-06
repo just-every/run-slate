@@ -1,0 +1,29 @@
+{
+  "head": "94094121d1e0a18b99f86d8f03dd87e0389847a7",
+  "lock": {
+    "name": "landing-mechanical",
+    "head": "94094121d1e0a18b99f86d8f03dd87e0389847a7",
+    "dirty": false,
+    "command": "pnpm integration:sync && pnpm source:lock && pnpm source:check",
+    "exit": 0,
+    "started": "2026-11-06T04:11:38.533058+00:00",
+    "seconds": 4.411,
+    "log": "landing-mechanical.log"
+  },
+  "views": {
+    "name": "landing-views",
+    "head": "94094121d1e0a18b99f86d8f03dd87e0389847a7",
+    "dirty": false,
+    "command": "node src/base/runtime/contract-docs.mjs write && node src/base/runtime/contract-docs.mjs check; result=$?; git checkout origin/main -- ACCEPTANCE.md docs/CLAIMS.md; exit \"$result\"",
+    "exit": 0,
+    "started": "2026-11-06T04:11:35.936179+00:00",
+    "seconds": 2.478,
+    "log": "landing-views.log"
+  },
+  "ledger": {
+    "command": null,
+    "exit": 0,
+    "status": "not-applicable; no migration changed"
+  },
+  "generatedViewsCommitted": false
+}

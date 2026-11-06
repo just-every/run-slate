@@ -1,0 +1,55 @@
+rer toolchain: node v24.19.0 pnpm 10.12.4 (pins 22.20.0 / 10.12.4)
+PROBE PORT-003 1: failed native export and restore replay and reload -> failed, no download or successful restore action
+PROBE PORT-003 2: Settings export and empty-deployment restore -> queued, running, completed and failed persisted; counts equal native archive; safe reports identify commit failures
+PROBE REV-001 1: native create, title and body edits, workspace publication -> 6 immutable ordinary-page snapshots; independent hashes and D1 rows agree; reopened after reload at 390px
+NAV-006 touch create, type, insert and drag persisted
+BLOCK-012 columns insert, desktop drag and touch layout passed at 390px
+PROBE COMM-002 acceptance 1–2: native comment controls and HTTP at 390px -> two authors edit/delete; cross-author and owner override 403; edited times, two in-place tombstones and six activities survive replay/reload
+NAV-006 touch comment and resolve persisted
+WEB-006 native unpublish response {"width":390,"elapsedMs":1045}
+NAV-006 touch workspace publication and sharing persisted
+PAGE-007 Details, replay and edit-only refusal passed at 390px
+✖ real core-wiki and touch-member journeys at 390px (780006.589311ms)
+NAV-006 touch Search, Inbox, My tasks, requested reviews and verification health passed
+Journey failure context {
+  "rejected": [
+    {
+      "url": "http://127.0.0.1:35021/api/notifications/chat/destinations",
+      "method": "POST",
+      "status": 403,
+      "responseBody": "{\"code\":\"STEP_UP_REQUIRED\",\"message\":\"Confirm this with your email first. Slate sent a confirmation link to your address. Open it, then try again within 10 minutes.\"}"
+    }
+  ],
+  "consoleErrors": [
+    {
+      "url": "http://127.0.0.1:35021/app/pages/01M6QDETP6YEHH3BDYCBEVQ28X",
+      "message": "Failed to load resource: net::ERR_INTERNET_DISCONNECTED"
+    },
+    {
+      "url": "http://127.0.0.1:35021/app/pages/01M6QDETP6YEHH3BDYCBEVQ28X",
+      "message": "Failed to load resource: net::ERR_INTERNET_DISCONNECTED"
+    },
+    {
+      "url": "http://127.0.0.1:35021/app/pages/01M6QDETP6YEHH3BDYCBEVQ28X",
+      "message": "Failed to load resource: net::ERR_INTERNET_DISCONNECTED"
+    },
+    {
+      "url": "http://127.0.0.1:35021/app/settings/chat",
+      "message": "Failed to load resource: the server responded with a status of 403 (Forbidden)"
+    }
+  ]
+}
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 0
+ℹ cancelled 1
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 918165.23661
+
+✖ failing tests:
+
+test at tests/qualification/ui-convergence/journey-shard.mjs:23:97
+✖ real core-wiki and touch-member journeys at 390px (780006.589311ms)
+  'test timed out after 780000ms'

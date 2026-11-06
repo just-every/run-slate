@@ -1,0 +1,91 @@
+rer toolchain: node v24.19.0 pnpm 10.12.4 (pins 22.20.0 / 10.12.4)
+PROBE PORT-003 1: failed native export and restore replay and reload -> failed, no download or successful restore action
+PROBE PORT-003 2: Settings export and empty-deployment restore -> queued, running, completed and failed persisted; counts equal native archive; safe reports identify commit failures
+PROBE REV-001 1: native create, title and body edits, workspace publication -> 6 immutable ordinary-page snapshots; independent hashes and D1 rows agree; reopened after reload at 390px
+NAV-006 touch create, type, insert and drag persisted
+BLOCK-012 columns insert, desktop drag and touch layout passed at 390px
+PROBE COMM-002 acceptance 1–2: native comment controls and HTTP at 390px -> two authors edit/delete; cross-author and owner override 403; edited times, two in-place tombstones and six activities survive replay/reload
+NAV-006 touch comment and resolve persisted
+WEB-006 native unpublish response {"width":390,"elapsedMs":742}
+NAV-006 touch workspace publication and sharing persisted
+PAGE-007 Details, replay and edit-only refusal passed at 390px
+NAV-006 touch Search, Inbox, My tasks, requested reviews and verification health passed
+Journey failure context {
+  "rejected": [
+    {
+      "url": "http://127.0.0.1:41581/api/notifications/chat/destinations",
+      "method": "POST",
+      "status": 403,
+      "responseBody": "{\"code\":\"STEP_UP_REQUIRED\",\"message\":\"Confirm this with your email first. Slate sent a confirmation link to your address. Open it, then try again within 10 minutes.\"}"
+    }
+  ],
+  "consoleErrors": [
+    {
+      "url": "http://127.0.0.1:41581/app/pages/01M6QBQKB0SX6PBKVGABTS325E",
+      "message": "Failed to load resource: net::ERR_INTERNET_DISCONNECTED"
+    },
+    {
+      "url": "http://127.0.0.1:41581/app/pages/01M6QBQKB0SX6PBKVGABTS325E",
+      "message": "Failed to load resource: net::ERR_INTERNET_DISCONNECTED"
+    },
+    {
+      "url": "http://127.0.0.1:41581/app/pages/01M6QBTRY9732CJBQ0576XBHBP?<query omitted>
+      "message": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+    },
+    {
+      "url": "http://127.0.0.1:41581/app/settings/chat",
+      "message": "Failed to load resource: the server responded with a status of 403 (Forbidden)"
+    }
+  ]
+}
+✖ real core-wiki and touch-member journeys at 390px (643562.284221ms)
+PROBE REV-001 1: native create, title and body edits, workspace publication -> 6 immutable ordinary-page snapshots; independent hashes and D1 rows agree; reopened after reload at 1440px
+NAV-006 touch create, type, insert and drag persisted
+BLOCK-012 columns insert, desktop drag and touch layout passed at 1440px
+PROBE COMM-002 acceptance 1–2: native comment controls and HTTP at 1440px -> two authors edit/delete; cross-author and owner override 403; edited times, two in-place tombstones and six activities survive replay/reload
+NAV-006 touch comment and resolve persisted
+WEB-006 native unpublish response {"width":1440,"elapsedMs":1268}
+
+Interrupted while running:
+
+⚠ tests/qualification/ui-convergence/journeys.test.mjs (tests/qualification/ui-convergence/journeys.test.mjs:1:1)
+✖ tests/qualification/ui-convergence/journeys.test.mjs (1199969.639562ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 1
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1199947.975523
+
+✖ failing tests:
+
+test at tests/qualification/ui-convergence/journey-shard.mjs:23:97
+✖ real core-wiki and touch-member journeys at 390px (643562.284221ms)
+  Error: expect(locator).toContainText(expected) failed
+  
+  Locator: getByRole('alert')
+  Expected pattern: /private Slack channel.*not shared/
+  Received string:  "Confirm this with your email first. Slate sent a confirmation link to your address. Open it, then try again within 10 minutes."
+  Timeout: 5000ms
+  
+  Call log:
+    - Expect "toContainText" getByRole('alert') with timeout 5000ms
+    - waiting for getByRole('alert')
+      12 × locator resolved to <p role="alert">Confirm this with your email first. Slate sent a …</p>
+         - unexpected value "Confirm this with your email first. Slate sent a confirmation link to your address. Open it, then try again within 10 minutes."
+  
+      at captureRawStack (/workspace/run-slate/node_modules/.pnpm/playwright-core@1.63.0/node_modules/playwright-core/lib/coreBundle.js:8588:17)
+      at callMatcherAsStep (/workspace/run-slate/node_modules/.pnpm/playwright@1.63.0/node_modules/playwright/lib/matchers/expect.js:13310:57)
+      at Object.toContainText (/workspace/run-slate/node_modules/.pnpm/playwright@1.63.0/node_modules/playwright/lib/matchers/expect.js:13302:23)
+      at chatJourney (/workspace/run-slate/tests/qualification/ui-convergence/chat-journey.mjs:55:41)
+      at async withWorkspace.scheduled (/workspace/run-slate/tests/qualification/ui-convergence/journeys.test.mjs:107:9)
+      at async withWorkspace (/workspace/run-slate/tests/qualification/ui-convergence/browser-support.mjs:188:7)
+      at async TestContext.<anonymous> (/workspace/run-slate/tests/qualification/ui-convergence/journeys.test.mjs:84:5) {
+    matcherResult: { name: 'toContainText', expected: /private Slack channel.*not shared/, message: `expect(locator).toContainText(expected) failed\n\nLocator: getByRole('alert')\nExpected pattern: /private Slack channel.*not shared/\nReceived string:  "Confirm this with your email first. Slate sent a confirmation link to your address. Open it, then try again within 10 minutes."\nTimeout: 5000ms\n\nCall log:\n  - Expect "toContainText" getByRole('alert') with timeout 5000ms\n  - waiting for getByRole('alert')\n    12 × locator resolved to <p role="alert">Confirm this with your email first. Slate sent a …</p>\n       - unexpected value "Confirm this with your email first. Slate sent a confirmation link to your address. Open it, then try again within 10 minutes."\n`, pass: false, actual: 'Confirm this with your email first. Slate sent a confirmation link to your address. Open it, then try again within 10 minutes.', log: [ `  - Expect "toContainText" getByRole('alert') with timeout 5000ms`, "  - waiting for getByRole('alert')", '    12 × locator resolved to <p role="alert">Confirm this with your email first. Slate sent a …</p>', '       - unexpected value "Confirm this with your email first. Slate sent a confirmation link to your address. Open it, then try again within 10 minutes."' ], timeout: 5000, ariaSnapshot: '- alert: Confirm this with your email first. Slate sent a confirmation link to your address. Open it, then try again within 10 minutes.' }
+  }
+
+test at tests/qualification/ui-convergence/journeys.test.mjs:1:1
+✖ tests/qualification/ui-convergence/journeys.test.mjs (1199969.639562ms)
+  'Promise resolution is still pending but the event loop has already resolved'

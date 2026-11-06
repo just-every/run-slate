@@ -1,0 +1,86 @@
+rer toolchain: node v24.19.0 pnpm 10.12.4 (pins 22.20.0 / 10.12.4)
+v22.20.0
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mProxy environment variables detected. We'll use your proxy for fetch requests.[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mProxy environment variables detected. We'll use your proxy for fetch requests.[0m
+
+
+(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:
+  - import "./source-fixtures" without a file extension (scripts/import-scale/generate-server-dc.ts:2:91). Add the file extension
+  - import "./types" without a file extension (scripts/import-scale/generate-server-dc.ts:3:82). Add the file extension
+  - import "./source-fixtures" without a file extension (scripts/import-scale/generate-server-dc.ts:4:22). Add the file extension
+  - import "./csv" without a file extension (scripts/import-scale/source-fixtures.ts:4:46). Add the file extension
+Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.
+
+ RUN  v4.1.11 /workspace/run-slate
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"atomic page creation","id":"01M6QF9GR2ZTQ1ATE6ZMEGFZVE","action":"pages.create","actor_member_id":"01M6QF9GHD7VY8SKNMFW8PKG9Y","feature":"pages","target_kind":"page","target_id":"01M6QF9GR28RKMNPPVQ2RZE5K1","occurred_at":"2026-11-06T03:43:58.700Z","operation_key":"01M6QF9GPRN7FEYMVMZ3TP3XR8"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"atomic page creation","id":"01M6QF9GR2ZTQ1ATE6ZMEGFZVE","action":"pages.create","actor_member_id":"01M6QF9GHD7VY8SKNMFW8PKG9Y","feature":"pages","target_kind":"page","target_id":"01M6QF9GR28RKMNPPVQ2RZE5K1","occurred_at":"2026-11-06T03:43:58.700Z","operation_key":"01M6QF9GPRN7FEYMVMZ3TP3XR8"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"atomic native body","id":"01M6QF9GVRXC01QTRSAB9N6DRF","action":"pages.blocks.replace","actor_member_id":"01M6QF9GHD7VY8SKNMFW8PKG9Y","feature":"pages","target_kind":"page","target_id":"01M6QF9GR28RKMNPPVQ2RZE5K1","occurred_at":"2026-11-06T03:43:58.836Z","operation_key":"01M6QF9GVG4X3NVGDVDXPY5KEX"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"atomic native body","id":"01M6QF9GVRXC01QTRSAB9N6DRF","action":"pages.blocks.replace","actor_member_id":"01M6QF9GHD7VY8SKNMFW8PKG9Y","feature":"pages","target_kind":"page","target_id":"01M6QF9GR28RKMNPPVQ2RZE5K1","occurred_at":"2026-11-06T03:43:58.836Z","operation_key":"01M6QF9GVG4X3NVGDVDXPY5KEX"}
+
+stderr | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+Slate request failed with an internal error.
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"exact comment context","id":"01M6QF9H6NHWVEAR1AV55RSZMG","action":"comments.create","actor_member_id":"01M6QF9GHD7VY8SKNMFW8PKG9Y","feature":"comments","target_kind":"comment-thread","target_id":"01M6QF9H6TE365ZRMYY1ASSYDR","occurred_at":"2026-11-06T03:43:59.186Z","operation_key":"01M6QF9H6EVA6PWQXT4C539JYR"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"exact comment context","id":"01M6QF9H6NHWVEAR1AV55RSZMG","action":"comments.create","actor_member_id":"01M6QF9GHD7VY8SKNMFW8PKG9Y","feature":"comments","target_kind":"comment-thread","target_id":"01M6QF9H6TE365ZRMYY1ASSYDR","occurred_at":"2026-11-06T03:43:59.186Z","operation_key":"01M6QF9H6EVA6PWQXT4C539JYR"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"exact grant context","id":"01M6QF9H81N738NZQ7S36M0P8Q","action":"sharing.grant","actor_member_id":"01M6QF9GHD7VY8SKNMFW8PKG9Y","feature":"sharing","target_kind":"page","target_id":"01M6QF9H5JDKCZVMAJ0AYQC06H","occurred_at":"2026-11-06T03:43:59.227Z","operation_key":"01M6QF9H7RTDP6N2RREKCJAAKS"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"exact grant context","id":"01M6QF9H81N738NZQ7S36M0P8Q","action":"sharing.grant","actor_member_id":"01M6QF9GHD7VY8SKNMFW8PKG9Y","feature":"sharing","target_kind":"page","target_id":"01M6QF9H5JDKCZVMAJ0AYQC06H","occurred_at":"2026-11-06T03:43:59.227Z","operation_key":"01M6QF9H7RTDP6N2RREKCJAAKS"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"revoke context access","id":"01M6QF9HCKZKGNWK50AXVEJC8Y","action":"sharing.grant","actor_member_id":"01M6QF9GHD7VY8SKNMFW8PKG9Y","feature":"sharing","target_kind":"page","target_id":"01M6QF9H5JDKCZVMAJ0AYQC06H","occurred_at":"2026-11-06T03:43:59.372Z","operation_key":"01M6QF9HC5ZS9SNFN5WEKT0QDD"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"revoke context access","id":"01M6QF9HCKZKGNWK50AXVEJC8Y","action":"sharing.grant","actor_member_id":"01M6QF9GHD7VY8SKNMFW8PKG9Y","feature":"sharing","target_kind":"page","target_id":"01M6QF9H5JDKCZVMAJ0AYQC06H","occurred_at":"2026-11-06T03:43:59.372Z","operation_key":"01M6QF9HC5ZS9SNFN5WEKT0QDD"}
+
+ ❯ tests/qualification/core/audit-content.test.ts (1 test | 1 failed) 1566ms
+   × ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time 1562ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AssertionError: expected { …(13) } to deeply equal { …(13) }
+
+- Expected
++ Received
+
+@@ -1,9 +1,9 @@
+  {
+    "author_member_id": "01M6QF9GHD7VY8SKNMFW8PKG9Y",
+    "body_json": "[{\"id\":\"01M6QF9KHKS8Z62Q96ZR3TR1ZS\",\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"Café\\t  fi\",\"marks\":[\"bold\"]},{\"text\":\"rst\"}]},\"parentBlockId\":null,\"treePosition\":\"1\",\"pageId\":\"01M6QF9JJBKJW2ZFG7BPCMNW7W\",\"revisionId\":\"01M6QF9MGVQHBTFYG8CQ818G5W\"},{\"id\":\"01M6QF9KHK82ZS0VHQDYT5D6GM\",\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"second\\nline\"}]},\"parentBlockId\":null,\"treePosition\":\"2\",\"pageId\":\"01M6QF9JJBKJW2ZFG7BPCMNW7W\",\"revisionId\":\"01M6QF9MGVX5K2ADQG2M5E8QKN\"}]",
+-   "content_hash": "7f1fd1e25ca486cd88420075f0dccc0796cc58f415277ac30f21ba36a56e945d",
++   "content_hash": "c266e161a425bfc43a7d8fa7fc1e863541384756ba5c2a8f5ef4be1f51e8d437",
+    "created_at": "2026-11-06T03:44:02.587Z",
+    "deleted_at": null,
+    "deleted_by_member_id": null,
+    "id": "01M6QF9MGV5GFA0H4RB1BWRPJY",
+    "label": null,
+
+ ❯ commit tests/qualification/core/revision-snapshot-proof.ts:28:16
+
+ ❯ revisionSnapshotProof tests/qualification/core/revision-snapshot-proof.ts:42:3
+ ❯ tests/qualification/core/audit-content.test.ts:10:2
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed (1)
+   Start at  03:43:09
+   Duration  51.05s (transform 25.53s, setup 1.89s, import 45.13s, tests 1.57s, environment 0ms)
+
