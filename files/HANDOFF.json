@@ -1,0 +1,173 @@
+{
+  "schema": 1,
+  "tag": "sd-slate-c-f194",
+  "repository": "just-every/run-slate",
+  "branch": "cloud/sd-slate-c-f194",
+  "head": "a21faba8283371ac7f149e3ea49cf08cee2e4df0",
+  "status": "READY under generated-view exception; no full DONE claim",
+  "target": {
+    "id": "PORT-001",
+    "before": "partial",
+    "after": "partial",
+    "acceptanceClosed": "Selected ordinary authored page-subtree portion only; full acceptance 1 and 2 remain incomplete."
+  },
+  "countsBefore": {
+    "done": 57,
+    "partial": 240,
+    "missing": 41,
+    "total": 338
+  },
+  "countsAfter": {
+    "done": 57,
+    "partial": 240,
+    "missing": 41,
+    "total": 338
+  },
+  "proof": [
+    {
+      "width": 1440,
+      "head": "a21faba8283371ac7f149e3ea49cf08cee2e4df0",
+      "journeySha256": "8c448ad3a495d4341fb82f9a413bf7b15f9d9e5897becad1da7a5c3bd50f4609",
+      "receipt": "1440-authored-subtree.json",
+      "sha256": "d699e2a9c7747c84d15d2c5e09dba58a8e47c4e74245b978517fe5705c2c80b6",
+      "tableRows": {
+        "pages": 4,
+        "page_blocks": 4,
+        "page_revisions": 13,
+        "page_labels": 8,
+        "page_grants": 4,
+        "comment_threads": 1,
+        "comments": 2,
+        "files": 2,
+        "record_revisions": 4,
+        "core_entity_revisions": 9,
+        "groups": 1,
+        "group_members": 1
+      },
+      "archive": {
+        "bytes": 72694,
+        "sha256": "424d2649a1126157fe52090debe2e1854a9144dcb6c1248cb4a024771d4373c7"
+      },
+      "originals": [
+        {
+          "id": "01M6RBER3AXPSYQ1SWPKT71C4C",
+          "name": "archive-notes.txt",
+          "size": 60,
+          "sha256": "06601ede0ea29a3c34381a139eb2496837c535bff62d21c9643f14475daa2123"
+        },
+        {
+          "id": "01M6RBER47GW4DFX27W1MFYZ42",
+          "name": "archive-original.png",
+          "size": 68,
+          "sha256": "771346b338f38f7bfd6ab7538aed0a1d7e0accafc0f76eed922e08e8e8e6e37c"
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "head": "a21faba8283371ac7f149e3ea49cf08cee2e4df0",
+      "journeySha256": "8c448ad3a495d4341fb82f9a413bf7b15f9d9e5897becad1da7a5c3bd50f4609",
+      "receipt": "390-authored-subtree.json",
+      "sha256": "0cafcab246ff7132a3a5ca0fc8484db67bbf90397a39bb89be67c71752a71293",
+      "tableRows": {
+        "pages": 4,
+        "page_blocks": 4,
+        "page_revisions": 13,
+        "page_labels": 8,
+        "page_grants": 4,
+        "comment_threads": 1,
+        "comments": 2,
+        "files": 2,
+        "record_revisions": 4,
+        "core_entity_revisions": 9,
+        "groups": 1,
+        "group_members": 1
+      },
+      "archive": {
+        "bytes": 21810,
+        "sha256": "b443f111c8993359cedf485b1f17a52ca9d8d1858e2a9d2d01bb97a56833c87e"
+      },
+      "originals": [
+        {
+          "id": "01M6RBKBEH5Z5XKA2RRT39EZKR",
+          "name": "archive-notes.txt",
+          "size": 60,
+          "sha256": "06601ede0ea29a3c34381a139eb2496837c535bff62d21c9643f14475daa2123"
+        },
+        {
+          "id": "01M6RBKBFMYCQ269P9XKTAQDRH",
+          "name": "archive-original.png",
+          "size": 68,
+          "sha256": "771346b338f38f7bfd6ab7538aed0a1d7e0accafc0f76eed922e08e8e8e6e37c"
+        }
+      ]
+    }
+  ],
+  "commands": [
+    {
+      "command": "SLATE_CHROMIUM_PATH=/usr/bin/chromium cloud_run timeout 1200 node --test --test-concurrency=1 --test-name-pattern='readable exports retain discussions' tests/qualification/ui-convergence/journeys.test.mjs",
+      "exit": 0,
+      "timeoutSeconds": 1200,
+      "head": "a21faba8283371ac7f149e3ea49cf08cee2e4df0",
+      "log": "desktop-exact-head.log"
+    },
+    {
+      "command": "SLATE_CHROMIUM_PATH=/usr/bin/chromium cloud_run timeout 1200 node /tmp/slate-transfer-probe.mjs 390",
+      "exit": 0,
+      "timeoutSeconds": 1200,
+      "head": "a21faba8283371ac7f149e3ea49cf08cee2e4df0",
+      "driver": "transfer-probe.mjs",
+      "log": "phone-exact-head.log"
+    }
+  ],
+  "runner": {
+    "node": "24.19.0",
+    "buildNode": "22.20.0 selected by rer",
+    "chromium": "/usr/bin/chromium",
+    "headless": true,
+    "noSandbox": true
+  },
+  "ci": {
+    "runId": 42213612847,
+    "event": "push",
+    "conclusion": "failure",
+    "head_sha": "a21faba8283371ac7f149e3ea49cf08cee2e4df0",
+    "html_url": "https://github.com/just-every/run-slate/actions/runs/42213612847",
+    "status": "completed",
+    "generatedViewException": true,
+    "failedJobs": [
+      {
+        "conclusion": "failure",
+        "failed": [
+          "Run node src/base/runtime/contract-docs.mjs check"
+        ],
+        "head_sha": "a21faba8283371ac7f149e3ea49cf08cee2e4df0",
+        "id": 127878090357,
+        "name": "verify (app)",
+        "status": "completed"
+      },
+      {
+        "conclusion": "failure",
+        "failed": [
+          "Require the plan and every expected job"
+        ],
+        "head_sha": "a21faba8283371ac7f149e3ea49cf08cee2e4df0",
+        "id": 127878310351,
+        "name": "verify",
+        "status": "completed"
+      }
+    ],
+    "testShards": "Skipped after generated-view check; no green shard proof claimed.",
+    "reruns": 0,
+    "githubCalls": 6
+  },
+  "probes": [
+    "PROBE PORT-001 1: native authored subtree -> actual Settings ZIP retains four ordered pages, thirteen page revisions, changed, revoked and regranted grants, and edited and resolved anchored discussion with retained histories.",
+    "PROBE PORT-001 2: native original downloads -> ZIP has both exact original byte sequences and SHA-256 hashes; source rows, native downloads and allowed or revoked reads unchanged."
+  ],
+  "mechanical": "MECHANICAL lock=pnpm source:lock and pnpm source:check exit=0; views=node src/base/runtime/contract-docs.mjs write and check exit=0; ledger=none exit=0",
+  "remaining": "Other workspace families, complete cross-family histories and grants, other original-file cases and full clause completeness remain unproven. Existing privacy, import, erasure, ADMIN-007 and company-policy prerequisites remain unchanged.",
+  "newExternalBlockers": [],
+  "publicationScan": "Guarded Mac lander required; not claimed by this cloud run.",
+  "landing": "Pending; no main push, main equality, Run site or release claimed."
+}

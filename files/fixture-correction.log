@@ -1,0 +1,37 @@
+Journey failure context {
+  "rejected": [],
+  "consoleErrors": []
+}
+✖ readable exports retain discussions through HTML and Markdown re-import at 1440px (92215.134638ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 109944.819169
+
+✖ failing tests:
+
+test at tests/qualification/ui-convergence/journey-shard.mjs:23:97
+✖ readable exports retain discussions through HTML and Markdown re-import at 1440px (92215.134638ms)
+  AssertionError [ERR_ASSERTION]: A retained revoked grant discloses no private child.
+  
+  200 !== 404
+  
+      at access (file:///home/agent/rer-consolidation/work/sd-slate-c-f194/run-slate/tests/qualification/ui-convergence/transfer-jobs-journey.mjs:77:14)
+      at async authoredSubtree (file:///home/agent/rer-consolidation/work/sd-slate-c-f194/run-slate/tests/qualification/ui-convergence/transfer-jobs-journey.mjs:81:22)
+      at async transferJobsJourney (file:///home/agent/rer-consolidation/work/sd-slate-c-f194/run-slate/tests/qualification/ui-convergence/transfer-jobs-journey.mjs:283:16)
+      at async withWorkspace.backups (file:///home/agent/rer-consolidation/work/sd-slate-c-f194/run-slate/tests/qualification/ui-convergence/journeys.test.mjs:232:7)
+      at async withWorkspace (file:///home/agent/rer-consolidation/work/sd-slate-c-f194/run-slate/tests/qualification/ui-convergence/browser-support.mjs:188:7)
+      at async TestContext.<anonymous> (file:///home/agent/rer-consolidation/work/sd-slate-c-f194/run-slate/tests/qualification/ui-convergence/journeys.test.mjs:227:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 200,
+    expected: 404,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

@@ -1,0 +1,4646 @@
+{
+  "scope": "Ordinary authored page subtree only; other workspace families and requirement-wide completeness remain unproven.",
+  "sourceIdentity": {
+    "head": "a21faba8283371ac7f149e3ea49cf08cee2e4df0",
+    "journeySha256": "8c448ad3a495d4341fb82f9a413bf7b15f9d9e5897becad1da7a5c3bd50f4609"
+  },
+  "viewport": {
+    "width": 1440,
+    "height": 1000
+  },
+  "jobId": "01M6RBF5MFAEX45579R2K65WQJ",
+  "archive": {
+    "bytes": 72694,
+    "sha256": "424d2649a1126157fe52090debe2e1854a9144dcb6c1248cb4a024771d4373c7"
+  },
+  "mutations": [
+    {
+      "method": "POST",
+      "route": "/api/groups",
+      "input": {
+        "name": "Archive review team",
+        "memberIds": [
+          "browser-reader"
+        ]
+      },
+      "receipt": {
+        "operationKey": "f1f56c1b-492d-4c76-9421-e142bedd411f",
+        "entity": {
+          "id": "01M6RBEQ7JDF8H3K7RJEXXZK6B",
+          "kind": "group",
+          "revisionId": "01M6RBEQ7JX6D5NSVSM2WFTF58"
+        },
+        "revisionId": "01M6RBEQ7JX6D5NSVSM2WFTF58",
+        "activityId": "01M6RBEQ7J1PM9H4KJMBSJJ9DP",
+        "committedAt": "2026-11-06T11:56:09.328Z"
+      },
+      "value": {
+        "id": "01M6RBEQ7JDF8H3K7RJEXXZK6B",
+        "name": "Archive review team",
+        "memberIds": [
+          "browser-reader"
+        ],
+        "revisionId": "01M6RBEQ7JX6D5NSVSM2WFTF58",
+        "deleted": false
+      }
+    },
+    {
+      "method": "POST",
+      "route": "/api/pages",
+      "input": {
+        "containerId": "01M6RBCEV93VWZNBACD4T70V95",
+        "parentPageId": null,
+        "treePosition": "archive-a",
+        "title": "Archive parent",
+        "properties": {
+          "labels": [
+            "synthetic-slate-401",
+            "parent"
+          ],
+          "icon": "📚",
+          "typeface": "serif",
+          "fullWidth": true
+        },
+        "blocks": [
+          {
+            "id": "c3c5e4d2-8a62-47d2-9f4a-4cba286271a5",
+            "blockType": "paragraph",
+            "content": {
+              "text": [
+                {
+                  "text": "synthetic-slate-402: parent original body",
+                  "commentAnchorId": "261511c7-2094-4ddb-bc93-e2f814d78abf"
+                }
+              ]
+            },
+            "treePosition": "a"
+          }
+        ]
+      },
+      "receipt": {
+        "operationKey": "4aaad25c-03f2-4ab1-b37b-0d8ce7a50816",
+        "entity": {
+          "id": "01M6RBEQ85GM7932YQS2VSR3SG",
+          "kind": "page",
+          "revisionId": "01M6RBEQ857B7E88JHSC8NVV1Z"
+        },
+        "revisionId": "01M6RBEQ857B7E88JHSC8NVV1Z",
+        "activityId": "01M6RBEQ85MPK2SHS3SVBXSEXY",
+        "committedAt": "2026-11-06T11:56:09.348Z"
+      },
+      "value": {
+        "pageId": "01M6RBEQ85GM7932YQS2VSR3SG",
+        "revisionId": "01M6RBEQ857B7E88JHSC8NVV1Z"
+      }
+    },
+    {
+      "method": "PATCH",
+      "route": "/api/pages/01M6RBEQ85GM7932YQS2VSR3SG",
+      "input": {
+        "expectedRevisionId": "01M6RBEQ857B7E88JHSC8NVV1Z",
+        "properties": {
+          "title": "Archive parent reviewed",
+          "labels": [
+            "synthetic-slate-403",
+            "parent"
+          ],
+          "icon": "🗂️",
+          "typeface": "mono",
+          "fullWidth": false
+        }
+      },
+      "receipt": {
+        "operationKey": "81727b9e-d7e5-4c41-bccb-82285da415a7",
+        "entity": {
+          "id": "01M6RBEQ85GM7932YQS2VSR3SG",
+          "kind": "page",
+          "revisionId": "01M6RBEQ98K84TC4J6Q7XK5HKW"
+        },
+        "revisionId": "01M6RBEQ98K84TC4J6Q7XK5HKW",
+        "activityId": "01M6RBEQ983CY503ME3QA1KA8C",
+        "committedAt": "2026-11-06T11:56:09.382Z"
+      },
+      "value": {
+        "pageId": "01M6RBEQ85GM7932YQS2VSR3SG",
+        "revisionId": "01M6RBEQ98K84TC4J6Q7XK5HKW"
+      }
+    },
+    {
+      "method": "PATCH",
+      "route": "/api/pages/01M6RBEQ85GM7932YQS2VSR3SG/blocks/c3c5e4d2-8a62-47d2-9f4a-4cba286271a5",
+      "input": {
+        "expectedRevisionId": "01M6RBEQ86MG1EXY96ZRW91XNF",
+        "content": {
+          "text": [
+            {
+              "text": "synthetic-slate-404: parent reviewed body",
+              "commentAnchorId": "261511c7-2094-4ddb-bc93-e2f814d78abf"
+            }
+          ]
+        }
+      },
+      "receipt": {
+        "operationKey": "ee00a9ca-8c96-46fd-ae26-0b3adfccedcc",
+        "entity": {
+          "id": "01M6RBEQ85GM7932YQS2VSR3SG",
+          "kind": "page",
+          "revisionId": "01M6RBEQAN1AP2WK654M5MGS67"
+        },
+        "revisionId": "01M6RBEQAN1AP2WK654M5MGS67",
+        "activityId": "01M6RBEQANV5SE05PQVC8FPTCB",
+        "committedAt": "2026-11-06T11:56:09.427Z"
+      },
+      "value": {
+        "pageId": "01M6RBEQ85GM7932YQS2VSR3SG",
+        "revisionId": "01M6RBEQAN1AP2WK654M5MGS67",
+        "blockRevisionId": "01M6RBEQAQ4FM5YBC62QTAWC3K",
+        "previousRevisionId": "01M6RBEQ98K84TC4J6Q7XK5HKW"
+      }
+    },
+    {
+      "method": "POST",
+      "route": "/api/pages",
+      "input": {
+        "containerId": "01M6RBCEV93VWZNBACD4T70V95",
+        "parentPageId": "01M6RBEQ85GM7932YQS2VSR3SG",
+        "treePosition": "b",
+        "title": "Archive second child",
+        "properties": {
+          "labels": [
+            "synthetic-slate-401",
+            "second child"
+          ],
+          "icon": "📚",
+          "typeface": "serif",
+          "fullWidth": true
+        },
+        "blocks": [
+          {
+            "id": "3fc720e9-3d79-4ffb-84c8-a1a6daac4df4",
+            "blockType": "paragraph",
+            "content": {
+              "text": [
+                {
+                  "text": "synthetic-slate-402: second child original body",
+                  "commentAnchorId": "5f108473-7af4-428c-82aa-d2d77ee37980"
+                }
+              ]
+            },
+            "treePosition": "a"
+          }
+        ]
+      },
+      "receipt": {
+        "operationKey": "9d16a57f-6f3b-4df4-a68c-c3651df6f86c",
+        "entity": {
+          "id": "01M6RBEQBFQ32N4KJ7E3D2C8N8",
+          "kind": "page",
+          "revisionId": "01M6RBEQBF944ZXXT1Q6P5TJM9"
+        },
+        "revisionId": "01M6RBEQBF944ZXXT1Q6P5TJM9",
+        "activityId": "01M6RBEQBFW2J61SHDDMA8QYVZ",
+        "committedAt": "2026-11-06T11:56:09.452Z"
+      },
+      "value": {
+        "pageId": "01M6RBEQBFQ32N4KJ7E3D2C8N8",
+        "revisionId": "01M6RBEQBF944ZXXT1Q6P5TJM9"
+      }
+    },
+    {
+      "method": "PATCH",
+      "route": "/api/pages/01M6RBEQBFQ32N4KJ7E3D2C8N8",
+      "input": {
+        "expectedRevisionId": "01M6RBEQBF944ZXXT1Q6P5TJM9",
+        "properties": {
+          "title": "Archive second child reviewed",
+          "labels": [
+            "synthetic-slate-403",
+            "second child"
+          ],
+          "icon": "🗂️",
+          "typeface": "mono",
+          "fullWidth": false
+        }
+      },
+      "receipt": {
+        "operationKey": "6620a969-e055-4cae-ad68-4c0bf80104a1",
+        "entity": {
+          "id": "01M6RBEQBFQ32N4KJ7E3D2C8N8",
+          "kind": "page",
+          "revisionId": "01M6RBEQCEZ7CG1P8P1E4FNP17"
+        },
+        "revisionId": "01M6RBEQCEZ7CG1P8P1E4FNP17",
+        "activityId": "01M6RBEQCEAW2QR89563ZHKFB9",
+        "committedAt": "2026-11-06T11:56:09.484Z"
+      },
+      "value": {
+        "pageId": "01M6RBEQBFQ32N4KJ7E3D2C8N8",
+        "revisionId": "01M6RBEQCEZ7CG1P8P1E4FNP17"
+      }
+    },
+    {
+      "method": "PATCH",
+      "route": "/api/pages/01M6RBEQBFQ32N4KJ7E3D2C8N8/blocks/3fc720e9-3d79-4ffb-84c8-a1a6daac4df4",
+      "input": {
+        "expectedRevisionId": "01M6RBEQBF10MB4M5GZZ2PY1RW",
+        "content": {
+          "text": [
+            {
+              "text": "synthetic-slate-404: second child reviewed body",
+              "commentAnchorId": "5f108473-7af4-428c-82aa-d2d77ee37980"
+            }
+          ]
+        }
+      },
+      "receipt": {
+        "operationKey": "edd0f929-1043-4445-89e9-ec3667d1c4d1",
+        "entity": {
+          "id": "01M6RBEQBFQ32N4KJ7E3D2C8N8",
+          "kind": "page",
+          "revisionId": "01M6RBEQDMN6YF6WGYF47CZT7M"
+        },
+        "revisionId": "01M6RBEQDMN6YF6WGYF47CZT7M",
+        "activityId": "01M6RBEQDMHAZCY4BK61Y7QPB8",
+        "committedAt": "2026-11-06T11:56:09.523Z"
+      },
+      "value": {
+        "pageId": "01M6RBEQBFQ32N4KJ7E3D2C8N8",
+        "revisionId": "01M6RBEQDMN6YF6WGYF47CZT7M",
+        "blockRevisionId": "01M6RBEQDPG6S99G1CMXJ9V1J6",
+        "previousRevisionId": "01M6RBEQCEZ7CG1P8P1E4FNP17"
+      }
+    },
+    {
+      "method": "POST",
+      "route": "/api/pages",
+      "input": {
+        "containerId": "01M6RBCEV93VWZNBACD4T70V95",
+        "parentPageId": "01M6RBEQ85GM7932YQS2VSR3SG",
+        "treePosition": "a",
+        "title": "Archive first child",
+        "properties": {
+          "labels": [
+            "synthetic-slate-401",
+            "first child"
+          ],
+          "icon": "📚",
+          "typeface": "serif",
+          "fullWidth": true
+        },
+        "blocks": [
+          {
+            "id": "5627b3d4-512c-42e8-9600-e3d06557a152",
+            "blockType": "paragraph",
+            "content": {
+              "text": [
+                {
+                  "text": "synthetic-slate-402: first child original body",
+                  "commentAnchorId": "f0467487-ec83-40cc-b5dd-55f0cbaa5759"
+                }
+              ]
+            },
+            "treePosition": "a"
+          }
+        ]
+      },
+      "receipt": {
+        "operationKey": "d33dd65c-6dfe-48a1-885e-ab9b8808d898",
+        "entity": {
+          "id": "01M6RBEQEAVWWAR2AB3QQ7G0P6",
+          "kind": "page",
+          "revisionId": "01M6RBEQEAW0JEZV5X82P913E8"
+        },
+        "revisionId": "01M6RBEQEAW0JEZV5X82P913E8",
+        "activityId": "01M6RBEQEAJ1A6F14462SMTBDJ",
+        "committedAt": "2026-11-06T11:56:09.543Z"
+      },
+      "value": {
+        "pageId": "01M6RBEQEAVWWAR2AB3QQ7G0P6",
+        "revisionId": "01M6RBEQEAW0JEZV5X82P913E8"
+      }
+    },
+    {
+      "method": "PATCH",
+      "route": "/api/pages/01M6RBEQEAVWWAR2AB3QQ7G0P6",
+      "input": {
+        "expectedRevisionId": "01M6RBEQEAW0JEZV5X82P913E8",
+        "properties": {
+          "title": "Archive first child reviewed",
+          "labels": [
+            "synthetic-slate-403",
+            "first child"
+          ],
+          "icon": "🗂️",
+          "typeface": "mono",
+          "fullWidth": false
+        }
+      },
+      "receipt": {
+        "operationKey": "df283eb8-2803-4827-9bd5-813335893bba",
+        "entity": {
+          "id": "01M6RBEQEAVWWAR2AB3QQ7G0P6",
+          "kind": "page",
+          "revisionId": "01M6RBEQFE9G98VE41H3VAKZZ1"
+        },
+        "revisionId": "01M6RBEQFE9G98VE41H3VAKZZ1",
+        "activityId": "01M6RBEQFEPG6CSENYSS8QPEYM",
+        "committedAt": "2026-11-06T11:56:09.580Z"
+      },
+      "value": {
+        "pageId": "01M6RBEQEAVWWAR2AB3QQ7G0P6",
+        "revisionId": "01M6RBEQFE9G98VE41H3VAKZZ1"
+      }
+    },
+    {
+      "method": "PATCH",
+      "route": "/api/pages/01M6RBEQEAVWWAR2AB3QQ7G0P6/blocks/5627b3d4-512c-42e8-9600-e3d06557a152",
+      "input": {
+        "expectedRevisionId": "01M6RBEQEBADMN57HTS0TWQJPT",
+        "content": {
+          "text": [
+            {
+              "text": "synthetic-slate-404: first child reviewed body",
+              "commentAnchorId": "f0467487-ec83-40cc-b5dd-55f0cbaa5759"
+            }
+          ]
+        }
+      },
+      "receipt": {
+        "operationKey": "41070c67-5086-415f-b7f7-a9f6837bd2a7",
+        "entity": {
+          "id": "01M6RBEQEAVWWAR2AB3QQ7G0P6",
+          "kind": "page",
+          "revisionId": "01M6RBEQGJSAYMRG314BQ1YD0C"
+        },
+        "revisionId": "01M6RBEQGJSAYMRG314BQ1YD0C",
+        "activityId": "01M6RBEQGJV8MWZGJW933KEFHR",
+        "committedAt": "2026-11-06T11:56:09.616Z"
+      },
+      "value": {
+        "pageId": "01M6RBEQEAVWWAR2AB3QQ7G0P6",
+        "revisionId": "01M6RBEQGJSAYMRG314BQ1YD0C",
+        "blockRevisionId": "01M6RBEQGKD3QX08VN0JTQ47PE",
+        "previousRevisionId": "01M6RBEQFE9G98VE41H3VAKZZ1"
+      }
+    },
+    {
+      "method": "POST",
+      "route": "/api/pages",
+      "input": {
+        "containerId": "01M6RBCEV93VWZNBACD4T70V95",
+        "parentPageId": "01M6RBEQEAVWWAR2AB3QQ7G0P6",
+        "treePosition": "a",
+        "title": "Archive grandchild",
+        "properties": {
+          "labels": [
+            "synthetic-slate-401",
+            "grandchild"
+          ],
+          "icon": "📚",
+          "typeface": "serif",
+          "fullWidth": true
+        },
+        "blocks": [
+          {
+            "id": "f02cd4a6-9dc6-4bea-8711-add889c59494",
+            "blockType": "paragraph",
+            "content": {
+              "text": [
+                {
+                  "text": "synthetic-slate-402: grandchild original body",
+                  "commentAnchorId": "aae631ba-aead-4a0b-945a-6457a02247f9"
+                }
+              ]
+            },
+            "treePosition": "a"
+          }
+        ]
+      },
+      "receipt": {
+        "operationKey": "f1d64d36-986e-4c70-9468-543077ee3667",
+        "entity": {
+          "id": "01M6RBEQH796FAW2TQX7G444SW",
+          "kind": "page",
+          "revisionId": "01M6RBEQH70YG3A3E0DQW7V1S8"
+        },
+        "revisionId": "01M6RBEQH70YG3A3E0DQW7V1S8",
+        "activityId": "01M6RBEQH7JRY7WVDS55YVM6B3",
+        "committedAt": "2026-11-06T11:56:09.636Z"
+      },
+      "value": {
+        "pageId": "01M6RBEQH796FAW2TQX7G444SW",
+        "revisionId": "01M6RBEQH70YG3A3E0DQW7V1S8"
+      }
+    },
+    {
+      "method": "PATCH",
+      "route": "/api/pages/01M6RBEQH796FAW2TQX7G444SW",
+      "input": {
+        "expectedRevisionId": "01M6RBEQH70YG3A3E0DQW7V1S8",
+        "properties": {
+          "title": "Archive grandchild reviewed",
+          "labels": [
+            "synthetic-slate-403",
+            "grandchild"
+          ],
+          "icon": "🗂️",
+          "typeface": "mono",
+          "fullWidth": false
+        }
+      },
+      "receipt": {
+        "operationKey": "8e3742f0-402b-4ec6-b63e-8479fb3c5bad",
+        "entity": {
+          "id": "01M6RBEQH796FAW2TQX7G444SW",
+          "kind": "page",
+          "revisionId": "01M6RBEQJ51FD6N3PJ74FQNH1M"
+        },
+        "revisionId": "01M6RBEQJ51FD6N3PJ74FQNH1M",
+        "activityId": "01M6RBEQJ5T4AD0HC445M2V7FN",
+        "committedAt": "2026-11-06T11:56:09.667Z"
+      },
+      "value": {
+        "pageId": "01M6RBEQH796FAW2TQX7G444SW",
+        "revisionId": "01M6RBEQJ51FD6N3PJ74FQNH1M"
+      }
+    },
+    {
+      "method": "PATCH",
+      "route": "/api/pages/01M6RBEQH796FAW2TQX7G444SW/blocks/f02cd4a6-9dc6-4bea-8711-add889c59494",
+      "input": {
+        "expectedRevisionId": "01M6RBEQH7883MZ6Q6BAAQJFH8",
+        "content": {
+          "text": [
+            {
+              "text": "synthetic-slate-404: grandchild reviewed body",
+              "commentAnchorId": "aae631ba-aead-4a0b-945a-6457a02247f9"
+            }
+          ]
+        }
+      },
+      "receipt": {
+        "operationKey": "acbaa2e2-4b01-44bd-a381-16581cd696b6",
+        "entity": {
+          "id": "01M6RBEQH796FAW2TQX7G444SW",
+          "kind": "page",
+          "revisionId": "01M6RBEQKGK5396MM8AX6P0C10"
+        },
+        "revisionId": "01M6RBEQKGK5396MM8AX6P0C10",
+        "activityId": "01M6RBEQKGQE8DVXS5WGA6NG5W",
+        "committedAt": "2026-11-06T11:56:09.710Z"
+      },
+      "value": {
+        "pageId": "01M6RBEQH796FAW2TQX7G444SW",
+        "revisionId": "01M6RBEQKGK5396MM8AX6P0C10",
+        "blockRevisionId": "01M6RBEQKJF3B9D4TDSX0M0TYH",
+        "previousRevisionId": "01M6RBEQJ51FD6N3PJ74FQNH1M"
+      }
+    },
+    {
+      "method": "POST",
+      "route": "/api/sharing",
+      "input": {
+        "targetKind": "page",
+        "targetId": "01M6RBEQ85GM7932YQS2VSR3SG",
+        "principalKind": "member",
+        "principalId": "browser-reader",
+        "level": "comment"
+      },
+      "receipt": {
+        "operationKey": "3b534f89-4f50-4d6a-934c-af1f197ac4ff",
+        "entity": {
+          "id": "01M6RBEQ85GM7932YQS2VSR3SG",
+          "kind": "page",
+          "revisionId": "01M6RBEQM4W2ZTPTQ9TXQMKSDQ"
+        },
+        "revisionId": "01M6RBEQM4W2ZTPTQ9TXQMKSDQ",
+        "activityId": "01M6RBEQM4JSF8W3E4C40F1WPV",
+        "committedAt": "2026-11-06T11:56:09.730Z"
+      },
+      "value": {
+        "id": "01M6RBEQM6WQXF95M6KQKC5P57",
+        "revoked": false
+      }
+    },
+    {
+      "method": "POST",
+      "route": "/api/sharing",
+      "input": {
+        "targetKind": "page",
+        "targetId": "01M6RBEQEAVWWAR2AB3QQ7G0P6",
+        "principalKind": "group",
+        "principalId": "01M6RBEQ7JDF8H3K7RJEXXZK6B",
+        "level": "view"
+      },
+      "receipt": {
+        "operationKey": "c2ba050e-67b2-4771-bf5b-f12175767df2",
+        "entity": {
+          "id": "01M6RBEQEAVWWAR2AB3QQ7G0P6",
+          "kind": "page",
+          "revisionId": "01M6RBEQMWA143YTT7KYKWD6JT"
+        },
+        "revisionId": "01M6RBEQMWA143YTT7KYKWD6JT",
+        "activityId": "01M6RBEQMWGTZ6Y73GS3VPA4D7",
+        "committedAt": "2026-11-06T11:56:09.754Z"
+      },
+      "value": {
+        "id": "01M6RBEQMXKCYTWW7A2FQ13KY9",
+        "revoked": false
+      }
+    },
+    {
+      "method": "POST",
+      "route": "/api/sharing",
+      "input": {
+        "targetKind": "page",
+        "targetId": "01M6RBEQ85GM7932YQS2VSR3SG",
+        "principalKind": "member",
+        "principalId": "browser-reader",
+        "level": "edit",
+        "id": "01M6RBEQM6WQXF95M6KQKC5P57"
+      },
+      "receipt": {
+        "operationKey": "87b2d603-a4ae-4bc6-b1de-0c3e6561bd0a",
+        "entity": {
+          "id": "01M6RBEQ85GM7932YQS2VSR3SG",
+          "kind": "page",
+          "revisionId": "01M6RBEQS1G297MQ7CYPC9K8YZ"
+        },
+        "revisionId": "01M6RBEQS1G297MQ7CYPC9K8YZ",
+        "activityId": "01M6RBEQS18Z488MM7BCX7WYZZ",
+        "committedAt": "2026-11-06T11:56:09.887Z"
+      },
+      "value": {
+        "id": "01M6RBEQM6WQXF95M6KQKC5P57",
+        "revoked": false
+      }
+    },
+    {
+      "method": "POST",
+      "route": "/api/sharing",
+      "input": {
+        "targetKind": "page",
+        "targetId": "01M6RBEQEAVWWAR2AB3QQ7G0P6",
+        "principalKind": "group",
+        "principalId": "01M6RBEQ7JDF8H3K7RJEXXZK6B",
+        "level": "view",
+        "id": "01M6RBEQMXKCYTWW7A2FQ13KY9",
+        "revoke": true
+      },
+      "receipt": {
+        "operationKey": "e95cbd76-0af7-4f62-ba35-e9d5b65eda55",
+        "entity": {
+          "id": "01M6RBEQEAVWWAR2AB3QQ7G0P6",
+          "kind": "page",
+          "revisionId": "01M6RBEQSWRRREFZHMTK2TW290"
+        },
+        "revisionId": "01M6RBEQSWRRREFZHMTK2TW290",
+        "activityId": "01M6RBEQSWP3HWMSTVPYJVD4EA",
+        "committedAt": "2026-11-06T11:56:09.913Z"
+      },
+      "value": {
+        "id": "01M6RBEQMXKCYTWW7A2FQ13KY9",
+        "revoked": true
+      }
+    },
+    {
+      "method": "POST",
+      "route": "/api/sharing",
+      "input": {
+        "targetKind": "page",
+        "targetId": "01M6RBEQEAVWWAR2AB3QQ7G0P6",
+        "principalKind": "group",
+        "principalId": "01M6RBEQ7JDF8H3K7RJEXXZK6B",
+        "level": "comment",
+        "id": "01M6RBEQMXKCYTWW7A2FQ13KY9"
+      },
+      "receipt": {
+        "operationKey": "a7290adf-00ea-4f55-9851-b2b72bb24bdb",
+        "entity": {
+          "id": "01M6RBEQEAVWWAR2AB3QQ7G0P6",
+          "kind": "page",
+          "revisionId": "01M6RBEQTDQ9M3138737CZW4HQ"
+        },
+        "revisionId": "01M6RBEQTDQ9M3138737CZW4HQ",
+        "activityId": "01M6RBEQTDHGN8M9Y6PSX5GPR9",
+        "committedAt": "2026-11-06T11:56:09.930Z"
+      },
+      "value": {
+        "id": "01M6RBEQMXKCYTWW7A2FQ13KY9",
+        "revoked": false
+      }
+    },
+    {
+      "method": "POST",
+      "route": "/api/sharing",
+      "input": {
+        "targetKind": "page",
+        "targetId": "01M6RBEQBFQ32N4KJ7E3D2C8N8",
+        "principalKind": "member",
+        "principalId": "browser-reader",
+        "level": "edit"
+      },
+      "receipt": {
+        "operationKey": "41792474-75ac-45ce-934d-2e2db6167a16",
+        "entity": {
+          "id": "01M6RBEQBFQ32N4KJ7E3D2C8N8",
+          "kind": "page",
+          "revisionId": "01M6RBEQVC938J6QPDHQHCPVVP"
+        },
+        "revisionId": "01M6RBEQVC938J6QPDHQHCPVVP",
+        "activityId": "01M6RBEQVC5QMYVP7YJX1TCWQ9",
+        "committedAt": "2026-11-06T11:56:09.962Z"
+      },
+      "value": {
+        "id": "01M6RBEQVEYTASE2NX1BXX98AJ",
+        "revoked": false
+      }
+    },
+    {
+      "method": "POST",
+      "route": "/api/sharing",
+      "input": {
+        "targetKind": "page",
+        "targetId": "01M6RBEQBFQ32N4KJ7E3D2C8N8",
+        "principalKind": "member",
+        "principalId": "browser-reader",
+        "level": "edit",
+        "id": "01M6RBEQVEYTASE2NX1BXX98AJ",
+        "revoke": true
+      },
+      "receipt": {
+        "operationKey": "9b1eea31-b520-41de-a608-436d4e1d1888",
+        "entity": {
+          "id": "01M6RBEQBFQ32N4KJ7E3D2C8N8",
+          "kind": "page",
+          "revisionId": "01M6RBEQW8CR8ZY2BXT6T8HDS3"
+        },
+        "revisionId": "01M6RBEQW8CR8ZY2BXT6T8HDS3",
+        "activityId": "01M6RBEQW86ST3CNB5WZK1D0V0",
+        "committedAt": "2026-11-06T11:56:09.990Z"
+      },
+      "value": {
+        "id": "01M6RBEQVEYTASE2NX1BXX98AJ",
+        "revoked": true
+      }
+    },
+    {
+      "method": "POST",
+      "route": "/api/sharing",
+      "input": {
+        "targetKind": "page",
+        "targetId": "01M6RBEQBFQ32N4KJ7E3D2C8N8",
+        "principalKind": "member",
+        "principalId": "browser-owner",
+        "level": "full"
+      },
+      "receipt": {
+        "operationKey": "3683f5a3-f7d0-47b7-b88b-36319d5a346b",
+        "entity": {
+          "id": "01M6RBEQBFQ32N4KJ7E3D2C8N8",
+          "kind": "page",
+          "revisionId": "01M6RBEQWWW78DPKWN8BATCZB7"
+        },
+        "revisionId": "01M6RBEQWWW78DPKWN8BATCZB7",
+        "activityId": "01M6RBEQWWTWFARZT4PC6TMHAG",
+        "committedAt": "2026-11-06T11:56:10.009Z"
+      },
+      "value": {
+        "id": "01M6RBEQWXR62Z8J9SVQMD330F",
+        "revoked": false
+      }
+    },
+    {
+      "method": "PUT",
+      "route": "/api/sharing/pages/01M6RBEQBFQ32N4KJ7E3D2C8N8/inheritance",
+      "input": {
+        "expectedRevisionId": "01M6RBEQDMN6YF6WGYF47CZT7M",
+        "restricted": true
+      },
+      "receipt": {
+        "operationKey": "b76d9680-162a-4386-b31f-fa40b41c61fb",
+        "entity": {
+          "id": "01M6RBEQBFQ32N4KJ7E3D2C8N8",
+          "kind": "page",
+          "revisionId": "01M6RBEQXWFH6WPNQJTMWXBZ0C"
+        },
+        "revisionId": "01M6RBEQXWFH6WPNQJTMWXBZ0C",
+        "activityId": "01M6RBEQXWTT2C5D64PCXJWQEY",
+        "committedAt": "2026-11-06T11:56:10.042Z"
+      },
+      "value": {
+        "pageId": "01M6RBEQBFQ32N4KJ7E3D2C8N8",
+        "revisionId": "01M6RBEQXWFH6WPNQJTMWXBZ0C",
+        "restricted": true
+      }
+    },
+    {
+      "method": "POST",
+      "route": "/api/comments/page/01M6RBEQ85GM7932YQS2VSR3SG",
+      "input": {
+        "kind": "inline",
+        "blockId": "c3c5e4d2-8a62-47d2-9f4a-4cba286271a5",
+        "anchor": {
+          "anchorId": "261511c7-2094-4ddb-bc93-e2f814d78abf",
+          "quote": "synthetic-slate-404: parent reviewed body"
+        },
+        "anchorRevisionId": "01M6RBEQAN1AP2WK654M5MGS67",
+        "body": [
+          {
+            "text": "synthetic-slate-405: preserve this anchored discussion"
+          }
+        ]
+      },
+      "receipt": {
+        "operationKey": "825dc9ec-b23a-4b5c-b479-358ffb36b900",
+        "entity": {
+          "id": "01M6RBEQYXTKANVMMMMSGWNS1X",
+          "kind": "comment-thread",
+          "revisionId": "01M6RBEQYTQY1K1SNAG9GR6J9J"
+        },
+        "revisionId": "01M6RBEQYTQY1K1SNAG9GR6J9J",
+        "activityId": "01M6RBEQYTX2RPZWSKEHWGAC7F",
+        "committedAt": "2026-11-06T11:56:10.072Z"
+      },
+      "value": {
+        "id": "01M6RBEQYXT14V2ME11XC38JCJ",
+        "threadId": "01M6RBEQYXTKANVMMMMSGWNS1X",
+        "revisionId": "01M6RBEQYTQY1K1SNAG9GR6J9J"
+      }
+    },
+    {
+      "method": "POST",
+      "route": "/api/comments/page/01M6RBEQ85GM7932YQS2VSR3SG",
+      "input": {
+        "threadId": "01M6RBEQYXTKANVMMMMSGWNS1X",
+        "parentCommentId": "01M6RBEQYXT14V2ME11XC38JCJ",
+        "body": [
+          {
+            "text": "synthetic-slate-406: preserve this reply"
+          }
+        ]
+      },
+      "receipt": {
+        "operationKey": "e1136502-ba3b-4f02-ad45-a35ffbe69a6e",
+        "entity": {
+          "id": "01M6RBEQYXTKANVMMMMSGWNS1X",
+          "kind": "comment-thread",
+          "revisionId": "01M6RBEQZNH421WQ2F5786Y9RH"
+        },
+        "revisionId": "01M6RBEQZNH421WQ2F5786Y9RH",
+        "activityId": "01M6RBEQZNGMN0TZ1XF3YCZBMT",
+        "committedAt": "2026-11-06T11:56:10.097Z"
+      },
+      "value": {
+        "id": "01M6RBEQZRRNFJYAQXKDC4HVTW",
+        "threadId": "01M6RBEQYXTKANVMMMMSGWNS1X",
+        "revisionId": "01M6RBEQZNH421WQ2F5786Y9RH"
+      }
+    },
+    {
+      "method": "PATCH",
+      "route": "/api/comments/01M6RBEQYXT14V2ME11XC38JCJ",
+      "input": {
+        "expectedRevisionId": "01M6RBEQYTQY1K1SNAG9GR6J9J",
+        "body": [
+          {
+            "text": "synthetic-slate-408: edited anchored discussion"
+          }
+        ]
+      },
+      "receipt": {
+        "operationKey": "dc35d51e-1bdb-4736-a6c7-792c7dec7102",
+        "entity": {
+          "id": "01M6RBEQYXTKANVMMMMSGWNS1X",
+          "kind": "comment-thread",
+          "revisionId": "01M6RBER0SV8BG3MS522AATDJK"
+        },
+        "revisionId": "01M6RBER0SV8BG3MS522AATDJK",
+        "activityId": "01M6RBER0SB7TAJFD3ZEY48NHM",
+        "committedAt": "2026-11-06T11:56:10.134Z"
+      },
+      "value": {
+        "id": "01M6RBEQYXT14V2ME11XC38JCJ",
+        "revisionId": "01M6RBER0SV8BG3MS522AATDJK"
+      }
+    },
+    {
+      "method": "POST",
+      "route": "/api/comments/thread/01M6RBEQYXTKANVMMMMSGWNS1X/resolve",
+      "input": {
+        "expectedRevisionId": "01M6RBER0SV8BG3MS522AATDJK",
+        "resolved": true
+      },
+      "receipt": {
+        "operationKey": "425bcb67-708a-49af-b99e-99dc52e835cf",
+        "entity": {
+          "id": "01M6RBEQYXTKANVMMMMSGWNS1X",
+          "kind": "comment-thread",
+          "revisionId": "01M6RBER1NA03SN5GFQY13KHH8"
+        },
+        "revisionId": "01M6RBER1NA03SN5GFQY13KHH8",
+        "activityId": "01M6RBER1N0P3GWBSV5K2HWF96",
+        "committedAt": "2026-11-06T11:56:10.163Z"
+      },
+      "value": {
+        "id": "01M6RBEQYXTKANVMMMMSGWNS1X",
+        "revisionId": "01M6RBER1NA03SN5GFQY13KHH8"
+      }
+    },
+    {
+      "method": "POST",
+      "route": "/api/media",
+      "receipt": {
+        "operationKey": "6855c716-2476-4355-bb32-a80967e9d7c9",
+        "entity": {
+          "id": "01M6RBER3AXPSYQ1SWPKT71C4C",
+          "kind": "file",
+          "revisionId": "01M6RBER37JJJZ46EJTE2GYDH6"
+        },
+        "revisionId": "01M6RBER37JJJZ46EJTE2GYDH6",
+        "activityId": "01M6RBER37YY7GRMYPMZGNGFZX",
+        "committedAt": "2026-11-06T11:56:10.213Z"
+      },
+      "value": {
+        "id": "01M6RBER3AXPSYQ1SWPKT71C4C",
+        "pageId": "01M6RBEQ85GM7932YQS2VSR3SG",
+        "name": "archive-notes.txt",
+        "contentType": "text/plain",
+        "sizeBytes": 60,
+        "url": "/api/media/01M6RBER3AXPSYQ1SWPKT71C4C"
+      }
+    },
+    {
+      "method": "POST",
+      "route": "/api/media",
+      "receipt": {
+        "operationKey": "334fcf82-ce07-44d9-9e4e-0ff932e4a49d",
+        "entity": {
+          "id": "01M6RBER47GW4DFX27W1MFYZ42",
+          "kind": "file",
+          "revisionId": "01M6RBER43RJM7XGYY2J7KXF5Q"
+        },
+        "revisionId": "01M6RBER43RJM7XGYY2J7KXF5Q",
+        "activityId": "01M6RBER43CZ5J3GDJ0JP6Q058",
+        "committedAt": "2026-11-06T11:56:10.241Z"
+      },
+      "value": {
+        "id": "01M6RBER47GW4DFX27W1MFYZ42",
+        "pageId": "01M6RBEQH796FAW2TQX7G444SW",
+        "name": "archive-original.png",
+        "contentType": "image/png",
+        "sizeBytes": 68,
+        "url": "/api/media/01M6RBER47GW4DFX27W1MFYZ42"
+      }
+    }
+  ],
+  "nativeReads": [
+    {
+      "id": "01M6RBEQ85GM7932YQS2VSR3SG",
+      "document": {
+        "lock": null,
+        "authorDisplayName": "Alex Owner",
+        "ownerDisplayName": "Alex Owner",
+        "contributors": [
+          {
+            "id": "browser-owner",
+            "displayName": "Alex Owner"
+          }
+        ],
+        "schedule": null,
+        "mentions": {},
+        "page": {
+          "id": "01M6RBEQ85GM7932YQS2VSR3SG",
+          "containerId": "01M6RBCEV93VWZNBACD4T70V95",
+          "title": "Archive parent reviewed",
+          "revisionId": "01M6RBEQAN1AP2WK654M5MGS67",
+          "lifecycle": "live"
+        },
+        "blocks": [
+          {
+            "id": "c3c5e4d2-8a62-47d2-9f4a-4cba286271a5",
+            "pageId": "01M6RBEQ85GM7932YQS2VSR3SG",
+            "parentBlockId": null,
+            "blockType": "paragraph",
+            "content": {
+              "text": [
+                {
+                  "text": "synthetic-slate-404: parent reviewed body",
+                  "commentAnchorId": "261511c7-2094-4ddb-bc93-e2f814d78abf"
+                }
+              ]
+            },
+            "treePosition": "a",
+            "revisionId": "01M6RBEQAQ4FM5YBC62QTAWC3K"
+          }
+        ],
+        "properties": {
+          "title": "Archive parent reviewed",
+          "icon": "🗂️",
+          "coverFileId": null,
+          "ownerMemberId": "browser-owner",
+          "statusKey": null,
+          "labels": [
+            "parent",
+            "synthetic-slate-403"
+          ],
+          "typeface": "mono",
+          "smallText": false,
+          "fullWidth": false
+        },
+        "parentPageId": null,
+        "createdAt": "2026-11-06T11:56:09.348Z",
+        "updatedAt": "2026-11-06T11:56:09.427Z",
+        "authorMemberId": "browser-owner",
+        "workingRevisionId": "01M6RBEQAN1AP2WK654M5MGS67",
+        "publishedRevisionId": "01M6RBEQAN1AP2WK654M5MGS67",
+        "permissions": {
+          "level": "full",
+          "canEdit": true,
+          "canUnlock": true,
+          "canShare": true
+        },
+        "policyProfile": {
+          "page.lifecycle.v1": "always-live",
+          "page.access.v1": "workspace-general",
+          "page.public-access.v1": "site",
+          "page.version.v1": "autosnapshot",
+          "page.status.v1": "verification-only",
+          "record.page-parity.v1": "record-is-page",
+          "automation.scope.v1": "source",
+          "container.access.v1": "class-led"
+        }
+      },
+      "history": {
+        "items": [
+          {
+            "id": "01M6RBEQAN1AP2WK654M5MGS67",
+            "origin": "autosave",
+            "authorMemberId": "browser-owner",
+            "authorDisplayName": "Alex Owner",
+            "ordinal": null,
+            "label": null,
+            "statusKey": null,
+            "createdAt": "2026-11-06T11:56:09.427Z",
+            "deletedAt": null,
+            "deletedByMemberId": null,
+            "deletedByDisplayName": null
+          },
+          {
+            "id": "01M6RBEQ98K84TC4J6Q7XK5HKW",
+            "origin": "autosave",
+            "authorMemberId": "browser-owner",
+            "authorDisplayName": "Alex Owner",
+            "ordinal": null,
+            "label": null,
+            "statusKey": null,
+            "createdAt": "2026-11-06T11:56:09.382Z",
+            "deletedAt": null,
+            "deletedByMemberId": null,
+            "deletedByDisplayName": null
+          },
+          {
+            "id": "01M6RBEQ857B7E88JHSC8NVV1Z",
+            "origin": "autosave",
+            "authorMemberId": "browser-owner",
+            "authorDisplayName": "Alex Owner",
+            "ordinal": null,
+            "label": null,
+            "statusKey": null,
+            "createdAt": "2026-11-06T11:56:09.348Z",
+            "deletedAt": null,
+            "deletedByMemberId": null,
+            "deletedByDisplayName": null
+          }
+        ]
+      },
+      "revisions": [
+        {
+          "id": "01M6RBEQAN1AP2WK654M5MGS67",
+          "blocks": [
+            {
+              "id": "c3c5e4d2-8a62-47d2-9f4a-4cba286271a5",
+              "pageId": "01M6RBEQ85GM7932YQS2VSR3SG",
+              "parentBlockId": null,
+              "blockType": "paragraph",
+              "content": {
+                "text": [
+                  {
+                    "text": "synthetic-slate-404: parent reviewed body",
+                    "commentAnchorId": "261511c7-2094-4ddb-bc93-e2f814d78abf"
+                  }
+                ]
+              },
+              "treePosition": "a",
+              "revisionId": "01M6RBEQAQ4FM5YBC62QTAWC3K"
+            }
+          ],
+          "properties": {
+            "title": "Archive parent reviewed",
+            "icon": "🗂️",
+            "coverFileId": null,
+            "ownerMemberId": "browser-owner",
+            "statusKey": null,
+            "labels": [
+              "parent",
+              "synthetic-slate-403"
+            ],
+            "typeface": "mono",
+            "smallText": false,
+            "fullWidth": false
+          },
+          "createdAt": "2026-11-06T11:56:09.427Z",
+          "newerRevisionExists": false
+        },
+        {
+          "id": "01M6RBEQ98K84TC4J6Q7XK5HKW",
+          "blocks": [
+            {
+              "id": "c3c5e4d2-8a62-47d2-9f4a-4cba286271a5",
+              "pageId": "01M6RBEQ85GM7932YQS2VSR3SG",
+              "parentBlockId": null,
+              "blockType": "paragraph",
+              "content": {
+                "text": [
+                  {
+                    "text": "synthetic-slate-402: parent original body",
+                    "commentAnchorId": "261511c7-2094-4ddb-bc93-e2f814d78abf"
+                  }
+                ]
+              },
+              "treePosition": "a",
+              "revisionId": "01M6RBEQ86MG1EXY96ZRW91XNF"
+            }
+          ],
+          "properties": {
+            "title": "Archive parent reviewed",
+            "icon": "🗂️",
+            "coverFileId": null,
+            "ownerMemberId": "browser-owner",
+            "statusKey": null,
+            "labels": [
+              "synthetic-slate-403",
+              "parent"
+            ],
+            "typeface": "mono",
+            "smallText": false,
+            "fullWidth": false
+          },
+          "createdAt": "2026-11-06T11:56:09.382Z",
+          "newerRevisionExists": true
+        },
+        {
+          "id": "01M6RBEQ857B7E88JHSC8NVV1Z",
+          "blocks": [
+            {
+              "id": "c3c5e4d2-8a62-47d2-9f4a-4cba286271a5",
+              "blockType": "paragraph",
+              "content": {
+                "text": [
+                  {
+                    "text": "synthetic-slate-402: parent original body",
+                    "commentAnchorId": "261511c7-2094-4ddb-bc93-e2f814d78abf"
+                  }
+                ]
+              },
+              "treePosition": "a",
+              "parentBlockId": null,
+              "pageId": "01M6RBEQ85GM7932YQS2VSR3SG",
+              "revisionId": "01M6RBEQ86MG1EXY96ZRW91XNF"
+            }
+          ],
+          "properties": {
+            "title": "Archive parent",
+            "icon": "📚",
+            "coverFileId": null,
+            "ownerMemberId": "browser-owner",
+            "statusKey": null,
+            "labels": [
+              "synthetic-slate-401",
+              "parent"
+            ],
+            "typeface": "serif",
+            "smallText": false,
+            "fullWidth": true
+          },
+          "createdAt": "2026-11-06T11:56:09.348Z",
+          "newerRevisionExists": true
+        }
+      ],
+      "sharing": {
+        "items": [
+          {
+            "id": "01M6RBEQM6WQXF95M6KQKC5P57",
+            "principalKind": "member",
+            "principalId": "browser-reader",
+            "level": "edit",
+            "expiresAt": null,
+            "revokedAt": null,
+            "invitationId": null,
+            "invitationEmail": null,
+            "invitationExpiresAt": null,
+            "invitationRevokedAt": null,
+            "principalLabel": "Morgan Reader",
+            "origin": {
+              "kind": "page",
+              "id": "01M6RBEQ85GM7932YQS2VSR3SG",
+              "name": "Archive parent reviewed"
+            },
+            "inherited": false,
+            "status": "active",
+            "effective": true
+          }
+        ],
+        "inheritedItems": [
+          {
+            "id": "01M6RBCEV9DNMYBN81FJBX80R6",
+            "principalKind": "member",
+            "principalId": "browser-owner",
+            "level": "full",
+            "expiresAt": null,
+            "revokedAt": null,
+            "invitationId": null,
+            "invitationEmail": null,
+            "invitationExpiresAt": null,
+            "invitationRevokedAt": null,
+            "principalLabel": "Alex Owner",
+            "origin": {
+              "kind": "container",
+              "id": "01M6RBCEV93VWZNBACD4T70V95",
+              "name": "Handbook"
+            },
+            "inherited": true,
+            "status": "active",
+            "effective": true
+          }
+        ],
+        "effectiveItems": [
+          {
+            "id": "01M6RBEQM6WQXF95M6KQKC5P57",
+            "principalKind": "member",
+            "principalId": "browser-reader",
+            "level": "edit",
+            "expiresAt": null,
+            "revokedAt": null,
+            "invitationId": null,
+            "invitationEmail": null,
+            "invitationExpiresAt": null,
+            "invitationRevokedAt": null,
+            "principalLabel": "Morgan Reader",
+            "origin": {
+              "kind": "page",
+              "id": "01M6RBEQ85GM7932YQS2VSR3SG",
+              "name": "Archive parent reviewed"
+            },
+            "inherited": false,
+            "status": "active",
+            "effective": true
+          },
+          {
+            "id": "01M6RBCEV9DNMYBN81FJBX80R6",
+            "principalKind": "member",
+            "principalId": "browser-owner",
+            "level": "full",
+            "expiresAt": null,
+            "revokedAt": null,
+            "invitationId": null,
+            "invitationEmail": null,
+            "invitationExpiresAt": null,
+            "invitationRevokedAt": null,
+            "principalLabel": "Alex Owner",
+            "origin": {
+              "kind": "container",
+              "id": "01M6RBCEV93VWZNBACD4T70V95",
+              "name": "Handbook"
+            },
+            "inherited": true,
+            "status": "active",
+            "effective": true
+          }
+        ],
+        "levels": [
+          "full",
+          "edit",
+          "comment",
+          "view"
+        ],
+        "container": {
+          "id": "01M6RBCEV93VWZNBACD4T70V95",
+          "name": "Handbook"
+        },
+        "restricted": false,
+        "restriction": null
+      },
+      "discussion": {
+        "threads": [
+          {
+            "id": "01M6RBEQYXTKANVMMMMSGWNS1X",
+            "workspace_id": "browser-workspace",
+            "page_id": "01M6RBEQ85GM7932YQS2VSR3SG",
+            "kind": "inline",
+            "block_id": "c3c5e4d2-8a62-47d2-9f4a-4cba286271a5",
+            "anchor_json": "{\"anchorId\":\"261511c7-2094-4ddb-bc93-e2f814d78abf\",\"quote\":\"synthetic-slate-404: parent reviewed body\"}",
+            "anchor_revision_id": "01M6RBEQAN1AP2WK654M5MGS67",
+            "state": "resolved",
+            "resolved_at": "2026-11-06T11:56:10.163Z",
+            "resolved_by_member_id": "browser-owner",
+            "created_at": "2026-11-06T11:56:10.072Z",
+            "updated_at": "2026-11-06T11:56:10.163Z",
+            "revision_id": "01M6RBER1NA03SN5GFQY13KHH8",
+            "orphaned": 0
+          }
+        ],
+        "comments": [
+          {
+            "id": "01M6RBEQYXT14V2ME11XC38JCJ",
+            "threadId": "01M6RBEQYXTKANVMMMMSGWNS1X",
+            "parentCommentId": null,
+            "authorMemberId": "browser-owner",
+            "body": [
+              {
+                "text": "synthetic-slate-408: edited anchored discussion"
+              }
+            ],
+            "authorDisplayName": "Alex Owner",
+            "createdAt": "2026-11-06T11:56:10.072Z",
+            "updatedAt": "2026-11-06T11:56:10.134Z",
+            "deletedAt": null,
+            "revisionId": "01M6RBER0SV8BG3MS522AATDJK"
+          },
+          {
+            "id": "01M6RBEQZRRNFJYAQXKDC4HVTW",
+            "threadId": "01M6RBEQYXTKANVMMMMSGWNS1X",
+            "parentCommentId": "01M6RBEQYXT14V2ME11XC38JCJ",
+            "authorMemberId": "browser-owner",
+            "body": [
+              {
+                "text": "synthetic-slate-406: preserve this reply"
+              }
+            ],
+            "authorDisplayName": "Alex Owner",
+            "createdAt": "2026-11-06T11:56:10.097Z",
+            "updatedAt": "2026-11-06T11:56:10.097Z",
+            "deletedAt": null,
+            "revisionId": "01M6RBEQZNH421WQ2F5786Y9RH"
+          }
+        ],
+        "reactions": []
+      }
+    },
+    {
+      "id": "01M6RBEQEAVWWAR2AB3QQ7G0P6",
+      "document": {
+        "lock": null,
+        "authorDisplayName": "Alex Owner",
+        "ownerDisplayName": "Alex Owner",
+        "contributors": [
+          {
+            "id": "browser-owner",
+            "displayName": "Alex Owner"
+          }
+        ],
+        "schedule": null,
+        "mentions": {},
+        "page": {
+          "id": "01M6RBEQEAVWWAR2AB3QQ7G0P6",
+          "containerId": "01M6RBCEV93VWZNBACD4T70V95",
+          "title": "Archive first child reviewed",
+          "revisionId": "01M6RBEQGJSAYMRG314BQ1YD0C",
+          "lifecycle": "live"
+        },
+        "blocks": [
+          {
+            "id": "5627b3d4-512c-42e8-9600-e3d06557a152",
+            "pageId": "01M6RBEQEAVWWAR2AB3QQ7G0P6",
+            "parentBlockId": null,
+            "blockType": "paragraph",
+            "content": {
+              "text": [
+                {
+                  "text": "synthetic-slate-404: first child reviewed body",
+                  "commentAnchorId": "f0467487-ec83-40cc-b5dd-55f0cbaa5759"
+                }
+              ]
+            },
+            "treePosition": "a",
+            "revisionId": "01M6RBEQGKD3QX08VN0JTQ47PE"
+          }
+        ],
+        "properties": {
+          "title": "Archive first child reviewed",
+          "icon": "🗂️",
+          "coverFileId": null,
+          "ownerMemberId": "browser-owner",
+          "statusKey": null,
+          "labels": [
+            "first child",
+            "synthetic-slate-403"
+          ],
+          "typeface": "mono",
+          "smallText": false,
+          "fullWidth": false
+        },
+        "parentPageId": "01M6RBEQ85GM7932YQS2VSR3SG",
+        "createdAt": "2026-11-06T11:56:09.543Z",
+        "updatedAt": "2026-11-06T11:56:09.616Z",
+        "authorMemberId": "browser-owner",
+        "workingRevisionId": "01M6RBEQGJSAYMRG314BQ1YD0C",
+        "publishedRevisionId": "01M6RBEQGJSAYMRG314BQ1YD0C",
+        "permissions": {
+          "level": "full",
+          "canEdit": true,
+          "canUnlock": true,
+          "canShare": true
+        },
+        "policyProfile": {
+          "page.lifecycle.v1": "always-live",
+          "page.access.v1": "workspace-general",
+          "page.public-access.v1": "site",
+          "page.version.v1": "autosnapshot",
+          "page.status.v1": "verification-only",
+          "record.page-parity.v1": "record-is-page",
+          "automation.scope.v1": "source",
+          "container.access.v1": "class-led"
+        }
+      },
+      "history": {
+        "items": [
+          {
+            "id": "01M6RBEQGJSAYMRG314BQ1YD0C",
+            "origin": "autosave",
+            "authorMemberId": "browser-owner",
+            "authorDisplayName": "Alex Owner",
+            "ordinal": null,
+            "label": null,
+            "statusKey": null,
+            "createdAt": "2026-11-06T11:56:09.616Z",
+            "deletedAt": null,
+            "deletedByMemberId": null,
+            "deletedByDisplayName": null
+          },
+          {
+            "id": "01M6RBEQFE9G98VE41H3VAKZZ1",
+            "origin": "autosave",
+            "authorMemberId": "browser-owner",
+            "authorDisplayName": "Alex Owner",
+            "ordinal": null,
+            "label": null,
+            "statusKey": null,
+            "createdAt": "2026-11-06T11:56:09.580Z",
+            "deletedAt": null,
+            "deletedByMemberId": null,
+            "deletedByDisplayName": null
+          },
+          {
+            "id": "01M6RBEQEAW0JEZV5X82P913E8",
+            "origin": "autosave",
+            "authorMemberId": "browser-owner",
+            "authorDisplayName": "Alex Owner",
+            "ordinal": null,
+            "label": null,
+            "statusKey": null,
+            "createdAt": "2026-11-06T11:56:09.543Z",
+            "deletedAt": null,
+            "deletedByMemberId": null,
+            "deletedByDisplayName": null
+          }
+        ]
+      },
+      "revisions": [
+        {
+          "id": "01M6RBEQGJSAYMRG314BQ1YD0C",
+          "blocks": [
+            {
+              "id": "5627b3d4-512c-42e8-9600-e3d06557a152",
+              "pageId": "01M6RBEQEAVWWAR2AB3QQ7G0P6",
+              "parentBlockId": null,
+              "blockType": "paragraph",
+              "content": {
+                "text": [
+                  {
+                    "text": "synthetic-slate-404: first child reviewed body",
+                    "commentAnchorId": "f0467487-ec83-40cc-b5dd-55f0cbaa5759"
+                  }
+                ]
+              },
+              "treePosition": "a",
+              "revisionId": "01M6RBEQGKD3QX08VN0JTQ47PE"
+            }
+          ],
+          "properties": {
+            "title": "Archive first child reviewed",
+            "icon": "🗂️",
+            "coverFileId": null,
+            "ownerMemberId": "browser-owner",
+            "statusKey": null,
+            "labels": [
+              "first child",
+              "synthetic-slate-403"
+            ],
+            "typeface": "mono",
+            "smallText": false,
+            "fullWidth": false
+          },
+          "createdAt": "2026-11-06T11:56:09.616Z",
+          "newerRevisionExists": false
+        },
+        {
+          "id": "01M6RBEQFE9G98VE41H3VAKZZ1",
+          "blocks": [
+            {
+              "id": "5627b3d4-512c-42e8-9600-e3d06557a152",
+              "pageId": "01M6RBEQEAVWWAR2AB3QQ7G0P6",
+              "parentBlockId": null,
+              "blockType": "paragraph",
+              "content": {
+                "text": [
+                  {
+                    "text": "synthetic-slate-402: first child original body",
+                    "commentAnchorId": "f0467487-ec83-40cc-b5dd-55f0cbaa5759"
+                  }
+                ]
+              },
+              "treePosition": "a",
+              "revisionId": "01M6RBEQEBADMN57HTS0TWQJPT"
+            }
+          ],
+          "properties": {
+            "title": "Archive first child reviewed",
+            "icon": "🗂️",
+            "coverFileId": null,
+            "ownerMemberId": "browser-owner",
+            "statusKey": null,
+            "labels": [
+              "synthetic-slate-403",
+              "first child"
+            ],
+            "typeface": "mono",
+            "smallText": false,
+            "fullWidth": false
+          },
+          "createdAt": "2026-11-06T11:56:09.580Z",
+          "newerRevisionExists": true
+        },
+        {
+          "id": "01M6RBEQEAW0JEZV5X82P913E8",
+          "blocks": [
+            {
+              "id": "5627b3d4-512c-42e8-9600-e3d06557a152",
+              "blockType": "paragraph",
+              "content": {
+                "text": [
+                  {
+                    "text": "synthetic-slate-402: first child original body",
+                    "commentAnchorId": "f0467487-ec83-40cc-b5dd-55f0cbaa5759"
+                  }
+                ]
+              },
+              "treePosition": "a",
+              "parentBlockId": null,
+              "pageId": "01M6RBEQEAVWWAR2AB3QQ7G0P6",
+              "revisionId": "01M6RBEQEBADMN57HTS0TWQJPT"
+            }
+          ],
+          "properties": {
+            "title": "Archive first child",
+            "icon": "📚",
+            "coverFileId": null,
+            "ownerMemberId": "browser-owner",
+            "statusKey": null,
+            "labels": [
+              "synthetic-slate-401",
+              "first child"
+            ],
+            "typeface": "serif",
+            "smallText": false,
+            "fullWidth": true
+          },
+          "createdAt": "2026-11-06T11:56:09.543Z",
+          "newerRevisionExists": true
+        }
+      ],
+      "sharing": {
+        "items": [
+          {
+            "id": "01M6RBEQMXKCYTWW7A2FQ13KY9",
+            "principalKind": "group",
+            "principalId": "01M6RBEQ7JDF8H3K7RJEXXZK6B",
+            "level": "comment",
+            "expiresAt": null,
+            "revokedAt": null,
+            "invitationId": null,
+            "invitationEmail": null,
+            "invitationExpiresAt": null,
+            "invitationRevokedAt": null,
+            "principalLabel": "Archive review team",
+            "origin": {
+              "kind": "page",
+              "id": "01M6RBEQEAVWWAR2AB3QQ7G0P6",
+              "name": "Archive first child reviewed"
+            },
+            "inherited": false,
+            "status": "active",
+            "effective": true
+          }
+        ],
+        "inheritedItems": [
+          {
+            "id": "01M6RBEQM6WQXF95M6KQKC5P57",
+            "principalKind": "member",
+            "principalId": "browser-reader",
+            "level": "edit",
+            "expiresAt": null,
+            "revokedAt": null,
+            "invitationId": null,
+            "invitationEmail": null,
+            "invitationExpiresAt": null,
+            "invitationRevokedAt": null,
+            "principalLabel": "Morgan Reader",
+            "origin": {
+              "kind": "page",
+              "id": "01M6RBEQ85GM7932YQS2VSR3SG",
+              "name": "Archive parent reviewed"
+            },
+            "inherited": true,
+            "status": "active",
+            "effective": true
+          },
+          {
+            "id": "01M6RBCEV9DNMYBN81FJBX80R6",
+            "principalKind": "member",
+            "principalId": "browser-owner",
+            "level": "full",
+            "expiresAt": null,
+            "revokedAt": null,
+            "invitationId": null,
+            "invitationEmail": null,
+            "invitationExpiresAt": null,
+            "invitationRevokedAt": null,
+            "principalLabel": "Alex Owner",
+            "origin": {
+              "kind": "container",
+              "id": "01M6RBCEV93VWZNBACD4T70V95",
+              "name": "Handbook"
+            },
+            "inherited": true,
+            "status": "active",
+            "effective": true
+          }
+        ],
+        "effectiveItems": [
+          {
+            "id": "01M6RBEQMXKCYTWW7A2FQ13KY9",
+            "principalKind": "group",
+            "principalId": "01M6RBEQ7JDF8H3K7RJEXXZK6B",
+            "level": "comment",
+            "expiresAt": null,
+            "revokedAt": null,
+            "invitationId": null,
+            "invitationEmail": null,
+            "invitationExpiresAt": null,
+            "invitationRevokedAt": null,
+            "principalLabel": "Archive review team",
+            "origin": {
+              "kind": "page",
+              "id": "01M6RBEQEAVWWAR2AB3QQ7G0P6",
+              "name": "Archive first child reviewed"
+            },
+            "inherited": false,
+            "status": "active",
+            "effective": true
+          },
+          {
+            "id": "01M6RBEQM6WQXF95M6KQKC5P57",
+            "principalKind": "member",
+            "principalId": "browser-reader",
+            "level": "edit",
+            "expiresAt": null,
+            "revokedAt": null,
+            "invitationId": null,
+            "invitationEmail": null,
+            "invitationExpiresAt": null,
+            "invitationRevokedAt": null,
+            "principalLabel": "Morgan Reader",
+            "origin": {
+              "kind": "page",
+              "id": "01M6RBEQ85GM7932YQS2VSR3SG",
+              "name": "Archive parent reviewed"
+            },
+            "inherited": true,
+            "status": "active",
+            "effective": true
+          },
+          {
+            "id": "01M6RBCEV9DNMYBN81FJBX80R6",
+            "principalKind": "member",
+            "principalId": "browser-owner",
+            "level": "full",
+            "expiresAt": null,
+            "revokedAt": null,
+            "invitationId": null,
+            "invitationEmail": null,
+            "invitationExpiresAt": null,
+            "invitationRevokedAt": null,
+            "principalLabel": "Alex Owner",
+            "origin": {
+              "kind": "container",
+              "id": "01M6RBCEV93VWZNBACD4T70V95",
+              "name": "Handbook"
+            },
+            "inherited": true,
+            "status": "active",
+            "effective": true
+          }
+        ],
+        "levels": [
+          "full",
+          "edit",
+          "comment",
+          "view"
+        ],
+        "container": {
+          "id": "01M6RBCEV93VWZNBACD4T70V95",
+          "name": "Handbook"
+        },
+        "restricted": false,
+        "restriction": null
+      },
+      "discussion": {
+        "threads": [],
+        "comments": [],
+        "reactions": []
+      }
+    },
+    {
+      "id": "01M6RBEQBFQ32N4KJ7E3D2C8N8",
+      "document": {
+        "lock": null,
+        "authorDisplayName": "Alex Owner",
+        "ownerDisplayName": "Alex Owner",
+        "contributors": [
+          {
+            "id": "browser-owner",
+            "displayName": "Alex Owner"
+          }
+        ],
+        "schedule": null,
+        "mentions": {},
+        "page": {
+          "id": "01M6RBEQBFQ32N4KJ7E3D2C8N8",
+          "containerId": "01M6RBCEV93VWZNBACD4T70V95",
+          "title": "Archive second child reviewed",
+          "revisionId": "01M6RBEQXWFH6WPNQJTMWXBZ0C",
+          "lifecycle": "live"
+        },
+        "blocks": [
+          {
+            "id": "3fc720e9-3d79-4ffb-84c8-a1a6daac4df4",
+            "pageId": "01M6RBEQBFQ32N4KJ7E3D2C8N8",
+            "parentBlockId": null,
+            "blockType": "paragraph",
+            "content": {
+              "text": [
+                {
+                  "text": "synthetic-slate-404: second child reviewed body",
+                  "commentAnchorId": "5f108473-7af4-428c-82aa-d2d77ee37980"
+                }
+              ]
+            },
+            "treePosition": "a",
+            "revisionId": "01M6RBEQDPG6S99G1CMXJ9V1J6"
+          }
+        ],
+        "properties": {
+          "title": "Archive second child reviewed",
+          "icon": "🗂️",
+          "coverFileId": null,
+          "ownerMemberId": "browser-owner",
+          "statusKey": null,
+          "labels": [
+            "second child",
+            "synthetic-slate-403"
+          ],
+          "typeface": "mono",
+          "smallText": false,
+          "fullWidth": false
+        },
+        "parentPageId": "01M6RBEQ85GM7932YQS2VSR3SG",
+        "createdAt": "2026-11-06T11:56:09.452Z",
+        "updatedAt": "2026-11-06T11:56:10.042Z",
+        "authorMemberId": "browser-owner",
+        "workingRevisionId": "01M6RBEQDMN6YF6WGYF47CZT7M",
+        "publishedRevisionId": "01M6RBEQDMN6YF6WGYF47CZT7M",
+        "permissions": {
+          "level": "full",
+          "canEdit": true,
+          "canUnlock": true,
+          "canShare": true
+        },
+        "policyProfile": {
+          "page.lifecycle.v1": "always-live",
+          "page.access.v1": "workspace-general",
+          "page.public-access.v1": "site",
+          "page.version.v1": "autosnapshot",
+          "page.status.v1": "verification-only",
+          "record.page-parity.v1": "record-is-page",
+          "automation.scope.v1": "source",
+          "container.access.v1": "class-led"
+        }
+      },
+      "history": {
+        "items": [
+          {
+            "id": "01M6RBEQXWFH6WPNQJTMWXBZ0C",
+            "origin": "autosave",
+            "authorMemberId": "browser-owner",
+            "authorDisplayName": "Alex Owner",
+            "ordinal": null,
+            "label": null,
+            "statusKey": null,
+            "createdAt": "2026-11-06T11:56:10.042Z",
+            "deletedAt": null,
+            "deletedByMemberId": null,
+            "deletedByDisplayName": null
+          },
+          {
+            "id": "01M6RBEQDMN6YF6WGYF47CZT7M",
+            "origin": "autosave",
+            "authorMemberId": "browser-owner",
+            "authorDisplayName": "Alex Owner",
+            "ordinal": null,
+            "label": null,
+            "statusKey": null,
+            "createdAt": "2026-11-06T11:56:09.523Z",
+            "deletedAt": null,
+            "deletedByMemberId": null,
+            "deletedByDisplayName": null
+          },
+          {
+            "id": "01M6RBEQCEZ7CG1P8P1E4FNP17",
+            "origin": "autosave",
+            "authorMemberId": "browser-owner",
+            "authorDisplayName": "Alex Owner",
+            "ordinal": null,
+            "label": null,
+            "statusKey": null,
+            "createdAt": "2026-11-06T11:56:09.484Z",
+            "deletedAt": null,
+            "deletedByMemberId": null,
+            "deletedByDisplayName": null
+          },
+          {
+            "id": "01M6RBEQBF944ZXXT1Q6P5TJM9",
+            "origin": "autosave",
+            "authorMemberId": "browser-owner",
+            "authorDisplayName": "Alex Owner",
+            "ordinal": null,
+            "label": null,
+            "statusKey": null,
+            "createdAt": "2026-11-06T11:56:09.452Z",
+            "deletedAt": null,
+            "deletedByMemberId": null,
+            "deletedByDisplayName": null
+          }
+        ]
+      },
+      "revisions": [
+        {
+          "id": "01M6RBEQXWFH6WPNQJTMWXBZ0C",
+          "blocks": [
+            {
+              "id": "3fc720e9-3d79-4ffb-84c8-a1a6daac4df4",
+              "pageId": "01M6RBEQBFQ32N4KJ7E3D2C8N8",
+              "parentBlockId": null,
+              "blockType": "paragraph",
+              "content": {
+                "text": [
+                  {
+                    "text": "synthetic-slate-404: second child reviewed body",
+                    "commentAnchorId": "5f108473-7af4-428c-82aa-d2d77ee37980"
+                  }
+                ]
+              },
+              "treePosition": "a",
+              "revisionId": "01M6RBEQDPG6S99G1CMXJ9V1J6"
+            }
+          ],
+          "properties": {
+            "title": "Archive second child reviewed",
+            "icon": "🗂️",
+            "coverFileId": null,
+            "ownerMemberId": "browser-owner",
+            "statusKey": null,
+            "labels": [
+              "second child",
+              "synthetic-slate-403"
+            ],
+            "typeface": "mono",
+            "smallText": false,
+            "fullWidth": false
+          },
+          "createdAt": "2026-11-06T11:56:10.042Z",
+          "newerRevisionExists": true
+        },
+        {
+          "id": "01M6RBEQDMN6YF6WGYF47CZT7M",
+          "blocks": [
+            {
+              "id": "3fc720e9-3d79-4ffb-84c8-a1a6daac4df4",
+              "pageId": "01M6RBEQBFQ32N4KJ7E3D2C8N8",
+              "parentBlockId": null,
+              "blockType": "paragraph",
+              "content": {
+                "text": [
+                  {
+                    "text": "synthetic-slate-404: second child reviewed body",
+                    "commentAnchorId": "5f108473-7af4-428c-82aa-d2d77ee37980"
+                  }
+                ]
+              },
+              "treePosition": "a",
+              "revisionId": "01M6RBEQDPG6S99G1CMXJ9V1J6"
+            }
+          ],
+          "properties": {
+            "title": "Archive second child reviewed",
+            "icon": "🗂️",
+            "coverFileId": null,
+            "ownerMemberId": "browser-owner",
+            "statusKey": null,
+            "labels": [
+              "second child",
+              "synthetic-slate-403"
+            ],
+            "typeface": "mono",
+            "smallText": false,
+            "fullWidth": false
+          },
+          "createdAt": "2026-11-06T11:56:09.523Z",
+          "newerRevisionExists": false
+        },
+        {
+          "id": "01M6RBEQCEZ7CG1P8P1E4FNP17",
+          "blocks": [
+            {
+              "id": "3fc720e9-3d79-4ffb-84c8-a1a6daac4df4",
+              "pageId": "01M6RBEQBFQ32N4KJ7E3D2C8N8",
+              "parentBlockId": null,
+              "blockType": "paragraph",
+              "content": {
+                "text": [
+                  {
+                    "text": "synthetic-slate-402: second child original body",
+                    "commentAnchorId": "5f108473-7af4-428c-82aa-d2d77ee37980"
+                  }
+                ]
+              },
+              "treePosition": "a",
+              "revisionId": "01M6RBEQBF10MB4M5GZZ2PY1RW"
+            }
+          ],
+          "properties": {
+            "title": "Archive second child reviewed",
+            "icon": "🗂️",
+            "coverFileId": null,
+            "ownerMemberId": "browser-owner",
+            "statusKey": null,
+            "labels": [
+              "synthetic-slate-403",
+              "second child"
+            ],
+            "typeface": "mono",
+            "smallText": false,
+            "fullWidth": false
+          },
+          "createdAt": "2026-11-06T11:56:09.484Z",
+          "newerRevisionExists": true
+        },
+        {
+          "id": "01M6RBEQBF944ZXXT1Q6P5TJM9",
+          "blocks": [
+            {
+              "id": "3fc720e9-3d79-4ffb-84c8-a1a6daac4df4",
+              "blockType": "paragraph",
+              "content": {
+                "text": [
+                  {
+                    "text": "synthetic-slate-402: second child original body",
+                    "commentAnchorId": "5f108473-7af4-428c-82aa-d2d77ee37980"
+                  }
+                ]
+              },
+              "treePosition": "a",
+              "parentBlockId": null,
+              "pageId": "01M6RBEQBFQ32N4KJ7E3D2C8N8",
+              "revisionId": "01M6RBEQBF10MB4M5GZZ2PY1RW"
+            }
+          ],
+          "properties": {
+            "title": "Archive second child",
+            "icon": "📚",
+            "coverFileId": null,
+            "ownerMemberId": "browser-owner",
+            "statusKey": null,
+            "labels": [
+              "synthetic-slate-401",
+              "second child"
+            ],
+            "typeface": "serif",
+            "smallText": false,
+            "fullWidth": true
+          },
+          "createdAt": "2026-11-06T11:56:09.452Z",
+          "newerRevisionExists": true
+        }
+      ],
+      "sharing": {
+        "items": [
+          {
+            "id": "01M6RBEQVEYTASE2NX1BXX98AJ",
+            "principalKind": "member",
+            "principalId": "browser-reader",
+            "level": "edit",
+            "expiresAt": null,
+            "revokedAt": "2026-11-06T11:56:09.990Z",
+            "invitationId": null,
+            "invitationEmail": null,
+            "invitationExpiresAt": null,
+            "invitationRevokedAt": null,
+            "principalLabel": "Morgan Reader",
+            "origin": {
+              "kind": "page",
+              "id": "01M6RBEQBFQ32N4KJ7E3D2C8N8",
+              "name": "Archive second child reviewed"
+            },
+            "inherited": false,
+            "status": "revoked",
+            "effective": false
+          },
+          {
+            "id": "01M6RBEQWXR62Z8J9SVQMD330F",
+            "principalKind": "member",
+            "principalId": "browser-owner",
+            "level": "full",
+            "expiresAt": null,
+            "revokedAt": null,
+            "invitationId": null,
+            "invitationEmail": null,
+            "invitationExpiresAt": null,
+            "invitationRevokedAt": null,
+            "principalLabel": "Alex Owner",
+            "origin": {
+              "kind": "page",
+              "id": "01M6RBEQBFQ32N4KJ7E3D2C8N8",
+              "name": "Archive second child reviewed"
+            },
+            "inherited": false,
+            "status": "active",
+            "effective": true
+          }
+        ],
+        "inheritedItems": [],
+        "effectiveItems": [
+          {
+            "id": "01M6RBEQWXR62Z8J9SVQMD330F",
+            "principalKind": "member",
+            "principalId": "browser-owner",
+            "level": "full",
+            "expiresAt": null,
+            "revokedAt": null,
+            "invitationId": null,
+            "invitationEmail": null,
+            "invitationExpiresAt": null,
+            "invitationRevokedAt": null,
+            "principalLabel": "Alex Owner",
+            "origin": {
+              "kind": "page",
+              "id": "01M6RBEQBFQ32N4KJ7E3D2C8N8",
+              "name": "Archive second child reviewed"
+            },
+            "inherited": false,
+            "status": "active",
+            "effective": true
+          }
+        ],
+        "levels": [
+          "full",
+          "edit",
+          "comment",
+          "view"
+        ],
+        "container": {
+          "id": "01M6RBCEV93VWZNBACD4T70V95",
+          "name": "Handbook"
+        },
+        "restricted": true,
+        "restriction": {
+          "scope": "page",
+          "id": "01M6RBEQBFQ32N4KJ7E3D2C8N8",
+          "name": "Archive second child reviewed"
+        }
+      },
+      "discussion": {
+        "threads": [],
+        "comments": [],
+        "reactions": []
+      }
+    },
+    {
+      "id": "01M6RBEQH796FAW2TQX7G444SW",
+      "document": {
+        "lock": null,
+        "authorDisplayName": "Alex Owner",
+        "ownerDisplayName": "Alex Owner",
+        "contributors": [
+          {
+            "id": "browser-owner",
+            "displayName": "Alex Owner"
+          }
+        ],
+        "schedule": null,
+        "mentions": {},
+        "page": {
+          "id": "01M6RBEQH796FAW2TQX7G444SW",
+          "containerId": "01M6RBCEV93VWZNBACD4T70V95",
+          "title": "Archive grandchild reviewed",
+          "revisionId": "01M6RBEQKGK5396MM8AX6P0C10",
+          "lifecycle": "live"
+        },
+        "blocks": [
+          {
+            "id": "f02cd4a6-9dc6-4bea-8711-add889c59494",
+            "pageId": "01M6RBEQH796FAW2TQX7G444SW",
+            "parentBlockId": null,
+            "blockType": "paragraph",
+            "content": {
+              "text": [
+                {
+                  "text": "synthetic-slate-404: grandchild reviewed body",
+                  "commentAnchorId": "aae631ba-aead-4a0b-945a-6457a02247f9"
+                }
+              ]
+            },
+            "treePosition": "a",
+            "revisionId": "01M6RBEQKJF3B9D4TDSX0M0TYH"
+          }
+        ],
+        "properties": {
+          "title": "Archive grandchild reviewed",
+          "icon": "🗂️",
+          "coverFileId": null,
+          "ownerMemberId": "browser-owner",
+          "statusKey": null,
+          "labels": [
+            "grandchild",
+            "synthetic-slate-403"
+          ],
+          "typeface": "mono",
+          "smallText": false,
+          "fullWidth": false
+        },
+        "parentPageId": "01M6RBEQEAVWWAR2AB3QQ7G0P6",
+        "createdAt": "2026-11-06T11:56:09.636Z",
+        "updatedAt": "2026-11-06T11:56:09.710Z",
+        "authorMemberId": "browser-owner",
+        "workingRevisionId": "01M6RBEQKGK5396MM8AX6P0C10",
+        "publishedRevisionId": "01M6RBEQKGK5396MM8AX6P0C10",
+        "permissions": {
+          "level": "full",
+          "canEdit": true,
+          "canUnlock": true,
+          "canShare": true
+        },
+        "policyProfile": {
+          "page.lifecycle.v1": "always-live",
+          "page.access.v1": "workspace-general",
+          "page.public-access.v1": "site",
+          "page.version.v1": "autosnapshot",
+          "page.status.v1": "verification-only",
+          "record.page-parity.v1": "record-is-page",
+          "automation.scope.v1": "source",
+          "container.access.v1": "class-led"
+        }
+      },
+      "history": {
+        "items": [
+          {
+            "id": "01M6RBEQKGK5396MM8AX6P0C10",
+            "origin": "autosave",
+            "authorMemberId": "browser-owner",
+            "authorDisplayName": "Alex Owner",
+            "ordinal": null,
+            "label": null,
+            "statusKey": null,
+            "createdAt": "2026-11-06T11:56:09.710Z",
+            "deletedAt": null,
+            "deletedByMemberId": null,
+            "deletedByDisplayName": null
+          },
+          {
+            "id": "01M6RBEQJ51FD6N3PJ74FQNH1M",
+            "origin": "autosave",
+            "authorMemberId": "browser-owner",
+            "authorDisplayName": "Alex Owner",
+            "ordinal": null,
+            "label": null,
+            "statusKey": null,
+            "createdAt": "2026-11-06T11:56:09.667Z",
+            "deletedAt": null,
+            "deletedByMemberId": null,
+            "deletedByDisplayName": null
+          },
+          {
+            "id": "01M6RBEQH70YG3A3E0DQW7V1S8",
+            "origin": "autosave",
+            "authorMemberId": "browser-owner",
+            "authorDisplayName": "Alex Owner",
+            "ordinal": null,
+            "label": null,
+            "statusKey": null,
+            "createdAt": "2026-11-06T11:56:09.636Z",
+            "deletedAt": null,
+            "deletedByMemberId": null,
+            "deletedByDisplayName": null
+          }
+        ]
+      },
+      "revisions": [
+        {
+          "id": "01M6RBEQKGK5396MM8AX6P0C10",
+          "blocks": [
+            {
+              "id": "f02cd4a6-9dc6-4bea-8711-add889c59494",
+              "pageId": "01M6RBEQH796FAW2TQX7G444SW",
+              "parentBlockId": null,
+              "blockType": "paragraph",
+              "content": {
+                "text": [
+                  {
+                    "text": "synthetic-slate-404: grandchild reviewed body",
+                    "commentAnchorId": "aae631ba-aead-4a0b-945a-6457a02247f9"
+                  }
+                ]
+              },
+              "treePosition": "a",
+              "revisionId": "01M6RBEQKJF3B9D4TDSX0M0TYH"
+            }
+          ],
+          "properties": {
+            "title": "Archive grandchild reviewed",
+            "icon": "🗂️",
+            "coverFileId": null,
+            "ownerMemberId": "browser-owner",
+            "statusKey": null,
+            "labels": [
+              "grandchild",
+              "synthetic-slate-403"
+            ],
+            "typeface": "mono",
+            "smallText": false,
+            "fullWidth": false
+          },
+          "createdAt": "2026-11-06T11:56:09.710Z",
+          "newerRevisionExists": false
+        },
+        {
+          "id": "01M6RBEQJ51FD6N3PJ74FQNH1M",
+          "blocks": [
+            {
+              "id": "f02cd4a6-9dc6-4bea-8711-add889c59494",
+              "pageId": "01M6RBEQH796FAW2TQX7G444SW",
+              "parentBlockId": null,
+              "blockType": "paragraph",
+              "content": {
+                "text": [
+                  {
+                    "text": "synthetic-slate-402: grandchild original body",
+                    "commentAnchorId": "aae631ba-aead-4a0b-945a-6457a02247f9"
+                  }
+                ]
+              },
+              "treePosition": "a",
+              "revisionId": "01M6RBEQH7883MZ6Q6BAAQJFH8"
+            }
+          ],
+          "properties": {
+            "title": "Archive grandchild reviewed",
+            "icon": "🗂️",
+            "coverFileId": null,
+            "ownerMemberId": "browser-owner",
+            "statusKey": null,
+            "labels": [
+              "synthetic-slate-403",
+              "grandchild"
+            ],
+            "typeface": "mono",
+            "smallText": false,
+            "fullWidth": false
+          },
+          "createdAt": "2026-11-06T11:56:09.667Z",
+          "newerRevisionExists": true
+        },
+        {
+          "id": "01M6RBEQH70YG3A3E0DQW7V1S8",
+          "blocks": [
+            {
+              "id": "f02cd4a6-9dc6-4bea-8711-add889c59494",
+              "blockType": "paragraph",
+              "content": {
+                "text": [
+                  {
+                    "text": "synthetic-slate-402: grandchild original body",
+                    "commentAnchorId": "aae631ba-aead-4a0b-945a-6457a02247f9"
+                  }
+                ]
+              },
+              "treePosition": "a",
+              "parentBlockId": null,
+              "pageId": "01M6RBEQH796FAW2TQX7G444SW",
+              "revisionId": "01M6RBEQH7883MZ6Q6BAAQJFH8"
+            }
+          ],
+          "properties": {
+            "title": "Archive grandchild",
+            "icon": "📚",
+            "coverFileId": null,
+            "ownerMemberId": "browser-owner",
+            "statusKey": null,
+            "labels": [
+              "synthetic-slate-401",
+              "grandchild"
+            ],
+            "typeface": "serif",
+            "smallText": false,
+            "fullWidth": true
+          },
+          "createdAt": "2026-11-06T11:56:09.636Z",
+          "newerRevisionExists": true
+        }
+      ],
+      "sharing": {
+        "items": [],
+        "inheritedItems": [
+          {
+            "id": "01M6RBEQM6WQXF95M6KQKC5P57",
+            "principalKind": "member",
+            "principalId": "browser-reader",
+            "level": "edit",
+            "expiresAt": null,
+            "revokedAt": null,
+            "invitationId": null,
+            "invitationEmail": null,
+            "invitationExpiresAt": null,
+            "invitationRevokedAt": null,
+            "principalLabel": "Morgan Reader",
+            "origin": {
+              "kind": "page",
+              "id": "01M6RBEQ85GM7932YQS2VSR3SG",
+              "name": "Archive parent reviewed"
+            },
+            "inherited": true,
+            "status": "active",
+            "effective": true
+          },
+          {
+            "id": "01M6RBEQMXKCYTWW7A2FQ13KY9",
+            "principalKind": "group",
+            "principalId": "01M6RBEQ7JDF8H3K7RJEXXZK6B",
+            "level": "comment",
+            "expiresAt": null,
+            "revokedAt": null,
+            "invitationId": null,
+            "invitationEmail": null,
+            "invitationExpiresAt": null,
+            "invitationRevokedAt": null,
+            "principalLabel": "Archive review team",
+            "origin": {
+              "kind": "page",
+              "id": "01M6RBEQEAVWWAR2AB3QQ7G0P6",
+              "name": "Archive first child reviewed"
+            },
+            "inherited": true,
+            "status": "active",
+            "effective": true
+          },
+          {
+            "id": "01M6RBCEV9DNMYBN81FJBX80R6",
+            "principalKind": "member",
+            "principalId": "browser-owner",
+            "level": "full",
+            "expiresAt": null,
+            "revokedAt": null,
+            "invitationId": null,
+            "invitationEmail": null,
+            "invitationExpiresAt": null,
+            "invitationRevokedAt": null,
+            "principalLabel": "Alex Owner",
+            "origin": {
+              "kind": "container",
+              "id": "01M6RBCEV93VWZNBACD4T70V95",
+              "name": "Handbook"
+            },
+            "inherited": true,
+            "status": "active",
+            "effective": true
+          }
+        ],
+        "effectiveItems": [
+          {
+            "id": "01M6RBEQM6WQXF95M6KQKC5P57",
+            "principalKind": "member",
+            "principalId": "browser-reader",
+            "level": "edit",
+            "expiresAt": null,
+            "revokedAt": null,
+            "invitationId": null,
+            "invitationEmail": null,
+            "invitationExpiresAt": null,
+            "invitationRevokedAt": null,
+            "principalLabel": "Morgan Reader",
+            "origin": {
+              "kind": "page",
+              "id": "01M6RBEQ85GM7932YQS2VSR3SG",
+              "name": "Archive parent reviewed"
+            },
+            "inherited": true,
+            "status": "active",
+            "effective": true
+          },
+          {
+            "id": "01M6RBEQMXKCYTWW7A2FQ13KY9",
+            "principalKind": "group",
+            "principalId": "01M6RBEQ7JDF8H3K7RJEXXZK6B",
+            "level": "comment",
+            "expiresAt": null,
+            "revokedAt": null,
+            "invitationId": null,
+            "invitationEmail": null,
+            "invitationExpiresAt": null,
+            "invitationRevokedAt": null,
+            "principalLabel": "Archive review team",
+            "origin": {
+              "kind": "page",
+              "id": "01M6RBEQEAVWWAR2AB3QQ7G0P6",
+              "name": "Archive first child reviewed"
+            },
+            "inherited": true,
+            "status": "active",
+            "effective": true
+          },
+          {
+            "id": "01M6RBCEV9DNMYBN81FJBX80R6",
+            "principalKind": "member",
+            "principalId": "browser-owner",
+            "level": "full",
+            "expiresAt": null,
+            "revokedAt": null,
+            "invitationId": null,
+            "invitationEmail": null,
+            "invitationExpiresAt": null,
+            "invitationRevokedAt": null,
+            "principalLabel": "Alex Owner",
+            "origin": {
+              "kind": "container",
+              "id": "01M6RBCEV93VWZNBACD4T70V95",
+              "name": "Handbook"
+            },
+            "inherited": true,
+            "status": "active",
+            "effective": true
+          }
+        ],
+        "levels": [
+          "full",
+          "edit",
+          "comment",
+          "view"
+        ],
+        "container": {
+          "id": "01M6RBCEV93VWZNBACD4T70V95",
+          "name": "Handbook"
+        },
+        "restricted": false,
+        "restriction": null
+      },
+      "discussion": {
+        "threads": [],
+        "comments": [],
+        "reactions": []
+      }
+    }
+  ],
+  "sourceBefore": {
+    "pages": [
+      {
+        "id": "01M6RBEQ85GM7932YQS2VSR3SG",
+        "workspace_id": "browser-workspace",
+        "container_id": "01M6RBCEV93VWZNBACD4T70V95",
+        "parent_page_id": null,
+        "database_id": null,
+        "page_kind": "page",
+        "title": "Archive parent reviewed",
+        "icon": "🗂️",
+        "cover_file_id": null,
+        "author_member_id": "browser-owner",
+        "owner_member_id": "browser-owner",
+        "lifecycle": "live",
+        "working_revision_id": "01M6RBEQAN1AP2WK654M5MGS67",
+        "published_revision_id": "01M6RBEQAN1AP2WK654M5MGS67",
+        "status_key": null,
+        "tree_position": "archive-a",
+        "access_inheritance": "inherit",
+        "typeface": "mono",
+        "small_text": 0,
+        "full_width": 0,
+        "archived_at": null,
+        "trashed_at": null,
+        "deleted_at": null,
+        "created_at": "2026-11-06T11:56:09.348Z",
+        "updated_at": "2026-11-06T11:56:09.427Z",
+        "revision_id": "01M6RBEQAN1AP2WK654M5MGS67",
+        "locked_at": null,
+        "locked_by_member_id": null
+      },
+      {
+        "id": "01M6RBEQBFQ32N4KJ7E3D2C8N8",
+        "workspace_id": "browser-workspace",
+        "container_id": "01M6RBCEV93VWZNBACD4T70V95",
+        "parent_page_id": "01M6RBEQ85GM7932YQS2VSR3SG",
+        "database_id": null,
+        "page_kind": "page",
+        "title": "Archive second child reviewed",
+        "icon": "🗂️",
+        "cover_file_id": null,
+        "author_member_id": "browser-owner",
+        "owner_member_id": "browser-owner",
+        "lifecycle": "live",
+        "working_revision_id": "01M6RBEQDMN6YF6WGYF47CZT7M",
+        "published_revision_id": "01M6RBEQDMN6YF6WGYF47CZT7M",
+        "status_key": null,
+        "tree_position": "b",
+        "access_inheritance": "restricted",
+        "typeface": "mono",
+        "small_text": 0,
+        "full_width": 0,
+        "archived_at": null,
+        "trashed_at": null,
+        "deleted_at": null,
+        "created_at": "2026-11-06T11:56:09.452Z",
+        "updated_at": "2026-11-06T11:56:10.042Z",
+        "revision_id": "01M6RBEQXWFH6WPNQJTMWXBZ0C",
+        "locked_at": null,
+        "locked_by_member_id": null
+      },
+      {
+        "id": "01M6RBEQEAVWWAR2AB3QQ7G0P6",
+        "workspace_id": "browser-workspace",
+        "container_id": "01M6RBCEV93VWZNBACD4T70V95",
+        "parent_page_id": "01M6RBEQ85GM7932YQS2VSR3SG",
+        "database_id": null,
+        "page_kind": "page",
+        "title": "Archive first child reviewed",
+        "icon": "🗂️",
+        "cover_file_id": null,
+        "author_member_id": "browser-owner",
+        "owner_member_id": "browser-owner",
+        "lifecycle": "live",
+        "working_revision_id": "01M6RBEQGJSAYMRG314BQ1YD0C",
+        "published_revision_id": "01M6RBEQGJSAYMRG314BQ1YD0C",
+        "status_key": null,
+        "tree_position": "a",
+        "access_inheritance": "inherit",
+        "typeface": "mono",
+        "small_text": 0,
+        "full_width": 0,
+        "archived_at": null,
+        "trashed_at": null,
+        "deleted_at": null,
+        "created_at": "2026-11-06T11:56:09.543Z",
+        "updated_at": "2026-11-06T11:56:09.616Z",
+        "revision_id": "01M6RBEQGJSAYMRG314BQ1YD0C",
+        "locked_at": null,
+        "locked_by_member_id": null
+      },
+      {
+        "id": "01M6RBEQH796FAW2TQX7G444SW",
+        "workspace_id": "browser-workspace",
+        "container_id": "01M6RBCEV93VWZNBACD4T70V95",
+        "parent_page_id": "01M6RBEQEAVWWAR2AB3QQ7G0P6",
+        "database_id": null,
+        "page_kind": "page",
+        "title": "Archive grandchild reviewed",
+        "icon": "🗂️",
+        "cover_file_id": null,
+        "author_member_id": "browser-owner",
+        "owner_member_id": "browser-owner",
+        "lifecycle": "live",
+        "working_revision_id": "01M6RBEQKGK5396MM8AX6P0C10",
+        "published_revision_id": "01M6RBEQKGK5396MM8AX6P0C10",
+        "status_key": null,
+        "tree_position": "a",
+        "access_inheritance": "inherit",
+        "typeface": "mono",
+        "small_text": 0,
+        "full_width": 0,
+        "archived_at": null,
+        "trashed_at": null,
+        "deleted_at": null,
+        "created_at": "2026-11-06T11:56:09.636Z",
+        "updated_at": "2026-11-06T11:56:09.710Z",
+        "revision_id": "01M6RBEQKGK5396MM8AX6P0C10",
+        "locked_at": null,
+        "locked_by_member_id": null
+      }
+    ],
+    "page_blocks": [
+      {
+        "id": "c3c5e4d2-8a62-47d2-9f4a-4cba286271a5",
+        "page_id": "01M6RBEQ85GM7932YQS2VSR3SG",
+        "parent_block_id": null,
+        "block_type": "paragraph",
+        "content_json": "{\"text\":[{\"text\":\"synthetic-slate-404: parent reviewed body\",\"commentAnchorId\":\"261511c7-2094-4ddb-bc93-e2f814d78abf\"}]}",
+        "tree_position": "a",
+        "revision_id": "01M6RBEQAQ4FM5YBC62QTAWC3K",
+        "created_at": "2026-11-06T11:56:09.348Z",
+        "updated_at": "2026-11-06T11:56:09.427Z"
+      },
+      {
+        "id": "3fc720e9-3d79-4ffb-84c8-a1a6daac4df4",
+        "page_id": "01M6RBEQBFQ32N4KJ7E3D2C8N8",
+        "parent_block_id": null,
+        "block_type": "paragraph",
+        "content_json": "{\"text\":[{\"text\":\"synthetic-slate-404: second child reviewed body\",\"commentAnchorId\":\"5f108473-7af4-428c-82aa-d2d77ee37980\"}]}",
+        "tree_position": "a",
+        "revision_id": "01M6RBEQDPG6S99G1CMXJ9V1J6",
+        "created_at": "2026-11-06T11:56:09.452Z",
+        "updated_at": "2026-11-06T11:56:09.523Z"
+      },
+      {
+        "id": "5627b3d4-512c-42e8-9600-e3d06557a152",
+        "page_id": "01M6RBEQEAVWWAR2AB3QQ7G0P6",
+        "parent_block_id": null,
+        "block_type": "paragraph",
+        "content_json": "{\"text\":[{\"text\":\"synthetic-slate-404: first child reviewed body\",\"commentAnchorId\":\"f0467487-ec83-40cc-b5dd-55f0cbaa5759\"}]}",
+        "tree_position": "a",
+        "revision_id": "01M6RBEQGKD3QX08VN0JTQ47PE",
+        "created_at": "2026-11-06T11:56:09.543Z",
+        "updated_at": "2026-11-06T11:56:09.616Z"
+      },
+      {
+        "id": "f02cd4a6-9dc6-4bea-8711-add889c59494",
+        "page_id": "01M6RBEQH796FAW2TQX7G444SW",
+        "parent_block_id": null,
+        "block_type": "paragraph",
+        "content_json": "{\"text\":[{\"text\":\"synthetic-slate-404: grandchild reviewed body\",\"commentAnchorId\":\"aae631ba-aead-4a0b-945a-6457a02247f9\"}]}",
+        "tree_position": "a",
+        "revision_id": "01M6RBEQKJF3B9D4TDSX0M0TYH",
+        "created_at": "2026-11-06T11:56:09.636Z",
+        "updated_at": "2026-11-06T11:56:09.710Z"
+      }
+    ],
+    "page_revisions": [
+      {
+        "id": "01M6RBEQ98K84TC4J6Q7XK5HKW",
+        "page_id": "01M6RBEQ85GM7932YQS2VSR3SG",
+        "author_member_id": "browser-owner",
+        "origin": "autosave",
+        "content_hash": "1f10632712e33909bd3137430bb0bd67ff7f903a7818f89815268b7e1723f2ec",
+        "body_json": "[{\"id\":\"c3c5e4d2-8a62-47d2-9f4a-4cba286271a5\",\"pageId\":\"01M6RBEQ85GM7932YQS2VSR3SG\",\"parentBlockId\":null,\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"synthetic-slate-402: parent original body\",\"commentAnchorId\":\"261511c7-2094-4ddb-bc93-e2f814d78abf\"}]},\"treePosition\":\"a\",\"revisionId\":\"01M6RBEQ86MG1EXY96ZRW91XNF\"}]",
+        "properties_json": "{\"title\":\"Archive parent reviewed\",\"icon\":\"🗂️\",\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[\"synthetic-slate-403\",\"parent\"],\"typeface\":\"mono\",\"smallText\":false,\"fullWidth\":false}",
+        "status_key": null,
+        "ordinal": null,
+        "label": null,
+        "created_at": "2026-11-06T11:56:09.382Z",
+        "deleted_at": null,
+        "deleted_by_member_id": null
+      },
+      {
+        "id": "01M6RBEQ857B7E88JHSC8NVV1Z",
+        "page_id": "01M6RBEQ85GM7932YQS2VSR3SG",
+        "author_member_id": "browser-owner",
+        "origin": "autosave",
+        "content_hash": "5ac9ef9d5a1fab8248d32e9fc0597cf91bb2d100be799bb6be42574215eb5406",
+        "body_json": "[{\"id\":\"c3c5e4d2-8a62-47d2-9f4a-4cba286271a5\",\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"synthetic-slate-402: parent original body\",\"commentAnchorId\":\"261511c7-2094-4ddb-bc93-e2f814d78abf\"}]},\"treePosition\":\"a\",\"parentBlockId\":null,\"pageId\":\"01M6RBEQ85GM7932YQS2VSR3SG\",\"revisionId\":\"01M6RBEQ86MG1EXY96ZRW91XNF\"}]",
+        "properties_json": "{\"title\":\"Archive parent\",\"icon\":\"📚\",\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[\"synthetic-slate-401\",\"parent\"],\"typeface\":\"serif\",\"smallText\":false,\"fullWidth\":true}",
+        "status_key": null,
+        "ordinal": null,
+        "label": null,
+        "created_at": "2026-11-06T11:56:09.348Z",
+        "deleted_at": null,
+        "deleted_by_member_id": null
+      },
+      {
+        "id": "01M6RBEQAN1AP2WK654M5MGS67",
+        "page_id": "01M6RBEQ85GM7932YQS2VSR3SG",
+        "author_member_id": "browser-owner",
+        "origin": "autosave",
+        "content_hash": "ce3e2bda1e8992a909e47899be00517013cd789921277661100808114edf3c30",
+        "body_json": "[{\"id\":\"c3c5e4d2-8a62-47d2-9f4a-4cba286271a5\",\"pageId\":\"01M6RBEQ85GM7932YQS2VSR3SG\",\"parentBlockId\":null,\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"synthetic-slate-404: parent reviewed body\",\"commentAnchorId\":\"261511c7-2094-4ddb-bc93-e2f814d78abf\"}]},\"treePosition\":\"a\",\"revisionId\":\"01M6RBEQAQ4FM5YBC62QTAWC3K\"}]",
+        "properties_json": "{\"title\":\"Archive parent reviewed\",\"icon\":\"🗂️\",\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[\"parent\",\"synthetic-slate-403\"],\"typeface\":\"mono\",\"smallText\":false,\"fullWidth\":false}",
+        "status_key": null,
+        "ordinal": null,
+        "label": null,
+        "created_at": "2026-11-06T11:56:09.427Z",
+        "deleted_at": null,
+        "deleted_by_member_id": null
+      },
+      {
+        "id": "01M6RBEQBF944ZXXT1Q6P5TJM9",
+        "page_id": "01M6RBEQBFQ32N4KJ7E3D2C8N8",
+        "author_member_id": "browser-owner",
+        "origin": "autosave",
+        "content_hash": "0ff315cd2bbe7f3b1a3b293a611592e3380bc3274d32b10abc96c88594a01093",
+        "body_json": "[{\"id\":\"3fc720e9-3d79-4ffb-84c8-a1a6daac4df4\",\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"synthetic-slate-402: second child original body\",\"commentAnchorId\":\"5f108473-7af4-428c-82aa-d2d77ee37980\"}]},\"treePosition\":\"a\",\"parentBlockId\":null,\"pageId\":\"01M6RBEQBFQ32N4KJ7E3D2C8N8\",\"revisionId\":\"01M6RBEQBF10MB4M5GZZ2PY1RW\"}]",
+        "properties_json": "{\"title\":\"Archive second child\",\"icon\":\"📚\",\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[\"synthetic-slate-401\",\"second child\"],\"typeface\":\"serif\",\"smallText\":false,\"fullWidth\":true}",
+        "status_key": null,
+        "ordinal": null,
+        "label": null,
+        "created_at": "2026-11-06T11:56:09.452Z",
+        "deleted_at": null,
+        "deleted_by_member_id": null
+      },
+      {
+        "id": "01M6RBEQCEZ7CG1P8P1E4FNP17",
+        "page_id": "01M6RBEQBFQ32N4KJ7E3D2C8N8",
+        "author_member_id": "browser-owner",
+        "origin": "autosave",
+        "content_hash": "546e9547fdab6e3919696cebbd38b776c4a5e21ab00ed2bc9f4237edfa931563",
+        "body_json": "[{\"id\":\"3fc720e9-3d79-4ffb-84c8-a1a6daac4df4\",\"pageId\":\"01M6RBEQBFQ32N4KJ7E3D2C8N8\",\"parentBlockId\":null,\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"synthetic-slate-402: second child original body\",\"commentAnchorId\":\"5f108473-7af4-428c-82aa-d2d77ee37980\"}]},\"treePosition\":\"a\",\"revisionId\":\"01M6RBEQBF10MB4M5GZZ2PY1RW\"}]",
+        "properties_json": "{\"title\":\"Archive second child reviewed\",\"icon\":\"🗂️\",\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[\"synthetic-slate-403\",\"second child\"],\"typeface\":\"mono\",\"smallText\":false,\"fullWidth\":false}",
+        "status_key": null,
+        "ordinal": null,
+        "label": null,
+        "created_at": "2026-11-06T11:56:09.484Z",
+        "deleted_at": null,
+        "deleted_by_member_id": null
+      },
+      {
+        "id": "01M6RBEQDMN6YF6WGYF47CZT7M",
+        "page_id": "01M6RBEQBFQ32N4KJ7E3D2C8N8",
+        "author_member_id": "browser-owner",
+        "origin": "autosave",
+        "content_hash": "d05a00a79208fe325ebe4a8577e658c08d0a86812d10c90e8c96b98cc8646f9c",
+        "body_json": "[{\"id\":\"3fc720e9-3d79-4ffb-84c8-a1a6daac4df4\",\"pageId\":\"01M6RBEQBFQ32N4KJ7E3D2C8N8\",\"parentBlockId\":null,\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"synthetic-slate-404: second child reviewed body\",\"commentAnchorId\":\"5f108473-7af4-428c-82aa-d2d77ee37980\"}]},\"treePosition\":\"a\",\"revisionId\":\"01M6RBEQDPG6S99G1CMXJ9V1J6\"}]",
+        "properties_json": "{\"title\":\"Archive second child reviewed\",\"icon\":\"🗂️\",\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[\"second child\",\"synthetic-slate-403\"],\"typeface\":\"mono\",\"smallText\":false,\"fullWidth\":false}",
+        "status_key": null,
+        "ordinal": null,
+        "label": null,
+        "created_at": "2026-11-06T11:56:09.523Z",
+        "deleted_at": null,
+        "deleted_by_member_id": null
+      },
+      {
+        "id": "01M6RBEQXWFH6WPNQJTMWXBZ0C",
+        "page_id": "01M6RBEQBFQ32N4KJ7E3D2C8N8",
+        "author_member_id": "browser-owner",
+        "origin": "autosave",
+        "content_hash": "d05a00a79208fe325ebe4a8577e658c08d0a86812d10c90e8c96b98cc8646f9c",
+        "body_json": "[{\"id\":\"3fc720e9-3d79-4ffb-84c8-a1a6daac4df4\",\"pageId\":\"01M6RBEQBFQ32N4KJ7E3D2C8N8\",\"parentBlockId\":null,\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"synthetic-slate-404: second child reviewed body\",\"commentAnchorId\":\"5f108473-7af4-428c-82aa-d2d77ee37980\"}]},\"treePosition\":\"a\",\"revisionId\":\"01M6RBEQDPG6S99G1CMXJ9V1J6\"}]",
+        "properties_json": "{\"title\":\"Archive second child reviewed\",\"icon\":\"🗂️\",\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[\"second child\",\"synthetic-slate-403\"],\"typeface\":\"mono\",\"smallText\":false,\"fullWidth\":false}",
+        "status_key": null,
+        "ordinal": null,
+        "label": null,
+        "created_at": "2026-11-06T11:56:10.042Z",
+        "deleted_at": null,
+        "deleted_by_member_id": null
+      },
+      {
+        "id": "01M6RBEQGJSAYMRG314BQ1YD0C",
+        "page_id": "01M6RBEQEAVWWAR2AB3QQ7G0P6",
+        "author_member_id": "browser-owner",
+        "origin": "autosave",
+        "content_hash": "348872b30908d37db271a47e247b30b2cc81add4d11a74f85032ffb12e135f18",
+        "body_json": "[{\"id\":\"5627b3d4-512c-42e8-9600-e3d06557a152\",\"pageId\":\"01M6RBEQEAVWWAR2AB3QQ7G0P6\",\"parentBlockId\":null,\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"synthetic-slate-404: first child reviewed body\",\"commentAnchorId\":\"f0467487-ec83-40cc-b5dd-55f0cbaa5759\"}]},\"treePosition\":\"a\",\"revisionId\":\"01M6RBEQGKD3QX08VN0JTQ47PE\"}]",
+        "properties_json": "{\"title\":\"Archive first child reviewed\",\"icon\":\"🗂️\",\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[\"first child\",\"synthetic-slate-403\"],\"typeface\":\"mono\",\"smallText\":false,\"fullWidth\":false}",
+        "status_key": null,
+        "ordinal": null,
+        "label": null,
+        "created_at": "2026-11-06T11:56:09.616Z",
+        "deleted_at": null,
+        "deleted_by_member_id": null
+      },
+      {
+        "id": "01M6RBEQEAW0JEZV5X82P913E8",
+        "page_id": "01M6RBEQEAVWWAR2AB3QQ7G0P6",
+        "author_member_id": "browser-owner",
+        "origin": "autosave",
+        "content_hash": "cff12c0adc28c3fa9b05f466d06e47ec83638f8d3342e81e8bfe15cea934658f",
+        "body_json": "[{\"id\":\"5627b3d4-512c-42e8-9600-e3d06557a152\",\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"synthetic-slate-402: first child original body\",\"commentAnchorId\":\"f0467487-ec83-40cc-b5dd-55f0cbaa5759\"}]},\"treePosition\":\"a\",\"parentBlockId\":null,\"pageId\":\"01M6RBEQEAVWWAR2AB3QQ7G0P6\",\"revisionId\":\"01M6RBEQEBADMN57HTS0TWQJPT\"}]",
+        "properties_json": "{\"title\":\"Archive first child\",\"icon\":\"📚\",\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[\"synthetic-slate-401\",\"first child\"],\"typeface\":\"serif\",\"smallText\":false,\"fullWidth\":true}",
+        "status_key": null,
+        "ordinal": null,
+        "label": null,
+        "created_at": "2026-11-06T11:56:09.543Z",
+        "deleted_at": null,
+        "deleted_by_member_id": null
+      },
+      {
+        "id": "01M6RBEQFE9G98VE41H3VAKZZ1",
+        "page_id": "01M6RBEQEAVWWAR2AB3QQ7G0P6",
+        "author_member_id": "browser-owner",
+        "origin": "autosave",
+        "content_hash": "f52073298b4bdd590da38ad198aff627f6c874216380e2c10bffd1054e202c96",
+        "body_json": "[{\"id\":\"5627b3d4-512c-42e8-9600-e3d06557a152\",\"pageId\":\"01M6RBEQEAVWWAR2AB3QQ7G0P6\",\"parentBlockId\":null,\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"synthetic-slate-402: first child original body\",\"commentAnchorId\":\"f0467487-ec83-40cc-b5dd-55f0cbaa5759\"}]},\"treePosition\":\"a\",\"revisionId\":\"01M6RBEQEBADMN57HTS0TWQJPT\"}]",
+        "properties_json": "{\"title\":\"Archive first child reviewed\",\"icon\":\"🗂️\",\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[\"synthetic-slate-403\",\"first child\"],\"typeface\":\"mono\",\"smallText\":false,\"fullWidth\":false}",
+        "status_key": null,
+        "ordinal": null,
+        "label": null,
+        "created_at": "2026-11-06T11:56:09.580Z",
+        "deleted_at": null,
+        "deleted_by_member_id": null
+      },
+      {
+        "id": "01M6RBEQKGK5396MM8AX6P0C10",
+        "page_id": "01M6RBEQH796FAW2TQX7G444SW",
+        "author_member_id": "browser-owner",
+        "origin": "autosave",
+        "content_hash": "02a3086f4d6fb53e2f62bab0ad9c9d1a46238dc3e59a65337165eb3c89cab98b",
+        "body_json": "[{\"id\":\"f02cd4a6-9dc6-4bea-8711-add889c59494\",\"pageId\":\"01M6RBEQH796FAW2TQX7G444SW\",\"parentBlockId\":null,\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"synthetic-slate-404: grandchild reviewed body\",\"commentAnchorId\":\"aae631ba-aead-4a0b-945a-6457a02247f9\"}]},\"treePosition\":\"a\",\"revisionId\":\"01M6RBEQKJF3B9D4TDSX0M0TYH\"}]",
+        "properties_json": "{\"title\":\"Archive grandchild reviewed\",\"icon\":\"🗂️\",\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[\"grandchild\",\"synthetic-slate-403\"],\"typeface\":\"mono\",\"smallText\":false,\"fullWidth\":false}",
+        "status_key": null,
+        "ordinal": null,
+        "label": null,
+        "created_at": "2026-11-06T11:56:09.710Z",
+        "deleted_at": null,
+        "deleted_by_member_id": null
+      },
+      {
+        "id": "01M6RBEQJ51FD6N3PJ74FQNH1M",
+        "page_id": "01M6RBEQH796FAW2TQX7G444SW",
+        "author_member_id": "browser-owner",
+        "origin": "autosave",
+        "content_hash": "171c56413645cc6045f34134aba8f68d2bf649d536bdfb7ebe28a56ff7288a11",
+        "body_json": "[{\"id\":\"f02cd4a6-9dc6-4bea-8711-add889c59494\",\"pageId\":\"01M6RBEQH796FAW2TQX7G444SW\",\"parentBlockId\":null,\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"synthetic-slate-402: grandchild original body\",\"commentAnchorId\":\"aae631ba-aead-4a0b-945a-6457a02247f9\"}]},\"treePosition\":\"a\",\"revisionId\":\"01M6RBEQH7883MZ6Q6BAAQJFH8\"}]",
+        "properties_json": "{\"title\":\"Archive grandchild reviewed\",\"icon\":\"🗂️\",\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[\"synthetic-slate-403\",\"grandchild\"],\"typeface\":\"mono\",\"smallText\":false,\"fullWidth\":false}",
+        "status_key": null,
+        "ordinal": null,
+        "label": null,
+        "created_at": "2026-11-06T11:56:09.667Z",
+        "deleted_at": null,
+        "deleted_by_member_id": null
+      },
+      {
+        "id": "01M6RBEQH70YG3A3E0DQW7V1S8",
+        "page_id": "01M6RBEQH796FAW2TQX7G444SW",
+        "author_member_id": "browser-owner",
+        "origin": "autosave",
+        "content_hash": "d7b0a28339301c92ab16402869aa10f2aa58230a67d7571661ceaffe2c49ce94",
+        "body_json": "[{\"id\":\"f02cd4a6-9dc6-4bea-8711-add889c59494\",\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"synthetic-slate-402: grandchild original body\",\"commentAnchorId\":\"aae631ba-aead-4a0b-945a-6457a02247f9\"}]},\"treePosition\":\"a\",\"parentBlockId\":null,\"pageId\":\"01M6RBEQH796FAW2TQX7G444SW\",\"revisionId\":\"01M6RBEQH7883MZ6Q6BAAQJFH8\"}]",
+        "properties_json": "{\"title\":\"Archive grandchild\",\"icon\":\"📚\",\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[\"synthetic-slate-401\",\"grandchild\"],\"typeface\":\"serif\",\"smallText\":false,\"fullWidth\":true}",
+        "status_key": null,
+        "ordinal": null,
+        "label": null,
+        "created_at": "2026-11-06T11:56:09.636Z",
+        "deleted_at": null,
+        "deleted_by_member_id": null
+      }
+    ],
+    "page_labels": [
+      {
+        "page_id": "01M6RBEQ85GM7932YQS2VSR3SG",
+        "label": "parent",
+        "created_at": "2026-11-06T11:56:09.382Z"
+      },
+      {
+        "page_id": "01M6RBEQ85GM7932YQS2VSR3SG",
+        "label": "synthetic-slate-403",
+        "created_at": "2026-11-06T11:56:09.382Z"
+      },
+      {
+        "page_id": "01M6RBEQBFQ32N4KJ7E3D2C8N8",
+        "label": "second child",
+        "created_at": "2026-11-06T11:56:09.484Z"
+      },
+      {
+        "page_id": "01M6RBEQBFQ32N4KJ7E3D2C8N8",
+        "label": "synthetic-slate-403",
+        "created_at": "2026-11-06T11:56:09.484Z"
+      },
+      {
+        "page_id": "01M6RBEQEAVWWAR2AB3QQ7G0P6",
+        "label": "first child",
+        "created_at": "2026-11-06T11:56:09.580Z"
+      },
+      {
+        "page_id": "01M6RBEQEAVWWAR2AB3QQ7G0P6",
+        "label": "synthetic-slate-403",
+        "created_at": "2026-11-06T11:56:09.580Z"
+      },
+      {
+        "page_id": "01M6RBEQH796FAW2TQX7G444SW",
+        "label": "grandchild",
+        "created_at": "2026-11-06T11:56:09.667Z"
+      },
+      {
+        "page_id": "01M6RBEQH796FAW2TQX7G444SW",
+        "label": "synthetic-slate-403",
+        "created_at": "2026-11-06T11:56:09.667Z"
+      }
+    ],
+    "page_grants": [
+      {
+        "id": "01M6RBEQM6WQXF95M6KQKC5P57",
+        "page_id": "01M6RBEQ85GM7932YQS2VSR3SG",
+        "principal_kind": "member",
+        "principal_id": "browser-reader",
+        "level": "edit",
+        "expires_at": null,
+        "revoked_at": null,
+        "created_at": "2026-11-06T11:56:09.730Z",
+        "updated_at": "2026-11-06T11:56:09.887Z"
+      },
+      {
+        "id": "01M6RBEQWXR62Z8J9SVQMD330F",
+        "page_id": "01M6RBEQBFQ32N4KJ7E3D2C8N8",
+        "principal_kind": "member",
+        "principal_id": "browser-owner",
+        "level": "full",
+        "expires_at": null,
+        "revoked_at": null,
+        "created_at": "2026-11-06T11:56:10.009Z",
+        "updated_at": "2026-11-06T11:56:10.009Z"
+      },
+      {
+        "id": "01M6RBEQVEYTASE2NX1BXX98AJ",
+        "page_id": "01M6RBEQBFQ32N4KJ7E3D2C8N8",
+        "principal_kind": "member",
+        "principal_id": "browser-reader",
+        "level": "edit",
+        "expires_at": null,
+        "revoked_at": "2026-11-06T11:56:09.990Z",
+        "created_at": "2026-11-06T11:56:09.962Z",
+        "updated_at": "2026-11-06T11:56:09.990Z"
+      },
+      {
+        "id": "01M6RBEQMXKCYTWW7A2FQ13KY9",
+        "page_id": "01M6RBEQEAVWWAR2AB3QQ7G0P6",
+        "principal_kind": "group",
+        "principal_id": "01M6RBEQ7JDF8H3K7RJEXXZK6B",
+        "level": "comment",
+        "expires_at": null,
+        "revoked_at": null,
+        "created_at": "2026-11-06T11:56:09.754Z",
+        "updated_at": "2026-11-06T11:56:09.930Z"
+      }
+    ],
+    "comment_threads": [
+      {
+        "id": "01M6RBEQYXTKANVMMMMSGWNS1X",
+        "workspace_id": "browser-workspace",
+        "page_id": "01M6RBEQ85GM7932YQS2VSR3SG",
+        "kind": "inline",
+        "block_id": "c3c5e4d2-8a62-47d2-9f4a-4cba286271a5",
+        "anchor_json": "{\"anchorId\":\"261511c7-2094-4ddb-bc93-e2f814d78abf\",\"quote\":\"synthetic-slate-404: parent reviewed body\"}",
+        "anchor_revision_id": "01M6RBEQAN1AP2WK654M5MGS67",
+        "state": "resolved",
+        "resolved_at": "2026-11-06T11:56:10.163Z",
+        "resolved_by_member_id": "browser-owner",
+        "created_at": "2026-11-06T11:56:10.072Z",
+        "updated_at": "2026-11-06T11:56:10.163Z",
+        "revision_id": "01M6RBER1NA03SN5GFQY13KHH8",
+        "orphaned": 0
+      }
+    ],
+    "comments": [
+      {
+        "id": "01M6RBEQYXT14V2ME11XC38JCJ",
+        "thread_id": "01M6RBEQYXTKANVMMMMSGWNS1X",
+        "parent_comment_id": null,
+        "author_member_id": "browser-owner",
+        "body_json": "[{\"text\":\"synthetic-slate-408: edited anchored discussion\"}]",
+        "created_at": "2026-11-06T11:56:10.072Z",
+        "updated_at": "2026-11-06T11:56:10.134Z",
+        "deleted_at": null,
+        "revision_id": "01M6RBER0SV8BG3MS522AATDJK"
+      },
+      {
+        "id": "01M6RBEQZRRNFJYAQXKDC4HVTW",
+        "thread_id": "01M6RBEQYXTKANVMMMMSGWNS1X",
+        "parent_comment_id": "01M6RBEQYXT14V2ME11XC38JCJ",
+        "author_member_id": "browser-owner",
+        "body_json": "[{\"text\":\"synthetic-slate-406: preserve this reply\"}]",
+        "created_at": "2026-11-06T11:56:10.097Z",
+        "updated_at": "2026-11-06T11:56:10.097Z",
+        "deleted_at": null,
+        "revision_id": "01M6RBEQZNH421WQ2F5786Y9RH"
+      }
+    ],
+    "files": [
+      {
+        "id": "01M6RBER3AXPSYQ1SWPKT71C4C",
+        "workspace_id": "browser-workspace",
+        "page_id": "01M6RBEQ85GM7932YQS2VSR3SG",
+        "storage_key": "pages/browser-workspace/01M6RBEQ85GM7932YQS2VSR3SG/01M6RBER3AXPSYQ1SWPKT71C4C",
+        "original_name": "archive-notes.txt",
+        "content_type": "text/plain",
+        "size_bytes": 60,
+        "created_at": "2026-11-06T11:56:10.213Z",
+        "deleted_at": null
+      },
+      {
+        "id": "01M6RBER47GW4DFX27W1MFYZ42",
+        "workspace_id": "browser-workspace",
+        "page_id": "01M6RBEQH796FAW2TQX7G444SW",
+        "storage_key": "pages/browser-workspace/01M6RBEQH796FAW2TQX7G444SW/01M6RBER47GW4DFX27W1MFYZ42",
+        "original_name": "archive-original.png",
+        "content_type": "image/png",
+        "size_bytes": 68,
+        "created_at": "2026-11-06T11:56:10.241Z",
+        "deleted_at": null
+      }
+    ],
+    "record_revisions": [
+      {
+        "id": "01M6RBER1NA03SN5GFQY13KHH8",
+        "workspace_id": "browser-workspace",
+        "entity_kind": "comment-thread",
+        "entity_id": "01M6RBEQYXTKANVMMMMSGWNS1X",
+        "ordinal": null,
+        "content_hash": "cb8b24b7e681bab2ca8ccd5e5b51a64931557081bbe3a8b93f90ebda4be27386",
+        "content_json": "{\"resolved\":true}",
+        "author_member_id": "browser-owner",
+        "created_at": "2026-11-06T11:56:10.163Z"
+      },
+      {
+        "id": "01M6RBER0SV8BG3MS522AATDJK",
+        "workspace_id": "browser-workspace",
+        "entity_kind": "comment-thread",
+        "entity_id": "01M6RBEQYXTKANVMMMMSGWNS1X",
+        "ordinal": null,
+        "content_hash": "eaf5818f87704f70addec4a8dc59024627a18acb827dc92bd069eff33b704d7b",
+        "content_json": "{\"id\":\"01M6RBEQYXT14V2ME11XC38JCJ\",\"body\":[{\"text\":\"synthetic-slate-408: edited anchored discussion\"}],\"deleted\":false}",
+        "author_member_id": "browser-owner",
+        "created_at": "2026-11-06T11:56:10.134Z"
+      },
+      {
+        "id": "01M6RBEQZNH421WQ2F5786Y9RH",
+        "workspace_id": "browser-workspace",
+        "entity_kind": "comment-thread",
+        "entity_id": "01M6RBEQYXTKANVMMMMSGWNS1X",
+        "ordinal": null,
+        "content_hash": "21f3f59ee47f223460fcb728127385ff2f1652b2d4cf95d2b34adedcd0db86fa",
+        "content_json": "[{\"text\":\"synthetic-slate-406: preserve this reply\"}]",
+        "author_member_id": "browser-owner",
+        "created_at": "2026-11-06T11:56:10.097Z"
+      },
+      {
+        "id": "01M6RBEQYTQY1K1SNAG9GR6J9J",
+        "workspace_id": "browser-workspace",
+        "entity_kind": "comment-thread",
+        "entity_id": "01M6RBEQYXTKANVMMMMSGWNS1X",
+        "ordinal": null,
+        "content_hash": "7965dcd8acb7f69c693e6eff1d2a9d76e4d401540c9cb77b3d049af442b9e345",
+        "content_json": "[{\"text\":\"synthetic-slate-405: preserve this anchored discussion\"}]",
+        "author_member_id": "browser-owner",
+        "created_at": "2026-11-06T11:56:10.072Z"
+      }
+    ],
+    "core_entity_revisions": [
+      {
+        "id": "01M6RBEQM4W2ZTPTQ9TXQMKSDQ",
+        "workspace_id": "browser-workspace",
+        "entity_kind": "page-grant",
+        "entity_id": "01M6RBEQM6WQXF95M6KQKC5P57",
+        "content_hash": "a970b5e469ea91d2205a47f81ed3be1c37eb893121a34e9ba3129a4dedd2835e",
+        "content_json": "{\"targetId\":\"01M6RBEQ85GM7932YQS2VSR3SG\",\"principalKind\":\"member\",\"principalId\":\"browser-reader\",\"level\":\"comment\",\"expiresAt\":null,\"revoked\":false}",
+        "author_member_id": "browser-owner",
+        "created_at": "2026-11-06T11:56:09.730Z"
+      },
+      {
+        "id": "01M6RBEQS1G297MQ7CYPC9K8YZ",
+        "workspace_id": "browser-workspace",
+        "entity_kind": "page-grant",
+        "entity_id": "01M6RBEQM6WQXF95M6KQKC5P57",
+        "content_hash": "19d6fc12e46b7e44fc2ce0ae810eacc80b4968d6176b0eab3a5579c8ac8935ad",
+        "content_json": "{\"targetId\":\"01M6RBEQ85GM7932YQS2VSR3SG\",\"principalKind\":\"member\",\"principalId\":\"browser-reader\",\"level\":\"edit\",\"expiresAt\":null,\"revoked\":false}",
+        "author_member_id": "browser-owner",
+        "created_at": "2026-11-06T11:56:09.887Z"
+      },
+      {
+        "id": "01M6RBEQMWA143YTT7KYKWD6JT",
+        "workspace_id": "browser-workspace",
+        "entity_kind": "page-grant",
+        "entity_id": "01M6RBEQMXKCYTWW7A2FQ13KY9",
+        "content_hash": "df7edce392f9d8eba3540ece04ba8f219a819c4a17122a0da576fe4145426fea",
+        "content_json": "{\"targetId\":\"01M6RBEQEAVWWAR2AB3QQ7G0P6\",\"principalKind\":\"group\",\"principalId\":\"01M6RBEQ7JDF8H3K7RJEXXZK6B\",\"level\":\"view\",\"expiresAt\":null,\"revoked\":false}",
+        "author_member_id": "browser-owner",
+        "created_at": "2026-11-06T11:56:09.754Z"
+      },
+      {
+        "id": "01M6RBEQSWRRREFZHMTK2TW290",
+        "workspace_id": "browser-workspace",
+        "entity_kind": "page-grant",
+        "entity_id": "01M6RBEQMXKCYTWW7A2FQ13KY9",
+        "content_hash": "a6cbeebcd5fec5d260eabd89117264a76d977abefe74813a8b7cdc86ec87e65a",
+        "content_json": "{\"targetId\":\"01M6RBEQEAVWWAR2AB3QQ7G0P6\",\"principalKind\":\"group\",\"principalId\":\"01M6RBEQ7JDF8H3K7RJEXXZK6B\",\"level\":\"view\",\"expiresAt\":null,\"revoked\":true}",
+        "author_member_id": "browser-owner",
+        "created_at": "2026-11-06T11:56:09.913Z"
+      },
+      {
+        "id": "01M6RBEQTDQ9M3138737CZW4HQ",
+        "workspace_id": "browser-workspace",
+        "entity_kind": "page-grant",
+        "entity_id": "01M6RBEQMXKCYTWW7A2FQ13KY9",
+        "content_hash": "0d3952b10a648132f279fa451ce8eea24fd06023617aedfbe60a5a953140bc6e",
+        "content_json": "{\"targetId\":\"01M6RBEQEAVWWAR2AB3QQ7G0P6\",\"principalKind\":\"group\",\"principalId\":\"01M6RBEQ7JDF8H3K7RJEXXZK6B\",\"level\":\"comment\",\"expiresAt\":null,\"revoked\":false}",
+        "author_member_id": "browser-owner",
+        "created_at": "2026-11-06T11:56:09.930Z"
+      },
+      {
+        "id": "01M6RBEQVC938J6QPDHQHCPVVP",
+        "workspace_id": "browser-workspace",
+        "entity_kind": "page-grant",
+        "entity_id": "01M6RBEQVEYTASE2NX1BXX98AJ",
+        "content_hash": "3ea615c8a390a7247514cefd998bf8eec39860081ce1aa526886993d183a1a73",
+        "content_json": "{\"targetId\":\"01M6RBEQBFQ32N4KJ7E3D2C8N8\",\"principalKind\":\"member\",\"principalId\":\"browser-reader\",\"level\":\"edit\",\"expiresAt\":null,\"revoked\":false}",
+        "author_member_id": "browser-owner",
+        "created_at": "2026-11-06T11:56:09.962Z"
+      },
+      {
+        "id": "01M6RBEQW8CR8ZY2BXT6T8HDS3",
+        "workspace_id": "browser-workspace",
+        "entity_kind": "page-grant",
+        "entity_id": "01M6RBEQVEYTASE2NX1BXX98AJ",
+        "content_hash": "64484b1c45a8db602c3e552c70000b6f3377506ef80207ec3b406195fb7a6422",
+        "content_json": "{\"targetId\":\"01M6RBEQBFQ32N4KJ7E3D2C8N8\",\"principalKind\":\"member\",\"principalId\":\"browser-reader\",\"level\":\"edit\",\"expiresAt\":null,\"revoked\":true}",
+        "author_member_id": "browser-owner",
+        "created_at": "2026-11-06T11:56:09.990Z"
+      },
+      {
+        "id": "01M6RBEQWWW78DPKWN8BATCZB7",
+        "workspace_id": "browser-workspace",
+        "entity_kind": "page-grant",
+        "entity_id": "01M6RBEQWXR62Z8J9SVQMD330F",
+        "content_hash": "c1db8413b21e48df247946145230afe0d349eece8021e18459a31e1ba375c72e",
+        "content_json": "{\"targetId\":\"01M6RBEQBFQ32N4KJ7E3D2C8N8\",\"principalKind\":\"member\",\"principalId\":\"browser-owner\",\"level\":\"full\",\"expiresAt\":null,\"revoked\":false}",
+        "author_member_id": "browser-owner",
+        "created_at": "2026-11-06T11:56:10.009Z"
+      },
+      {
+        "id": "01M6RBEQ7JX6D5NSVSM2WFTF58",
+        "workspace_id": "browser-workspace",
+        "entity_kind": "group",
+        "entity_id": "01M6RBEQ7JDF8H3K7RJEXXZK6B",
+        "content_hash": "9ebd0396403be55cb537bc4ed59dc6fc78c46a3bc686bf67b22671633c0aabe8",
+        "content_json": "{\"name\":\"Archive review team\",\"memberIds\":[\"browser-reader\"],\"deleted\":false}",
+        "author_member_id": "browser-owner",
+        "created_at": "2026-11-06T11:56:09.328Z"
+      }
+    ],
+    "groups": [
+      {
+        "id": "01M6RBEQ7JDF8H3K7RJEXXZK6B",
+        "workspace_id": "browser-workspace",
+        "name": "Archive review team",
+        "created_at": "2026-11-06T11:56:09.328Z",
+        "updated_at": "2026-11-06T11:56:09.328Z",
+        "revision_id": "01M6RBEQ7JX6D5NSVSM2WFTF58"
+      }
+    ],
+    "group_members": [
+      {
+        "group_id": "01M6RBEQ7JDF8H3K7RJEXXZK6B",
+        "member_id": "browser-reader",
+        "created_at": "2026-11-06T11:56:09.328Z"
+      }
+    ]
+  },
+  "archived": {
+    "pages": [
+      {
+        "id": "01M6RBEQ85GM7932YQS2VSR3SG",
+        "workspace_id": "browser-workspace",
+        "container_id": "01M6RBCEV93VWZNBACD4T70V95",
+        "parent_page_id": null,
+        "database_id": null,
+        "page_kind": "page",
+        "title": "Archive parent reviewed",
+        "icon": "🗂️",
+        "cover_file_id": null,
+        "author_member_id": "browser-owner",
+        "owner_member_id": "browser-owner",
+        "lifecycle": "live",
+        "working_revision_id": "01M6RBEQAN1AP2WK654M5MGS67",
+        "published_revision_id": "01M6RBEQAN1AP2WK654M5MGS67",
+        "status_key": null,
+        "tree_position": "archive-a",
+        "access_inheritance": "inherit",
+        "typeface": "mono",
+        "small_text": 0,
+        "full_width": 0,
+        "archived_at": null,
+        "trashed_at": null,
+        "deleted_at": null,
+        "created_at": "2026-11-06T11:56:09.348Z",
+        "updated_at": "2026-11-06T11:56:09.427Z",
+        "revision_id": "01M6RBEQAN1AP2WK654M5MGS67",
+        "locked_at": null,
+        "locked_by_member_id": null
+      },
+      {
+        "id": "01M6RBEQBFQ32N4KJ7E3D2C8N8",
+        "workspace_id": "browser-workspace",
+        "container_id": "01M6RBCEV93VWZNBACD4T70V95",
+        "parent_page_id": "01M6RBEQ85GM7932YQS2VSR3SG",
+        "database_id": null,
+        "page_kind": "page",
+        "title": "Archive second child reviewed",
+        "icon": "🗂️",
+        "cover_file_id": null,
+        "author_member_id": "browser-owner",
+        "owner_member_id": "browser-owner",
+        "lifecycle": "live",
+        "working_revision_id": "01M6RBEQDMN6YF6WGYF47CZT7M",
+        "published_revision_id": "01M6RBEQDMN6YF6WGYF47CZT7M",
+        "status_key": null,
+        "tree_position": "b",
+        "access_inheritance": "restricted",
+        "typeface": "mono",
+        "small_text": 0,
+        "full_width": 0,
+        "archived_at": null,
+        "trashed_at": null,
+        "deleted_at": null,
+        "created_at": "2026-11-06T11:56:09.452Z",
+        "updated_at": "2026-11-06T11:56:10.042Z",
+        "revision_id": "01M6RBEQXWFH6WPNQJTMWXBZ0C",
+        "locked_at": null,
+        "locked_by_member_id": null
+      },
+      {
+        "id": "01M6RBEQEAVWWAR2AB3QQ7G0P6",
+        "workspace_id": "browser-workspace",
+        "container_id": "01M6RBCEV93VWZNBACD4T70V95",
+        "parent_page_id": "01M6RBEQ85GM7932YQS2VSR3SG",
+        "database_id": null,
+        "page_kind": "page",
+        "title": "Archive first child reviewed",
+        "icon": "🗂️",
+        "cover_file_id": null,
+        "author_member_id": "browser-owner",
+        "owner_member_id": "browser-owner",
+        "lifecycle": "live",
+        "working_revision_id": "01M6RBEQGJSAYMRG314BQ1YD0C",
+        "published_revision_id": "01M6RBEQGJSAYMRG314BQ1YD0C",
+        "status_key": null,
+        "tree_position": "a",
+        "access_inheritance": "inherit",
+        "typeface": "mono",
+        "small_text": 0,
+        "full_width": 0,
+        "archived_at": null,
+        "trashed_at": null,
+        "deleted_at": null,
+        "created_at": "2026-11-06T11:56:09.543Z",
+        "updated_at": "2026-11-06T11:56:09.616Z",
+        "revision_id": "01M6RBEQGJSAYMRG314BQ1YD0C",
+        "locked_at": null,
+        "locked_by_member_id": null
+      },
+      {
+        "id": "01M6RBEQH796FAW2TQX7G444SW",
+        "workspace_id": "browser-workspace",
+        "container_id": "01M6RBCEV93VWZNBACD4T70V95",
+        "parent_page_id": "01M6RBEQEAVWWAR2AB3QQ7G0P6",
+        "database_id": null,
+        "page_kind": "page",
+        "title": "Archive grandchild reviewed",
+        "icon": "🗂️",
+        "cover_file_id": null,
+        "author_member_id": "browser-owner",
+        "owner_member_id": "browser-owner",
+        "lifecycle": "live",
+        "working_revision_id": "01M6RBEQKGK5396MM8AX6P0C10",
+        "published_revision_id": "01M6RBEQKGK5396MM8AX6P0C10",
+        "status_key": null,
+        "tree_position": "a",
+        "access_inheritance": "inherit",
+        "typeface": "mono",
+        "small_text": 0,
+        "full_width": 0,
+        "archived_at": null,
+        "trashed_at": null,
+        "deleted_at": null,
+        "created_at": "2026-11-06T11:56:09.636Z",
+        "updated_at": "2026-11-06T11:56:09.710Z",
+        "revision_id": "01M6RBEQKGK5396MM8AX6P0C10",
+        "locked_at": null,
+        "locked_by_member_id": null
+      }
+    ],
+    "page_blocks": [
+      {
+        "id": "c3c5e4d2-8a62-47d2-9f4a-4cba286271a5",
+        "page_id": "01M6RBEQ85GM7932YQS2VSR3SG",
+        "parent_block_id": null,
+        "block_type": "paragraph",
+        "content_json": "{\"text\":[{\"text\":\"synthetic-slate-404: parent reviewed body\",\"commentAnchorId\":\"261511c7-2094-4ddb-bc93-e2f814d78abf\"}]}",
+        "tree_position": "a",
+        "revision_id": "01M6RBEQAQ4FM5YBC62QTAWC3K",
+        "created_at": "2026-11-06T11:56:09.348Z",
+        "updated_at": "2026-11-06T11:56:09.427Z"
+      },
+      {
+        "id": "3fc720e9-3d79-4ffb-84c8-a1a6daac4df4",
+        "page_id": "01M6RBEQBFQ32N4KJ7E3D2C8N8",
+        "parent_block_id": null,
+        "block_type": "paragraph",
+        "content_json": "{\"text\":[{\"text\":\"synthetic-slate-404: second child reviewed body\",\"commentAnchorId\":\"5f108473-7af4-428c-82aa-d2d77ee37980\"}]}",
+        "tree_position": "a",
+        "revision_id": "01M6RBEQDPG6S99G1CMXJ9V1J6",
+        "created_at": "2026-11-06T11:56:09.452Z",
+        "updated_at": "2026-11-06T11:56:09.523Z"
+      },
+      {
+        "id": "5627b3d4-512c-42e8-9600-e3d06557a152",
+        "page_id": "01M6RBEQEAVWWAR2AB3QQ7G0P6",
+        "parent_block_id": null,
+        "block_type": "paragraph",
+        "content_json": "{\"text\":[{\"text\":\"synthetic-slate-404: first child reviewed body\",\"commentAnchorId\":\"f0467487-ec83-40cc-b5dd-55f0cbaa5759\"}]}",
+        "tree_position": "a",
+        "revision_id": "01M6RBEQGKD3QX08VN0JTQ47PE",
+        "created_at": "2026-11-06T11:56:09.543Z",
+        "updated_at": "2026-11-06T11:56:09.616Z"
+      },
+      {
+        "id": "f02cd4a6-9dc6-4bea-8711-add889c59494",
+        "page_id": "01M6RBEQH796FAW2TQX7G444SW",
+        "parent_block_id": null,
+        "block_type": "paragraph",
+        "content_json": "{\"text\":[{\"text\":\"synthetic-slate-404: grandchild reviewed body\",\"commentAnchorId\":\"aae631ba-aead-4a0b-945a-6457a02247f9\"}]}",
+        "tree_position": "a",
+        "revision_id": "01M6RBEQKJF3B9D4TDSX0M0TYH",
+        "created_at": "2026-11-06T11:56:09.636Z",
+        "updated_at": "2026-11-06T11:56:09.710Z"
+      }
+    ],
+    "page_revisions": [
+      {
+        "id": "01M6RBEQ857B7E88JHSC8NVV1Z",
+        "page_id": "01M6RBEQ85GM7932YQS2VSR3SG",
+        "author_member_id": "browser-owner",
+        "origin": "autosave",
+        "content_hash": "5ac9ef9d5a1fab8248d32e9fc0597cf91bb2d100be799bb6be42574215eb5406",
+        "body_json": "[{\"id\":\"c3c5e4d2-8a62-47d2-9f4a-4cba286271a5\",\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"synthetic-slate-402: parent original body\",\"commentAnchorId\":\"261511c7-2094-4ddb-bc93-e2f814d78abf\"}]},\"treePosition\":\"a\",\"parentBlockId\":null,\"pageId\":\"01M6RBEQ85GM7932YQS2VSR3SG\",\"revisionId\":\"01M6RBEQ86MG1EXY96ZRW91XNF\"}]",
+        "properties_json": "{\"title\":\"Archive parent\",\"icon\":\"📚\",\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[\"synthetic-slate-401\",\"parent\"],\"typeface\":\"serif\",\"smallText\":false,\"fullWidth\":true}",
+        "status_key": null,
+        "ordinal": null,
+        "label": null,
+        "created_at": "2026-11-06T11:56:09.348Z",
+        "deleted_at": null,
+        "deleted_by_member_id": null
+      },
+      {
+        "id": "01M6RBEQ98K84TC4J6Q7XK5HKW",
+        "page_id": "01M6RBEQ85GM7932YQS2VSR3SG",
+        "author_member_id": "browser-owner",
+        "origin": "autosave",
+        "content_hash": "1f10632712e33909bd3137430bb0bd67ff7f903a7818f89815268b7e1723f2ec",
+        "body_json": "[{\"id\":\"c3c5e4d2-8a62-47d2-9f4a-4cba286271a5\",\"pageId\":\"01M6RBEQ85GM7932YQS2VSR3SG\",\"parentBlockId\":null,\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"synthetic-slate-402: parent original body\",\"commentAnchorId\":\"261511c7-2094-4ddb-bc93-e2f814d78abf\"}]},\"treePosition\":\"a\",\"revisionId\":\"01M6RBEQ86MG1EXY96ZRW91XNF\"}]",
+        "properties_json": "{\"title\":\"Archive parent reviewed\",\"icon\":\"🗂️\",\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[\"synthetic-slate-403\",\"parent\"],\"typeface\":\"mono\",\"smallText\":false,\"fullWidth\":false}",
+        "status_key": null,
+        "ordinal": null,
+        "label": null,
+        "created_at": "2026-11-06T11:56:09.382Z",
+        "deleted_at": null,
+        "deleted_by_member_id": null
+      },
+      {
+        "id": "01M6RBEQAN1AP2WK654M5MGS67",
+        "page_id": "01M6RBEQ85GM7932YQS2VSR3SG",
+        "author_member_id": "browser-owner",
+        "origin": "autosave",
+        "content_hash": "ce3e2bda1e8992a909e47899be00517013cd789921277661100808114edf3c30",
+        "body_json": "[{\"id\":\"c3c5e4d2-8a62-47d2-9f4a-4cba286271a5\",\"pageId\":\"01M6RBEQ85GM7932YQS2VSR3SG\",\"parentBlockId\":null,\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"synthetic-slate-404: parent reviewed body\",\"commentAnchorId\":\"261511c7-2094-4ddb-bc93-e2f814d78abf\"}]},\"treePosition\":\"a\",\"revisionId\":\"01M6RBEQAQ4FM5YBC62QTAWC3K\"}]",
+        "properties_json": "{\"title\":\"Archive parent reviewed\",\"icon\":\"🗂️\",\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[\"parent\",\"synthetic-slate-403\"],\"typeface\":\"mono\",\"smallText\":false,\"fullWidth\":false}",
+        "status_key": null,
+        "ordinal": null,
+        "label": null,
+        "created_at": "2026-11-06T11:56:09.427Z",
+        "deleted_at": null,
+        "deleted_by_member_id": null
+      },
+      {
+        "id": "01M6RBEQBF944ZXXT1Q6P5TJM9",
+        "page_id": "01M6RBEQBFQ32N4KJ7E3D2C8N8",
+        "author_member_id": "browser-owner",
+        "origin": "autosave",
+        "content_hash": "0ff315cd2bbe7f3b1a3b293a611592e3380bc3274d32b10abc96c88594a01093",
+        "body_json": "[{\"id\":\"3fc720e9-3d79-4ffb-84c8-a1a6daac4df4\",\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"synthetic-slate-402: second child original body\",\"commentAnchorId\":\"5f108473-7af4-428c-82aa-d2d77ee37980\"}]},\"treePosition\":\"a\",\"parentBlockId\":null,\"pageId\":\"01M6RBEQBFQ32N4KJ7E3D2C8N8\",\"revisionId\":\"01M6RBEQBF10MB4M5GZZ2PY1RW\"}]",
+        "properties_json": "{\"title\":\"Archive second child\",\"icon\":\"📚\",\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[\"synthetic-slate-401\",\"second child\"],\"typeface\":\"serif\",\"smallText\":false,\"fullWidth\":true}",
+        "status_key": null,
+        "ordinal": null,
+        "label": null,
+        "created_at": "2026-11-06T11:56:09.452Z",
+        "deleted_at": null,
+        "deleted_by_member_id": null
+      },
+      {
+        "id": "01M6RBEQCEZ7CG1P8P1E4FNP17",
+        "page_id": "01M6RBEQBFQ32N4KJ7E3D2C8N8",
+        "author_member_id": "browser-owner",
+        "origin": "autosave",
+        "content_hash": "546e9547fdab6e3919696cebbd38b776c4a5e21ab00ed2bc9f4237edfa931563",
+        "body_json": "[{\"id\":\"3fc720e9-3d79-4ffb-84c8-a1a6daac4df4\",\"pageId\":\"01M6RBEQBFQ32N4KJ7E3D2C8N8\",\"parentBlockId\":null,\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"synthetic-slate-402: second child original body\",\"commentAnchorId\":\"5f108473-7af4-428c-82aa-d2d77ee37980\"}]},\"treePosition\":\"a\",\"revisionId\":\"01M6RBEQBF10MB4M5GZZ2PY1RW\"}]",
+        "properties_json": "{\"title\":\"Archive second child reviewed\",\"icon\":\"🗂️\",\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[\"synthetic-slate-403\",\"second child\"],\"typeface\":\"mono\",\"smallText\":false,\"fullWidth\":false}",
+        "status_key": null,
+        "ordinal": null,
+        "label": null,
+        "created_at": "2026-11-06T11:56:09.484Z",
+        "deleted_at": null,
+        "deleted_by_member_id": null
+      },
+      {
+        "id": "01M6RBEQDMN6YF6WGYF47CZT7M",
+        "page_id": "01M6RBEQBFQ32N4KJ7E3D2C8N8",
+        "author_member_id": "browser-owner",
+        "origin": "autosave",
+        "content_hash": "d05a00a79208fe325ebe4a8577e658c08d0a86812d10c90e8c96b98cc8646f9c",
+        "body_json": "[{\"id\":\"3fc720e9-3d79-4ffb-84c8-a1a6daac4df4\",\"pageId\":\"01M6RBEQBFQ32N4KJ7E3D2C8N8\",\"parentBlockId\":null,\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"synthetic-slate-404: second child reviewed body\",\"commentAnchorId\":\"5f108473-7af4-428c-82aa-d2d77ee37980\"}]},\"treePosition\":\"a\",\"revisionId\":\"01M6RBEQDPG6S99G1CMXJ9V1J6\"}]",
+        "properties_json": "{\"title\":\"Archive second child reviewed\",\"icon\":\"🗂️\",\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[\"second child\",\"synthetic-slate-403\"],\"typeface\":\"mono\",\"smallText\":false,\"fullWidth\":false}",
+        "status_key": null,
+        "ordinal": null,
+        "label": null,
+        "created_at": "2026-11-06T11:56:09.523Z",
+        "deleted_at": null,
+        "deleted_by_member_id": null
+      },
+      {
+        "id": "01M6RBEQEAW0JEZV5X82P913E8",
+        "page_id": "01M6RBEQEAVWWAR2AB3QQ7G0P6",
+        "author_member_id": "browser-owner",
+        "origin": "autosave",
+        "content_hash": "cff12c0adc28c3fa9b05f466d06e47ec83638f8d3342e81e8bfe15cea934658f",
+        "body_json": "[{\"id\":\"5627b3d4-512c-42e8-9600-e3d06557a152\",\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"synthetic-slate-402: first child original body\",\"commentAnchorId\":\"f0467487-ec83-40cc-b5dd-55f0cbaa5759\"}]},\"treePosition\":\"a\",\"parentBlockId\":null,\"pageId\":\"01M6RBEQEAVWWAR2AB3QQ7G0P6\",\"revisionId\":\"01M6RBEQEBADMN57HTS0TWQJPT\"}]",
+        "properties_json": "{\"title\":\"Archive first child\",\"icon\":\"📚\",\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[\"synthetic-slate-401\",\"first child\"],\"typeface\":\"serif\",\"smallText\":false,\"fullWidth\":true}",
+        "status_key": null,
+        "ordinal": null,
+        "label": null,
+        "created_at": "2026-11-06T11:56:09.543Z",
+        "deleted_at": null,
+        "deleted_by_member_id": null
+      },
+      {
+        "id": "01M6RBEQFE9G98VE41H3VAKZZ1",
+        "page_id": "01M6RBEQEAVWWAR2AB3QQ7G0P6",
+        "author_member_id": "browser-owner",
+        "origin": "autosave",
+        "content_hash": "f52073298b4bdd590da38ad198aff627f6c874216380e2c10bffd1054e202c96",
+        "body_json": "[{\"id\":\"5627b3d4-512c-42e8-9600-e3d06557a152\",\"pageId\":\"01M6RBEQEAVWWAR2AB3QQ7G0P6\",\"parentBlockId\":null,\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"synthetic-slate-402: first child original body\",\"commentAnchorId\":\"f0467487-ec83-40cc-b5dd-55f0cbaa5759\"}]},\"treePosition\":\"a\",\"revisionId\":\"01M6RBEQEBADMN57HTS0TWQJPT\"}]",
+        "properties_json": "{\"title\":\"Archive first child reviewed\",\"icon\":\"🗂️\",\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[\"synthetic-slate-403\",\"first child\"],\"typeface\":\"mono\",\"smallText\":false,\"fullWidth\":false}",
+        "status_key": null,
+        "ordinal": null,
+        "label": null,
+        "created_at": "2026-11-06T11:56:09.580Z",
+        "deleted_at": null,
+        "deleted_by_member_id": null
+      },
+      {
+        "id": "01M6RBEQGJSAYMRG314BQ1YD0C",
+        "page_id": "01M6RBEQEAVWWAR2AB3QQ7G0P6",
+        "author_member_id": "browser-owner",
+        "origin": "autosave",
+        "content_hash": "348872b30908d37db271a47e247b30b2cc81add4d11a74f85032ffb12e135f18",
+        "body_json": "[{\"id\":\"5627b3d4-512c-42e8-9600-e3d06557a152\",\"pageId\":\"01M6RBEQEAVWWAR2AB3QQ7G0P6\",\"parentBlockId\":null,\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"synthetic-slate-404: first child reviewed body\",\"commentAnchorId\":\"f0467487-ec83-40cc-b5dd-55f0cbaa5759\"}]},\"treePosition\":\"a\",\"revisionId\":\"01M6RBEQGKD3QX08VN0JTQ47PE\"}]",
+        "properties_json": "{\"title\":\"Archive first child reviewed\",\"icon\":\"🗂️\",\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[\"first child\",\"synthetic-slate-403\"],\"typeface\":\"mono\",\"smallText\":false,\"fullWidth\":false}",
+        "status_key": null,
+        "ordinal": null,
+        "label": null,
+        "created_at": "2026-11-06T11:56:09.616Z",
+        "deleted_at": null,
+        "deleted_by_member_id": null
+      },
+      {
+        "id": "01M6RBEQH70YG3A3E0DQW7V1S8",
+        "page_id": "01M6RBEQH796FAW2TQX7G444SW",
+        "author_member_id": "browser-owner",
+        "origin": "autosave",
+        "content_hash": "d7b0a28339301c92ab16402869aa10f2aa58230a67d7571661ceaffe2c49ce94",
+        "body_json": "[{\"id\":\"f02cd4a6-9dc6-4bea-8711-add889c59494\",\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"synthetic-slate-402: grandchild original body\",\"commentAnchorId\":\"aae631ba-aead-4a0b-945a-6457a02247f9\"}]},\"treePosition\":\"a\",\"parentBlockId\":null,\"pageId\":\"01M6RBEQH796FAW2TQX7G444SW\",\"revisionId\":\"01M6RBEQH7883MZ6Q6BAAQJFH8\"}]",
+        "properties_json": "{\"title\":\"Archive grandchild\",\"icon\":\"📚\",\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[\"synthetic-slate-401\",\"grandchild\"],\"typeface\":\"serif\",\"smallText\":false,\"fullWidth\":true}",
+        "status_key": null,
+        "ordinal": null,
+        "label": null,
+        "created_at": "2026-11-06T11:56:09.636Z",
+        "deleted_at": null,
+        "deleted_by_member_id": null
+      },
+      {
+        "id": "01M6RBEQJ51FD6N3PJ74FQNH1M",
+        "page_id": "01M6RBEQH796FAW2TQX7G444SW",
+        "author_member_id": "browser-owner",
+        "origin": "autosave",
+        "content_hash": "171c56413645cc6045f34134aba8f68d2bf649d536bdfb7ebe28a56ff7288a11",
+        "body_json": "[{\"id\":\"f02cd4a6-9dc6-4bea-8711-add889c59494\",\"pageId\":\"01M6RBEQH796FAW2TQX7G444SW\",\"parentBlockId\":null,\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"synthetic-slate-402: grandchild original body\",\"commentAnchorId\":\"aae631ba-aead-4a0b-945a-6457a02247f9\"}]},\"treePosition\":\"a\",\"revisionId\":\"01M6RBEQH7883MZ6Q6BAAQJFH8\"}]",
+        "properties_json": "{\"title\":\"Archive grandchild reviewed\",\"icon\":\"🗂️\",\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[\"synthetic-slate-403\",\"grandchild\"],\"typeface\":\"mono\",\"smallText\":false,\"fullWidth\":false}",
+        "status_key": null,
+        "ordinal": null,
+        "label": null,
+        "created_at": "2026-11-06T11:56:09.667Z",
+        "deleted_at": null,
+        "deleted_by_member_id": null
+      },
+      {
+        "id": "01M6RBEQKGK5396MM8AX6P0C10",
+        "page_id": "01M6RBEQH796FAW2TQX7G444SW",
+        "author_member_id": "browser-owner",
+        "origin": "autosave",
+        "content_hash": "02a3086f4d6fb53e2f62bab0ad9c9d1a46238dc3e59a65337165eb3c89cab98b",
+        "body_json": "[{\"id\":\"f02cd4a6-9dc6-4bea-8711-add889c59494\",\"pageId\":\"01M6RBEQH796FAW2TQX7G444SW\",\"parentBlockId\":null,\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"synthetic-slate-404: grandchild reviewed body\",\"commentAnchorId\":\"aae631ba-aead-4a0b-945a-6457a02247f9\"}]},\"treePosition\":\"a\",\"revisionId\":\"01M6RBEQKJF3B9D4TDSX0M0TYH\"}]",
+        "properties_json": "{\"title\":\"Archive grandchild reviewed\",\"icon\":\"🗂️\",\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[\"grandchild\",\"synthetic-slate-403\"],\"typeface\":\"mono\",\"smallText\":false,\"fullWidth\":false}",
+        "status_key": null,
+        "ordinal": null,
+        "label": null,
+        "created_at": "2026-11-06T11:56:09.710Z",
+        "deleted_at": null,
+        "deleted_by_member_id": null
+      },
+      {
+        "id": "01M6RBEQXWFH6WPNQJTMWXBZ0C",
+        "page_id": "01M6RBEQBFQ32N4KJ7E3D2C8N8",
+        "author_member_id": "browser-owner",
+        "origin": "autosave",
+        "content_hash": "d05a00a79208fe325ebe4a8577e658c08d0a86812d10c90e8c96b98cc8646f9c",
+        "body_json": "[{\"id\":\"3fc720e9-3d79-4ffb-84c8-a1a6daac4df4\",\"pageId\":\"01M6RBEQBFQ32N4KJ7E3D2C8N8\",\"parentBlockId\":null,\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"synthetic-slate-404: second child reviewed body\",\"commentAnchorId\":\"5f108473-7af4-428c-82aa-d2d77ee37980\"}]},\"treePosition\":\"a\",\"revisionId\":\"01M6RBEQDPG6S99G1CMXJ9V1J6\"}]",
+        "properties_json": "{\"title\":\"Archive second child reviewed\",\"icon\":\"🗂️\",\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[\"second child\",\"synthetic-slate-403\"],\"typeface\":\"mono\",\"smallText\":false,\"fullWidth\":false}",
+        "status_key": null,
+        "ordinal": null,
+        "label": null,
+        "created_at": "2026-11-06T11:56:10.042Z",
+        "deleted_at": null,
+        "deleted_by_member_id": null
+      }
+    ],
+    "page_labels": [
+      {
+        "page_id": "01M6RBEQ85GM7932YQS2VSR3SG",
+        "label": "synthetic-slate-403",
+        "created_at": "2026-11-06T11:56:09.382Z"
+      },
+      {
+        "page_id": "01M6RBEQ85GM7932YQS2VSR3SG",
+        "label": "parent",
+        "created_at": "2026-11-06T11:56:09.382Z"
+      },
+      {
+        "page_id": "01M6RBEQBFQ32N4KJ7E3D2C8N8",
+        "label": "synthetic-slate-403",
+        "created_at": "2026-11-06T11:56:09.484Z"
+      },
+      {
+        "page_id": "01M6RBEQBFQ32N4KJ7E3D2C8N8",
+        "label": "second child",
+        "created_at": "2026-11-06T11:56:09.484Z"
+      },
+      {
+        "page_id": "01M6RBEQEAVWWAR2AB3QQ7G0P6",
+        "label": "synthetic-slate-403",
+        "created_at": "2026-11-06T11:56:09.580Z"
+      },
+      {
+        "page_id": "01M6RBEQEAVWWAR2AB3QQ7G0P6",
+        "label": "first child",
+        "created_at": "2026-11-06T11:56:09.580Z"
+      },
+      {
+        "page_id": "01M6RBEQH796FAW2TQX7G444SW",
+        "label": "synthetic-slate-403",
+        "created_at": "2026-11-06T11:56:09.667Z"
+      },
+      {
+        "page_id": "01M6RBEQH796FAW2TQX7G444SW",
+        "label": "grandchild",
+        "created_at": "2026-11-06T11:56:09.667Z"
+      }
+    ],
+    "page_grants": [
+      {
+        "id": "01M6RBEQM6WQXF95M6KQKC5P57",
+        "page_id": "01M6RBEQ85GM7932YQS2VSR3SG",
+        "principal_kind": "member",
+        "principal_id": "browser-reader",
+        "level": "edit",
+        "expires_at": null,
+        "revoked_at": null,
+        "created_at": "2026-11-06T11:56:09.730Z",
+        "updated_at": "2026-11-06T11:56:09.887Z"
+      },
+      {
+        "id": "01M6RBEQMXKCYTWW7A2FQ13KY9",
+        "page_id": "01M6RBEQEAVWWAR2AB3QQ7G0P6",
+        "principal_kind": "group",
+        "principal_id": "01M6RBEQ7JDF8H3K7RJEXXZK6B",
+        "level": "comment",
+        "expires_at": null,
+        "revoked_at": null,
+        "created_at": "2026-11-06T11:56:09.754Z",
+        "updated_at": "2026-11-06T11:56:09.930Z"
+      },
+      {
+        "id": "01M6RBEQVEYTASE2NX1BXX98AJ",
+        "page_id": "01M6RBEQBFQ32N4KJ7E3D2C8N8",
+        "principal_kind": "member",
+        "principal_id": "browser-reader",
+        "level": "edit",
+        "expires_at": null,
+        "revoked_at": "2026-11-06T11:56:09.990Z",
+        "created_at": "2026-11-06T11:56:09.962Z",
+        "updated_at": "2026-11-06T11:56:09.990Z"
+      },
+      {
+        "id": "01M6RBEQWXR62Z8J9SVQMD330F",
+        "page_id": "01M6RBEQBFQ32N4KJ7E3D2C8N8",
+        "principal_kind": "member",
+        "principal_id": "browser-owner",
+        "level": "full",
+        "expires_at": null,
+        "revoked_at": null,
+        "created_at": "2026-11-06T11:56:10.009Z",
+        "updated_at": "2026-11-06T11:56:10.009Z"
+      }
+    ],
+    "comment_threads": [
+      {
+        "id": "01M6RBEQYXTKANVMMMMSGWNS1X",
+        "workspace_id": "browser-workspace",
+        "page_id": "01M6RBEQ85GM7932YQS2VSR3SG",
+        "kind": "inline",
+        "block_id": "c3c5e4d2-8a62-47d2-9f4a-4cba286271a5",
+        "anchor_json": "{\"anchorId\":\"261511c7-2094-4ddb-bc93-e2f814d78abf\",\"quote\":\"synthetic-slate-404: parent reviewed body\"}",
+        "anchor_revision_id": "01M6RBEQAN1AP2WK654M5MGS67",
+        "state": "resolved",
+        "resolved_at": "2026-11-06T11:56:10.163Z",
+        "resolved_by_member_id": "browser-owner",
+        "created_at": "2026-11-06T11:56:10.072Z",
+        "updated_at": "2026-11-06T11:56:10.163Z",
+        "revision_id": "01M6RBER1NA03SN5GFQY13KHH8",
+        "orphaned": 0
+      }
+    ],
+    "comments": [
+      {
+        "id": "01M6RBEQYXT14V2ME11XC38JCJ",
+        "thread_id": "01M6RBEQYXTKANVMMMMSGWNS1X",
+        "parent_comment_id": null,
+        "author_member_id": "browser-owner",
+        "body_json": "[{\"text\":\"synthetic-slate-408: edited anchored discussion\"}]",
+        "created_at": "2026-11-06T11:56:10.072Z",
+        "updated_at": "2026-11-06T11:56:10.134Z",
+        "deleted_at": null,
+        "revision_id": "01M6RBER0SV8BG3MS522AATDJK"
+      },
+      {
+        "id": "01M6RBEQZRRNFJYAQXKDC4HVTW",
+        "thread_id": "01M6RBEQYXTKANVMMMMSGWNS1X",
+        "parent_comment_id": "01M6RBEQYXT14V2ME11XC38JCJ",
+        "author_member_id": "browser-owner",
+        "body_json": "[{\"text\":\"synthetic-slate-406: preserve this reply\"}]",
+        "created_at": "2026-11-06T11:56:10.097Z",
+        "updated_at": "2026-11-06T11:56:10.097Z",
+        "deleted_at": null,
+        "revision_id": "01M6RBEQZNH421WQ2F5786Y9RH"
+      }
+    ],
+    "files": [
+      {
+        "id": "01M6RBER3AXPSYQ1SWPKT71C4C",
+        "workspace_id": "browser-workspace",
+        "page_id": "01M6RBEQ85GM7932YQS2VSR3SG",
+        "storage_key": "pages/browser-workspace/01M6RBEQ85GM7932YQS2VSR3SG/01M6RBER3AXPSYQ1SWPKT71C4C",
+        "original_name": "archive-notes.txt",
+        "content_type": "text/plain",
+        "size_bytes": 60,
+        "created_at": "2026-11-06T11:56:10.213Z",
+        "deleted_at": null
+      },
+      {
+        "id": "01M6RBER47GW4DFX27W1MFYZ42",
+        "workspace_id": "browser-workspace",
+        "page_id": "01M6RBEQH796FAW2TQX7G444SW",
+        "storage_key": "pages/browser-workspace/01M6RBEQH796FAW2TQX7G444SW/01M6RBER47GW4DFX27W1MFYZ42",
+        "original_name": "archive-original.png",
+        "content_type": "image/png",
+        "size_bytes": 68,
+        "created_at": "2026-11-06T11:56:10.241Z",
+        "deleted_at": null
+      }
+    ],
+    "record_revisions": [
+      {
+        "id": "01M6RBEQYTQY1K1SNAG9GR6J9J",
+        "workspace_id": "browser-workspace",
+        "entity_kind": "comment-thread",
+        "entity_id": "01M6RBEQYXTKANVMMMMSGWNS1X",
+        "ordinal": null,
+        "content_hash": "7965dcd8acb7f69c693e6eff1d2a9d76e4d401540c9cb77b3d049af442b9e345",
+        "content_json": "[{\"text\":\"synthetic-slate-405: preserve this anchored discussion\"}]",
+        "author_member_id": "browser-owner",
+        "created_at": "2026-11-06T11:56:10.072Z"
+      },
+      {
+        "id": "01M6RBEQZNH421WQ2F5786Y9RH",
+        "workspace_id": "browser-workspace",
+        "entity_kind": "comment-thread",
+        "entity_id": "01M6RBEQYXTKANVMMMMSGWNS1X",
+        "ordinal": null,
+        "content_hash": "21f3f59ee47f223460fcb728127385ff2f1652b2d4cf95d2b34adedcd0db86fa",
+        "content_json": "[{\"text\":\"synthetic-slate-406: preserve this reply\"}]",
+        "author_member_id": "browser-owner",
+        "created_at": "2026-11-06T11:56:10.097Z"
+      },
+      {
+        "id": "01M6RBER0SV8BG3MS522AATDJK",
+        "workspace_id": "browser-workspace",
+        "entity_kind": "comment-thread",
+        "entity_id": "01M6RBEQYXTKANVMMMMSGWNS1X",
+        "ordinal": null,
+        "content_hash": "eaf5818f87704f70addec4a8dc59024627a18acb827dc92bd069eff33b704d7b",
+        "content_json": "{\"id\":\"01M6RBEQYXT14V2ME11XC38JCJ\",\"body\":[{\"text\":\"synthetic-slate-408: edited anchored discussion\"}],\"deleted\":false}",
+        "author_member_id": "browser-owner",
+        "created_at": "2026-11-06T11:56:10.134Z"
+      },
+      {
+        "id": "01M6RBER1NA03SN5GFQY13KHH8",
+        "workspace_id": "browser-workspace",
+        "entity_kind": "comment-thread",
+        "entity_id": "01M6RBEQYXTKANVMMMMSGWNS1X",
+        "ordinal": null,
+        "content_hash": "cb8b24b7e681bab2ca8ccd5e5b51a64931557081bbe3a8b93f90ebda4be27386",
+        "content_json": "{\"resolved\":true}",
+        "author_member_id": "browser-owner",
+        "created_at": "2026-11-06T11:56:10.163Z"
+      }
+    ],
+    "core_entity_revisions": [
+      {
+        "id": "01M6RBEQ7JX6D5NSVSM2WFTF58",
+        "workspace_id": "browser-workspace",
+        "entity_kind": "group",
+        "entity_id": "01M6RBEQ7JDF8H3K7RJEXXZK6B",
+        "content_hash": "9ebd0396403be55cb537bc4ed59dc6fc78c46a3bc686bf67b22671633c0aabe8",
+        "content_json": "{\"name\":\"Archive review team\",\"memberIds\":[\"browser-reader\"],\"deleted\":false}",
+        "author_member_id": "browser-owner",
+        "created_at": "2026-11-06T11:56:09.328Z"
+      },
+      {
+        "id": "01M6RBEQM4W2ZTPTQ9TXQMKSDQ",
+        "workspace_id": "browser-workspace",
+        "entity_kind": "page-grant",
+        "entity_id": "01M6RBEQM6WQXF95M6KQKC5P57",
+        "content_hash": "a970b5e469ea91d2205a47f81ed3be1c37eb893121a34e9ba3129a4dedd2835e",
+        "content_json": "{\"targetId\":\"01M6RBEQ85GM7932YQS2VSR3SG\",\"principalKind\":\"member\",\"principalId\":\"browser-reader\",\"level\":\"comment\",\"expiresAt\":null,\"revoked\":false}",
+        "author_member_id": "browser-owner",
+        "created_at": "2026-11-06T11:56:09.730Z"
+      },
+      {
+        "id": "01M6RBEQMWA143YTT7KYKWD6JT",
+        "workspace_id": "browser-workspace",
+        "entity_kind": "page-grant",
+        "entity_id": "01M6RBEQMXKCYTWW7A2FQ13KY9",
+        "content_hash": "df7edce392f9d8eba3540ece04ba8f219a819c4a17122a0da576fe4145426fea",
+        "content_json": "{\"targetId\":\"01M6RBEQEAVWWAR2AB3QQ7G0P6\",\"principalKind\":\"group\",\"principalId\":\"01M6RBEQ7JDF8H3K7RJEXXZK6B\",\"level\":\"view\",\"expiresAt\":null,\"revoked\":false}",
+        "author_member_id": "browser-owner",
+        "created_at": "2026-11-06T11:56:09.754Z"
+      },
+      {
+        "id": "01M6RBEQS1G297MQ7CYPC9K8YZ",
+        "workspace_id": "browser-workspace",
+        "entity_kind": "page-grant",
+        "entity_id": "01M6RBEQM6WQXF95M6KQKC5P57",
+        "content_hash": "19d6fc12e46b7e44fc2ce0ae810eacc80b4968d6176b0eab3a5579c8ac8935ad",
+        "content_json": "{\"targetId\":\"01M6RBEQ85GM7932YQS2VSR3SG\",\"principalKind\":\"member\",\"principalId\":\"browser-reader\",\"level\":\"edit\",\"expiresAt\":null,\"revoked\":false}",
+        "author_member_id": "browser-owner",
+        "created_at": "2026-11-06T11:56:09.887Z"
+      },
+      {
+        "id": "01M6RBEQSWRRREFZHMTK2TW290",
+        "workspace_id": "browser-workspace",
+        "entity_kind": "page-grant",
+        "entity_id": "01M6RBEQMXKCYTWW7A2FQ13KY9",
+        "content_hash": "a6cbeebcd5fec5d260eabd89117264a76d977abefe74813a8b7cdc86ec87e65a",
+        "content_json": "{\"targetId\":\"01M6RBEQEAVWWAR2AB3QQ7G0P6\",\"principalKind\":\"group\",\"principalId\":\"01M6RBEQ7JDF8H3K7RJEXXZK6B\",\"level\":\"view\",\"expiresAt\":null,\"revoked\":true}",
+        "author_member_id": "browser-owner",
+        "created_at": "2026-11-06T11:56:09.913Z"
+      },
+      {
+        "id": "01M6RBEQTDQ9M3138737CZW4HQ",
+        "workspace_id": "browser-workspace",
+        "entity_kind": "page-grant",
+        "entity_id": "01M6RBEQMXKCYTWW7A2FQ13KY9",
+        "content_hash": "0d3952b10a648132f279fa451ce8eea24fd06023617aedfbe60a5a953140bc6e",
+        "content_json": "{\"targetId\":\"01M6RBEQEAVWWAR2AB3QQ7G0P6\",\"principalKind\":\"group\",\"principalId\":\"01M6RBEQ7JDF8H3K7RJEXXZK6B\",\"level\":\"comment\",\"expiresAt\":null,\"revoked\":false}",
+        "author_member_id": "browser-owner",
+        "created_at": "2026-11-06T11:56:09.930Z"
+      },
+      {
+        "id": "01M6RBEQVC938J6QPDHQHCPVVP",
+        "workspace_id": "browser-workspace",
+        "entity_kind": "page-grant",
+        "entity_id": "01M6RBEQVEYTASE2NX1BXX98AJ",
+        "content_hash": "3ea615c8a390a7247514cefd998bf8eec39860081ce1aa526886993d183a1a73",
+        "content_json": "{\"targetId\":\"01M6RBEQBFQ32N4KJ7E3D2C8N8\",\"principalKind\":\"member\",\"principalId\":\"browser-reader\",\"level\":\"edit\",\"expiresAt\":null,\"revoked\":false}",
+        "author_member_id": "browser-owner",
+        "created_at": "2026-11-06T11:56:09.962Z"
+      },
+      {
+        "id": "01M6RBEQW8CR8ZY2BXT6T8HDS3",
+        "workspace_id": "browser-workspace",
+        "entity_kind": "page-grant",
+        "entity_id": "01M6RBEQVEYTASE2NX1BXX98AJ",
+        "content_hash": "64484b1c45a8db602c3e552c70000b6f3377506ef80207ec3b406195fb7a6422",
+        "content_json": "{\"targetId\":\"01M6RBEQBFQ32N4KJ7E3D2C8N8\",\"principalKind\":\"member\",\"principalId\":\"browser-reader\",\"level\":\"edit\",\"expiresAt\":null,\"revoked\":true}",
+        "author_member_id": "browser-owner",
+        "created_at": "2026-11-06T11:56:09.990Z"
+      },
+      {
+        "id": "01M6RBEQWWW78DPKWN8BATCZB7",
+        "workspace_id": "browser-workspace",
+        "entity_kind": "page-grant",
+        "entity_id": "01M6RBEQWXR62Z8J9SVQMD330F",
+        "content_hash": "c1db8413b21e48df247946145230afe0d349eece8021e18459a31e1ba375c72e",
+        "content_json": "{\"targetId\":\"01M6RBEQBFQ32N4KJ7E3D2C8N8\",\"principalKind\":\"member\",\"principalId\":\"browser-owner\",\"level\":\"full\",\"expiresAt\":null,\"revoked\":false}",
+        "author_member_id": "browser-owner",
+        "created_at": "2026-11-06T11:56:10.009Z"
+      }
+    ],
+    "groups": [
+      {
+        "id": "01M6RBEQ7JDF8H3K7RJEXXZK6B",
+        "workspace_id": "browser-workspace",
+        "name": "Archive review team",
+        "created_at": "2026-11-06T11:56:09.328Z",
+        "updated_at": "2026-11-06T11:56:09.328Z",
+        "revision_id": "01M6RBEQ7JX6D5NSVSM2WFTF58"
+      }
+    ],
+    "group_members": [
+      {
+        "group_id": "01M6RBEQ7JDF8H3K7RJEXXZK6B",
+        "member_id": "browser-reader",
+        "created_at": "2026-11-06T11:56:09.328Z"
+      }
+    ]
+  },
+  "originals": [
+    {
+      "id": "01M6RBER3AXPSYQ1SWPKT71C4C",
+      "pageId": "01M6RBEQ85GM7932YQS2VSR3SG",
+      "name": "archive-notes.txt",
+      "blob": {
+        "key": "pages/browser-workspace/01M6RBEQ85GM7932YQS2VSR3SG/01M6RBER3AXPSYQ1SWPKT71C4C",
+        "entry": "blobs/24",
+        "hash": "06601ede0ea29a3c34381a139eb2496837c535bff62d21c9643f14475daa2123",
+        "size": 60
+      },
+      "bytes": [
+        115,
+        121,
+        110,
+        116,
+        104,
+        101,
+        116,
+        105,
+        99,
+        45,
+        115,
+        108,
+        97,
+        116,
+        101,
+        45,
+        52,
+        48,
+        55,
+        58,
+        32,
+        111,
+        114,
+        105,
+        103,
+        105,
+        110,
+        97,
+        108,
+        32,
+        110,
+        111,
+        116,
+        101,
+        115,
+        10,
+        119,
+        105,
+        116,
+        104,
+        32,
+        97,
+        32,
+        114,
+        101,
+        116,
+        97,
+        105,
+        110,
+        101,
+        100,
+        32,
+        110,
+        101,
+        119,
+        108,
+        105,
+        110,
+        101,
+        10
+      ]
+    },
+    {
+      "id": "01M6RBER47GW4DFX27W1MFYZ42",
+      "pageId": "01M6RBEQH796FAW2TQX7G444SW",
+      "name": "archive-original.png",
+      "blob": {
+        "key": "pages/browser-workspace/01M6RBEQH796FAW2TQX7G444SW/01M6RBER47GW4DFX27W1MFYZ42",
+        "entry": "blobs/25",
+        "hash": "771346b338f38f7bfd6ab7538aed0a1d7e0accafc0f76eed922e08e8e8e6e37c",
+        "size": 68
+      },
+      "bytes": [
+        137,
+        80,
+        78,
+        71,
+        13,
+        10,
+        26,
+        10,
+        0,
+        0,
+        0,
+        13,
+        73,
+        72,
+        68,
+        82,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        8,
+        4,
+        0,
+        0,
+        0,
+        181,
+        28,
+        12,
+        2,
+        0,
+        0,
+        0,
+        11,
+        73,
+        68,
+        65,
+        84,
+        120,
+        218,
+        99,
+        252,
+        255,
+        31,
+        0,
+        3,
+        3,
+        2,
+        0,
+        239,
+        191,
+        157,
+        100,
+        0,
+        0,
+        0,
+        0,
+        73,
+        69,
+        78,
+        68,
+        174,
+        66,
+        96,
+        130
+      ]
+    }
+  ],
+  "accessBefore": {
+    "allowed": {
+      "id": "01M6RBEQ85GM7932YQS2VSR3SG",
+      "status": 200,
+      "title": "Archive parent reviewed"
+    },
+    "revoked": {
+      "id": "01M6RBEQBFQ32N4KJ7E3D2C8N8",
+      "status": 404,
+      "body": {
+        "code": "NOT_FOUND",
+        "message": "Not found."
+      }
+    }
+  },
+  "accessAfter": {
+    "allowed": {
+      "id": "01M6RBEQ85GM7932YQS2VSR3SG",
+      "status": 200,
+      "title": "Archive parent reviewed"
+    },
+    "revoked": {
+      "id": "01M6RBEQBFQ32N4KJ7E3D2C8N8",
+      "status": 404,
+      "body": {
+        "code": "NOT_FOUND",
+        "message": "Not found."
+      }
+    }
+  },
+  "sourceAfter": {
+    "pages": [
+      {
+        "id": "01M6RBEQ85GM7932YQS2VSR3SG",
+        "workspace_id": "browser-workspace",
+        "container_id": "01M6RBCEV93VWZNBACD4T70V95",
+        "parent_page_id": null,
+        "database_id": null,
+        "page_kind": "page",
+        "title": "Archive parent reviewed",
+        "icon": "🗂️",
+        "cover_file_id": null,
+        "author_member_id": "browser-owner",
+        "owner_member_id": "browser-owner",
+        "lifecycle": "live",
+        "working_revision_id": "01M6RBEQAN1AP2WK654M5MGS67",
+        "published_revision_id": "01M6RBEQAN1AP2WK654M5MGS67",
+        "status_key": null,
+        "tree_position": "archive-a",
+        "access_inheritance": "inherit",
+        "typeface": "mono",
+        "small_text": 0,
+        "full_width": 0,
+        "archived_at": null,
+        "trashed_at": null,
+        "deleted_at": null,
+        "created_at": "2026-11-06T11:56:09.348Z",
+        "updated_at": "2026-11-06T11:56:09.427Z",
+        "revision_id": "01M6RBEQAN1AP2WK654M5MGS67",
+        "locked_at": null,
+        "locked_by_member_id": null
+      },
+      {
+        "id": "01M6RBEQBFQ32N4KJ7E3D2C8N8",
+        "workspace_id": "browser-workspace",
+        "container_id": "01M6RBCEV93VWZNBACD4T70V95",
+        "parent_page_id": "01M6RBEQ85GM7932YQS2VSR3SG",
+        "database_id": null,
+        "page_kind": "page",
+        "title": "Archive second child reviewed",
+        "icon": "🗂️",
+        "cover_file_id": null,
+        "author_member_id": "browser-owner",
+        "owner_member_id": "browser-owner",
+        "lifecycle": "live",
+        "working_revision_id": "01M6RBEQDMN6YF6WGYF47CZT7M",
+        "published_revision_id": "01M6RBEQDMN6YF6WGYF47CZT7M",
+        "status_key": null,
+        "tree_position": "b",
+        "access_inheritance": "restricted",
+        "typeface": "mono",
+        "small_text": 0,
+        "full_width": 0,
+        "archived_at": null,
+        "trashed_at": null,
+        "deleted_at": null,
+        "created_at": "2026-11-06T11:56:09.452Z",
+        "updated_at": "2026-11-06T11:56:10.042Z",
+        "revision_id": "01M6RBEQXWFH6WPNQJTMWXBZ0C",
+        "locked_at": null,
+        "locked_by_member_id": null
+      },
+      {
+        "id": "01M6RBEQEAVWWAR2AB3QQ7G0P6",
+        "workspace_id": "browser-workspace",
+        "container_id": "01M6RBCEV93VWZNBACD4T70V95",
+        "parent_page_id": "01M6RBEQ85GM7932YQS2VSR3SG",
+        "database_id": null,
+        "page_kind": "page",
+        "title": "Archive first child reviewed",
+        "icon": "🗂️",
+        "cover_file_id": null,
+        "author_member_id": "browser-owner",
+        "owner_member_id": "browser-owner",
+        "lifecycle": "live",
+        "working_revision_id": "01M6RBEQGJSAYMRG314BQ1YD0C",
+        "published_revision_id": "01M6RBEQGJSAYMRG314BQ1YD0C",
+        "status_key": null,
+        "tree_position": "a",
+        "access_inheritance": "inherit",
+        "typeface": "mono",
+        "small_text": 0,
+        "full_width": 0,
+        "archived_at": null,
+        "trashed_at": null,
+        "deleted_at": null,
+        "created_at": "2026-11-06T11:56:09.543Z",
+        "updated_at": "2026-11-06T11:56:09.616Z",
+        "revision_id": "01M6RBEQGJSAYMRG314BQ1YD0C",
+        "locked_at": null,
+        "locked_by_member_id": null
+      },
+      {
+        "id": "01M6RBEQH796FAW2TQX7G444SW",
+        "workspace_id": "browser-workspace",
+        "container_id": "01M6RBCEV93VWZNBACD4T70V95",
+        "parent_page_id": "01M6RBEQEAVWWAR2AB3QQ7G0P6",
+        "database_id": null,
+        "page_kind": "page",
+        "title": "Archive grandchild reviewed",
+        "icon": "🗂️",
+        "cover_file_id": null,
+        "author_member_id": "browser-owner",
+        "owner_member_id": "browser-owner",
+        "lifecycle": "live",
+        "working_revision_id": "01M6RBEQKGK5396MM8AX6P0C10",
+        "published_revision_id": "01M6RBEQKGK5396MM8AX6P0C10",
+        "status_key": null,
+        "tree_position": "a",
+        "access_inheritance": "inherit",
+        "typeface": "mono",
+        "small_text": 0,
+        "full_width": 0,
+        "archived_at": null,
+        "trashed_at": null,
+        "deleted_at": null,
+        "created_at": "2026-11-06T11:56:09.636Z",
+        "updated_at": "2026-11-06T11:56:09.710Z",
+        "revision_id": "01M6RBEQKGK5396MM8AX6P0C10",
+        "locked_at": null,
+        "locked_by_member_id": null
+      }
+    ],
+    "page_blocks": [
+      {
+        "id": "c3c5e4d2-8a62-47d2-9f4a-4cba286271a5",
+        "page_id": "01M6RBEQ85GM7932YQS2VSR3SG",
+        "parent_block_id": null,
+        "block_type": "paragraph",
+        "content_json": "{\"text\":[{\"text\":\"synthetic-slate-404: parent reviewed body\",\"commentAnchorId\":\"261511c7-2094-4ddb-bc93-e2f814d78abf\"}]}",
+        "tree_position": "a",
+        "revision_id": "01M6RBEQAQ4FM5YBC62QTAWC3K",
+        "created_at": "2026-11-06T11:56:09.348Z",
+        "updated_at": "2026-11-06T11:56:09.427Z"
+      },
+      {
+        "id": "3fc720e9-3d79-4ffb-84c8-a1a6daac4df4",
+        "page_id": "01M6RBEQBFQ32N4KJ7E3D2C8N8",
+        "parent_block_id": null,
+        "block_type": "paragraph",
+        "content_json": "{\"text\":[{\"text\":\"synthetic-slate-404: second child reviewed body\",\"commentAnchorId\":\"5f108473-7af4-428c-82aa-d2d77ee37980\"}]}",
+        "tree_position": "a",
+        "revision_id": "01M6RBEQDPG6S99G1CMXJ9V1J6",
+        "created_at": "2026-11-06T11:56:09.452Z",
+        "updated_at": "2026-11-06T11:56:09.523Z"
+      },
+      {
+        "id": "5627b3d4-512c-42e8-9600-e3d06557a152",
+        "page_id": "01M6RBEQEAVWWAR2AB3QQ7G0P6",
+        "parent_block_id": null,
+        "block_type": "paragraph",
+        "content_json": "{\"text\":[{\"text\":\"synthetic-slate-404: first child reviewed body\",\"commentAnchorId\":\"f0467487-ec83-40cc-b5dd-55f0cbaa5759\"}]}",
+        "tree_position": "a",
+        "revision_id": "01M6RBEQGKD3QX08VN0JTQ47PE",
+        "created_at": "2026-11-06T11:56:09.543Z",
+        "updated_at": "2026-11-06T11:56:09.616Z"
+      },
+      {
+        "id": "f02cd4a6-9dc6-4bea-8711-add889c59494",
+        "page_id": "01M6RBEQH796FAW2TQX7G444SW",
+        "parent_block_id": null,
+        "block_type": "paragraph",
+        "content_json": "{\"text\":[{\"text\":\"synthetic-slate-404: grandchild reviewed body\",\"commentAnchorId\":\"aae631ba-aead-4a0b-945a-6457a02247f9\"}]}",
+        "tree_position": "a",
+        "revision_id": "01M6RBEQKJF3B9D4TDSX0M0TYH",
+        "created_at": "2026-11-06T11:56:09.636Z",
+        "updated_at": "2026-11-06T11:56:09.710Z"
+      }
+    ],
+    "page_revisions": [
+      {
+        "id": "01M6RBEQ98K84TC4J6Q7XK5HKW",
+        "page_id": "01M6RBEQ85GM7932YQS2VSR3SG",
+        "author_member_id": "browser-owner",
+        "origin": "autosave",
+        "content_hash": "1f10632712e33909bd3137430bb0bd67ff7f903a7818f89815268b7e1723f2ec",
+        "body_json": "[{\"id\":\"c3c5e4d2-8a62-47d2-9f4a-4cba286271a5\",\"pageId\":\"01M6RBEQ85GM7932YQS2VSR3SG\",\"parentBlockId\":null,\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"synthetic-slate-402: parent original body\",\"commentAnchorId\":\"261511c7-2094-4ddb-bc93-e2f814d78abf\"}]},\"treePosition\":\"a\",\"revisionId\":\"01M6RBEQ86MG1EXY96ZRW91XNF\"}]",
+        "properties_json": "{\"title\":\"Archive parent reviewed\",\"icon\":\"🗂️\",\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[\"synthetic-slate-403\",\"parent\"],\"typeface\":\"mono\",\"smallText\":false,\"fullWidth\":false}",
+        "status_key": null,
+        "ordinal": null,
+        "label": null,
+        "created_at": "2026-11-06T11:56:09.382Z",
+        "deleted_at": null,
+        "deleted_by_member_id": null
+      },
+      {
+        "id": "01M6RBEQ857B7E88JHSC8NVV1Z",
+        "page_id": "01M6RBEQ85GM7932YQS2VSR3SG",
+        "author_member_id": "browser-owner",
+        "origin": "autosave",
+        "content_hash": "5ac9ef9d5a1fab8248d32e9fc0597cf91bb2d100be799bb6be42574215eb5406",
+        "body_json": "[{\"id\":\"c3c5e4d2-8a62-47d2-9f4a-4cba286271a5\",\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"synthetic-slate-402: parent original body\",\"commentAnchorId\":\"261511c7-2094-4ddb-bc93-e2f814d78abf\"}]},\"treePosition\":\"a\",\"parentBlockId\":null,\"pageId\":\"01M6RBEQ85GM7932YQS2VSR3SG\",\"revisionId\":\"01M6RBEQ86MG1EXY96ZRW91XNF\"}]",
+        "properties_json": "{\"title\":\"Archive parent\",\"icon\":\"📚\",\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[\"synthetic-slate-401\",\"parent\"],\"typeface\":\"serif\",\"smallText\":false,\"fullWidth\":true}",
+        "status_key": null,
+        "ordinal": null,
+        "label": null,
+        "created_at": "2026-11-06T11:56:09.348Z",
+        "deleted_at": null,
+        "deleted_by_member_id": null
+      },
+      {
+        "id": "01M6RBEQAN1AP2WK654M5MGS67",
+        "page_id": "01M6RBEQ85GM7932YQS2VSR3SG",
+        "author_member_id": "browser-owner",
+        "origin": "autosave",
+        "content_hash": "ce3e2bda1e8992a909e47899be00517013cd789921277661100808114edf3c30",
+        "body_json": "[{\"id\":\"c3c5e4d2-8a62-47d2-9f4a-4cba286271a5\",\"pageId\":\"01M6RBEQ85GM7932YQS2VSR3SG\",\"parentBlockId\":null,\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"synthetic-slate-404: parent reviewed body\",\"commentAnchorId\":\"261511c7-2094-4ddb-bc93-e2f814d78abf\"}]},\"treePosition\":\"a\",\"revisionId\":\"01M6RBEQAQ4FM5YBC62QTAWC3K\"}]",
+        "properties_json": "{\"title\":\"Archive parent reviewed\",\"icon\":\"🗂️\",\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[\"parent\",\"synthetic-slate-403\"],\"typeface\":\"mono\",\"smallText\":false,\"fullWidth\":false}",
+        "status_key": null,
+        "ordinal": null,
+        "label": null,
+        "created_at": "2026-11-06T11:56:09.427Z",
+        "deleted_at": null,
+        "deleted_by_member_id": null
+      },
+      {
+        "id": "01M6RBEQBF944ZXXT1Q6P5TJM9",
+        "page_id": "01M6RBEQBFQ32N4KJ7E3D2C8N8",
+        "author_member_id": "browser-owner",
+        "origin": "autosave",
+        "content_hash": "0ff315cd2bbe7f3b1a3b293a611592e3380bc3274d32b10abc96c88594a01093",
+        "body_json": "[{\"id\":\"3fc720e9-3d79-4ffb-84c8-a1a6daac4df4\",\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"synthetic-slate-402: second child original body\",\"commentAnchorId\":\"5f108473-7af4-428c-82aa-d2d77ee37980\"}]},\"treePosition\":\"a\",\"parentBlockId\":null,\"pageId\":\"01M6RBEQBFQ32N4KJ7E3D2C8N8\",\"revisionId\":\"01M6RBEQBF10MB4M5GZZ2PY1RW\"}]",
+        "properties_json": "{\"title\":\"Archive second child\",\"icon\":\"📚\",\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[\"synthetic-slate-401\",\"second child\"],\"typeface\":\"serif\",\"smallText\":false,\"fullWidth\":true}",
+        "status_key": null,
+        "ordinal": null,
+        "label": null,
+        "created_at": "2026-11-06T11:56:09.452Z",
+        "deleted_at": null,
+        "deleted_by_member_id": null
+      },
+      {
+        "id": "01M6RBEQCEZ7CG1P8P1E4FNP17",
+        "page_id": "01M6RBEQBFQ32N4KJ7E3D2C8N8",
+        "author_member_id": "browser-owner",
+        "origin": "autosave",
+        "content_hash": "546e9547fdab6e3919696cebbd38b776c4a5e21ab00ed2bc9f4237edfa931563",
+        "body_json": "[{\"id\":\"3fc720e9-3d79-4ffb-84c8-a1a6daac4df4\",\"pageId\":\"01M6RBEQBFQ32N4KJ7E3D2C8N8\",\"parentBlockId\":null,\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"synthetic-slate-402: second child original body\",\"commentAnchorId\":\"5f108473-7af4-428c-82aa-d2d77ee37980\"}]},\"treePosition\":\"a\",\"revisionId\":\"01M6RBEQBF10MB4M5GZZ2PY1RW\"}]",
+        "properties_json": "{\"title\":\"Archive second child reviewed\",\"icon\":\"🗂️\",\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[\"synthetic-slate-403\",\"second child\"],\"typeface\":\"mono\",\"smallText\":false,\"fullWidth\":false}",
+        "status_key": null,
+        "ordinal": null,
+        "label": null,
+        "created_at": "2026-11-06T11:56:09.484Z",
+        "deleted_at": null,
+        "deleted_by_member_id": null
+      },
+      {
+        "id": "01M6RBEQDMN6YF6WGYF47CZT7M",
+        "page_id": "01M6RBEQBFQ32N4KJ7E3D2C8N8",
+        "author_member_id": "browser-owner",
+        "origin": "autosave",
+        "content_hash": "d05a00a79208fe325ebe4a8577e658c08d0a86812d10c90e8c96b98cc8646f9c",
+        "body_json": "[{\"id\":\"3fc720e9-3d79-4ffb-84c8-a1a6daac4df4\",\"pageId\":\"01M6RBEQBFQ32N4KJ7E3D2C8N8\",\"parentBlockId\":null,\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"synthetic-slate-404: second child reviewed body\",\"commentAnchorId\":\"5f108473-7af4-428c-82aa-d2d77ee37980\"}]},\"treePosition\":\"a\",\"revisionId\":\"01M6RBEQDPG6S99G1CMXJ9V1J6\"}]",
+        "properties_json": "{\"title\":\"Archive second child reviewed\",\"icon\":\"🗂️\",\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[\"second child\",\"synthetic-slate-403\"],\"typeface\":\"mono\",\"smallText\":false,\"fullWidth\":false}",
+        "status_key": null,
+        "ordinal": null,
+        "label": null,
+        "created_at": "2026-11-06T11:56:09.523Z",
+        "deleted_at": null,
+        "deleted_by_member_id": null
+      },
+      {
+        "id": "01M6RBEQXWFH6WPNQJTMWXBZ0C",
+        "page_id": "01M6RBEQBFQ32N4KJ7E3D2C8N8",
+        "author_member_id": "browser-owner",
+        "origin": "autosave",
+        "content_hash": "d05a00a79208fe325ebe4a8577e658c08d0a86812d10c90e8c96b98cc8646f9c",
+        "body_json": "[{\"id\":\"3fc720e9-3d79-4ffb-84c8-a1a6daac4df4\",\"pageId\":\"01M6RBEQBFQ32N4KJ7E3D2C8N8\",\"parentBlockId\":null,\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"synthetic-slate-404: second child reviewed body\",\"commentAnchorId\":\"5f108473-7af4-428c-82aa-d2d77ee37980\"}]},\"treePosition\":\"a\",\"revisionId\":\"01M6RBEQDPG6S99G1CMXJ9V1J6\"}]",
+        "properties_json": "{\"title\":\"Archive second child reviewed\",\"icon\":\"🗂️\",\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[\"second child\",\"synthetic-slate-403\"],\"typeface\":\"mono\",\"smallText\":false,\"fullWidth\":false}",
+        "status_key": null,
+        "ordinal": null,
+        "label": null,
+        "created_at": "2026-11-06T11:56:10.042Z",
+        "deleted_at": null,
+        "deleted_by_member_id": null
+      },
+      {
+        "id": "01M6RBEQGJSAYMRG314BQ1YD0C",
+        "page_id": "01M6RBEQEAVWWAR2AB3QQ7G0P6",
+        "author_member_id": "browser-owner",
+        "origin": "autosave",
+        "content_hash": "348872b30908d37db271a47e247b30b2cc81add4d11a74f85032ffb12e135f18",
+        "body_json": "[{\"id\":\"5627b3d4-512c-42e8-9600-e3d06557a152\",\"pageId\":\"01M6RBEQEAVWWAR2AB3QQ7G0P6\",\"parentBlockId\":null,\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"synthetic-slate-404: first child reviewed body\",\"commentAnchorId\":\"f0467487-ec83-40cc-b5dd-55f0cbaa5759\"}]},\"treePosition\":\"a\",\"revisionId\":\"01M6RBEQGKD3QX08VN0JTQ47PE\"}]",
+        "properties_json": "{\"title\":\"Archive first child reviewed\",\"icon\":\"🗂️\",\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[\"first child\",\"synthetic-slate-403\"],\"typeface\":\"mono\",\"smallText\":false,\"fullWidth\":false}",
+        "status_key": null,
+        "ordinal": null,
+        "label": null,
+        "created_at": "2026-11-06T11:56:09.616Z",
+        "deleted_at": null,
+        "deleted_by_member_id": null
+      },
+      {
+        "id": "01M6RBEQEAW0JEZV5X82P913E8",
+        "page_id": "01M6RBEQEAVWWAR2AB3QQ7G0P6",
+        "author_member_id": "browser-owner",
+        "origin": "autosave",
+        "content_hash": "cff12c0adc28c3fa9b05f466d06e47ec83638f8d3342e81e8bfe15cea934658f",
+        "body_json": "[{\"id\":\"5627b3d4-512c-42e8-9600-e3d06557a152\",\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"synthetic-slate-402: first child original body\",\"commentAnchorId\":\"f0467487-ec83-40cc-b5dd-55f0cbaa5759\"}]},\"treePosition\":\"a\",\"parentBlockId\":null,\"pageId\":\"01M6RBEQEAVWWAR2AB3QQ7G0P6\",\"revisionId\":\"01M6RBEQEBADMN57HTS0TWQJPT\"}]",
+        "properties_json": "{\"title\":\"Archive first child\",\"icon\":\"📚\",\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[\"synthetic-slate-401\",\"first child\"],\"typeface\":\"serif\",\"smallText\":false,\"fullWidth\":true}",
+        "status_key": null,
+        "ordinal": null,
+        "label": null,
+        "created_at": "2026-11-06T11:56:09.543Z",
+        "deleted_at": null,
+        "deleted_by_member_id": null
+      },
+      {
+        "id": "01M6RBEQFE9G98VE41H3VAKZZ1",
+        "page_id": "01M6RBEQEAVWWAR2AB3QQ7G0P6",
+        "author_member_id": "browser-owner",
+        "origin": "autosave",
+        "content_hash": "f52073298b4bdd590da38ad198aff627f6c874216380e2c10bffd1054e202c96",
+        "body_json": "[{\"id\":\"5627b3d4-512c-42e8-9600-e3d06557a152\",\"pageId\":\"01M6RBEQEAVWWAR2AB3QQ7G0P6\",\"parentBlockId\":null,\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"synthetic-slate-402: first child original body\",\"commentAnchorId\":\"f0467487-ec83-40cc-b5dd-55f0cbaa5759\"}]},\"treePosition\":\"a\",\"revisionId\":\"01M6RBEQEBADMN57HTS0TWQJPT\"}]",
+        "properties_json": "{\"title\":\"Archive first child reviewed\",\"icon\":\"🗂️\",\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[\"synthetic-slate-403\",\"first child\"],\"typeface\":\"mono\",\"smallText\":false,\"fullWidth\":false}",
+        "status_key": null,
+        "ordinal": null,
+        "label": null,
+        "created_at": "2026-11-06T11:56:09.580Z",
+        "deleted_at": null,
+        "deleted_by_member_id": null
+      },
+      {
+        "id": "01M6RBEQKGK5396MM8AX6P0C10",
+        "page_id": "01M6RBEQH796FAW2TQX7G444SW",
+        "author_member_id": "browser-owner",
+        "origin": "autosave",
+        "content_hash": "02a3086f4d6fb53e2f62bab0ad9c9d1a46238dc3e59a65337165eb3c89cab98b",
+        "body_json": "[{\"id\":\"f02cd4a6-9dc6-4bea-8711-add889c59494\",\"pageId\":\"01M6RBEQH796FAW2TQX7G444SW\",\"parentBlockId\":null,\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"synthetic-slate-404: grandchild reviewed body\",\"commentAnchorId\":\"aae631ba-aead-4a0b-945a-6457a02247f9\"}]},\"treePosition\":\"a\",\"revisionId\":\"01M6RBEQKJF3B9D4TDSX0M0TYH\"}]",
+        "properties_json": "{\"title\":\"Archive grandchild reviewed\",\"icon\":\"🗂️\",\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[\"grandchild\",\"synthetic-slate-403\"],\"typeface\":\"mono\",\"smallText\":false,\"fullWidth\":false}",
+        "status_key": null,
+        "ordinal": null,
+        "label": null,
+        "created_at": "2026-11-06T11:56:09.710Z",
+        "deleted_at": null,
+        "deleted_by_member_id": null
+      },
+      {
+        "id": "01M6RBEQJ51FD6N3PJ74FQNH1M",
+        "page_id": "01M6RBEQH796FAW2TQX7G444SW",
+        "author_member_id": "browser-owner",
+        "origin": "autosave",
+        "content_hash": "171c56413645cc6045f34134aba8f68d2bf649d536bdfb7ebe28a56ff7288a11",
+        "body_json": "[{\"id\":\"f02cd4a6-9dc6-4bea-8711-add889c59494\",\"pageId\":\"01M6RBEQH796FAW2TQX7G444SW\",\"parentBlockId\":null,\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"synthetic-slate-402: grandchild original body\",\"commentAnchorId\":\"aae631ba-aead-4a0b-945a-6457a02247f9\"}]},\"treePosition\":\"a\",\"revisionId\":\"01M6RBEQH7883MZ6Q6BAAQJFH8\"}]",
+        "properties_json": "{\"title\":\"Archive grandchild reviewed\",\"icon\":\"🗂️\",\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[\"synthetic-slate-403\",\"grandchild\"],\"typeface\":\"mono\",\"smallText\":false,\"fullWidth\":false}",
+        "status_key": null,
+        "ordinal": null,
+        "label": null,
+        "created_at": "2026-11-06T11:56:09.667Z",
+        "deleted_at": null,
+        "deleted_by_member_id": null
+      },
+      {
+        "id": "01M6RBEQH70YG3A3E0DQW7V1S8",
+        "page_id": "01M6RBEQH796FAW2TQX7G444SW",
+        "author_member_id": "browser-owner",
+        "origin": "autosave",
+        "content_hash": "d7b0a28339301c92ab16402869aa10f2aa58230a67d7571661ceaffe2c49ce94",
+        "body_json": "[{\"id\":\"f02cd4a6-9dc6-4bea-8711-add889c59494\",\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"synthetic-slate-402: grandchild original body\",\"commentAnchorId\":\"aae631ba-aead-4a0b-945a-6457a02247f9\"}]},\"treePosition\":\"a\",\"parentBlockId\":null,\"pageId\":\"01M6RBEQH796FAW2TQX7G444SW\",\"revisionId\":\"01M6RBEQH7883MZ6Q6BAAQJFH8\"}]",
+        "properties_json": "{\"title\":\"Archive grandchild\",\"icon\":\"📚\",\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[\"synthetic-slate-401\",\"grandchild\"],\"typeface\":\"serif\",\"smallText\":false,\"fullWidth\":true}",
+        "status_key": null,
+        "ordinal": null,
+        "label": null,
+        "created_at": "2026-11-06T11:56:09.636Z",
+        "deleted_at": null,
+        "deleted_by_member_id": null
+      }
+    ],
+    "page_labels": [
+      {
+        "page_id": "01M6RBEQ85GM7932YQS2VSR3SG",
+        "label": "parent",
+        "created_at": "2026-11-06T11:56:09.382Z"
+      },
+      {
+        "page_id": "01M6RBEQ85GM7932YQS2VSR3SG",
+        "label": "synthetic-slate-403",
+        "created_at": "2026-11-06T11:56:09.382Z"
+      },
+      {
+        "page_id": "01M6RBEQBFQ32N4KJ7E3D2C8N8",
+        "label": "second child",
+        "created_at": "2026-11-06T11:56:09.484Z"
+      },
+      {
+        "page_id": "01M6RBEQBFQ32N4KJ7E3D2C8N8",
+        "label": "synthetic-slate-403",
+        "created_at": "2026-11-06T11:56:09.484Z"
+      },
+      {
+        "page_id": "01M6RBEQEAVWWAR2AB3QQ7G0P6",
+        "label": "first child",
+        "created_at": "2026-11-06T11:56:09.580Z"
+      },
+      {
+        "page_id": "01M6RBEQEAVWWAR2AB3QQ7G0P6",
+        "label": "synthetic-slate-403",
+        "created_at": "2026-11-06T11:56:09.580Z"
+      },
+      {
+        "page_id": "01M6RBEQH796FAW2TQX7G444SW",
+        "label": "grandchild",
+        "created_at": "2026-11-06T11:56:09.667Z"
+      },
+      {
+        "page_id": "01M6RBEQH796FAW2TQX7G444SW",
+        "label": "synthetic-slate-403",
+        "created_at": "2026-11-06T11:56:09.667Z"
+      }
+    ],
+    "page_grants": [
+      {
+        "id": "01M6RBEQM6WQXF95M6KQKC5P57",
+        "page_id": "01M6RBEQ85GM7932YQS2VSR3SG",
+        "principal_kind": "member",
+        "principal_id": "browser-reader",
+        "level": "edit",
+        "expires_at": null,
+        "revoked_at": null,
+        "created_at": "2026-11-06T11:56:09.730Z",
+        "updated_at": "2026-11-06T11:56:09.887Z"
+      },
+      {
+        "id": "01M6RBEQWXR62Z8J9SVQMD330F",
+        "page_id": "01M6RBEQBFQ32N4KJ7E3D2C8N8",
+        "principal_kind": "member",
+        "principal_id": "browser-owner",
+        "level": "full",
+        "expires_at": null,
+        "revoked_at": null,
+        "created_at": "2026-11-06T11:56:10.009Z",
+        "updated_at": "2026-11-06T11:56:10.009Z"
+      },
+      {
+        "id": "01M6RBEQVEYTASE2NX1BXX98AJ",
+        "page_id": "01M6RBEQBFQ32N4KJ7E3D2C8N8",
+        "principal_kind": "member",
+        "principal_id": "browser-reader",
+        "level": "edit",
+        "expires_at": null,
+        "revoked_at": "2026-11-06T11:56:09.990Z",
+        "created_at": "2026-11-06T11:56:09.962Z",
+        "updated_at": "2026-11-06T11:56:09.990Z"
+      },
+      {
+        "id": "01M6RBEQMXKCYTWW7A2FQ13KY9",
+        "page_id": "01M6RBEQEAVWWAR2AB3QQ7G0P6",
+        "principal_kind": "group",
+        "principal_id": "01M6RBEQ7JDF8H3K7RJEXXZK6B",
+        "level": "comment",
+        "expires_at": null,
+        "revoked_at": null,
+        "created_at": "2026-11-06T11:56:09.754Z",
+        "updated_at": "2026-11-06T11:56:09.930Z"
+      }
+    ],
+    "comment_threads": [
+      {
+        "id": "01M6RBEQYXTKANVMMMMSGWNS1X",
+        "workspace_id": "browser-workspace",
+        "page_id": "01M6RBEQ85GM7932YQS2VSR3SG",
+        "kind": "inline",
+        "block_id": "c3c5e4d2-8a62-47d2-9f4a-4cba286271a5",
+        "anchor_json": "{\"anchorId\":\"261511c7-2094-4ddb-bc93-e2f814d78abf\",\"quote\":\"synthetic-slate-404: parent reviewed body\"}",
+        "anchor_revision_id": "01M6RBEQAN1AP2WK654M5MGS67",
+        "state": "resolved",
+        "resolved_at": "2026-11-06T11:56:10.163Z",
+        "resolved_by_member_id": "browser-owner",
+        "created_at": "2026-11-06T11:56:10.072Z",
+        "updated_at": "2026-11-06T11:56:10.163Z",
+        "revision_id": "01M6RBER1NA03SN5GFQY13KHH8",
+        "orphaned": 0
+      }
+    ],
+    "comments": [
+      {
+        "id": "01M6RBEQYXT14V2ME11XC38JCJ",
+        "thread_id": "01M6RBEQYXTKANVMMMMSGWNS1X",
+        "parent_comment_id": null,
+        "author_member_id": "browser-owner",
+        "body_json": "[{\"text\":\"synthetic-slate-408: edited anchored discussion\"}]",
+        "created_at": "2026-11-06T11:56:10.072Z",
+        "updated_at": "2026-11-06T11:56:10.134Z",
+        "deleted_at": null,
+        "revision_id": "01M6RBER0SV8BG3MS522AATDJK"
+      },
+      {
+        "id": "01M6RBEQZRRNFJYAQXKDC4HVTW",
+        "thread_id": "01M6RBEQYXTKANVMMMMSGWNS1X",
+        "parent_comment_id": "01M6RBEQYXT14V2ME11XC38JCJ",
+        "author_member_id": "browser-owner",
+        "body_json": "[{\"text\":\"synthetic-slate-406: preserve this reply\"}]",
+        "created_at": "2026-11-06T11:56:10.097Z",
+        "updated_at": "2026-11-06T11:56:10.097Z",
+        "deleted_at": null,
+        "revision_id": "01M6RBEQZNH421WQ2F5786Y9RH"
+      }
+    ],
+    "files": [
+      {
+        "id": "01M6RBER3AXPSYQ1SWPKT71C4C",
+        "workspace_id": "browser-workspace",
+        "page_id": "01M6RBEQ85GM7932YQS2VSR3SG",
+        "storage_key": "pages/browser-workspace/01M6RBEQ85GM7932YQS2VSR3SG/01M6RBER3AXPSYQ1SWPKT71C4C",
+        "original_name": "archive-notes.txt",
+        "content_type": "text/plain",
+        "size_bytes": 60,
+        "created_at": "2026-11-06T11:56:10.213Z",
+        "deleted_at": null
+      },
+      {
+        "id": "01M6RBER47GW4DFX27W1MFYZ42",
+        "workspace_id": "browser-workspace",
+        "page_id": "01M6RBEQH796FAW2TQX7G444SW",
+        "storage_key": "pages/browser-workspace/01M6RBEQH796FAW2TQX7G444SW/01M6RBER47GW4DFX27W1MFYZ42",
+        "original_name": "archive-original.png",
+        "content_type": "image/png",
+        "size_bytes": 68,
+        "created_at": "2026-11-06T11:56:10.241Z",
+        "deleted_at": null
+      }
+    ],
+    "record_revisions": [
+      {
+        "id": "01M6RBER1NA03SN5GFQY13KHH8",
+        "workspace_id": "browser-workspace",
+        "entity_kind": "comment-thread",
+        "entity_id": "01M6RBEQYXTKANVMMMMSGWNS1X",
+        "ordinal": null,
+        "content_hash": "cb8b24b7e681bab2ca8ccd5e5b51a64931557081bbe3a8b93f90ebda4be27386",
+        "content_json": "{\"resolved\":true}",
+        "author_member_id": "browser-owner",
+        "created_at": "2026-11-06T11:56:10.163Z"
+      },
+      {
+        "id": "01M6RBER0SV8BG3MS522AATDJK",
+        "workspace_id": "browser-workspace",
+        "entity_kind": "comment-thread",
+        "entity_id": "01M6RBEQYXTKANVMMMMSGWNS1X",
+        "ordinal": null,
+        "content_hash": "eaf5818f87704f70addec4a8dc59024627a18acb827dc92bd069eff33b704d7b",
+        "content_json": "{\"id\":\"01M6RBEQYXT14V2ME11XC38JCJ\",\"body\":[{\"text\":\"synthetic-slate-408: edited anchored discussion\"}],\"deleted\":false}",
+        "author_member_id": "browser-owner",
+        "created_at": "2026-11-06T11:56:10.134Z"
+      },
+      {
+        "id": "01M6RBEQZNH421WQ2F5786Y9RH",
+        "workspace_id": "browser-workspace",
+        "entity_kind": "comment-thread",
+        "entity_id": "01M6RBEQYXTKANVMMMMSGWNS1X",
+        "ordinal": null,
+        "content_hash": "21f3f59ee47f223460fcb728127385ff2f1652b2d4cf95d2b34adedcd0db86fa",
+        "content_json": "[{\"text\":\"synthetic-slate-406: preserve this reply\"}]",
+        "author_member_id": "browser-owner",
+        "created_at": "2026-11-06T11:56:10.097Z"
+      },
+      {
+        "id": "01M6RBEQYTQY1K1SNAG9GR6J9J",
+        "workspace_id": "browser-workspace",
+        "entity_kind": "comment-thread",
+        "entity_id": "01M6RBEQYXTKANVMMMMSGWNS1X",
+        "ordinal": null,
+        "content_hash": "7965dcd8acb7f69c693e6eff1d2a9d76e4d401540c9cb77b3d049af442b9e345",
+        "content_json": "[{\"text\":\"synthetic-slate-405: preserve this anchored discussion\"}]",
+        "author_member_id": "browser-owner",
+        "created_at": "2026-11-06T11:56:10.072Z"
+      }
+    ],
+    "core_entity_revisions": [
+      {
+        "id": "01M6RBEQM4W2ZTPTQ9TXQMKSDQ",
+        "workspace_id": "browser-workspace",
+        "entity_kind": "page-grant",
+        "entity_id": "01M6RBEQM6WQXF95M6KQKC5P57",
+        "content_hash": "a970b5e469ea91d2205a47f81ed3be1c37eb893121a34e9ba3129a4dedd2835e",
+        "content_json": "{\"targetId\":\"01M6RBEQ85GM7932YQS2VSR3SG\",\"principalKind\":\"member\",\"principalId\":\"browser-reader\",\"level\":\"comment\",\"expiresAt\":null,\"revoked\":false}",
+        "author_member_id": "browser-owner",
+        "created_at": "2026-11-06T11:56:09.730Z"
+      },
+      {
+        "id": "01M6RBEQS1G297MQ7CYPC9K8YZ",
+        "workspace_id": "browser-workspace",
+        "entity_kind": "page-grant",
+        "entity_id": "01M6RBEQM6WQXF95M6KQKC5P57",
+        "content_hash": "19d6fc12e46b7e44fc2ce0ae810eacc80b4968d6176b0eab3a5579c8ac8935ad",
+        "content_json": "{\"targetId\":\"01M6RBEQ85GM7932YQS2VSR3SG\",\"principalKind\":\"member\",\"principalId\":\"browser-reader\",\"level\":\"edit\",\"expiresAt\":null,\"revoked\":false}",
+        "author_member_id": "browser-owner",
+        "created_at": "2026-11-06T11:56:09.887Z"
+      },
+      {
+        "id": "01M6RBEQMWA143YTT7KYKWD6JT",
+        "workspace_id": "browser-workspace",
+        "entity_kind": "page-grant",
+        "entity_id": "01M6RBEQMXKCYTWW7A2FQ13KY9",
+        "content_hash": "df7edce392f9d8eba3540ece04ba8f219a819c4a17122a0da576fe4145426fea",
+        "content_json": "{\"targetId\":\"01M6RBEQEAVWWAR2AB3QQ7G0P6\",\"principalKind\":\"group\",\"principalId\":\"01M6RBEQ7JDF8H3K7RJEXXZK6B\",\"level\":\"view\",\"expiresAt\":null,\"revoked\":false}",
+        "author_member_id": "browser-owner",
+        "created_at": "2026-11-06T11:56:09.754Z"
+      },
+      {
+        "id": "01M6RBEQSWRRREFZHMTK2TW290",
+        "workspace_id": "browser-workspace",
+        "entity_kind": "page-grant",
+        "entity_id": "01M6RBEQMXKCYTWW7A2FQ13KY9",
+        "content_hash": "a6cbeebcd5fec5d260eabd89117264a76d977abefe74813a8b7cdc86ec87e65a",
+        "content_json": "{\"targetId\":\"01M6RBEQEAVWWAR2AB3QQ7G0P6\",\"principalKind\":\"group\",\"principalId\":\"01M6RBEQ7JDF8H3K7RJEXXZK6B\",\"level\":\"view\",\"expiresAt\":null,\"revoked\":true}",
+        "author_member_id": "browser-owner",
+        "created_at": "2026-11-06T11:56:09.913Z"
+      },
+      {
+        "id": "01M6RBEQTDQ9M3138737CZW4HQ",
+        "workspace_id": "browser-workspace",
+        "entity_kind": "page-grant",
+        "entity_id": "01M6RBEQMXKCYTWW7A2FQ13KY9",
+        "content_hash": "0d3952b10a648132f279fa451ce8eea24fd06023617aedfbe60a5a953140bc6e",
+        "content_json": "{\"targetId\":\"01M6RBEQEAVWWAR2AB3QQ7G0P6\",\"principalKind\":\"group\",\"principalId\":\"01M6RBEQ7JDF8H3K7RJEXXZK6B\",\"level\":\"comment\",\"expiresAt\":null,\"revoked\":false}",
+        "author_member_id": "browser-owner",
+        "created_at": "2026-11-06T11:56:09.930Z"
+      },
+      {
+        "id": "01M6RBEQVC938J6QPDHQHCPVVP",
+        "workspace_id": "browser-workspace",
+        "entity_kind": "page-grant",
+        "entity_id": "01M6RBEQVEYTASE2NX1BXX98AJ",
+        "content_hash": "3ea615c8a390a7247514cefd998bf8eec39860081ce1aa526886993d183a1a73",
+        "content_json": "{\"targetId\":\"01M6RBEQBFQ32N4KJ7E3D2C8N8\",\"principalKind\":\"member\",\"principalId\":\"browser-reader\",\"level\":\"edit\",\"expiresAt\":null,\"revoked\":false}",
+        "author_member_id": "browser-owner",
+        "created_at": "2026-11-06T11:56:09.962Z"
+      },
+      {
+        "id": "01M6RBEQW8CR8ZY2BXT6T8HDS3",
+        "workspace_id": "browser-workspace",
+        "entity_kind": "page-grant",
+        "entity_id": "01M6RBEQVEYTASE2NX1BXX98AJ",
+        "content_hash": "64484b1c45a8db602c3e552c70000b6f3377506ef80207ec3b406195fb7a6422",
+        "content_json": "{\"targetId\":\"01M6RBEQBFQ32N4KJ7E3D2C8N8\",\"principalKind\":\"member\",\"principalId\":\"browser-reader\",\"level\":\"edit\",\"expiresAt\":null,\"revoked\":true}",
+        "author_member_id": "browser-owner",
+        "created_at": "2026-11-06T11:56:09.990Z"
+      },
+      {
+        "id": "01M6RBEQWWW78DPKWN8BATCZB7",
+        "workspace_id": "browser-workspace",
+        "entity_kind": "page-grant",
+        "entity_id": "01M6RBEQWXR62Z8J9SVQMD330F",
+        "content_hash": "c1db8413b21e48df247946145230afe0d349eece8021e18459a31e1ba375c72e",
+        "content_json": "{\"targetId\":\"01M6RBEQBFQ32N4KJ7E3D2C8N8\",\"principalKind\":\"member\",\"principalId\":\"browser-owner\",\"level\":\"full\",\"expiresAt\":null,\"revoked\":false}",
+        "author_member_id": "browser-owner",
+        "created_at": "2026-11-06T11:56:10.009Z"
+      },
+      {
+        "id": "01M6RBEQ7JX6D5NSVSM2WFTF58",
+        "workspace_id": "browser-workspace",
+        "entity_kind": "group",
+        "entity_id": "01M6RBEQ7JDF8H3K7RJEXXZK6B",
+        "content_hash": "9ebd0396403be55cb537bc4ed59dc6fc78c46a3bc686bf67b22671633c0aabe8",
+        "content_json": "{\"name\":\"Archive review team\",\"memberIds\":[\"browser-reader\"],\"deleted\":false}",
+        "author_member_id": "browser-owner",
+        "created_at": "2026-11-06T11:56:09.328Z"
+      }
+    ],
+    "groups": [
+      {
+        "id": "01M6RBEQ7JDF8H3K7RJEXXZK6B",
+        "workspace_id": "browser-workspace",
+        "name": "Archive review team",
+        "created_at": "2026-11-06T11:56:09.328Z",
+        "updated_at": "2026-11-06T11:56:09.328Z",
+        "revision_id": "01M6RBEQ7JX6D5NSVSM2WFTF58"
+      }
+    ],
+    "group_members": [
+      {
+        "group_id": "01M6RBEQ7JDF8H3K7RJEXXZK6B",
+        "member_id": "browser-reader",
+        "created_at": "2026-11-06T11:56:09.328Z"
+      }
+    ]
+  }
+}

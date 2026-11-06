@@ -1,0 +1,126 @@
+{
+  "head": "a21faba8283371ac7f149e3ea49cf08cee2e4df0",
+  "base": "2f341380ae581db24c4982b6ff5faf3f7b78b90b",
+  "runtimeChanged": [],
+  "checks": [
+    {
+      "command": "npx -y @runeditrun/rer setup --owner-email fleet@runeditrun.com --non-interactive",
+      "exit": 0,
+      "scope": "Initial requested base; private local configuration excluded from the packet."
+    },
+    {
+      "command": "npx -y @runeditrun/rer build",
+      "exit": 0,
+      "scope": "Initial requested base; runtime source unchanged in the candidate."
+    },
+    {
+      "command": "pnpm typecheck",
+      "exit": 0,
+      "scope": "Extended journey and metadata; no TypeScript source changed afterward."
+    },
+    {
+      "command": "pnpm exec rer check --profile first-party",
+      "exit": 0,
+      "scope": "Final source content."
+    },
+    {
+      "command": "node scripts/check-contract.mjs",
+      "exit": 0,
+      "checks": 9
+    },
+    {
+      "command": "node src/base/runtime/contract-docs.mjs write",
+      "exit": 0,
+      "scope": "After final fetch and no-op rebase."
+    },
+    {
+      "command": "node src/base/runtime/contract-docs.mjs check",
+      "exit": 0,
+      "scope": "Immediately after write."
+    },
+    {
+      "command": "git checkout origin/main -- ACCEPTANCE.md docs/CLAIMS.md",
+      "exit": 0,
+      "scope": "Generated views restored and excluded from product commits."
+    },
+    {
+      "command": "pnpm integration:sync",
+      "exit": 0
+    },
+    {
+      "command": "pnpm source:lock",
+      "exit": 0,
+      "scope": "Last source mutation; no hand-edited hashes."
+    },
+    {
+      "command": "pnpm source:check",
+      "exit": 0,
+      "scope": "After final no-op rebase and lock."
+    },
+    {
+      "command": "migration ledger",
+      "exit": 0,
+      "scope": "Not applicable; no migration changed."
+    }
+  ],
+  "logs": {
+    "typecheck.log": {
+      "bytes": 208,
+      "sha256": "b5e16ade09f86dbd6a89d2b8c4f52117b82830271d2fdd23f6dee692ee5cdc90"
+    },
+    "contract-structure.json": {
+      "bytes": 2400,
+      "sha256": "43bfcf8344fd09cf188b685f257614de84f381f385c7355dab0fdfed9125a710"
+    },
+    "contract-views-write.log": {
+      "bytes": 28,
+      "sha256": "df91012bf66fb476e9cd1a30c002829398beb55f869e07cc7be477197fa5a276"
+    },
+    "contract-views-check.log": {
+      "bytes": 32,
+      "sha256": "c21aae40192141751d6d5c7a3a1d0eb701a6852f305d592d77b4dcab9c2536ab"
+    },
+    "source-check.log": {
+      "bytes": 540954,
+      "sha256": "7c48ff2aee6a19f358d1851dc12bf5d2e6f24d52e3e6845ae11b2d813bf56ec0"
+    },
+    "baseline-desktop.log": {
+      "bytes": 873,
+      "sha256": "1f371e6aa9e08b4547a831195efc1eafd848800a444cbd92deb8aa3f7843c097"
+    },
+    "fixture-correction.log": {
+      "bytes": 1869,
+      "sha256": "ff7398940afdca4a2b357e2d06d0c236b97a6a660103bf0d3e8e0b3c56652660"
+    }
+  },
+  "mechanical": "MECHANICAL lock=pnpm source:lock and pnpm source:check exit=0; views=node src/base/runtime/contract-docs.mjs write and check exit=0; ledger=none exit=0",
+  "parentStatusRows": 338,
+  "candidateStatusRows": 338,
+  "parentTableLines": 698,
+  "candidateTableLines": 698,
+  "countsBefore": {
+    "done": 57,
+    "partial": 240,
+    "missing": 41
+  },
+  "countsAfter": {
+    "done": 57,
+    "partial": 240,
+    "missing": 41
+  },
+  "registrationsBefore": 205,
+  "registrationsAfter": 205,
+  "newRegistrations": 0,
+  "publicationScan": {
+    "status": "Not run in cloud; guarded lander owns full-history scan.",
+    "complete": false
+  },
+  "firstPartyOutputBytes": 0,
+  "rebase": "Current branch cloud/sd-slate-c-f194 is up to date.",
+  "productPush": {
+    "branch": "cloud/sd-slate-c-f194",
+    "head": "a21faba8283371ac7f149e3ea49cf08cee2e4df0",
+    "attempt": 1,
+    "status": "pushed"
+  }
+}
