@@ -956,7 +956,7 @@
         "BLOCK-014",
         "BLOCK-012"
       ],
-      "reason": "Structured tables remain covered; the same native HTTP case proves column bounds, retained round trips, incumbent layout imports and reader-safe page operations. Word adds decoded fixed-width, top-aligned, wrapping and splittable one-level 2–5-column paragraph and heading layout with exact cell content and logical order. The existing responsive columns caller also downloads through the native Export page dialog and renders the actual Word file with an independent OOXML renderer. PDF, other column content and export cases, and complete PORT-007 coverage remain unproven."
+      "reason": "Structured tables remain covered; the same native HTTP case proves column bounds, retained round trips, incumbent layout imports and reader-safe page operations. Word adds decoded fixed-width, top-aligned, wrapping and splittable one-level 2–5-column paragraph and heading layout with exact cell content and logical order. The existing responsive columns caller also downloads through the native Export page dialog and renders the actual Word file with an independent OOXML renderer, then checks exact per-column text, alignment and following blocks across its printed page boundaries. Native PDF, other column content and export cases, and complete PORT-007 coverage remain unproven."
     },
     {
       "file": "tests/e2e/notifications/destinations.test.ts",

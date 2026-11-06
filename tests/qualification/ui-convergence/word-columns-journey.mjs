@@ -5,6 +5,7 @@ import {createRequire} from 'node:module';
 import {unzipSync} from 'fflate';
 import {expect} from '@playwright/test';
 import {wordColumnsFixture} from '../../helpers/word-columns-fixture.mjs';
+import {assertPaginatedWordColumns} from '../../helpers/word-columns-pagination.mjs';
 import {ok} from './two-people-support.mjs';
 
 const require=createRequire(import.meta.url);
@@ -43,7 +44,7 @@ export async function wordColumnsJourney(state,width,containerId) {
   // export and reads back its download, alongside the existing stacking proof.
   if(width!==1440)return;
   await assertRenderedWordColumns(context,bytes,corpus);
-  console.log('PROBE BLOCK-012 Word: native dialog -> downloaded 2–5-column document -> exact rendered content, wrapping, independent heights and full-width following paragraphs');
+  console.log('PROBE BLOCK-012 Word: native dialog -> downloaded 2–5-column document -> exact rendered content, wrapping, independent heights and full-width following paragraphs across printed page boundaries');
 }
 
 export async function assertRenderedWordColumns(context,bytes,corpus) {
@@ -97,10 +98,23 @@ export async function assertRenderedWordColumns(context,bytes,corpus) {
       await expect(after).toHaveText(section.after);
       const afterBox=await after.boundingBox(),tableBox=await tables.nth(index).boundingBox();
       assert.ok(afterBox.y>=tableBox.y+tableBox.height-1,'Ordinary content follows the whole section.');
+      assert.ok(Math.abs(afterBox.x-tableBox.x)<1&&afterBox.width>=tableBox.width-1,'Following paragraphs regain the full page width.');
       geometry.push({count:section.count,bounds,table:tableBox,after:afterBox});
     }
     assert.ok(geometry[0].table.height>printableHeight,'The tall first column exceeds the printable height of a page.');
-    await writeFile('.artifacts/ui-convergence/columns-word-rendered.json',JSON.stringify({renderer:'docx-preview',geometry},null,2));
+    // Print the decoded Word rendering and inspect every physical page. This
+    // exercises pagination without requiring an Office install in push Verify.
+    // Slate's native PDF format remains outside this Word qualification.
+    await output.addStyleTag({content:'@page{size:A4;margin:0} @media print{body{margin:0}.docx-wrapper{padding:0!important;background:white!important}section.docx{box-shadow:none!important;margin:0!important}}'});
+    const printed=await output.pdf({format:'A4',printBackground:true});
+    const printableWidth=await output.evaluate(xml=>{
+      const document=new DOMParser().parseFromString(xml,'application/xml');
+      const size=document.getElementsByTagName('w:pgSz')[0],margin=document.getElementsByTagName('w:pgMar')[0];
+      return (Number(size.getAttribute('w:w'))-Number(margin.getAttribute('w:left'))-Number(margin.getAttribute('w:right')))/20;
+    },xml);
+    const pagination=await assertPaginatedWordColumns(printed,corpus,printableWidth);
+    await writeFile('.artifacts/ui-convergence/columns-word-printed.pdf',printed);
+    await writeFile('.artifacts/ui-convergence/columns-word-rendered.json',JSON.stringify({renderer:'docx-preview',geometry,pagination},null,2));
     await output.screenshot({path:'.artifacts/ui-convergence/columns-word-rendered.png',fullPage:true});
   } finally {await output.close();}
 }
