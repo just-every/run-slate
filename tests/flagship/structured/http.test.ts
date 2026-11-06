@@ -115,8 +115,9 @@ test("Worker HTTP rejects missing expired revoked and denied sessions and persis
   // Follow the same native session into a populated record, including the
   // allowed edit, computed-field refusal and subsequent viewer downgrade.
   const call = async (method: string, path: string, actor = cookie, data?: unknown) => {
-    const response = await SELF.fetch(`http://localhost/api${path}`, {
-      method, headers: {cookie: actor, origin: "http://localhost", "content-type": "application/json"},
+    const origin = new URL(String(env.APP_URL)).origin;
+    const response = await SELF.fetch(`${origin}/api${path}`, {
+      method, headers: {cookie: actor, origin, "content-type": "application/json"},
       ...(data ? {body: JSON.stringify(data)} : {}),
     });
     return {status: response.status, body: await response.json() as any};
@@ -269,6 +270,23 @@ test("Worker HTTP rejects missing expired revoked and denied sessions and persis
   expect(JSON.stringify(replay.body)).not.toContain(second.pageId);
   expect(await snapshot()).toEqual(retainedAfterRevocation);
   expect(retainedAfterRevocation.record.values.related).toEqual(selected);
+  // Erasure removes a retained destination from reads and replayed receipts without recreating it.
+  const freshOwner = await sessionFor(ctx.actor.id, {freshProof: true});
+  const targetBeforeTrash = (await call("GET", `/pages/${second.pageId}`)).body;
+  await mutate("POST", `/archive/${second.pageId}`, {expectedRevisionId: targetBeforeTrash.page.revisionId, action: "trash"});
+  const erased = await call("POST", `/archive/${second.pageId}/permanent-delete`, freshOwner, {operationKey: "case:erase-relation-target", confirmedPageIds: [second.pageId]});
+  expect(erased.status, JSON.stringify(erased.body)).toBe(200);
+  expect((await call("GET", `${targetBase}/records/${second.pageId}`)).status).toBe(404);
+  const afterErasure = await snapshot();
+  expect(afterErasure.record.values.related).toEqual([first.pageId]);
+  expect((await call("POST", "/databases/references", cookie, {pageIds: selected})).body.items.map((item: any) => item.id)).toEqual([first.pageId]);
+  const erasedReplay = await call("PATCH", recordPath, memberCookie, selectionInput);
+  expect(erasedReplay.status).toBe(200);
+  expect(erasedReplay.body.value.values.related).toEqual([first.pageId]);
+  expect(JSON.stringify(erasedReplay.body)).not.toContain(second.pageId);
+  const erasedWrite = await call("PATCH", recordPath, memberCookie, {operationKey: "case:erased-relation-write", expectedRevisionId: afterErasure.record.revisionId, values: {related: selected}});
+  expect(erasedWrite.status).toBe(404);
+  expect(await snapshot()).toEqual(afterErasure);
   // Repointing a populated relation must not turn retained identities into wrong-database links.
   const beforeRetarget = await snapshot();
   const retarget = await call("POST", base + "/fields", cookie, {operationKey: "case:retarget-relation", expectedRevisionId: beforeRetarget.structure.database.revision_id, field: {...relation, config: {databaseId: body.value.id}}});
