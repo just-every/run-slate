@@ -339,7 +339,9 @@ export async function permissionPermanentDeleteMatrix({ state, bob, api, level, 
     assert.ok(!JSON.stringify(after.activity).includes(body));
     const erased = after.activity.filter(item => item.operationKey === input.operationKey);
     assert.equal(erased.length, 1);
-    assert.deepEqual([erased[0].id, erased[0].actor.id], [result.receipt.activityId, bob.id]);
+    assert.deepEqual([erased[0].id, erased[0].actor, erased[0].context, erased[0].deleted, erased[0].occurredAt],
+      [result.receipt.activityId, null, {}, true, result.receipt.committedAt],
+      'Erasure retains the receipt and time with content-free, anonymized activity.');
     assert.deepEqual((await ok(bob.context, origin, 'POST', target, input)).receipt, result.receipt);
     assert.deepEqual(await afterErasure(), after, 'Repeating erasure cannot repeat activity or restore content.');
     for (const [method, endpoint, input] of [
@@ -350,6 +352,9 @@ export async function permissionPermanentDeleteMatrix({ state, bob, api, level, 
     ]) {
       const denied = await call(context, origin, method, endpoint, input);
       assert.equal(denied.status, 404);
+      assert.equal(denied.body.code, 'NOT_FOUND');
+      assert.ok(!JSON.stringify(denied.body).includes(title));
+      assert.ok(!JSON.stringify(denied.body).includes(body));
       assert.deepEqual(await afterErasure(), after, 'Old content and grant captures cannot resurrect an erased page.');
       refusal.push({ method, target: endpoint, input, result: denied });
     }
@@ -364,6 +369,9 @@ export async function permissionPermanentDeleteMatrix({ state, bob, api, level, 
     ]) {
       const denied = await call(bob.context, origin, method, endpoint, input);
       assert.equal(denied.status, 404);
+      assert.equal(denied.body.code, 'NOT_FOUND');
+      assert.ok(!JSON.stringify(denied.body).includes(title));
+      assert.ok(!JSON.stringify(denied.body).includes(body));
       assert.deepEqual(await afterErasure(), retained, 'An under-scoped erasure attempt changes no retained projection or activity.');
       refusal.push({ method, target: endpoint, input, result: denied });
     }

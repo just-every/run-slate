@@ -12244,7 +12244,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/sharing-lifecycle-matrix.mjs": {
-      "sha256": "e00970be10f57e8e8e192d62b2b7cbf361a64c02abfbe22f312c9b4ddbac3f89",
+      "sha256": "7a840a1bf5002d0505aca6f2389dce9ed89b2d65781cad9d34b943f51e50bea9",
       "executable": false
     },
     "tests/qualification/ui-convergence/sharing-page-edit-matrix.mjs": {
@@ -12428,7 +12428,7 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "e9c74952058734f8a1ad04aa9d157f5cc0d3eb4775e4c890bb5e2e802053f4bc",
+      "sha256": "00e8742c1f0d3c86b1d0df688a007b88ba2bc2284d6f79ed8cd4099650f3bb6e",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
