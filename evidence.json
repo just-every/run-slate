@@ -79,6 +79,12 @@
       "sha256": "43bfcf8344fd09cf188b685f257614de84f381f385c7355dab0fdfed9125a710"
     },
     {
+      "blob": "968e4831fc723606cf8c1e528b10d3eef5bac320",
+      "bytes": 5120,
+      "path": "EVIDENCE-TRANSFER.json",
+      "sha256": "d48417b6f20607d309c02716209440fd3f3ff115f9d97442fc84976f0947ff70"
+    },
+    {
       "blob": "ea88df2850978941b14fa1f2d84bb183b8dcab2d",
       "bytes": 2105,
       "path": "PLAN.md",
