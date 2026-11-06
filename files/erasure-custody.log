@@ -1,0 +1,15 @@
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mProxy environment variables detected. We'll use your proxy for fetch requests.[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mProxy environment variables detected. We'll use your proxy for fetch requests.[0m
+
+
+
+ RUN  v4.1.11 /home/agent/rer-consolidation/work/sd-slate-c-f197/run-slate
+
+
+ Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  12:54:48
+   Duration  11.87s (transform 4.04s, setup 824ms, import 6.91s, tests 3.39s, environment 0ms)
+

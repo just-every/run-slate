@@ -1,0 +1,27 @@
+Journey failure context {
+  "rejected": [],
+  "consoleErrors": []
+}
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: A captured template still serves its retained original after native restore.
+
+404 !== 200
+
+    at proveRestoreRecords (file:///home/agent/rer-consolidation/work/sd-slate-c-f197/run-slate/tests/qualification/ui-convergence/restore-records-journey.mjs:57:10)
+    at async proveReferentialRestore (file:///home/agent/rer-consolidation/work/sd-slate-c-f197/run-slate/tests/qualification/ui-convergence/referential-restore-journey.mjs:264:21)
+    at async transferJobsJourney (file:///home/agent/rer-consolidation/work/sd-slate-c-f197/run-slate/tests/qualification/ui-convergence/transfer-jobs-journey.mjs:189:5)
+    at async withWorkspace.scheduled (file:///tmp/slate-restore-probe.mjs:7:5)
+    at async withWorkspace (file:///home/agent/rer-consolidation/work/sd-slate-c-f197/run-slate/tests/qualification/ui-convergence/browser-support.mjs:188:7)
+    at async file:///tmp/slate-restore-probe.mjs:5:3 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 404,
+  expected: 200,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v22.20.0

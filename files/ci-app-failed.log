@@ -1,0 +1,7 @@
+Runner environment-value lines omitted; command and failure output retained.
+verify (app)	Run node src/base/runtime/contract-docs.mjs check	﻿2026-11-06T13:52:50.4185436Z ##[group]Run node src/base/runtime/contract-docs.mjs check
+verify (app)	Run node src/base/runtime/contract-docs.mjs check	2026-11-06T13:52:50.4185871Z [36;1mnode src/base/runtime/contract-docs.mjs check[0m
+verify (app)	Run node src/base/runtime/contract-docs.mjs check	2026-11-06T13:52:50.4208680Z shell: /usr/bin/bash -e {0}
+verify (app)	Run node src/base/runtime/contract-docs.mjs check	2026-11-06T13:52:50.4209493Z ##[endgroup]
+verify (app)	Run node src/base/runtime/contract-docs.mjs check	2026-11-06T13:52:50.5343784Z ACCEPTANCE.md: generated content differs; run contract-docs write.
+verify (app)	Run node src/base/runtime/contract-docs.mjs check	2026-11-06T13:52:50.5440380Z ##[error]Process completed with exit code 1.

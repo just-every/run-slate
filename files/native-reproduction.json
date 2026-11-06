@@ -1,0 +1,11 @@
+{
+  "kind": "native-public-door-reproduction",
+  "productSourceHead": "a2a45847552369ed32eca91dc03de7c448d4631b",
+  "testWorktreeModified": true,
+  "command": "SLATE_CHROMIUM_PATH=/usr/bin/chromium node /tmp/slate-restore-probe.mjs 1440",
+  "exit": 1,
+  "test": "A captured template still serves its retained original after native restore.",
+  "failure": "404 !== 200",
+  "observed": "Source template asset returned 200 with original bytes; after actual native ZIP restore, template metadata retained its reference but the asset route returned 404.",
+  "receipt": "template-asset-reproduction.log"
+}

@@ -1,0 +1,178 @@
+{
+  "schema": 1,
+  "repository": "just-every/run-slate",
+  "tag": "sd-slate-c-f197",
+  "branch": "cloud/sd-slate-c-f197",
+  "head": "edeb73c4a02edbb083c5979bec267a5af8957275",
+  "tree": "3dba05fbbd67a63523ef660de01f44d8e7bb44c3",
+  "mergedMain": "1f16db6cb1d9b26717cb30519a925902c1f9a9a8",
+  "published": true,
+  "publicationRef": "refs/heads/cloud/sd-slate-c-f197",
+  "pr": null,
+  "clause": {
+    "id": "PORT-002",
+    "before": "partial",
+    "after": "partial",
+    "acceptance": "Selected parts of acceptance 1 and 2 are proven; neither complete universal acceptance sentence is claimed closed."
+  },
+  "counts": {
+    "before": {
+      "done": 57,
+      "partial": 240,
+      "missing": 41,
+      "total": 338
+    },
+    "after": {
+      "done": 57,
+      "partial": 240,
+      "missing": 41,
+      "total": 338
+    }
+  },
+  "parentStatusIds": {
+    "firstParent": 338,
+    "mainParent": 338,
+    "retained": 338,
+    "tableLinesBefore": 698,
+    "tableLinesAfter": 698
+  },
+  "registrationsAdded": 0,
+  "generatedViews": "Taken whole from current main; no authored generated-view delta against main.",
+  "localProofTreeEqualsCandidate": true,
+  "checks": [
+    {
+      "name": "typecheck",
+      "command": "pnpm typecheck",
+      "exit": 0,
+      "receipt": "typecheck.log"
+    },
+    {
+      "name": "first-party",
+      "command": "pnpm exec rer check --profile first-party",
+      "exit": 0,
+      "receipt": "first-party.log"
+    },
+    {
+      "name": "build",
+      "command": "cloud_run npx -y @runeditrun/rer build",
+      "exit": 0,
+      "receipt": "build.log"
+    },
+    {
+      "name": "desktop registered browser journey",
+      "command": "node --test --test-concurrency=1 --test-name-pattern='^readable exports retain discussions' tests/qualification/ui-convergence/journeys.test.mjs",
+      "exit": 0,
+      "testsPassed": 1,
+      "durationMs": 286009.675622,
+      "receipt": "desktop-journey.log"
+    },
+    {
+      "name": "phone registered browser journey",
+      "command": "node --test --test-concurrency=1 --test-name-pattern='^real core-wiki and touch-member journeys at 390px$' tests/qualification/ui-convergence/journeys.test.mjs",
+      "exit": 0,
+      "testsPassed": 1,
+      "durationMs": 659340.720628,
+      "receipt": "phone-journey.log"
+    },
+    {
+      "name": "native portability roundtrip",
+      "command": "node --test --test-concurrency=1 tests/portability/roundtrip.test.mjs",
+      "exit": 0,
+      "testsPassed": 1,
+      "durationMs": 223602.831269,
+      "receipt": "roundtrip.log"
+    },
+    {
+      "name": "atomic erasure custody",
+      "command": "pnpm exec vitest run --config tests/qualification/erasure-metadata/vitest.config.ts tests/qualification/erasure-metadata/atomic-custody.test.ts",
+      "exit": 0,
+      "testsPassed": 1,
+      "receipt": "erasure-custody.log",
+      "provenance": "Product source is identical to final candidate; test passed before the later additive main runtime merge."
+    },
+    {
+      "name": "contract views write",
+      "command": "node src/base/runtime/contract-docs.mjs write",
+      "exit": 0,
+      "receipt": "views-write.log"
+    },
+    {
+      "name": "contract views check after write",
+      "command": "node src/base/runtime/contract-docs.mjs check",
+      "exit": 0,
+      "receipt": "views-check.log"
+    },
+    {
+      "name": "integration",
+      "command": "pnpm integration:sync",
+      "exit": 0,
+      "receipt": "integration.log"
+    },
+    {
+      "name": "source lock write",
+      "command": "pnpm source:lock",
+      "exit": 0,
+      "receipt": "lock-write.log"
+    },
+    {
+      "name": "source lock check",
+      "command": "pnpm source:check",
+      "exit": 0,
+      "receipt": "lock-check.log"
+    }
+  ],
+  "migrationLedger": {
+    "command": null,
+    "exit": 0,
+    "reason": "No migration added or edited."
+  },
+  "ci": {
+    "id": 42228976114,
+    "name": "Verify Slate",
+    "event": "push",
+    "status": "completed",
+    "conclusion": "failure",
+    "head_sha": "edeb73c4a02edbb083c5979bec267a5af8957275",
+    "html_url": "https://github.com/just-every/run-slate/actions/runs/42228976114",
+    "source": "Actual exact-head REST discovery, permitted poll, jobs response and one failed-log read per failed job.",
+    "classification": "expected generated-view-only failure",
+    "applicationJob": 127929737688,
+    "aggregateJob": 127929982625,
+    "failedApplicationStep": "Run node src/base/runtime/contract-docs.mjs check",
+    "failure": "ACCEPTANCE.md: generated content differs; run contract-docs write.",
+    "applicationTests": "skipped after app dependency; no branch-CI test pass is claimed.",
+    "failedLogCommands": [
+      {
+        "command": "gh run view 42228976114 --repo just-every/run-slate --job 127929737688 --log-failed",
+        "exit": 0
+      },
+      {
+        "command": "gh run view 42228976114 --repo just-every/run-slate --job 127929982625 --log-failed",
+        "exit": 0
+      }
+    ]
+  },
+  "guardedLanding": {
+    "mainEquality": "pending",
+    "publicationScan": "not run in cloud; guarded lander required",
+    "runSite": "pending after guarded landing"
+  },
+  "preReadySelfCheck": {
+    "selectedBehaviorCovered": true,
+    "wholeClauseDone": false,
+    "inheritedAssertionsRetained": true,
+    "authority": "Source sessions refused; inactive restored actors need renewed admission; refused member mutation and public action preserve selected state.",
+    "erasure": "Existing atomic custody test retained and passing; no erasure or cleanup guard weakened.",
+    "screens": "1440 and 390 native retained screens captured; no production UI source changed.",
+    "sourceLockFresh": true,
+    "publicationScanClaimed": false
+  },
+  "recordedAt": "2026-11-06T14:02:27.098419+00:00",
+  "githubCalls": 10,
+  "readyContract": "Permitted generated-view-only exception; all local touched checks pass, exact candidate is pushed. Guarded lander must regenerate and validate before landing.",
+  "expectedStaleViewsCheck": {
+    "command": "node src/base/runtime/contract-docs.mjs check",
+    "exit": 1,
+    "receipt": "views-stale-check.log"
+  }
+}

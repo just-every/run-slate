@@ -1,0 +1,31 @@
+{
+  "testedTree": "3dba05fbbd67a63523ef660de01f44d8e7bb44c3",
+  "sourceHeadBeforeMergeCommit": "80f6ef2411f75ac3123638222ea18905f1562e08",
+  "mergeParent": "1f16db6cb1d9b26717cb30519a925902c1f9a9a8",
+  "build": {
+    "schema": 1,
+    "commit": "80f6ef2411f75ac3123638222ea18905f1562e08",
+    "tree": "18349018bafd80fec5581fe4a32d1a9e100ece86",
+    "sourceSha256": "dd197f162425c8b3f706faff4b0e329623eb74a0fea024bf6e6a22c74d851c85",
+    "lockSha256": "26059dccfac91c2ee9efa1cf06d6a35d2c7fa6649fa58882a122e5f88c99df7d",
+    "outputSha256": "cd36087e99939c2a4f1841cfd1ac9aeb355844d9d1f3bec30b00cd05226733eb"
+  },
+  "fileSha256": {
+    "CONTRACT.md": "3185244439ad0b495f839291cd5a0a7cfac55cd25bee63bda7844500b893342c",
+    "sources.lock.json": "26059dccfac91c2ee9efa1cf06d6a35d2c7fa6649fa58882a122e5f88c99df7d",
+    "src/core/features/portability/archive-stream.ts": "d14aefd636b3b40f5f44746a7709007d2acd385d5e79f3e5559caef65b287530",
+    "src/core/features/portability/archive.ts": "83769097a9dc1f2dec458ba6166641f0d036b60eb9504f3e0a9a7faa0edd5f78",
+    "src/core/features/portability/export-files.ts": "f3c77db90a4ffce1e7c771a7a7ad75a1a3ec9c77926417972c948891936e893b",
+    "src/core/features/portability/rows.ts": "3a3867230536f8e9f9b9e7ae1fa34972ecad87634a8e69e6e037dee6345ba70e",
+    "src/core/features/portability/template-assets.ts": "6dc649358e71b16aa33cfc0c596e738f61c8d9f73b57f97a14ae0f4548092b57",
+    "tests/portability/equivalence.mjs": "56d8702c5075e0a858b3a6dd572920e340909bca3cc5cd544f36c7079b48ea6b",
+    "tests/portability/runtime.mjs": "bacc656ad66e29f497b9937eb67838814ded6ae46e7fea27b334c2221d11ee9a",
+    "tests/qualification/ui-convergence/archive-retention-journey.mjs": "dc5058f841147bbc3d39befe4ac97797437d91eb235b76c9327b2c342bc2f281",
+    "tests/qualification/ui-convergence/referential-restore-journey.mjs": "bd80da4fe1545329ac3d3293077c53739f9f68a69272416763c81e5f433b3fdf",
+    "tests/qualification/ui-convergence/restore-guest-journey.mjs": "9633b756f40557878b52365a33ba14f2c5f88e7159b397bb3c9ca588c7f48d38",
+    "tests/qualification/ui-convergence/restore-records-journey.mjs": "444a641bb74acbb82efa1e10a889aaa3d6fa0b9404845b0c31968000b3c0eba8",
+    "tests/qualification/ui-convergence/transfer-jobs-journey.mjs": "72a4f285d3571db3bf63e110fae575a261bc8307c8e09287bb6831c341d2923a",
+    "tests/requirements/clause-inventory.json": "b8569c291de8eec70de283df851203262fa5cbf8eb7779bce3758b0a97e176d6",
+    "tests/requirements/cli-journey.md": "9fcce4b2ed051830164585003c48048d260dcc996d8849852ee11b6c4d6794cb"
+  }
+}
