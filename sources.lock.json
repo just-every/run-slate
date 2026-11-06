@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "00f125915a81d6952f6cdb0dd83b5c1c2c6ab63c272730b48f679f4956fe80a5",
+      "sha256": "c41b245bea88c3e0f17d8ea93e3509deb5d50fcea8b20fc12de2c29e601e06d4",
       "executable": false
     },
     "DEMO.md": {
@@ -4620,11 +4620,11 @@
       "executable": false
     },
     "package.json": {
-      "sha256": "56045d5ff1fa381e674e1b81d73e7fe707427dbe478681f34238053547f837cd",
+      "sha256": "22e23d89e6d40acad6cdb57ddcbd3c7f5bf7e8877ce983325635cb8fbb5fb418",
       "executable": false
     },
     "pnpm-lock.yaml": {
-      "sha256": "5064c62fd026432cc732f9b938463a9de45f466df458d50be3271372bc1f1505",
+      "sha256": "b9240881fd8507199a0d8e0b16e6b3d256521385d06ed395ebd501891c56b17e",
       "executable": false
     },
     "pnpm-workspace.yaml": {
@@ -11387,6 +11387,10 @@
       "sha256": "1d668e1eb6e5d712db1271754bffc41f4fa6deb8ed3a6467cc98ff853590e490",
       "executable": false
     },
+    "tests/helpers/word-columns-pagination.mjs": {
+      "sha256": "f687c64c365595d8460e642e0b7434b2b029d4f3ffb8755c4c24ecfe18153b32",
+      "executable": false
+    },
     "tests/installer/helpers.mjs": {
       "sha256": "4283e92e295032fed086a04a7f29d8d17a270538e28e36fa786f71f202f25db9",
       "executable": false
@@ -12432,7 +12436,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/word-columns-journey.mjs": {
-      "sha256": "9409ac84b179c03bb290a943d0ccba75c9ac05774d5edbb0f356dfce36fdec80",
+      "sha256": "62fd11c0d1916aa93caadf1a157f203c3625feb8d1891903c0fe6963732e7507",
       "executable": false
     },
     "tests/qualification/ui-convergence/workspace-authority-journey.mjs": {
@@ -12488,7 +12492,7 @@
       "executable": false
     },
     "tests/requirements/test-evidence.json": {
-      "sha256": "2820b7b5106d1e5ce7470e095a48bc926813d7530a69fd5d64af486fbc9811b2",
+      "sha256": "6d1aff3d08ec280e319c1a768ab249ef5c57869ddec4f980acadc38a8a1a9e7b",
       "executable": false
     },
     "tests/rer/editor.test.mjs": {
