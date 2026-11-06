@@ -78,6 +78,7 @@ export async function automationRestartJourney(state) {
     const firstKilled=await instance.crash();
     assert.equal(firstKilled.pid,initialProcessId);assert.equal(firstKilled.signal,'SIGKILL');
     assert.ok((await draining).interrupted);
+    await assert.rejects(fetch(instance.origin+'/health'),'The first killed runtime no longer serves HTTP.');
     const persist=instance.persist;
     await instance.start();
     const middleProcessId=instance.processId();
@@ -114,6 +115,7 @@ export async function automationRestartJourney(state) {
     const killed=await instance.crash();
     assert.equal(killed.pid,middleProcessId);
     assert.equal(killed.signal,'SIGKILL');assert.ok((await draining).interrupted);
+    await assert.rejects(fetch(instance.origin+'/health'),'The second killed runtime no longer serves HTTP.');
     await instance.start();
     const restartedProcessId=instance.processId();
     assert.ok(restartedProcessId);assert.notEqual(restartedProcessId,initialProcessId);assert.notEqual(restartedProcessId,middleProcessId);
@@ -191,7 +193,7 @@ export async function automationRestartJourney(state) {
     await accessible(page,'automation recovered run log 1440');
     await page.setViewportSize({width:390,height:844});
     await accessible(page,'automation recovered run log 390');
-    const receipt={source:sourceIdentityAtRun,artifact,firstKilled,middleProcessId,firstBeforeLeaseDrainAt,firstAfterLeaseDrainAt,firstInterrupted,killed,restartedProcessId,persistedStoreReused:true,leaseUntil:job.lease_until,beforeLeaseDrainAt,afterLeaseDrainAt,interrupted,recovered,run:log,notices,canonical:committed};
+    const receipt={source:sourceIdentityAtRun,artifact,healthRefusedAfterKills:true,firstKilled,middleProcessId,firstBeforeLeaseDrainAt,firstAfterLeaseDrainAt,firstInterrupted,killed,restartedProcessId,persistedStoreReused:true,leaseUntil:job.lease_until,beforeLeaseDrainAt,afterLeaseDrainAt,interrupted,recovered,run:log,notices,canonical:committed};
     const evidence=path.join(root,'.artifacts/ui-convergence/automation-restart');
     await mkdir(evidence,{recursive:true});
     await writeFile(path.join(evidence,'receipt.json'),JSON.stringify(receipt,null,2)+'\n');

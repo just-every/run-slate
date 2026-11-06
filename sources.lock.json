@@ -11884,7 +11884,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/automation-restart-journey.mjs": {
-      "sha256": "70f7256e19e7a0b88f3823c6b49256ae429a7e8ffe79c0682bbec495e4761e06",
+      "sha256": "4ce85043887c0dd217e19b3bd9fb144f60c96e3e75f56251074222e5a36b3cba",
       "executable": false
     },
     "tests/qualification/ui-convergence/automation-run-log-journey.mjs": {
@@ -12420,7 +12420,7 @@
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
-      "sha256": "6315cd5b5418ca336f51458cd2191143cc34fa41093a718f7ea4c8e645938968",
+      "sha256": "9edc3e7cb18ac79b44a7ae79dfa3ee44791e64570b301618b49ca35791e4f525",
       "executable": false
     },
     "tests/requirements/count-registrations.mjs": {
