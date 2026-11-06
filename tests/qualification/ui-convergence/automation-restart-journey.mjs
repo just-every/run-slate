@@ -15,6 +15,7 @@ export async function automationRestartJourney(state) {
   let instance,context;
   try {
     instance=await runtime(scratch);await instance.start();
+    const initialProcessId=instance.processId();
     const cookie=await signIn(instance);
     const read=async route=>(await api(instance,cookie,route)).json();
     const mutate=async(route,data,method='POST')=>{
@@ -37,7 +38,7 @@ export async function automationRestartJourney(state) {
     const rule=(await mutate('/api/automation',{
       name:'Recover committed intake',scope:'source',sourceDatabaseId:source.id,
       trigger:{event:'record-updated'},conditions:[],actions:[
-        {type:'create-record',databaseId:source.id,title:'One recovered record',values:{}},
+        {type:'create-record',databaseId:source.id,title:'One recovered record',values:{'recovery-stage':'completed'}},
         {type:'comment',body:'One recovered comment.'},
         {type:'notify',recipientMemberIds:[owner.id],message:'One recovered inbox outcome.'},
       ],
@@ -75,10 +76,14 @@ export async function automationRestartJourney(state) {
     assert.deepEqual(interrupted.outbox.map(row=>JSON.parse(row.detail_json)),[{outcome:'One recovered inbox outcome.'}]);
     assert.equal(interrupted.activity.filter(row=>row.operation_key).length,3);
     const killed=await instance.crash();
+    assert.equal(killed.pid,initialProcessId);
     assert.equal(killed.signal,'SIGKILL');assert.ok((await draining).interrupted);
     const persist=instance.persist;
     await instance.start();
+    const restartedProcessId=instance.processId();
+    assert.ok(restartedProcessId);assert.notEqual(restartedProcessId,initialProcessId);
     assert.equal(instance.persist,persist);
+    const beforeLeaseDrainAt=new Date().toISOString();
     assert.ok(Date.now()<Date.parse(job.lease_until),'The restarted runtime reaches the still-live lease.');
     await instance.scheduled();
     assert.deepEqual(await snapshot(),interrupted,'A drain before lease expiry neither reclaims the job nor changes effects.');
@@ -86,6 +91,8 @@ export async function automationRestartJourney(state) {
     assert.ok(remaining>0&&remaining<=60100);
     // Wait on the genuine production lease. Never modify the job, receipt or clock.
     await new Promise(resolve=>setTimeout(resolve,remaining));
+    const afterLeaseDrainAt=new Date().toISOString();
+    assert.ok(Date.parse(afterLeaseDrainAt)>Date.parse(job.lease_until));
     for(let attempt=0;attempt<3;attempt++)await instance.scheduled();
     const recovered=await snapshot();
     assert.deepEqual(recovered.jobs,[{...job,state:'success',cursor:2,lease_until:null}]);
@@ -110,6 +117,18 @@ export async function automationRestartJourney(state) {
     assert.deepEqual((await read(`/api/databases/${source.id}/views/${viewId}`)).records.map(record=>record.pageId).sort(),[trigger.pageId,recovered.records[0].page_id].sort());
     const notices=(await read('/api/notifications')).items.filter(item=>item.event==='maintenance');
     assert.deepEqual(notices.map(item=>({pageId:item.pageId,detail:item.detail})),[{pageId:trigger.pageId,detail:{outcome:'One recovered inbox outcome.'}}]);
+    const canonical=async()=>({
+      sourceRecord:await read(triggerRoute),
+      createdRecord:await read(`/api/databases/${source.id}/records/${recovered.records[0].page_id}`),
+      comments:await read(`/api/comments/page/${trigger.pageId}`),
+      inbox:(await read('/api/notifications')).items.filter(item=>item.event==='maintenance'),
+      run:(await read(`/api/automation/${rule.id}/runs`)).items.find(item=>item.id===runId),
+    });
+    const committed=await canonical();
+    assert.deepEqual(committed.sourceRecord.values,{'recovery-stage':'admitted'});
+    assert.equal(committed.createdRecord.page.page.title,'One recovered record');
+    assert.deepEqual(committed.createdRecord.values,{'recovery-stage':'completed'});
+    assert.deepEqual(committed.inbox,notices);
     const timeline=(await read('/api/activity?limit=100')).items;
     assert.deepEqual(timeline.filter(item=>item.operationKey?.startsWith(`auto:${runId}:`)).map(item=>item.operationKey).sort(),recovered.operations.map(row=>row.operation_key));
     assert.equal(timeline.filter(item=>item.automationRunId===runId&&item.action==='automation.success').length,1);
@@ -118,6 +137,7 @@ export async function automationRestartJourney(state) {
     assert.deepEqual(replay,trigger);
     for(let attempt=0;attempt<3;attempt++)await instance.scheduled();
     assert.deepEqual(await snapshot(),recovered,'Repeated drains and trigger replay cannot duplicate effects or completion.');
+    assert.deepEqual(await canonical(),committed,'Authenticated readback retains record values, comments, delivered inbox and run after replay and repeated drains.');
     context=await state.context.browser().newContext({viewport:{width:1440,height:1000},locale:'en-US'});
     await context.addCookies([{name:'slate_session',value:cookie.split('=')[1],url:instance.origin}]);
     const page=await context.newPage();
@@ -129,13 +149,14 @@ export async function automationRestartJourney(state) {
     await expect(row).toHaveCount(1);
     await expect(row).toContainText('Trigger: record updated');
     await expect(row).toContainText(`Actor: ${owner.displayName}`);
+    await expect(row).toContainText(new Date(log.created_at).toLocaleString('en-US'));
     await expect(row.getByRole('link',{name:'Interrupted intake',exact:true})).toHaveAttribute('href',`/app/pages/${trigger.pageId}`);
     await expect(row.getByRole('link',{name:'One recovered record',exact:true})).toHaveAttribute('href',`/app/pages/${recovered.records[0].page_id}`);
     for(const index of [1,2,3])await expect(row).toContainText(`Action ${index}: confirmed`);
     await accessible(page,'automation recovered run log 1440');
     await page.setViewportSize({width:390,height:844});
     await accessible(page,'automation recovered run log 390');
-    const receipt={source:sourceIdentityAtRun,artifact,killed,persistedStoreReused:true,leaseUntil:job.lease_until,interrupted,recovered,run:log,notices};
+    const receipt={source:sourceIdentityAtRun,artifact,killed,restartedProcessId,persistedStoreReused:true,leaseUntil:job.lease_until,beforeLeaseDrainAt,afterLeaseDrainAt,interrupted,recovered,run:log,notices,canonical:committed};
     const evidence=path.join(root,'.artifacts/ui-convergence/automation-restart');
     await mkdir(evidence,{recursive:true});
     await writeFile(path.join(evidence,'receipt.json'),JSON.stringify(receipt,null,2)+'\n');

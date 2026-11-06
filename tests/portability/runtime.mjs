@@ -43,6 +43,7 @@ export async function runtime(directory, {email=ownerEmail}={}){
   }
   await invoke(['d1','migrations','apply','DB']);
   return {origin,persist,start,close,email,
+    processId:()=>worker?.child.pid,
     async crash(){const result=await crash(worker);worker=undefined;return result;},
     automationGate:(action,index)=>automationControl(worker.child,action,index),
     read:(sql,...values)=>nativeAutomationRequest(worker.child,{type:'fixture.read',sql,values}),
