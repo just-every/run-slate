@@ -154,6 +154,7 @@ export async function permissionLevelsJourney(state) {
         const input = response.request().postDataJSON(), result = await response.json();
         assert.equal(result.receipt.operationKey, input.operationKey);
         assert.equal(result.receipt.revisionId, result.receipt.entity.revisionId);
+        await bob.page.waitForLoadState('networkidle');
         const after = await snapshot();
         const added = after.activity.filter(item => !before.activity.some(previous => previous.id === item.id) && item.action !== 'pages.open');
         // Rendering the committed revision records its own native read receipt.
@@ -174,6 +175,9 @@ export async function permissionLevelsJourney(state) {
           assert.equal(after.document.workingRevisionId, result.receipt.revisionId);
           assert.equal(after.revisions.items.length, before.revisions.items.length + 1);
           assert.ok(after.revisions.items.some(item => item.id === result.receipt.revisionId));
+          for (const revision of before.revisions.items) assert.deepEqual(after.revisions.items.find(item => item.id === revision.id), revision);
+          if (action === 'pages.update') assert.deepEqual(after.document.blocks, before.document.blocks);
+          else assert.deepEqual(after.document.properties, before.document.properties);
           assert.deepEqual(after.comments, before.comments);
           const expectedGrants = structuredClone(before.grants);
           // Grant provenance displays the page's current title, not a stored ACL field.
@@ -183,9 +187,24 @@ export async function permissionLevelsJourney(state) {
         } else {
           assert.deepEqual(after.document, before.document);
           assert.deepEqual(after.revisions, before.revisions);
-          if (action === 'comments.create') assert.deepEqual(after.grants, before.grants);
-          else assert.deepEqual(after.comments, before.comments);
+          if (action === 'comments.create') {
+            assert.deepEqual(after.grants, before.grants);
+            assert.equal(after.comments.comments.length, before.comments.comments.length + 1);
+            assert.equal(after.comments.threads.length, before.comments.threads.length + 1);
+            for (const comment of before.comments.comments) assert.deepEqual(after.comments.comments.find(item => item.id === comment.id), comment);
+            assert.deepEqual(after.comments.reactions, before.comments.reactions);
+          } else {
+            assert.deepEqual(after.comments, before.comments);
+            assert.equal(after.grants.items.length, before.grants.items.length + (input.id ? 0 : 1));
+            for (const item of before.grants.items.filter(item => item.id !== input.id)) assert.deepEqual(after.grants.items.find(grant => grant.id === item.id), item);
+            const changed = after.grants.items.find(item => item.id === result.value.id);
+            assert.deepEqual([changed.principalKind, changed.principalId, changed.level, changed.expiresAt, changed.revokedAt], [input.principalKind, input.principalId, input.level, input.expiresAt ?? null, null]);
+            assert.deepEqual(after.grants.inheritedItems, before.grants.inheritedItems);
+          }
         }
+        const replay = await ok(bob.context, origin, method, target, input);
+        assert.deepEqual(replay.receipt, result.receipt);
+        assert.deepEqual(await snapshot(), after, 'Replaying an allowed capture creates no extra content, revision, comment, grant or activity.');
         records.push({ level, method, target, input, result, before, after });
         return result;
       };
@@ -273,7 +292,7 @@ export async function permissionLevelsJourney(state) {
       }
       await accessible(view, `${level} member sharing after reload`);
       records.push({ level, pageId, blockId, readerGrant, final: await snapshot() });
-      console.log(`PROBE SHARE-002 ${level}: native member read, title, body, comment and direct grants match the level; refused writes preserve inventories at ${width}px`);
+      console.log(`PROBE SHARE-002 ${level}: native member read, title, body, comment and direct grants match the level; ${refusals.filter(item => item.level === level).length} refused requests preserve inventories at ${width}px`);
     }
   });
   const directory = path.join(root, '.artifacts/ui-convergence/permission-levels', String(width));
