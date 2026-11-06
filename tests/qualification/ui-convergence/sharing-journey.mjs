@@ -8,6 +8,7 @@ import { root } from '../../e2e/runtime-harness.mjs';
 import { publicPageJourney } from './public-page-journey.mjs';
 import { expiryRegrantJourney } from './expiry-journey.mjs';
 import { inheritanceChainJourney } from './sharing-inheritance-journey.mjs';
+import { permissionPageEditsMatrix } from './sharing-page-edit-matrix.mjs';
 import { permissionDiscussionMatrix, assertDiscussionMutation } from './sharing-discussion-matrix.mjs';
 import { call, editable, grant, ok, restrictedPage, withSecondPerson } from './two-people-support.mjs';
 import { signInWithOutbox } from '../../e2e/outbox-auth.mjs';
@@ -152,18 +153,28 @@ export async function permissionLevelsJourney(state, { extended = true } = {}) {
       assert.equal(memberDiscussion.comments[0].id, ownerComment);
       records.push({ level, pageId, read: { document: current, discussion: memberDiscussion } });
 
+      const activity = async () => {
+        const items = [];
+        let cursor;
+        do {
+          const result = await api('/api/activity?' + new URLSearchParams({ limit: '100', ...(cursor ? { cursor } : {}) }));
+          items.push(...result.items);
+          cursor = result.nextCursor;
+        } while (cursor);
+        return items.filter(item => item.target.id === pageId || item.context?.pageId === pageId);
+      };
       const snapshot = async () => ({
         document: await api(route),
         revisions: await api(`/api/revisions/${pageId}`),
         comments: await api(commentsRoute),
         grants: await api(`/api/sharing/pages/${pageId}`),
-        activity: (await api('/api/activity?limit=100')).items.filter(item => item.target.id === pageId || item.context?.pageId === pageId),
+        activity: await activity(),
       });
       const refuse = async (method, target, input, status = 404, baseline) => {
         const before = baseline ?? await snapshot();
         const result = await call(bob.context, origin, method, target, input);
         assert.equal(result.status, status, `${level} cannot ${method} ${target}`);
-        assert.equal(result.body.code, status === 404 ? 'NOT_FOUND' : 'FORBIDDEN');
+        assert.equal(result.body.code, status === 404 ? 'NOT_FOUND' : status === 409 ? 'PAGE_LOCKED' : 'FORBIDDEN');
         const after = await snapshot();
         assert.deepEqual(after, before, `${level} refusal changes no page, revision, comment, grant or activity.`);
         refusals.push({ level, method, target, input, result, before, after });
@@ -269,6 +280,7 @@ export async function permissionLevelsJourney(state, { extended = true } = {}) {
         await refuse('PATCH', `${route}/blocks/${blockId}`, { operationKey: randomUUID(), expectedRevisionId: current.blocks.find(block => block.id === blockId).revisionId, content: { text: [{ text: 'Refused member body' }] } });
       }
       await accessible(view, `${level} member page after reload`);
+      if (extended) await permissionPageEditsMatrix({ state, bob, api, level, pageId, blockId, recipientId: recipient.id, snapshot, refuse, records });
 
       await view.getByRole('button', { name: 'Comments', exact: true }).click();
       await expect(view.locator(`#comment-${ownerComment}`)).toContainText(`Owner context for ${level}.`);
