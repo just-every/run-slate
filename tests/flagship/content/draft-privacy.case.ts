@@ -27,10 +27,11 @@ export async function draftPrivacyCase() {
     await ok(owner!.id,'PUT','/api/workspace',{operationKey:createUlid(),expectedRevisionId:w.revisionId,name,mark,description,guestAccess,publicLinkAccess,anonymousAccess,policies:{...w.policies,'page.access.v1':access,'page.lifecycle.v1':lifecycle}});
   };
   await profile('workspace-general');
-  const containerId=(await ok(owner!.id,'POST','/api/containers',{operationKey:createUlid(),name:'Draft custody'})).value.id;
+  const createdContainer=(await ok(owner!.id,'POST','/api/containers',{operationKey:createUlid(),name:'Draft custody'})).value;
+  const containerId=createdContainer.id,homeId=createdContainer.homePageId;
   await ok(owner!.id,'POST','/api/sharing',{operationKey:createUlid(),targetKind:'container',targetId:containerId,principalKind:'member',principalId:author!.id,level:'full'});
   const groupId=(await ok(owner!.id,'POST','/api/groups',{operationKey:createUlid(),name:'Draft reviewers',memberIds:[groupReader!.id]})).value.id;
-  const blockId=createUlid(),title='Private response draft',text='Only the author and named reviewers can read this response.';
+  const blockId=createUlid(),title='CustodyMarker Private response draft',text='Only the author and named reviewers can read this response.';
   const id=(await ok(author!.id,'POST','/api/pages',{operationKey:createUlid(),containerId,title,blocks:[{id:blockId,blockType:'paragraph',treePosition:'a',content:{text:[{text}]}}]})).value.pageId;
   const read=()=>ok(author!.id,'GET',`/api/pages/${id}`);
   const grants=()=>ok(author!.id,'GET',`/api/sharing/pages/${id}`);
@@ -89,6 +90,54 @@ export async function draftPrivacyCase() {
   await ok(author!.id,'POST','/api/invitations',addressInput);await ok(author!.id,'POST','/api/sharing',groupInput);
   expect(await snapshot()).toEqual(revoked);expect((await grants()).effectiveItems).toEqual([]);
   expect((await grants()).items.every((g:any)=>g.status==='revoked')).toBe(true);
+  // A populated live control distinguishes exclusion from an empty projection.
+  const control=(await ok(author!.id,'POST','/api/pages',{operationKey:createUlid(),containerId,title:'CustodyMarker Published response',blocks:[{id:createUlid(),blockType:'paragraph',treePosition:'a',content:{text:[{text:'The published response is searchable.'}]}}]})).value.pageId;
+  await ok(author!.id,'POST',`/api/pages/${control}/publish`,{operationKey:createUlid(),expectedRevisionId:(await ok(author!.id,'GET',`/api/pages/${control}`)).page.revisionId});
+  await ok(author!.id,'POST','/api/sharing',{operationKey:createUlid(),targetKind:'page',targetId:control,principalKind:'workspace',principalId:workspaceId,level:'view'});
+  await ok(author!.id,'POST','/api/sharing',{operationKey:createUlid(),targetKind:'page',targetId:control,principalKind:'member',principalId:reader!.id,level:'view'});
+  const liveThread=(await ok(author!.id,'POST',`/api/comments/page/${control}`,{operationKey:createUlid(),body:[{text:'CustodyMarker published discussion'}]})).value.threadId;
+  await ok(author!.id,'POST',`/api/comments/page/${id}`,{operationKey:createUlid(),body:[{text:'CustodyMarker private discussion'}]});
+  const searchGrants=[];
+  for(const [principalKind,principalId] of [['member',reader!.id],['group',groupId]]) {
+    const input={operationKey:createUlid(),targetKind:'page',targetId:id,principalKind,principalId,level:'view'};
+    searchGrants.push({...input,id:(await ok(author!.id,'POST','/api/sharing',input)).value.id});
+  }
+  for(const person of [reader!,groupReader!])expect((await ok(person.id,'GET',`/api/pages/${id}`)).blocks[0].content.text).toEqual([{text}]);
+  for(const access of ['workspace-general','container-general']) {
+    await profile(access);
+    for(const person of identities) {
+      const found=await ok(person.id,'GET','/api/search?q=CustodyMarker&kind=page');
+      expect(found.items.map((item:any)=>item.id)).toEqual([control]);
+      expect(found.total).toBe(1);
+      expect(found.facets).toEqual({kind:{page:1},container:{[containerId]:1},status:{}});
+      expect(found.nextCursor).toBeUndefined();
+      const {filters:_,...projection}=found;
+      expect(JSON.stringify(projection)).not.toContain(title);expect(JSON.stringify(projection)).not.toContain(text);
+      const comments=await ok(person.id,'GET','/api/search?q=CustodyMarker&kind=comment-thread');
+      expect(comments.items.map((item:any)=>item.id)).toEqual([liveThread]);expect(comments.total).toBe(1);
+      expect(comments.facets).toEqual({kind:{'comment-thread':1},container:{[containerId]:1},status:{}});
+      const queried=await ok(person.id,'POST',`/api/pages/${control}/query`,{orderBy:'title',limit:100});
+      expect(queried.items.map((item:any)=>item.id)).toEqual([control,homeId]);
+      const tree=await ok(person.id,'GET','/api/pages');
+      expect(tree.items.map((item:any)=>item.id).sort()).toEqual(([author!.id,reader!.id,groupReader!.id].includes(person.id)?[id,control,homeId]:[control,homeId]).sort());
+    }
+  }
+  for(const grant of searchGrants)await ok(author!.id,'POST','/api/sharing',{...grant,operationKey:createUlid(),revoke:true});
+  for(const person of [reader!,groupReader!])await refused(person.id,'GET',`/api/pages/${id}`);
+  const notifications=await ok(reader!.id,'GET','/api/notifications');
+  expect(notifications.items.some((item:any)=>item.pageId===control)).toBe(true);
+  expect(notifications.items.some((item:any)=>item.pageId===id)).toBe(false);
+  await ok(author!.id,'POST','/api/analytics/views',{operationKey:createUlid(),pageId:control});
+  await ok(author!.id,'POST','/api/analytics/views',{operationKey:createUlid(),pageId:id});
+  expect((await ok(author!.id,'GET',`/api/analytics?pageId=${control}`)).totalViews).toBe(1);
+  expect(await ok(author!.id,'GET',`/api/analytics?pageId=${id}`)).toMatchObject({totalViews:0,uniqueViewers:0,editors:[]});
+  const report=await ok(owner!.id,'GET',`/api/analytics/reports?report=views&containerId=${containerId}`);
+  expect(report.rows.map((item:any)=>item.pageId)).toEqual([control,homeId]);
+  const exportBefore=await snapshot(),jobsBefore=await rows('portability_jobs');
+  const exported=await request(owner!.id,'POST','/api/exports/jobs/workspace',{operationKey:createUlid()});
+  expect(exported.status,exported.body).toBe(403);expect(JSON.parse(exported.body).code).toBe('EXPORT_SCOPE_INCOMPLETE');
+  expect(await snapshot()).toEqual(exportBefore);expect(await rows('portability_jobs')).toEqual(jobsBefore);
+  console.log('PROBE LIFE-002 exclusion: native populated search, query, tree, inbox and analytics -> live control present, draft absent; unauthorized complete export refused without creating a job');
   console.log('PROBE LIFE-002 1: native author, address grant and group sessions -> exact body and persisted grants; owner and outsider refused; same sessions refused after full revocation, replay unchanged');
   console.log('PROBE LIFE-002 2: both access profiles -> general grants and anonymous publication refused; content, grants, exposures, receipts and activity unchanged');
   console.log('PROBE LIFE-002 4: native lifecycle profile switches -> retained draft and named grants unchanged, author and grantees read, owner and anonymous refused');
