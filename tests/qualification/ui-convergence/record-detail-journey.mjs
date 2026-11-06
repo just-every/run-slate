@@ -170,6 +170,11 @@ export async function relationRecordsJourney(state, width) {
   await accessible(page, 'relation configured database');
   await settings.getByRole('button', {name: 'Cancel', exact: true}).click();
 
+  const pencil = page.getByRole('button', {name: `Edit ${field.name}`, exact: true});
+  await pencil.focus();
+  await expect.poll(() => pencil.evaluate(element => getComputedStyle(element, '::after').opacity)).toBe('1');
+  await accessible(page, 'relation field keyboard tooltip');
+
   const recordPath = base + '/records/' + record.pageId;
   const recordUrl = origin + `/app/databases/${source.id}/records/${record.pageId}`;
   const row = view => view.locator('.record-field').filter({has: view.locator('dt').getByText(field.name, {exact: true})});
@@ -240,6 +245,7 @@ export async function relationRecordsJourney(state, width) {
     assert.deepEqual(retained.values[field.id], selected);
     const reader = await ok(bob.context, origin, 'GET', recordPath);
     assert.deepEqual(reader.values[field.id], [first.pageId]);
+    assert.ok(!JSON.stringify(reader).includes(second.pageId), "The complete reader document omits the revoked target identity.");
     const options = await ok(bob.context, origin, 'GET', `${base}/references/${field.id}`);
     assert.deepEqual(options.items.map(item => item.id), [first.pageId]);
     await bob.page.goto(recordUrl, {waitUntil: 'networkidle'});

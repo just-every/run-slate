@@ -242,7 +242,10 @@ test("Worker HTTP rejects missing expired revoked and denied sessions and persis
   expect((await call("GET", recordPath, memberCookie)).body.values.related).toEqual(selected);
   await mutate("POST", "/sharing", {id: targetGrant.id, targetKind: "page", targetId: second.pageId, principalKind: "member", principalId: reader.actor.id, level: "view", revoke: true});
   const retainedAfterRevocation = await snapshot();
-  expect((await call("GET", recordPath, memberCookie)).body.values.related).toEqual([first.pageId]);
+  const safeReader = (await call("GET", recordPath, memberCookie)).body;
+  expect(safeReader.values.related).toEqual([first.pageId]);
+  expect(JSON.stringify(safeReader)).not.toContain(second.pageId);
+  expect(JSON.stringify(safeReader)).not.toContain("Second actual target");
   expect((await call("GET", optionsPath, memberCookie)).body.items).toEqual([{id: first.pageId, label: "Renamed actual target", kind: "record", url: `/app/databases/${target.id}/records/${first.pageId}`}]);
   expect((await call("POST", "/databases/references", memberCookie, {pageIds: selected})).body.items.map((item: any) => item.id)).toEqual([first.pageId]);
   expect((await call("GET", `${targetBase}/records/${second.pageId}`, memberCookie)).status).toBe(404);
@@ -252,6 +255,7 @@ test("Worker HTTP rejects missing expired revoked and denied sessions and persis
   const replay = await call("PATCH", recordPath, memberCookie, selectionInput);
   expect(replay.status).toBe(200);
   expect(replay.body.value.values.related).toEqual([first.pageId]);
+  expect(JSON.stringify(replay.body)).not.toContain(second.pageId);
   expect(await snapshot()).toEqual(retainedAfterRevocation);
   expect(retainedAfterRevocation.record.values.related).toEqual(selected);
   // Repointing a populated relation must not turn retained identities into wrong-database links.
@@ -260,6 +264,12 @@ test("Worker HTTP rejects missing expired revoked and denied sessions and persis
   expect(retarget.status).toBe(409);
   expect(retarget.body.code).toBe("FIELD_DATA_LOSS");
   expect(await snapshot()).toEqual(beforeRetarget);
+  await writeRelation([]);
+  const cleared = (await call("GET", recordPath)).body;
+  await mutate("POST", base + "/fields", {expectedRevisionId: (await call("GET", base)).body.database.revision_id, field: {...relation, config: {databaseId: body.value.id}}});
+  expect((await call("GET", base)).body.fields.find((field: any) => field.id === relation.id).config.databaseId).toBe(body.value.id);
+  expect((await call("GET", recordPath)).body).toEqual({...cleared, fields: cleared.fields.map((field: any) => field.id === relation.id ? {...field, config: {databaseId: body.value.id}} : field)});
+
 
 
 }, 90_000);

@@ -182,6 +182,17 @@ export async function saveField(
             "FIELD_DATA_LOSS",
             "Clear field values before deleting this field.",
           );
+        if (same?.type !== f.type && v[f.id] != null) {
+          try {
+            validateValue(f, v[f.id]);
+          } catch {
+            throw new ApiProblem(
+              409,
+              "FIELD_DATA_LOSS",
+              "Type change would lose retained values.",
+            );
+          }
+        }
         // A new relation destination cannot invalidate already-retained record identities.
         if (
           !input.delete &&
@@ -199,17 +210,6 @@ export async function saveField(
                 "FIELD_DATA_LOSS",
                 "Clear relation values before changing their target database.",
               );
-          }
-        }
-        if (same?.type !== f.type && v[f.id] != null) {
-          try {
-            validateValue(f, v[f.id]);
-          } catch {
-            throw new ApiProblem(
-              409,
-              "FIELD_DATA_LOSS",
-              "Type change would lose retained values.",
-            );
           }
         }
       }
