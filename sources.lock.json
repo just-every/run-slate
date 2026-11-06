@@ -11884,7 +11884,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/automation-restart-journey.mjs": {
-      "sha256": "0e1c477388e236a6256456106663f5712c079a04ad9b4137ae0158fffa8c3f32",
+      "sha256": "e262ed8150d2b60efc3545c9519f614d931569ef0fe28f5df3ac0ddabca5a75f",
       "executable": false
     },
     "tests/qualification/ui-convergence/automation-run-log-journey.mjs": {

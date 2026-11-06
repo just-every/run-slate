@@ -1,13 +1,16 @@
 import assert from 'node:assert/strict';
 import {randomUUID} from 'node:crypto';
-import {mkdir,mkdtemp,rm,writeFile} from 'node:fs/promises';
+import {mkdir,mkdtemp,readFile,rm,writeFile} from 'node:fs/promises';
 import path from 'node:path';
 import {expect} from '@playwright/test';
 import {runtime,signIn,api,root} from '../../portability/runtime.mjs';
 import {accessible} from './browser-evidence.mjs';
+import {sourceIdentity} from '../../../scripts/build/source-identity.mjs';
 
 /** One real admitted firing survives a process kill at commit-before-confirm. */
 export async function automationRestartJourney(state) {
+  const sourceIdentityAtRun=await sourceIdentity(root);
+  const artifact=JSON.parse(await readFile(path.join(root,'.cache/slate/build-source.json'),'utf8'));
   const scratch=await mkdtemp(path.join(root,'.artifacts/automation-restart-'));
   let instance,context;
   try {
@@ -29,7 +32,7 @@ export async function automationRestartJourney(state) {
     await mutate(`/api/databases/${source.id}/fields`,{expectedRevisionId:source.revisionId,field:{id:'recovery-stage',name:'Recovery stage',type:'text',config:{},position:0}});
     const structure=await read(`/api/databases/${source.id}`);
     const viewId=randomUUID();
-    await mutate(`/api/databases/${source.id}/views`,{expectedRevisionId:structure.database.revisionId,view:{id:viewId,name:'Recovery inventory',layout:'table',filters:[],sorts:[],groups:[],calculations:{},display:{},position:0}});
+    await mutate(`/api/databases/${source.id}/views`,{expectedRevisionId:structure.database.revision_id,view:{id:viewId,name:'Recovery inventory',layout:'table',filters:[],sorts:[],groups:[],calculations:{},display:{},position:0}});
     const initial=(await mutate(`/api/databases/${source.id}/records`,{title:'Interrupted intake',values:{'recovery-stage':'pending'}})).value;
     const rule=(await mutate('/api/automation',{
       name:'Recover committed intake',scope:'source',sourceDatabaseId:source.id,
@@ -104,7 +107,7 @@ export async function automationRestartJourney(state) {
       assert.deepEqual(receipt.receipt,JSON.parse(recovered.operations[index].response_json));
     }
     assert.deepEqual((await read(`/api/comments/page/${trigger.pageId}`)).comments.map(comment=>comment.body),[[{text:'One recovered comment.'}]]);
-    assert.deepEqual((await read(`/api/databases/${source.id}/views/${viewId}`)).records.map(record=>record.id).sort(),[trigger.pageId,recovered.records[0].page_id].sort());
+    assert.deepEqual((await read(`/api/databases/${source.id}/views/${viewId}`)).records.map(record=>record.pageId).sort(),[trigger.pageId,recovered.records[0].page_id].sort());
     const notices=(await read('/api/notifications')).items.filter(item=>item.event==='maintenance');
     assert.deepEqual(notices.map(item=>({pageId:item.pageId,detail:item.detail})),[{pageId:trigger.pageId,detail:{outcome:'One recovered inbox outcome.'}}]);
     const timeline=(await read('/api/activity?limit=100')).items;
@@ -132,7 +135,7 @@ export async function automationRestartJourney(state) {
     await accessible(page,'automation recovered run log 1440');
     await page.setViewportSize({width:390,height:844});
     await accessible(page,'automation recovered run log 390');
-    const receipt={killed,persistedStoreReused:true,leaseUntil:job.lease_until,interrupted,recovered,run:log,notices};
+    const receipt={source:sourceIdentityAtRun,artifact,killed,persistedStoreReused:true,leaseUntil:job.lease_until,interrupted,recovered,run:log,notices};
     const evidence=path.join(root,'.artifacts/ui-convergence/automation-restart');
     await mkdir(evidence,{recursive:true});
     await writeFile(path.join(evidence,'receipt.json'),JSON.stringify(receipt,null,2)+'\n');
