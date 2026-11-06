@@ -12428,7 +12428,7 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "70642c3f4259707a10e8be1d084ff582196755cd82e4165720d48a154a671d10",
+      "sha256": "e9c74952058734f8a1ad04aa9d157f5cc0d3eb4775e4c890bb5e2e802053f4bc",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
