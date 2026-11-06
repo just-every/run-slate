@@ -732,11 +732,15 @@
       "id": "REV-001",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of REV-001 — What a revision is. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Native revisionSnapshotProof in the existing content audit registration proves ordinary-page immutable snapshots through HTTP create, title and property edits, body edits and workspace publication, with controlled commit times, complete D1 rows and independently calculated normalized text hashes. The existing responsive core-wiki registrations call revisionSnapshotsJourney through writeJourney to reopen old and new snapshots after reload. Acceptance 2, clause-wide identifier agreement in acceptance 3, full acceptance 4, every other record family and universal identifier non-reuse remain unproved; ADMIN-007 and shared company-policy prerequisites remain authoritative.",
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
           "testName": "content durable HTTP content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state"
+        },
+        {
+          "file": "tests/qualification/core/audit-content.test.ts",
+          "testName": "ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time"
         }
       ]
     },

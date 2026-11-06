@@ -1,3 +1,4 @@
+import {revisionSnapshotProof} from './revision-snapshot-proof';
 import {archiveRetentionProof} from './archive-retention-proof';
 import {auditExportProof} from './audit-export-proof';
 import {test,expect,vi} from 'vitest';
@@ -6,6 +7,7 @@ test('ACT-002 BASE-OPS-005 audit content, publication, archive and version mutat
  const f=await auditFixture();
  await pageDurabilityProof(f);
  await activityContextProof(f);
+ await revisionSnapshotProof(f);
 {
  const p=await f.mutation('page creation','pages.create','POST','/api/pages',{containerId:f.containerId,title:'Audit original'}),id=p.value.pageId;
  await f.mutation('body changes','pages.blocks.replace','PUT',`/api/pages/${id}/blocks`,{expectedRevisionId:await f.revision(id),blocks:[{id:createUlid(),blockType:'paragraph',treePosition:'1',content:{text:[{text:'Audit body'}]}}]});

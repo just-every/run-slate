@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import {revisionSnapshotsJourney} from './revision-snapshots-journey.mjs';
 import { expect } from '@playwright/test';
 import { accessible, openNavigation } from './browser-support.mjs';
 import { compactPage, savedAfterSaving, watchSaveStates } from './browser-evidence.mjs';
@@ -141,6 +142,7 @@ export async function writeJourney(state, width) {
   await accessible(page, 'two blocks saved in order');
   await firstWordsJourney(state);
   await typedShortcutsJourney(state);
+  await revisionSnapshotsJourney(state,width);
   await page.goto(`${origin}/app/pages/${pageId}`, { waitUntil: 'networkidle' });
   return pageId;
 }
