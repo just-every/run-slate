@@ -10,6 +10,11 @@ export async function draftPrivacyJourney(state) {
   const {page,context,origin}=state,width=page.viewportSize().width;
   const directory=`.artifacts/ui-convergence/draft-privacy/${width}`;
   await mkdir(directory,{recursive:true});
+  const openSharing=async()=>{
+    const heading=page.getByRole('heading',{name:'Share this page',exact:true});
+    if(!await heading.isVisible())await page.getByRole('button',{name:'Share',exact:true}).click();
+    await expect(heading).toBeVisible();
+  };
   const original=await ok(context,origin,'GET','/api/workspace');
   const profile=async(lifecycle,access)=>{
     await page.goto(origin+'/app/settings',{waitUntil:'networkidle'});
@@ -34,7 +39,7 @@ export async function draftPrivacyJourney(state) {
     assert.deepEqual((await grants()).items,[]);
     await withSecondPerson(state,width,async people=>{
       assert.equal((await call(people.bob.context,origin,'GET',`/api/pages/${id}`)).status,404);
-      await page.getByRole('button',{name:'Share',exact:true}).click();
+      await openSharing();
       const panel=page.locator('.right');
       await panel.getByRole('button',{name:'Copy page link',exact:true}).click();
       const address=await page.evaluate(()=>navigator.clipboard.readText());
@@ -45,7 +50,7 @@ export async function draftPrivacyJourney(state) {
       await panel.getByRole('button',{name:'Send invitation',exact:true}).click();
       await expect.poll(async()=>(await grants()).items.map(g=>[g.principalKind,g.principalId,g.level,g.status])).toEqual([['member','browser-reader','view','active']]);
       await page.reload({waitUntil:'networkidle'});
-      await page.getByRole('button',{name:'Share',exact:true}).click();
+      await openSharing();
       await expect(page.getByRole('combobox',{name:'Access for Morgan Reader',exact:true})).toHaveValue('view');
       await people.bob.page.goto(address,{waitUntil:'networkidle'});
       await expect(people.bob.page.locator('.page-document')).toContainText(text);
@@ -60,7 +65,7 @@ export async function draftPrivacyJourney(state) {
         await expect(page.locator('.page-document')).toContainText(text);
         await people.bob.page.reload({waitUntil:'networkidle'});await expect(people.bob.page.locator('.page-document')).toContainText(text);
       }
-      await page.getByRole('button',{name:'Share',exact:true}).click();
+      await openSharing();
       const row=page.locator('.right .grant-list > li').filter({has:page.getByRole('combobox',{name:'Access for Morgan Reader',exact:true})});
       await row.locator('details > summary').click();await row.getByRole('button',{name:'Remove access',exact:true}).click();
       await expect.poll(async()=>(await grants()).items[0].status).toBe('revoked');
