@@ -1,3 +1,4 @@
+import { shareMessageJourney } from './share-message-journey.mjs';
 import assert from 'node:assert/strict';
 import { expect } from '@playwright/test';
 import { accessible, closeDetails } from './browser-support.mjs';
@@ -90,6 +91,7 @@ export async function shareJourney(state, pageId) {
   await publicPageJourney(state, pageId);
   await grantCorpusJourney(state);
   await inheritanceChainJourney(state);
+  if (page.viewportSize().width === 1440) await shareMessageJourney(state);
 }
 
 /** Native grants, rather than seeded ACL rows, drive the loaded Share panel. */

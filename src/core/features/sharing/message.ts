@@ -23,6 +23,7 @@ type MessageInput = z.infer<typeof messageInput>;
 
 async function authorize(ctx: FeatureContext, pageId: string) {
   const access = await requirePageLevel(ctx, pageId, 'full');
+  if (access.subject.isGuest) throw new ApiProblem(403, 'MEMBERS_ONLY', 'Only workspace members can send a page.');
   const container = await ctx.db.prepare('SELECT visibility FROM containers WHERE id=?').bind(access.context.container.id).first<{visibility:string}>();
   if (container?.visibility === 'personal') throw new ApiProblem(403, 'PERSONAL_PRIVATE', 'A personal space cannot be shared.');
 }
