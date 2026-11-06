@@ -109,16 +109,22 @@
       "sha256": "68a061283cc7dac50f415828c64a4e18d4aeeb2aaf214053365f979f951d8115"
     },
     {
-      "blob": "a56d6e6e2b350c0120016a091bff4c6d35445abf",
-      "bytes": 924,
+      "blob": "626f99eb736eb19757257a3dff97e1c73dcefc58",
+      "bytes": 1024,
       "path": "cleanup.json",
-      "sha256": "f7412fd3199b50c1ac3f726322d8199f4d282c8ed4b5782d2169abd3e883c674"
+      "sha256": "aaef3bdebdcfc1ec6f96f0f30e7db500f7692ff9fcde331de75b2d76a37b9cc5"
     },
     {
       "blob": "3fb4e5980a0b64b07b067da749cf152ed86673aa",
       "bytes": 1211,
       "path": "commands.json",
       "sha256": "5a6828bb0af42c0d1e401a9d0fc1a85022a4813b29e979c2c31b41f56e08a73b"
+    },
+    {
+      "blob": "4ad9add4550aa0f4d063afad12cb8c533abb2086",
+      "bytes": 7541,
+      "path": "evidence-first-publication.txt",
+      "sha256": "3f2fd8dac7aa0f4c66106b338187b418662f780f10de825f541a06159cfdec1c"
     },
     {
       "blob": "4740fd9a6561d9bc3550e2e3a7ec8c89f2608a6c",
@@ -223,10 +229,10 @@
       "sha256": "0084a2467ddcb7209a9d3143448e657c43875f2b05b5c0c5e89ed25ab6b9a3dd"
     },
     {
-      "blob": "78cab873ef9c6f762203a9557765443d2e409bcc",
-      "bytes": 6993,
+      "blob": "b44ccee0ffb734a8c90a4ee81e7261a2ee91660e",
+      "bytes": 7159,
       "path": "packet-review.json",
-      "sha256": "1ee2c4d7ec36c7760375dee7a1bdcb4ea22ca8465fe66df876b7af81f5ad2228"
+      "sha256": "8ca8b535457285f3cb25160ff13c145a293300517f09ef31d1a2944bef0afb99"
     },
     {
       "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
