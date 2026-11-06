@@ -73,6 +73,18 @@
       "sha256": "f041b8b63168e49de212664d0e665e3856cb5eead992924b06cdaaf76f143b96"
     },
     {
+      "blob": "d8780dcedbba7dcad65bdf35ebc5a91532d91f86",
+      "bytes": 434,
+      "path": "initial-delivery-receipt.json",
+      "sha256": "ced4f521bf7e3aede12a26d8477117efe7ede5d299d0006c59defe03e2d5412a"
+    },
+    {
+      "blob": "3251808c5d5359fa286e823eca90ec3a4bfd90a0",
+      "bytes": 8550,
+      "path": "initial-evidence-publication.log",
+      "sha256": "5e31b5b704e1d582f120c9094a1b17c851d20eb8608da452289e22b68336b17a"
+    },
+    {
       "blob": "4390a77c20fd6999e6a57bacfdf827646354a325",
       "bytes": 61,
       "path": "integration-check.log",

@@ -1,0 +1,10 @@
+{
+  "productHead": "f38bdd94e85bdac4f6bdb28a2c6a7feec27205b6",
+  "productRef": "refs/heads/cloud/sd-slate-c-f173",
+  "evidenceHead": "76ef8741d00d724c663d3bdac747dbd038f6d523",
+  "evidenceRef": "refs/heads/evidence/sd-slate-c-f173",
+  "publishedFiles": 46,
+  "remoteRefsVerified": true,
+  "productHeadAndIndexUnchanged": true,
+  "stage": "Initial report publication, before appending this transport receipt to the evidence packet."
+}
