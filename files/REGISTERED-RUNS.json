@@ -1,0 +1,22 @@
+{
+  "sourceParent": "bdd142c1568e8bcc383f12e16d629a7d158a7f19",
+  "files": {
+    "tests/qualification/ui-convergence/referential-restore-journey.mjs": "35c373bc9013e49c1fe7dee3394ac46d7ff54d1da779518254756d5529bc655c",
+    "tests/qualification/ui-convergence/transfer-jobs-journey.mjs": "c9ff97766867e489b1eae976ff5e6bebd1deeab2fc95708142ff259b688290f9",
+    "tests/qualification/ui-convergence/journeys.test.mjs": "56157a493201cd1559bc6a4de4e19295423496132ee7f9b7e7f3cfba4d54893e",
+    "tests/portability/runtime.mjs": "e340bbb76ca3db87ebdab0b0d17b6b4fb5dda40c3e94414d32379ff84a4521a8",
+    "src/core/features/portability/restore-plan.ts": "1a3b4077faef0665404d54647dd23a2255c159010b42658f07fc0b1a32e544bb"
+  },
+  "desktopCommand": "node --test --test-concurrency=1 --test-name-pattern='^readable exports retain discussions' tests/qualification/ui-convergence/journeys.test.mjs",
+  "desktopExit": 0,
+  "desktopCaseDurationMs": 218566.114111,
+  "phoneCommand": "node --test --test-concurrency=1 --test-name-pattern='^real core-wiki and touch-member journeys at 390px$' tests/qualification/ui-convergence/journeys.test.mjs",
+  "phoneExit": 0,
+  "node": "22.20.0",
+  "chromium": "/usr/bin/chromium",
+  "phoneCaseDurationMs": 536488.330731,
+  "phoneOverallDurationMs": 553333.99279,
+  "testedFilesMatchCandidate": true,
+  "candidateHead": "307f06ca25f7315fe9b8f308e319919885da3b79",
+  "filesMatchCommittedCandidate": true
+}

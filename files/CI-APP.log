@@ -1,0 +1,7 @@
+verify (app)	Run node src/base/runtime/contract-docs.mjs check	﻿2026-11-06T11:04:25.2871327Z ##[group]Run node src/base/runtime/contract-docs.mjs check
+verify (app)	Run node src/base/runtime/contract-docs.mjs check	2026-11-06T11:04:25.2872027Z [36;1mnode src/base/runtime/contract-docs.mjs check[0m
+verify (app)	Run node src/base/runtime/contract-docs.mjs check	2026-11-06T11:04:25.2892268Z shell: /usr/bin/bash -e {0}
+[CI step environment banner omitted from report transport]
+verify (app)	Run node src/base/runtime/contract-docs.mjs check	2026-11-06T11:04:25.2893121Z ##[endgroup]
+verify (app)	Run node src/base/runtime/contract-docs.mjs check	2026-11-06T11:04:25.4531512Z ACCEPTANCE.md: generated content differs; run contract-docs write.
+verify (app)	Run node src/base/runtime/contract-docs.mjs check	2026-11-06T11:04:25.4629255Z ##[error]Process completed with exit code 1.

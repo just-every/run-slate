@@ -1,0 +1,7 @@
+{
+  "command": "gh run view 42207369106 --repo just-every/run-slate --job 127857315872 --log-failed",
+  "exit": 0,
+  "attempts": 1,
+  "environmentBannersOmitted": true,
+  "signedUrlQueriesRemoved": true
+}

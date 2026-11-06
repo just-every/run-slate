@@ -1,0 +1,12 @@
+START transfer proof 1440
+PROBE PORT-002 1: downloaded Settings ZIP -> native empty restore; four retained page IDs, exact history, ordered siblings, direct and group grants, internal page link, selected discussion anchor and original bytes match source
+PROBE PORT-002 2: fresh restored owner and invited member at 1440px -> retained links, exact earlier version and anchor survive reload; revoked page, history, comments and original refused; view-only write 404 with unchanged content
+PROBE PORT-003 1: failed native export and restore replay and reload -> failed, no download or successful restore action
+PROBE PORT-003 2: Settings export and empty-deployment restore -> queued, running, completed and failed persisted; counts equal native archive; safe reports identify commit failures
+PASS transfer proof 1440
+START transfer proof 390
+PROBE PORT-002 1: downloaded Settings ZIP -> native empty restore; four retained page IDs, exact history, ordered siblings, direct and group grants, internal page link, selected discussion anchor and original bytes match source
+PROBE PORT-002 2: fresh restored owner and invited member at 390px -> retained links, exact earlier version and anchor survive reload; revoked page, history, comments and original refused; view-only write 404 with unchanged content
+PROBE PORT-003 1: failed native export and restore replay and reload -> failed, no download or successful restore action
+PROBE PORT-003 2: Settings export and empty-deployment restore -> queued, running, completed and failed persisted; counts equal native archive; safe reports identify commit failures
+PASS transfer proof 390

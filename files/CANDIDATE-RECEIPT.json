@@ -1,0 +1,114 @@
+{
+  "head": "307f06ca25f7315fe9b8f308e319919885da3b79",
+  "branch": "cloud/sd-slate-c-f189",
+  "originMain": "bc567c9b6f6b25c98cb6fa05b9ab0fe37628a547",
+  "productPush": {
+    "command": "python3 $HOME/rer-consolidation/.tools/cloud-push.py origin cloud/sd-slate-c-f189",
+    "exit": 0,
+    "verifiedRemoteHead": "307f06ca25f7315fe9b8f308e319919885da3b79"
+  },
+  "checks": {
+    "registeredDesktop": 0,
+    "registeredPhone": 0,
+    "typecheck": 0,
+    "firstParty": 0,
+    "integrationSync": 0,
+    "generatorWrite": 0,
+    "generatorCheckBeforeViewRestore": 0,
+    "generatedViewsRestoredFromOriginMain": true,
+    "sourceLockRegenerate": 0,
+    "sourceCheck": 0,
+    "migrationLedger": "not applicable; no migration changed",
+    "buildAtCandidate": 0
+  },
+  "build": {
+    "schema": 1,
+    "commit": "307f06ca25f7315fe9b8f308e319919885da3b79",
+    "tree": "f48d52d5c599412f2e6620f65620200f7c86b297",
+    "sourceSha256": "62b0d2248206e1163a82ba825e26b1ad83fc99e6456708915c485f6a68de05e9",
+    "lockSha256": "447456049207bb53044549629b2867a8fb266984cf7cf9df2b232aad90c0a801",
+    "outputSha256": "ce7724e188f3c1517f585fe32f37b5750afa9309ec1b12100c1bc8973b36c9d3"
+  },
+  "contractStatusRows": 338,
+  "contractTableRows": 698,
+  "countsBefore": {
+    "done": 57,
+    "partial": 240,
+    "missing": 41
+  },
+  "countsAfter": {
+    "done": 57,
+    "partial": 240,
+    "missing": 41
+  },
+  "statusChange": {
+    "PORT-002": [
+      "partial",
+      "partial"
+    ]
+  },
+  "registrationsBefore": 205,
+  "registrationsAfter": 205,
+  "productChanges": [
+    "CONTRACT.md",
+    "sources.lock.json",
+    "tests/qualification/ui-convergence/referential-restore-journey.mjs",
+    "tests/qualification/ui-convergence/transfer-jobs-journey.mjs",
+    "tests/requirements/clause-inventory.json",
+    "tests/requirements/cli-journey.md"
+  ],
+  "nativeCandidateProbeExit": 0,
+  "cleanTrackedWorktreeAfterProbe": true,
+  "sourceLockCheckAfterProbe": 0,
+  "remoteRefs": [
+    "307f06ca25f7315fe9b8f308e319919885da3b79\trefs/heads/cloud/sd-slate-c-f189",
+    "bc567c9b6f6b25c98cb6fa05b9ab0fe37628a547\trefs/heads/main"
+  ],
+  "generatedViewCheckAtCandidate": {
+    "exit": 1,
+    "message": "ACCEPTANCE.md: generated content differs; run contract-docs write.",
+    "expected": true
+  },
+  "native1440": {
+    "exportId": "01M6R8JZKMKJSGS2EBBXBDJFM2",
+    "restoreId": "01M6R8NAAJSB61KHD4CXR88SWE",
+    "archiveSha256": "8fa91f3f66c6098428362e8af8d4852701afbb1c59dec8cb80eafd02ddd7dbcf",
+    "selectedPages": 4,
+    "selectedPageRevisions": 8,
+    "selectedPageGrants": 5,
+    "originalFiles": 2,
+    "sourceSessionRefusals": [
+      401,
+      401
+    ]
+  },
+  "native390": {
+    "exportId": "01M6R8Q0Z6P1GY0NY5XXBKQ597",
+    "restoreId": "01M6R8S94QC1JRTG7SPNDBVG8E",
+    "archiveSha256": "2f2178dc3bf49361446d5aaf94a4fd70c63490bf6ea869158d591a40f73bd7ba",
+    "selectedPages": 4,
+    "selectedPageRevisions": 8,
+    "selectedPageGrants": 5,
+    "originalFiles": 2,
+    "sourceSessionRefusals": [
+      401,
+      401
+    ]
+  },
+  "ci": {
+    "id": 42207369106,
+    "event": "push",
+    "head": "307f06ca25f7315fe9b8f308e319919885da3b79",
+    "status": "completed",
+    "conclusion": "failure",
+    "failedAppJob": 127857315872,
+    "failedAggregateJob": 127857598869,
+    "failure": "ACCEPTANCE.md: generated content differs; run contract-docs write.",
+    "generatedViewOnlyException": true,
+    "shards": "skipped",
+    "logArchivesReadOncePerFailedJob": true,
+    "reruns": 0,
+    "dispatches": 0,
+    "githubBudgetCallsUsed": 5
+  }
+}

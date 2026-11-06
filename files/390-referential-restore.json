@@ -1,0 +1,3164 @@
+{
+  "width": 390,
+  "transfer": {
+    "export": {
+      "id": "01M6R8Q0Z6P1GY0NY5XXBKQ597",
+      "kind": "export",
+      "state": "completed",
+      "counts": {
+        "provider_embed_observations": 0,
+        "member_profiles": 0,
+        "member_expertise_overrides": 0,
+        "scim_credentials": 0,
+        "scim_resources": 0,
+        "audit_settings": 0,
+        "webhook_subscriptions": 0,
+        "public_api_tokens": 0,
+        "provider_folder_policies": 0,
+        "provider_folder_connections": 0,
+        "provider_folder_runs": 0,
+        "backup_destinations": 0,
+        "backup_runs": 0,
+        "analytics_no_result_searches": 0,
+        "database_record_templates": 0,
+        "database_record_occurrences": 0,
+        "blog_posts": 0,
+        "review_requests": 0,
+        "review_request_history": 0,
+        "review_request_deliveries": 0,
+        "verification_rules": 0,
+        "verification_rule_runs": 0,
+        "verification_rule_flags": 0,
+        "task_origins": 0,
+        "reminders": 0,
+        "intelligence_route_evaluations": 0,
+        "intelligence_run_equivalence": 0,
+        "intelligence_interruptions": 0,
+        "intelligence_ambient_scopes": 0,
+        "intelligence_ambient_events": 0,
+        "structured_page_fields": 0,
+        "content_published_revisions": 9,
+        "content_legacy_reactions": 0,
+        "workspaces": 1,
+        "members": 3,
+        "member_identity_bindings": 0,
+        "groups": 1,
+        "group_members": 1,
+        "containers": 4,
+        "container_owners": 4,
+        "container_members": 4,
+        "container_grants": 4,
+        "pages": 7,
+        "page_contributors": 1,
+        "page_grants": 6,
+        "page_blocks": 5,
+        "page_revisions": 11,
+        "synced_static_content": 0,
+        "synced_deleted_references": 0,
+        "record_revisions": 2,
+        "page_labels": 0,
+        "status_entries": 4,
+        "page_verifications": 0,
+        "public_exposures": 0,
+        "files": 3,
+        "databases": 0,
+        "database_fields": 0,
+        "database_records": 0,
+        "database_views": 0,
+        "knowledge_templates": 0,
+        "comment_threads": 1,
+        "comments": 1,
+        "reactions": 0,
+        "page_favourites": 0,
+        "container_favourites": 0,
+        "page_watches": 6,
+        "container_watches": 0,
+        "watch_edit_sessions": 1,
+        "recent_pages": 2,
+        "page_views": 8,
+        "notifications": 3,
+        "chat_connections": 0,
+        "activity_entries": 38,
+        "automation_rules": 0,
+        "automation_runs": 0,
+        "ai_agents": 0,
+        "ai_conversations": 0,
+        "ai_runs": 0,
+        "ai_budget_reservations": 0,
+        "import_jobs": 0,
+        "import_mappings": 0,
+        "export_jobs": 0,
+        "knowledge_decisions": 0,
+        "decision_citations": 0,
+        "decision_reviews": 0,
+        "workspace_policies": 0,
+        "core_entity_revisions": 9,
+        "core_job_failures": 0,
+        "core_event_cursors": 0,
+        "content_page_opens": 3,
+        "content_tree_expansion": 1,
+        "content_schedules": 0,
+        "content_archive_locations": 0,
+        "content_suggestions": 0,
+        "content_tombstones": 0,
+        "content_events": 10,
+        "structured_revisions": 0,
+        "automation_jobs": 0,
+        "automation_action_receipts": 0,
+        "automation_event_cursors": 0,
+        "discovery_revisions": 0,
+        "discovery_preferences": 0,
+        "saved_searches": 0,
+        "notification_outbox": 13,
+        "chat_deliveries": 0,
+        "chat_messages": 0,
+        "chat_message_sources": 0,
+        "federation_connections": 0,
+        "federation_sources": 0,
+        "federation_refreshes": 0,
+        "federation_revisions": 0,
+        "federation_passages": 0,
+        "federation_imports": 0,
+        "federation_exports": 2,
+        "federation_import_mappings": 0,
+        "intelligence_runs": 0,
+        "intelligence_revisions": 0,
+        "intelligence_budgets": 0,
+        "intelligence_model_policy": 0,
+        "intelligence_grants": 0,
+        "intelligence_effects": 0,
+        "intelligence_stages": 0,
+        "intelligence_skills": 0,
+        "intelligence_skill_versions": 0,
+        "intelligence_evaluations": 0,
+        "intelligence_inquiries": 0,
+        "intelligence_hypotheses": 0,
+        "intelligence_analyses": 0,
+        "intelligence_artifacts": 0,
+        "intelligence_experiments": 0,
+        "intelligence_observations": 0,
+        "intelligence_dependencies": 0,
+        "intelligence_impacts": 0,
+        "intelligence_reviews": 0,
+        "intelligence_allowances": 0,
+        "intelligence_evaluation_cases": 0,
+        "intelligence_guided_tasks": 0,
+        "intelligence_guided_steps": 0,
+        "import_native_targets": 0,
+        "ik_jobs": 0,
+        "ik_original_sets": 0,
+        "ik_originals": 0,
+        "ik_sources": 0,
+        "ik_provenance": 0,
+        "ik_stages": 0,
+        "ik_batches": 0,
+        "ik_targets": 0,
+        "ik_d1_plan_chunks": 0,
+        "ik_d1_original_chunks": 0,
+        "ik_d1_history": 0,
+        "ik_d1_entries": 0,
+        "ik_d1_creation_plans": 0,
+        "ik_d1_reversal_reports": 0,
+        "ik_d1_streams": 0,
+        "ik_d1_stream_pages": 0,
+        "ik_d1_erased_sources": 0,
+        "ik_d1_erased_targets": 0,
+        "ik_d1_indexed_jobs": 0,
+        "ik_d1_plan_index": 0,
+        "ik_d1_stream_origins": 0,
+        "ik_d1_stream_revisions": 0,
+        "ik_d1_publication_fences": 0,
+        "ik_d1_staging": 0,
+        "ik_d1_staging_pages": 0,
+        "ik_d1_staging_chunks": 0,
+        "ik_d1_staging_index": 0,
+        "ik_d1_staging_originals": 0,
+        "ik_d1_custody_revisions": 0,
+        "ik_d1_native_staging": 0,
+        "ik_d1_native_staging_index": 0,
+        "ik_d1_native_staging_values": 0,
+        "ik_d1_custody_states": 0,
+        "ik_d1_preparation_receipts": 0,
+        "ik_d1_reversal_fences": 0,
+        "ik_d1_retirements": 0,
+        "ik_d1_erasure_journal": 0,
+        "ik_d1_staging_headers": 0,
+        "import_native_publications": 0,
+        "import_objects": 0,
+        "import_native_epoch": 1,
+        "ik_d1_preparation_steps": 0,
+        "ik_d1_stream_sources": 0,
+        "ik_d1_erasure_progress": 0,
+        "ik_door_chunks": 0,
+        "ik_door_plan_chunks": 0,
+        "ik_door_uploads": 0,
+        "ik_door_approvals": 0,
+        "ik_door_apply_failures": 0,
+        "ik_door_plans": 0,
+        "ik_door_namespaces": 0,
+        "ik_door_grants": 0,
+        "ik_door_scopes": 0,
+        "import_door_native_targets": 0,
+        "ik_door_settings": 0,
+        "ik_door_revoked_keys": 0
+      },
+      "report": {},
+      "createdAt": "2026-11-06T11:08:15.718Z",
+      "updatedAt": "2026-11-06T11:08:18.935Z",
+      "startedAt": "2026-11-06T11:08:17.439Z",
+      "completedAt": "2026-11-06T11:08:18.935Z",
+      "downloadPath": "/api/exports/01M6R8Q0Z6P1GY0NY5XXBKQ597/download"
+    },
+    "restore": {
+      "id": "01M6R8S94QC1JRTG7SPNDBVG8E",
+      "kind": "restore",
+      "state": "completed",
+      "counts": {
+        "provider_embed_observations": 0,
+        "member_profiles": 0,
+        "member_expertise_overrides": 0,
+        "scim_credentials": 0,
+        "scim_resources": 0,
+        "audit_settings": 0,
+        "webhook_subscriptions": 0,
+        "public_api_tokens": 0,
+        "provider_folder_policies": 0,
+        "provider_folder_connections": 0,
+        "provider_folder_runs": 0,
+        "backup_destinations": 0,
+        "backup_runs": 0,
+        "analytics_no_result_searches": 0,
+        "database_record_templates": 0,
+        "database_record_occurrences": 0,
+        "blog_posts": 0,
+        "review_requests": 0,
+        "review_request_history": 0,
+        "review_request_deliveries": 0,
+        "verification_rules": 0,
+        "verification_rule_runs": 0,
+        "verification_rule_flags": 0,
+        "task_origins": 0,
+        "reminders": 0,
+        "intelligence_route_evaluations": 0,
+        "intelligence_run_equivalence": 0,
+        "intelligence_interruptions": 0,
+        "intelligence_ambient_scopes": 0,
+        "intelligence_ambient_events": 0,
+        "structured_page_fields": 0,
+        "content_published_revisions": 9,
+        "content_legacy_reactions": 0,
+        "workspaces": 1,
+        "members": 3,
+        "member_identity_bindings": 0,
+        "groups": 1,
+        "group_members": 1,
+        "containers": 4,
+        "container_owners": 4,
+        "container_members": 4,
+        "container_grants": 4,
+        "pages": 7,
+        "page_contributors": 1,
+        "page_grants": 6,
+        "page_blocks": 5,
+        "page_revisions": 11,
+        "synced_static_content": 0,
+        "synced_deleted_references": 0,
+        "record_revisions": 2,
+        "page_labels": 0,
+        "status_entries": 4,
+        "page_verifications": 0,
+        "public_exposures": 0,
+        "files": 3,
+        "databases": 0,
+        "database_fields": 0,
+        "database_records": 0,
+        "database_views": 0,
+        "knowledge_templates": 0,
+        "comment_threads": 1,
+        "comments": 1,
+        "reactions": 0,
+        "page_favourites": 0,
+        "container_favourites": 0,
+        "page_watches": 6,
+        "container_watches": 0,
+        "watch_edit_sessions": 1,
+        "recent_pages": 2,
+        "page_views": 8,
+        "notifications": 3,
+        "chat_connections": 0,
+        "activity_entries": 38,
+        "automation_rules": 0,
+        "automation_runs": 0,
+        "ai_agents": 0,
+        "ai_conversations": 0,
+        "ai_runs": 0,
+        "ai_budget_reservations": 0,
+        "import_jobs": 0,
+        "import_mappings": 0,
+        "export_jobs": 0,
+        "knowledge_decisions": 0,
+        "decision_citations": 0,
+        "decision_reviews": 0,
+        "workspace_policies": 0,
+        "core_entity_revisions": 9,
+        "core_job_failures": 0,
+        "core_event_cursors": 0,
+        "content_page_opens": 3,
+        "content_tree_expansion": 1,
+        "content_schedules": 0,
+        "content_archive_locations": 0,
+        "content_suggestions": 0,
+        "content_tombstones": 0,
+        "content_events": 10,
+        "structured_revisions": 0,
+        "automation_jobs": 0,
+        "automation_action_receipts": 0,
+        "automation_event_cursors": 0,
+        "discovery_revisions": 0,
+        "discovery_preferences": 0,
+        "saved_searches": 0,
+        "notification_outbox": 13,
+        "chat_deliveries": 0,
+        "chat_messages": 0,
+        "chat_message_sources": 0,
+        "federation_connections": 0,
+        "federation_sources": 0,
+        "federation_refreshes": 0,
+        "federation_revisions": 0,
+        "federation_passages": 0,
+        "federation_imports": 0,
+        "federation_exports": 2,
+        "federation_import_mappings": 0,
+        "intelligence_runs": 0,
+        "intelligence_revisions": 0,
+        "intelligence_budgets": 0,
+        "intelligence_model_policy": 0,
+        "intelligence_grants": 0,
+        "intelligence_effects": 0,
+        "intelligence_stages": 0,
+        "intelligence_skills": 0,
+        "intelligence_skill_versions": 0,
+        "intelligence_evaluations": 0,
+        "intelligence_inquiries": 0,
+        "intelligence_hypotheses": 0,
+        "intelligence_analyses": 0,
+        "intelligence_artifacts": 0,
+        "intelligence_experiments": 0,
+        "intelligence_observations": 0,
+        "intelligence_dependencies": 0,
+        "intelligence_impacts": 0,
+        "intelligence_reviews": 0,
+        "intelligence_allowances": 0,
+        "intelligence_evaluation_cases": 0,
+        "intelligence_guided_tasks": 0,
+        "intelligence_guided_steps": 0,
+        "import_native_targets": 0,
+        "ik_jobs": 0,
+        "ik_original_sets": 0,
+        "ik_originals": 0,
+        "ik_sources": 0,
+        "ik_provenance": 0,
+        "ik_stages": 0,
+        "ik_batches": 0,
+        "ik_targets": 0,
+        "ik_d1_plan_chunks": 0,
+        "ik_d1_original_chunks": 0,
+        "ik_d1_history": 0,
+        "ik_d1_entries": 0,
+        "ik_d1_creation_plans": 0,
+        "ik_d1_reversal_reports": 0,
+        "ik_d1_streams": 0,
+        "ik_d1_stream_pages": 0,
+        "ik_d1_erased_sources": 0,
+        "ik_d1_erased_targets": 0,
+        "ik_d1_indexed_jobs": 0,
+        "ik_d1_plan_index": 0,
+        "ik_d1_stream_origins": 0,
+        "ik_d1_stream_revisions": 0,
+        "ik_d1_publication_fences": 0,
+        "ik_d1_staging": 0,
+        "ik_d1_staging_pages": 0,
+        "ik_d1_staging_chunks": 0,
+        "ik_d1_staging_index": 0,
+        "ik_d1_staging_originals": 0,
+        "ik_d1_custody_revisions": 0,
+        "ik_d1_native_staging": 0,
+        "ik_d1_native_staging_index": 0,
+        "ik_d1_native_staging_values": 0,
+        "ik_d1_custody_states": 0,
+        "ik_d1_preparation_receipts": 0,
+        "ik_d1_reversal_fences": 0,
+        "ik_d1_retirements": 0,
+        "ik_d1_erasure_journal": 0,
+        "ik_d1_staging_headers": 0,
+        "import_native_publications": 0,
+        "import_objects": 0,
+        "import_native_epoch": 1,
+        "ik_d1_preparation_steps": 0,
+        "ik_d1_stream_sources": 0,
+        "ik_d1_erasure_progress": 0,
+        "ik_door_chunks": 0,
+        "ik_door_plan_chunks": 0,
+        "ik_door_uploads": 0,
+        "ik_door_approvals": 0,
+        "ik_door_apply_failures": 0,
+        "ik_door_plans": 0,
+        "ik_door_namespaces": 0,
+        "ik_door_grants": 0,
+        "ik_door_scopes": 0,
+        "import_door_native_targets": 0,
+        "ik_door_settings": 0,
+        "ik_door_revoked_keys": 0
+      },
+      "report": {},
+      "createdAt": "2026-11-06T11:09:29.623Z",
+      "updatedAt": "2026-11-06T11:09:33.523Z",
+      "startedAt": "2026-11-06T11:09:31.047Z",
+      "completedAt": "2026-11-06T11:09:33.523Z",
+      "restoreId": "01M6R8S94QMGPC27ENT2205M0D",
+      "reconnect": [
+        "Provider credentials are excluded. Reconnect all sources, chat destinations, identity providers, agents and model accounts. Imported automation, AI and guided work stay inactive. Skills retain evaluations but need fresh owner activation; trials need fresh authorization. External effects never replay."
+      ]
+    },
+    "archive": {
+      "bytes": 20424,
+      "sha256": "2f2178dc3bf49361446d5aaf94a4fd70c63490bf6ea869158d591a40f73bd7ba"
+    }
+  },
+  "destinationArchive": {
+    "bytes": 20598,
+    "sha256": "20f645d851833cc192c714e57ab5f90d56af2a77e83d2c71202340a8bb82e415"
+  },
+  "source": {
+    "documents": {
+      "01M6R8PRDFJE14FC1VCBZKZ6SM": {
+        "page": {
+          "id": "01M6R8PRDFJE14FC1VCBZKZ6SM",
+          "containerId": "01M6R8PRCWXMH1RF90PDNE41XD",
+          "title": "Transfer guide",
+          "revisionId": "01M6R8PSNG7QG6Z7A2M0QKT80G",
+          "lifecycle": "live"
+        },
+        "blocks": [
+          {
+            "id": "9528c2d9-683e-4233-860e-60957c32de84",
+            "blockType": "paragraph",
+            "content": {
+              "text": [
+                {
+                  "text": "Confirm the transfer owner",
+                  "commentAnchorId": "f6141a68-a634-4273-9a46-28941c4da9ad"
+                },
+                {
+                  "text": ". "
+                },
+                {
+                  "text": "Open member appendix",
+                  "link": {
+                    "href": "/app/pages/01M6R8PRFF922CP1ZBFGG18M6R"
+                  }
+                },
+                {
+                  "text": " · "
+                },
+                {
+                  "text": "Member appendix",
+                  "mention": {
+                    "kind": "page",
+                    "label": "Member appendix",
+                    "id": "01M6R8PRFF922CP1ZBFGG18M6R"
+                  }
+                }
+              ]
+            },
+            "parentBlockId": null,
+            "treePosition": "00000000",
+            "pageId": "01M6R8PRDFJE14FC1VCBZKZ6SM",
+            "revisionId": "01M6R8PSNPSPBJ62MBWX40XSFQ"
+          }
+        ],
+        "properties": {
+          "title": "Transfer guide",
+          "icon": null,
+          "coverFileId": null,
+          "ownerMemberId": "browser-owner",
+          "statusKey": null,
+          "labels": [],
+          "typeface": "default",
+          "smallText": false,
+          "fullWidth": false
+        },
+        "parentPageId": null,
+        "workingRevisionId": "01M6R8PSNG7QG6Z7A2M0QKT80G",
+        "publishedRevisionId": "01M6R8PSNG7QG6Z7A2M0QKT80G",
+        "authorMemberId": "browser-owner",
+        "createdAt": "2026-11-06T11:08:06.958Z",
+        "updatedAt": "2026-11-06T11:08:08.237Z"
+      },
+      "01M6R8PRFF922CP1ZBFGG18M6R": {
+        "page": {
+          "id": "01M6R8PRFF922CP1ZBFGG18M6R",
+          "containerId": "01M6R8PRCWXMH1RF90PDNE41XD",
+          "title": "Member appendix",
+          "revisionId": "01M6R8PRJNY25E8X8A6GVCCEQ8",
+          "lifecycle": "live"
+        },
+        "blocks": [
+          {
+            "id": "a78f516d-3bb5-4390-aa29-e16b864718e9",
+            "blockType": "paragraph",
+            "content": {
+              "text": [
+                {
+                  "text": "synthetic-slate-315: direct member appendix. "
+                },
+                {
+                  "text": "Open group checklist",
+                  "link": {
+                    "href": "/app/pages/01M6R8PRE4VGJR8ZWS77E615M5"
+                  }
+                }
+              ]
+            },
+            "treePosition": "a",
+            "parentBlockId": null,
+            "pageId": "01M6R8PRFF922CP1ZBFGG18M6R",
+            "revisionId": "01M6R8PRFGVWH8TJCCM7F48Y5N"
+          }
+        ],
+        "properties": {
+          "title": "Member appendix",
+          "icon": null,
+          "coverFileId": null,
+          "ownerMemberId": "browser-owner",
+          "statusKey": null,
+          "labels": [],
+          "typeface": "default",
+          "smallText": false,
+          "fullWidth": false
+        },
+        "parentPageId": "01M6R8PRDFJE14FC1VCBZKZ6SM",
+        "workingRevisionId": "01M6R8PRFF0ADC21W1PX2HQPG7",
+        "publishedRevisionId": "01M6R8PRFF0ADC21W1PX2HQPG7",
+        "authorMemberId": "browser-owner",
+        "createdAt": "2026-11-06T11:08:07.021Z",
+        "updatedAt": "2026-11-06T11:08:07.122Z"
+      },
+      "01M6R8PRET1ADBZNMS3H1FSZQ6": {
+        "page": {
+          "id": "01M6R8PRET1ADBZNMS3H1FSZQ6",
+          "containerId": "01M6R8PRCWXMH1RF90PDNE41XD",
+          "title": "Owner annex",
+          "revisionId": "01M6R8PRQ1XXG9DSDPDVSYJ15X",
+          "lifecycle": "live"
+        },
+        "blocks": [
+          {
+            "id": "eeba2753-a87a-4ddd-be8a-06aea5acaa5a",
+            "blockType": "paragraph",
+            "content": {
+              "text": [
+                {
+                  "text": "synthetic-slate-314: owner-only annex"
+                }
+              ]
+            },
+            "treePosition": "a",
+            "parentBlockId": null,
+            "pageId": "01M6R8PRET1ADBZNMS3H1FSZQ6",
+            "revisionId": "01M6R8PRETJCQ4SPMX091G8E8C"
+          }
+        ],
+        "properties": {
+          "title": "Owner annex",
+          "icon": null,
+          "coverFileId": null,
+          "ownerMemberId": "browser-owner",
+          "statusKey": null,
+          "labels": [],
+          "typeface": "default",
+          "smallText": false,
+          "fullWidth": false
+        },
+        "parentPageId": "01M6R8PRDFJE14FC1VCBZKZ6SM",
+        "workingRevisionId": "01M6R8PRETQHMEQC5PYTGVFA81",
+        "publishedRevisionId": "01M6R8PRETQHMEQC5PYTGVFA81",
+        "authorMemberId": "browser-owner",
+        "createdAt": "2026-11-06T11:08:06.999Z",
+        "updatedAt": "2026-11-06T11:08:07.263Z"
+      },
+      "01M6R8PRE4VGJR8ZWS77E615M5": {
+        "page": {
+          "id": "01M6R8PRE4VGJR8ZWS77E615M5",
+          "containerId": "01M6R8PRCWXMH1RF90PDNE41XD",
+          "title": "Group checklist",
+          "revisionId": "01M6R8PRE4XPTMAG026NGSJ7TZ",
+          "lifecycle": "live"
+        },
+        "blocks": [
+          {
+            "id": "a5e8c229-ef53-4e86-84e8-39e2e8fed44a",
+            "blockType": "paragraph",
+            "content": {
+              "text": [
+                {
+                  "text": "synthetic-slate-313: inherited group checklist"
+                }
+              ]
+            },
+            "treePosition": "a",
+            "parentBlockId": null,
+            "pageId": "01M6R8PRE4VGJR8ZWS77E615M5",
+            "revisionId": "01M6R8PRE531EG8ZVX0VMW4TNH"
+          }
+        ],
+        "properties": {
+          "title": "Group checklist",
+          "icon": null,
+          "coverFileId": null,
+          "ownerMemberId": "browser-owner",
+          "statusKey": null,
+          "labels": [],
+          "typeface": "default",
+          "smallText": false,
+          "fullWidth": false
+        },
+        "parentPageId": "01M6R8PRDFJE14FC1VCBZKZ6SM",
+        "workingRevisionId": "01M6R8PRE4XPTMAG026NGSJ7TZ",
+        "publishedRevisionId": "01M6R8PRE4XPTMAG026NGSJ7TZ",
+        "authorMemberId": "browser-owner",
+        "createdAt": "2026-11-06T11:08:06.978Z",
+        "updatedAt": "2026-11-06T11:08:06.978Z"
+      }
+    },
+    "revisions": {
+      "01M6R8PRDFJE14FC1VCBZKZ6SM": [
+        {
+          "id": "01M6R8PSNG7QG6Z7A2M0QKT80G",
+          "blocks": [
+            {
+              "id": "9528c2d9-683e-4233-860e-60957c32de84",
+              "blockType": "paragraph",
+              "content": {
+                "text": [
+                  {
+                    "text": "Confirm the transfer owner",
+                    "commentAnchorId": "f6141a68-a634-4273-9a46-28941c4da9ad"
+                  },
+                  {
+                    "text": ". "
+                  },
+                  {
+                    "text": "Open member appendix",
+                    "link": {
+                      "href": "/app/pages/01M6R8PRFF922CP1ZBFGG18M6R"
+                    }
+                  },
+                  {
+                    "text": " · "
+                  },
+                  {
+                    "text": "Member appendix",
+                    "mention": {
+                      "kind": "page",
+                      "label": "Member appendix",
+                      "id": "01M6R8PRFF922CP1ZBFGG18M6R"
+                    }
+                  }
+                ]
+              },
+              "parentBlockId": null,
+              "treePosition": "00000000",
+              "pageId": "01M6R8PRDFJE14FC1VCBZKZ6SM",
+              "revisionId": "01M6R8PSNPSPBJ62MBWX40XSFQ"
+            }
+          ],
+          "properties": {
+            "title": "Transfer guide",
+            "icon": null,
+            "coverFileId": null,
+            "ownerMemberId": "browser-owner",
+            "statusKey": null,
+            "labels": [],
+            "typeface": "default",
+            "smallText": false,
+            "fullWidth": false
+          },
+          "createdAt": "2026-11-06T11:08:08.237Z",
+          "newerRevisionExists": false
+        },
+        {
+          "id": "01M6R8PRVDZ9R1A1H8SSR9MK7B",
+          "blocks": [
+            {
+              "id": "9528c2d9-683e-4233-860e-60957c32de84",
+              "pageId": "01M6R8PRDFJE14FC1VCBZKZ6SM",
+              "parentBlockId": null,
+              "blockType": "paragraph",
+              "content": {
+                "text": [
+                  {
+                    "text": "Confirm the transfer owner"
+                  },
+                  {
+                    "text": ". "
+                  },
+                  {
+                    "text": "Open member appendix",
+                    "link": {
+                      "href": "/app/pages/01M6R8PRFF922CP1ZBFGG18M6R"
+                    }
+                  },
+                  {
+                    "text": " · "
+                  },
+                  {
+                    "text": "Member appendix",
+                    "mention": {
+                      "kind": "page",
+                      "label": "Member appendix",
+                      "id": "01M6R8PRFF922CP1ZBFGG18M6R"
+                    }
+                  }
+                ]
+              },
+              "treePosition": "a",
+              "revisionId": "01M6R8PRVFRVC4VDMC0M5REZ1P"
+            }
+          ],
+          "properties": {
+            "title": "Transfer guide",
+            "icon": null,
+            "coverFileId": null,
+            "ownerMemberId": "browser-owner",
+            "statusKey": null,
+            "labels": [],
+            "typeface": "default",
+            "smallText": false,
+            "fullWidth": false
+          },
+          "createdAt": "2026-11-06T11:08:07.403Z",
+          "newerRevisionExists": true
+        },
+        {
+          "id": "01M6R8PRDFY0BZQH1MKNH595A3",
+          "blocks": [
+            {
+              "id": "9528c2d9-683e-4233-860e-60957c32de84",
+              "blockType": "paragraph",
+              "content": {
+                "text": [
+                  {
+                    "text": "synthetic-slate-311: earlier accepted instructions"
+                  }
+                ]
+              },
+              "treePosition": "a",
+              "parentBlockId": null,
+              "pageId": "01M6R8PRDFJE14FC1VCBZKZ6SM",
+              "revisionId": "01M6R8PRDG74WY8SC3WTK9VBD3"
+            }
+          ],
+          "properties": {
+            "title": "Transfer guide",
+            "icon": null,
+            "coverFileId": null,
+            "ownerMemberId": "browser-owner",
+            "statusKey": null,
+            "labels": [],
+            "typeface": "default",
+            "smallText": false,
+            "fullWidth": false
+          },
+          "createdAt": "2026-11-06T11:08:06.958Z",
+          "newerRevisionExists": true
+        }
+      ],
+      "01M6R8PRFF922CP1ZBFGG18M6R": [
+        {
+          "id": "01M6R8PRJNY25E8X8A6GVCCEQ8",
+          "blocks": [
+            {
+              "id": "a78f516d-3bb5-4390-aa29-e16b864718e9",
+              "pageId": "01M6R8PRFF922CP1ZBFGG18M6R",
+              "parentBlockId": null,
+              "blockType": "paragraph",
+              "content": {
+                "text": [
+                  {
+                    "text": "synthetic-slate-315: direct member appendix. "
+                  },
+                  {
+                    "text": "Open group checklist",
+                    "link": {
+                      "href": "/app/pages/01M6R8PRE4VGJR8ZWS77E615M5"
+                    }
+                  }
+                ]
+              },
+              "treePosition": "a",
+              "revisionId": "01M6R8PRFGVWH8TJCCM7F48Y5N"
+            }
+          ],
+          "properties": {
+            "title": "Member appendix",
+            "icon": null,
+            "coverFileId": null,
+            "ownerMemberId": "browser-owner",
+            "statusKey": null,
+            "labels": [],
+            "typeface": "default",
+            "smallText": false,
+            "fullWidth": false
+          },
+          "createdAt": "2026-11-06T11:08:07.122Z",
+          "newerRevisionExists": true
+        },
+        {
+          "id": "01M6R8PRFF0ADC21W1PX2HQPG7",
+          "blocks": [
+            {
+              "id": "a78f516d-3bb5-4390-aa29-e16b864718e9",
+              "blockType": "paragraph",
+              "content": {
+                "text": [
+                  {
+                    "text": "synthetic-slate-315: direct member appendix. "
+                  },
+                  {
+                    "text": "Open group checklist",
+                    "link": {
+                      "href": "/app/pages/01M6R8PRE4VGJR8ZWS77E615M5"
+                    }
+                  }
+                ]
+              },
+              "treePosition": "a",
+              "parentBlockId": null,
+              "pageId": "01M6R8PRFF922CP1ZBFGG18M6R",
+              "revisionId": "01M6R8PRFGVWH8TJCCM7F48Y5N"
+            }
+          ],
+          "properties": {
+            "title": "Member appendix",
+            "icon": null,
+            "coverFileId": null,
+            "ownerMemberId": "browser-owner",
+            "statusKey": null,
+            "labels": [],
+            "typeface": "default",
+            "smallText": false,
+            "fullWidth": false
+          },
+          "createdAt": "2026-11-06T11:08:07.021Z",
+          "newerRevisionExists": false
+        }
+      ],
+      "01M6R8PRET1ADBZNMS3H1FSZQ6": [
+        {
+          "id": "01M6R8PRQ1XXG9DSDPDVSYJ15X",
+          "blocks": [
+            {
+              "id": "eeba2753-a87a-4ddd-be8a-06aea5acaa5a",
+              "pageId": "01M6R8PRET1ADBZNMS3H1FSZQ6",
+              "parentBlockId": null,
+              "blockType": "paragraph",
+              "content": {
+                "text": [
+                  {
+                    "text": "synthetic-slate-314: owner-only annex"
+                  }
+                ]
+              },
+              "treePosition": "a",
+              "revisionId": "01M6R8PRETJCQ4SPMX091G8E8C"
+            }
+          ],
+          "properties": {
+            "title": "Owner annex",
+            "icon": null,
+            "coverFileId": null,
+            "ownerMemberId": "browser-owner",
+            "statusKey": null,
+            "labels": [],
+            "typeface": "default",
+            "smallText": false,
+            "fullWidth": false
+          },
+          "createdAt": "2026-11-06T11:08:07.263Z",
+          "newerRevisionExists": true
+        },
+        {
+          "id": "01M6R8PRETQHMEQC5PYTGVFA81",
+          "blocks": [
+            {
+              "id": "eeba2753-a87a-4ddd-be8a-06aea5acaa5a",
+              "blockType": "paragraph",
+              "content": {
+                "text": [
+                  {
+                    "text": "synthetic-slate-314: owner-only annex"
+                  }
+                ]
+              },
+              "treePosition": "a",
+              "parentBlockId": null,
+              "pageId": "01M6R8PRET1ADBZNMS3H1FSZQ6",
+              "revisionId": "01M6R8PRETJCQ4SPMX091G8E8C"
+            }
+          ],
+          "properties": {
+            "title": "Owner annex",
+            "icon": null,
+            "coverFileId": null,
+            "ownerMemberId": "browser-owner",
+            "statusKey": null,
+            "labels": [],
+            "typeface": "default",
+            "smallText": false,
+            "fullWidth": false
+          },
+          "createdAt": "2026-11-06T11:08:06.999Z",
+          "newerRevisionExists": false
+        }
+      ],
+      "01M6R8PRE4VGJR8ZWS77E615M5": [
+        {
+          "id": "01M6R8PRE4XPTMAG026NGSJ7TZ",
+          "blocks": [
+            {
+              "id": "a5e8c229-ef53-4e86-84e8-39e2e8fed44a",
+              "blockType": "paragraph",
+              "content": {
+                "text": [
+                  {
+                    "text": "synthetic-slate-313: inherited group checklist"
+                  }
+                ]
+              },
+              "treePosition": "a",
+              "parentBlockId": null,
+              "pageId": "01M6R8PRE4VGJR8ZWS77E615M5",
+              "revisionId": "01M6R8PRE531EG8ZVX0VMW4TNH"
+            }
+          ],
+          "properties": {
+            "title": "Group checklist",
+            "icon": null,
+            "coverFileId": null,
+            "ownerMemberId": "browser-owner",
+            "statusKey": null,
+            "labels": [],
+            "typeface": "default",
+            "smallText": false,
+            "fullWidth": false
+          },
+          "createdAt": "2026-11-06T11:08:06.978Z",
+          "newerRevisionExists": false
+        }
+      ]
+    },
+    "grants": {
+      "01M6R8PRDFJE14FC1VCBZKZ6SM": {
+        "restricted": false,
+        "items": [
+          {
+            "id": "01M6R8PRGW874GX1V3ZQXG9TWF",
+            "principalKind": "group",
+            "principalId": "01M6R8PRG6PYEBBFBSXF5W7Y2A",
+            "level": "edit",
+            "expiresAt": null,
+            "revokedAt": null,
+            "invitationId": null,
+            "invitationEmail": null,
+            "invitationExpiresAt": null,
+            "invitationRevokedAt": null,
+            "principalLabel": "Transfer reviewers",
+            "origin": {
+              "kind": "page",
+              "id": "01M6R8PRDFJE14FC1VCBZKZ6SM",
+              "name": "Transfer guide"
+            },
+            "inherited": false,
+            "status": "active",
+            "effective": true
+          }
+        ],
+        "inheritedItems": [
+          {
+            "id": "01M6R8PRCWAD4DXD04384ZCDYN",
+            "principalKind": "member",
+            "principalId": "browser-owner",
+            "level": "full",
+            "expiresAt": null,
+            "revokedAt": null,
+            "invitationId": null,
+            "invitationEmail": null,
+            "invitationExpiresAt": null,
+            "invitationRevokedAt": null,
+            "principalLabel": "Alex Owner",
+            "origin": {
+              "kind": "container",
+              "id": "01M6R8PRCWXMH1RF90PDNE41XD",
+              "name": "Transfer field guide"
+            },
+            "inherited": true,
+            "status": "active",
+            "effective": true
+          }
+        ]
+      },
+      "01M6R8PRFF922CP1ZBFGG18M6R": {
+        "restricted": true,
+        "items": [
+          {
+            "id": "01M6R8PRHPD59SGPK77X72Q55Y",
+            "principalKind": "member",
+            "principalId": "browser-owner",
+            "level": "full",
+            "expiresAt": null,
+            "revokedAt": null,
+            "invitationId": null,
+            "invitationEmail": null,
+            "invitationExpiresAt": null,
+            "invitationRevokedAt": null,
+            "principalLabel": "Alex Owner",
+            "origin": {
+              "kind": "page",
+              "id": "01M6R8PRFF922CP1ZBFGG18M6R",
+              "name": "Member appendix"
+            },
+            "inherited": false,
+            "status": "active",
+            "effective": true
+          },
+          {
+            "id": "01M6R8PRQP1GST1W56451791KV",
+            "principalKind": "member",
+            "principalId": "browser-reader",
+            "level": "view",
+            "expiresAt": null,
+            "revokedAt": null,
+            "invitationId": null,
+            "invitationEmail": null,
+            "invitationExpiresAt": null,
+            "invitationRevokedAt": null,
+            "principalLabel": "Morgan Reader",
+            "origin": {
+              "kind": "page",
+              "id": "01M6R8PRFF922CP1ZBFGG18M6R",
+              "name": "Member appendix"
+            },
+            "inherited": false,
+            "status": "active",
+            "effective": true
+          }
+        ],
+        "inheritedItems": []
+      },
+      "01M6R8PRET1ADBZNMS3H1FSZQ6": {
+        "restricted": true,
+        "items": [
+          {
+            "id": "01M6R8PRK9CJ1N7B31B11HFQC6",
+            "principalKind": "member",
+            "principalId": "browser-owner",
+            "level": "full",
+            "expiresAt": null,
+            "revokedAt": null,
+            "invitationId": null,
+            "invitationEmail": null,
+            "invitationExpiresAt": null,
+            "invitationRevokedAt": null,
+            "principalLabel": "Alex Owner",
+            "origin": {
+              "kind": "page",
+              "id": "01M6R8PRET1ADBZNMS3H1FSZQ6",
+              "name": "Owner annex"
+            },
+            "inherited": false,
+            "status": "active",
+            "effective": true
+          },
+          {
+            "id": "01M6R8PRRD1ZF1Y3GBQ3TYHF9C",
+            "principalKind": "member",
+            "principalId": "browser-reader",
+            "level": "view",
+            "expiresAt": null,
+            "revokedAt": "2026-11-06T11:08:07.330Z",
+            "invitationId": null,
+            "invitationEmail": null,
+            "invitationExpiresAt": null,
+            "invitationRevokedAt": null,
+            "principalLabel": "Morgan Reader",
+            "origin": {
+              "kind": "page",
+              "id": "01M6R8PRET1ADBZNMS3H1FSZQ6",
+              "name": "Owner annex"
+            },
+            "inherited": false,
+            "status": "revoked",
+            "effective": false
+          }
+        ],
+        "inheritedItems": []
+      },
+      "01M6R8PRE4VGJR8ZWS77E615M5": {
+        "restricted": false,
+        "items": [],
+        "inheritedItems": [
+          {
+            "id": "01M6R8PRGW874GX1V3ZQXG9TWF",
+            "principalKind": "group",
+            "principalId": "01M6R8PRG6PYEBBFBSXF5W7Y2A",
+            "level": "edit",
+            "expiresAt": null,
+            "revokedAt": null,
+            "invitationId": null,
+            "invitationEmail": null,
+            "invitationExpiresAt": null,
+            "invitationRevokedAt": null,
+            "principalLabel": "Transfer reviewers",
+            "origin": {
+              "kind": "page",
+              "id": "01M6R8PRDFJE14FC1VCBZKZ6SM",
+              "name": "Transfer guide"
+            },
+            "inherited": true,
+            "status": "active",
+            "effective": true
+          },
+          {
+            "id": "01M6R8PRCWAD4DXD04384ZCDYN",
+            "principalKind": "member",
+            "principalId": "browser-owner",
+            "level": "full",
+            "expiresAt": null,
+            "revokedAt": null,
+            "invitationId": null,
+            "invitationEmail": null,
+            "invitationExpiresAt": null,
+            "invitationRevokedAt": null,
+            "principalLabel": "Alex Owner",
+            "origin": {
+              "kind": "container",
+              "id": "01M6R8PRCWXMH1RF90PDNE41XD",
+              "name": "Transfer field guide"
+            },
+            "inherited": true,
+            "status": "active",
+            "effective": true
+          }
+        ]
+      }
+    },
+    "tree": [
+      {
+        "id": "01M6R8PRCW9J4MMG37ZN2GJ9SK",
+        "containerId": "01M6R8PRCWXMH1RF90PDNE41XD",
+        "title": "Transfer field guide home",
+        "revisionId": "01M6R8PRCWHDY2BKCRYBQ6EGDD",
+        "lifecycle": "live",
+        "icon": null,
+        "statusKey": null,
+        "labels": [],
+        "parentPageId": null,
+        "treePosition": "2026-11-06T11:08:06.938Z:01M6R8PRCW9J4MMG37ZN2GJ9SK",
+        "pageKind": "page",
+        "containerLabel": "Transfer field guide",
+        "sharedWithMe": false,
+        "permissions": {
+          "level": "full",
+          "canEdit": true,
+          "canUnlock": true
+        },
+        "href": "/app/pages/01M6R8PRCW9J4MMG37ZN2GJ9SK"
+      },
+      {
+        "id": "01M6R8PRDFJE14FC1VCBZKZ6SM",
+        "containerId": "01M6R8PRCWXMH1RF90PDNE41XD",
+        "title": "Transfer guide",
+        "revisionId": "01M6R8PSNG7QG6Z7A2M0QKT80G",
+        "lifecycle": "live",
+        "icon": null,
+        "statusKey": null,
+        "labels": [],
+        "parentPageId": null,
+        "treePosition": "a",
+        "pageKind": "page",
+        "containerLabel": "Transfer field guide",
+        "sharedWithMe": false,
+        "permissions": {
+          "level": "full",
+          "canEdit": true,
+          "canUnlock": true
+        },
+        "href": "/app/pages/01M6R8PRDFJE14FC1VCBZKZ6SM"
+      },
+      {
+        "id": "01M6R8PRFF922CP1ZBFGG18M6R",
+        "containerId": "01M6R8PRCWXMH1RF90PDNE41XD",
+        "title": "Member appendix",
+        "revisionId": "01M6R8PRJNY25E8X8A6GVCCEQ8",
+        "lifecycle": "live",
+        "icon": null,
+        "statusKey": null,
+        "labels": [],
+        "parentPageId": "01M6R8PRDFJE14FC1VCBZKZ6SM",
+        "treePosition": "a",
+        "pageKind": "page",
+        "containerLabel": "Transfer field guide",
+        "sharedWithMe": false,
+        "permissions": {
+          "level": "full",
+          "canEdit": true,
+          "canUnlock": true
+        },
+        "href": "/app/pages/01M6R8PRFF922CP1ZBFGG18M6R"
+      },
+      {
+        "id": "01M6R8PRET1ADBZNMS3H1FSZQ6",
+        "containerId": "01M6R8PRCWXMH1RF90PDNE41XD",
+        "title": "Owner annex",
+        "revisionId": "01M6R8PRQ1XXG9DSDPDVSYJ15X",
+        "lifecycle": "live",
+        "icon": null,
+        "statusKey": null,
+        "labels": [],
+        "parentPageId": "01M6R8PRDFJE14FC1VCBZKZ6SM",
+        "treePosition": "b",
+        "pageKind": "page",
+        "containerLabel": "Transfer field guide",
+        "sharedWithMe": false,
+        "permissions": {
+          "level": "full",
+          "canEdit": true,
+          "canUnlock": true
+        },
+        "href": "/app/pages/01M6R8PRET1ADBZNMS3H1FSZQ6"
+      },
+      {
+        "id": "01M6R8PRE4VGJR8ZWS77E615M5",
+        "containerId": "01M6R8PRCWXMH1RF90PDNE41XD",
+        "title": "Group checklist",
+        "revisionId": "01M6R8PRE4XPTMAG026NGSJ7TZ",
+        "lifecycle": "live",
+        "icon": null,
+        "statusKey": null,
+        "labels": [],
+        "parentPageId": "01M6R8PRDFJE14FC1VCBZKZ6SM",
+        "treePosition": "c",
+        "pageKind": "page",
+        "containerLabel": "Transfer field guide",
+        "sharedWithMe": false,
+        "permissions": {
+          "level": "full",
+          "canEdit": true,
+          "canUnlock": true
+        },
+        "href": "/app/pages/01M6R8PRE4VGJR8ZWS77E615M5"
+      }
+    ],
+    "discussion": {
+      "threads": [
+        {
+          "id": "01M6R8PST604C4YSZJN4DP02W7",
+          "workspace_id": "browser-workspace",
+          "page_id": "01M6R8PRDFJE14FC1VCBZKZ6SM",
+          "kind": "inline",
+          "block_id": "9528c2d9-683e-4233-860e-60957c32de84",
+          "anchor_json": "{\"anchorId\":\"f6141a68-a634-4273-9a46-28941c4da9ad\",\"quote\":\"Confirm the transfer owner\"}",
+          "anchor_revision_id": "01M6R8PSNG7QG6Z7A2M0QKT80G",
+          "state": "open",
+          "resolved_at": null,
+          "resolved_by_member_id": null,
+          "created_at": "2026-11-06T11:08:08.385Z",
+          "updated_at": "2026-11-06T11:08:08.385Z",
+          "revision_id": "01M6R8PST3T70THD1KBKAWG2ZZ",
+          "orphaned": 0
+        }
+      ],
+      "comments": [
+        {
+          "id": "01M6R8PST6CPTDTBSE8PPNJ1VW",
+          "threadId": "01M6R8PST604C4YSZJN4DP02W7",
+          "parentCommentId": null,
+          "authorMemberId": "browser-owner",
+          "body": [
+            {
+              "text": "synthetic-slate-312: retain this exact selected text"
+            }
+          ],
+          "authorDisplayName": "Alex Owner",
+          "createdAt": "2026-11-06T11:08:08.385Z",
+          "updatedAt": "2026-11-06T11:08:08.385Z",
+          "deletedAt": null,
+          "revisionId": "01M6R8PST3T70THD1KBKAWG2ZZ"
+        }
+      ],
+      "reactions": []
+    },
+    "group": {
+      "id": "01M6R8PRG6PYEBBFBSXF5W7Y2A",
+      "name": "Transfer reviewers",
+      "revisionId": "01M6R8PRG6HHCCS64BC6WEC76B",
+      "memberIds": [
+        "browser-reader"
+      ]
+    }
+  },
+  "archive": {
+    "pages": [
+      {
+        "id": "01M6R8PRDFJE14FC1VCBZKZ6SM",
+        "workspace_id": "browser-workspace",
+        "container_id": "01M6R8PRCWXMH1RF90PDNE41XD",
+        "parent_page_id": null,
+        "database_id": null,
+        "page_kind": "page",
+        "title": "Transfer guide",
+        "icon": null,
+        "cover_file_id": null,
+        "author_member_id": "browser-owner",
+        "owner_member_id": "browser-owner",
+        "lifecycle": "live",
+        "working_revision_id": "01M6R8PSNG7QG6Z7A2M0QKT80G",
+        "published_revision_id": "01M6R8PSNG7QG6Z7A2M0QKT80G",
+        "status_key": null,
+        "tree_position": "a",
+        "access_inheritance": "inherit",
+        "typeface": "default",
+        "small_text": 0,
+        "full_width": 0,
+        "archived_at": null,
+        "trashed_at": null,
+        "deleted_at": null,
+        "created_at": "2026-11-06T11:08:06.958Z",
+        "updated_at": "2026-11-06T11:08:08.237Z",
+        "revision_id": "01M6R8PSNG7QG6Z7A2M0QKT80G",
+        "locked_at": null,
+        "locked_by_member_id": null
+      },
+      {
+        "id": "01M6R8PRE4VGJR8ZWS77E615M5",
+        "workspace_id": "browser-workspace",
+        "container_id": "01M6R8PRCWXMH1RF90PDNE41XD",
+        "parent_page_id": "01M6R8PRDFJE14FC1VCBZKZ6SM",
+        "database_id": null,
+        "page_kind": "page",
+        "title": "Group checklist",
+        "icon": null,
+        "cover_file_id": null,
+        "author_member_id": "browser-owner",
+        "owner_member_id": "browser-owner",
+        "lifecycle": "live",
+        "working_revision_id": "01M6R8PRE4XPTMAG026NGSJ7TZ",
+        "published_revision_id": "01M6R8PRE4XPTMAG026NGSJ7TZ",
+        "status_key": null,
+        "tree_position": "c",
+        "access_inheritance": "inherit",
+        "typeface": "default",
+        "small_text": 0,
+        "full_width": 0,
+        "archived_at": null,
+        "trashed_at": null,
+        "deleted_at": null,
+        "created_at": "2026-11-06T11:08:06.978Z",
+        "updated_at": "2026-11-06T11:08:06.978Z",
+        "revision_id": "01M6R8PRE4XPTMAG026NGSJ7TZ",
+        "locked_at": null,
+        "locked_by_member_id": null
+      },
+      {
+        "id": "01M6R8PRET1ADBZNMS3H1FSZQ6",
+        "workspace_id": "browser-workspace",
+        "container_id": "01M6R8PRCWXMH1RF90PDNE41XD",
+        "parent_page_id": "01M6R8PRDFJE14FC1VCBZKZ6SM",
+        "database_id": null,
+        "page_kind": "page",
+        "title": "Owner annex",
+        "icon": null,
+        "cover_file_id": null,
+        "author_member_id": "browser-owner",
+        "owner_member_id": "browser-owner",
+        "lifecycle": "live",
+        "working_revision_id": "01M6R8PRETQHMEQC5PYTGVFA81",
+        "published_revision_id": "01M6R8PRETQHMEQC5PYTGVFA81",
+        "status_key": null,
+        "tree_position": "b",
+        "access_inheritance": "restricted",
+        "typeface": "default",
+        "small_text": 0,
+        "full_width": 0,
+        "archived_at": null,
+        "trashed_at": null,
+        "deleted_at": null,
+        "created_at": "2026-11-06T11:08:06.999Z",
+        "updated_at": "2026-11-06T11:08:07.263Z",
+        "revision_id": "01M6R8PRQ1XXG9DSDPDVSYJ15X",
+        "locked_at": null,
+        "locked_by_member_id": null
+      },
+      {
+        "id": "01M6R8PRFF922CP1ZBFGG18M6R",
+        "workspace_id": "browser-workspace",
+        "container_id": "01M6R8PRCWXMH1RF90PDNE41XD",
+        "parent_page_id": "01M6R8PRDFJE14FC1VCBZKZ6SM",
+        "database_id": null,
+        "page_kind": "page",
+        "title": "Member appendix",
+        "icon": null,
+        "cover_file_id": null,
+        "author_member_id": "browser-owner",
+        "owner_member_id": "browser-owner",
+        "lifecycle": "live",
+        "working_revision_id": "01M6R8PRFF0ADC21W1PX2HQPG7",
+        "published_revision_id": "01M6R8PRFF0ADC21W1PX2HQPG7",
+        "status_key": null,
+        "tree_position": "a",
+        "access_inheritance": "restricted",
+        "typeface": "default",
+        "small_text": 0,
+        "full_width": 0,
+        "archived_at": null,
+        "trashed_at": null,
+        "deleted_at": null,
+        "created_at": "2026-11-06T11:08:07.021Z",
+        "updated_at": "2026-11-06T11:08:07.122Z",
+        "revision_id": "01M6R8PRJNY25E8X8A6GVCCEQ8",
+        "locked_at": null,
+        "locked_by_member_id": null
+      }
+    ],
+    "page_blocks": [
+      {
+        "id": "9528c2d9-683e-4233-860e-60957c32de84",
+        "page_id": "01M6R8PRDFJE14FC1VCBZKZ6SM",
+        "parent_block_id": null,
+        "block_type": "paragraph",
+        "content_json": "{\"text\":[{\"text\":\"Confirm the transfer owner\",\"commentAnchorId\":\"f6141a68-a634-4273-9a46-28941c4da9ad\"},{\"text\":\". \"},{\"text\":\"Open member appendix\",\"link\":{\"href\":\"/app/pages/01M6R8PRFF922CP1ZBFGG18M6R\"}},{\"text\":\" · \"},{\"text\":\"Member appendix\",\"mention\":{\"kind\":\"page\",\"label\":\"Member appendix\",\"id\":\"01M6R8PRFF922CP1ZBFGG18M6R\"}}]}",
+        "tree_position": "00000000",
+        "revision_id": "01M6R8PSNPSPBJ62MBWX40XSFQ",
+        "created_at": "2026-11-06T11:08:06.958Z",
+        "updated_at": "2026-11-06T11:08:08.237Z"
+      },
+      {
+        "id": "a5e8c229-ef53-4e86-84e8-39e2e8fed44a",
+        "page_id": "01M6R8PRE4VGJR8ZWS77E615M5",
+        "parent_block_id": null,
+        "block_type": "paragraph",
+        "content_json": "{\"text\":[{\"text\":\"synthetic-slate-313: inherited group checklist\"}]}",
+        "tree_position": "a",
+        "revision_id": "01M6R8PRE531EG8ZVX0VMW4TNH",
+        "created_at": "2026-11-06T11:08:06.978Z",
+        "updated_at": "2026-11-06T11:08:06.978Z"
+      },
+      {
+        "id": "a78f516d-3bb5-4390-aa29-e16b864718e9",
+        "page_id": "01M6R8PRFF922CP1ZBFGG18M6R",
+        "parent_block_id": null,
+        "block_type": "paragraph",
+        "content_json": "{\"text\":[{\"text\":\"synthetic-slate-315: direct member appendix. \"},{\"text\":\"Open group checklist\",\"link\":{\"href\":\"/app/pages/01M6R8PRE4VGJR8ZWS77E615M5\"}}]}",
+        "tree_position": "a",
+        "revision_id": "01M6R8PRFGVWH8TJCCM7F48Y5N",
+        "created_at": "2026-11-06T11:08:07.021Z",
+        "updated_at": "2026-11-06T11:08:07.021Z"
+      },
+      {
+        "id": "eeba2753-a87a-4ddd-be8a-06aea5acaa5a",
+        "page_id": "01M6R8PRET1ADBZNMS3H1FSZQ6",
+        "parent_block_id": null,
+        "block_type": "paragraph",
+        "content_json": "{\"text\":[{\"text\":\"synthetic-slate-314: owner-only annex\"}]}",
+        "tree_position": "a",
+        "revision_id": "01M6R8PRETJCQ4SPMX091G8E8C",
+        "created_at": "2026-11-06T11:08:06.999Z",
+        "updated_at": "2026-11-06T11:08:06.999Z"
+      }
+    ],
+    "page_revisions": [
+      {
+        "id": "01M6R8PRDFY0BZQH1MKNH595A3",
+        "page_id": "01M6R8PRDFJE14FC1VCBZKZ6SM",
+        "author_member_id": "browser-owner",
+        "origin": "autosave",
+        "content_hash": "4a61e1151d845cf479e7f90bd64ff79ed470b8e73baefc37c267ec896cfa64d7",
+        "body_json": "[{\"id\":\"9528c2d9-683e-4233-860e-60957c32de84\",\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"synthetic-slate-311: earlier accepted instructions\"}]},\"treePosition\":\"a\",\"parentBlockId\":null,\"pageId\":\"01M6R8PRDFJE14FC1VCBZKZ6SM\",\"revisionId\":\"01M6R8PRDG74WY8SC3WTK9VBD3\"}]",
+        "properties_json": "{\"title\":\"Transfer guide\",\"icon\":null,\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[],\"typeface\":\"default\",\"smallText\":false,\"fullWidth\":false}",
+        "status_key": null,
+        "ordinal": null,
+        "label": null,
+        "created_at": "2026-11-06T11:08:06.958Z",
+        "deleted_at": null,
+        "deleted_by_member_id": null
+      },
+      {
+        "id": "01M6R8PRE4XPTMAG026NGSJ7TZ",
+        "page_id": "01M6R8PRE4VGJR8ZWS77E615M5",
+        "author_member_id": "browser-owner",
+        "origin": "autosave",
+        "content_hash": "cd6457e5e1db030fdec7feb89e5611818646c38c45bd8323cc6835313228c344",
+        "body_json": "[{\"id\":\"a5e8c229-ef53-4e86-84e8-39e2e8fed44a\",\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"synthetic-slate-313: inherited group checklist\"}]},\"treePosition\":\"a\",\"parentBlockId\":null,\"pageId\":\"01M6R8PRE4VGJR8ZWS77E615M5\",\"revisionId\":\"01M6R8PRE531EG8ZVX0VMW4TNH\"}]",
+        "properties_json": "{\"title\":\"Group checklist\",\"icon\":null,\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[],\"typeface\":\"default\",\"smallText\":false,\"fullWidth\":false}",
+        "status_key": null,
+        "ordinal": null,
+        "label": null,
+        "created_at": "2026-11-06T11:08:06.978Z",
+        "deleted_at": null,
+        "deleted_by_member_id": null
+      },
+      {
+        "id": "01M6R8PRETQHMEQC5PYTGVFA81",
+        "page_id": "01M6R8PRET1ADBZNMS3H1FSZQ6",
+        "author_member_id": "browser-owner",
+        "origin": "autosave",
+        "content_hash": "47bd9191a626f6d1ef6c1855a0c08cf0f4952cec85037c2b775e26ff85f37bdd",
+        "body_json": "[{\"id\":\"eeba2753-a87a-4ddd-be8a-06aea5acaa5a\",\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"synthetic-slate-314: owner-only annex\"}]},\"treePosition\":\"a\",\"parentBlockId\":null,\"pageId\":\"01M6R8PRET1ADBZNMS3H1FSZQ6\",\"revisionId\":\"01M6R8PRETJCQ4SPMX091G8E8C\"}]",
+        "properties_json": "{\"title\":\"Owner annex\",\"icon\":null,\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[],\"typeface\":\"default\",\"smallText\":false,\"fullWidth\":false}",
+        "status_key": null,
+        "ordinal": null,
+        "label": null,
+        "created_at": "2026-11-06T11:08:06.999Z",
+        "deleted_at": null,
+        "deleted_by_member_id": null
+      },
+      {
+        "id": "01M6R8PRFF0ADC21W1PX2HQPG7",
+        "page_id": "01M6R8PRFF922CP1ZBFGG18M6R",
+        "author_member_id": "browser-owner",
+        "origin": "autosave",
+        "content_hash": "a68f9002cac8b7f03ab572712a6c342c34f166735b0b21c14d27c3b35de95117",
+        "body_json": "[{\"id\":\"a78f516d-3bb5-4390-aa29-e16b864718e9\",\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"synthetic-slate-315: direct member appendix. \"},{\"text\":\"Open group checklist\",\"link\":{\"href\":\"/app/pages/01M6R8PRE4VGJR8ZWS77E615M5\"}}]},\"treePosition\":\"a\",\"parentBlockId\":null,\"pageId\":\"01M6R8PRFF922CP1ZBFGG18M6R\",\"revisionId\":\"01M6R8PRFGVWH8TJCCM7F48Y5N\"}]",
+        "properties_json": "{\"title\":\"Member appendix\",\"icon\":null,\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[],\"typeface\":\"default\",\"smallText\":false,\"fullWidth\":false}",
+        "status_key": null,
+        "ordinal": null,
+        "label": null,
+        "created_at": "2026-11-06T11:08:07.021Z",
+        "deleted_at": null,
+        "deleted_by_member_id": null
+      },
+      {
+        "id": "01M6R8PRJNY25E8X8A6GVCCEQ8",
+        "page_id": "01M6R8PRFF922CP1ZBFGG18M6R",
+        "author_member_id": "browser-owner",
+        "origin": "autosave",
+        "content_hash": "a68f9002cac8b7f03ab572712a6c342c34f166735b0b21c14d27c3b35de95117",
+        "body_json": "[{\"id\":\"a78f516d-3bb5-4390-aa29-e16b864718e9\",\"pageId\":\"01M6R8PRFF922CP1ZBFGG18M6R\",\"parentBlockId\":null,\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"synthetic-slate-315: direct member appendix. \"},{\"text\":\"Open group checklist\",\"link\":{\"href\":\"/app/pages/01M6R8PRE4VGJR8ZWS77E615M5\"}}]},\"treePosition\":\"a\",\"revisionId\":\"01M6R8PRFGVWH8TJCCM7F48Y5N\"}]",
+        "properties_json": "{\"title\":\"Member appendix\",\"icon\":null,\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[],\"typeface\":\"default\",\"smallText\":false,\"fullWidth\":false}",
+        "status_key": null,
+        "ordinal": null,
+        "label": null,
+        "created_at": "2026-11-06T11:08:07.122Z",
+        "deleted_at": null,
+        "deleted_by_member_id": null
+      },
+      {
+        "id": "01M6R8PRQ1XXG9DSDPDVSYJ15X",
+        "page_id": "01M6R8PRET1ADBZNMS3H1FSZQ6",
+        "author_member_id": "browser-owner",
+        "origin": "autosave",
+        "content_hash": "47bd9191a626f6d1ef6c1855a0c08cf0f4952cec85037c2b775e26ff85f37bdd",
+        "body_json": "[{\"id\":\"eeba2753-a87a-4ddd-be8a-06aea5acaa5a\",\"pageId\":\"01M6R8PRET1ADBZNMS3H1FSZQ6\",\"parentBlockId\":null,\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"synthetic-slate-314: owner-only annex\"}]},\"treePosition\":\"a\",\"revisionId\":\"01M6R8PRETJCQ4SPMX091G8E8C\"}]",
+        "properties_json": "{\"title\":\"Owner annex\",\"icon\":null,\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[],\"typeface\":\"default\",\"smallText\":false,\"fullWidth\":false}",
+        "status_key": null,
+        "ordinal": null,
+        "label": null,
+        "created_at": "2026-11-06T11:08:07.263Z",
+        "deleted_at": null,
+        "deleted_by_member_id": null
+      },
+      {
+        "id": "01M6R8PRVDZ9R1A1H8SSR9MK7B",
+        "page_id": "01M6R8PRDFJE14FC1VCBZKZ6SM",
+        "author_member_id": "browser-owner",
+        "origin": "autosave",
+        "content_hash": "0ca09b0f8ec4e884efc2b31e096960ff2d7906dfc6038731484c48d8212b2043",
+        "body_json": "[{\"id\":\"9528c2d9-683e-4233-860e-60957c32de84\",\"pageId\":\"01M6R8PRDFJE14FC1VCBZKZ6SM\",\"parentBlockId\":null,\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"Confirm the transfer owner\"},{\"text\":\". \"},{\"text\":\"Open member appendix\",\"link\":{\"href\":\"/app/pages/01M6R8PRFF922CP1ZBFGG18M6R\"}},{\"text\":\" · \"},{\"text\":\"Member appendix\",\"mention\":{\"kind\":\"page\",\"label\":\"Member appendix\",\"id\":\"01M6R8PRFF922CP1ZBFGG18M6R\"}}]},\"treePosition\":\"a\",\"revisionId\":\"01M6R8PRVFRVC4VDMC0M5REZ1P\"}]",
+        "properties_json": "{\"title\":\"Transfer guide\",\"icon\":null,\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[],\"typeface\":\"default\",\"smallText\":false,\"fullWidth\":false}",
+        "status_key": null,
+        "ordinal": null,
+        "label": null,
+        "created_at": "2026-11-06T11:08:07.403Z",
+        "deleted_at": null,
+        "deleted_by_member_id": null
+      },
+      {
+        "id": "01M6R8PSNG7QG6Z7A2M0QKT80G",
+        "page_id": "01M6R8PRDFJE14FC1VCBZKZ6SM",
+        "author_member_id": "browser-owner",
+        "origin": "autosave",
+        "content_hash": "0ca09b0f8ec4e884efc2b31e096960ff2d7906dfc6038731484c48d8212b2043",
+        "body_json": "[{\"id\":\"9528c2d9-683e-4233-860e-60957c32de84\",\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"Confirm the transfer owner\",\"commentAnchorId\":\"f6141a68-a634-4273-9a46-28941c4da9ad\"},{\"text\":\". \"},{\"text\":\"Open member appendix\",\"link\":{\"href\":\"/app/pages/01M6R8PRFF922CP1ZBFGG18M6R\"}},{\"text\":\" · \"},{\"text\":\"Member appendix\",\"mention\":{\"kind\":\"page\",\"label\":\"Member appendix\",\"id\":\"01M6R8PRFF922CP1ZBFGG18M6R\"}}]},\"parentBlockId\":null,\"treePosition\":\"00000000\",\"pageId\":\"01M6R8PRDFJE14FC1VCBZKZ6SM\",\"revisionId\":\"01M6R8PSNPSPBJ62MBWX40XSFQ\"}]",
+        "properties_json": "{\"title\":\"Transfer guide\",\"icon\":null,\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[],\"typeface\":\"default\",\"smallText\":false,\"fullWidth\":false}",
+        "status_key": null,
+        "ordinal": null,
+        "label": null,
+        "created_at": "2026-11-06T11:08:08.237Z",
+        "deleted_at": null,
+        "deleted_by_member_id": null
+      }
+    ],
+    "page_grants": [
+      {
+        "id": "01M6R8PRGW874GX1V3ZQXG9TWF",
+        "page_id": "01M6R8PRDFJE14FC1VCBZKZ6SM",
+        "principal_kind": "group",
+        "principal_id": "01M6R8PRG6PYEBBFBSXF5W7Y2A",
+        "level": "edit",
+        "expires_at": null,
+        "revoked_at": null,
+        "created_at": "2026-11-06T11:08:07.064Z",
+        "updated_at": "2026-11-06T11:08:07.064Z"
+      },
+      {
+        "id": "01M6R8PRHPD59SGPK77X72Q55Y",
+        "page_id": "01M6R8PRFF922CP1ZBFGG18M6R",
+        "principal_kind": "member",
+        "principal_id": "browser-owner",
+        "level": "full",
+        "expires_at": null,
+        "revoked_at": null,
+        "created_at": "2026-11-06T11:08:07.091Z",
+        "updated_at": "2026-11-06T11:08:07.091Z"
+      },
+      {
+        "id": "01M6R8PRK9CJ1N7B31B11HFQC6",
+        "page_id": "01M6R8PRET1ADBZNMS3H1FSZQ6",
+        "principal_kind": "member",
+        "principal_id": "browser-owner",
+        "level": "full",
+        "expires_at": null,
+        "revoked_at": null,
+        "created_at": "2026-11-06T11:08:07.141Z",
+        "updated_at": "2026-11-06T11:08:07.141Z"
+      },
+      {
+        "id": "01M6R8PRQP1GST1W56451791KV",
+        "page_id": "01M6R8PRFF922CP1ZBFGG18M6R",
+        "principal_kind": "member",
+        "principal_id": "browser-reader",
+        "level": "view",
+        "expires_at": null,
+        "revoked_at": null,
+        "created_at": "2026-11-06T11:08:07.282Z",
+        "updated_at": "2026-11-06T11:08:07.282Z"
+      },
+      {
+        "id": "01M6R8PRRD1ZF1Y3GBQ3TYHF9C",
+        "page_id": "01M6R8PRET1ADBZNMS3H1FSZQ6",
+        "principal_kind": "member",
+        "principal_id": "browser-reader",
+        "level": "view",
+        "expires_at": null,
+        "revoked_at": "2026-11-06T11:08:07.330Z",
+        "created_at": "2026-11-06T11:08:07.305Z",
+        "updated_at": "2026-11-06T11:08:07.330Z"
+      }
+    ],
+    "comment_threads": [
+      {
+        "id": "01M6R8PST604C4YSZJN4DP02W7",
+        "workspace_id": "browser-workspace",
+        "page_id": "01M6R8PRDFJE14FC1VCBZKZ6SM",
+        "kind": "inline",
+        "block_id": "9528c2d9-683e-4233-860e-60957c32de84",
+        "anchor_json": "{\"anchorId\":\"f6141a68-a634-4273-9a46-28941c4da9ad\",\"quote\":\"Confirm the transfer owner\"}",
+        "anchor_revision_id": "01M6R8PSNG7QG6Z7A2M0QKT80G",
+        "state": "open",
+        "resolved_at": null,
+        "resolved_by_member_id": null,
+        "created_at": "2026-11-06T11:08:08.385Z",
+        "updated_at": "2026-11-06T11:08:08.385Z",
+        "revision_id": "01M6R8PST3T70THD1KBKAWG2ZZ",
+        "orphaned": 0
+      }
+    ],
+    "comments": [
+      {
+        "id": "01M6R8PST6CPTDTBSE8PPNJ1VW",
+        "thread_id": "01M6R8PST604C4YSZJN4DP02W7",
+        "parent_comment_id": null,
+        "author_member_id": "browser-owner",
+        "body_json": "[{\"text\":\"synthetic-slate-312: retain this exact selected text\"}]",
+        "created_at": "2026-11-06T11:08:08.385Z",
+        "updated_at": "2026-11-06T11:08:08.385Z",
+        "deleted_at": null,
+        "revision_id": "01M6R8PST3T70THD1KBKAWG2ZZ"
+      }
+    ],
+    "groups": [
+      {
+        "id": "01M6R8PRG6PYEBBFBSXF5W7Y2A",
+        "workspace_id": "browser-workspace",
+        "name": "Transfer reviewers",
+        "created_at": "2026-11-06T11:08:07.043Z",
+        "updated_at": "2026-11-06T11:08:07.043Z",
+        "revision_id": "01M6R8PRG6HHCCS64BC6WEC76B"
+      }
+    ],
+    "group_members": [
+      {
+        "group_id": "01M6R8PRG6PYEBBFBSXF5W7Y2A",
+        "member_id": "browser-reader",
+        "created_at": "2026-11-06T11:08:07.043Z"
+      }
+    ],
+    "files": [
+      {
+        "id": "01M6R8PRT2KX3XSQ5BQNDXX674",
+        "workspace_id": "browser-workspace",
+        "page_id": "01M6R8PRDFJE14FC1VCBZKZ6SM",
+        "storage_key": "restored-original",
+        "original_name": "transfer-original.txt",
+        "content_type": "text/plain",
+        "size_bytes": 55,
+        "created_at": "2026-11-06T11:08:07.356Z",
+        "deleted_at": null
+      },
+      {
+        "id": "01M6R8PRTJ0SDMS44RMK1M0PBX",
+        "workspace_id": "browser-workspace",
+        "page_id": "01M6R8PRET1ADBZNMS3H1FSZQ6",
+        "storage_key": "restored-original",
+        "original_name": "annex-original.pdf",
+        "content_type": "application/pdf",
+        "size_bytes": 2068,
+        "created_at": "2026-11-06T11:08:07.373Z",
+        "deleted_at": null
+      }
+    ]
+  },
+  "destination": {
+    "documents": {
+      "01M6R8PRDFJE14FC1VCBZKZ6SM": {
+        "page": {
+          "id": "01M6R8PRDFJE14FC1VCBZKZ6SM",
+          "containerId": "01M6R8PRCWXMH1RF90PDNE41XD",
+          "title": "Transfer guide",
+          "revisionId": "01M6R8PSNG7QG6Z7A2M0QKT80G",
+          "lifecycle": "live"
+        },
+        "blocks": [
+          {
+            "id": "9528c2d9-683e-4233-860e-60957c32de84",
+            "blockType": "paragraph",
+            "content": {
+              "text": [
+                {
+                  "text": "Confirm the transfer owner",
+                  "commentAnchorId": "f6141a68-a634-4273-9a46-28941c4da9ad"
+                },
+                {
+                  "text": ". "
+                },
+                {
+                  "text": "Open member appendix",
+                  "link": {
+                    "href": "/app/pages/01M6R8PRFF922CP1ZBFGG18M6R"
+                  }
+                },
+                {
+                  "text": " · "
+                },
+                {
+                  "text": "Member appendix",
+                  "mention": {
+                    "kind": "page",
+                    "label": "Member appendix",
+                    "id": "01M6R8PRFF922CP1ZBFGG18M6R"
+                  }
+                }
+              ]
+            },
+            "parentBlockId": null,
+            "treePosition": "00000000",
+            "pageId": "01M6R8PRDFJE14FC1VCBZKZ6SM",
+            "revisionId": "01M6R8PSNPSPBJ62MBWX40XSFQ"
+          }
+        ],
+        "properties": {
+          "title": "Transfer guide",
+          "icon": null,
+          "coverFileId": null,
+          "ownerMemberId": "browser-owner",
+          "statusKey": null,
+          "labels": [],
+          "typeface": "default",
+          "smallText": false,
+          "fullWidth": false
+        },
+        "parentPageId": null,
+        "workingRevisionId": "01M6R8PSNG7QG6Z7A2M0QKT80G",
+        "publishedRevisionId": "01M6R8PSNG7QG6Z7A2M0QKT80G",
+        "authorMemberId": "browser-owner",
+        "createdAt": "2026-11-06T11:08:06.958Z",
+        "updatedAt": "2026-11-06T11:08:08.237Z"
+      },
+      "01M6R8PRFF922CP1ZBFGG18M6R": {
+        "page": {
+          "id": "01M6R8PRFF922CP1ZBFGG18M6R",
+          "containerId": "01M6R8PRCWXMH1RF90PDNE41XD",
+          "title": "Member appendix",
+          "revisionId": "01M6R8PRJNY25E8X8A6GVCCEQ8",
+          "lifecycle": "live"
+        },
+        "blocks": [
+          {
+            "id": "a78f516d-3bb5-4390-aa29-e16b864718e9",
+            "blockType": "paragraph",
+            "content": {
+              "text": [
+                {
+                  "text": "synthetic-slate-315: direct member appendix. "
+                },
+                {
+                  "text": "Open group checklist",
+                  "link": {
+                    "href": "/app/pages/01M6R8PRE4VGJR8ZWS77E615M5"
+                  }
+                }
+              ]
+            },
+            "treePosition": "a",
+            "parentBlockId": null,
+            "pageId": "01M6R8PRFF922CP1ZBFGG18M6R",
+            "revisionId": "01M6R8PRFGVWH8TJCCM7F48Y5N"
+          }
+        ],
+        "properties": {
+          "title": "Member appendix",
+          "icon": null,
+          "coverFileId": null,
+          "ownerMemberId": "browser-owner",
+          "statusKey": null,
+          "labels": [],
+          "typeface": "default",
+          "smallText": false,
+          "fullWidth": false
+        },
+        "parentPageId": "01M6R8PRDFJE14FC1VCBZKZ6SM",
+        "workingRevisionId": "01M6R8PRFF0ADC21W1PX2HQPG7",
+        "publishedRevisionId": "01M6R8PRFF0ADC21W1PX2HQPG7",
+        "authorMemberId": "browser-owner",
+        "createdAt": "2026-11-06T11:08:07.021Z",
+        "updatedAt": "2026-11-06T11:08:07.122Z"
+      },
+      "01M6R8PRET1ADBZNMS3H1FSZQ6": {
+        "page": {
+          "id": "01M6R8PRET1ADBZNMS3H1FSZQ6",
+          "containerId": "01M6R8PRCWXMH1RF90PDNE41XD",
+          "title": "Owner annex",
+          "revisionId": "01M6R8PRQ1XXG9DSDPDVSYJ15X",
+          "lifecycle": "live"
+        },
+        "blocks": [
+          {
+            "id": "eeba2753-a87a-4ddd-be8a-06aea5acaa5a",
+            "blockType": "paragraph",
+            "content": {
+              "text": [
+                {
+                  "text": "synthetic-slate-314: owner-only annex"
+                }
+              ]
+            },
+            "treePosition": "a",
+            "parentBlockId": null,
+            "pageId": "01M6R8PRET1ADBZNMS3H1FSZQ6",
+            "revisionId": "01M6R8PRETJCQ4SPMX091G8E8C"
+          }
+        ],
+        "properties": {
+          "title": "Owner annex",
+          "icon": null,
+          "coverFileId": null,
+          "ownerMemberId": "browser-owner",
+          "statusKey": null,
+          "labels": [],
+          "typeface": "default",
+          "smallText": false,
+          "fullWidth": false
+        },
+        "parentPageId": "01M6R8PRDFJE14FC1VCBZKZ6SM",
+        "workingRevisionId": "01M6R8PRETQHMEQC5PYTGVFA81",
+        "publishedRevisionId": "01M6R8PRETQHMEQC5PYTGVFA81",
+        "authorMemberId": "browser-owner",
+        "createdAt": "2026-11-06T11:08:06.999Z",
+        "updatedAt": "2026-11-06T11:08:07.263Z"
+      },
+      "01M6R8PRE4VGJR8ZWS77E615M5": {
+        "page": {
+          "id": "01M6R8PRE4VGJR8ZWS77E615M5",
+          "containerId": "01M6R8PRCWXMH1RF90PDNE41XD",
+          "title": "Group checklist",
+          "revisionId": "01M6R8PRE4XPTMAG026NGSJ7TZ",
+          "lifecycle": "live"
+        },
+        "blocks": [
+          {
+            "id": "a5e8c229-ef53-4e86-84e8-39e2e8fed44a",
+            "blockType": "paragraph",
+            "content": {
+              "text": [
+                {
+                  "text": "synthetic-slate-313: inherited group checklist"
+                }
+              ]
+            },
+            "treePosition": "a",
+            "parentBlockId": null,
+            "pageId": "01M6R8PRE4VGJR8ZWS77E615M5",
+            "revisionId": "01M6R8PRE531EG8ZVX0VMW4TNH"
+          }
+        ],
+        "properties": {
+          "title": "Group checklist",
+          "icon": null,
+          "coverFileId": null,
+          "ownerMemberId": "browser-owner",
+          "statusKey": null,
+          "labels": [],
+          "typeface": "default",
+          "smallText": false,
+          "fullWidth": false
+        },
+        "parentPageId": "01M6R8PRDFJE14FC1VCBZKZ6SM",
+        "workingRevisionId": "01M6R8PRE4XPTMAG026NGSJ7TZ",
+        "publishedRevisionId": "01M6R8PRE4XPTMAG026NGSJ7TZ",
+        "authorMemberId": "browser-owner",
+        "createdAt": "2026-11-06T11:08:06.978Z",
+        "updatedAt": "2026-11-06T11:08:06.978Z"
+      }
+    },
+    "revisions": {
+      "01M6R8PRDFJE14FC1VCBZKZ6SM": [
+        {
+          "id": "01M6R8PSNG7QG6Z7A2M0QKT80G",
+          "blocks": [
+            {
+              "id": "9528c2d9-683e-4233-860e-60957c32de84",
+              "blockType": "paragraph",
+              "content": {
+                "text": [
+                  {
+                    "text": "Confirm the transfer owner",
+                    "commentAnchorId": "f6141a68-a634-4273-9a46-28941c4da9ad"
+                  },
+                  {
+                    "text": ". "
+                  },
+                  {
+                    "text": "Open member appendix",
+                    "link": {
+                      "href": "/app/pages/01M6R8PRFF922CP1ZBFGG18M6R"
+                    }
+                  },
+                  {
+                    "text": " · "
+                  },
+                  {
+                    "text": "Member appendix",
+                    "mention": {
+                      "kind": "page",
+                      "label": "Member appendix",
+                      "id": "01M6R8PRFF922CP1ZBFGG18M6R"
+                    }
+                  }
+                ]
+              },
+              "parentBlockId": null,
+              "treePosition": "00000000",
+              "pageId": "01M6R8PRDFJE14FC1VCBZKZ6SM",
+              "revisionId": "01M6R8PSNPSPBJ62MBWX40XSFQ"
+            }
+          ],
+          "properties": {
+            "title": "Transfer guide",
+            "icon": null,
+            "coverFileId": null,
+            "ownerMemberId": "browser-owner",
+            "statusKey": null,
+            "labels": [],
+            "typeface": "default",
+            "smallText": false,
+            "fullWidth": false
+          },
+          "createdAt": "2026-11-06T11:08:08.237Z",
+          "newerRevisionExists": false
+        },
+        {
+          "id": "01M6R8PRVDZ9R1A1H8SSR9MK7B",
+          "blocks": [
+            {
+              "id": "9528c2d9-683e-4233-860e-60957c32de84",
+              "pageId": "01M6R8PRDFJE14FC1VCBZKZ6SM",
+              "parentBlockId": null,
+              "blockType": "paragraph",
+              "content": {
+                "text": [
+                  {
+                    "text": "Confirm the transfer owner"
+                  },
+                  {
+                    "text": ". "
+                  },
+                  {
+                    "text": "Open member appendix",
+                    "link": {
+                      "href": "/app/pages/01M6R8PRFF922CP1ZBFGG18M6R"
+                    }
+                  },
+                  {
+                    "text": " · "
+                  },
+                  {
+                    "text": "Member appendix",
+                    "mention": {
+                      "kind": "page",
+                      "label": "Member appendix",
+                      "id": "01M6R8PRFF922CP1ZBFGG18M6R"
+                    }
+                  }
+                ]
+              },
+              "treePosition": "a",
+              "revisionId": "01M6R8PRVFRVC4VDMC0M5REZ1P"
+            }
+          ],
+          "properties": {
+            "title": "Transfer guide",
+            "icon": null,
+            "coverFileId": null,
+            "ownerMemberId": "browser-owner",
+            "statusKey": null,
+            "labels": [],
+            "typeface": "default",
+            "smallText": false,
+            "fullWidth": false
+          },
+          "createdAt": "2026-11-06T11:08:07.403Z",
+          "newerRevisionExists": true
+        },
+        {
+          "id": "01M6R8PRDFY0BZQH1MKNH595A3",
+          "blocks": [
+            {
+              "id": "9528c2d9-683e-4233-860e-60957c32de84",
+              "blockType": "paragraph",
+              "content": {
+                "text": [
+                  {
+                    "text": "synthetic-slate-311: earlier accepted instructions"
+                  }
+                ]
+              },
+              "treePosition": "a",
+              "parentBlockId": null,
+              "pageId": "01M6R8PRDFJE14FC1VCBZKZ6SM",
+              "revisionId": "01M6R8PRDG74WY8SC3WTK9VBD3"
+            }
+          ],
+          "properties": {
+            "title": "Transfer guide",
+            "icon": null,
+            "coverFileId": null,
+            "ownerMemberId": "browser-owner",
+            "statusKey": null,
+            "labels": [],
+            "typeface": "default",
+            "smallText": false,
+            "fullWidth": false
+          },
+          "createdAt": "2026-11-06T11:08:06.958Z",
+          "newerRevisionExists": true
+        }
+      ],
+      "01M6R8PRFF922CP1ZBFGG18M6R": [
+        {
+          "id": "01M6R8PRJNY25E8X8A6GVCCEQ8",
+          "blocks": [
+            {
+              "id": "a78f516d-3bb5-4390-aa29-e16b864718e9",
+              "pageId": "01M6R8PRFF922CP1ZBFGG18M6R",
+              "parentBlockId": null,
+              "blockType": "paragraph",
+              "content": {
+                "text": [
+                  {
+                    "text": "synthetic-slate-315: direct member appendix. "
+                  },
+                  {
+                    "text": "Open group checklist",
+                    "link": {
+                      "href": "/app/pages/01M6R8PRE4VGJR8ZWS77E615M5"
+                    }
+                  }
+                ]
+              },
+              "treePosition": "a",
+              "revisionId": "01M6R8PRFGVWH8TJCCM7F48Y5N"
+            }
+          ],
+          "properties": {
+            "title": "Member appendix",
+            "icon": null,
+            "coverFileId": null,
+            "ownerMemberId": "browser-owner",
+            "statusKey": null,
+            "labels": [],
+            "typeface": "default",
+            "smallText": false,
+            "fullWidth": false
+          },
+          "createdAt": "2026-11-06T11:08:07.122Z",
+          "newerRevisionExists": true
+        },
+        {
+          "id": "01M6R8PRFF0ADC21W1PX2HQPG7",
+          "blocks": [
+            {
+              "id": "a78f516d-3bb5-4390-aa29-e16b864718e9",
+              "blockType": "paragraph",
+              "content": {
+                "text": [
+                  {
+                    "text": "synthetic-slate-315: direct member appendix. "
+                  },
+                  {
+                    "text": "Open group checklist",
+                    "link": {
+                      "href": "/app/pages/01M6R8PRE4VGJR8ZWS77E615M5"
+                    }
+                  }
+                ]
+              },
+              "treePosition": "a",
+              "parentBlockId": null,
+              "pageId": "01M6R8PRFF922CP1ZBFGG18M6R",
+              "revisionId": "01M6R8PRFGVWH8TJCCM7F48Y5N"
+            }
+          ],
+          "properties": {
+            "title": "Member appendix",
+            "icon": null,
+            "coverFileId": null,
+            "ownerMemberId": "browser-owner",
+            "statusKey": null,
+            "labels": [],
+            "typeface": "default",
+            "smallText": false,
+            "fullWidth": false
+          },
+          "createdAt": "2026-11-06T11:08:07.021Z",
+          "newerRevisionExists": false
+        }
+      ],
+      "01M6R8PRET1ADBZNMS3H1FSZQ6": [
+        {
+          "id": "01M6R8PRQ1XXG9DSDPDVSYJ15X",
+          "blocks": [
+            {
+              "id": "eeba2753-a87a-4ddd-be8a-06aea5acaa5a",
+              "pageId": "01M6R8PRET1ADBZNMS3H1FSZQ6",
+              "parentBlockId": null,
+              "blockType": "paragraph",
+              "content": {
+                "text": [
+                  {
+                    "text": "synthetic-slate-314: owner-only annex"
+                  }
+                ]
+              },
+              "treePosition": "a",
+              "revisionId": "01M6R8PRETJCQ4SPMX091G8E8C"
+            }
+          ],
+          "properties": {
+            "title": "Owner annex",
+            "icon": null,
+            "coverFileId": null,
+            "ownerMemberId": "browser-owner",
+            "statusKey": null,
+            "labels": [],
+            "typeface": "default",
+            "smallText": false,
+            "fullWidth": false
+          },
+          "createdAt": "2026-11-06T11:08:07.263Z",
+          "newerRevisionExists": true
+        },
+        {
+          "id": "01M6R8PRETQHMEQC5PYTGVFA81",
+          "blocks": [
+            {
+              "id": "eeba2753-a87a-4ddd-be8a-06aea5acaa5a",
+              "blockType": "paragraph",
+              "content": {
+                "text": [
+                  {
+                    "text": "synthetic-slate-314: owner-only annex"
+                  }
+                ]
+              },
+              "treePosition": "a",
+              "parentBlockId": null,
+              "pageId": "01M6R8PRET1ADBZNMS3H1FSZQ6",
+              "revisionId": "01M6R8PRETJCQ4SPMX091G8E8C"
+            }
+          ],
+          "properties": {
+            "title": "Owner annex",
+            "icon": null,
+            "coverFileId": null,
+            "ownerMemberId": "browser-owner",
+            "statusKey": null,
+            "labels": [],
+            "typeface": "default",
+            "smallText": false,
+            "fullWidth": false
+          },
+          "createdAt": "2026-11-06T11:08:06.999Z",
+          "newerRevisionExists": false
+        }
+      ],
+      "01M6R8PRE4VGJR8ZWS77E615M5": [
+        {
+          "id": "01M6R8PRE4XPTMAG026NGSJ7TZ",
+          "blocks": [
+            {
+              "id": "a5e8c229-ef53-4e86-84e8-39e2e8fed44a",
+              "blockType": "paragraph",
+              "content": {
+                "text": [
+                  {
+                    "text": "synthetic-slate-313: inherited group checklist"
+                  }
+                ]
+              },
+              "treePosition": "a",
+              "parentBlockId": null,
+              "pageId": "01M6R8PRE4VGJR8ZWS77E615M5",
+              "revisionId": "01M6R8PRE531EG8ZVX0VMW4TNH"
+            }
+          ],
+          "properties": {
+            "title": "Group checklist",
+            "icon": null,
+            "coverFileId": null,
+            "ownerMemberId": "browser-owner",
+            "statusKey": null,
+            "labels": [],
+            "typeface": "default",
+            "smallText": false,
+            "fullWidth": false
+          },
+          "createdAt": "2026-11-06T11:08:06.978Z",
+          "newerRevisionExists": false
+        }
+      ]
+    },
+    "grants": {
+      "01M6R8PRDFJE14FC1VCBZKZ6SM": {
+        "restricted": false,
+        "items": [
+          {
+            "id": "01M6R8PRGW874GX1V3ZQXG9TWF",
+            "principalKind": "group",
+            "principalId": "01M6R8PRG6PYEBBFBSXF5W7Y2A",
+            "level": "edit",
+            "expiresAt": null,
+            "revokedAt": null,
+            "invitationId": null,
+            "invitationEmail": null,
+            "invitationExpiresAt": null,
+            "invitationRevokedAt": null,
+            "principalLabel": "Transfer reviewers",
+            "origin": {
+              "kind": "page",
+              "id": "01M6R8PRDFJE14FC1VCBZKZ6SM",
+              "name": "Transfer guide"
+            },
+            "inherited": false,
+            "status": "active",
+            "effective": true
+          }
+        ],
+        "inheritedItems": [
+          {
+            "id": "01M6R8PRCWAD4DXD04384ZCDYN",
+            "principalKind": "member",
+            "principalId": "browser-owner",
+            "level": "full",
+            "expiresAt": null,
+            "revokedAt": null,
+            "invitationId": null,
+            "invitationEmail": null,
+            "invitationExpiresAt": null,
+            "invitationRevokedAt": null,
+            "principalLabel": "Alex Owner",
+            "origin": {
+              "kind": "container",
+              "id": "01M6R8PRCWXMH1RF90PDNE41XD",
+              "name": "Transfer field guide"
+            },
+            "inherited": true,
+            "status": "active",
+            "effective": true
+          }
+        ]
+      },
+      "01M6R8PRFF922CP1ZBFGG18M6R": {
+        "restricted": true,
+        "items": [
+          {
+            "id": "01M6R8PRHPD59SGPK77X72Q55Y",
+            "principalKind": "member",
+            "principalId": "browser-owner",
+            "level": "full",
+            "expiresAt": null,
+            "revokedAt": null,
+            "invitationId": null,
+            "invitationEmail": null,
+            "invitationExpiresAt": null,
+            "invitationRevokedAt": null,
+            "principalLabel": "Alex Owner",
+            "origin": {
+              "kind": "page",
+              "id": "01M6R8PRFF922CP1ZBFGG18M6R",
+              "name": "Member appendix"
+            },
+            "inherited": false,
+            "status": "active",
+            "effective": true
+          },
+          {
+            "id": "01M6R8PRQP1GST1W56451791KV",
+            "principalKind": "member",
+            "principalId": "browser-reader",
+            "level": "view",
+            "expiresAt": null,
+            "revokedAt": null,
+            "invitationId": null,
+            "invitationEmail": null,
+            "invitationExpiresAt": null,
+            "invitationRevokedAt": null,
+            "principalLabel": "Morgan Reader",
+            "origin": {
+              "kind": "page",
+              "id": "01M6R8PRFF922CP1ZBFGG18M6R",
+              "name": "Member appendix"
+            },
+            "inherited": false,
+            "status": "active",
+            "effective": true
+          }
+        ],
+        "inheritedItems": []
+      },
+      "01M6R8PRET1ADBZNMS3H1FSZQ6": {
+        "restricted": true,
+        "items": [
+          {
+            "id": "01M6R8PRK9CJ1N7B31B11HFQC6",
+            "principalKind": "member",
+            "principalId": "browser-owner",
+            "level": "full",
+            "expiresAt": null,
+            "revokedAt": null,
+            "invitationId": null,
+            "invitationEmail": null,
+            "invitationExpiresAt": null,
+            "invitationRevokedAt": null,
+            "principalLabel": "Alex Owner",
+            "origin": {
+              "kind": "page",
+              "id": "01M6R8PRET1ADBZNMS3H1FSZQ6",
+              "name": "Owner annex"
+            },
+            "inherited": false,
+            "status": "active",
+            "effective": true
+          },
+          {
+            "id": "01M6R8PRRD1ZF1Y3GBQ3TYHF9C",
+            "principalKind": "member",
+            "principalId": "browser-reader",
+            "level": "view",
+            "expiresAt": null,
+            "revokedAt": "2026-11-06T11:08:07.330Z",
+            "invitationId": null,
+            "invitationEmail": null,
+            "invitationExpiresAt": null,
+            "invitationRevokedAt": null,
+            "principalLabel": "Morgan Reader",
+            "origin": {
+              "kind": "page",
+              "id": "01M6R8PRET1ADBZNMS3H1FSZQ6",
+              "name": "Owner annex"
+            },
+            "inherited": false,
+            "status": "revoked",
+            "effective": false
+          }
+        ],
+        "inheritedItems": []
+      },
+      "01M6R8PRE4VGJR8ZWS77E615M5": {
+        "restricted": false,
+        "items": [],
+        "inheritedItems": [
+          {
+            "id": "01M6R8PRGW874GX1V3ZQXG9TWF",
+            "principalKind": "group",
+            "principalId": "01M6R8PRG6PYEBBFBSXF5W7Y2A",
+            "level": "edit",
+            "expiresAt": null,
+            "revokedAt": null,
+            "invitationId": null,
+            "invitationEmail": null,
+            "invitationExpiresAt": null,
+            "invitationRevokedAt": null,
+            "principalLabel": "Transfer reviewers",
+            "origin": {
+              "kind": "page",
+              "id": "01M6R8PRDFJE14FC1VCBZKZ6SM",
+              "name": "Transfer guide"
+            },
+            "inherited": true,
+            "status": "active",
+            "effective": true
+          },
+          {
+            "id": "01M6R8PRCWAD4DXD04384ZCDYN",
+            "principalKind": "member",
+            "principalId": "browser-owner",
+            "level": "full",
+            "expiresAt": null,
+            "revokedAt": null,
+            "invitationId": null,
+            "invitationEmail": null,
+            "invitationExpiresAt": null,
+            "invitationRevokedAt": null,
+            "principalLabel": "Alex Owner",
+            "origin": {
+              "kind": "container",
+              "id": "01M6R8PRCWXMH1RF90PDNE41XD",
+              "name": "Transfer field guide"
+            },
+            "inherited": true,
+            "status": "active",
+            "effective": true
+          }
+        ]
+      }
+    },
+    "tree": [
+      {
+        "id": "01M6R8PRCW9J4MMG37ZN2GJ9SK",
+        "containerId": "01M6R8PRCWXMH1RF90PDNE41XD",
+        "title": "Transfer field guide home",
+        "revisionId": "01M6R8PRCWHDY2BKCRYBQ6EGDD",
+        "lifecycle": "live",
+        "icon": null,
+        "statusKey": null,
+        "labels": [],
+        "parentPageId": null,
+        "treePosition": "2026-11-06T11:08:06.938Z:01M6R8PRCW9J4MMG37ZN2GJ9SK",
+        "pageKind": "page",
+        "containerLabel": "Transfer field guide",
+        "sharedWithMe": false,
+        "permissions": {
+          "level": "full",
+          "canEdit": true,
+          "canUnlock": true
+        },
+        "href": "/app/pages/01M6R8PRCW9J4MMG37ZN2GJ9SK"
+      },
+      {
+        "id": "01M6R8PRDFJE14FC1VCBZKZ6SM",
+        "containerId": "01M6R8PRCWXMH1RF90PDNE41XD",
+        "title": "Transfer guide",
+        "revisionId": "01M6R8PSNG7QG6Z7A2M0QKT80G",
+        "lifecycle": "live",
+        "icon": null,
+        "statusKey": null,
+        "labels": [],
+        "parentPageId": null,
+        "treePosition": "a",
+        "pageKind": "page",
+        "containerLabel": "Transfer field guide",
+        "sharedWithMe": false,
+        "permissions": {
+          "level": "full",
+          "canEdit": true,
+          "canUnlock": true
+        },
+        "href": "/app/pages/01M6R8PRDFJE14FC1VCBZKZ6SM"
+      },
+      {
+        "id": "01M6R8PRFF922CP1ZBFGG18M6R",
+        "containerId": "01M6R8PRCWXMH1RF90PDNE41XD",
+        "title": "Member appendix",
+        "revisionId": "01M6R8PRJNY25E8X8A6GVCCEQ8",
+        "lifecycle": "live",
+        "icon": null,
+        "statusKey": null,
+        "labels": [],
+        "parentPageId": "01M6R8PRDFJE14FC1VCBZKZ6SM",
+        "treePosition": "a",
+        "pageKind": "page",
+        "containerLabel": "Transfer field guide",
+        "sharedWithMe": false,
+        "permissions": {
+          "level": "full",
+          "canEdit": true,
+          "canUnlock": true
+        },
+        "href": "/app/pages/01M6R8PRFF922CP1ZBFGG18M6R"
+      },
+      {
+        "id": "01M6R8PRET1ADBZNMS3H1FSZQ6",
+        "containerId": "01M6R8PRCWXMH1RF90PDNE41XD",
+        "title": "Owner annex",
+        "revisionId": "01M6R8PRQ1XXG9DSDPDVSYJ15X",
+        "lifecycle": "live",
+        "icon": null,
+        "statusKey": null,
+        "labels": [],
+        "parentPageId": "01M6R8PRDFJE14FC1VCBZKZ6SM",
+        "treePosition": "b",
+        "pageKind": "page",
+        "containerLabel": "Transfer field guide",
+        "sharedWithMe": false,
+        "permissions": {
+          "level": "full",
+          "canEdit": true,
+          "canUnlock": true
+        },
+        "href": "/app/pages/01M6R8PRET1ADBZNMS3H1FSZQ6"
+      },
+      {
+        "id": "01M6R8PRE4VGJR8ZWS77E615M5",
+        "containerId": "01M6R8PRCWXMH1RF90PDNE41XD",
+        "title": "Group checklist",
+        "revisionId": "01M6R8PRE4XPTMAG026NGSJ7TZ",
+        "lifecycle": "live",
+        "icon": null,
+        "statusKey": null,
+        "labels": [],
+        "parentPageId": "01M6R8PRDFJE14FC1VCBZKZ6SM",
+        "treePosition": "c",
+        "pageKind": "page",
+        "containerLabel": "Transfer field guide",
+        "sharedWithMe": false,
+        "permissions": {
+          "level": "full",
+          "canEdit": true,
+          "canUnlock": true
+        },
+        "href": "/app/pages/01M6R8PRE4VGJR8ZWS77E615M5"
+      }
+    ],
+    "discussion": {
+      "threads": [
+        {
+          "id": "01M6R8PST604C4YSZJN4DP02W7",
+          "workspace_id": "browser-workspace",
+          "page_id": "01M6R8PRDFJE14FC1VCBZKZ6SM",
+          "kind": "inline",
+          "block_id": "9528c2d9-683e-4233-860e-60957c32de84",
+          "anchor_json": "{\"anchorId\":\"f6141a68-a634-4273-9a46-28941c4da9ad\",\"quote\":\"Confirm the transfer owner\"}",
+          "anchor_revision_id": "01M6R8PSNG7QG6Z7A2M0QKT80G",
+          "state": "open",
+          "resolved_at": null,
+          "resolved_by_member_id": null,
+          "created_at": "2026-11-06T11:08:08.385Z",
+          "updated_at": "2026-11-06T11:08:08.385Z",
+          "revision_id": "01M6R8PST3T70THD1KBKAWG2ZZ",
+          "orphaned": 0
+        }
+      ],
+      "comments": [
+        {
+          "id": "01M6R8PST6CPTDTBSE8PPNJ1VW",
+          "threadId": "01M6R8PST604C4YSZJN4DP02W7",
+          "parentCommentId": null,
+          "authorMemberId": "browser-owner",
+          "body": [
+            {
+              "text": "synthetic-slate-312: retain this exact selected text"
+            }
+          ],
+          "authorDisplayName": "Alex Owner",
+          "createdAt": "2026-11-06T11:08:08.385Z",
+          "updatedAt": "2026-11-06T11:08:08.385Z",
+          "deletedAt": null,
+          "revisionId": "01M6R8PST3T70THD1KBKAWG2ZZ"
+        }
+      ],
+      "reactions": []
+    },
+    "group": {
+      "id": "01M6R8PRG6PYEBBFBSXF5W7Y2A",
+      "name": "Transfer reviewers",
+      "revisionId": "01M6R8PRG6HHCCS64BC6WEC76B",
+      "memberIds": [
+        "browser-reader"
+      ]
+    }
+  },
+  "restoredArchive": {
+    "pages": [
+      {
+        "id": "01M6R8PRDFJE14FC1VCBZKZ6SM",
+        "workspace_id": "browser-workspace",
+        "container_id": "01M6R8PRCWXMH1RF90PDNE41XD",
+        "parent_page_id": null,
+        "database_id": null,
+        "page_kind": "page",
+        "title": "Transfer guide",
+        "icon": null,
+        "cover_file_id": null,
+        "author_member_id": "browser-owner",
+        "owner_member_id": "browser-owner",
+        "lifecycle": "live",
+        "working_revision_id": "01M6R8PSNG7QG6Z7A2M0QKT80G",
+        "published_revision_id": "01M6R8PSNG7QG6Z7A2M0QKT80G",
+        "status_key": null,
+        "tree_position": "a",
+        "access_inheritance": "inherit",
+        "typeface": "default",
+        "small_text": 0,
+        "full_width": 0,
+        "archived_at": null,
+        "trashed_at": null,
+        "deleted_at": null,
+        "created_at": "2026-11-06T11:08:06.958Z",
+        "updated_at": "2026-11-06T11:08:08.237Z",
+        "revision_id": "01M6R8PSNG7QG6Z7A2M0QKT80G",
+        "locked_at": null,
+        "locked_by_member_id": null
+      },
+      {
+        "id": "01M6R8PRE4VGJR8ZWS77E615M5",
+        "workspace_id": "browser-workspace",
+        "container_id": "01M6R8PRCWXMH1RF90PDNE41XD",
+        "parent_page_id": "01M6R8PRDFJE14FC1VCBZKZ6SM",
+        "database_id": null,
+        "page_kind": "page",
+        "title": "Group checklist",
+        "icon": null,
+        "cover_file_id": null,
+        "author_member_id": "browser-owner",
+        "owner_member_id": "browser-owner",
+        "lifecycle": "live",
+        "working_revision_id": "01M6R8PRE4XPTMAG026NGSJ7TZ",
+        "published_revision_id": "01M6R8PRE4XPTMAG026NGSJ7TZ",
+        "status_key": null,
+        "tree_position": "c",
+        "access_inheritance": "inherit",
+        "typeface": "default",
+        "small_text": 0,
+        "full_width": 0,
+        "archived_at": null,
+        "trashed_at": null,
+        "deleted_at": null,
+        "created_at": "2026-11-06T11:08:06.978Z",
+        "updated_at": "2026-11-06T11:08:06.978Z",
+        "revision_id": "01M6R8PRE4XPTMAG026NGSJ7TZ",
+        "locked_at": null,
+        "locked_by_member_id": null
+      },
+      {
+        "id": "01M6R8PRET1ADBZNMS3H1FSZQ6",
+        "workspace_id": "browser-workspace",
+        "container_id": "01M6R8PRCWXMH1RF90PDNE41XD",
+        "parent_page_id": "01M6R8PRDFJE14FC1VCBZKZ6SM",
+        "database_id": null,
+        "page_kind": "page",
+        "title": "Owner annex",
+        "icon": null,
+        "cover_file_id": null,
+        "author_member_id": "browser-owner",
+        "owner_member_id": "browser-owner",
+        "lifecycle": "live",
+        "working_revision_id": "01M6R8PRETQHMEQC5PYTGVFA81",
+        "published_revision_id": "01M6R8PRETQHMEQC5PYTGVFA81",
+        "status_key": null,
+        "tree_position": "b",
+        "access_inheritance": "restricted",
+        "typeface": "default",
+        "small_text": 0,
+        "full_width": 0,
+        "archived_at": null,
+        "trashed_at": null,
+        "deleted_at": null,
+        "created_at": "2026-11-06T11:08:06.999Z",
+        "updated_at": "2026-11-06T11:08:07.263Z",
+        "revision_id": "01M6R8PRQ1XXG9DSDPDVSYJ15X",
+        "locked_at": null,
+        "locked_by_member_id": null
+      },
+      {
+        "id": "01M6R8PRFF922CP1ZBFGG18M6R",
+        "workspace_id": "browser-workspace",
+        "container_id": "01M6R8PRCWXMH1RF90PDNE41XD",
+        "parent_page_id": "01M6R8PRDFJE14FC1VCBZKZ6SM",
+        "database_id": null,
+        "page_kind": "page",
+        "title": "Member appendix",
+        "icon": null,
+        "cover_file_id": null,
+        "author_member_id": "browser-owner",
+        "owner_member_id": "browser-owner",
+        "lifecycle": "live",
+        "working_revision_id": "01M6R8PRFF0ADC21W1PX2HQPG7",
+        "published_revision_id": "01M6R8PRFF0ADC21W1PX2HQPG7",
+        "status_key": null,
+        "tree_position": "a",
+        "access_inheritance": "restricted",
+        "typeface": "default",
+        "small_text": 0,
+        "full_width": 0,
+        "archived_at": null,
+        "trashed_at": null,
+        "deleted_at": null,
+        "created_at": "2026-11-06T11:08:07.021Z",
+        "updated_at": "2026-11-06T11:08:07.122Z",
+        "revision_id": "01M6R8PRJNY25E8X8A6GVCCEQ8",
+        "locked_at": null,
+        "locked_by_member_id": null
+      }
+    ],
+    "page_blocks": [
+      {
+        "id": "9528c2d9-683e-4233-860e-60957c32de84",
+        "page_id": "01M6R8PRDFJE14FC1VCBZKZ6SM",
+        "parent_block_id": null,
+        "block_type": "paragraph",
+        "content_json": "{\"text\":[{\"text\":\"Confirm the transfer owner\",\"commentAnchorId\":\"f6141a68-a634-4273-9a46-28941c4da9ad\"},{\"text\":\". \"},{\"text\":\"Open member appendix\",\"link\":{\"href\":\"/app/pages/01M6R8PRFF922CP1ZBFGG18M6R\"}},{\"text\":\" · \"},{\"text\":\"Member appendix\",\"mention\":{\"kind\":\"page\",\"label\":\"Member appendix\",\"id\":\"01M6R8PRFF922CP1ZBFGG18M6R\"}}]}",
+        "tree_position": "00000000",
+        "revision_id": "01M6R8PSNPSPBJ62MBWX40XSFQ",
+        "created_at": "2026-11-06T11:08:06.958Z",
+        "updated_at": "2026-11-06T11:08:08.237Z"
+      },
+      {
+        "id": "a5e8c229-ef53-4e86-84e8-39e2e8fed44a",
+        "page_id": "01M6R8PRE4VGJR8ZWS77E615M5",
+        "parent_block_id": null,
+        "block_type": "paragraph",
+        "content_json": "{\"text\":[{\"text\":\"synthetic-slate-313: inherited group checklist\"}]}",
+        "tree_position": "a",
+        "revision_id": "01M6R8PRE531EG8ZVX0VMW4TNH",
+        "created_at": "2026-11-06T11:08:06.978Z",
+        "updated_at": "2026-11-06T11:08:06.978Z"
+      },
+      {
+        "id": "a78f516d-3bb5-4390-aa29-e16b864718e9",
+        "page_id": "01M6R8PRFF922CP1ZBFGG18M6R",
+        "parent_block_id": null,
+        "block_type": "paragraph",
+        "content_json": "{\"text\":[{\"text\":\"synthetic-slate-315: direct member appendix. \"},{\"text\":\"Open group checklist\",\"link\":{\"href\":\"/app/pages/01M6R8PRE4VGJR8ZWS77E615M5\"}}]}",
+        "tree_position": "a",
+        "revision_id": "01M6R8PRFGVWH8TJCCM7F48Y5N",
+        "created_at": "2026-11-06T11:08:07.021Z",
+        "updated_at": "2026-11-06T11:08:07.021Z"
+      },
+      {
+        "id": "eeba2753-a87a-4ddd-be8a-06aea5acaa5a",
+        "page_id": "01M6R8PRET1ADBZNMS3H1FSZQ6",
+        "parent_block_id": null,
+        "block_type": "paragraph",
+        "content_json": "{\"text\":[{\"text\":\"synthetic-slate-314: owner-only annex\"}]}",
+        "tree_position": "a",
+        "revision_id": "01M6R8PRETJCQ4SPMX091G8E8C",
+        "created_at": "2026-11-06T11:08:06.999Z",
+        "updated_at": "2026-11-06T11:08:06.999Z"
+      }
+    ],
+    "page_revisions": [
+      {
+        "id": "01M6R8PRDFY0BZQH1MKNH595A3",
+        "page_id": "01M6R8PRDFJE14FC1VCBZKZ6SM",
+        "author_member_id": "browser-owner",
+        "origin": "autosave",
+        "content_hash": "4a61e1151d845cf479e7f90bd64ff79ed470b8e73baefc37c267ec896cfa64d7",
+        "body_json": "[{\"id\":\"9528c2d9-683e-4233-860e-60957c32de84\",\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"synthetic-slate-311: earlier accepted instructions\"}]},\"treePosition\":\"a\",\"parentBlockId\":null,\"pageId\":\"01M6R8PRDFJE14FC1VCBZKZ6SM\",\"revisionId\":\"01M6R8PRDG74WY8SC3WTK9VBD3\"}]",
+        "properties_json": "{\"title\":\"Transfer guide\",\"icon\":null,\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[],\"typeface\":\"default\",\"smallText\":false,\"fullWidth\":false}",
+        "status_key": null,
+        "ordinal": null,
+        "label": null,
+        "created_at": "2026-11-06T11:08:06.958Z",
+        "deleted_at": null,
+        "deleted_by_member_id": null
+      },
+      {
+        "id": "01M6R8PRE4XPTMAG026NGSJ7TZ",
+        "page_id": "01M6R8PRE4VGJR8ZWS77E615M5",
+        "author_member_id": "browser-owner",
+        "origin": "autosave",
+        "content_hash": "cd6457e5e1db030fdec7feb89e5611818646c38c45bd8323cc6835313228c344",
+        "body_json": "[{\"id\":\"a5e8c229-ef53-4e86-84e8-39e2e8fed44a\",\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"synthetic-slate-313: inherited group checklist\"}]},\"treePosition\":\"a\",\"parentBlockId\":null,\"pageId\":\"01M6R8PRE4VGJR8ZWS77E615M5\",\"revisionId\":\"01M6R8PRE531EG8ZVX0VMW4TNH\"}]",
+        "properties_json": "{\"title\":\"Group checklist\",\"icon\":null,\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[],\"typeface\":\"default\",\"smallText\":false,\"fullWidth\":false}",
+        "status_key": null,
+        "ordinal": null,
+        "label": null,
+        "created_at": "2026-11-06T11:08:06.978Z",
+        "deleted_at": null,
+        "deleted_by_member_id": null
+      },
+      {
+        "id": "01M6R8PRETQHMEQC5PYTGVFA81",
+        "page_id": "01M6R8PRET1ADBZNMS3H1FSZQ6",
+        "author_member_id": "browser-owner",
+        "origin": "autosave",
+        "content_hash": "47bd9191a626f6d1ef6c1855a0c08cf0f4952cec85037c2b775e26ff85f37bdd",
+        "body_json": "[{\"id\":\"eeba2753-a87a-4ddd-be8a-06aea5acaa5a\",\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"synthetic-slate-314: owner-only annex\"}]},\"treePosition\":\"a\",\"parentBlockId\":null,\"pageId\":\"01M6R8PRET1ADBZNMS3H1FSZQ6\",\"revisionId\":\"01M6R8PRETJCQ4SPMX091G8E8C\"}]",
+        "properties_json": "{\"title\":\"Owner annex\",\"icon\":null,\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[],\"typeface\":\"default\",\"smallText\":false,\"fullWidth\":false}",
+        "status_key": null,
+        "ordinal": null,
+        "label": null,
+        "created_at": "2026-11-06T11:08:06.999Z",
+        "deleted_at": null,
+        "deleted_by_member_id": null
+      },
+      {
+        "id": "01M6R8PRFF0ADC21W1PX2HQPG7",
+        "page_id": "01M6R8PRFF922CP1ZBFGG18M6R",
+        "author_member_id": "browser-owner",
+        "origin": "autosave",
+        "content_hash": "a68f9002cac8b7f03ab572712a6c342c34f166735b0b21c14d27c3b35de95117",
+        "body_json": "[{\"id\":\"a78f516d-3bb5-4390-aa29-e16b864718e9\",\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"synthetic-slate-315: direct member appendix. \"},{\"text\":\"Open group checklist\",\"link\":{\"href\":\"/app/pages/01M6R8PRE4VGJR8ZWS77E615M5\"}}]},\"treePosition\":\"a\",\"parentBlockId\":null,\"pageId\":\"01M6R8PRFF922CP1ZBFGG18M6R\",\"revisionId\":\"01M6R8PRFGVWH8TJCCM7F48Y5N\"}]",
+        "properties_json": "{\"title\":\"Member appendix\",\"icon\":null,\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[],\"typeface\":\"default\",\"smallText\":false,\"fullWidth\":false}",
+        "status_key": null,
+        "ordinal": null,
+        "label": null,
+        "created_at": "2026-11-06T11:08:07.021Z",
+        "deleted_at": null,
+        "deleted_by_member_id": null
+      },
+      {
+        "id": "01M6R8PRJNY25E8X8A6GVCCEQ8",
+        "page_id": "01M6R8PRFF922CP1ZBFGG18M6R",
+        "author_member_id": "browser-owner",
+        "origin": "autosave",
+        "content_hash": "a68f9002cac8b7f03ab572712a6c342c34f166735b0b21c14d27c3b35de95117",
+        "body_json": "[{\"id\":\"a78f516d-3bb5-4390-aa29-e16b864718e9\",\"pageId\":\"01M6R8PRFF922CP1ZBFGG18M6R\",\"parentBlockId\":null,\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"synthetic-slate-315: direct member appendix. \"},{\"text\":\"Open group checklist\",\"link\":{\"href\":\"/app/pages/01M6R8PRE4VGJR8ZWS77E615M5\"}}]},\"treePosition\":\"a\",\"revisionId\":\"01M6R8PRFGVWH8TJCCM7F48Y5N\"}]",
+        "properties_json": "{\"title\":\"Member appendix\",\"icon\":null,\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[],\"typeface\":\"default\",\"smallText\":false,\"fullWidth\":false}",
+        "status_key": null,
+        "ordinal": null,
+        "label": null,
+        "created_at": "2026-11-06T11:08:07.122Z",
+        "deleted_at": null,
+        "deleted_by_member_id": null
+      },
+      {
+        "id": "01M6R8PRQ1XXG9DSDPDVSYJ15X",
+        "page_id": "01M6R8PRET1ADBZNMS3H1FSZQ6",
+        "author_member_id": "browser-owner",
+        "origin": "autosave",
+        "content_hash": "47bd9191a626f6d1ef6c1855a0c08cf0f4952cec85037c2b775e26ff85f37bdd",
+        "body_json": "[{\"id\":\"eeba2753-a87a-4ddd-be8a-06aea5acaa5a\",\"pageId\":\"01M6R8PRET1ADBZNMS3H1FSZQ6\",\"parentBlockId\":null,\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"synthetic-slate-314: owner-only annex\"}]},\"treePosition\":\"a\",\"revisionId\":\"01M6R8PRETJCQ4SPMX091G8E8C\"}]",
+        "properties_json": "{\"title\":\"Owner annex\",\"icon\":null,\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[],\"typeface\":\"default\",\"smallText\":false,\"fullWidth\":false}",
+        "status_key": null,
+        "ordinal": null,
+        "label": null,
+        "created_at": "2026-11-06T11:08:07.263Z",
+        "deleted_at": null,
+        "deleted_by_member_id": null
+      },
+      {
+        "id": "01M6R8PRVDZ9R1A1H8SSR9MK7B",
+        "page_id": "01M6R8PRDFJE14FC1VCBZKZ6SM",
+        "author_member_id": "browser-owner",
+        "origin": "autosave",
+        "content_hash": "0ca09b0f8ec4e884efc2b31e096960ff2d7906dfc6038731484c48d8212b2043",
+        "body_json": "[{\"id\":\"9528c2d9-683e-4233-860e-60957c32de84\",\"pageId\":\"01M6R8PRDFJE14FC1VCBZKZ6SM\",\"parentBlockId\":null,\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"Confirm the transfer owner\"},{\"text\":\". \"},{\"text\":\"Open member appendix\",\"link\":{\"href\":\"/app/pages/01M6R8PRFF922CP1ZBFGG18M6R\"}},{\"text\":\" · \"},{\"text\":\"Member appendix\",\"mention\":{\"kind\":\"page\",\"label\":\"Member appendix\",\"id\":\"01M6R8PRFF922CP1ZBFGG18M6R\"}}]},\"treePosition\":\"a\",\"revisionId\":\"01M6R8PRVFRVC4VDMC0M5REZ1P\"}]",
+        "properties_json": "{\"title\":\"Transfer guide\",\"icon\":null,\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[],\"typeface\":\"default\",\"smallText\":false,\"fullWidth\":false}",
+        "status_key": null,
+        "ordinal": null,
+        "label": null,
+        "created_at": "2026-11-06T11:08:07.403Z",
+        "deleted_at": null,
+        "deleted_by_member_id": null
+      },
+      {
+        "id": "01M6R8PSNG7QG6Z7A2M0QKT80G",
+        "page_id": "01M6R8PRDFJE14FC1VCBZKZ6SM",
+        "author_member_id": "browser-owner",
+        "origin": "autosave",
+        "content_hash": "0ca09b0f8ec4e884efc2b31e096960ff2d7906dfc6038731484c48d8212b2043",
+        "body_json": "[{\"id\":\"9528c2d9-683e-4233-860e-60957c32de84\",\"blockType\":\"paragraph\",\"content\":{\"text\":[{\"text\":\"Confirm the transfer owner\",\"commentAnchorId\":\"f6141a68-a634-4273-9a46-28941c4da9ad\"},{\"text\":\". \"},{\"text\":\"Open member appendix\",\"link\":{\"href\":\"/app/pages/01M6R8PRFF922CP1ZBFGG18M6R\"}},{\"text\":\" · \"},{\"text\":\"Member appendix\",\"mention\":{\"kind\":\"page\",\"label\":\"Member appendix\",\"id\":\"01M6R8PRFF922CP1ZBFGG18M6R\"}}]},\"parentBlockId\":null,\"treePosition\":\"00000000\",\"pageId\":\"01M6R8PRDFJE14FC1VCBZKZ6SM\",\"revisionId\":\"01M6R8PSNPSPBJ62MBWX40XSFQ\"}]",
+        "properties_json": "{\"title\":\"Transfer guide\",\"icon\":null,\"coverFileId\":null,\"ownerMemberId\":\"browser-owner\",\"statusKey\":null,\"labels\":[],\"typeface\":\"default\",\"smallText\":false,\"fullWidth\":false}",
+        "status_key": null,
+        "ordinal": null,
+        "label": null,
+        "created_at": "2026-11-06T11:08:08.237Z",
+        "deleted_at": null,
+        "deleted_by_member_id": null
+      }
+    ],
+    "page_grants": [
+      {
+        "id": "01M6R8PRGW874GX1V3ZQXG9TWF",
+        "page_id": "01M6R8PRDFJE14FC1VCBZKZ6SM",
+        "principal_kind": "group",
+        "principal_id": "01M6R8PRG6PYEBBFBSXF5W7Y2A",
+        "level": "edit",
+        "expires_at": null,
+        "revoked_at": null,
+        "created_at": "2026-11-06T11:08:07.064Z",
+        "updated_at": "2026-11-06T11:08:07.064Z"
+      },
+      {
+        "id": "01M6R8PRHPD59SGPK77X72Q55Y",
+        "page_id": "01M6R8PRFF922CP1ZBFGG18M6R",
+        "principal_kind": "member",
+        "principal_id": "browser-owner",
+        "level": "full",
+        "expires_at": null,
+        "revoked_at": null,
+        "created_at": "2026-11-06T11:08:07.091Z",
+        "updated_at": "2026-11-06T11:08:07.091Z"
+      },
+      {
+        "id": "01M6R8PRK9CJ1N7B31B11HFQC6",
+        "page_id": "01M6R8PRET1ADBZNMS3H1FSZQ6",
+        "principal_kind": "member",
+        "principal_id": "browser-owner",
+        "level": "full",
+        "expires_at": null,
+        "revoked_at": null,
+        "created_at": "2026-11-06T11:08:07.141Z",
+        "updated_at": "2026-11-06T11:08:07.141Z"
+      },
+      {
+        "id": "01M6R8PRQP1GST1W56451791KV",
+        "page_id": "01M6R8PRFF922CP1ZBFGG18M6R",
+        "principal_kind": "member",
+        "principal_id": "browser-reader",
+        "level": "view",
+        "expires_at": null,
+        "revoked_at": null,
+        "created_at": "2026-11-06T11:08:07.282Z",
+        "updated_at": "2026-11-06T11:08:07.282Z"
+      },
+      {
+        "id": "01M6R8PRRD1ZF1Y3GBQ3TYHF9C",
+        "page_id": "01M6R8PRET1ADBZNMS3H1FSZQ6",
+        "principal_kind": "member",
+        "principal_id": "browser-reader",
+        "level": "view",
+        "expires_at": null,
+        "revoked_at": "2026-11-06T11:08:07.330Z",
+        "created_at": "2026-11-06T11:08:07.305Z",
+        "updated_at": "2026-11-06T11:08:07.330Z"
+      }
+    ],
+    "comment_threads": [
+      {
+        "id": "01M6R8PST604C4YSZJN4DP02W7",
+        "workspace_id": "browser-workspace",
+        "page_id": "01M6R8PRDFJE14FC1VCBZKZ6SM",
+        "kind": "inline",
+        "block_id": "9528c2d9-683e-4233-860e-60957c32de84",
+        "anchor_json": "{\"anchorId\":\"f6141a68-a634-4273-9a46-28941c4da9ad\",\"quote\":\"Confirm the transfer owner\"}",
+        "anchor_revision_id": "01M6R8PSNG7QG6Z7A2M0QKT80G",
+        "state": "open",
+        "resolved_at": null,
+        "resolved_by_member_id": null,
+        "created_at": "2026-11-06T11:08:08.385Z",
+        "updated_at": "2026-11-06T11:08:08.385Z",
+        "revision_id": "01M6R8PST3T70THD1KBKAWG2ZZ",
+        "orphaned": 0
+      }
+    ],
+    "comments": [
+      {
+        "id": "01M6R8PST6CPTDTBSE8PPNJ1VW",
+        "thread_id": "01M6R8PST604C4YSZJN4DP02W7",
+        "parent_comment_id": null,
+        "author_member_id": "browser-owner",
+        "body_json": "[{\"text\":\"synthetic-slate-312: retain this exact selected text\"}]",
+        "created_at": "2026-11-06T11:08:08.385Z",
+        "updated_at": "2026-11-06T11:08:08.385Z",
+        "deleted_at": null,
+        "revision_id": "01M6R8PST3T70THD1KBKAWG2ZZ"
+      }
+    ],
+    "groups": [
+      {
+        "id": "01M6R8PRG6PYEBBFBSXF5W7Y2A",
+        "workspace_id": "browser-workspace",
+        "name": "Transfer reviewers",
+        "created_at": "2026-11-06T11:08:07.043Z",
+        "updated_at": "2026-11-06T11:08:07.043Z",
+        "revision_id": "01M6R8PRG6HHCCS64BC6WEC76B"
+      }
+    ],
+    "group_members": [
+      {
+        "group_id": "01M6R8PRG6PYEBBFBSXF5W7Y2A",
+        "member_id": "browser-reader",
+        "created_at": "2026-11-06T11:08:07.043Z"
+      }
+    ],
+    "files": [
+      {
+        "id": "01M6R8PRT2KX3XSQ5BQNDXX674",
+        "workspace_id": "browser-workspace",
+        "page_id": "01M6R8PRDFJE14FC1VCBZKZ6SM",
+        "storage_key": "restored-original",
+        "original_name": "transfer-original.txt",
+        "content_type": "text/plain",
+        "size_bytes": 55,
+        "created_at": "2026-11-06T11:08:07.356Z",
+        "deleted_at": null
+      },
+      {
+        "id": "01M6R8PRTJ0SDMS44RMK1M0PBX",
+        "workspace_id": "browser-workspace",
+        "page_id": "01M6R8PRET1ADBZNMS3H1FSZQ6",
+        "storage_key": "restored-original",
+        "original_name": "annex-original.pdf",
+        "content_type": "application/pdf",
+        "size_bytes": 2068,
+        "created_at": "2026-11-06T11:08:07.373Z",
+        "deleted_at": null
+      }
+    ]
+  },
+  "sourceAccess": {
+    "levels": [
+      "edit",
+      "view",
+      "edit"
+    ],
+    "denied": {
+      "status": 404,
+      "body": {
+        "code": "NOT_FOUND",
+        "message": "Not found."
+      }
+    },
+    "refused": {
+      "/api/pages/01M6R8PRET1ADBZNMS3H1FSZQ6": {
+        "status": 404,
+        "body": {
+          "code": "NOT_FOUND",
+          "message": "Not found."
+        }
+      },
+      "/api/revisions/01M6R8PRET1ADBZNMS3H1FSZQ6": {
+        "status": 404,
+        "body": {
+          "code": "NOT_FOUND",
+          "message": "Not found."
+        }
+      },
+      "/api/comments/page/01M6R8PRET1ADBZNMS3H1FSZQ6": {
+        "status": 404,
+        "body": {
+          "code": "NOT_FOUND",
+          "message": "Not found."
+        }
+      },
+      "/api/media/01M6R8PRTJ0SDMS44RMK1M0PBX": {
+        "status": 404,
+        "body": {
+          "code": "NOT_FOUND",
+          "message": "Not found."
+        }
+      }
+    },
+    "write": {
+      "status": 404,
+      "body": {
+        "code": "NOT_FOUND",
+        "message": "Not found."
+      }
+    }
+  },
+  "restoredAccess": {
+    "levels": [
+      "edit",
+      "view",
+      "edit"
+    ],
+    "denied": {
+      "status": 404,
+      "body": {
+        "code": "NOT_FOUND",
+        "message": "Not found."
+      }
+    },
+    "refused": {
+      "/api/pages/01M6R8PRET1ADBZNMS3H1FSZQ6": {
+        "status": 404,
+        "body": {
+          "code": "NOT_FOUND",
+          "message": "Not found."
+        }
+      },
+      "/api/revisions/01M6R8PRET1ADBZNMS3H1FSZQ6": {
+        "status": 404,
+        "body": {
+          "code": "NOT_FOUND",
+          "message": "Not found."
+        }
+      },
+      "/api/comments/page/01M6R8PRET1ADBZNMS3H1FSZQ6": {
+        "status": 404,
+        "body": {
+          "code": "NOT_FOUND",
+          "message": "Not found."
+        }
+      },
+      "/api/media/01M6R8PRTJ0SDMS44RMK1M0PBX": {
+        "status": 404,
+        "body": {
+          "code": "NOT_FOUND",
+          "message": "Not found."
+        }
+      }
+    },
+    "write": {
+      "status": 404,
+      "body": {
+        "code": "NOT_FOUND",
+        "message": "Not found."
+      }
+    }
+  },
+  "sessionRefusals": [
+    401,
+    401
+  ],
+  "files": [
+    {
+      "id": "01M6R8PRT2KX3XSQ5BQNDXX674",
+      "pageId": "01M6R8PRDFJE14FC1VCBZKZ6SM",
+      "name": "transfer-original.txt",
+      "bytes": 55,
+      "sha256": "81e1f30772d622c7bfcb76afe6df31ac18f84f73e1572f1bf4a09a843468b412"
+    },
+    {
+      "id": "01M6R8PRTJ0SDMS44RMK1M0PBX",
+      "pageId": "01M6R8PRET1ADBZNMS3H1FSZQ6",
+      "name": "annex-original.pdf",
+      "bytes": 2068,
+      "sha256": "331f7ec6557607105df7cdb5f1b0672083ad8bb7bb35e7d7b4f4516a84c1abe4"
+    }
+  ],
+  "retainedAddresses": {
+    "pages": [
+      "/app/pages/01M6R8PRDFJE14FC1VCBZKZ6SM",
+      "/app/pages/01M6R8PRFF922CP1ZBFGG18M6R",
+      "/app/pages/01M6R8PRET1ADBZNMS3H1FSZQ6",
+      "/app/pages/01M6R8PRE4VGJR8ZWS77E615M5"
+    ],
+    "revision": "/app/pages/01M6R8PRDFJE14FC1VCBZKZ6SM?revision=01M6R8PRDFY0BZQH1MKNH595A3",
+    "discussion": "/app/pages/01M6R8PRDFJE14FC1VCBZKZ6SM?thread=01M6R8PST604C4YSZJN4DP02W7&comment=01M6R8PST6CPTDTBSE8PPNJ1VW"
+  }
+}
