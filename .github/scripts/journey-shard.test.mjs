@@ -21,3 +21,13 @@ test('malformed assignments fail closed instead of silently losing a journey', (
   for (const value of [0, -1, 4, 1.5, '2']) assert.throws(() => inJourneyShard(0, '1/3', 'moved', { moved: value }), /Invalid assigned/);
   for (const spec of ['0/3', '4/3', '1/0', 'invalid']) assert.throws(() => inJourneyShard(0, spec));
 });
+test('splitting a named journey runs it and every partition neighbour exactly once', () => {
+  const names = ['review, with another person', 'ordinary', 'new registration'];
+  const routes = { [names[0]]: 1 };
+  const runners = [['1/2', /^(?!review,)/], ['1/2', /^review,/], ['2/2', /.*/]];
+  for (const [ordinal, name] of names.entries()) {
+    const selected = runners.map(([shard, pattern]) => inJourneyShard(ordinal, shard, name, routes, pattern));
+    assert.equal(selected.filter(Boolean).length, 1);
+    if (name === names[0]) assert.deepEqual(selected, [false, true, false]);
+  }
+});

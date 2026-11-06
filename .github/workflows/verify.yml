@@ -189,7 +189,7 @@ jobs:
         env:
           SLATE_UI_SHARD: ${{ matrix.ui }}/8
           SLATE_UI_ASSIGNMENTS: .github/scripts/journey-shards.json
-          JOURNEY_NAME_PATTERN: ${{ matrix.journey-pattern || '.*' }}
+          SLATE_UI_NAME_PATTERN: ${{ matrix.journey-pattern || '.*' }}
           SERIAL_SUITE: ${{ matrix.serial == true && 'true' || 'false' }}
           WORKER_SHARD: ${{ matrix.worker }}
           SUITE_COMMAND: ${{ matrix.command }}
