@@ -1,0 +1,9 @@
+{
+  "run": 42150976860,
+  "job": 127674495791,
+  "branch": "cloud/sd-slate-c-f78-c1-land-7016577a08-rebase-93b7327adee97ac0ff691bfb5cbff68f4412a27a",
+  "head": "93b7327adee97ac0ff691bfb5cbff68f4412a27a",
+  "command": "gh run view 42150976860 --repo just-every/run-slate --job 127674495791 --log-failed",
+  "findings": [],
+  "transport_or_empty_output": "Archive command returned no log text."
+}

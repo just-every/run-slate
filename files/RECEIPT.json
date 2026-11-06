@@ -1,0 +1,261 @@
+{
+  "schema": 1,
+  "repository": "just-every/run-slate",
+  "branch": "cloud/sd-slate-c-f175",
+  "head": "725e1940848467c19b70fbc68f4a5d8997e7ec18",
+  "status": "pushed",
+  "pr": null,
+  "local_checks": [
+    {
+      "schema": 1,
+      "head": "725e1940848467c19b70fbc68f4a5d8997e7ec18",
+      "command": [
+        "npx",
+        "-y",
+        "@runeditrun/rer",
+        "build"
+      ],
+      "exit": 0,
+      "started_at": "2026-11-06T05:08:08.253397+00:00",
+      "ended_at": "2026-11-06T05:08:29.504016+00:00",
+      "log": "candidate-build.log",
+      "log_sha256": "bf166a0da8711bdbf07dbd0c456f740e99a900adce624f2e6d5f62f635df44c9"
+    },
+    {
+      "schema": 1,
+      "head": "725e1940848467c19b70fbc68f4a5d8997e7ec18",
+      "command": [
+        "pnpm",
+        "exec",
+        "vitest",
+        "run",
+        "tests/flagship/content/http.test.ts",
+        "tests/flagship/content/repair.test.ts",
+        "tests/flagship/core/access.test.ts",
+        "tests/qualification/policies/invitations.test.ts"
+      ],
+      "exit": 0,
+      "started_at": "2026-11-06T05:08:09.430505+00:00",
+      "ended_at": "2026-11-06T05:08:49.515401+00:00",
+      "log": "candidate-workers.log",
+      "log_sha256": "ee77381b85277dd247bee33254a0238cf7f111cb5c6359bc1047ecf0d1a6c32b"
+    },
+    {
+      "schema": 1,
+      "head": "725e1940848467c19b70fbc68f4a5d8997e7ec18",
+      "command": [
+        "pnpm",
+        "typecheck"
+      ],
+      "exit": 0,
+      "started_at": "2026-11-06T05:08:49.558122+00:00",
+      "ended_at": "2026-11-06T05:09:05.054662+00:00",
+      "log": "candidate-typecheck.log",
+      "log_sha256": "bca0ced452b82b2877b2d57fb6c5ad28f89e8f278d87657ca41993fa6dd11d65"
+    },
+    {
+      "schema": 1,
+      "head": "725e1940848467c19b70fbc68f4a5d8997e7ec18",
+      "command": [
+        "npx",
+        "-y",
+        "@runeditrun/rer",
+        "check",
+        "--profile",
+        "first-party"
+      ],
+      "exit": 0,
+      "started_at": "2026-11-06T05:09:05.102184+00:00",
+      "ended_at": "2026-11-06T05:09:05.973547+00:00",
+      "log": "candidate-first-party.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "schema": 1,
+      "head": "725e1940848467c19b70fbc68f4a5d8997e7ec18",
+      "command": [
+        "bash",
+        "-c",
+        "set -e; node src/base/runtime/contract-docs.mjs write; node src/base/runtime/contract-docs.mjs check; git checkout origin/main -- ACCEPTANCE.md docs/CLAIMS.md; node scripts/edition-authoring/cli.mjs check; node scripts/sync-integration.mjs --check"
+      ],
+      "exit": 0,
+      "started_at": "2026-11-06T05:08:35.711220+00:00",
+      "ended_at": "2026-11-06T05:08:36.174721+00:00",
+      "log": "candidate-mechanical.log",
+      "log_sha256": "089081cfbb7b148a448b4f34bfd0b4aec586a25f5f958ae513e2037c2c9f0aeb"
+    },
+    {
+      "schema": 1,
+      "head": "725e1940848467c19b70fbc68f4a5d8997e7ec18",
+      "command": [
+        "perl",
+        "-e",
+        "alarm 1800; exec @ARGV",
+        "--",
+        "node",
+        "--test",
+        "--test-concurrency=1",
+        "--test-name-pattern=^(page creation destinations and editor locks preserve readable content at 1440px|real core-wiki and touch-member journeys at 390px)$",
+        "tests/qualification/ui-convergence/journeys.test.mjs"
+      ],
+      "exit": 0,
+      "started_at": "2026-11-06T05:08:45.184963+00:00",
+      "ended_at": "2026-11-06T05:18:46.255859+00:00",
+      "log": "candidate-browser.log",
+      "log_sha256": "f59e1f0a8ede18817c1614b2ec2edfa7faef7628fda6a3b5b3f06ec41cf5e211"
+    },
+    {
+      "schema": 1,
+      "head": "725e1940848467c19b70fbc68f4a5d8997e7ec18",
+      "command": [
+        "python3",
+        "/home/agent/rer-consolidation/.tools/cloud-push.py",
+        "origin",
+        "cloud/sd-slate-c-f175"
+      ],
+      "exit": 0,
+      "started_at": "2026-11-06T05:18:59.137857+00:00",
+      "ended_at": "2026-11-06T05:19:02.227790+00:00",
+      "log": "candidate-push.log",
+      "log_sha256": "c749df50b3fe2b436f965058b64deb3865039f980de2f9a97c6f495e2f91f21b"
+    }
+  ],
+  "browser": {
+    "widths": [
+      1440,
+      390
+    ],
+    "passed": 2,
+    "failed": 0,
+    "existing_registrations": true
+  },
+  "counts": {
+    "done": 57,
+    "partial": 240,
+    "missing": 41,
+    "status_rows": 338,
+    "table_rows": 698,
+    "registrations": 207
+  },
+  "clause_changes": [
+    {
+      "id": "LIFE-002",
+      "before": "partial",
+      "after": "partial",
+      "selected_points": [
+        1,
+        2,
+        4
+      ],
+      "new_proof": [
+        "ordinary author group selection",
+        "delivered session-bound guest invitation",
+        "anonymous mutation refusal",
+        "cancelled link and same-session revocation",
+        "tenant-isolated principal directory"
+      ]
+    }
+  ],
+  "source_lock_fresh": true,
+  "generated_views_committed": false,
+  "migration_ledger": "not applicable; no migration changed",
+  "publication_scan": {
+    "status": "not run in cloud",
+    "owner": "guarded lander"
+  },
+  "landing": {
+    "main_changed": false,
+    "run_site_candidate": "pending main landing"
+  },
+  "expected_candidate_view_check": {
+    "schema": 1,
+    "head": "725e1940848467c19b70fbc68f4a5d8997e7ec18",
+    "command": [
+      "node",
+      "src/base/runtime/contract-docs.mjs",
+      "check"
+    ],
+    "exit": 1,
+    "started_at": "2026-11-06T05:21:02.230924+00:00",
+    "ended_at": "2026-11-06T05:21:02.318484+00:00",
+    "log": "candidate-stale-views.log",
+    "log_sha256": "183372998615cc516043a5f66404b300281009a84349eda72da66d79fe542603",
+    "reason": "Generated views restored from main by task instruction; transient write and check passed."
+  },
+  "ci_discovery": [
+    {
+      "conclusion": null,
+      "event": "push",
+      "head_branch": "cloud/sd-slate-c-f175",
+      "head_sha": "725e1940848467c19b70fbc68f4a5d8997e7ec18",
+      "html_url": "https://github.com/just-every/run-slate/actions/runs/42167700378",
+      "id": 42167700378,
+      "name": "Verify Slate",
+      "status": "in_progress"
+    }
+  ],
+  "ci_final": {
+    "conclusion": "failure",
+    "head_branch": "cloud/sd-slate-c-f175",
+    "head_sha": "725e1940848467c19b70fbc68f4a5d8997e7ec18",
+    "html_url": "https://github.com/just-every/run-slate/actions/runs/42167700378",
+    "status": "completed"
+  },
+  "ci_jobs": [
+    {
+      "conclusion": "success",
+      "failed_steps": [],
+      "head_sha": "725e1940848467c19b70fbc68f4a5d8997e7ec18",
+      "id": 127727909090,
+      "name": "plan"
+    },
+    {
+      "conclusion": "failure",
+      "failed_steps": [
+        "Run node src/base/runtime/contract-docs.mjs check"
+      ],
+      "head_sha": "725e1940848467c19b70fbc68f4a5d8997e7ec18",
+      "id": 127727949652,
+      "name": "verify (app)"
+    },
+    {
+      "conclusion": "skipped",
+      "failed_steps": [],
+      "head_sha": "725e1940848467c19b70fbc68f4a5d8997e7ec18",
+      "id": 127727951543,
+      "name": "import-scale"
+    },
+    {
+      "conclusion": "failure",
+      "failed_steps": [
+        "Require the plan and every expected job"
+      ],
+      "head_sha": "725e1940848467c19b70fbc68f4a5d8997e7ec18",
+      "id": 127728156270,
+      "name": "verify"
+    },
+    {
+      "conclusion": "skipped",
+      "failed_steps": [],
+      "head_sha": "725e1940848467c19b70fbc68f4a5d8997e7ec18",
+      "id": 127728157353,
+      "name": "local-journeys"
+    },
+    {
+      "conclusion": "skipped",
+      "failed_steps": [],
+      "head_sha": "725e1940848467c19b70fbc68f4a5d8997e7ec18",
+      "id": 127728157845,
+      "name": "verify (${{ matrix.suite }})"
+    },
+    {
+      "conclusion": "skipped",
+      "failed_steps": [],
+      "head_sha": "725e1940848467c19b70fbc68f4a5d8997e7ec18",
+      "id": 127728158040,
+      "name": "contract"
+    }
+  ],
+  "ready_exception": "Expected generated-view-only failure; app contract-docs check failed and dependents skipped. Full CI success is not claimed.",
+  "github_calls": 7
+}

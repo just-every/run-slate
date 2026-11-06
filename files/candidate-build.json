@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "head": "725e1940848467c19b70fbc68f4a5d8997e7ec18",
+  "command": [
+    "npx",
+    "-y",
+    "@runeditrun/rer",
+    "build"
+  ],
+  "exit": 0,
+  "started_at": "2026-11-06T05:08:08.253397+00:00",
+  "ended_at": "2026-11-06T05:08:29.504016+00:00",
+  "log": "candidate-build.log",
+  "log_sha256": "bf166a0da8711bdbf07dbd0c456f740e99a900adce624f2e6d5f62f635df44c9"
+}

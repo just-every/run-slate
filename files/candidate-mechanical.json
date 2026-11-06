@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "head": "725e1940848467c19b70fbc68f4a5d8997e7ec18",
+  "command": [
+    "bash",
+    "-c",
+    "set -e; node src/base/runtime/contract-docs.mjs write; node src/base/runtime/contract-docs.mjs check; git checkout origin/main -- ACCEPTANCE.md docs/CLAIMS.md; node scripts/edition-authoring/cli.mjs check; node scripts/sync-integration.mjs --check"
+  ],
+  "exit": 0,
+  "started_at": "2026-11-06T05:08:35.711220+00:00",
+  "ended_at": "2026-11-06T05:08:36.174721+00:00",
+  "log": "candidate-mechanical.log",
+  "log_sha256": "089081cfbb7b148a448b4f34bfd0b4aec586a25f5f958ae513e2037c2c9f0aeb"
+}

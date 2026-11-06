@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "head": "725e1940848467c19b70fbc68f4a5d8997e7ec18",
+  "command": [
+    "python3",
+    "/home/agent/rer-consolidation/.tools/cloud-gh.py",
+    "run",
+    "view",
+    "42167700378",
+    "--repo",
+    "just-every/run-slate",
+    "--job",
+    "127727949652",
+    "--log-failed"
+  ],
+  "exit": 0,
+  "started_at": "2026-11-06T05:25:06.906031+00:00",
+  "ended_at": "2026-11-06T05:25:11.508048+00:00",
+  "log": "candidate-ci-failure.log",
+  "log_sha256": "d75fbbf900ec900b5ccf14819da0b79814ff68b76672e307aafa79e0ffc6eb4c"
+}

@@ -1,0 +1,14 @@
+{
+  "head": "725e1940848467c19b70fbc68f4a5d8997e7ec18",
+  "diff_email_strings": [],
+  "bare_slash_candidates": [
+    "application/json",
+    "application/x-www-form-urlencoded",
+    "assert/strict",
+    "convergence/draft",
+    "convergence/draft-privacy",
+    "playwright/test"
+  ],
+  "note": "Local changed-text inspection only; publication scan remains guarded-lander work.",
+  "bare_slash_review": "All matches are existing module import syntax, MIME types, or fragments of explicit repository paths with extensions; no new prose account-and-repository token was introduced."
+}

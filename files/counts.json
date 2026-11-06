@@ -1,0 +1,38 @@
+{
+  "origin/main": {
+    "partial": 240,
+    "done": 57,
+    "missing": 41,
+    "registrations": 207,
+    "unresolved": [],
+    "status_rows": 338,
+    "table_rows": 698
+  },
+  "f38bdd94e85bdac4f6bdb28a2c6a7feec27205b6": {
+    "partial": 240,
+    "done": 57,
+    "missing": 41,
+    "registrations": 207,
+    "unresolved": [],
+    "status_rows": 338,
+    "table_rows": 698
+  },
+  "HEAD": {
+    "partial": 240,
+    "done": 57,
+    "missing": 41,
+    "registrations": 207,
+    "unresolved": [],
+    "status_rows": 338,
+    "table_rows": 698
+  },
+  "725e1940848467c19b70fbc68f4a5d8997e7ec18": {
+    "partial": 240,
+    "done": 57,
+    "missing": 41,
+    "registrations": 207,
+    "unresolved": [],
+    "status_rows": 338,
+    "table_rows": 698
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "head": "725e1940848467c19b70fbc68f4a5d8997e7ec18",
+  "command": [
+    "node",
+    "src/base/runtime/contract-docs.mjs",
+    "check"
+  ],
+  "exit": 1,
+  "started_at": "2026-11-06T05:21:02.230924+00:00",
+  "ended_at": "2026-11-06T05:21:02.318484+00:00",
+  "log": "candidate-stale-views.log",
+  "log_sha256": "183372998615cc516043a5f66404b300281009a84349eda72da66d79fe542603"
+}

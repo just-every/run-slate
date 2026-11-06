@@ -1,0 +1,38 @@
+{
+  "head": "725e1940848467c19b70fbc68f4a5d8997e7ec18",
+  "candidate_commits": 7,
+  "all_candidate_author_and_committer_fleet": true,
+  "openai_trailers_absent": true,
+  "parent_rows_retained": true,
+  "issues": [],
+  "commits": [
+    {
+      "head": "725e1940848467c19b70fbc68f4a5d8997e7ec18",
+      "table_rows": 698
+    },
+    {
+      "head": "ac7bd84eee76ec62776a1257472cd8117b965862",
+      "table_rows": 698
+    },
+    {
+      "head": "f38bdd94e85bdac4f6bdb28a2c6a7feec27205b6",
+      "table_rows": 698
+    },
+    {
+      "head": "a349f8d84cc3383aafa029c9d710e9509b02dd2d",
+      "table_rows": 698
+    },
+    {
+      "head": "39cb3779dbde695872202c6152b16ad93a58010f",
+      "table_rows": 698
+    },
+    {
+      "head": "1be866b3fd9deb4be4fa131a4a350562eba2ac2a",
+      "table_rows": 698
+    },
+    {
+      "head": "f925b244f3ee17e012467edff88fa1d191b2e514",
+      "table_rows": 698
+    }
+  ]
+}

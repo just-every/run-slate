@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "head": "725e1940848467c19b70fbc68f4a5d8997e7ec18",
+  "command": [
+    "perl",
+    "-e",
+    "alarm 1800; exec @ARGV",
+    "--",
+    "node",
+    "--test",
+    "--test-concurrency=1",
+    "--test-name-pattern=^(page creation destinations and editor locks preserve readable content at 1440px|real core-wiki and touch-member journeys at 390px)$",
+    "tests/qualification/ui-convergence/journeys.test.mjs"
+  ],
+  "exit": 0,
+  "started_at": "2026-11-06T05:08:45.184963+00:00",
+  "ended_at": "2026-11-06T05:18:46.255859+00:00",
+  "log": "candidate-browser.log",
+  "log_sha256": "f59e1f0a8ede18817c1614b2ec2edfa7faef7628fda6a3b5b3f06ec41cf5e211"
+}

@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "head": "725e1940848467c19b70fbc68f4a5d8997e7ec18",
+  "command": [
+    "pnpm",
+    "typecheck"
+  ],
+  "exit": 0,
+  "started_at": "2026-11-06T05:08:49.558122+00:00",
+  "ended_at": "2026-11-06T05:09:05.054662+00:00",
+  "log": "candidate-typecheck.log",
+  "log_sha256": "bca0ced452b82b2877b2d57fb6c5ad28f89e8f278d87657ca41993fa6dd11d65"
+}

@@ -1,0 +1,7 @@
+{
+  "run": 42167700378,
+  "job": 127727949652,
+  "head": "725e1940848467c19b70fbc68f4a5d8997e7ec18",
+  "command": "gh run view 42167700378 --repo just-every/run-slate --job 127727949652 --log-failed",
+  "diagnostic": "verify (app)\tRun node src/base/runtime/contract-docs.mjs check\t2026-11-06T05:19:47.5714795Z ACCEPTANCE.md: generated content differs; run contract-docs write.\nverify (app)\tRun node src/base/runtime/contract-docs.mjs check\t2026-11-06T05:19:47.5816333Z ##[error]Process completed with exit code 1."
+}
