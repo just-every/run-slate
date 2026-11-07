@@ -868,8 +868,8 @@ Core · published · **partial** · Cites BASE-ROLE-001
 1. `full` may read, edit, comment, share and change access; `edit` may read, edit and comment; `comment` may read and comment; `view` may read only. no interface offers an action the level does not carry.
 2. Server-side level matrix for full, edit, comment and view on every operation; no interface offers an action beyond the level.
 
-**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
-**Gap.** No validated CI-run proof for this acceptance point: "`full` may read, edit, comment, share and change access; `edit` may read, edit and comment; `comment` may read and comment; `view` may read only."<br>No validated CI-run proof for this acceptance point: "Every server operation checks the level for the acting member (`BASE-ACCESS-004`), and no interface offers an action the level does not carry."
+**Evidence.** `tests/qualification/ui-convergence/journeys.test.mjs` — "native ordinary page full authority retains inventories and refuses revoked captures at 1440px" and the corresponding edit, comment and view registrations, calling `permissionLevelsJourney` in `sharing-journey.mjs`, `permissionPageEditsMatrix`, `permissionDiscussionMatrix`, `permissionLifecycleMatrix`, `permissionArchiveMatrix` and `permissionPermanentDeleteMatrix`: supporting native ordinary-page level, retained-state, replay and revocation assertions only; the existing responsive core callers retain the selected matrix.
+**Gap.** Supporting candidate proof only; SHARE-002 remains partial. The complete every-operation matrix across other record families, lifecycles, profiles, principals, extensions, automation and public API surfaces remains unproven. Existing draft privacy, LIFE-002, REV-001, queued scope, inheritance, expiry, grant narrowing, ADMIN-007 and shared company-policy prerequisites remain authoritative.
 
 #### SHARE-003 — Inheritance
 
