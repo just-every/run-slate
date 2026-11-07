@@ -201,8 +201,11 @@ export async function permissionArchiveMatrix({ state, bob, api, level, pageId, 
     } while (cursor);
     return items.filter(item => item.target.id === pageId || item.context?.pageId === pageId);
   };
-  const mutate = async (actor, input, perform) => {
+  const mutate = async (actor, input, perform, opensPage = false) => {
     const before = await inventory();
+    // Native archive changes canEdit and remounts the still-readable page.
+    // Its read must settle before inventory/replay comparison, as for a lock.
+    const opened = opensPage ? view.waitForResponse(response => new URL(response.url()).pathname === `${route}/open` && response.request().method() === 'POST') : null;
     const pending = perform ? view.waitForResponse(response => new URL(response.url()).pathname === target && response.request().method() === 'POST') : null;
     let result;
     if (perform) {
@@ -211,6 +214,7 @@ export async function permissionArchiveMatrix({ state, bob, api, level, pageId, 
       assert.equal(response.status(), 200, await response.text());
       input = response.request().postDataJSON(); result = await response.json();
     } else result = await ok(actor, origin, 'POST', target, input);
+    if (opened) await opened;
     await view.waitForLoadState('networkidle');
     const after = await inventory();
     const changes = after.activity.filter(item => !before.activity.some(previous => previous.id === item.id) && item.action !== 'pages.open');
@@ -232,7 +236,7 @@ export async function permissionArchiveMatrix({ state, bob, api, level, pageId, 
         const dialog = view.getByRole('dialog', { name: action === 'archive' ? 'Archive this page?' : 'Move this page to trash?', exact: true });
         await dialog.getByRole('textbox', { name: 'Reason', exact: true }).fill(`Permission ${level} ${action} review`);
         await dialog.getByRole('button', { name: 'Confirm', exact: true }).click();
-      });
+      }, action === 'archive');
     } else {
       const input = { operationKey: randomUUID(), expectedRevisionId: before.document.page.revisionId, action };
       const unchanged = await inventory(), refused = await call(bob.context, origin, 'POST', target, input);
