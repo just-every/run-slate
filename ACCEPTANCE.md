@@ -1342,8 +1342,8 @@ Core · published · **partial** · Cites BASE-DATA-002, BASE-DATA-003, BASE-DAT
 1. It is discoverable by the archived filter, and its comments, versions and grants are unchanged.
 2. Archived records are read-only and absent from tree, default search, queries and grounding while links still resolve.
 
-**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
-**Gap.** No validated CI-run proof for this acceptance point: "An archived record is read-only, is absent from the tree, from default search (`SEARCH-009`), from content queries and from AI grounding, and its existing links, mentions and citations still resolve."<br>No validated CI-run proof for this acceptance point: "It is discoverable by the archived filter, and its comments, versions and grants are unchanged."
+**Evidence.** `tests/qualification/core/audit-content.test.ts` — "ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time", calling `tests/qualification/core/archive-retention-proof.ts` — "archiveRetentionProof" (native page, subtree and database-record discovery, exclusion, read-only refusals, complete retained snapshots and current-access denial); `tests/qualification/ui-convergence/journeys.test.mjs` — "presentation paginates read-only slides; touch history, details and exports work at 1440px" and "real core-wiki and touch-member journeys at 390px", calling `tests/qualification/ui-convergence/archive-retention-journey.mjs` — "archiveRetentionJourney" (retained plain links, mentions and exact-revision citations, visible read-only targets, archived search and content-query results after reload).
+**Gap.** AI-grounding exclusion remains held under ADMIN-007 and shared company-policy prerequisites. Archived record families beyond the selected native page, page-subtree and database-record corpus remain unproven. Full ARCH-002 acceptance is retained; no clause is released.
 
 #### ARCH-003 — Restore from archive
 
