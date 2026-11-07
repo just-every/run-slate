@@ -1,3 +1,4 @@
+import {historyRows} from './history-inventory-journey.mjs';
 import assert from 'node:assert/strict';
 import {randomUUID} from 'node:crypto';
 import {expect} from '@playwright/test';
@@ -112,7 +113,7 @@ export async function recordDetailJourney(state, width) {
         } else await bob.page.getByText('Record history', {exact: true}).click();
         const revisions = await ok(bob.context, origin, 'GET', `/api/revisions/${record.pageId}`);
         assert.ok(revisions.items.some(item => item.id === earlier.revisionId));
-        await expect(bob.page.locator('.history-list > li')).toHaveCount(revisions.items.length);
+        await historyRows(bob.page, revisions.items, workspace.policies['page.version.v1'] === 'labelled');
         const exactRead = bob.page.waitForResponse(response => new URL(response.url()).pathname === `/api/revisions/${record.pageId}/${earlier.revisionId}`);
         await bob.page.locator('.history-list > li').nth(revisions.items.findIndex(item => item.id === earlier.revisionId)).getByRole('button').click();
         const snapshot = await (await exactRead).json();
