@@ -104,14 +104,18 @@ export async function shareJourney(state, pageId) {
 /** Independent published pages keep level semantics separate from grant narrowing. */
 export async function permissionLevelsJourney(state, { extended = true, levels = ['full', 'edit', 'comment', 'view'] } = {}) {
   const { context, origin } = state, width = state.page.viewportSize().width;
+  // The owner uses authenticated API probes throughout this matrix. Unmount
+  // their unrelated first page so its collaboration polling consumes no reads.
+  if (extended) await state.page.goto('about:blank');
   // Complete diagnostic inventories are much more read-heavy than a person.
   // Pace those reads while retaining real production limits and every assertion.
   let nextRead = 0;
   const api = async (...args) => {
     // Reserve the existing paced slot before awaiting it, including parallel
-    // inventory reads. Independent probes overlap without bursting the limit.
+    // inventory reads. At most 572 diagnostic reads/minute leave room under
+    // the unchanged 600-request production limit; the owner view is idle.
     const slot = Math.max(nextRead, Date.now());
-    nextRead = slot + (extended ? 125 : 0);
+    nextRead = slot + (extended ? 105 : 0);
     const delay = slot - Date.now();
     if (delay > 0) await new Promise(resolve => setTimeout(resolve, delay));
     return state.api(...args);
