@@ -3,6 +3,7 @@ import { randomUUID } from 'node:crypto';
 import { mkdir } from 'node:fs/promises';
 import path from 'node:path';
 import { expect } from '@playwright/test';
+import { signInWithOutbox } from '../../e2e/outbox-auth.mjs';
 import { root } from '../../e2e/runtime-harness.mjs';
 import { accessible } from './browser-evidence.mjs';
 import { ok } from './two-people-support.mjs';
@@ -10,6 +11,12 @@ import { ok } from './two-people-support.mjs';
 /** NOTIF-003: owner token setup, actual comment events and production cron, Slack HTTP edge only. */
 export async function chatJourney(state, width = state.page.viewportSize().width) {
   const { page, context, origin, fixtureSql, setSlackFailure, readSlackMessages } = state;
+  // Connection setup needs current mailbox proof even after a long core journey.
+  const member = (await state.api('/api/session')).member;
+  const signedIn = await signInWithOutbox(origin, member.email);
+  assert.equal(signedIn.body.member.id, 'browser-owner');
+  assert.equal(signedIn.body.member.role, 'owner');
+  await context.addCookies([{ name: 'slate_session', value: signedIn.cookie.split('=')[1], url: origin }]);
   const runScheduled=async({sameDay=false}={})=>{
     // Immediate batches must be in a past minute even during 00:00 UTC.
     // The daily hold case deliberately keeps its events in the current day.

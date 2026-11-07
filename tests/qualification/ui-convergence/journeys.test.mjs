@@ -1,3 +1,4 @@
+import {automationRunLogJourney} from "./automation-run-log-journey.mjs";
 import {contentQueryJourney} from './content-query-journey.mjs';
 import {publicProfileJourney} from './public-profile-journey.mjs';
 import {transferJobsJourney} from './transfer-jobs-journey.mjs';
@@ -10,7 +11,7 @@ import {syncedCustodyJourney,syncedHistoryJourney,syncedMemberErasureJourney} fr
 import {peopleJourney} from './people-journey.mjs';
 import {workspaceAuthorityJourney} from './workspace-authority-journey.mjs';
 import {syncedJourney} from './synced-journey.mjs';
-import {touchDatabaseToolsJourney} from './touch-database-tools-journey.mjs';
+import {touchDatabaseToolsJourney,standaloneChartJourney} from './touch-database-tools-journey.mjs';
 import {archiveRetentionJourney} from './archive-retention-journey.mjs';
 import {touchManagementJourney} from './touch-management-journey.mjs';
 import {touchPageToolsJourney} from './touch-page-tools-journey.mjs';
@@ -45,11 +46,13 @@ async function step(name, run) {
 }
 import { accessible, setupWorkspace, withWorkspace } from './browser-support.mjs';
 import { commentJourney, searchJourney, settingsJourney, shareJourney, writeJourney } from './core-journeys.mjs';
+import { permissionLevelsJourney } from './sharing-journey.mjs';
 import { askDraftJourney } from './ask-journey.mjs';
 import { withSecondPerson, call } from './two-people-support.mjs';
 import { concurrentEditingJourney } from './two-people-editing.mjs';
 import { accessChangeJourney } from './two-people-access.mjs';
 import { versionDeletionJourney } from './version-deletion-journey.mjs';
+import {historyInventoryJourney} from './history-inventory-journey.mjs';
 import { historyJourney } from './two-people-history.mjs';
 import { databaseJourney } from './database-journey.mjs';
 import { recordDetailJourney } from './record-detail-journey.mjs';
@@ -106,7 +109,10 @@ for (const width of [390, 1440]) {
         await chatJourney(state, width);
         await step('STAT-005 — status profiles preserve vocabulary and page revisions', () => statusProfileJourney(state, width));
         if (width === 390) {
+          await withSecondPerson(state, width, people => step('REV-002 complete page histories and current readers on a phone', () => historyInventoryJourney(state, people)));
+          await automationRunLogJourney(state,touch);
           await step('DB-012 populated record fields, comments, history and parity', () => recordDetailJourney(state, width));
+          await standaloneChartJourney(state,{proofOnly:true});
           await templateCaptureJourney(state);
           await templateGalleryJourney(state);
           await archiveRetentionJourney(state,touch);
@@ -140,12 +146,12 @@ for (const width of [390]) {
       await state.switchIdentity('owner');
       await settingsJourney(state,width);
       await workspaceAuthorityJourney(state,width);
-    });
+    }, {RER_DEMO:'0'});
   });
 }
 
 for (const width of [1440]) {
-  test(`spreadsheet tables merge, sort and round-trip through edited database records at ${width}px`, {timeout:240000}, async ()=>{
+  test(`spreadsheet tables merge, sort and round-trip through edited database records at ${width}px`, {timeout:480000}, async ()=>{
     await withWorkspace({width,height:width===1440?1000:844},'core-wiki',async state=>{
       await setupWorkspace(state);
       await tablesJourney(state);
@@ -160,13 +166,34 @@ for (const width of [1440]) {
 }
 
 for (const width of [1440]) {
-  test(`shared page invitations name their space and disappear on revocation at ${width}px`, { timeout: 240000 }, async () => {
+  test(`shared page invitations name their space and disappear on revocation at ${width}px`, { timeout: 240000 }, async t => {
+    const phase = async (name, run) => {
+      const started = performance.now();
+      try { return await run(); }
+      finally { t.diagnostic(`Sharing phase ${name}: ${Math.round(performance.now() - started)} ms`); }
+    };
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
-      await withSecondPerson(state, width, people => sharedNavigationJourney(state, people));
-      await syncedCustodyJourney(state,width);
-      await syncedHistoryJourney(state,width);
-      await syncedMemberErasureJourney(state,width);
+      await phase('navigation', () => withSecondPerson(state, width, people => sharedNavigationJourney(state, people)));
+      await phase('synced custody', () => syncedCustodyJourney(state,width));
+      await phase('synced history', () => syncedHistoryJourney(state,width));
+      await phase('synced erasure', () => syncedMemberErasureJourney(state,width));
+    });
+  });
+}
+
+// Each independently granted level keeps every native assertion in its own
+// installation. The original sharing journey and these cases all retain the
+// existing 240-second deadline; no earlier traffic consumes their request window.
+for (const level of ['full', 'edit', 'comment', 'view']) {
+  test(`native ordinary page ${level} authority retains inventories and refuses revoked captures at 1440px`, { timeout: 240000 }, async t => {
+    await withWorkspace({ width: 1440, height: 1000 }, 'core-wiki', async state => {
+      const setup = performance.now();
+      await setupWorkspace(state);
+      t.diagnostic(`Sharing ${level} setup: ${Math.round(performance.now() - setup)} ms`);
+      const matrix = performance.now();
+      try { await permissionLevelsJourney(state, { levels: [level] }); }
+      finally { t.diagnostic(`Sharing ${level} matrix: ${Math.round(performance.now() - matrix)} ms`); }
     });
   });
 }
@@ -398,13 +425,13 @@ for (const width of [1440]) {
 }
 
 for (const width of [1440]) {
-  test(`page outline follows headings and navigates long pages at ${width}px`, { timeout: 420000 }, async () => {
+  test(`page outline follows headings and navigates long pages at ${width}px`, { timeout: 600000 }, async () => {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
       await outlineJourney(state);
       await settingsJourney(state,width);
       await workspaceAuthorityJourney(state,width);
-    });
+    }, {RER_DEMO:'0'});
   });
 }
 

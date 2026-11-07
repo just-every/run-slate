@@ -1,3 +1,4 @@
+import {automationRunLogJourney} from "./automation-run-log-journey.mjs";
 import assert from 'node:assert/strict';
 import {expect} from '@playwright/test';
 import {tap,type,checkpoint} from './touch-controls.mjs';
@@ -56,5 +57,148 @@ export async function touchDatabaseToolsJourney(state,touch){
  const comments=await api(`/api/comments/page/${created.pageId}`);
  assert.equal(comments.comments.filter(comment=>JSON.stringify(comment.body).includes('The duty team should review this response.')).length,1);
  await checkpoint(page,'database automation completed');
+ await automationRunLogJourney(state,touch);
+ await standaloneChartJourney(state);
  console.log('NAV-006 touch database charts, templates and automations passed');
+}
+
+/** A standalone saved-view chart, exercised through native controls and current member sessions. */
+export async function standaloneChartJourney(state, { proofOnly = false } = {}) {
+ const {randomUUID} = await import('node:crypto');
+ const {ok,call,grant,withSecondPerson} = await import('./two-people-support.mjs');
+ const {accessible} = await import('./browser-evidence.mjs');
+ const {page,context,origin,api} = state;
+ const mutate = async(method,path,data) => (await ok(context,origin,method,path,{operationKey:randomUUID(),...data})).value;
+ const workspace=await api('/api/workspace');
+ const setPolicy=async policies=>{
+  const current=await api('/api/workspace');
+  const {name,mark,description,guestAccess,publicLinkAccess,anonymousAccess}=current;
+  await mutate('PUT','/api/workspace',{expectedRevisionId:current.revisionId,name,mark,description,guestAccess,publicLinkAccess,anonymousAccess,policies});
+ };
+ await setPolicy({...workspace.policies,'page.lifecycle.v1':'always-live'});
+ try {
+  const container=(await api('/api/containers')).items.find(item=>item.name==='Handbook');
+  const database=await mutate('POST','/api/databases',{containerId:container.id,title:'Saved-view chart reconciliation'});
+  const base=`/api/databases/${database.id}`;
+  await grant(context,origin,database.pageId,'browser-owner','full');
+  const databasePage=await api(`/api/pages/${database.pageId}`);
+  await mutate('PUT',`/api/sharing/pages/${database.pageId}/inheritance`,{expectedRevisionId:databasePage.page.revisionId,restricted:true});
+  const definitions=[
+   {id:randomUUID(),name:'Stage',type:'status',config:{options:['Open','Closed']},position:0},
+   {id:randomUUID(),name:'Region',type:'select',config:{options:['North','South']},position:1},
+   {id:randomUUID(),name:'Amount',type:'number',config:{},position:2},
+   {id:randomUUID(),name:'Included',type:'checkbox',config:{},position:3},
+  ];
+  const [stage,region,amount,included]=definitions;
+  let revision=database.revisionId;
+  for(const field of definitions)revision=(await mutate('POST',base+'/fields',{expectedRevisionId:revision,field})).revisionId;
+  const view={id:randomUUID(),name:'Included work',layout:'table',filters:[{field:included.id,op:'eq',value:true}],sorts:[{field:'$title',direction:'asc'}],groups:[],calculations:{},display:{},position:0};
+  revision=(await mutate('POST',base+'/views',{expectedRevisionId:revision,view})).revisionId;
+  const other={...view,id:randomUUID(),name:'Southern work',filters:[...view.filters,{field:region.id,op:'eq',value:'South'}],position:1};
+  await mutate('POST',base+'/views',{expectedRevisionId:revision,view:other});
+  const rows=[];
+  for(const [title,status,area,value,keep,restricted] of [
+   ['A shared open','Open','North',10,true,false],['B shared open','Open','South',20,true,false],
+   ['C shared closed','Closed','North',30,true,false],['D excluded','Closed','South',40,false,false],
+   ['E owner only','Open','North',100,true,true],['F empty amount','Closed','South',null,true,false],
+   ['G no stage',null,'South',15,true,false],
+  ]) {
+   const values={[stage.id]:status,[region.id]:area,[amount.id]:value,[included.id]:keep};
+   const record=await mutate('POST',base+'/records',{title,values});
+   if(restricted){
+    await grant(context,origin,record.pageId,'browser-owner','full');
+    const document=await api(`/api/pages/${record.pageId}`);
+    await mutate('PUT',`/api/sharing/pages/${record.pageId}/inheritance`,{expectedRevisionId:document.page.revisionId,restricted:true});
+   }
+   rows.push({...record,title,values,restricted});
+  }
+  const memberGrant=(await grant(context,origin,database.pageId,'browser-reader','view')).value;
+  assert.ok(memberGrant.id,'The native grant receipt identifies the grant to revoke.');
+  let selectedStage=null;
+  const expectedRows=(source,reader)=>rows.filter(row=>row.values[included.id]&&(!reader||!row.restricted)&&(source.id!==other.id||row.values[region.id]==='South')&&(source.id!==view.id||selectedStage==null||row.values[stage.id]===selectedStage));
+  const figure=visitor=>visitor.getByRole('figure',{name:'Chart of the current filtered view',exact:true});
+  async function open(visitor,source) {
+   await visitor.goto(`${origin}/app/databases/${database.id}?view=${source.id}`,{waitUntil:'networkidle'});
+   await visitor.getByRole('navigation',{name:'Saved views'}).getByRole('button',{name:'Chart',exact:true}).click();
+   await expect(figure(visitor)).toContainText(source.name);
+  }
+  async function reconcile(visitor,actor,source,reader,group,numeric,calculation) {
+   await visitor.getByRole('combobox',{name:'Group',exact:true}).selectOption(group.id);
+   await visitor.getByRole('combobox',{name:'Measure',exact:true}).selectOption(numeric?amount.id:'');
+   if(numeric)await visitor.getByRole('combobox',{name:'Calculation',exact:true}).selectOption(calculation);
+   const saved=await ok(actor,origin,'GET',`${base}/views/${source.id}`);
+   const expected=expectedRows(source,reader);
+   assert.deepEqual(saved.records.map(record=>record.pageId),expected.map(row=>row.pageId),'The saved view contains exactly the independently seeded filtered and permitted records.');
+   const buckets=new Map();
+   for(const record of saved.records){
+    const label=JSON.stringify(record.values[group.id]??null);
+    const values=buckets.get(label)??[];values.push(record.values[amount.id]);buckets.set(label,values);
+   }
+   const series=[...buckets].map(([label,values])=>{
+    const numbers=values.filter(value=>typeof value==='number');
+    const sum=numbers.reduce((total,value)=>total+value,0);
+    const value=!numeric||calculation==='count'?values.length:calculation==='sum'?sum:calculation==='average'?(numbers.length?sum/numbers.length:null):calculation==='minimum'?(numbers.length?Math.min(...numbers):null):(numbers.length?Math.max(...numbers):null);
+    return {label:JSON.parse(label),value};
+   });
+   const native=await ok(actor,origin,'GET',`${base}/views/${source.id}/chart?group=${group.id}&numeric=${numeric?amount.id:''}&calculation=${numeric?calculation:'count'}`);
+   assert.equal(native.viewId,source.id);assert.equal(native.viewName,source.name);
+   assert.deepEqual(native.series,series,'Every native chart series is independently reconciled with this reader’s saved-view response.');
+   await expect(figure(visitor).locator('.chart-row')).toHaveCount(series.length);
+   await expect.poll(()=>figure(visitor).locator('.chart-row').evaluateAll(elements=>elements.map(element=>({label:element.querySelector('span').textContent,value:element.querySelector('strong').textContent})))).toEqual(series.map(item=>({label:item.label==null?'No value':String(item.label),value:item.value==null?'No value':item.value.toLocaleString('en-US')})));
+   await expect(figure(visitor)).toContainText(source.name);
+  }
+  await open(page,view);
+  if(proofOnly){
+   await page.getByRole('combobox',{name:'Measure',exact:true}).selectOption(amount.id);
+   await page.getByRole('combobox',{name:'Calculation',exact:true}).selectOption('sum');
+   await expect(figure(page).locator('.chart-row')).toHaveCount(3);
+   await accessible(page,'DB-008 named saved-view chart');
+   return;
+  }
+  await reconcile(page,context,view,false,stage,false,'count');
+  for(const calculation of ['sum','average','minimum','maximum'])await reconcile(page,context,view,false,stage,true,calculation);
+  await reconcile(page,context,view,false,region,true,'sum');
+  // Editing the selected saved view keeps the chart mounted; its source name
+  // and series must both refresh from the new authoritative view revision.
+  await page.getByRole('button',{name:'View options',exact:true}).click();
+  await page.getByRole('menuitem',{name:'View settings',exact:true}).click();
+  const settings=page.getByRole('dialog',{name:'View settings',exact:true});
+  await settings.getByRole('textbox',{name:'Name',exact:true}).fill('Approved included work');
+  await settings.getByRole('button',{name:'Add condition',exact:true}).click();
+  const condition=settings.locator('fieldset').filter({has:page.locator('legend').filter({hasText:/^Condition$/})}).last();
+  await condition.getByRole('combobox',{name:'Field',exact:true}).selectOption(stage.id);
+  await condition.getByRole('combobox',{name:'Condition',exact:true}).selectOption('eq');
+  await condition.getByRole('combobox',{name:'Value',exact:true}).selectOption('Open');
+  await settings.getByRole('button',{name:'Save view',exact:true}).click();
+  await expect(settings).toBeHidden();
+  view.name='Approved included work';
+  selectedStage='Open';
+  await reconcile(page,context,view,false,stage,true,'sum');
+  await accessible(page,'DB-008 named saved-view chart');
+  await page.reload({waitUntil:'networkidle'});
+  await page.getByRole('navigation',{name:'Saved views'}).getByRole('button',{name:'Chart',exact:true}).click();
+  await reconcile(page,context,view,false,stage,false,'count');
+  await page.getByRole('navigation',{name:'Saved views'}).getByRole('button',{name:other.name,exact:true}).click();
+  await page.getByRole('navigation',{name:'Saved views'}).getByRole('button',{name:'Chart',exact:true}).click();
+  // The extra source-view criterion does not change the other saved view.
+  await reconcile(page,context,other,false,region,true,'average');
+  await withSecondPerson(state,page.viewportSize().width,async({bob})=>{
+   await open(bob.page,other);
+   await reconcile(bob.page,bob.context,other,true,stage,false,'count');
+   await reconcile(bob.page,bob.context,other,true,stage,true,'average');
+   await open(bob.page,view);
+   await reconcile(bob.page,bob.context,view,true,stage,true,'sum');
+   const before=await api(`${base}/views/${view.id}`);
+   await mutate('POST','/api/sharing',{id:memberGrant.id,targetKind:'page',targetId:database.pageId,principalKind:'member',principalId:'browser-reader',level:'view',revoke:true});
+   for(const path of [`${base}/views/${view.id}`,`${base}/views/${view.id}/chart?group=${stage.id}&numeric=${amount.id}&calculation=sum`]){
+    const denied=await call(bob.context,origin,'GET',path);
+    assert.equal(denied.status,404);assert.ok(!JSON.stringify(denied.body).includes('Approved included work'));
+   }
+   await bob.page.getByRole('combobox',{name:'Calculation',exact:true}).selectOption('average');
+   await expect(figure(bob.page)).toBeHidden();
+   await expect(bob.page.getByRole('alert')).toContainText('Content unavailable');
+   assert.deepEqual((await api(`${base}/views/${view.id}`)).records,before.records,'Revoked reads change no source records.');
+  });
+  console.log('DB-008 native chart counts, numeric aggregates, filtered source names, fewer grants and revocation passed');
+ } finally {await setPolicy(workspace.policies);}
 }

@@ -12,7 +12,7 @@ import type { BlockView } from "../../../../shared/api/content";
 interface Revision {
   id: string;
   origin: string;
-  authorDisplayName?: string;
+  authorDisplayName: string;
   createdAt: string;
   ordinal: number | null;
   label: string | null;
@@ -80,7 +80,7 @@ export function PageHistory({
                 <time dateTime={item.createdAt}>
                   {displayRevisionTime(item.createdAt)}
                 </time>
-                <span>{item.authorDisplayName ?? item.origin}</span>
+                <span>{item.authorDisplayName} · {item.origin}</span>
                 {labelled ? (
                   <span>
                     {item.ordinal ? `Version ${item.ordinal}` : ""} {item.label}

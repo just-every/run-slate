@@ -8,10 +8,10 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 56 | 241 | 35 | 332 |
+| Core | 57 | 240 | 35 | 332 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 56 | 241 | 41 | 338 |
+| Full target | 57 | 240 | 41 | 338 |
 
 Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e6612` (29 October 2026); SEARCH-001 native source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. DB-012 record-detail proof reviewed from source `63a0e8f` (31 October 2026); its exact candidate and Verify are named by the branch handoff. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
@@ -868,8 +868,8 @@ Core · published · **partial** · Cites BASE-ROLE-001
 1. `full` may read, edit, comment, share and change access; `edit` may read, edit and comment; `comment` may read and comment; `view` may read only. no interface offers an action the level does not carry.
 2. Server-side level matrix for full, edit, comment and view on every operation; no interface offers an action beyond the level.
 
-**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
-**Gap.** No validated CI-run proof for this acceptance point: "`full` may read, edit, comment, share and change access; `edit` may read, edit and comment; `comment` may read and comment; `view` may read only."<br>No validated CI-run proof for this acceptance point: "Every server operation checks the level for the acting member (`BASE-ACCESS-004`), and no interface offers an action the level does not carry."
+**Evidence.** `tests/qualification/ui-convergence/journeys.test.mjs` — "native ordinary page full authority retains inventories and refuses revoked captures at 1440px" and the corresponding edit, comment and view registrations, calling permissionLevelsJourney in `tests/qualification/ui-convergence/sharing-journey.mjs`, permissionPageEditsMatrix (`tests/qualification/ui-convergence/sharing-page-edit-matrix.mjs`), permissionDiscussionMatrix (`tests/qualification/ui-convergence/sharing-discussion-matrix.mjs`), permissionLifecycleMatrix, permissionArchiveMatrix and permissionPermanentDeleteMatrix (`tests/qualification/ui-convergence/sharing-lifecycle-matrix.mjs`): supporting native ordinary-page level, retained-state, replay and revocation assertions only; the existing responsive core callers retain the selected matrix.
+**Gap.** Supporting candidate proof only; SHARE-002 remains partial. The complete every-operation matrix across other record families, lifecycles, profiles, principals, extensions, automation and public API surfaces remains unproven. Existing draft privacy, LIFE-002, REV-001, queued scope, inheritance, expiry, grant narrowing, ADMIN-007 and shared company-policy prerequisites remain authoritative.
 
 #### SHARE-003 — Inheritance
 
@@ -1082,8 +1082,8 @@ Core · published · **partial**
 1. History is readable by anyone who may read the record and is never editable.
 2. History lists revisions newest first with actor, time and origin, readable by readers and never editable.
 
-**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
-**Gap.** No validated CI-run proof for this acceptance point: "Each of those records has a history listing its revisions newest first with the actor, the time, the origin, and, where `REV-007` assigns them, an ordinal and a label."<br>No validated CI-run proof for this acceptance point: "History is readable by anyone who may read the record and is never editable."
+**Evidence.** `tests/qualification/core/audit-content.test.ts` — ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time (revisionHistoryProof: ordinary page, database page and record page receipts, exact stored rows and snapshots, refused rewrites and revoked reads under both profiles); `tests/qualification/ui-convergence/journeys.test.mjs` — two people edit at once, lose access mid-edit and restore history at 1440px; real core-wiki and touch-member journeys at 390px (historyInventoryJourney: complete rendered rows, actor, time, origin, ordinals and labels, published-only reader reload and revocation); `tests/qualification/ui-convergence/record-detail-journey.mjs` — recordDetailJourney (retained snapshots and both record parity values).
+**Gap.** Container, comment, template and decision record histories remain omitted and unproven; complete cross-family acceptance 1–2 remains unproven. Decision, default-surface and AI duties retain the ADMIN-007 and shared company-policy prerequisites. This ordinary-page, database-page and record-page proof grants no wider historical-content access and releases no Slate clause.
 
 #### REV-003 — Restore
 
@@ -1489,8 +1489,8 @@ Core · published · **partial**
 3. These switches carry no plan, tier or upgrade gate.
 4. Three switches per container; containers may only narrow the workspace value; forbidding applies at once.
 
-**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
-**Gap.** No validated CI-run proof for this acceptance point: "A container carries three switches — guests, public links and anonymous access — each `allowed` or `forbidden`."<br>No validated CI-run proof for this acceptance point: "A workspace owner sets a workspace-wide value and a container administrator may only narrow it."<br>No validated CI-run proof for this acceptance point: "Forbidding takes effect at once under `WEB-001` and `SHARE-007`."<br>No validated CI-run proof for this acceptance point: "These switches carry no plan, tier or upgrade gate."
+**Evidence.** `tests/qualification/ui-convergence/journeys.test.mjs` — "page outline follows headings and navigates long pages at 1440px" and "space tree title filtering preserves ancestors, access and expansion at 390px", calling `tests/qualification/ui-convergence/guest-scope-journey.mjs` — "guestScopeJourney" and "externalSwitchesJourney": acceptance 1, 3 and 4 use independent native workspace-owner and container-administrator controls, unchanged ordinary-member and personal-container refusals, persisted switch snapshots and effective workspace ceilings; acceptance 2 native guest and public-access duties use issued guest sessions, explicit always-live published revisions and anonymous local-publication preconditions, retained exposure addresses, next-request refusals, populated page, tree, search and inbox removal and open-editor closure within five seconds with unsaved text retained. Existing supporting HTTP publication and media assertions in `tests/flagship/content/http.test.ts` — "publication, human verification and media enforce current reader authority" remain intact.
+**Gap.** Inherited AI-answer removal through SHARE-007 remains unproved under ADMIN-007 and the shared company-policy prerequisites, as held by sd-slate-c-f164. The general grant-narrowing scope conflict in SHARE-007 is not resolved or claimed by this forbidding-only slice. Full inherited acceptance and every existing release prerequisite remain retained; no Slate clause is released.
 
 #### CONT-008 — Container access profile
 
@@ -1630,8 +1630,8 @@ Core · published · **partial**
 1. It reads the same filtered records the view shows and states which view it reads.
 2. A chart over one view states its view and embeds in a page.
 
-**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
-**Gap.** No validated CI-run proof for this acceptance point: "A chart is built over one view, showing counts or a numeric field aggregated by a grouping field, and can be embedded in a page (`DB-011`)."<br>No validated CI-run proof for this acceptance point: "It reads the same filtered records the view shows and states which view it reads."
+**Evidence.** `tests/flagship/structured/http.test.ts` — Worker HTTP rejects missing expired revoked and denied sessions and persists authorized input (chartHttpJourney); `tests/qualification/ui-convergence/touch-database-tools-journey.mjs` — standaloneChartJourney, loaded by the existing spreadsheet database journey in `tests/qualification/ui-convergence/journeys.test.mjs`; the existing phone core journey shows its named-view screen.
+**Gap.** Acceptance 2 page embedding and the requirement’s `DB-011` live embedded-view duties remain unimplemented or unproven: reader-scoped embedded results, source changes within 5 seconds and independent embedded filters and sorts. Standalone native controls, source names, filtered record counts and numeric aggregates are covered; no embedded-chart acceptance is claimed.
 
 #### DB-009 — Lock structure
 
@@ -1718,7 +1718,7 @@ Core · published · **partial**
 
 #### AUTO-003 — Run log
 
-Core · published · **partial** · Cites BASE-OPS-004
+Core · published · **done** · Cites BASE-OPS-004
 
 **Requirement.** Every rule keeps a per-run log with the trigger, the actor, the records touched, the time and one of the states configuration-changed, queued, running, success, no-action, condition-not-met, throttled, error, failure and disabled.
 
@@ -1726,8 +1726,8 @@ Core · published · **partial** · Cites BASE-OPS-004
 1. A failed run is visible without a search (`BASE-OPS-004`), and a rule that fails repeatedly is disabled and says so.
 2. Run log records every listed state; repeated failures disable the rule visibly.
 
-**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
-**Gap.** No validated CI-run proof for this acceptance point: "Every rule keeps a per-run log with the trigger, the actor, the records touched, the time and one of the states configuration-changed, queued, running, success, no-action, condition-not-met, throttled, error, failure and disabled."<br>No validated CI-run proof for this acceptance point: "A failed run is visible without a search (`BASE-OPS-004`), and a rule that fails repeatedly is disabled and says so."
+**Evidence.** `tests/flagship/structured/automation-repairs.test.ts` — "automation admission, resumed effects and schedules preserve current scope and exactly-once recovery" calls `tests/flagship/structured/automation-run-log.case.ts` — "automationRunLogCase": native rule and run HTTP, real content events, all ten states, trigger, actor, current-readable touched records, time, production rate and failure thresholds, durable retry and canonical receipt, effect and activity reconciliation (requirement and acceptance 1–2). `tests/qualification/ui-convergence/journeys.test.mjs` — "spreadsheet tables merge, sort and round-trip through edited database records at 1440px" and "real core-wiki and touch-member journeys at 390px" call `tests/qualification/ui-convergence/automation-run-log-journey.mjs` — "automationRunLogJourney": real emitted Worker metadata, errors retaining retries, failure beside the rule without log search and persisted repeated-failure disable reason (acceptance 1–2 and BASE-OPS-004).
+**Gap.** None.
 
 #### AUTO-004 — Loops are bounded
 
@@ -2279,8 +2279,8 @@ Core · published · **partial** · From IMP-003 · Cites BASE-INPUT-001, BASE-I
 6. No import publishes an anonymous page.
 7. A general grant is container-scoped, never workspace-wide (`SHARE-005`), and a personal container carries no general grant (`SHARE-004`).
 
-**Evidence.** `tests/e2e/imports/real-exports.test.ts`
-**Gap.** Missing a public reviewed-mapping journey that applies active and unresolved restrictions and tries unsafe principal mapping without widening; the cited incumbent-export test reads parsed source restrictions only.
+**Evidence.** `tests/e2e/imports/preview-undo.test.ts` — reviews, applies and reverses real Notion and Confluence content without losing native edits, including reviewedPrincipalsJourney for acceptance 2, 3, 5 and 6; `tests/qualification/ui-convergence/journeys.test.mjs` — existing responsive Settings callers with importReviewJourney; `tests/e2e/imports/real-exports.test.ts` — incumbent-produced archives preserve pages, relationships, media and explicit losses.
+**Gap.** Acceptance 1's complete content, tree, labels, versions, comments, ordinals, status, publication, links and named user and group restriction matrix; acceptance 4's complete empty, unknown and unmapped restriction and recovery-access matrix; and acceptance 7's complete general-grant and personal-space matrix remain unproven. The genuine incumbent fixture lacks the missing cases; synthetic parser cases do not replace them. ADMIN-007 and shared company-policy, IMP-001, full PORT-004 and imported-record SEARCH-001 through SEARCH-006 prerequisites remain unchanged.
 
 #### IMP-004 — Import safety
 
@@ -2320,8 +2320,8 @@ Core · published · **partial** · Cites BASE-DATA-001
 1. An export contains workspace settings; members, groups and guests; every container, page, database, record, template, comment thread, notification, automation rule, AI run and activity entry as JSON, with each record's revision history and grants; and every uploaded file in its original form.
 2. Workspace export contains every listed record kind with revisions and grants and original files.
 
-**Evidence.** `tests/qualification/erasure-metadata/atomic-custody.test.ts` — "Erasure ARCH-006 BASE-DATA-003 PORT-001 PORT-002: atomic page and member custody erasure survives cleanup failure, restore and re-export"
-**Gap.** Missing a public export journey that populates and opens every promised wiki record family, revisions, grants and original files; the cited erasure flow checks retained import custody through service-level export.
+**Evidence.** `tests/qualification/ui-convergence/transfer-jobs-journey.mjs` — "transferJobsJourney", called by "readable exports retain discussions through HTML and Markdown re-import at 1440px" and "real core-wiki and touch-member journeys at 390px" in `tests/qualification/ui-convergence/journeys.test.mjs`: acceptance 1 and 2 supporting ordinary authored page-subtree export only; native mutations and reads, ordered parent and children, bodies and properties, thirteen retained page revisions including the restricted-child boundary, changed, revoked and regranted explicit member and group page grants, edited and resolved anchored discussion and reply with retained discussion and grant histories, and two uploaded originals reconciled against independent source snapshots and actual Settings ZIP rows, hashes and bytes, with unchanged source snapshots, original downloads and active or revoked access decisions. `tests/qualification/erasure-metadata/atomic-custody.test.ts` — "Erasure ARCH-006 BASE-DATA-003 PORT-001 PORT-002: atomic page and member custody erasure survives cleanup failure, restore and re-export"
+**Gap.** Acceptance 1 and 2 remain incomplete: workspace settings; complete members, groups and guests; containers, databases, records, templates, notifications, automation rules, AI runs and activity; every family's complete revision histories and grants; other uploaded-original cases; and requirement-wide export completeness remain unproven. The ordinary authored page-subtree slice does not establish these omitted families or narrow either acceptance point. Existing PORT-003, PORT-006 and PORT-007 scopes and privacy, import, erasure, ADMIN-007 and shared company-policy prerequisites remain unchanged; no Slate clause is released.
 
 #### PORT-002 — Referential restore
 
@@ -3834,8 +3834,8 @@ Core · target · **partial**
 1. a Workers journey kills a job mid-run and finds it resumed once with no duplicate effect.
 2. A forced failure appears on the owner's Home, and stopping a queued job cancels its pending sends.
 
-**Evidence.** `src/core/features/automation/jobs.ts`
-**Gap.** No validated CI-run proof for this acceptance point: "a Workers journey kills a job mid-run and finds it resumed once with no duplicate effect."<br>No validated CI-run proof for this acceptance point: "A forced failure appears on the owner's Home, and stopping a queued job cancels its pending sends."
+**Evidence.** `tests/qualification/ui-convergence/journeys.test.mjs` — "spreadsheet tables merge, sort and round-trip through edited database records at 1440px" calls `tests/qualification/ui-convergence/automation-run-log-journey.mjs` — "automationRunLogJourney" and `tests/qualification/ui-convergence/automation-restart-journey.mjs` — "automationRestartJourney": authenticated native rule and committed record update, SIGKILL after durable record, comment and inbox intent, restart against the same store, unexpired lease refusal and genuine lease expiry, repeated scheduled drains, one admitted job and run, exact canonical effects, action and operation receipts, activity, trigger replay and recovered run log at 1440 and 390 (acceptance 1, native rules only). Existing `tests/flagship/structured/automation-repairs.test.ts` — "automation admission, resumed effects and schedules preserve current scope and exactly-once recovery" retains supporting current-authority and exception-recovery checks.
+**Gap.** Acceptance 1 remains unproven for other background-job families. Acceptance 2's owner Home failure and stuck projection and explicit stop cancelling pending sends remain unproven. Complete accountable owner, due condition, progress, failure and stop or resolution semantics across schedules, reminders, review escalations, connector syncs, verification rules and agent work, and complete message, record and issue deduplication remain unfinished. Connector, agent, provider, ADMIN-007 and shared company-policy prerequisites remain authoritative; no external boundary is released. Exact candidate Verify and guarded landing remain required.
 
 ### Moving in and out
 

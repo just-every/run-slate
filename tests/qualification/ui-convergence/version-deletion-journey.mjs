@@ -3,7 +3,16 @@ import { randomUUID } from 'node:crypto';
 import { expect } from '@playwright/test';
 import { accessible } from './browser-evidence.mjs';
 import { submitDialog, waitForDialogReady } from './browser-support.mjs';
+import { requestTimeline } from './request-timeline.mjs';
 import { call, grant, ok, restrictedPage } from './two-people-support.mjs';
+
+// Hosted-only REV-006 publication bound, per fv's 2026-11-06 23:29Z option (a).
+// work/sd-slate-rev006-timeline-1/REPORT.md (Verify 42304069512, attempts 1/2)
+// records 5–7 s server/browser stalls versus 28–54 ms local handling at CPU6.
+// work/sd-slate-ci-shape-focus-1/REPORT.md (Verify 42314905202) records the
+// isolated journey's exact /open taking 6365 ms; another shard shape did not help.
+// Keep local failures strict and every non-publication bound unchanged.
+export const REV006_PUBLICATION_STEP_TIMEOUT_MS = process.env.CI ? 15000 : 5000;
 
 /** Native labelled history: a full member deletes one version, retaining the rest. */
 export async function versionDeletionJourney(state, people) {
@@ -43,10 +52,49 @@ export async function versionDeletionJourney(state, people) {
       const dialog = alice.page.getByRole('dialog');
       await waitForDialogReady(dialog);
       await dialog.getByLabel('Version label', { exact: true }).fill(label);
-      await submitDialog(alice.page, dialog, 'Review publication', `/api/pages/${pageId}/publish-preview`);
-      await expect(dialog.getByRole('region', { name: 'Reviewed publication', exact: true })).toBeVisible();
-      await submitDialog(alice.page, dialog, 'Publish workspace revision', `/api/pages/${pageId}/publish`);
-      await expect(dialog).toBeHidden();
+      const previewObservation = requestTimeline(alice.context).publication(alice.page, `/api/pages/${pageId}/publish-preview`);
+      try {
+        await Promise.all([
+          alice.page.waitForResponse(item => item.request().method() === 'POST'
+            && new URL(item.url()).pathname === `/api/pages/${pageId}/publish-preview`,
+          { timeout: REV006_PUBLICATION_STEP_TIMEOUT_MS }),
+          submitDialog(alice.page, dialog, 'Review publication', `/api/pages/${pageId}/publish-preview`),
+        ]);
+        await expect(dialog.getByRole('region', { name: 'Reviewed publication', exact: true })).toBeVisible(
+          { timeout: REV006_PUBLICATION_STEP_TIMEOUT_MS },
+        );
+      } catch (cause) {
+        await previewObservation.failed();
+        throw cause;
+      }
+      // Publication's refresh starts an exact-revision open in a client effect.
+      // Settle that write before the journey's next block PATCH advances the ACL
+      // epoch. Dialog closure alone does not confirm that background response.
+      const publicationObservation = requestTimeline(alice.context).publication(alice.page, `/api/pages/${pageId}/publish`);
+      const publication = alice.page.waitForResponse(item => item.request().method() === 'POST'
+        && new URL(item.url()).pathname === `/api/pages/${pageId}/publish`
+        && item.request().postDataJSON().label === label, { timeout: REV006_PUBLICATION_STEP_TIMEOUT_MS });
+      const revision = publication.then(async response => {
+        assert.equal(response.status(), 200, await response.text());
+        return (await response.json()).value.revisionId;
+      });
+      const opened = alice.page.waitForResponse(async item => item.request().method() === 'POST'
+        && new URL(item.url()).pathname === `/api/pages/${pageId}/open`
+        && item.request().postDataJSON().revisionId === await revision, { timeout: REV006_PUBLICATION_STEP_TIMEOUT_MS });
+      await Promise.all([
+        revision,
+        opened.then(async response => {
+          assert.equal(response.status(), 200, await response.text());
+          await response.finished();
+        }),
+        (async () => {
+          await submitDialog(alice.page, dialog, 'Publish workspace revision', `/api/pages/${pageId}/publish`);
+          await expect(dialog).toBeHidden({ timeout: REV006_PUBLICATION_STEP_TIMEOUT_MS });
+        })(),
+      ]).catch(async cause => {
+        await publicationObservation.failed();
+        throw cause;
+      });
       return (await read()).publishedRevisionId;
     };
     const first = await publish('First publication');
@@ -71,7 +119,6 @@ export async function versionDeletionJourney(state, people) {
 
     // Edit access can read the populated preview, but cannot delete it by either door.
     await bob.page.goto(citation(intermediate), { waitUntil: 'networkidle' });
-    await bob.page.locator('.revision-preview').waitFor({ state: 'visible' });
     await expect(bob.page.locator('.revision-preview')).toContainText('Remove only this intermediate content.');
     await expect(deleteControl(bob.page)).toHaveCount(0);
     const forbidden = await call(bob.context, origin, 'DELETE', `/api/revisions/${pageId}/${intermediate}`, { operationKey: randomUUID() });
@@ -82,7 +129,6 @@ export async function versionDeletionJourney(state, people) {
     await grant(alice.context, origin, pageId, bob.id, 'full', { id: bobGrant.id });
     for (const id of [working, published]) {
       await bob.page.goto(citation(id), { waitUntil: 'networkidle' });
-      await bob.page.locator('.revision-preview').waitFor({ state: 'visible' });
       await expect(bob.page.locator('.revision-preview')).toBeVisible();
       await expect(deleteControl(bob.page)).toHaveCount(0);
       const refused = await call(bob.context, origin, 'DELETE', `/api/revisions/${pageId}/${id}`, { operationKey: randomUUID() });
@@ -92,7 +138,6 @@ export async function versionDeletionJourney(state, people) {
     }
     await profile({ 'page.version.v1': 'autosnapshot' });
     await bob.page.goto(citation(intermediate), { waitUntil: 'networkidle' });
-    await bob.page.locator('.revision-preview').waitFor({ state: 'visible' });
     await expect(bob.page.locator('.revision-preview')).toContainText('Remove only this intermediate content.');
     await expect(deleteControl(bob.page)).toHaveCount(0);
     const hidden = await call(bob.context, origin, 'DELETE', `/api/revisions/${pageId}/${intermediate}`, { operationKey: randomUUID() });
@@ -106,14 +151,12 @@ export async function versionDeletionJourney(state, people) {
 
     // A full member confirms exactly one native destructive action.
     await bob.page.goto(citation(intermediate), { waitUntil: 'networkidle' });
-    await bob.page.locator('.revision-preview').waitFor({ state: 'visible' });
     const rowBefore = bob.page.locator('.history-list li').filter({ hasText: 'Version 2' });
-    await rowBefore.waitFor({ state: 'visible' });
     await expect(rowBefore).toContainText('Intermediate publication');
     await deleteControl(bob.page).click();
     const dialog = bob.page.getByRole('dialog', { name: 'Delete this intermediate revision?', exact: true });
     const response = bob.page.waitForResponse(item => item.request().method() === 'DELETE' && new URL(item.url()).pathname === `/api/revisions/${pageId}/${intermediate}`);
-    await submitDialog(bob.page, dialog, 'Delete revision', `/api/revisions/${pageId}/${intermediate}`, 'DELETE');
+    await dialog.getByRole('button', { name: 'Delete revision', exact: true }).click();
     const committed = await response;
     assert.equal(committed.status(), 200);
     const input = committed.request().postDataJSON(), receipt = await committed.json();
@@ -149,13 +192,11 @@ export async function versionDeletionJourney(state, people) {
 
     await bob.page.reload({ waitUntil: 'networkidle' });
     const row = bob.page.locator('.history-list li').filter({ hasText: 'Version 2' });
-    await row.waitFor({ state: 'visible' });
     await expect(row).toContainText(`Deleted by ${bob.name} on`);
     const deletedTime = row.locator('time').nth(1);
     await expect(deletedTime).toHaveAttribute('datetime', tombstone.deletedAt);
     assert.match(await deletedTime.innerText(), /\d{2} \w{3} \d{4}, \d{2}:\d{2}:\d{2}/);
     await expect(row).not.toContainText('Intermediate publication');
-    await bob.page.getByText('This exact revision has been deleted. Its content is unavailable.', { exact: true }).waitFor({ state: 'visible' });
     await expect(bob.page.locator('.revision-preview')).toHaveCount(0);
     await expect(bob.page.getByText('This exact revision has been deleted. Its content is unavailable.', { exact: true })).toBeVisible();
     await expect(bob.page.locator('.history-list li')).toHaveCount(before.length);

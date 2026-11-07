@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import {useWorkspace} from "../../../../app/ui/WorkspaceContext";
 import { useEffect, useState } from "react";
 import { useResource } from "../../../../client/useResource";
@@ -10,6 +11,10 @@ export function AutomationWorkspace({sourceId}:{sourceId?:string}={}) {
   const rules = useResource<{ items: RuleRow[] }>("/api/automation");
   const [editing, setEditing] = useState<RuleRow | "new" | null>(null);
   const [selected, setSelected] = useState<string | null>(null);
+  useEffect(() => {
+    const timer = setInterval(() => { void rules.reload(); }, 4000);
+    return () => clearInterval(timer);
+  }, [rules.reload]);
   return (
     <section className="settings-panel">
       <h2>Let the routine run.</h2>
@@ -32,6 +37,12 @@ export function AutomationWorkspace({sourceId}:{sourceId?:string}={}) {
                       ? "Space"
                       : "Workspace"}
                 </p>
+                {rule.disabled_reason ? <p role="status">{rule.disabled_reason}</p> : null}
+                {rule.latestFailure ? <p role="status">
+                  {rule.latestFailure.state === "error" ? "Error · Retry pending" : "Failed run"}
+                  {` · ${new Date(rule.latestFailure.createdAt).toLocaleString()}`}
+                  {rule.latestFailure.message ? ` · ${rule.latestFailure.message}` : ""}
+                </p> : null}
               </div>
               <button onClick={() => setEditing(rule)}>Edit</button>
               <button
@@ -69,10 +80,14 @@ function AutomationRunLog({ id }: { id: string }) {
     items: {
       id: string;
       state: string;
+      created_at: string;
+      queued_at?: string;
+      actor: {id: string; name: string};
+      trigger: {event?: string; key?: string};
+      records: {id: string; title: string}[];
+      detail: {message?: string; reason?: string};
       started_at?: string;
       finished_at?: string;
-      error_detail?: string;
-      reason?: string;
       receipts?: { actionIndex: number; targetId: string; state: string }[];
     }[];
   }>(`/api/automation/${id}/runs`);
@@ -102,6 +117,8 @@ function AutomationRunLog({ id }: { id: string }) {
             <li key={run.id}>
               <div>
                 <strong>{run.state.replaceAll("-", " ")}</strong>
+                <p>Trigger: {run.trigger.event?.replaceAll("-", " ") ?? "Configuration change"} · Actor: {run.actor.name}</p>
+                <p>Recorded {new Date(run.created_at).toLocaleString()}</p>
                 <p>
                   {run.started_at
                     ? new Date(run.started_at).toLocaleString()
@@ -110,9 +127,13 @@ function AutomationRunLog({ id }: { id: string }) {
                     ? ` · Finished ${new Date(run.finished_at).toLocaleString()}`
                     : ""}
                 </p>
-                {run.error_detail || run.reason ? (
-                  <p role="status">{run.error_detail || run.reason}</p>
+                {run.detail.message || run.detail.reason ? (
+                  <p role="status">{run.detail.message || run.detail.reason}</p>
                 ) : null}
+                {run.state === "error" ? <p role="status">Retry pending; committed actions will not repeat.</p> : null}
+                <p>Touched records: {run.records.length ? run.records.map((record, index) => <span key={record.id}>
+                  {index ? ", " : ""}<Link to="/app/pages/$pageId" params={{pageId: record.id}}>{record.title}</Link>
+                </span>) : "None currently readable"}</p>
                 <ul>
                   {run.receipts?.map((receipt, index) => (
                     <li key={index}>
