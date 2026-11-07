@@ -4,6 +4,7 @@ import { expect } from '@playwright/test';
 import { signInWithOutbox } from '../../e2e/outbox-auth.mjs';
 import { accessible } from './browser-evidence.mjs';
 import { ok } from './two-people-support.mjs';
+import { rateLimitedRead } from './rate-limited-read.mjs';
 
 const labels = { light: 'Light', dark: 'Dark', system: 'Match device' };
 const appearance = '/app/settings/appearance';
@@ -81,7 +82,7 @@ async function choose(view, origin, theme) {
     assert.equal((await response.json()).value.theme, theme);
   }
   await expect(choice).toBeChecked();
-  assert.equal((await ok(view.context(), origin, 'GET', '/api/members/current')).theme, theme, 'The native member record stores the selected preference.');
+  assert.equal((await rateLimitedRead(view.context(), origin, '/api/members/current')).theme, theme, 'The native member record stores the selected preference.');
 }
 
 async function operatorDestination(view, origin, route, inNavigation) {
@@ -119,7 +120,7 @@ export async function themeJourney(state, width) {
     await settledColors(view);
     await view.screenshot({ path: `.artifacts/ui-convergence/theme-${width}-${label}.png`, fullPage: false });
   };
-  const member = await api('/api/members/current');
+  const member = await rateLimitedRead(context, origin, '/api/members/current');
   const space = (await api('/api/containers')).items.find(item => item.name === 'Handbook');
   assert.ok(space);
   const mutate = (route, data) => ok(context, origin, 'POST', route, { operationKey: randomUUID(), ...data });
@@ -148,7 +149,7 @@ export async function themeJourney(state, width) {
   const publicMember = await context.newPage();
   try {
     await reader.addCookies([{ name: 'slate_session', value: state.readerCookie.split('=')[1], url: origin }]);
-    const readerMember = await ok(reader, origin, 'GET', '/api/members/current');
+    const readerMember = await rateLimitedRead(reader, origin, '/api/members/current');
     const readerSession = await signInWithOutbox(origin, readerMember.email);
     assert.notEqual(readerSession.cookie, state.readerCookie, 'The second member also receives a newly issued native session.');
     await reader.clearCookies();
@@ -222,7 +223,7 @@ export async function themeJourney(state, width) {
       }
       await page.reload({ waitUntil: 'networkidle' });
       await paintedTheme(page, resolved);
-      assert.equal((await api('/api/members/current')).theme, preference);
+      assert.equal((await rateLimitedRead(context, origin, '/api/members/current')).theme, preference);
 
       // No storage state, local storage or old session is copied to this device.
       const session = await signInWithOutbox(origin, member.email);
@@ -233,7 +234,7 @@ export async function themeJourney(state, width) {
         const fresh = await device.newPage();
         await fresh.goto(origin + appearance, { waitUntil: 'networkidle' });
         await expect(fresh.getByRole('radio', { name: labels[preference], exact: true })).toBeChecked();
-        const stored = await ok(device, origin, 'GET', '/api/members/current');
+        const stored = await rateLimitedRead(device, origin, '/api/members/current');
         assert.equal(stored.id, member.id);
         assert.equal(stored.theme, preference);
         await paintedTheme(fresh, preference === 'system' ? 'light' : preference);
@@ -245,7 +246,7 @@ export async function themeJourney(state, width) {
       await other.reload({ waitUntil: 'networkidle' });
       await expect(other.getByRole('radio', { name: 'Dark', exact: true })).toBeChecked();
       await paintedTheme(other, 'dark');
-      assert.equal((await ok(reader, origin, 'GET', '/api/members/current')).theme, 'dark', 'Changing one member never writes the other member preference.');
+      assert.equal((await rateLimitedRead(reader, origin, '/api/members/current')).theme, 'dark', 'Changing one member never writes the other member preference.');
 
       for (const exposure of exposures) for (const view of [publicMember, publicAnonymous]) {
         await view.emulateMedia({ colorScheme: 'light' });
@@ -264,7 +265,7 @@ export async function themeJourney(state, width) {
     }
     await choose(other, origin, 'light');
     await paintedTheme(other, 'light');
-    assert.equal((await api('/api/members/current')).theme, 'system', 'A member change also leaves the owner preference independent.');
+    assert.equal((await rateLimitedRead(context, origin, '/api/members/current')).theme, 'system', 'A member change also leaves the owner preference independent.');
     await paintedTheme(page, 'dark');
     console.log(`WORK-012 native themes, new sessions, independent members and anonymous exposures passed at ${width}px`);
   } finally {

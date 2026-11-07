@@ -1082,8 +1082,8 @@ Core · published · **partial**
 1. History is readable by anyone who may read the record and is never editable.
 2. History lists revisions newest first with actor, time and origin, readable by readers and never editable.
 
-**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
-**Gap.** No validated CI-run proof for this acceptance point: "Each of those records has a history listing its revisions newest first with the actor, the time, the origin, and, where `REV-007` assigns them, an ordinal and a label."<br>No validated CI-run proof for this acceptance point: "History is readable by anyone who may read the record and is never editable."
+**Evidence.** `tests/qualification/core/audit-content.test.ts` — ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time (revisionHistoryProof: ordinary page, database page and record page receipts, exact stored rows and snapshots, refused rewrites and revoked reads under both profiles); `tests/qualification/ui-convergence/journeys.test.mjs` — two people edit at once, lose access mid-edit and restore history at 1440px; real core-wiki and touch-member journeys at 390px (historyInventoryJourney: complete rendered rows, actor, time, origin, ordinals and labels, published-only reader reload and revocation); `tests/qualification/ui-convergence/record-detail-journey.mjs` — recordDetailJourney (retained snapshots and both record parity values).
+**Gap.** Container, comment, template and decision record histories remain omitted and unproven; complete cross-family acceptance 1–2 remains unproven. Decision, default-surface and AI duties retain the ADMIN-007 and shared company-policy prerequisites. This ordinary-page, database-page and record-page proof grants no wider historical-content access and releases no Slate clause.
 
 #### REV-003 — Restore
 
@@ -1630,8 +1630,8 @@ Core · published · **partial**
 1. It reads the same filtered records the view shows and states which view it reads.
 2. A chart over one view states its view and embeds in a page.
 
-**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
-**Gap.** No validated CI-run proof for this acceptance point: "A chart is built over one view, showing counts or a numeric field aggregated by a grouping field, and can be embedded in a page (`DB-011`)."<br>No validated CI-run proof for this acceptance point: "It reads the same filtered records the view shows and states which view it reads."
+**Evidence.** `tests/flagship/structured/http.test.ts` — Worker HTTP rejects missing expired revoked and denied sessions and persists authorized input (chartHttpJourney); `tests/qualification/ui-convergence/touch-database-tools-journey.mjs` — standaloneChartJourney, loaded by the existing spreadsheet database journey in `tests/qualification/ui-convergence/journeys.test.mjs`; the existing phone core journey shows its named-view screen.
+**Gap.** Acceptance 2 page embedding and the requirement’s `DB-011` live embedded-view duties remain unimplemented or unproven: reader-scoped embedded results, source changes within 5 seconds and independent embedded filters and sorts. Standalone native controls, source names, filtered record counts and numeric aggregates are covered; no embedded-chart acceptance is claimed.
 
 #### DB-009 — Lock structure
 
@@ -3834,8 +3834,8 @@ Core · target · **partial**
 1. a Workers journey kills a job mid-run and finds it resumed once with no duplicate effect.
 2. A forced failure appears on the owner's Home, and stopping a queued job cancels its pending sends.
 
-**Evidence.** `src/core/features/automation/jobs.ts`
-**Gap.** No validated CI-run proof for this acceptance point: "a Workers journey kills a job mid-run and finds it resumed once with no duplicate effect."<br>No validated CI-run proof for this acceptance point: "A forced failure appears on the owner's Home, and stopping a queued job cancels its pending sends."
+**Evidence.** `tests/qualification/ui-convergence/journeys.test.mjs` — "spreadsheet tables merge, sort and round-trip through edited database records at 1440px" calls `tests/qualification/ui-convergence/automation-run-log-journey.mjs` — "automationRunLogJourney" and `tests/qualification/ui-convergence/automation-restart-journey.mjs` — "automationRestartJourney": authenticated native rule and committed record update, SIGKILL after durable record, comment and inbox intent, restart against the same store, unexpired lease refusal and genuine lease expiry, repeated scheduled drains, one admitted job and run, exact canonical effects, action and operation receipts, activity, trigger replay and recovered run log at 1440 and 390 (acceptance 1, native rules only). Existing `tests/flagship/structured/automation-repairs.test.ts` — "automation admission, resumed effects and schedules preserve current scope and exactly-once recovery" retains supporting current-authority and exception-recovery checks.
+**Gap.** Acceptance 1 remains unproven for other background-job families. Acceptance 2's owner Home failure and stuck projection and explicit stop cancelling pending sends remain unproven. Complete accountable owner, due condition, progress, failure and stop or resolution semantics across schedules, reminders, review escalations, connector syncs, verification rules and agent work, and complete message, record and issue deduplication remain unfinished. Connector, agent, provider, ADMIN-007 and shared company-policy prerequisites remain authoritative; no external boundary is released. Exact candidate Verify and guarded landing remain required.
 
 ### Moving in and out
 

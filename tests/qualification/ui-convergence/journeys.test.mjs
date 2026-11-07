@@ -11,7 +11,7 @@ import {syncedCustodyJourney,syncedHistoryJourney,syncedMemberErasureJourney} fr
 import {peopleJourney} from './people-journey.mjs';
 import {workspaceAuthorityJourney} from './workspace-authority-journey.mjs';
 import {syncedJourney} from './synced-journey.mjs';
-import {touchDatabaseToolsJourney} from './touch-database-tools-journey.mjs';
+import {touchDatabaseToolsJourney,standaloneChartJourney} from './touch-database-tools-journey.mjs';
 import {archiveRetentionJourney} from './archive-retention-journey.mjs';
 import {touchManagementJourney} from './touch-management-journey.mjs';
 import {touchPageToolsJourney} from './touch-page-tools-journey.mjs';
@@ -51,6 +51,7 @@ import { withSecondPerson, call } from './two-people-support.mjs';
 import { concurrentEditingJourney } from './two-people-editing.mjs';
 import { accessChangeJourney } from './two-people-access.mjs';
 import { versionDeletionJourney } from './version-deletion-journey.mjs';
+import {historyInventoryJourney} from './history-inventory-journey.mjs';
 import { historyJourney } from './two-people-history.mjs';
 import { databaseJourney } from './database-journey.mjs';
 import { recordDetailJourney } from './record-detail-journey.mjs';
@@ -107,8 +108,10 @@ for (const width of [390, 1440]) {
         await chatJourney(state, width);
         await step('STAT-005 — status profiles preserve vocabulary and page revisions', () => statusProfileJourney(state, width));
         if (width === 390) {
+          await withSecondPerson(state, width, people => step('REV-002 complete page histories and current readers on a phone', () => historyInventoryJourney(state, people)));
           await automationRunLogJourney(state,touch);
           await step('DB-012 populated record fields, comments, history and parity', () => recordDetailJourney(state, width));
+          await standaloneChartJourney(state,{proofOnly:true});
           await templateCaptureJourney(state);
           await templateGalleryJourney(state);
           await archiveRetentionJourney(state,touch);
