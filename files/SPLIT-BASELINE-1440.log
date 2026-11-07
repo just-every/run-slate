@@ -1,0 +1,40 @@
+SYNCED_CUSTODY delete 1440: allowed static, denied and anonymous content-free, history unchanged
+SYNCED_CUSTODY remove 1440: allowed static, denied and anonymous content-free, history unchanged
+SYNCED_CUSTODY unsync 1440: allowed static, denied and anonymous content-free, history unchanged
+SYNCED_CUSTODY restore 1440: allowed static, denied and anonymous content-free, history unchanged
+SYNCED_CUSTODY discard 1440: allowed static, denied and anonymous content-free, history unchanged
+SYNCED_CUSTODY history 1440: ordinary static and immutable prior revision
+SYNCED_CUSTODY member-erasure 1440: deletion accepted, owner receives no private content
+✔ shared page invitations name their space and disappear on revocation at 1440px (85212.38676ms)
+ℹ Sharing phase navigation: 9417 ms
+ℹ Sharing phase synced custody: 32477 ms
+ℹ Sharing phase synced history: 8440 ms
+ℹ Sharing phase synced erasure: 7363 ms
+PROBE SHARE-002 erasure full: non-owner confirmed deletion and old-capture refusal
+✖ native ordinary page full authority retains inventories and refuses revoked captures at 1440px (240000.30254ms)
+ℹ Sharing full setup: 26700 ms
+PROBE SHARE-002 full: page edits, ownership, locks, metadata reads, discussion, reactions, grants and revoked captures; 45 refused requests preserve inventories at 1440px
+PROBE SHARE-002 erasure edit: preview and delete refused with fresh native proof and exact restored inventory
+
+Interrupted while running:
+
+⚠ tests/qualification/ui-convergence/journeys.test.mjs (tests/qualification/ui-convergence/journeys.test.mjs:1:1)
+✖ tests/qualification/ui-convergence/journeys.test.mjs (454671.119667ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 2
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 454676.990235
+
+✖ failing tests:
+
+test at tests/qualification/ui-convergence/journey-shard.mjs:23:97
+✖ native ordinary page full authority retains inventories and refuses revoked captures at 1440px (240000.30254ms)
+  'test timed out after 240000ms'
+
+test at tests/qualification/ui-convergence/journeys.test.mjs:1:1
+✖ tests/qualification/ui-convergence/journeys.test.mjs (454671.119667ms)
+  'Promise resolution is still pending but the event loop has already resolved'

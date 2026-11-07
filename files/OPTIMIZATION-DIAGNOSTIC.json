@@ -1,0 +1,37 @@
+{
+  "cases": [
+    {
+      "width": 1440,
+      "name": "native ordinary page full authority retains inventories and refuses revoked captures at 1440px",
+      "duration_ms": 67100.271161,
+      "message": "A repeated page edit changes no retained inventory.",
+      "observed_difference": "An additional native pages.open activity entry from the editor remount after locking.",
+      "source_commit": "77cc67721c6943f89f31e3ffdc9fc46b8f1b0955"
+    },
+    {
+      "width": 1440,
+      "name": "native ordinary page edit authority retains inventories and refuses revoked captures at 1440px",
+      "duration_ms": 61403.080311,
+      "message": "A repeated page edit changes no retained inventory.",
+      "observed_difference": "An additional native pages.open activity entry from the editor remount after locking.",
+      "source_commit": "77cc67721c6943f89f31e3ffdc9fc46b8f1b0955"
+    },
+    {
+      "width": 390,
+      "name": "native ordinary page full authority retains inventories and refuses revoked captures at 390px",
+      "duration_ms": 63962.585177,
+      "message": "A repeated page edit changes no retained inventory.",
+      "observed_difference": "An additional native pages.open activity entry from the editor remount after locking.",
+      "source_commit": "77cc67721c6943f89f31e3ffdc9fc46b8f1b0955"
+    },
+    {
+      "width": 390,
+      "name": "native ordinary page edit authority retains inventories and refuses revoked captures at 390px",
+      "duration_ms": 64575.967222,
+      "message": "A repeated page edit changes no retained inventory.",
+      "observed_difference": "An additional native pages.open activity entry from the editor remount after locking.",
+      "source_commit": "77cc67721c6943f89f31e3ffdc9fc46b8f1b0955"
+    }
+  ],
+  "root_cause": "The activity-first snapshot captured state before the lock-triggered editor remount committed its native page-open. The repair awaits that real response before freezing the inventory; no entry is filtered out."
+}

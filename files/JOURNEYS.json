@@ -1,0 +1,285 @@
+{
+  "proof_head": "e1853d86a7265b31679ee6b5179d73364d9ae78d",
+  "proof_tree": "4b74b0836410c348acf71bfdbb327da622c26530",
+  "timeout_ms": 240000,
+  "build": {
+    "schema": 1,
+    "commit": "e1853d86a7265b31679ee6b5179d73364d9ae78d",
+    "tree": "4b74b0836410c348acf71bfdbb327da622c26530",
+    "sourceSha256": "97eed6fd370adfcbcd2d86056ba30dd8d13c33f15a47e9804652594d1b7589de",
+    "lockSha256": "cda3490a06099488fdfa2c0bbaf97acb42d9b763be61f178ff4b1f982f26f235",
+    "outputSha256": "1523b62abdd2d6dbe142d5e0d2f742e7c0205921b0365d652238f09640c13294"
+  },
+  "receipts": [
+    {
+      "width": 1440,
+      "cases": [
+        {
+          "status": "ok",
+          "name": "shared page invitations name their space and disappear on revocation at 1440px",
+          "duration_ms": 85023.322032
+        },
+        {
+          "status": "ok",
+          "name": "native ordinary page full authority retains inventories and refuses revoked captures at 1440px",
+          "duration_ms": 228813.409435,
+          "command_scope": "isolated full-access registration"
+        },
+        {
+          "status": "ok",
+          "name": "native ordinary page edit authority retains inventories and refuses revoked captures at 1440px",
+          "duration_ms": 238751.157391
+        },
+        {
+          "status": "ok",
+          "name": "native ordinary page comment authority retains inventories and refuses revoked captures at 1440px",
+          "duration_ms": 164463.831482
+        },
+        {
+          "status": "ok",
+          "name": "native ordinary page view authority retains inventories and refuses revoked captures at 1440px",
+          "duration_ms": 130179.5964
+        }
+      ],
+      "phases": [
+        {
+          "level": "edit",
+          "phase": "page edits",
+          "duration_ms": 25865
+        },
+        {
+          "level": "edit",
+          "phase": "lifecycle",
+          "duration_ms": 27299
+        },
+        {
+          "level": "edit",
+          "phase": "archive",
+          "duration_ms": 26778
+        },
+        {
+          "level": "edit",
+          "phase": "erasure",
+          "duration_ms": 5229
+        },
+        {
+          "level": "edit",
+          "phase": "discussion",
+          "duration_ms": 35037
+        },
+        {
+          "level": "comment",
+          "phase": "page edits",
+          "duration_ms": 11865
+        },
+        {
+          "level": "comment",
+          "phase": "lifecycle",
+          "duration_ms": 12998
+        },
+        {
+          "level": "comment",
+          "phase": "archive",
+          "duration_ms": 19829
+        },
+        {
+          "level": "comment",
+          "phase": "erasure",
+          "duration_ms": 5547
+        },
+        {
+          "level": "comment",
+          "phase": "discussion",
+          "duration_ms": 37079
+        },
+        {
+          "level": "view",
+          "phase": "page edits",
+          "duration_ms": 10441
+        },
+        {
+          "level": "view",
+          "phase": "lifecycle",
+          "duration_ms": 11961
+        },
+        {
+          "level": "view",
+          "phase": "archive",
+          "duration_ms": 16947
+        },
+        {
+          "level": "view",
+          "phase": "erasure",
+          "duration_ms": 5355
+        },
+        {
+          "level": "view",
+          "phase": "discussion",
+          "duration_ms": 21560
+        },
+        {
+          "level": "full",
+          "phase": "page edits",
+          "duration_ms": 26962
+        },
+        {
+          "level": "full",
+          "phase": "lifecycle",
+          "duration_ms": 27359
+        },
+        {
+          "level": "full",
+          "phase": "archive",
+          "duration_ms": 17518
+        },
+        {
+          "level": "full",
+          "phase": "erasure",
+          "duration_ms": 7398
+        },
+        {
+          "level": "full",
+          "phase": "discussion",
+          "duration_ms": 31126
+        }
+      ],
+      "stdout_sha256": "f1105145c29ed6c50ffe01ed1077c9d32baa25d8f820114fde8101a08d3a7351",
+      "method": "Original/edit/comment/view cases from the complete batch; full-access case measured in an isolated invocation after all competing validation finished. The timed-out batch full case remains in the raw batch log."
+    },
+    {
+      "width": 390,
+      "cases": [
+        {
+          "status": "ok",
+          "name": "shared page invitations name their space and disappear on revocation at 390px",
+          "duration_ms": 89348.811253
+        },
+        {
+          "status": "ok",
+          "name": "native ordinary page full authority retains inventories and refuses revoked captures at 390px",
+          "duration_ms": 214351.970407,
+          "command_scope": "isolated full-access registration"
+        },
+        {
+          "status": "ok",
+          "name": "native ordinary page edit authority retains inventories and refuses revoked captures at 390px",
+          "duration_ms": 218670.535624
+        },
+        {
+          "status": "ok",
+          "name": "native ordinary page comment authority retains inventories and refuses revoked captures at 390px",
+          "duration_ms": 158688.714346
+        },
+        {
+          "status": "ok",
+          "name": "native ordinary page view authority retains inventories and refuses revoked captures at 390px",
+          "duration_ms": 118670.63437
+        }
+      ],
+      "phases": [
+        {
+          "level": "edit",
+          "phase": "page edits",
+          "duration_ms": 23343
+        },
+        {
+          "level": "edit",
+          "phase": "lifecycle",
+          "duration_ms": 16196
+        },
+        {
+          "level": "edit",
+          "phase": "archive",
+          "duration_ms": 21473
+        },
+        {
+          "level": "edit",
+          "phase": "erasure",
+          "duration_ms": 7694
+        },
+        {
+          "level": "edit",
+          "phase": "discussion",
+          "duration_ms": 36608
+        },
+        {
+          "level": "comment",
+          "phase": "page edits",
+          "duration_ms": 10475
+        },
+        {
+          "level": "comment",
+          "phase": "lifecycle",
+          "duration_ms": 11786
+        },
+        {
+          "level": "comment",
+          "phase": "archive",
+          "duration_ms": 21842
+        },
+        {
+          "level": "comment",
+          "phase": "erasure",
+          "duration_ms": 7270
+        },
+        {
+          "level": "comment",
+          "phase": "discussion",
+          "duration_ms": 33327
+        },
+        {
+          "level": "view",
+          "phase": "page edits",
+          "duration_ms": 9824
+        },
+        {
+          "level": "view",
+          "phase": "lifecycle",
+          "duration_ms": 11451
+        },
+        {
+          "level": "view",
+          "phase": "archive",
+          "duration_ms": 17205
+        },
+        {
+          "level": "view",
+          "phase": "erasure",
+          "duration_ms": 4093
+        },
+        {
+          "level": "view",
+          "phase": "discussion",
+          "duration_ms": 18112
+        },
+        {
+          "level": "full",
+          "phase": "page edits",
+          "duration_ms": 24736
+        },
+        {
+          "level": "full",
+          "phase": "lifecycle",
+          "duration_ms": 21206
+        },
+        {
+          "level": "full",
+          "phase": "archive",
+          "duration_ms": 15301
+        },
+        {
+          "level": "full",
+          "phase": "erasure",
+          "duration_ms": 5697
+        },
+        {
+          "level": "full",
+          "phase": "discussion",
+          "duration_ms": 29817
+        }
+      ],
+      "stdout_sha256": "6de887da4d466ae9f886121ffbffad96c14d120e0bf7e1055a84e8fa26fe9336",
+      "method": "Original/edit/comment/view cases from the complete batch; full-access case measured in an isolated invocation after all competing validation finished. The timed-out batch full case remains in the raw batch log."
+    }
+  ]
+}

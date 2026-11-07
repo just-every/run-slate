@@ -1,0 +1,33 @@
+TAP version 13
+# SYNCED_CUSTODY delete 390: allowed static, denied and anonymous content-free, history unchanged
+# SYNCED_CUSTODY remove 390: allowed static, denied and anonymous content-free, history unchanged
+# SYNCED_CUSTODY unsync 390: allowed static, denied and anonymous content-free, history unchanged
+# SYNCED_CUSTODY restore 390: allowed static, denied and anonymous content-free, history unchanged
+# SYNCED_CUSTODY discard 390: allowed static, denied and anonymous content-free, history unchanged
+# SYNCED_CUSTODY history 390: ordinary static and immutable prior revision
+# SYNCED_CUSTODY member-erasure 390: deletion accepted, owner receives no private content
+# Subtest: shared page invitations name their space and disappear on revocation at 390px
+ok 1 - shared page invitations name their space and disappear on revocation at 390px
+  ---
+  duration_ms: 83947.371523
+  type: 'test'
+  ...
+# Sharing phase setup: 29158 ms
+# Sharing phase navigation: 11075 ms
+# Sharing phase synced custody: 28439 ms
+# Sharing phase synced history: 5110 ms
+# Sharing phase synced erasure: 6479 ms
+# PROBE SHARE-002 erasure full: non-owner confirmed deletion and old-capture refusal
+# Subtest: native ordinary page full authority retains inventories and refuses revoked captures at 390px
+not ok 2 - native ordinary page full authority retains inventories and refuses revoked captures at 390px
+  ---
+  duration_ms: 240002.40183
+  type: 'test'
+  location: '/tmp/slate-sharing-390.mjs:26:3'
+  failureType: 'testTimeoutFailure'
+  error: 'test timed out after 240000ms'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# Sharing full setup: 24620 ms
+# PROBE SHARE-002 full: page edits, ownership, locks, metadata reads, discussion, reactions, grants and revoked captures; 45 refused requests preserve inventories at 390px
+# Interrupted while running: /tmp/slate-sharing-390.mjs at /tmp/slate-sharing-390.mjs:1:1

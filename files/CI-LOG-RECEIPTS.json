@@ -1,0 +1,38 @@
+[
+  {
+    "command": [
+      "gh",
+      "run",
+      "view",
+      "42359905141",
+      "--repo",
+      "just-every/run-slate",
+      "--job",
+      "128365930782",
+      "--log-failed"
+    ],
+    "exit_code": 0,
+    "file": "CI-app-failed.log",
+    "sha256": "e3997bf05a8a2676fcdb46f4105cbd978201e82940c510cd79ed85831c1d481b",
+    "original_sha256": "51bb45c89e46cb78f1003f26cac66c5b524ec5e7c912599a6379e98a155b92d9",
+    "redaction": "CI environment blocks omitted; failing-step diagnostics retained."
+  },
+  {
+    "command": [
+      "gh",
+      "run",
+      "view",
+      "42359905141",
+      "--repo",
+      "just-every/run-slate",
+      "--job",
+      "128366079178",
+      "--log-failed"
+    ],
+    "exit_code": 0,
+    "file": "CI-summary-failed.log",
+    "sha256": "81929188f7f4c4a22a1f2eb16949d0d51a83077f221d48b6de67870bd8c7a571",
+    "original_sha256": "3642e7e1af05278f44e6359f1fc30667488fde0298424845566051c1eb13f570",
+    "redaction": "CI environment blocks omitted; failing-step diagnostics retained."
+  }
+]

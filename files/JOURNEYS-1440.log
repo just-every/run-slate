@@ -1,0 +1,90 @@
+TAP version 13
+# SYNCED_CUSTODY delete 1440: allowed static, denied and anonymous content-free, history unchanged
+# SYNCED_CUSTODY remove 1440: allowed static, denied and anonymous content-free, history unchanged
+# SYNCED_CUSTODY unsync 1440: allowed static, denied and anonymous content-free, history unchanged
+# SYNCED_CUSTODY restore 1440: allowed static, denied and anonymous content-free, history unchanged
+# SYNCED_CUSTODY discard 1440: allowed static, denied and anonymous content-free, history unchanged
+# SYNCED_CUSTODY history 1440: ordinary static and immutable prior revision
+# SYNCED_CUSTODY member-erasure 1440: deletion accepted, owner receives no private content
+# Subtest: shared page invitations name their space and disappear on revocation at 1440px
+ok 1 - shared page invitations name their space and disappear on revocation at 1440px
+  ---
+  duration_ms: 85023.322032
+  type: 'test'
+  ...
+# Sharing phase navigation: 9821 ms
+# Sharing phase synced custody: 31884 ms
+# Sharing phase synced history: 7245 ms
+# Sharing phase synced erasure: 7197 ms
+# SHARING_PHASE full page edits 1440: 29661 ms
+# SHARING_PHASE full lifecycle 1440: 35643 ms
+# SHARING_PHASE full archive 1440: 21964 ms
+# PROBE SHARE-002 erasure full: non-owner confirmed deletion and old-capture refusal
+# SHARING_PHASE full erasure 1440: 12516 ms
+# SHARING_PHASE full discussion 1440: 38777 ms
+# Subtest: native ordinary page full authority retains inventories and refuses revoked captures at 1440px
+not ok 2 - native ordinary page full authority retains inventories and refuses revoked captures at 1440px
+  ---
+  duration_ms: 240001.719945
+  type: 'test'
+  location: '/home/agent/rer-consolidation/work/sd-slate-c-f201-fix1/run-slate/tests/qualification/ui-convergence/journey-shard.mjs:23:97'
+  failureType: 'testTimeoutFailure'
+  error: 'test timed out after 240000ms'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# Sharing full setup: 27532 ms
+# PROBE SHARE-002 full: page edits, ownership, locks, metadata reads, discussion, reactions, grants and revoked captures; 45 refused requests preserve inventories at 1440px
+# SHARING_PHASE edit page edits 1440: 25865 ms
+# SHARING_PHASE edit lifecycle 1440: 27299 ms
+# SHARING_PHASE edit archive 1440: 26778 ms
+# PROBE SHARE-002 erasure edit: preview and delete refused with fresh native proof and exact restored inventory
+# SHARING_PHASE edit erasure 1440: 5229 ms
+# SHARING_PHASE edit discussion 1440: 35037 ms
+# PROBE SHARE-002 edit: page edits, ownership, locks, metadata reads, discussion, reactions, grants and revoked captures; 42 refused requests preserve inventories at 1440px
+# Subtest: native ordinary page edit authority retains inventories and refuses revoked captures at 1440px
+ok 3 - native ordinary page edit authority retains inventories and refuses revoked captures at 1440px
+  ---
+  duration_ms: 238751.157391
+  type: 'test'
+  ...
+# Sharing edit setup: 40532 ms
+# Sharing edit matrix: 192026 ms
+# SHARING_PHASE comment page edits 1440: 11865 ms
+# SHARING_PHASE comment lifecycle 1440: 12998 ms
+# SHARING_PHASE comment archive 1440: 19829 ms
+# PROBE SHARE-002 erasure comment: preview and delete refused with fresh native proof and exact restored inventory
+# SHARING_PHASE comment erasure 1440: 5547 ms
+# SHARING_PHASE comment discussion 1440: 37079 ms
+# PROBE SHARE-002 comment: page edits, ownership, locks, metadata reads, discussion, reactions, grants and revoked captures; 43 refused requests preserve inventories at 1440px
+# Subtest: native ordinary page comment authority retains inventories and refuses revoked captures at 1440px
+ok 4 - native ordinary page comment authority retains inventories and refuses revoked captures at 1440px
+  ---
+  duration_ms: 164463.831482
+  type: 'test'
+  ...
+# Sharing comment setup: 30233 ms
+# Sharing comment matrix: 130070 ms
+# SHARING_PHASE view page edits 1440: 10441 ms
+# SHARING_PHASE view lifecycle 1440: 11961 ms
+# SHARING_PHASE view archive 1440: 16947 ms
+# PROBE SHARE-002 erasure view: preview and delete refused with fresh native proof and exact restored inventory
+# SHARING_PHASE view erasure 1440: 5355 ms
+# SHARING_PHASE view discussion 1440: 21560 ms
+# PROBE SHARE-002 view: page edits, ownership, locks, metadata reads, discussion, reactions, grants and revoked captures; 40 refused requests preserve inventories at 1440px
+# Subtest: native ordinary page view authority retains inventories and refuses revoked captures at 1440px
+ok 5 - native ordinary page view authority retains inventories and refuses revoked captures at 1440px
+  ---
+  duration_ms: 130179.5964
+  type: 'test'
+  ...
+# Sharing view setup: 29345 ms
+# Sharing view matrix: 96680 ms
+1..5
+# tests 5
+# suites 0
+# pass 4
+# fail 0
+# cancelled 1
+# skipped 0
+# todo 0
+# duration_ms 875998.083201

@@ -1,0 +1,7 @@
+verify (app)	Run node src/base/runtime/contract-docs.mjs check	﻿2026-11-07T09:29:44.3174195Z ##[group]Run node src/base/runtime/contract-docs.mjs check
+verify (app)	Run node src/base/runtime/contract-docs.mjs check	2026-11-07T09:29:44.3175286Z [36;1mnode src/base/runtime/contract-docs.mjs check[0m
+verify (app)	Run node src/base/runtime/contract-docs.mjs check	2026-11-07T09:29:44.3205306Z shell: /usr/bin/bash -e {0}
+[CI job environment block omitted from public evidence]
+verify (app)	Run node src/base/runtime/contract-docs.mjs check	2026-11-07T09:29:44.3206757Z ##[endgroup]
+verify (app)	Run node src/base/runtime/contract-docs.mjs check	2026-11-07T09:29:44.4794601Z ACCEPTANCE.md: generated content differs; run contract-docs write.
+verify (app)	Run node src/base/runtime/contract-docs.mjs check	2026-11-07T09:29:44.4895254Z ##[error]Process completed with exit code 1.

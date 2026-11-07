@@ -1,0 +1,15 @@
+{
+  "command": "node scripts/verify.mjs",
+  "head": "e1853d86a7265b31679ee6b5179d73364d9ae78d",
+  "tree": "4b74b0836410c348acf71bfdbb327da622c26530",
+  "started_at": "2026-11-07T09:12:57.839284+00:00",
+  "ended_at": "2026-11-07T09:17:09.633824+00:00",
+  "duration_ms": 251795,
+  "exit_code": 0,
+  "node": "v22.20.0",
+  "stdout_sha256": "d2b8debe54bb06e76446fd121efb3e09368497fb4a63a00094b3775c422309b2",
+  "mode": "Fresh emitted browser access and contract aggregation from complete actual prior Workers results",
+  "report": "VERIFY.json",
+  "passed_checks": 17,
+  "failed_checks": 0
+}

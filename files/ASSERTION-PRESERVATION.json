@@ -1,0 +1,40 @@
+{
+  "starting_candidate": "02700389cd02ebdeaa7808d96382801de3ecd0ce",
+  "proof_commit": "e1853d86a7265b31679ee6b5179d73364d9ae78d",
+  "method": "TypeScript AST extracts and compares the complete multiset of assert.* and expect calls, including chained matchers and poll calls. All four levels still execute once in separate registrations.",
+  "matrix_files": [
+    {
+      "file": "tests/qualification/ui-convergence/sharing-journey.mjs",
+      "before": 240,
+      "after": 240,
+      "assertion_calls_byte_equal_after_whitespace_normalization": true,
+      "source_sha256": "d29c4a93c10e3d9634cc97f95c87963acc1aee3f53b8e0b8b4755d0d057e8fd8"
+    },
+    {
+      "file": "tests/qualification/ui-convergence/sharing-discussion-matrix.mjs",
+      "before": 54,
+      "after": 54,
+      "assertion_calls_byte_equal_after_whitespace_normalization": true,
+      "source_sha256": "240686052b37ffec54cf2c5d4f69a3f940eb170a6d06dafd85342c2d65701b9c"
+    },
+    {
+      "file": "tests/qualification/ui-convergence/sharing-page-edit-matrix.mjs",
+      "before": 67,
+      "after": 67,
+      "assertion_calls_byte_equal_after_whitespace_normalization": true,
+      "source_sha256": "55284b93bfc0ecaff46fc8bc90e086804b0f126bbb39dccda3d53e37cbd16496"
+    },
+    {
+      "file": "tests/qualification/ui-convergence/sharing-lifecycle-matrix.mjs",
+      "before": 119,
+      "after": 119,
+      "assertion_calls_byte_equal_after_whitespace_normalization": true,
+      "source_sha256": "5a8fb861461b50a51a74fd82c0892c2ad1aff5f73206a0104643650120722e53"
+    }
+  ],
+  "registrations_before": 207,
+  "registrations_after": 211,
+  "conservative_ordinary_after": 191,
+  "cap": 200,
+  "assertions_removed_or_weakened": 0
+}

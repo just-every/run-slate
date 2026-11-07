@@ -1,0 +1,196 @@
+{
+  "reviewed_at": "2026-11-07T09:35:49.735588+00:00",
+  "files": [
+    {
+      "path": "REPORT.md",
+      "bytes": 7392,
+      "sha256": "7813575a971149cc8da131fc6c921191581931eda9e6445da14e26cf5c84af66"
+    },
+    {
+      "path": "JOURNEYS.json",
+      "bytes": 7943,
+      "sha256": "3588bc6f276dcde501288900534d95ac8642aea3c3122cf9a2b0861a1e97bc4f"
+    },
+    {
+      "path": "JOURNEYS-1440.log",
+      "bytes": 4752,
+      "sha256": "f1105145c29ed6c50ffe01ed1077c9d32baa25d8f820114fde8101a08d3a7351"
+    },
+    {
+      "path": "JOURNEYS-390.log",
+      "bytes": 4651,
+      "sha256": "6de887da4d466ae9f886121ffbffad96c14d120e0bf7e1055a84e8fa26fe9336"
+    },
+    {
+      "path": "FULL-ISOLATED-1440.log",
+      "bytes": 935,
+      "sha256": "446c07d944467af686d5a42db71825d366f1b2086db88e5aa5e6d29cb3fa1658"
+    },
+    {
+      "path": "FULL-ISOLATED-390.log",
+      "bytes": 927,
+      "sha256": "53fe7a057c4b643f4c78b7c05feb33ff72091530c183697d37525a16bc98b8f9"
+    },
+    {
+      "path": "ASSERTION-PRESERVATION.json",
+      "bytes": 1698,
+      "sha256": "c89c062756b50cb1a4a82ca3e2574da05c8908d0685e170016e297bd543d132f"
+    },
+    {
+      "path": "BUILD.json",
+      "bytes": 359,
+      "sha256": "c621a1519ffe741708c0759364588e72341adba3c485b47ddb0558ee92262218"
+    },
+    {
+      "path": "BROWSER-EVIDENCE.tar.gz",
+      "bytes": 698354,
+      "sha256": "e96e253c80b67ff76d82153b1b7c0188f9b572bc7a96a320b80052ab929e8c48"
+    },
+    {
+      "path": "CHECKS.json",
+      "bytes": 2425,
+      "sha256": "4671073847f853035475b869a268fed3b1c8e945bf9d085fd02b489e8a3e01ed"
+    },
+    {
+      "path": "CI.json",
+      "bytes": 1420,
+      "sha256": "f3eefd045af4889f0bb0f489ef7e5e3790681027752b1f272d0f04ee0f487139"
+    },
+    {
+      "path": "CI-JOBS.json",
+      "bytes": 3152,
+      "sha256": "5fbea07d8941795099d69458dd0c2b901e66ba54dc2a2799e475ba7dbef7d6c4"
+    },
+    {
+      "path": "CI-LOG-RECEIPTS.json",
+      "bytes": 1023,
+      "sha256": "f0ce56e8f07278a147bb0b3f5cc4a05d6c1ea6a4c0ef0903116ae28164f69a64"
+    },
+    {
+      "path": "CI-app-failed.log",
+      "bytes": 880,
+      "sha256": "e3997bf05a8a2676fcdb46f4105cbd978201e82940c510cd79ed85831c1d481b"
+    },
+    {
+      "path": "CI-summary-failed.log",
+      "bytes": 2104,
+      "sha256": "81929188f7f4c4a22a1f2eb16949d0d51a83077f221d48b6de67870bd8c7a571"
+    },
+    {
+      "path": "TERMINAL.json",
+      "bytes": 1095,
+      "sha256": "7d77b5cf1fc8c8d9577f1ba6eef3928d459f588e2c5ba2c1481295b3d4d50bce"
+    },
+    {
+      "path": "VERIFY.json",
+      "bytes": 766617,
+      "sha256": "8f90b55e048856fafbacfb2f8399dd8aadcc5f4e6fadc79c6bb374d3db8d1960"
+    },
+    {
+      "path": "VERIFY-RECEIPT.json",
+      "bytes": 587,
+      "sha256": "2a1c281d624cd2630b72bbbb04e1da11cb3b17a5d69842fa56c54c9b5ee83415"
+    },
+    {
+      "path": "VERIFY-INITIAL.json",
+      "bytes": 766425,
+      "sha256": "ca27de448d88532e8b3e285598b2f5e281862b69a4c8f35dc9155ab7faeebb92"
+    },
+    {
+      "path": "VERIFY-INITIAL-RECEIPT.json",
+      "bytes": 478,
+      "sha256": "c3fbfb15b00889ce1fac63cd310ea61b4915819bed2465deba511dbedb47105e"
+    },
+    {
+      "path": "WORKERS-FULL.json.gz",
+      "bytes": 9952,
+      "sha256": "ddc63daa509e9c22430dfaffe301d2af7ab5465ed4c35f80a59cf1bac96b2db6"
+    },
+    {
+      "path": "WORKERS-REUSE.json",
+      "bytes": 2004,
+      "sha256": "5106b3bfca2399d3ccab19b7a7dccffcdcdbb6b7c83cfdf71303ad5fba08f291"
+    },
+    {
+      "path": "BASELINE-1440.log",
+      "bytes": 1782,
+      "sha256": "2b2aac207dbccd571e1cffa24aff054e10982c0ce96bfe6ba976db6df5dc71a7"
+    },
+    {
+      "path": "SPLIT-BASELINE-1440.log",
+      "bytes": 2224,
+      "sha256": "46bab0b75c354ce6b3f1143bc228b0c7670a84f293a7db59ae894396c1806f9e"
+    },
+    {
+      "path": "SPLIT-BASELINE-390.log",
+      "bytes": 1884,
+      "sha256": "99c6e9d27451acf8d536a7a6ce3a5d46c13176324d8f7d0b61b9d93d973c4821"
+    },
+    {
+      "path": "OPTIMIZATION-DIAGNOSTIC.json",
+      "bytes": 1993,
+      "sha256": "d9c730053ed9275458c3f05c165f2f106b3453499f8c6630edb4bfc56b624642"
+    },
+    {
+      "path": "phone-proof.mjs",
+      "bytes": 2162,
+      "sha256": "33794f3c669dc580ab6fdd8d418fd04439f512b7790ba004dddc021f2a6c7a62"
+    },
+    {
+      "path": "registrations-before.json",
+      "bytes": 55757,
+      "sha256": "5539bc47f0eda7b042cc1728a6706e299cde06f138d1c18672ec22ddb9e7490c"
+    },
+    {
+      "path": "registrations-after.json",
+      "bytes": 55944,
+      "sha256": "f0b04509c688f5aa225f1c8531f930380b6ebefdc6bbfdbde65f1df3d639c469"
+    },
+    {
+      "path": "matrix-1440-full.json.gz",
+      "bytes": 1055536,
+      "sha256": "9f7cc27c58380443dcdc4b0aee6c31fa8d90e75a313372835c27fc7f02b5f03d"
+    },
+    {
+      "path": "matrix-1440-edit.json.gz",
+      "bytes": 678773,
+      "sha256": "2527804f66a2f4798130cf4f5f5309badd759e26766692b529f677bb02536a3b"
+    },
+    {
+      "path": "matrix-1440-comment.json.gz",
+      "bytes": 245989,
+      "sha256": "389ded0db53172a2f4d5a9974cf067131829ab26c573291f2c17517c59d8db49"
+    },
+    {
+      "path": "matrix-1440-view.json.gz",
+      "bytes": 36178,
+      "sha256": "721ec49047243ad124b65e34b3bc3896a813937e6b61730278a1124c66cb3f9f"
+    },
+    {
+      "path": "matrix-390-full.json.gz",
+      "bytes": 1052910,
+      "sha256": "5de0586b323eb5140928bf605213f7089b8c1e47cb849f5ff3d4b731f091bac2"
+    },
+    {
+      "path": "matrix-390-edit.json.gz",
+      "bytes": 677836,
+      "sha256": "8a593c49c069916e23149406648072a037f402762ad9c8258f68774f1791bfc2"
+    },
+    {
+      "path": "matrix-390-comment.json.gz",
+      "bytes": 246430,
+      "sha256": "9359850c4be0f433b2a87e55f0533644154ff4373dadf8f67306743aa9c36ea5"
+    },
+    {
+      "path": "matrix-390-view.json.gz",
+      "bytes": 36165,
+      "sha256": "541079e44336129d05749aad836036c422c389ba283e2a4b5f1ab3fff08b9fb8"
+    }
+  ],
+  "regular_files_only": true,
+  "symlinks_selected": false,
+  "injected_secret_values_selected": false,
+  "CI_environment_blocks_omitted": true,
+  "synthetic_native_browser_evidence_only": true,
+  "publication_scope": "refs/heads/evidence/sd-slate-c-f201-fix1 only"
+}

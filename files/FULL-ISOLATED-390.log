@@ -1,0 +1,25 @@
+TAP version 13
+# SHARING_PHASE full page edits 390: 24736 ms
+# SHARING_PHASE full lifecycle 390: 21206 ms
+# SHARING_PHASE full archive 390: 15301 ms
+# PROBE SHARE-002 erasure full: non-owner confirmed deletion and old-capture refusal
+# SHARING_PHASE full erasure 390: 5697 ms
+# SHARING_PHASE full discussion 390: 29817 ms
+# PROBE SHARE-002 full: page edits, ownership, locks, metadata reads, discussion, reactions, grants and revoked captures; 45 refused requests preserve inventories at 390px
+# Subtest: native ordinary page full authority retains inventories and refuses revoked captures at 390px
+ok 1 - native ordinary page full authority retains inventories and refuses revoked captures at 390px
+  ---
+  duration_ms: 214351.970407
+  type: 'test'
+  ...
+# Sharing full setup: 23398 ms
+# Sharing full matrix: 187611 ms
+1..1
+# tests 1
+# suites 0
+# pass 1
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 231231.618801

@@ -1,0 +1,26 @@
+{
+  "repository": "just-every/run-slate",
+  "branch": "cloud/sd-slate-c-f201-fix1",
+  "head": "491405a8bdc1d35c6470fd0b551d06ee36b098d4",
+  "tree": "4b74b0836410c348acf71bfdbb327da622c26530",
+  "main": "ba0a52e28727a7b9b6bfc5b8f5440444917b1dbb",
+  "proof_head": "e1853d86a7265b31679ee6b5179d73364d9ae78d",
+  "proof_tree_matches_candidate": true,
+  "remote_head": "491405a8bdc1d35c6470fd0b551d06ee36b098d4",
+  "clean_checkout": true,
+  "candidate_commits_audited": 24,
+  "author_and_committer": "Run Edit Run fleet <fleet@runeditrun.com>",
+  "trailers": "none",
+  "OpenAI_Codex_coauthors": "none",
+  "generated_views_differ_from_main": false,
+  "workflow_diff_from_main": false,
+  "Workers_registry_diff_from_main": false,
+  "generator_write_output": "Wrote 1 contract documents.",
+  "generator_check_before_view_restore": "Contract documents are current.",
+  "post_restore_view_check": {
+    "exit_code": 1,
+    "diagnostic": "ACCEPTANCE.md: generated content differs; run contract-docs write.",
+    "expected_lander_regeneration": true
+  },
+  "checked_at": "2026-11-07T09:30:59.993395+00:00"
+}

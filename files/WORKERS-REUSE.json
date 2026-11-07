@@ -1,0 +1,51 @@
+{
+  "kind": "lossless partition of complete actual local results, using the contract job report-input mode",
+  "source_receipt": "VERIFY-INITIAL-RECEIPT.json",
+  "source_report": "WORKERS-FULL.json.gz",
+  "source_sha256": "8ea8bee357edcb8ed34e1b90748c0afe2968c478417b395e620d5c2401fecd44",
+  "source_head": "77cc67721c6943f89f31e3ffdc9fc46b8f1b0955",
+  "target_head": "e1853d86a7265b31679ee6b5179d73364d9ae78d",
+  "changed_paths_since_full_run": [
+    "sources.lock.json",
+    "tests/qualification/ui-convergence/sharing-journey.mjs",
+    "tests/qualification/ui-convergence/sharing-lifecycle-matrix.mjs",
+    "tests/qualification/ui-convergence/sharing-page-edit-matrix.mjs",
+    "tests/requirements/cli-journey.md"
+  ],
+  "worker_product_and_test_sources_unchanged": true,
+  "complete_file_results_preserved": true,
+  "files": 103,
+  "parts": [
+    {
+      "name": "contract-1.json",
+      "files": 17,
+      "sha256": "910cfc79551aa68c7b8947b74c12da08f50a495da77ed1c989bc4b69cef35fa7"
+    },
+    {
+      "name": "contract-2.json",
+      "files": 17,
+      "sha256": "6574137a2c0374cb96211130c50c3b713dfec7a6ea218c66bd4c5f3cbe91af05"
+    },
+    {
+      "name": "contract-3.json",
+      "files": 17,
+      "sha256": "2881f52111cc4630a89049fc66b782b69382e00ae20741ecb6b11728518e4a9c"
+    },
+    {
+      "name": "contract-4.json",
+      "files": 17,
+      "sha256": "3881c1b333eb2c79ba607945734a7a0bfcf47223b7abc5d5fc0b87a52920524e"
+    },
+    {
+      "name": "contract-5.json",
+      "files": 17,
+      "sha256": "26436e2baace23fbc28dfa254fe964305ae53357ae1571666f1036431063f167"
+    },
+    {
+      "name": "contract-6.json",
+      "files": 18,
+      "sha256": "b38aeecd790143097fa13adc2d789da4983c9f5b70279838593f84731b21e9b4"
+    }
+  ],
+  "limits": "Only browser-test scheduling/synchronization and its GitHub-only notes/source-lock hashes changed. No Worker result/status/assertion is synthesized or altered. The emitted browser access gate and contract checks run again against the current build."
+}

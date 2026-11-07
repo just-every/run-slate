@@ -1,0 +1,36 @@
+SYNCED_CUSTODY delete 1440: allowed static, denied and anonymous content-free, history unchanged
+SYNCED_CUSTODY remove 1440: allowed static, denied and anonymous content-free, history unchanged
+SYNCED_CUSTODY unsync 1440: allowed static, denied and anonymous content-free, history unchanged
+SYNCED_CUSTODY restore 1440: allowed static, denied and anonymous content-free, history unchanged
+SYNCED_CUSTODY discard 1440: allowed static, denied and anonymous content-free, history unchanged
+SYNCED_CUSTODY history 1440: ordinary static and immutable prior revision
+SYNCED_CUSTODY member-erasure 1440: deletion accepted, owner receives no private content
+PROBE SHARE-002 erasure full: non-owner confirmed deletion and old-capture refusal
+✖ shared page invitations name their space and disappear on revocation at 1440px (240001.531275ms)
+ℹ Sharing phase navigation: 10277 ms
+ℹ Sharing phase synced custody: 33867 ms
+ℹ Sharing phase synced history: 6296 ms
+ℹ Sharing phase synced erasure: 7869 ms
+
+Interrupted while running:
+
+⚠ tests/qualification/ui-convergence/journeys.test.mjs (tests/qualification/ui-convergence/journeys.test.mjs:1:1)
+✖ tests/qualification/ui-convergence/journeys.test.mjs (272526.308569ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 0
+ℹ fail 0
+ℹ cancelled 2
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 272527.693056
+
+✖ failing tests:
+
+test at tests/qualification/ui-convergence/journey-shard.mjs:23:97
+✖ shared page invitations name their space and disappear on revocation at 1440px (240001.531275ms)
+  'test timed out after 240000ms'
+
+test at tests/qualification/ui-convergence/journeys.test.mjs:1:1
+✖ tests/qualification/ui-convergence/journeys.test.mjs (272526.308569ms)
+  'Promise resolution is still pending but the event loop has already resolved'

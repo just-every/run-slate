@@ -1,0 +1,41 @@
+{
+  "repository": "just-every/run-slate",
+  "head": "491405a8bdc1d35c6470fd0b551d06ee36b098d4",
+  "calls": [
+    {
+      "at_epoch": 1794043912.8562553,
+      "at_utc": "2026-11-07T09:31:52.856255+00:00",
+      "route": "repos/just-every/run-slate/actions/runs?head_sha=491405a8bdc1d35c6470fd0b551d06ee36b098d4&per_page=100",
+      "exit_code": 0
+    }
+  ],
+  "run": {
+    "id": 42359905141,
+    "name": "Verify Slate",
+    "event": "push",
+    "status": "completed",
+    "conclusion": "failure",
+    "head_sha": "491405a8bdc1d35c6470fd0b551d06ee36b098d4",
+    "html_url": "https://github.com/just-every/run-slate/actions/runs/42359905141"
+  },
+  "qualification": "generated_views_only",
+  "failed_jobs": [
+    {
+      "id": 128365930782,
+      "name": "verify (app)",
+      "url": "https://github.com/just-every/run-slate/actions/runs/42359905141/job/128365930782"
+    },
+    {
+      "id": 128366079178,
+      "name": "verify",
+      "url": "https://github.com/just-every/run-slate/actions/runs/42359905141/job/128366079178"
+    }
+  ],
+  "post_completion_reads": {
+    "jobs_api_calls": 1,
+    "failed_job_archive_reads": 2,
+    "total_github_read_calls": 4,
+    "no_rerun_requested": true
+  },
+  "qualification_reason": "Only ACCEPTANCE.md generator freshness fails. The verify summary failure and skipped dependent jobs follow that check; the brief explicitly treats this as READY pending Mac lander regeneration."
+}
