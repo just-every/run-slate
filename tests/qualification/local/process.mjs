@@ -9,4 +9,13 @@ export function launch(command,args,{cwd,env=safeEnvironment(),stdio=['ignore','
  return {child,ended,output:()=>output};
 }
 export async function stop(proc){if(!proc)return;const kill=signal=>{try{process.kill(-proc.child.pid,signal);}catch(e){if(e.code!=='ESRCH')throw e;}};kill('SIGTERM');const done=await Promise.race([proc.ended,delay(5000).then(()=>null)]);if(!done){kill('SIGKILL');if(!await Promise.race([proc.ended,delay(5000).then(()=>null)]))throw Error('Owned runtime did not terminate');}}
+/** Kill the owned process group without graceful disposal or a job catch path. */
+export async function crash(proc){
+ if(!proc||proc.child.exitCode!==null||proc.child.signalCode!==null)throw Error('Crash requires a live owned runtime');
+ const pid=proc.child.pid;
+ process.kill(-pid,'SIGKILL');
+ const result=await Promise.race([proc.ended,delay(10000).then(()=>null)]);
+ if(result?.signal!=='SIGKILL')throw Error('Owned runtime did not report SIGKILL');
+ return {pid,signal:result.signal};
+}
 export async function command(command,args,options={}){const proc=launch(command,args,options);const result=await Promise.race([proc.ended,delay(options.timeout??120000).then(()=>null)]);if(!result){await stop(proc);throw Error('Command timed out: '+args[0]);}if(options.log)await writeFile(options.log,proc.output());if(result.error||result.code!==0)throw Error(`Command failed (${result.code}): ${proc.output()}`,{cause:result.error});return proc.output();}

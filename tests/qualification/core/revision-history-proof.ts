@@ -57,6 +57,12 @@ export async function revisionHistoryProof(f: Awaited<ReturnType<typeof auditFix
           expect(firstSnapshot.properties.databaseFields[field.id]).toBe(7);
           expect(secondSnapshot.properties.databaseFields[field.id]).toBe(11);
         }
+        // Even a full member cannot rewrite historical content or its attribution.
+        for (const actor of [f.ownerId, f.readerId]) for (const method of ['PATCH', 'PUT', 'POST']) {
+          const denied = await f.request(method, `${historyPath}/${first.receipt.revisionId}`, {operationKey: createUlid(), body: [], properties: {title: 'Rewritten'}, origin: 'publish', authorMemberId: f.readerId, createdAt: '2000-01-01T00:00:00.000Z', ordinal: 99, label: 'Rewritten'}, actor);
+          expect(denied.status).toBe(404);
+          expect(await stored()).toEqual(before);
+        }
         // Read-only authority sees published revisions, never the draft autosaves.
         await native('POST', '/api/sharing', {targetKind: 'page', targetId: pageId, id: grant.value.id, principalKind: 'member', principalId: f.readerId, level: 'view'});
         const published = [second.receipt.revisionId, first.receipt.revisionId];
