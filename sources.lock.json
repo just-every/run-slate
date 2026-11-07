@@ -12388,7 +12388,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/two-people-support.mjs": {
-      "sha256": "a063b4781c81d36a09a312f7f2ccc459f0524827987d32929583a8436da033bd",
+      "sha256": "064b4242f26d88d3957525ff427cfdfce8b8cf05ab953aee544e9ac97f4d11a6",
       "executable": false
     },
     "tests/qualification/ui-convergence/typed-shortcuts-journey.mjs": {

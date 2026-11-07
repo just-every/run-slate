@@ -71,7 +71,8 @@ export async function call(context, origin, method, route, data) {
     let body;
     try { body = text ? JSON.parse(text) : undefined; } catch { body = text; }
     timeline.answered(observation, response.status(), body);
-    return { status: response.status(), body, retryAfter: response.headers()['retry-after'] };
+    const retryAfter = response.headers()['retry-after'];
+    return { status: response.status(), body, ...(retryAfter === undefined ? {} : { retryAfter }) };
   } catch (cause) {
     if (observation.status === 'pending') timeline.failed(observation, cause);
     throw cause;
