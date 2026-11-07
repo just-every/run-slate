@@ -44,7 +44,7 @@ export async function versionDeletionJourney(state, people) {
       });
     };
     // Publish through the actual review and confirmation controls, keeping each label.
-    const publish = async (label, firstPublication = false) => {
+    const publish = async label => {
       await alice.page.goto(`${origin}/app/pages/${pageId}`, { waitUntil: 'networkidle' });
       await alice.page.getByRole('button', { name: 'More', exact: true }).click();
       await alice.page.getByRole('menuitem', { name: 'Publish workspace revision', exact: true }).click();
@@ -59,7 +59,7 @@ export async function versionDeletionJourney(state, people) {
           dialog.getByRole('button', { name: 'Review publication', exact: true }).click(),
         ]);
         await expect(dialog.getByRole('region', { name: 'Reviewed publication', exact: true })).toBeVisible(
-          firstPublication ? { timeout: REV006_PUBLICATION_STEP_TIMEOUT_MS } : {},
+          { timeout: REV006_PUBLICATION_STEP_TIMEOUT_MS },
         );
       } catch (cause) {
         await previewObservation.failed();
@@ -87,7 +87,7 @@ export async function versionDeletionJourney(state, people) {
         }),
         (async () => {
           await dialog.getByRole('button', { name: 'Publish workspace revision', exact: true }).click();
-          await expect(dialog).toBeHidden(firstPublication ? { timeout: REV006_PUBLICATION_STEP_TIMEOUT_MS } : {});
+          await expect(dialog).toBeHidden({ timeout: REV006_PUBLICATION_STEP_TIMEOUT_MS });
         })(),
       ]).catch(async cause => {
         await publicationObservation.failed();
@@ -95,7 +95,7 @@ export async function versionDeletionJourney(state, people) {
       });
       return (await read()).publishedRevisionId;
     };
-    const first = await publish('First publication', true);
+    const first = await publish('First publication');
     await write('Remove only this intermediate content.');
     const intermediate = await publish('Intermediate publication');
     await write('Keep the current published content.');
