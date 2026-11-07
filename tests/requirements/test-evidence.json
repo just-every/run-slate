@@ -1059,24 +1059,6 @@
         "ACT-002"
       ],
       "reason": "Exercises the SCIM HTTP protocol through native invitation, Member identity, group and removal services, including credential custody and current authority. Real directory-provider acceptance and native invitation capacity outside SCIM remain unproven."
-    },
-    {
-      "file": "tests/qualification/ui-convergence/journeys.test.mjs",
-      "testName": "readable exports retain discussions through HTML and Markdown re-import at 1440px",
-      "kind": "supporting-regression",
-      "clauses": [
-        "PORT-001"
-      ],
-      "reason": "PORT-001 supporting slice through transferJobsJourney: native authored ordered page subtree, body and property edits, retained revisions, explicit member and group page grants, anchored thread and reply, two uploaded originals, actual Settings ZIP download and independent stored-row, hash, byte and source-invariance reconciliation. Other workspace families and requirement-wide completeness remain unproven; no full acceptance or release claim."
-    },
-    {
-      "file": "tests/qualification/ui-convergence/journeys.test.mjs",
-      "testName": "real core-wiki and touch-member journeys at 390px",
-      "kind": "supporting-regression",
-      "clauses": [
-        "PORT-001"
-      ],
-      "reason": "PORT-001 supporting slice through transferJobsJourney: native authored ordered page subtree, body and property edits, retained revisions, explicit member and group page grants, anchored thread and reply, two uploaded originals, actual Settings ZIP download and independent stored-row, hash, byte and source-invariance reconciliation. Other workspace families and requirement-wide completeness remain unproven; no full acceptance or release claim."
     }
   ]
 }

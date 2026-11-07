@@ -1657,7 +1657,7 @@
       "id": "PORT-001",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Native Settings ZIP supporting proof covers only the ordinary authored page subtree, its bodies, properties, retained page revisions, explicit member and group page grants, anchored discussions and two originals, with independent source invariance. Other workspace record families, complete cross-family revisions and grants, other original-file cases and requirement-wide completeness remain unproven; privacy, import, erasure, ADMIN-007 and shared company-policy prerequisites remain unchanged.",
+      "unmetReason": "This Workers registry records supporting regressions only. Browser supporting evidence runs transferJobsJourney through \"readable exports retain discussions through HTML and Markdown re-import at 1440px\" and \"real core-wiki and touch-member journeys at 390px\" in tests/qualification/ui-convergence/journeys.test.mjs; see the Status evidence in CONTRACT.md. Native Settings ZIP supporting proof covers only the ordinary authored page subtree, its bodies, properties, retained page revisions, explicit member and group page grants, anchored discussions and two originals, with independent source invariance. Other workspace record families, complete cross-family revisions and grants, other original-file cases and requirement-wide completeness remain unproven; privacy, import, erasure, ADMIN-007 and shared company-policy prerequisites remain unchanged.",
       "supportingTests": [
         {
           "file": "tests/flagship/federation/federation.test.ts",
@@ -1666,14 +1666,6 @@
         {
           "file": "tests/qualification/authority/recovery.test.ts",
           "testName": "FLAG-004 — real D1 and R2 archive restore retains evaluated history while all executable authority stays inactive"
-        },
-        {
-          "file": "tests/qualification/ui-convergence/journeys.test.mjs",
-          "testName": "readable exports retain discussions through HTML and Markdown re-import at 1440px"
-        },
-        {
-          "file": "tests/qualification/ui-convergence/journeys.test.mjs",
-          "testName": "real core-wiki and touch-member journeys at 390px"
         }
       ]
     },
