@@ -598,7 +598,7 @@
       "id": "SHARE-002",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of SHARE-002 — What the levels mean. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "The Workers register remains unproven beyond its listed supporting mechanics. The existing responsive core browser registrations in ./tests/qualification/ui-convergence/journeys.test.mjs retain the selected permissionLevelsJourney assertions through shareJourney in ./tests/qualification/ui-convergence/sharing-journey.mjs. Four separately registered native ordinary-page level cases at 1440 load the entire expanded matrix, one independently granted level per installation, retaining production request limits and a 240000 ms timeout each. Independent ordinary published pages give a non-author, non-owner member each configured level and exercise populated reads, title and body edits, comment creation and direct grant creation, every effective direct grant level and revocation for an independently admitted third member. Each native ordinary-page level caller loads permissionDiscussionMatrix from ./tests/qualification/ui-convergence/sharing-discussion-matrix.mjs for replies, own-comment edits and deletion, cross-author refusal, thread resolution and reopening, all-thread resolution and explicit readable-content page and comment reactions. The same loaded caller now invokes permissionPageEditsMatrix from ./tests/qualification/ui-convergence/sharing-page-edit-matrix.mjs for native display and label editing, full-only ownership reassignment while the actor remains a non-owner, body insertion and removal through the public structure route, and edit-level lock and unlock. Lower levels attempt all these commands, and a locked editor attempts a title mutation, with unchanged complete state. Activity inventories walk every cursor page before mutation and replay comparisons. Populated Details, link cards, version history and the exact published version are readable at every level and refused without writes after revocation. Native controls survive reload; refused HTTP mutations preserve page, revision, comment, grant and activity snapshots. Old captures cannot restore tombstones, removed reactions or revoked grants, and each revoked member loses reads and captured writes. The complete matrix for every other operation, record family, lifecycle, profile, principal and extension, automation and public API surface remains unproven. CONTRACT.md retains PARTIAL and all authoritative prerequisites. Each native ordinary-page level registration also calls permissionLifecycleMatrix and permissionArchiveMatrix from ./tests/qualification/ui-convergence/sharing-lifecycle-matrix.mjs for revision restore, publication, discard, archive and trash authority, native restored state, duplicate captures and unchanged refusals. Archive controls follow current page levels; scheduling an already-live page requires full access. This remains supporting evidence, with no complete acceptance promotion. permissionPermanentDeleteMatrix in the same helper gives a full-granted non-author and non-owner member native confirmed erasure, exact anonymized activity and unchanged old-capture refusal. Edit, comment and view members refresh native proof, receive unchanged preview and deletion refusals and recover exact retained inventories through owner restoration. The unrelated main page stays unchanged. These are bounded native page authority results, not complete clause acceptance. Browser cases are described here and in CONTRACT.md only; supportingTests contains Workers registrations exclusively.",
       "supportingTests": [
         {
           "file": "tests/flagship/structured/structured.test.ts",
@@ -744,8 +744,13 @@
       "id": "REV-002",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for REV-002 — History. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
-      "supportingTests": []
+      "unmetReason": "Supporting native HTTP and loaded responsive browser journeys cover ordinary page, database page and record page history under both version profiles, including complete rows, immutable stored snapshots, current grants, published-only filtering, reload and revocation. Container, comment, template and decision record histories and complete cross-family acceptance remain unproven; decision, default-surface and AI duties retain ADMIN-007 and shared company-policy prerequisites. CONTRACT.md owns the partial judgment.",
+      "supportingTests": [
+        {
+          "file": "tests/qualification/core/audit-content.test.ts",
+          "testName": "ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time"
+        }
+      ]
     },
     {
       "id": "REV-003",
@@ -1139,8 +1144,17 @@
       "id": "DB-008",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for DB-008 — Charts. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
-      "supportingTests": []
+      "unmetReason": "Standalone named saved-view counts and numeric aggregation have supporting native HTTP and browser journeys. Acceptance 2 page embedding and the requirement’s inherited DB-011 live embedded-view duties remain unimplemented or unproven; this is not full clause acceptance.",
+      "supportingTests": [
+        {
+          "file": "tests/flagship/structured/http.test.ts",
+          "testName": "Worker HTTP rejects missing expired revoked and denied sessions and persists authorized input"
+        },
+        {
+          "file": "tests/flagship/structured/structured.test.ts",
+          "testName": "structured records, computation, readers, templates, automation, policies and views retain durable semantics"
+        }
+      ]
     },
     {
       "id": "DB-009",
@@ -1643,7 +1657,7 @@
       "id": "PORT-001",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Native Settings ZIP supporting proof covers only the ordinary authored page subtree, its bodies, properties, retained page revisions, changed, revoked and regranted member and group page grants, edited and resolved anchored discussions with retained histories, and two originals, with independent source-row, original-download and access invariance. Other workspace record families, complete cross-family revisions and grants, other original-file cases and requirement-wide completeness remain unproven; privacy, import, erasure, ADMIN-007 and shared company-policy prerequisites remain unchanged.",
+      "unmetReason": "This Workers registry records supporting regressions only. Browser supporting evidence runs transferJobsJourney through \"readable exports retain discussions through HTML and Markdown re-import at 1440px\" and \"real core-wiki and touch-member journeys at 390px\" in tests/qualification/ui-convergence/journeys.test.mjs; see the Status evidence in CONTRACT.md. Native Settings ZIP supporting proof covers only the ordinary authored page subtree, its bodies, properties, retained page revisions, changed, revoked and regranted member and group page grants, edited and resolved anchored discussions with retained histories, and two originals, with independent source-row, original-download and access invariance. Other workspace record families, complete cross-family revisions and grants, other original-file cases and requirement-wide completeness remain unproven; privacy, import, erasure, ADMIN-007 and shared company-policy prerequisites remain unchanged.",
       "supportingTests": [
         {
           "file": "tests/flagship/federation/federation.test.ts",
@@ -1652,14 +1666,6 @@
         {
           "file": "tests/qualification/authority/recovery.test.ts",
           "testName": "FLAG-004 — real D1 and R2 archive restore retains evaluated history while all executable authority stays inactive"
-        },
-        {
-          "file": "tests/qualification/ui-convergence/journeys.test.mjs",
-          "testName": "readable exports retain discussions through HTML and Markdown re-import at 1440px"
-        },
-        {
-          "file": "tests/qualification/ui-convergence/journeys.test.mjs",
-          "testName": "real core-wiki and touch-member journeys at 390px"
         }
       ]
     },
@@ -3235,8 +3241,13 @@
       "id": "AUTO-008",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No validated CI-run proof for this acceptance point: \"a Workers journey kills a job mid-run and finds it resumed once with no duplicate effect.\"<br>No validated CI-run proof for this acceptance point: \"A forced failure appears on the owner's Home, and stopping a queued job cancels its pending sends.\"",
-      "supportingTests": []
+      "unmetReason": "Native automation-rule acceptance 1 is exercised by automationRestartJourney through the existing desktop database run-log caller: a genuinely killed emitted Worker, same persistent store, genuine lease boundary, canonical record, comment and inbox effects, receipt and activity reconciliation and replay. The existing automation-repairs Workers registration retains supporting exception recovery and authority checks. Other background-job families, owner Home failure and stuck projection, explicit stop and cancellation, complete accountable follow-through and message, record and issue deduplication remain unproven. Connector, agent, provider, ADMIN-007 and shared company-policy prerequisites remain authoritative. CONTRACT.md owns the partial judgment; exact candidate Verify and guarded landing remain required.",
+      "supportingTests": [
+        {
+          "file": "tests/flagship/structured/automation-repairs.test.ts",
+          "testName": "automation admission, resumed effects and schedules preserve current scope and exactly-once recovery"
+        }
+      ]
     },
     {
       "id": "IMP-006",

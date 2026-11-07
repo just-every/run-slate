@@ -1,8 +1,8 @@
 {
   "defaultCap": 200,
-  "registrations": 205,
+  "registrations": 211,
   "scope": "Expanded TypeScript-AST inventory of every seed-owned test/it, contract and journeyTest registration under tests/, including nested t.test and every generated for-of/test.each case, including existing planned-clause todos; describe groups and generic wrapper implementation sites are excluded. Vendored modules are excluded. The legacy call-site-only convention is reported separately.",
-  "reason": "Preserves current main flagship and c2 pruning, and replays qualification scenario folds without dropping assertions: expanded seed registrations fall from 241 to 205 (181 ordinary tests and 24 release-wall clause registrations over 24 ids). Qualification registrations fall from 92 to 56. Both core responsive cases remain because desktop sidebar visibility and horizontal column geometry are unique assertions; the ordinary cap remains 200.",
+  "reason": "Preserves current main flagship and c2 pruning, and replays qualification scenario folds without dropping assertions: expanded seed registrations fall from 241 to 205 (181 ordinary tests and 24 release-wall clause registrations over 24 ids). Qualification registrations fall from 92 to 56. Both core responsive cases remain because desktop sidebar visibility and horizontal column geometry are unique assertions; the ordinary cap remains 200. Current main has 207 expanded registrations (including 20 in tests/flagship/release-clauses). SHARE-002 moves its four independent level matrices into four 240-second registrations without adding or removing any assertion. The conservative ordinary count is 191, below the unchanged cap of 200; expanded registrations are 211.",
   "dropCandidates": [
     {
       "file": "tests/flagship/intelligence/native-transport.test.ts",

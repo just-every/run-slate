@@ -76,7 +76,7 @@ export function DatabaseList({
       {mode === "automations" ? <AutomationWorkspace sourceId={data.database.id}/> : mode === "templates" ? <RecordTemplates databaseId={data.database.id} fields={fields} canEdit={canEdit} onCreated={query.reload}/> : <>
         {view ? <ViewCriteria view={view} fields={fields} canClear={canEdit && !locked} onClear={() => void list.saveView({ ...view, filters: [] }).catch(onError)}/> : null}
         {locked ? <p className="muted">Structure locked by {data.database.structure_locked_by_name ?? "a workspace member"}. Record values remain editable.</p> : null}
-        {mode === "chart" && view ? <DatabaseChart databaseId={data.database.id} viewId={view.id} fields={fields} /> : null}
+        {mode === "chart" && view ? <DatabaseChart databaseId={data.database.id} viewId={view.id} viewRevisionId={view.revisionId} fields={fields} /> : null}
         {error ? <p role="alert">{errorMessage(error)}</p> : null}
         {mode === "records" ? <RequestState loading={query.loading} error={query.error} retry={query.reload}>
           {view && query.data ? (
