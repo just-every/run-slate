@@ -1,0 +1,5 @@
+{
+  "sha": "563a3977363aa2e046699544bead85343781fb75",
+  "command": "cloud_run npx -y @runeditrun/rer build",
+  "exit_code": 0
+}

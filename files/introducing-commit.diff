@@ -1,0 +1,60 @@
+3dc5ac2306a94aba6a350f991225399039346be2
+Prove authored page subtree contents in native workspace exports [skip ci]
+
+diff --git a/tests/requirements/clause-inventory.json b/tests/requirements/clause-inventory.json
+index b74708b..01520c2 100644
+--- a/tests/requirements/clause-inventory.json
++++ b/tests/requirements/clause-inventory.json
+@@ -1643,7 +1643,7 @@
+       "id": "PORT-001",
+       "document": "CONTRACT.md",
+       "status": "unproven",
+-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of PORT-001 — Export contents. Full requirement-level UI, profile and runtime evidence remains unproven.",
++      "unmetReason": "Native Settings ZIP supporting proof covers only the ordinary authored page subtree, its bodies, properties, retained page revisions, explicit member and group page grants, anchored discussions and two originals, with independent source invariance. Other workspace record families, complete cross-family revisions and grants, other original-file cases and requirement-wide completeness remain unproven; privacy, import, erasure, ADMIN-007 and shared company-policy prerequisites remain unchanged.",
+       "supportingTests": [
+         {
+           "file": "tests/flagship/federation/federation.test.ts",
+@@ -1652,6 +1652,14 @@
+         {
+           "file": "tests/qualification/authority/recovery.test.ts",
+           "testName": "FLAG-004 — real D1 and R2 archive restore retains evaluated history while all executable authority stays inactive"
++        },
++        {
++          "file": "tests/qualification/ui-convergence/journeys.test.mjs",
++          "testName": "readable exports retain discussions through HTML and Markdown re-import at 1440px"
++        },
++        {
++          "file": "tests/qualification/ui-convergence/journeys.test.mjs",
++          "testName": "real core-wiki and touch-member journeys at 390px"
+         }
+       ]
+     },
+diff --git a/tests/requirements/test-evidence.json b/tests/requirements/test-evidence.json
+index 69029dc..b534ddf 100644
+--- a/tests/requirements/test-evidence.json
++++ b/tests/requirements/test-evidence.json
+@@ -1055,6 +1055,24 @@
+         "ACT-002"
+       ],
+       "reason": "Exercises the SCIM HTTP protocol through native invitation, Member identity, group and removal services, including credential custody and current authority. Real directory-provider acceptance and native invitation capacity outside SCIM remain unproven."
++    },
++    {
++      "file": "tests/qualification/ui-convergence/journeys.test.mjs",
++      "testName": "readable exports retain discussions through HTML and Markdown re-import at 1440px",
++      "kind": "supporting-regression",
++      "clauses": [
++        "PORT-001"
++      ],
++      "reason": "PORT-001 supporting slice through transferJobsJourney: native authored ordered page subtree, body and property edits, retained revisions, explicit member and group page grants, anchored thread and reply, two uploaded originals, actual Settings ZIP download and independent stored-row, hash, byte and source-invariance reconciliation. Other workspace families and requirement-wide completeness remain unproven; no full acceptance or release claim."
++    },
++    {
++      "file": "tests/qualification/ui-convergence/journeys.test.mjs",
++      "testName": "real core-wiki and touch-member journeys at 390px",
++      "kind": "supporting-regression",
++      "clauses": [
++        "PORT-001"
++      ],
++      "reason": "PORT-001 supporting slice through transferJobsJourney: native authored ordered page subtree, body and property edits, retained revisions, explicit member and group page grants, anchored thread and reply, two uploaded originals, actual Settings ZIP download and independent stored-row, hash, byte and source-invariance reconciliation. Other workspace families and requirement-wide completeness remain unproven; no full acceptance or release claim."
+     }
+   ]
+ }

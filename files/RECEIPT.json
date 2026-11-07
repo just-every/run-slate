@@ -1,0 +1,188 @@
+{
+  "tag": "sd-slate188-contract-triage-1",
+  "repository": "just-every/run-slate",
+  "finding": "candidate-caused",
+  "candidate": "8145db417b77951a1445fe0290ed84a32585d172",
+  "main": "563a3977363aa2e046699544bead85343781fb75",
+  "historical": {
+    "passed": 16,
+    "failed": 1,
+    "productContractBehavior": {
+      "satisfied": 22,
+      "planned": 316,
+      "overridden": 0,
+      "broken": 0
+    },
+    "baselineContractBehavior": {
+      "satisfied": 2,
+      "planned": 43,
+      "overridden": 0,
+      "broken": 0
+    },
+    "failed_checks": [
+      {
+        "name": "evidence metadata is exact and current",
+        "status": "failed",
+        "errors": [
+          "Stale or unknown test entry: [\"tests/qualification/ui-convergence/journeys.test.mjs\",\"readable exports retain discussions through HTML and Markdown re-import at 1440px\"]",
+          "Stale or unknown test entry: [\"tests/qualification/ui-convergence/journeys.test.mjs\",\"real core-wiki and touch-member journeys at 390px\"]"
+        ],
+        "supportingTests": 97
+      }
+    ],
+    "checks": [
+      {
+        "name": "contract clause IDs are unique",
+        "status": "passed"
+      },
+      {
+        "name": "baseline clause IDs are unique",
+        "status": "passed"
+      },
+      {
+        "name": "every contract override names a real clause",
+        "status": "passed"
+      },
+      {
+        "name": "manifest exactly maps contract clauses",
+        "status": "passed"
+      },
+      {
+        "name": "contract and manifest policies match",
+        "status": "passed"
+      },
+      {
+        "name": "every declared policy has a definition with values",
+        "status": "passed"
+      },
+      {
+        "name": "contract IDs are distinct from complete Base IDs",
+        "status": "passed"
+      },
+      {
+        "name": "retired runtimes have been removed",
+        "status": "passed"
+      },
+      {
+        "name": "operator and public paths follow the seed URL convention",
+        "status": "passed"
+      },
+      {
+        "name": "emitted Worker access matrix completed",
+        "status": "passed"
+      },
+      {
+        "name": "the Workers contract suite completed",
+        "status": "passed"
+      },
+      {
+        "name": "evidence metadata is exact and current",
+        "status": "failed"
+      },
+      {
+        "name": "every contract clause has a tagged test",
+        "status": "passed"
+      },
+      {
+        "name": "no test tags an unknown clause",
+        "status": "passed"
+      },
+      {
+        "name": "the test harness claims no clause",
+        "status": "passed"
+      },
+      {
+        "name": "parser regressions claim no complete clause",
+        "status": "passed"
+      },
+      {
+        "name": "no contract clause is broken",
+        "status": "passed"
+      }
+    ]
+  },
+  "ci": {
+    "candidate": {
+      "conclusion": "failure",
+      "head_sha": "8145db417b77951a1445fe0290ed84a32585d172",
+      "html_url": "https://github.com/just-every/run-slate/actions/runs/42341571114",
+      "id": 42341571114,
+      "run_attempt": 2,
+      "status": "completed"
+    },
+    "main": {
+      "conclusion": "success",
+      "head_sha": "563a3977363aa2e046699544bead85343781fb75",
+      "html_url": "https://github.com/just-every/run-slate/actions/runs/42337967948",
+      "id": 42337967948,
+      "run_attempt": 1,
+      "status": "completed"
+    }
+  },
+  "local": {
+    "candidate": {
+      "started_at": "2026-11-07T06:02:27.146162+00:00",
+      "node": "v22.20.0",
+      "pnpm": "10.12.4",
+      "head": "8145db417b77951a1445fe0290ed84a32585d172",
+      "command": "cloud_run node scripts/verify.mjs",
+      "SLATE_CHROMIUM_PATH": "/usr/bin/chromium",
+      "workers_reports": "unset; local full Workers suite",
+      "status": "interrupted by environment restart",
+      "exit_code": null,
+      "interruption_observed_at": "2026-11-07T06:25:04.169680+00:00",
+      "workers_files_completed": 59,
+      "TAP_results": [
+        "ok 1 - emitted bundles keep server internals and Markdown tooling off the client",
+        "not ok 2 - emitted Worker admission serves configured public doors and protects native owner access"
+      ],
+      "final_summary_emitted": false,
+      "rerun": false
+    },
+    "main": {
+      "started_at": "2026-11-07T06:20:20.515768+00:00",
+      "node": "v22.20.0",
+      "pnpm": "10.12.4",
+      "head": "563a3977363aa2e046699544bead85343781fb75",
+      "command": "cloud_run node scripts/verify.mjs",
+      "SLATE_CHROMIUM_PATH": "/usr/bin/chromium",
+      "PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH": "/usr/bin/chromium",
+      "workers_reports": "unset; local full Workers suite",
+      "status": "interrupted by environment restart",
+      "exit_code": null,
+      "interruption_observed_at": "2026-11-07T06:25:04.181974+00:00",
+      "workers_files_completed": 0,
+      "TAP_results": [
+        "ok 1 - emitted bundles keep server internals and Markdown tooling off the client"
+      ],
+      "final_summary_emitted": false,
+      "rerun": false
+    }
+  },
+  "source_counts": {
+    "main": {
+      "supporting_registration_count": 95,
+      "status_summary_table": "| --- | ---: | ---: | ---: | ---: |\n| Published | 41 | 185 | 1 | 227 |\n| Target and push further | 16 | 55 | 40 | 111 |\n| All | 57 | 240 | 41 | 338 |"
+    },
+    "candidate": {
+      "supporting_registration_count": 97,
+      "status_summary_table": "| --- | ---: | ---: | ---: | ---: |\n| Published | 41 | 185 | 1 | 227 |\n| Target and push further | 16 | 55 | 40 | 111 |\n| All | 57 | 240 | 41 | 338 |"
+    }
+  },
+  "changes": {
+    "product_commits": 0,
+    "product_pushes": 0,
+    "clause_status_changes": [],
+    "PR": null,
+    "CI_reruns": 0,
+    "CI_dispatches": 0
+  },
+  "checked_at": "2026-11-07T06:25:04.218680+00:00",
+  "local_reproduction_complete": false,
+  "limitations": [
+    "environment restart interrupted both local verify invocations before final summaries",
+    "candidate initial artifact test also lacked one supported Chromium override",
+    "historical Workers artifact downloads failed at blob transport; no HTTP status retained; not retried"
+  ],
+  "original_ci_diagnosis_complete": true
+}

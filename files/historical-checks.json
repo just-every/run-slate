@@ -1,0 +1,97 @@
+{
+  "passed": 16,
+  "failed": 1,
+  "productContractBehavior": {
+    "satisfied": 22,
+    "planned": 316,
+    "overridden": 0,
+    "broken": 0
+  },
+  "baselineContractBehavior": {
+    "satisfied": 2,
+    "planned": 43,
+    "overridden": 0,
+    "broken": 0
+  },
+  "failed_checks": [
+    {
+      "name": "evidence metadata is exact and current",
+      "status": "failed",
+      "errors": [
+        "Stale or unknown test entry: [\"tests/qualification/ui-convergence/journeys.test.mjs\",\"readable exports retain discussions through HTML and Markdown re-import at 1440px\"]",
+        "Stale or unknown test entry: [\"tests/qualification/ui-convergence/journeys.test.mjs\",\"real core-wiki and touch-member journeys at 390px\"]"
+      ],
+      "supportingTests": 97
+    }
+  ],
+  "checks": [
+    {
+      "name": "contract clause IDs are unique",
+      "status": "passed"
+    },
+    {
+      "name": "baseline clause IDs are unique",
+      "status": "passed"
+    },
+    {
+      "name": "every contract override names a real clause",
+      "status": "passed"
+    },
+    {
+      "name": "manifest exactly maps contract clauses",
+      "status": "passed"
+    },
+    {
+      "name": "contract and manifest policies match",
+      "status": "passed"
+    },
+    {
+      "name": "every declared policy has a definition with values",
+      "status": "passed"
+    },
+    {
+      "name": "contract IDs are distinct from complete Base IDs",
+      "status": "passed"
+    },
+    {
+      "name": "retired runtimes have been removed",
+      "status": "passed"
+    },
+    {
+      "name": "operator and public paths follow the seed URL convention",
+      "status": "passed"
+    },
+    {
+      "name": "emitted Worker access matrix completed",
+      "status": "passed"
+    },
+    {
+      "name": "the Workers contract suite completed",
+      "status": "passed"
+    },
+    {
+      "name": "evidence metadata is exact and current",
+      "status": "failed"
+    },
+    {
+      "name": "every contract clause has a tagged test",
+      "status": "passed"
+    },
+    {
+      "name": "no test tags an unknown clause",
+      "status": "passed"
+    },
+    {
+      "name": "the test harness claims no clause",
+      "status": "passed"
+    },
+    {
+      "name": "parser regressions claim no complete clause",
+      "status": "passed"
+    },
+    {
+      "name": "no contract clause is broken",
+      "status": "passed"
+    }
+  ]
+}

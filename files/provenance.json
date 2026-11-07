@@ -1,0 +1,77 @@
+{
+  "candidate": "8145db417b77951a1445fe0290ed84a32585d172",
+  "main": "563a3977363aa2e046699544bead85343781fb75",
+  "merge_base": "563a3977363aa2e046699544bead85343781fb75",
+  "changed_files": [
+    "ACCEPTANCE.md",
+    "CONTRACT.md",
+    "sources.lock.json",
+    "tests/qualification/ui-convergence/transfer-jobs-journey.mjs",
+    "tests/requirements/clause-inventory.json",
+    "tests/requirements/test-evidence.json"
+  ],
+  "product_commits_created": 0,
+  "product_pushes": 0,
+  "CI_reruns": 0,
+  "CI_dispatches": 0,
+  "PR_created": false,
+  "github_calls": [
+    {
+      "command": "gh run view 42341571114 -R just-every/run-slate --job 128318789802 --log-failed",
+      "exit_code": 0,
+      "purpose": "read historical failed job once"
+    },
+    {
+      "command": "gh api repos/just-every/run-slate/actions/runs/42341571114",
+      "exit_code": 0,
+      "purpose": "read completed exact-SHA historical status once"
+    },
+    {
+      "command": "gh api repos/just-every/run-slate/actions/runs/42337967948",
+      "exit_code": 0,
+      "purpose": "read completed exact-SHA historical status once"
+    },
+    {
+      "command": "gh run download 42341571114 --repo just-every/run-slate --pattern contract-* --dir <owned task directory>",
+      "exit_code": 1,
+      "purpose": "attempt read of historical Workers reports; blob transport failed; no retries"
+    },
+    {
+      "command": "gh run download 42337967948 --repo just-every/run-slate --pattern contract-* --dir <owned task directory>",
+      "exit_code": 1,
+      "purpose": "attempt read of historical Workers reports; blob transport failed; no retries"
+    }
+  ],
+  "unchanged_verifier_files": {
+    "scripts/verify.mjs": {
+      "main_blob": "1091067f0f94a47809ae7bcf0e7aa13f27df8673",
+      "candidate_blob": "1091067f0f94a47809ae7bcf0e7aa13f27df8673",
+      "identical": true
+    },
+    "scripts/check-contract.mjs": {
+      "main_blob": "27e46ea3cfedd6cc00541756326a16d74913d9a4",
+      "candidate_blob": "27e46ea3cfedd6cc00541756326a16d74913d9a4",
+      "identical": true
+    },
+    "scripts/evidence-registry.mjs": {
+      "main_blob": "0f409368ecf22b4c2c7d826a81e0b0177240174e",
+      "candidate_blob": "0f409368ecf22b4c2c7d826a81e0b0177240174e",
+      "identical": true
+    },
+    ".github/workflows/verify.yml": {
+      "main_blob": "ee038f57890d9bf72f6a214c24483ca22ba78258",
+      "candidate_blob": "ee038f57890d9bf72f6a214c24483ca22ba78258",
+      "identical": true
+    },
+    ".github/scripts/run-shard.sh": {
+      "main_blob": "4ff1d7131de92a83bb8b9900c300382f059eff27",
+      "candidate_blob": "4ff1d7131de92a83bb8b9900c300382f059eff27",
+      "identical": true
+    },
+    "vitest.config.ts": {
+      "main_blob": "96322abd91614f072d5990c71e066e80181005b1",
+      "candidate_blob": "96322abd91614f072d5990c71e066e80181005b1",
+      "identical": true
+    }
+  }
+}

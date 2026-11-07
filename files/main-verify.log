@@ -1,0 +1,7 @@
+TAP version 13
+# Subtest: emitted bundles keep server internals and Markdown tooling off the client
+ok 1 - emitted bundles keep server internals and Markdown tooling off the client
+  ---
+  duration_ms: 226.358532
+  type: 'test'
+  ...

@@ -1,0 +1,275 @@
+diff --git a/ACCEPTANCE.md b/ACCEPTANCE.md
+index 9b45d97..b155460 100644
+--- a/ACCEPTANCE.md
++++ b/ACCEPTANCE.md
+@@ -2320,8 +2320,8 @@ Core · published · **partial** · Cites BASE-DATA-001
+ 1. An export contains workspace settings; members, groups and guests; every container, page, database, record, template, comment thread, notification, automation rule, AI run and activity entry as JSON, with each record's revision history and grants; and every uploaded file in its original form.
+ 2. Workspace export contains every listed record kind with revisions and grants and original files.
+ 
+-**Evidence.** `tests/qualification/erasure-metadata/atomic-custody.test.ts` — "Erasure ARCH-006 BASE-DATA-003 PORT-001 PORT-002: atomic page and member custody erasure survives cleanup failure, restore and re-export"
+-**Gap.** Missing a public export journey that populates and opens every promised wiki record family, revisions, grants and original files; the cited erasure flow checks retained import custody through service-level export.
++**Evidence.** `tests/qualification/ui-convergence/transfer-jobs-journey.mjs` — "transferJobsJourney", called by "readable exports retain discussions through HTML and Markdown re-import at 1440px" and "real core-wiki and touch-member journeys at 390px" in `tests/qualification/ui-convergence/journeys.test.mjs`: acceptance 1 and 2 supporting ordinary authored page-subtree export only; native mutations and reads, ordered parent and children, bodies and properties, twelve retained page revisions, explicit member and group page grants, anchored discussion and reply, and two uploaded originals reconciled against independent source snapshots and actual Settings ZIP rows, hashes and bytes, with unchanged source snapshots. `tests/qualification/erasure-metadata/atomic-custody.test.ts` — "Erasure ARCH-006 BASE-DATA-003 PORT-001 PORT-002: atomic page and member custody erasure survives cleanup failure, restore and re-export"
++**Gap.** Acceptance 1 and 2 remain incomplete: workspace settings; complete members, groups and guests; containers, databases, records, templates, notifications, automation rules, AI runs and activity; every family's complete revision histories and grants; other uploaded-original cases; and requirement-wide export completeness remain unproven. The ordinary authored page-subtree slice does not establish these omitted families or narrow either acceptance point. Existing PORT-003, PORT-006 and PORT-007 scopes and privacy, import, erasure, ADMIN-007 and shared company-policy prerequisites remain unchanged; no Slate clause is released.
+ 
+ #### PORT-002 — Referential restore
+ 
+diff --git a/CONTRACT.md b/CONTRACT.md
+index c47953d..23b65c1 100644
+--- a/CONTRACT.md
++++ b/CONTRACT.md
+@@ -4178,7 +4178,7 @@ AUTO-003 is judged from the code and tests at commit `1c76d8836ddffd43d0ea70e168
+ | `IMP-016` | Imported Confluence principal and restriction mapping | published | partial | `tests/e2e/imports/preview-undo.test.ts` — reviews, applies and reverses real Notion and Confluence content without losing native edits, including reviewedPrincipalsJourney for acceptance 2, 3, 5 and 6; `tests/qualification/ui-convergence/journeys.test.mjs` — existing responsive Settings callers with importReviewJourney; `tests/e2e/imports/real-exports.test.ts` — incumbent-produced archives preserve pages, relationships, media and explicit losses. | Acceptance 1's complete content, tree, labels, versions, comments, ordinals, status, publication, links and named user and group restriction matrix; acceptance 4's complete empty, unknown and unmapped restriction and recovery-access matrix; and acceptance 7's complete general-grant and personal-space matrix remain unproven. The genuine incumbent fixture lacks the missing cases; synthetic parser cases do not replace them. ADMIN-007 and shared company-policy, IMP-001, full PORT-004 and imported-record SEARCH-001 through SEARCH-006 prerequisites remain unchanged. |
+ | `IMP-004` | Import safety | published | partial | `tests/e2e/imports/real-exports.test.ts` | Missing a public import journey that records network requests for an archive with missing and hostile media and reads the retained links and losses; the cited parser checks do not go through the import door. |
+ | `IMP-005` | Importing into a page | published | partial | `tests/flagship/federation/federation.test.ts`; `tests/flagship/federation/document-import-journey.ts`; acceptance 2 imports all seven formats through native multipart and streaming uploads, reads exact headings, table cells and typed CSV records, retains existing append content and child hierarchy, and refuses CSV flattening. `tests/e2e/imports/parsers.test.ts` — "explicit import formats preserve their content and relationships" retains the format regressions. | Missing a public page-import journey covering Markdown, HTML, Word, PDF, EPUB, plain text and CSV with headings, tables and losses; the cited federation flow invokes import services directly for a narrower document set. |
+-| `PORT-001` | Export contents | published | partial | `tests/qualification/erasure-metadata/atomic-custody.test.ts` — "Erasure ARCH-006 BASE-DATA-003 PORT-001 PORT-002: atomic page and member custody erasure survives cleanup failure, restore and re-export" | Missing a public export journey that populates and opens every promised wiki record family, revisions, grants and original files; the cited erasure flow checks retained import custody through service-level export. |
++| `PORT-001` | Export contents | published | partial | `tests/qualification/ui-convergence/transfer-jobs-journey.mjs` — "transferJobsJourney", called by "readable exports retain discussions through HTML and Markdown re-import at 1440px" and "real core-wiki and touch-member journeys at 390px" in `tests/qualification/ui-convergence/journeys.test.mjs`: acceptance 1 and 2 supporting ordinary authored page-subtree export only; native mutations and reads, ordered parent and children, bodies and properties, twelve retained page revisions, explicit member and group page grants, anchored discussion and reply, and two uploaded originals reconciled against independent source snapshots and actual Settings ZIP rows, hashes and bytes, with unchanged source snapshots. `tests/qualification/erasure-metadata/atomic-custody.test.ts` — "Erasure ARCH-006 BASE-DATA-003 PORT-001 PORT-002: atomic page and member custody erasure survives cleanup failure, restore and re-export" | Acceptance 1 and 2 remain incomplete: workspace settings; complete members, groups and guests; containers, databases, records, templates, notifications, automation rules, AI runs and activity; every family's complete revision histories and grants; other uploaded-original cases; and requirement-wide export completeness remain unproven. The ordinary authored page-subtree slice does not establish these omitted families or narrow either acceptance point. Existing PORT-003, PORT-006 and PORT-007 scopes and privacy, import, erasure, ADMIN-007 and shared company-policy prerequisites remain unchanged; no Slate clause is released. |
+ | `PORT-002` | Referential restore | published | partial | `tests/qualification/erasure-metadata/atomic-custody.test.ts` — "Erasure ARCH-006 BASE-DATA-003 PORT-001 PORT-002: atomic page and member custody erasure survives cleanup failure, restore and re-export" | Missing a public empty-install restore journey that opens all restored permanent links, revisions, grants, comments, public slugs and files; the cited erasure flow restores and checks a limited custody fixture through services. |
+ | `PORT-003` | Visible jobs | published | partial | `tests/qualification/ui-convergence/transfer-jobs-journey.mjs` — "transferJobsJourney", called by "readable exports retain discussions through HTML and Markdown re-import at 1440px" and "real core-wiki and touch-member journeys at 390px" in `tests/qualification/ui-convergence/journeys.test.mjs`: acceptance 1 and 2, native export and empty-deployment restore through Queued, Running, Completed and Failed, live progress after a queued reload, persisted counts, safe failure reports, terminal replay, refused failed downloads and completion actions, successful fresh operations and original files. `tests/portability/roundtrip.test.mjs` — "BASE-DATA-001 PORT-001 PORT-002 PORT-003 PORT-005 — native ZIP backup, failed restore, retry and backup preserve populated D1 and original R2 bytes in a separate empty deployment": native late failure, Worker restart, empty destination and staged-file cleanup, then retained-table and original-byte reconciliation after successful retry. | No validated CI-run proof for this acceptance point: "Export and import show Queued, Running, Completed or Failed with record counts and, on failure, a report naming what failed."<br>No validated CI-run proof for this acceptance point: "A failed job is never shown as complete." |
+ | `PORT-004` | Search rebuild | published | partial | `tests/e2e/imports/preview-undo.test.ts` | Missing an import completion journey that reads canonical search and dirty-generation state and checks the promised search behavior before lazy refresh; the cited reviewed-import flow counts indexed pages but does not check the complete search bar. |
+diff --git a/sources.lock.json b/sources.lock.json
+index ae650b4..fbbd0dc 100644
+--- a/sources.lock.json
++++ b/sources.lock.json
+@@ -960,7 +960,7 @@
+       "executable": false
+     },
+     "ACCEPTANCE.md": {
+-      "sha256": "f567045074e38f4a964635eb2d2e7ba1bcf1a5becb435f2e7f419be4763d8e4d",
++      "sha256": "528a37e2d9e604152295bf71a2f5f0706513c9c3d0a9a5f4947507bbf90fd659",
+       "executable": false
+     },
+     "AGENTS.consumer.md": {
+@@ -988,7 +988,7 @@
+       "executable": false
+     },
+     "CONTRACT.md": {
+-      "sha256": "ba9e2f22091346e1f706f27319ed1406134b54acce1ea531f33b7a67b8780ffc",
++      "sha256": "552ca566fa2b1a2850efb9eb2b63914b4f4eb55edb28bf2ecbbc72058b762d41",
+       "executable": false
+     },
+     "DEMO.md": {
+@@ -12364,7 +12364,7 @@
+       "executable": false
+     },
+     "tests/qualification/ui-convergence/transfer-jobs-journey.mjs": {
+-      "sha256": "fbe52f4d2d2af6812a6fa651b5f82ceffab44fe81ffbdc5d871b38d51ad05577",
++      "sha256": "929204aa70cbd66b4125cf8628778b34e4a4508de01c4a192254793951badca6",
+       "executable": false
+     },
+     "tests/qualification/ui-convergence/tree-filter-journey.mjs": {
+@@ -12444,7 +12444,7 @@
+       "executable": false
+     },
+     "tests/requirements/clause-inventory.json": {
+-      "sha256": "81253dcc74faf91561f73e6fd5533a3de26ddab7ddda1115fb496151bc7e362a",
++      "sha256": "39a71c561760dc382647a7d3d23f01a25af06b0caef64873ccc550ed2437df6d",
+       "executable": false
+     },
+     "tests/requirements/cli-journey.md": {
+@@ -12460,7 +12460,7 @@
+       "executable": false
+     },
+     "tests/requirements/test-evidence.json": {
+-      "sha256": "1ee71543f0df92b8cd8ece9911aedea66e1556eb659f63d38dd0946a078a9817",
++      "sha256": "9b4c6ff530819e4433f34c8133154c41dd0abecdb61b3fee75d3d465d17cd117",
+       "executable": false
+     },
+     "tests/rer/editor.test.mjs": {
+diff --git a/tests/qualification/ui-convergence/transfer-jobs-journey.mjs b/tests/qualification/ui-convergence/transfer-jobs-journey.mjs
+index e5b2dd3..4d75dc0 100644
+--- a/tests/qualification/ui-convergence/transfer-jobs-journey.mjs
++++ b/tests/qualification/ui-convergence/transfer-jobs-journey.mjs
+@@ -1,5 +1,7 @@
+ import assert from 'node:assert/strict';
+-import {mkdir,mkdtemp,readFile,rm} from 'node:fs/promises';
++import {mkdir,mkdtemp,readFile,rm,writeFile} from 'node:fs/promises';
++import {createHash,randomUUID} from 'node:crypto';
++import {execFileSync} from 'node:child_process';
+ import path from 'node:path';
+ import {expect} from '@playwright/test';
+ import {runtime,signIn,root} from '../../portability/runtime.mjs';
+@@ -10,6 +12,111 @@ const jobPanel = page => page.getByRole('region',{name:'Workspace transfer job',
+ const jobPath = id => `/api/exports/jobs/${id}`;
+ const title = (kind,state) => `${kind==='export'?'Export':'Restore'} · ${state}`;
+ 
++/** Author ordinary content through native doors; the ZIP never supplies its own expected values. */
++async function authoredSubtree(state) {
++  const receipts=[],documents=[],originals=[];
++  const mutate=async(method,route,input)=>{
++    const result=await call(state.context,state.origin,method,route,{operationKey:randomUUID(),...input});
++    assert.equal(result.status,200,`${method} ${route}: ${JSON.stringify(result.body)}`);
++    assert.ok(result.body.receipt?.revisionId,'Every authored change has a native commit receipt.');
++    receipts.push({method,route,input,receipt:result.body.receipt,value:result.body.value});
++    return result.body.value;
++  };
++  const space=(await state.api('/api/containers')).items.find(item=>item.visibility!=='personal');
++  const group=await mutate('POST','/api/groups',{name:'Archive review team',memberIds:['browser-reader']});
++  const create=async(label,parentPageId,treePosition)=>{
++    const blockId=randomUUID(),anchorId=randomUUID();
++    const created=await mutate('POST','/api/pages',{containerId:space.id,parentPageId,treePosition,title:`Archive ${label}`,properties:{labels:['synthetic-slate-401',label],icon:'📚',typeface:'serif',fullWidth:true},blocks:[{id:blockId,blockType:'paragraph',content:{text:[{text:`synthetic-slate-402: ${label} original body`,commentAnchorId:anchorId}]},treePosition:'a'}]});
++    let document=await state.api(`/api/pages/${created.pageId}`);
++    await mutate('PATCH',`/api/pages/${created.pageId}`,{expectedRevisionId:document.page.revisionId,properties:{title:`Archive ${label} reviewed`,labels:['synthetic-slate-403',label],icon:'🗂️',typeface:'mono',fullWidth:false}});
++    document=await state.api(`/api/pages/${created.pageId}`);
++    await mutate('PATCH',`/api/pages/${created.pageId}/blocks/${blockId}`,{expectedRevisionId:document.blocks[0].revisionId,content:{text:[{text:`synthetic-slate-404: ${label} reviewed body`,commentAnchorId:anchorId}]}});
++    return {id:created.pageId,blockId,anchorId,parentPageId,treePosition};
++  };
++  const parent=await create('parent',null,'archive-a');
++  // Create siblings in reverse order, so creation order cannot stand in for tree order.
++  const second=await create('second child',parent.id,'b');
++  const first=await create('first child',parent.id,'a');
++  const grandchild=await create('grandchild',first.id,'a');
++  const pages=[parent,first,second,grandchild];
++  for(const [page,principalKind,principalId,level]of [[parent,'member','browser-reader','comment'],[first,'group',group.id,'view']])
++    await mutate('POST','/api/sharing',{targetKind:'page',targetId:page.id,principalKind,principalId,level});
++  const current=await state.api(`/api/pages/${parent.id}`);
++  const discussion=await mutate('POST',`/api/comments/page/${parent.id}`,{kind:'inline',blockId:parent.blockId,anchor:{anchorId:parent.anchorId,quote:'synthetic-slate-404: parent reviewed body'},anchorRevisionId:current.workingRevisionId,body:[{text:'synthetic-slate-405: preserve this anchored discussion'}]});
++  await mutate('POST',`/api/comments/page/${parent.id}`,{threadId:discussion.threadId,parentCommentId:discussion.id,body:[{text:'synthetic-slate-406: preserve this reply'}]});
++  for(const [page,name,bytes]of [[parent,'archive-notes.txt',Buffer.from('synthetic-slate-407: original notes\nwith a retained newline\n')],[grandchild,'archive-original.png',Buffer.from([137,80,78,71,13,10,26,10,0,0,0,13,73,72,68,82,0,0,0,1,0,0,0,1,8,4,0,0,0,181,28,12,2,0,0,0,11,73,68,65,84,120,218,99,252,255,31,0,3,3,2,0,239,191,157,100,0,0,0,0,73,69,78,68,174,66,96,130])]]){
++    const response=await state.context.request.post(state.origin+'/api/media',{headers:{Origin:state.origin},multipart:{operationKey:randomUUID(),pageId:page.id,file:{name,mimeType:name.endsWith('.txt')?'text/plain':'image/png',buffer:bytes}}});
++    assert.equal(response.status(),200,await response.text());
++    const uploaded=await response.json();
++    receipts.push({method:'POST',route:'/api/media',receipt:uploaded.receipt,value:uploaded.value});
++    const downloaded=await state.context.request.get(state.origin+`/api/media/${uploaded.value.id}`);
++    assert.equal(downloaded.status(),200);assert.deepEqual(await downloaded.body(),bytes);
++    originals.push({id:uploaded.value.id,pageId:page.id,name,bytes,hash:createHash('sha256').update(bytes).digest('hex')});
++  }
++  for(const page of pages){
++    const document=await state.api(`/api/pages/${page.id}`);
++    assert.equal(document.parentPageId,page.parentPageId);
++    const history=await state.api(`/api/revisions/${page.id}`);
++    assert.equal(history.items.length,3,'Creation, property edit and body edit each retain a version.');
++    const revisions=[];
++    for(const version of history.items)revisions.push(await state.api(`/api/revisions/${page.id}/${version.id}`));
++    documents.push({id:page.id,document,history,revisions,sharing:await state.api(`/api/sharing/pages/${page.id}`),discussion:await state.api(`/api/comments/page/${page.id}`)});
++  }
++  const tree=(await state.api(`/api/pages?containerId=${space.id}`)).items;
++  assert.deepEqual(tree.filter(page=>page.parentPageId===parent.id).map(page=>page.id),[first.id,second.id]);
++  const ids=pages.map(page=>page.id);
++  for(const id of [...ids,group.id])assert.match(id,/^[a-z0-9-]+$/i);
++  const list=ids.map(id=>`'${id}'`).join(',');
++  const selections={pages:`id IN (${list})`,page_blocks:`page_id IN (${list})`,page_revisions:`page_id IN (${list})`,page_labels:`page_id IN (${list})`,page_grants:`page_id IN (${list})`,comment_threads:`page_id IN (${list})`,comments:`thread_id IN (SELECT id FROM comment_threads WHERE page_id IN (${list}))`,files:`page_id IN (${list})`,groups:`id='${group.id}'`,group_members:`group_id='${group.id}'`};
++  // Independent read-only D1 snapshots include every stored field, including fields omitted by UI projections.
++  const snapshot=async()=>{
++    const results=await state.atRest(Object.entries(selections).map(([table,where])=>`SELECT * FROM ${table} WHERE ${where};`).join('\n'));
++    return Object.fromEntries(Object.keys(selections).map((table,index)=>[table,results[index].results]));
++  };
++  return {pages,documents,receipts,originals,snapshot,before:await snapshot()};
++}
++
++const ordered=rows=>rows.map(row=>JSON.stringify(Object.fromEntries(Object.entries(row).sort(([a],[b])=>a.localeCompare(b))))).sort();
++
++async function reconcileSubtree(state,source,archive,bytes,job,evidence){
++  const selected={};
++  const pageIds=new Set(source.pages.map(page=>page.id)),threadIds=new Set(source.before.comment_threads.map(thread=>thread.id));
++  const groupId=source.before.groups[0].id;
++  for(const [table,expected]of Object.entries(source.before)){
++    assert.ok(expected.length,`The source snapshot for ${table} is populated.`);
++    selected[table]=archive.manifest.tables[table].filter(row=>table==='pages'?pageIds.has(row.id):table==='comments'?threadIds.has(row.thread_id):table==='groups'?row.id===groupId:table==='group_members'?row.group_id===groupId:pageIds.has(row.page_id));
++    assert.deepEqual(ordered(selected[table]),ordered(expected),`The Settings ZIP retains every source field in ${table}.`);
++  }
++  for(const page of source.pages){
++    const archived=selected.pages.find(row=>row.id===page.id),native=source.documents.find(row=>row.id===page.id);
++    assert.equal(archived.parent_page_id,page.parentPageId);
++    assert.equal(archived.tree_position,page.treePosition);
++    assert.deepEqual(selected.page_revisions.filter(row=>row.page_id===page.id).map(row=>row.id).sort(),native.history.items.map(row=>row.id).sort());
++    for(const revision of native.revisions){
++      const row=selected.page_revisions.find(row=>row.id===revision.id);
++      assert.deepEqual(JSON.parse(row.body_json),revision.blocks);
++      assert.deepEqual(JSON.parse(row.properties_json),revision.properties);
++    }
++  }
++  const originalReceipts=[];
++  for(const file of source.originals){
++    const row=selected.files.find(row=>row.id===file.id),blob=archive.manifest.blobs.find(blob=>blob.key===row.storage_key);
++    assert.ok(blob,`Original ${file.name} is present in the ZIP.`);
++    assert.equal(row.original_name,file.name);assert.equal(row.page_id,file.pageId);
++    assert.equal(row.size_bytes,file.bytes.length);assert.equal(blob.size,file.bytes.length);assert.equal(blob.hash,file.hash);
++    const actual=Buffer.from(archive.entries[blob.entry]);
++    assert.deepEqual(actual,file.bytes);assert.equal(createHash('sha256').update(actual).digest('hex'),file.hash);
++    originalReceipts.push({id:file.id,pageId:file.pageId,name:file.name,blob,bytes:[...actual]});
++  }
++  const after=await source.snapshot();
++  for(const table of Object.keys(source.before))assert.deepEqual(ordered(after[table]),ordered(source.before[table]),`Export leaves source ${table} unchanged.`);
++  const sourceIdentity={head:execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim(),journeySha256:createHash('sha256').update(await readFile(new URL(import.meta.url))).digest('hex')};
++  const receipt={scope:'Ordinary authored page subtree only; other workspace families and requirement-wide completeness remain unproven.',sourceIdentity,viewport:state.page.viewportSize(),jobId:job.id,archive:{bytes:bytes.length,sha256:createHash('sha256').update(bytes).digest('hex')},mutations:source.receipts,nativeReads:source.documents,sourceBefore:source.before,archived:selected,originals:originalReceipts,sourceAfter:after};
++  await writeFile(path.join(evidence,`${state.page.viewportSize().width}-authored-subtree.json`),JSON.stringify(receipt,null,2)+'\n');
++  console.log(`PROBE PORT-001 1: native authored subtree -> Settings workspace ZIP retains ${source.pages.length} ordered pages, bodies, properties, twelve revisions, explicit member and group grants, anchored thread and reply`);
++  console.log(`PROBE PORT-001 2: native original downloads -> Settings ZIP has both exact original byte sequences and SHA-256 hashes; independent source snapshots unchanged`);
++}
++
+ /** Native mutation, independent status read and rendered counts must describe the same persisted job. */
+ async function shown(state, job, expected) {
+   const result=await call(state.context,state.origin,'GET',jobPath(job.id));
+@@ -112,6 +219,7 @@ export async function transferJobsJourney(state) {
+   const open=()=>state.page.goto(state.origin+'/app/settings?section=portability',{waitUntil:'networkidle'});
+   await state.switchIdentity('owner');
+   await open();
++  const source=await authoredSubtree(state);
+   const spaces=await state.api('/api/containers');
+   const created=await call(state.context,state.origin,'POST','/api/pages',{operationKey:crypto.randomUUID(),containerId:spaces.items.find(item=>item.visibility!=='personal').id,title:'Transfer recovery notes',blocks:[{id:crypto.randomUUID(),blockType:'paragraph',content:{text:[{text:'synthetic-slate-301: retained recovery content'}]},treePosition:'a'}]});
+   assert.equal(created.status,200);
+@@ -138,6 +246,7 @@ export async function transferJobsJourney(state) {
+   const bytes=await readFile(await file.path()),archive=unpack(bytes);
+   assert.ok(archive.manifest.tables.pages.length>0);
+   assert.deepEqual(complete.counts,Object.fromEntries(Object.entries(archive.manifest.tables).map(([table,rows])=>[table,rows.length])));
++  await reconcileSubtree(state,source,archive,bytes,exported,evidence);
+   const owner=(await state.api('/api/session')).member;
+   const scratch=await mkdtemp(path.join(root,'.artifacts/transfer-target-'));
+   let target,context;
+diff --git a/tests/requirements/clause-inventory.json b/tests/requirements/clause-inventory.json
+index e764edb..7b11a39 100644
+--- a/tests/requirements/clause-inventory.json
++++ b/tests/requirements/clause-inventory.json
+@@ -1657,7 +1657,7 @@
+       "id": "PORT-001",
+       "document": "CONTRACT.md",
+       "status": "unproven",
+-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of PORT-001 — Export contents. Full requirement-level UI, profile and runtime evidence remains unproven.",
++      "unmetReason": "Native Settings ZIP supporting proof covers only the ordinary authored page subtree, its bodies, properties, retained page revisions, explicit member and group page grants, anchored discussions and two originals, with independent source invariance. Other workspace record families, complete cross-family revisions and grants, other original-file cases and requirement-wide completeness remain unproven; privacy, import, erasure, ADMIN-007 and shared company-policy prerequisites remain unchanged.",
+       "supportingTests": [
+         {
+           "file": "tests/flagship/federation/federation.test.ts",
+@@ -1666,6 +1666,14 @@
+         {
+           "file": "tests/qualification/authority/recovery.test.ts",
+           "testName": "FLAG-004 — real D1 and R2 archive restore retains evaluated history while all executable authority stays inactive"
++        },
++        {
++          "file": "tests/qualification/ui-convergence/journeys.test.mjs",
++          "testName": "readable exports retain discussions through HTML and Markdown re-import at 1440px"
++        },
++        {
++          "file": "tests/qualification/ui-convergence/journeys.test.mjs",
++          "testName": "real core-wiki and touch-member journeys at 390px"
+         }
+       ]
+     },
+diff --git a/tests/requirements/test-evidence.json b/tests/requirements/test-evidence.json
+index 9bbc9c2..fe63717 100644
+--- a/tests/requirements/test-evidence.json
++++ b/tests/requirements/test-evidence.json
+@@ -1059,6 +1059,24 @@
+         "ACT-002"
+       ],
+       "reason": "Exercises the SCIM HTTP protocol through native invitation, Member identity, group and removal services, including credential custody and current authority. Real directory-provider acceptance and native invitation capacity outside SCIM remain unproven."
++    },
++    {
++      "file": "tests/qualification/ui-convergence/journeys.test.mjs",
++      "testName": "readable exports retain discussions through HTML and Markdown re-import at 1440px",
++      "kind": "supporting-regression",
++      "clauses": [
++        "PORT-001"
++      ],
++      "reason": "PORT-001 supporting slice through transferJobsJourney: native authored ordered page subtree, body and property edits, retained revisions, explicit member and group page grants, anchored thread and reply, two uploaded originals, actual Settings ZIP download and independent stored-row, hash, byte and source-invariance reconciliation. Other workspace families and requirement-wide completeness remain unproven; no full acceptance or release claim."
++    },
++    {
++      "file": "tests/qualification/ui-convergence/journeys.test.mjs",
++      "testName": "real core-wiki and touch-member journeys at 390px",
++      "kind": "supporting-regression",
++      "clauses": [
++        "PORT-001"
++      ],
++      "reason": "PORT-001 supporting slice through transferJobsJourney: native authored ordered page subtree, body and property edits, retained revisions, explicit member and group page grants, anchored thread and reply, two uploaded originals, actual Settings ZIP download and independent stored-row, hash, byte and source-invariance reconciliation. Other workspace families and requirement-wide completeness remain unproven; no full acceptance or release claim."
+     }
+   ]
+ }

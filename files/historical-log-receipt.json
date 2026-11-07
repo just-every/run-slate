@@ -1,0 +1,41 @@
+{
+  "source": "gh run view 42341571114 -R just-every/run-slate --job 128318789802 --log-failed",
+  "exit_code": 0,
+  "lines": 4237,
+  "bytes": 807905,
+  "truncated_before_checks": true,
+  "checks_available": true,
+  "last_line": "contract\tRun node scripts/verify.mjs\t2026-11-07T05:53:34.6959813Z       \"supportingTests\": [],",
+  "passed": 16,
+  "failed": 1,
+  "productContractBehavior": {
+    "satisfied": 22,
+    "planned": 316,
+    "overridden": 0,
+    "broken": 0
+  },
+  "baselineContractBehavior": {
+    "satisfied": 2,
+    "planned": 43,
+    "overridden": 0,
+    "broken": 0
+  },
+  "full_log_recovered_from_existing_cache": true,
+  "cache_archive_sha256": "ef0ea2032dac58efe9c61bfcd793fc00734538d55de1bbc1a5bb367cf6dc657d",
+  "cache_member": "contract/9_Run node scripts_verify.mjs.txt",
+  "full_member_sha256": "43abe31d410712d7762cf6547f4803b682c20dfac7697ca401951f30a1bae9b6",
+  "full_member_lines": 5019,
+  "full_member_bytes": 905534,
+  "additional_github_calls": 0,
+  "failed_checks": [
+    {
+      "name": "evidence metadata is exact and current",
+      "status": "failed",
+      "errors": [
+        "Stale or unknown test entry: [\"tests/qualification/ui-convergence/journeys.test.mjs\",\"readable exports retain discussions through HTML and Markdown re-import at 1440px\"]",
+        "Stale or unknown test entry: [\"tests/qualification/ui-convergence/journeys.test.mjs\",\"real core-wiki and touch-member journeys at 390px\"]"
+      ],
+      "supportingTests": 97
+    }
+  ]
+}

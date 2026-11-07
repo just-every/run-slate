@@ -1,0 +1,266 @@
+--- scripts/evidence-registry.mjs:1-23 ---
+1: import path from 'node:path';
+2: const key=(file,name)=>JSON.stringify([file,name]);
+3: export function requirementRecords(documents,registeredClauseIds=[]){return Object.entries(documents).flatMap(([document,text])=>{const matches=[...text.matchAll(/\*\*((?:BASE-)?[A-Z]+-\d{3}) —|^#### ([A-Z]+-\d{3}) —/gm)].filter(match=>match[1]||registeredClauseIds.includes(match[2]));return matches.map((match,i)=>({id:match[1]??match[2],document,requirement:text.slice(match.index,matches[i+1]?.index??text.length).trim()}));});}
+4: /** Exact registration only. Supporting checks can never satisfy a clause. */
+5: export function validateEvidenceRegistry({root,report,registry,inventory,documents,registeredClauseIds=[]}){
+6:  const errors=[],registered=new Map(),observed=new Set(),requirements=requirementRecords(documents,registeredClauseIds),ids=new Set(requirements.map(x=>x.id)),records=new Map();
+7:  for(const file of report.testResults??[])for(const assertion of file.assertionResults??[])observed.add(key(path.relative(root,file.name),assertion.fullName??assertion.title??''));
+8:  if(registry.version!==1||inventory.version!==1)errors.push('Unsupported evidence metadata version');
+9:  for(const entry of registry.entries??[]){const identity=key(entry.file,entry.testName);if(registered.has(identity))errors.push('Duplicate test entry: '+identity);if(!observed.has(identity))errors.push('Stale or unknown test entry: '+identity);if(entry.kind!=='supporting-regression'||!entry.reason?.trim()||!Array.isArray(entry.clauses))errors.push('Invalid supporting evidence: '+identity);for(const id of entry.clauses??[])if(!ids.has(id))errors.push('Unknown clause '+id);registered.set(identity,entry);}
+10:  for(const entry of inventory.clauses??[]){if(records.has(entry.id))errors.push('Duplicate clause '+entry.id);records.set(entry.id,entry);if(!ids.has(entry.id))errors.push('Unknown clause inventory '+entry.id);if(entry.status!=='unproven'||!entry.unmetReason?.trim())errors.push('Missing unmet reason '+entry.id);for(const ref of entry.supportingTests??[]){const test=registered.get(key(ref.file,ref.testName));if(!test?.clauses.includes(entry.id))errors.push('Stale clause support '+entry.id+': '+key(ref.file,ref.testName));}}
+11:  for(const expected of requirements){const actual=records.get(expected.id);if(!actual||actual.document!==expected.document)errors.push('Missing requirement '+expected.id);else records.set(expected.id,{...actual,requirement:expected.requirement});}
+12:  return {errors,records,registered,isSupporting:(file,name)=>registered.has(key(path.relative(root,file),name))};
+13: }
+14: 
+15: /** Raw clause tags establish test inventory only; never confuse this with acceptance. */
+16: export function taggedTestInventory(report){
+17:  const ids=new Set();
+18:  for(const file of report.testResults??[])for(const assertion of file.assertionResults??[]){
+19:   const match=/^((?:BASE-)?[A-Z]+-\d{3})(?:\s+\[[^\]]+\])?\s+—\s+/.exec(assertion.fullName??assertion.title??'');
+20:   if(match)ids.add(match[1]);
+21:  }
+22:  return ids;
+23: }
+
+--- scripts/verify.mjs:30-53 ---
+30: /**
+31:  * Runs the Workers-runtime contract suite. The previous report is deleted
+32:  * first, so a suite that crashes before writing leaves nothing to misread as
+33:  * this run's result.
+34:  */
+35: async function runWorkersContractSuite() {
+36:   if (process.env.SLATE_WORKERS_REPORTS) {
+37:     const directory = process.env.SLATE_WORKERS_REPORTS;
+38:     const reports = await Promise.all(Array.from({length: 6}, (_, index) => fs.readFile(path.join(directory, `contract-${index + 1}.json`), 'utf8').then(JSON.parse)));
+39:     const testResults = reports.flatMap(report => report.testResults ?? []);
+40:     if (new Set(testResults.map(file => file.name)).size !== testResults.length) throw new Error('Contract shards overlap.');
+41:     await fs.mkdir(path.dirname(path.join(root, resultsPath)), {recursive: true});
+42:     await fs.writeFile(path.join(root, resultsPath), JSON.stringify({testResults}));
+43:     return reports.every(report => report.success === true) ? 0 : 1;
+44:   }
+45:   await fs.rm(path.join(root, resultsPath), { force: true });
+46:   const result = spawnSync(
+47:     process.execPath,
+48:     ["./node_modules/vitest/vitest.mjs", "run", "--reporter=default", "--reporter=json", `--outputFile=${resultsPath}`],
+49:     { cwd: root, stdio: ["ignore", "inherit", "inherit"] },
+50:   );
+51:   if (result.error) throw result.error;
+52:   return result.status;
+53: }
+
+--- scripts/verify.mjs:160-183 ---
+160: }
+161: 
+162: const {checks: structuralChecks, contract, baseline, clauses, contractIds, baselineIds, policyDefinitions, overriddenIds} = await inspectContract(root);
+163: checks.push(...structuralChecks);
+164: 
+165: const artifactAccess = await runArtifactAccessSuite();
+166: const suiteStatus = await runWorkersContractSuite();
+167: const report = await readJsonIfPresent(resultsPath);
+168: 
+169: /**
+170:  * A run that did not complete cannot say anything about clause behaviour. A
+171:  * partial report — one test file crashed, the rest wrote results — would make
+172:  * its clauses look merely planned, so nothing is classified at all until the
+173:  * suite exits clean.
+174:  */
+175: const suiteCompleted = suiteStatus === 0 && Boolean(report);
+176: const suiteFailure = !report
+177:   ? `The Workers contract suite wrote no report to ${resultsPath}.`
+178:   : suiteStatus !== 0
+179:     ? `The Workers contract suite exited ${suiteStatus}; its report cannot be trusted to be complete.`
+180:     : undefined;
+181: 
+182: const evidence = validateEvidenceRegistry({root, report: report ?? {}, registry: await readJsonIfPresent("tests/requirements/test-evidence.json") ?? {}, inventory: await readJsonIfPresent("tests/requirements/clause-inventory.json") ?? {}, documents: {"CONTRACT.md": contract, "BASELINE.md": baseline}, registeredClauseIds:contractIds});
+183: const { tagged, untagged, harness, harnessTagged, parserRegressions, parserTagged } = report
+
+--- scripts/verify.mjs:210-220 ---
+210: const unknownTags = [...tagged.keys()].filter((id) => !contractIds.includes(id) && !baselineIds.includes(id));
+211: const failedTests = report
+212:   ? (report.testResults ?? []).flatMap((file) => (file.assertionResults ?? []).filter(({ status }) => status === "failed").map(({ fullName, title }) => fullName ?? title))
+213:   : [];
+214: 
+215: check("emitted Worker access matrix completed", artifactAccess.passed, artifactAccess);
+216: check("the Workers contract suite completed", suiteCompleted, { exitCode: suiteStatus, reason: suiteFailure, failedTests });
+217: check("evidence metadata is exact and current", suiteCompleted && evidence.errors.length === 0, {errors: evidence.errors, supportingTests: evidence.registered.size});
+218: const rawTagged=taggedTestInventory(report??{});
+219: let plannedClauses = [];
+220: let plannedInventoryError;
+
+--- .github/scripts/run-shard.sh:1-15 ---
+1: #!/usr/bin/env bash
+2: set -euo pipefail
+3: 
+4: mkdir -p .artifacts/ci
+5: other_lane() {
+6:   if (( WORKER_SHARD != 0 )); then
+7:     pnpm exec vitest run --shard="$WORKER_SHARD/6" \
+8:       --testNamePattern="^(?!Undo removes unedited and merely shared imported pages).*$" \
+9:       --reporter=default --reporter=json --outputFile=".artifacts/contract-$WORKER_SHARD.json" || return "$?"
+10:   fi
+11:   bash -euo pipefail -c "$SUITE_COMMAND"
+12: }
+13: public_journeys() {
+14:   node --test --test-concurrency=1 tests/qualification/ui-convergence/journeys.test.mjs
+15: }
+
+--- .github/workflows/verify.yml:198-229 ---
+198:           path: .artifacts/
+199:           if-no-files-found: ignore
+200:   contract:
+201:     needs: [plan, shards, app]
+202:     if: needs.plan.outputs.skip != 'true' && github.event_name != 'workflow_dispatch'
+203:     runs-on: ubuntu-24.04
+204:     timeout-minutes: 15
+205:     steps:
+206:       - uses: actions/checkout@v5
+207:       - uses: pnpm/action-setup@v4
+208:         with:
+209:           version: 10.12.4
+210:       - uses: actions/setup-node@v5
+211:         with:
+212:           node-version: 22.20.0
+213:           cache: pnpm
+214:       - run: pnpm install --frozen-lockfile
+215:       # Emitted-Worker first-open and sign-in acceptance launch Chromium.
+216:       - name: Install Chromium
+217:         run: bash .github/scripts/install-browsers.sh
+218:       - uses: actions/download-artifact@v4
+219:         with:
+220:           name: verified-app-build
+221:           path: .
+222:       - uses: actions/download-artifact@v4
+223:         with:
+224:           pattern: contract-*
+225:           path: .artifacts/contract-shards
+226:           merge-multiple: true
+227:       - run: node scripts/verify.mjs
+228:         env:
+229:           SLATE_WORKERS_REPORTS: .artifacts/contract-shards
+
+--- vitest.config.ts:50-85 ---
+50:     react(),
+51:   ],
+52:   test: {
+53:     // Each Workers file owns D1/R2 state; avoid competing native runtimes on shared builders.
+54:     maxWorkers: 1,
+55:     // Cold native D1/R2 journeys need a harness budget beyond Vitest's 5s default.
+56:     // Product deadline assertions and explicit per-test budgets remain unchanged.
+57:     testTimeout: 30_000,
+58:     include: ["tests/qualification/core/audit-content.test.ts", "tests/e2e/**/*.test.ts", "tests/flagship/**/*.test.ts",
+59:       // Guest policy acceptance shares the existing invitation journey.
+60:       "tests/qualification/policies/invitations.test.ts",
+61:       // Exact existing supporting suites registered by tests/requirements/test-evidence.json.
+62:       "tests/qualification/authority/atomic-recovery.test.ts",
+63:       "tests/qualification/authority/disconnect.test.ts",
+64:       "tests/qualification/authority/import-safety.test.ts",
+65:       "tests/qualification/authority/learned-provenance.test.ts",
+66:       "tests/qualification/authority/recovery.test.ts",
+67:       "tests/qualification/authority/skill-disclosure.test.ts",
+68:       "tests/qualification/authority/decision-authority.test.ts",
+69:       "tests/qualification/authority/native-boundaries.test.ts",
+70:       "tests/qualification/release-restore-authority/restored-effects.test.ts",
+71:       "tests/qualification/release-integration-repairs/*.test.ts",
+72:     ],
+73:     // Still written against `node:test` and run by `pnpm test:platform`. Delete
+74:     // each entry as its suite is rewritten as Workers-runtime clause journeys.
+75:     exclude: [
+76:       "tests/e2e/platform-adapters.test.ts",
+77:       // Node test assertions run unchanged through test:platform.
+78:       "tests/e2e/search/search-location.test.ts",
+79:     ],
+80:     setupFiles: ["./tests/e2e/setup/apply-migrations.ts"],
+81:     // A clause journey that asserts nothing must never report its clause
+82:     // satisfied. An empty body is a failure, not a pass.
+83:     expect: { requireAssertions: true },
+84:   },
+85: });
+
+--- tests/requirements/test-evidence.json:1058-1082 ---
+1058:         "WORK-009",
+1059:         "ACT-002"
+1060:       ],
+1061:       "reason": "Exercises the SCIM HTTP protocol through native invitation, Member identity, group and removal services, including credential custody and current authority. Real directory-provider acceptance and native invitation capacity outside SCIM remain unproven."
+1062:     },
+1063:     {
+1064:       "file": "tests/qualification/ui-convergence/journeys.test.mjs",
+1065:       "testName": "readable exports retain discussions through HTML and Markdown re-import at 1440px",
+1066:       "kind": "supporting-regression",
+1067:       "clauses": [
+1068:         "PORT-001"
+1069:       ],
+1070:       "reason": "PORT-001 supporting slice through transferJobsJourney: native authored ordered page subtree, body and property edits, retained revisions, explicit member and group page grants, anchored thread and reply, two uploaded originals, actual Settings ZIP download and independent stored-row, hash, byte and source-invariance reconciliation. Other workspace families and requirement-wide completeness remain unproven; no full acceptance or release claim."
+1071:     },
+1072:     {
+1073:       "file": "tests/qualification/ui-convergence/journeys.test.mjs",
+1074:       "testName": "real core-wiki and touch-member journeys at 390px",
+1075:       "kind": "supporting-regression",
+1076:       "clauses": [
+1077:         "PORT-001"
+1078:       ],
+1079:       "reason": "PORT-001 supporting slice through transferJobsJourney: native authored ordered page subtree, body and property edits, retained revisions, explicit member and group page grants, anchored thread and reply, two uploaded originals, actual Settings ZIP download and independent stored-row, hash, byte and source-invariance reconciliation. Other workspace families and requirement-wide completeness remain unproven; no full acceptance or release claim."
+1080:     }
+1081:   ]
+1082: }
+
+--- tests/requirements/clause-inventory.json:1655-1679 ---
+1655:     },
+1656:     {
+1657:       "id": "PORT-001",
+1658:       "document": "CONTRACT.md",
+1659:       "status": "unproven",
+1660:       "unmetReason": "Native Settings ZIP supporting proof covers only the ordinary authored page subtree, its bodies, properties, retained page revisions, explicit member and group page grants, anchored discussions and two originals, with independent source invariance. Other workspace record families, complete cross-family revisions and grants, other original-file cases and requirement-wide completeness remain unproven; privacy, import, erasure, ADMIN-007 and shared company-policy prerequisites remain unchanged.",
+1661:       "supportingTests": [
+1662:         {
+1663:           "file": "tests/flagship/federation/federation.test.ts",
+1664:           "testName": "durable imports and federation imports, source authority and portable archives persist exactly through failure and recovery"
+1665:         },
+1666:         {
+1667:           "file": "tests/qualification/authority/recovery.test.ts",
+1668:           "testName": "FLAG-004 — real D1 and R2 archive restore retains evaluated history while all executable authority stays inactive"
+1669:         },
+1670:         {
+1671:           "file": "tests/qualification/ui-convergence/journeys.test.mjs",
+1672:           "testName": "readable exports retain discussions through HTML and Markdown re-import at 1440px"
+1673:         },
+1674:         {
+1675:           "file": "tests/qualification/ui-convergence/journeys.test.mjs",
+1676:           "testName": "real core-wiki and touch-member journeys at 390px"
+1677:         }
+1678:       ]
+1679:     },
+
+--- tests/e2e/provider-fallback-flow.mjs:1-32 ---
+1: import assert from 'node:assert/strict';
+2: import { mkdir, mkdtemp, readFile, rm } from 'node:fs/promises';
+3: import path from 'node:path';
+4: import os from 'node:os';
+5: import { chromium } from '@playwright/test';
+6: import { applyMigrations, localDevelopmentVars, seedAuroraFixture, startEmittedWorker, stop } from './runtime-harness.mjs';
+7: import { inbox, newOutboxLink } from './outbox-auth.mjs';
+8: import { unavailableOidcIssuer } from '../helpers/oidc-edge.mjs';
+9: 
+10: /** WORK-015: built sign-in identifies a real failed provider attempt and completes native email sign-in. */
+11: export async function providerFallbackFlow() {
+12:   const directory = await mkdtemp(path.join(os.tmpdir(), 'slate-provider-fallback-'));
+13:   const shots = process.env.SLATE_SIGNIN_SHOTS;
+14:   let runtime, browser;
+15:   try {
+16:     await applyMigrations(directory);
+17:     await seedAuroraFixture(directory);
+18:     runtime = await startEmittedWorker(directory, { ...localDevelopmentVars, SSO_ENABLED: 'true',
+19:       IDENTITY_ISSUER_URL: unavailableOidcIssuer, IDENTITY_CLIENT_ID: 'synthetic-slate-711', IDENTITY_CLIENT_SECRET: 'synthetic-slate-712',
+20:       IDENTITY_AUTHORIZATION_ENDPOINT: unavailableOidcIssuer + '/authorize', IDENTITY_TOKEN_ENDPOINT: unavailableOidcIssuer + '/token',
+21:       IDENTITY_JWKS_URI: unavailableOidcIssuer + '/keys', IDENTITY_TRANSACTION_SECRET: 'synthetic-slate-713-transaction-secret' });
+22:     const origin = runtime.baseUrl;
+23:     browser = await chromium.launch({ headless: true, ...(process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH ? { executablePath: process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH } : {}), args: ['--no-sandbox', '--use-mock-keychain', '--password-store=basic'] });
+24:     const context = await browser.newContext({ viewport: { width: 1440, height: 1000 } });
+25:     try {
+26:       const page = await context.newPage();
+27:       const errors = [];
+28:       page.on('pageerror', error => errors.push(error.message));
+29:       const proof = async name => {
+30:         if (!shots) return;
+31:         await mkdir(shots, { recursive: true });
+32:         for (const width of [1440, 390]) {

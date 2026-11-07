@@ -1,0 +1,20 @@
+{
+  "command": [
+    "gh",
+    "run",
+    "download",
+    "42341571114",
+    "--repo",
+    "just-every/run-slate",
+    "--pattern",
+    "contract-*",
+    "--dir",
+    "/home/agent/rer-consolidation/work/sd-slate188-contract-triage-1/downloaded-candidate-workers"
+  ],
+  "exit_code": 1,
+  "run_id": 42341571114,
+  "diagnostic": "error downloading contract-1: Get \"https://productionresultssa16.blob.core.windows.net/actions-results/1cfbd18c-5902-80db-99c7-eba8b78da317/workflow-job-run-955e9e6b-c192-5c2c-b82a-8c8902a9c2e7/artifacts/f0369fccc1c2c86117197ae78432722d31ed600d0e3b6f6bd6908fd79f91d793.zip",
+  "downloaded_files": [],
+  "HTTP_status": "unknown; transport-error tail was omitted by conservative signed-URL query stripping",
+  "retried": false
+}

@@ -1,0 +1,19 @@
+{
+  "started_at": "2026-11-07T06:02:27.146162+00:00",
+  "node": "v22.20.0",
+  "pnpm": "10.12.4",
+  "head": "8145db417b77951a1445fe0290ed84a32585d172",
+  "command": "cloud_run node scripts/verify.mjs",
+  "SLATE_CHROMIUM_PATH": "/usr/bin/chromium",
+  "workers_reports": "unset; local full Workers suite",
+  "status": "interrupted by environment restart",
+  "exit_code": null,
+  "interruption_observed_at": "2026-11-07T06:25:04.169680+00:00",
+  "workers_files_completed": 59,
+  "TAP_results": [
+    "ok 1 - emitted bundles keep server internals and Markdown tooling off the client",
+    "not ok 2 - emitted Worker admission serves configured public doors and protects native owner access"
+  ],
+  "final_summary_emitted": false,
+  "rerun": false
+}

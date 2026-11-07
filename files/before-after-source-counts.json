@@ -1,0 +1,10 @@
+{
+  "main": {
+    "supporting_registration_count": 95,
+    "status_summary_table": "| --- | ---: | ---: | ---: | ---: |\n| Published | 41 | 185 | 1 | 227 |\n| Target and push further | 16 | 55 | 40 | 111 |\n| All | 57 | 240 | 41 | 338 |"
+  },
+  "candidate": {
+    "supporting_registration_count": 97,
+    "status_summary_table": "| --- | ---: | ---: | ---: | ---: |\n| Published | 41 | 185 | 1 | 227 |\n| Target and push further | 16 | 55 | 40 | 111 |\n| All | 57 | 240 | 41 | 338 |"
+  }
+}

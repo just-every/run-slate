@@ -1,0 +1,12 @@
+{
+  "observed_at": "2026-11-07T06:25:04.192591+00:00",
+  "event": "environment returned to starting then ready; prior exec process sessions no longer exist",
+  "candidate_session": 90783,
+  "main_session": 90469,
+  "session_observation": "write_stdin: Unknown process id for both",
+  "final_exit_codes": "unavailable",
+  "source_status": "both worktrees clean",
+  "focused_candidate_browser_retry": "not run; original queued continuation was stopped before executing it",
+  "registry_comparison_experiment": "not run; candidate Workers JSON was never emitted",
+  "original_CI_check_summary": "complete; recovered from cached archive without another request"
+}

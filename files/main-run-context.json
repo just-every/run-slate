@@ -1,0 +1,19 @@
+{
+  "started_at": "2026-11-07T06:20:20.515768+00:00",
+  "node": "v22.20.0",
+  "pnpm": "10.12.4",
+  "head": "563a3977363aa2e046699544bead85343781fb75",
+  "command": "cloud_run node scripts/verify.mjs",
+  "SLATE_CHROMIUM_PATH": "/usr/bin/chromium",
+  "PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH": "/usr/bin/chromium",
+  "workers_reports": "unset; local full Workers suite",
+  "status": "interrupted by environment restart",
+  "exit_code": null,
+  "interruption_observed_at": "2026-11-07T06:25:04.181974+00:00",
+  "workers_files_completed": 0,
+  "TAP_results": [
+    "ok 1 - emitted bundles keep server internals and Markdown tooling off the client"
+  ],
+  "final_summary_emitted": false,
+  "rerun": false
+}
