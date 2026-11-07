@@ -184,17 +184,19 @@ export async function permissionArchiveMatrix({ state, bob, api, level, pageId, 
   // restricted, so this independent destination grant cannot elevate its level.
   const authority = { targetKind: 'container', targetId: containerId, principalKind: 'member', principalId: bob.id, level: 'edit' };
   const destinationGrant = await ok(context, origin, 'POST', '/api/sharing', { ...authority, operationKey: randomUUID() });
-  const inventory = async () => ({
-    document: await call(context, origin, 'GET', route),
-    revisions: await call(context, origin, 'GET', `/api/revisions/${pageId}`),
-    comments: await call(context, origin, 'GET', `/api/comments/page/${pageId}`),
-    grants: await call(context, origin, 'GET', `/api/sharing/pages/${pageId}`),
-    archive: await api('/api/archive'), activity: (await snapshotActivity()),
-  });
+  const inventory = async () => {
+    const [activity, document, revisions, comments, grants, archive] = await Promise.all([
+      snapshotActivity(), call(context, origin, 'GET', route),
+      call(context, origin, 'GET', `/api/revisions/${pageId}`),
+      call(context, origin, 'GET', `/api/comments/page/${pageId}`),
+      call(context, origin, 'GET', `/api/sharing/pages/${pageId}`), api('/api/archive'),
+    ]);
+    return { document, revisions, comments, grants, archive, activity };
+  };
   const snapshotActivity = async () => {
     const items = []; let cursor;
     do {
-      const result = await api('/api/activity?' + new URLSearchParams({ limit: '100', ...(cursor ? { cursor } : {}) }));
+      const result = await api('/api/activity?' + new URLSearchParams({ from: starting.document.createdAt, limit: '100', ...(cursor ? { cursor } : {}) }));
       items.push(...result.items); cursor = result.nextCursor;
     } while (cursor);
     return items.filter(item => item.target.id === pageId || item.context?.pageId === pageId);
@@ -307,7 +309,7 @@ export async function permissionPermanentDeleteMatrix({ state, bob, api, level, 
   const afterErasure = async () => {
     const activity = []; let cursor;
     do {
-      const result = await api('/api/activity?' + new URLSearchParams({ limit: '100', ...(cursor ? { cursor } : {}) }));
+      const result = await api('/api/activity?' + new URLSearchParams({ from: before.document.createdAt, limit: '100', ...(cursor ? { cursor } : {}) }));
       activity.push(...result.items); cursor = result.nextCursor;
     } while (cursor);
     return {
