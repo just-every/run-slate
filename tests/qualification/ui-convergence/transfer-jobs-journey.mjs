@@ -1,5 +1,7 @@
 import assert from 'node:assert/strict';
-import {mkdir,mkdtemp,readFile,rm} from 'node:fs/promises';
+import {mkdir,mkdtemp,readFile,rm,writeFile} from 'node:fs/promises';
+import {createHash,randomUUID} from 'node:crypto';
+import {execFileSync} from 'node:child_process';
 import path from 'node:path';
 import {expect} from '@playwright/test';
 import {runtime,signIn,root} from '../../portability/runtime.mjs';
@@ -9,6 +11,111 @@ import {call} from './two-people-support.mjs';
 const jobPanel = page => page.getByRole('region',{name:'Workspace transfer job',exact:true});
 const jobPath = id => `/api/exports/jobs/${id}`;
 const title = (kind,state) => `${kind==='export'?'Export':'Restore'} · ${state}`;
+
+/** Author ordinary content through native doors; the ZIP never supplies its own expected values. */
+async function authoredSubtree(state) {
+  const receipts=[],documents=[],originals=[];
+  const mutate=async(method,route,input)=>{
+    const result=await call(state.context,state.origin,method,route,{operationKey:randomUUID(),...input});
+    assert.equal(result.status,200,`${method} ${route}: ${JSON.stringify(result.body)}`);
+    assert.ok(result.body.receipt?.revisionId,'Every authored change has a native commit receipt.');
+    receipts.push({method,route,input,receipt:result.body.receipt,value:result.body.value});
+    return result.body.value;
+  };
+  const space=(await state.api('/api/containers')).items.find(item=>item.visibility!=='personal');
+  const group=await mutate('POST','/api/groups',{name:'Archive review team',memberIds:['browser-reader']});
+  const create=async(label,parentPageId,treePosition)=>{
+    const blockId=randomUUID(),anchorId=randomUUID();
+    const created=await mutate('POST','/api/pages',{containerId:space.id,parentPageId,treePosition,title:`Archive ${label}`,properties:{labels:['synthetic-slate-401',label],icon:'📚',typeface:'serif',fullWidth:true},blocks:[{id:blockId,blockType:'paragraph',content:{text:[{text:`synthetic-slate-402: ${label} original body`,commentAnchorId:anchorId}]},treePosition:'a'}]});
+    let document=await state.api(`/api/pages/${created.pageId}`);
+    await mutate('PATCH',`/api/pages/${created.pageId}`,{expectedRevisionId:document.page.revisionId,properties:{title:`Archive ${label} reviewed`,labels:['synthetic-slate-403',label],icon:'🗂️',typeface:'mono',fullWidth:false}});
+    document=await state.api(`/api/pages/${created.pageId}`);
+    await mutate('PATCH',`/api/pages/${created.pageId}/blocks/${blockId}`,{expectedRevisionId:document.blocks[0].revisionId,content:{text:[{text:`synthetic-slate-404: ${label} reviewed body`,commentAnchorId:anchorId}]}});
+    return {id:created.pageId,blockId,anchorId,parentPageId,treePosition};
+  };
+  const parent=await create('parent',null,'archive-a');
+  // Create siblings in reverse order, so creation order cannot stand in for tree order.
+  const second=await create('second child',parent.id,'b');
+  const first=await create('first child',parent.id,'a');
+  const grandchild=await create('grandchild',first.id,'a');
+  const pages=[parent,first,second,grandchild];
+  for(const [page,principalKind,principalId,level]of [[parent,'member','browser-reader','comment'],[first,'group',group.id,'view']])
+    await mutate('POST','/api/sharing',{targetKind:'page',targetId:page.id,principalKind,principalId,level});
+  const current=await state.api(`/api/pages/${parent.id}`);
+  const discussion=await mutate('POST',`/api/comments/page/${parent.id}`,{kind:'inline',blockId:parent.blockId,anchor:{anchorId:parent.anchorId,quote:'synthetic-slate-404: parent reviewed body'},anchorRevisionId:current.workingRevisionId,body:[{text:'synthetic-slate-405: preserve this anchored discussion'}]});
+  await mutate('POST',`/api/comments/page/${parent.id}`,{threadId:discussion.threadId,parentCommentId:discussion.id,body:[{text:'synthetic-slate-406: preserve this reply'}]});
+  for(const [page,name,bytes]of [[parent,'archive-notes.txt',Buffer.from('synthetic-slate-407: original notes\nwith a retained newline\n')],[grandchild,'archive-original.png',Buffer.from([137,80,78,71,13,10,26,10,0,0,0,13,73,72,68,82,0,0,0,1,0,0,0,1,8,4,0,0,0,181,28,12,2,0,0,0,11,73,68,65,84,120,218,99,252,255,31,0,3,3,2,0,239,191,157,100,0,0,0,0,73,69,78,68,174,66,96,130])]]){
+    const response=await state.context.request.post(state.origin+'/api/media',{headers:{Origin:state.origin},multipart:{operationKey:randomUUID(),pageId:page.id,file:{name,mimeType:name.endsWith('.txt')?'text/plain':'image/png',buffer:bytes}}});
+    assert.equal(response.status(),200,await response.text());
+    const uploaded=await response.json();
+    receipts.push({method:'POST',route:'/api/media',receipt:uploaded.receipt,value:uploaded.value});
+    const downloaded=await state.context.request.get(state.origin+`/api/media/${uploaded.value.id}`);
+    assert.equal(downloaded.status(),200);assert.deepEqual(await downloaded.body(),bytes);
+    originals.push({id:uploaded.value.id,pageId:page.id,name,bytes,hash:createHash('sha256').update(bytes).digest('hex')});
+  }
+  for(const page of pages){
+    const document=await state.api(`/api/pages/${page.id}`);
+    assert.equal(document.parentPageId,page.parentPageId);
+    const history=await state.api(`/api/revisions/${page.id}`);
+    assert.equal(history.items.length,3,'Creation, property edit and body edit each retain a version.');
+    const revisions=[];
+    for(const version of history.items)revisions.push(await state.api(`/api/revisions/${page.id}/${version.id}`));
+    documents.push({id:page.id,document,history,revisions,sharing:await state.api(`/api/sharing/pages/${page.id}`),discussion:await state.api(`/api/comments/page/${page.id}`)});
+  }
+  const tree=(await state.api(`/api/pages?containerId=${space.id}`)).items;
+  assert.deepEqual(tree.filter(page=>page.parentPageId===parent.id).map(page=>page.id),[first.id,second.id]);
+  const ids=pages.map(page=>page.id);
+  for(const id of [...ids,group.id])assert.match(id,/^[a-z0-9-]+$/i);
+  const list=ids.map(id=>`'${id}'`).join(',');
+  const selections={pages:`id IN (${list})`,page_blocks:`page_id IN (${list})`,page_revisions:`page_id IN (${list})`,page_labels:`page_id IN (${list})`,page_grants:`page_id IN (${list})`,comment_threads:`page_id IN (${list})`,comments:`thread_id IN (SELECT id FROM comment_threads WHERE page_id IN (${list}))`,files:`page_id IN (${list})`,groups:`id='${group.id}'`,group_members:`group_id='${group.id}'`};
+  // Independent read-only D1 snapshots include every stored field, including fields omitted by UI projections.
+  const snapshot=async()=>{
+    const results=await state.atRest(Object.entries(selections).map(([table,where])=>`SELECT * FROM ${table} WHERE ${where};`).join('\n'));
+    return Object.fromEntries(Object.keys(selections).map((table,index)=>[table,results[index].results]));
+  };
+  return {pages,documents,receipts,originals,snapshot,before:await snapshot()};
+}
+
+const ordered=rows=>rows.map(row=>JSON.stringify(Object.fromEntries(Object.entries(row).sort(([a],[b])=>a.localeCompare(b))))).sort();
+
+async function reconcileSubtree(state,source,archive,bytes,job,evidence){
+  const selected={};
+  const pageIds=new Set(source.pages.map(page=>page.id)),threadIds=new Set(source.before.comment_threads.map(thread=>thread.id));
+  const groupId=source.before.groups[0].id;
+  for(const [table,expected]of Object.entries(source.before)){
+    assert.ok(expected.length,`The source snapshot for ${table} is populated.`);
+    selected[table]=archive.manifest.tables[table].filter(row=>table==='pages'?pageIds.has(row.id):table==='comments'?threadIds.has(row.thread_id):table==='groups'?row.id===groupId:table==='group_members'?row.group_id===groupId:pageIds.has(row.page_id));
+    assert.deepEqual(ordered(selected[table]),ordered(expected),`The Settings ZIP retains every source field in ${table}.`);
+  }
+  for(const page of source.pages){
+    const archived=selected.pages.find(row=>row.id===page.id),native=source.documents.find(row=>row.id===page.id);
+    assert.equal(archived.parent_page_id,page.parentPageId);
+    assert.equal(archived.tree_position,page.treePosition);
+    assert.deepEqual(selected.page_revisions.filter(row=>row.page_id===page.id).map(row=>row.id).sort(),native.history.items.map(row=>row.id).sort());
+    for(const revision of native.revisions){
+      const row=selected.page_revisions.find(row=>row.id===revision.id);
+      assert.deepEqual(JSON.parse(row.body_json),revision.blocks);
+      assert.deepEqual(JSON.parse(row.properties_json),revision.properties);
+    }
+  }
+  const originalReceipts=[];
+  for(const file of source.originals){
+    const row=selected.files.find(row=>row.id===file.id),blob=archive.manifest.blobs.find(blob=>blob.key===row.storage_key);
+    assert.ok(blob,`Original ${file.name} is present in the ZIP.`);
+    assert.equal(row.original_name,file.name);assert.equal(row.page_id,file.pageId);
+    assert.equal(row.size_bytes,file.bytes.length);assert.equal(blob.size,file.bytes.length);assert.equal(blob.hash,file.hash);
+    const actual=Buffer.from(archive.entries[blob.entry]);
+    assert.deepEqual(actual,file.bytes);assert.equal(createHash('sha256').update(actual).digest('hex'),file.hash);
+    originalReceipts.push({id:file.id,pageId:file.pageId,name:file.name,blob,bytes:[...actual]});
+  }
+  const after=await source.snapshot();
+  for(const table of Object.keys(source.before))assert.deepEqual(ordered(after[table]),ordered(source.before[table]),`Export leaves source ${table} unchanged.`);
+  const sourceIdentity={head:execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim(),journeySha256:createHash('sha256').update(await readFile(new URL(import.meta.url))).digest('hex')};
+  const receipt={scope:'Ordinary authored page subtree only; other workspace families and requirement-wide completeness remain unproven.',sourceIdentity,viewport:state.page.viewportSize(),jobId:job.id,archive:{bytes:bytes.length,sha256:createHash('sha256').update(bytes).digest('hex')},mutations:source.receipts,nativeReads:source.documents,sourceBefore:source.before,archived:selected,originals:originalReceipts,sourceAfter:after};
+  await writeFile(path.join(evidence,`${state.page.viewportSize().width}-authored-subtree.json`),JSON.stringify(receipt,null,2)+'\n');
+  console.log(`PROBE PORT-001 1: native authored subtree -> Settings workspace ZIP retains ${source.pages.length} ordered pages, bodies, properties, twelve revisions, explicit member and group grants, anchored thread and reply`);
+  console.log(`PROBE PORT-001 2: native original downloads -> Settings ZIP has both exact original byte sequences and SHA-256 hashes; independent source snapshots unchanged`);
+}
 
 /** Native mutation, independent status read and rendered counts must describe the same persisted job. */
 async function shown(state, job, expected) {
@@ -112,6 +219,7 @@ export async function transferJobsJourney(state) {
   const open=()=>state.page.goto(state.origin+'/app/settings?section=portability',{waitUntil:'networkidle'});
   await state.switchIdentity('owner');
   await open();
+  const source=await authoredSubtree(state);
   const spaces=await state.api('/api/containers');
   const created=await call(state.context,state.origin,'POST','/api/pages',{operationKey:crypto.randomUUID(),containerId:spaces.items.find(item=>item.visibility!=='personal').id,title:'Transfer recovery notes',blocks:[{id:crypto.randomUUID(),blockType:'paragraph',content:{text:[{text:'synthetic-slate-301: retained recovery content'}]},treePosition:'a'}]});
   assert.equal(created.status,200);
@@ -138,6 +246,7 @@ export async function transferJobsJourney(state) {
   const bytes=await readFile(await file.path()),archive=unpack(bytes);
   assert.ok(archive.manifest.tables.pages.length>0);
   assert.deepEqual(complete.counts,Object.fromEntries(Object.entries(archive.manifest.tables).map(([table,rows])=>[table,rows.length])));
+  await reconcileSubtree(state,source,archive,bytes,exported,evidence);
   const owner=(await state.api('/api/session')).member;
   const scratch=await mkdtemp(path.join(root,'.artifacts/transfer-target-'));
   let target,context;

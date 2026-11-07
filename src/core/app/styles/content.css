@@ -84,6 +84,10 @@
 .slate-app .import-review h4 { margin: 20px 0 8px; font-size: 14px; font-weight: 600; }
 .slate-app :is(.import-review, .workspace-transfer-panel, .readable-export-panel) > p { margin-block: 12px; line-height: 1.6; }
 .slate-app :is(.import-review, .workspace-transfer-panel, .readable-export-panel) .transfer-counts { margin-block: 12px 20px; }
+.slate-app .import-review small { display: block; font-size: 13px; overflow-wrap: anywhere; }
+.slate-app .import-principal-mappings dl > div { margin-block: 16px; }
+.slate-app .import-principal-mappings dt { font-weight: 500; }
+.slate-app .import-principal-mappings dd { margin: 4px 0 0; }
 .slate-app .import-report-section { margin-block: 12px; }
 .slate-app .import-report-section summary { font-weight: 500; padding: 8px 12px; }
 .slate-app .import-report-section ul { list-style: disc; margin: 12px 0; padding-left: 24px; }

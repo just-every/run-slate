@@ -10,6 +10,8 @@ import { chromium, expect, request } from '@playwright/test';
 import { applyMigrations, executeD1, root, stop, testSessionSecret } from '../../e2e/runtime-harness.mjs';
 import { startShellWorker } from '../release-shell/runtime.mjs';
 import { accessible, insideViewport, withinViewport } from './browser-evidence.mjs';
+import { apiErrorDiagnostics } from './error-diagnostics.mjs';
+import { requestTimeline, timelineContext } from './request-timeline.mjs';
 import { initializeSlackEdge, setSlackFailure, readSlackMessages, setTeamsFailure, readTeamsMessages } from '../../helpers/slack-edge.mjs';
 import { initializeS3Edge, setS3Failure, readS3Requests, readS3Objects } from '../../helpers/s3-edge.mjs';
 import { initializeFolderEdge, readFolderRequests, setFileCardFixture } from '../../helpers/folder-edge.mjs';
@@ -72,13 +74,14 @@ export async function withWorkspace(viewport, profile, run, overrides = {}, { sc
     runtime = await startWorker();
     const ownerSession=await signInWithOutbox(runtime.baseUrl,ownerEmail);
     const readerSession=await signInWithOutbox(runtime.baseUrl,readerEmail);
-    const token=ownerSession.cookie.split('=')[1],readerToken=readerSession.cookie.split('=')[1];
+    const token=ownerSession.cookie.split('=')[1];let readerToken=readerSession.cookie.split('=')[1];
     // Software raster, one raster thread, fixed colour and text handling: captures of the same page match across browser launches.
     const rasterArgs = ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--disable-gpu-rasterization', '--disable-lcd-text', '--font-render-hinting=none', '--force-color-profile=srgb', '--num-raster-threads=1', '--disable-partial-raster', '--disable-skia-runtime-opts'];
     browser = await chromium.launch({ headless: true, ...(process.env.SLATE_CHROMIUM_PATH ? { executablePath: process.env.SLATE_CHROMIUM_PATH } : {}), args: ['--no-sandbox', '--use-mock-keychain', '--password-store=basic', ...rasterArgs] });
     const context = await browser.newContext({ viewport, permissions: ['clipboard-read', 'clipboard-write'], locale: 'en-US' });
     if (saml) await installSamlIdp(context, state, runtime.baseUrl);
     await context.addCookies([{ name: 'slate_session', value: token, url: runtime.baseUrl }]);
+    const timeline = requestTimeline(context), otherTimelines = [];
     const page = await context.newPage();
     context.on('request', request => {
       if (request.method() === 'POST' && /\/api\/(ai\/ask|inquiries\/ask)/.test(request.url())) modelRequests.push(request.url());
@@ -99,7 +102,7 @@ export async function withWorkspace(viewport, profile, run, overrides = {}, { sc
         delete submitted.token;
         requestBody = JSON.stringify(submitted);
       }
-      const pending = response.text().then(body => { if(new URL(response.url()).pathname.match(/^\/api\/(developer\/(tokens|webhooks|scim(?:\/[^/]+\/rotate)?)|activity\/streams)$/) && request.method() === 'POST' && response.ok()){const value=JSON.parse(body);delete value.secret;body=JSON.stringify(value);} network.push({ url: response.url(), method: request.method(), requestBody, status: response.status(), responseBody: body }); })
+      const pending = response.text().then(body => { if(new URL(response.url()).pathname.match(/^\/api\/(developer\/(tokens|webhooks|scim(?:\/[^/]+\/rotate)?)|activity\/streams)$/) && request.method() === 'POST' && response.ok()){const value=JSON.parse(body);delete value.secret;body=JSON.stringify(value);} network.push({ url: response.url(), method: request.method(), ...(!response.ok() ? apiErrorDiagnostics(body) : {}), requestBody, status: response.status(), responseBody: body }); })
         .catch(cause => {
           // A committing action (first run, page creation) navigates to its new
           // page. Chromium may discard that document's body buffer before this
@@ -118,12 +121,18 @@ export async function withWorkspace(viewport, profile, run, overrides = {}, { sc
       // Own the transport as call() does: Connection: close alone can still
       // select a pooled socket that the local proxy has already closed.
       const transport = await request.newContext({ storageState: await context.storageState() });
+      const observation = timeline.start('GET', runtime.baseUrl + route);
       try {
         const response = await transport.get(runtime.baseUrl + route, { ...options, maxRetries: 0 });
+        timeline.answered(observation, response.status());
         assert.equal(response.status(), 200, await response.text());
         const value = await response.json();
+        timeline.answered(observation, response.status(), value);
         network.push({ url: runtime.baseUrl + route, method: 'GET', status: response.status(), responseBody: value });
         return value;
+      } catch (cause) {
+        if (observation.status === 'pending') timeline.failed(observation, cause);
+        throw cause;
       } finally {
         await transport.dispose();
       }
@@ -185,7 +194,7 @@ export async function withWorkspace(viewport, profile, run, overrides = {}, { sc
       assert.equal(response.status, 200, await response.text());
     };
     try {
-      await run({transferGate:(action,method)=>transferControl(runtime.child,action,method), readEmbedRequests:()=>readEmbedRequests(state), page, context, origin: runtime.baseUrl, api, records, atRest, fixtureSql, runScheduled, switchIdentity, modelRequests, readerCookie: `slate_session=${readerToken}`,
+      await run({otherTimelines, transferGate:(action,method)=>transferControl(runtime.child,action,method), readEmbedRequests:()=>readEmbedRequests(state), page, context, origin: runtime.baseUrl, api, records, atRest, fixtureSql, runScheduled, switchIdentity, modelRequests, get readerCookie(){return `slate_session=${readerToken}`;}, refreshReaderIdentity:async()=>{readerToken=(await signInWithOutbox(runtime.baseUrl,readerEmail)).cookie.split('=')[1];},
         assertNoConsoleErrors: () => assert.deepEqual(consoleErrors, [], 'The browser must have no console errors or uncaught page errors.'),
         ...(webhooks ? {setWebhookFailure:failure=>setWebhookFailure(state,failure)} : {}),
         ...(backups ? { setS3Failure: failure => setS3Failure(state, failure), readS3Requests: () => readS3Requests(state), readS3Objects: () => readS3Objects(state) } : {}),
@@ -201,6 +210,7 @@ export async function withWorkspace(viewport, profile, run, overrides = {}, { sc
       await Promise.allSettled([...captures]);
       // A label that never changed looks the same whether the click did nothing or the server rejected it; say which.
       console.error('Journey failure context', JSON.stringify({ rejected: network.filter(entry => entry.error || entry.status >= 400).slice(-10), consoleErrors: consoleErrors.slice(-10) }, null, 2).slice(0, 8000));
+      console.error('Journey failure context REQUEST TIMELINE', JSON.stringify({ primary: timelineContext(context), others: otherTimelines }, null, 2));
       throw cause;
     }
     assert.deepEqual(modelRequests, [], 'This no-provider suite must never submit model work.');
