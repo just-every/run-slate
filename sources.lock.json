@@ -920,7 +920,7 @@
       "executable": false
     },
     ".github/scripts/journey-shards.json": {
-      "sha256": "aba4a3978cdd8f2e10a5b8ebd8fd9e2aec624d9f27b81ac5a0e47c5a2b538e6c",
+      "sha256": "7457460ec7f677d8e61a17d196829e4f826606064422b0be58f288c70217b425",
       "executable": false
     },
     ".github/scripts/run-shard.sh": {
@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "0f7b10b92652cd5e7d10e05c0a2e267088962ad140b54c954a81726e8146693b",
+      "sha256": "a658975463e72637c3730877b5aec467d590f1d1e4e24e0b395ad2d8249b4e28",
       "executable": false
     },
     "DEMO.md": {
@@ -10376,7 +10376,7 @@
       "executable": false
     },
     "test-budget.json": {
-      "sha256": "01c8690fa88d645da054d844abf18edf87c32a328fca63886d8655873b09b18c",
+      "sha256": "b5545b56d8b505980188d264d584618237e8212b6028c31b717b86161ecf94fb",
       "executable": false
     },
     "tests/base-proof/provenance.test.mjs": {
@@ -12144,7 +12144,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
-      "sha256": "be4fe5b24bc8e3b01c1279cb279ba92419258092fee2c4ce885f6d000bace67e",
+      "sha256": "1c7178f445267d83fc1f615d295dfb253e74cf9b95a2f6744cabba025fea3d17",
       "executable": false
     },
     "tests/qualification/ui-convergence/link-access-journey.mjs": {
@@ -12268,7 +12268,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/sharing-journey.mjs": {
-      "sha256": "95aabbef518d88d0428d1a758d48fed4bb1c7f76251dcbac34bd626d0ad05549",
+      "sha256": "14ecd086f8b9d382aab76ce175f258f34812e6f6800570740ae712e1d879831c",
       "executable": false
     },
     "tests/qualification/ui-convergence/sharing-lifecycle-matrix.mjs": {
@@ -12456,11 +12456,11 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "97dfc1b2087e02c25e1a124c1feb70c5b6c2113a579a171249a7749a4e328eae",
+      "sha256": "cc1d2d004ad273633f90d66be618ca2031c18b40a2c83d98516ff2e131c78fe1",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
-      "sha256": "fbfb79fe32035fddc684ec29fa17f4c76eb711672209cfae67576828ae9fb110",
+      "sha256": "2fbd11ad1468a7723b51facd3f76b3f96be9f94ab6beefc142e9f5095dc860b5",
       "executable": false
     },
     "tests/requirements/count-registrations.mjs": {

@@ -179,10 +179,21 @@ for (const width of [1440]) {
       await phase('synced history', () => syncedHistoryJourney(state,width));
       await phase('synced erasure', () => syncedMemberErasureJourney(state,width));
     });
-    // Keep the complete matrix under the existing sharing registration.
-    await withWorkspace({ width, height: 1000 }, 'core-wiki', async state => {
+  });
+}
+
+// Each independently granted level keeps every native assertion in its own
+// installation. The original sharing journey and these cases all retain the
+// existing 240-second deadline; no earlier traffic consumes their request window.
+for (const level of ['full', 'edit', 'comment', 'view']) {
+  test(`native ordinary page ${level} authority retains inventories and refuses revoked captures at 1440px`, { timeout: 240000 }, async t => {
+    await withWorkspace({ width: 1440, height: 1000 }, 'core-wiki', async state => {
+      const setup = performance.now();
       await setupWorkspace(state);
-      await phase('permission matrix', () => permissionLevelsJourney(state));
+      t.diagnostic(`Sharing ${level} setup: ${Math.round(performance.now() - setup)} ms`);
+      const matrix = performance.now();
+      try { await permissionLevelsJourney(state, { levels: [level] }); }
+      finally { t.diagnostic(`Sharing ${level} matrix: ${Math.round(performance.now() - matrix)} ms`); }
     });
   });
 }

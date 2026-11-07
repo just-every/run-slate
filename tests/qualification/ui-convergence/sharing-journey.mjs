@@ -102,7 +102,7 @@ export async function shareJourney(state, pageId) {
 }
 
 /** Independent published pages keep level semantics separate from grant narrowing. */
-export async function permissionLevelsJourney(state, { extended = true } = {}) {
+export async function permissionLevelsJourney(state, { extended = true, levels = ['full', 'edit', 'comment', 'view'] } = {}) {
   const { context, origin } = state, width = state.page.viewportSize().width;
   // Complete diagnostic inventories are much more read-heavy than a person.
   // Pace those reads while retaining real production limits and every assertion.
@@ -130,7 +130,7 @@ export async function permissionLevelsJourney(state, { extended = true } = {}) {
     const member = (await ok(bob.context, origin, 'GET', '/api/session')).member;
     assert.equal(member.id, 'browser-reader');
     assert.equal(member.role, 'member');
-    for (const level of ['full', 'edit', 'comment', 'view']) {
+    for (const level of levels) {
       const canEdit = level === 'full' || level === 'edit', canComment = level !== 'view', canShare = level === 'full';
       const initialTitle = `Permission ${level} guide`, initialBody = `Published ${level} response instructions.`;
       const { pageId, blockIds: [blockId] } = await restrictedPage(state, initialTitle, [initialBody]);
@@ -429,7 +429,7 @@ export async function permissionLevelsJourney(state, { extended = true } = {}) {
   }); } finally { await recipientContext?.close(); }
   const directory = path.join(root, '.artifacts/ui-convergence/permission-levels', String(width));
   await mkdir(directory, { recursive: true });
-  await writeFile(path.join(directory, 'matrix.json'), JSON.stringify({ width, extended, configuration, records, refusals }, null, 2));
+  await writeFile(path.join(directory, extended && levels.length === 1 ? `matrix-${levels[0]}.json` : 'matrix.json'), JSON.stringify({ width, extended, configuration, records, refusals }, null, 2));
 }
 
 /** Native grants, rather than seeded ACL rows, drive the loaded Share panel. */
