@@ -920,7 +920,7 @@
       "executable": false
     },
     ".github/scripts/journey-shards.json": {
-      "sha256": "7457460ec7f677d8e61a17d196829e4f826606064422b0be58f288c70217b425",
+      "sha256": "8df2d2701ecf2bb2a7387d89473782ff85e7a57f186d78aff0e4997076ce5f3e",
       "executable": false
     },
     ".github/scripts/run-shard.sh": {
@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "a658975463e72637c3730877b5aec467d590f1d1e4e24e0b395ad2d8249b4e28",
+      "sha256": "dbac6f14c17f9efef7cedc64f31ff4eb426673c719539b7ab0421fd933756cef",
       "executable": false
     },
     "DEMO.md": {
@@ -12456,11 +12456,11 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "cc1d2d004ad273633f90d66be618ca2031c18b40a2c83d98516ff2e131c78fe1",
+      "sha256": "b39a6ab4bb3f4f8b1c81386c7ea7e7f1f2a9fdd10e6b28caea91b2ccfe5041d8",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
-      "sha256": "2fbd11ad1468a7723b51facd3f76b3f96be9f94ab6beefc142e9f5095dc860b5",
+      "sha256": "da16d62f39f187949e567dedf979b296ccdd02499adbff29e8c0a9bc3c3d337b",
       "executable": false
     },
     "tests/requirements/count-registrations.mjs": {
