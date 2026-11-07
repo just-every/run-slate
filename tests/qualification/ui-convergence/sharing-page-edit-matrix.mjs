@@ -12,6 +12,10 @@ export async function permissionPageEditsMatrix({ state, bob, api, level, pageId
   const reopen = () => view.reload({ waitUntil: 'networkidle' });
   const capture = async (method, target, action, perform, verify, submitted) => {
     const before = await snapshot();
+    // Lock changes canEdit and remounts the editor. Subscribe before the click
+    // and keep its genuine read receipt in the mutation's settled inventory.
+    const opened = action === 'pages.lock' || action === 'pages.unlock'
+      ? view.waitForResponse(response => new URL(response.url()).pathname === `${route}/open` && response.request().method() === 'POST') : null;
     const pending = perform ? view.waitForResponse(response => new URL(response.url()).pathname === target && response.request().method() === method) : null;
     const direct = perform ? (await perform(), null) : await ok(bob.context, state.origin, method, target, submitted);
     // Native controls and direct body-structure requests use the same receipt checks.
@@ -19,6 +23,7 @@ export async function permissionPageEditsMatrix({ state, bob, api, level, pageId
     if (response) assert.equal(response.status(), 200, await response.text());
     const input = direct ? submitted : response.request().postDataJSON();
     const result = direct ?? await response.json();
+    if (opened) await opened;
     const contentEdit = action === 'pages.update' || action === 'pages.blocks.replace';
     if (contentEdit) {
       // The browser polls direct structure edits too. Wait for its actual read
