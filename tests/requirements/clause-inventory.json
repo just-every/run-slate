@@ -756,8 +756,13 @@
       "id": "REV-002",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for REV-002 — History. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
-      "supportingTests": []
+      "unmetReason": "Supporting native HTTP and loaded responsive browser journeys cover ordinary page, database page and record page history under both version profiles, including complete rows, immutable stored snapshots, current grants, published-only filtering, reload and revocation. Container, comment, template and decision record histories and complete cross-family acceptance remain unproven; decision, default-surface and AI duties retain ADMIN-007 and shared company-policy prerequisites. CONTRACT.md owns the partial judgment.",
+      "supportingTests": [
+        {
+          "file": "tests/qualification/core/audit-content.test.ts",
+          "testName": "ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time"
+        }
+      ]
     },
     {
       "id": "REV-003",
@@ -1151,8 +1156,17 @@
       "id": "DB-008",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for DB-008 — Charts. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
-      "supportingTests": []
+      "unmetReason": "Standalone named saved-view counts and numeric aggregation have supporting native HTTP and browser journeys. Acceptance 2 page embedding and the requirement’s inherited DB-011 live embedded-view duties remain unimplemented or unproven; this is not full clause acceptance.",
+      "supportingTests": [
+        {
+          "file": "tests/flagship/structured/http.test.ts",
+          "testName": "Worker HTTP rejects missing expired revoked and denied sessions and persists authorized input"
+        },
+        {
+          "file": "tests/flagship/structured/structured.test.ts",
+          "testName": "structured records, computation, readers, templates, automation, policies and views retain durable semantics"
+        }
+      ]
     },
     {
       "id": "DB-009",
@@ -1655,7 +1669,7 @@
       "id": "PORT-001",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of PORT-001 — Export contents. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "This Workers registry records supporting regressions only. Browser supporting evidence runs transferJobsJourney through \"readable exports retain discussions through HTML and Markdown re-import at 1440px\" and \"real core-wiki and touch-member journeys at 390px\" in tests/qualification/ui-convergence/journeys.test.mjs; see the Status evidence in CONTRACT.md. Native Settings ZIP supporting proof covers only the ordinary authored page subtree, its bodies, properties, retained page revisions, explicit member and group page grants, anchored discussions and two originals, with independent source invariance. Other workspace record families, complete cross-family revisions and grants, other original-file cases and requirement-wide completeness remain unproven; privacy, import, erasure, ADMIN-007 and shared company-policy prerequisites remain unchanged.",
       "supportingTests": [
         {
           "file": "tests/flagship/federation/federation.test.ts",
