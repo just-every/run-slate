@@ -1,4 +1,5 @@
 import {beforeEach,expect,it,vi} from 'vitest';
+import {reviewedPrincipalsJourney} from './reviewed-principals-journey';
 import {env} from 'cloudflare:test';
 import {createApi} from '../../../src/core/app/hono';
 import {parseImport,type ImportFormat} from '../../../src/core/features/imports';
@@ -212,7 +213,8 @@ it('reviews, applies and reverses real Notion and Confluence content without los
  }
  await cancelsReviewedPreparation();
  for(const mode of ['append','children'] as const)await rollsBackDocumentImport(mode);
-},120_000);
+ await reviewedPrincipalsJourney(resetCase);
+},240_000);
 
 it('erases historical and shared imported people through confirmed native removal, atomically retires custody and keeps unrelated Undo',async()=>{
  for(const [index,mode] of (['historical','shared across imports'] as const).entries()){
