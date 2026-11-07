@@ -748,8 +748,13 @@
       "id": "REV-002",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for REV-002 — History. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
-      "supportingTests": []
+      "unmetReason": "Supporting native HTTP and loaded responsive browser journeys cover ordinary page, database page and record page history under both version profiles, including complete rows, immutable stored snapshots, current grants, published-only filtering, reload and revocation. Container, comment, template and decision record histories and complete cross-family acceptance remain unproven; decision, default-surface and AI duties retain ADMIN-007 and shared company-policy prerequisites. CONTRACT.md owns the partial judgment.",
+      "supportingTests": [
+        {
+          "file": "tests/qualification/core/audit-content.test.ts",
+          "testName": "ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time"
+        }
+      ]
     },
     {
       "id": "REV-003",
@@ -1143,8 +1148,17 @@
       "id": "DB-008",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for DB-008 — Charts. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
-      "supportingTests": []
+      "unmetReason": "Standalone named saved-view counts and numeric aggregation have supporting native HTTP and browser journeys. Acceptance 2 page embedding and the requirement’s inherited DB-011 live embedded-view duties remain unimplemented or unproven; this is not full clause acceptance.",
+      "supportingTests": [
+        {
+          "file": "tests/flagship/structured/http.test.ts",
+          "testName": "Worker HTTP rejects missing expired revoked and denied sessions and persists authorized input"
+        },
+        {
+          "file": "tests/flagship/structured/structured.test.ts",
+          "testName": "structured records, computation, readers, templates, automation, policies and views retain durable semantics"
+        }
+      ]
     },
     {
       "id": "DB-009",
@@ -1647,7 +1661,7 @@
       "id": "PORT-001",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of PORT-001 — Export contents. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "This Workers registry records supporting regressions only. Browser supporting evidence runs transferJobsJourney through \"readable exports retain discussions through HTML and Markdown re-import at 1440px\" and \"real core-wiki and touch-member journeys at 390px\" in tests/qualification/ui-convergence/journeys.test.mjs; see the Status evidence in CONTRACT.md. Native Settings ZIP supporting proof covers only the ordinary authored page subtree, its bodies, properties, retained page revisions, explicit member and group page grants, anchored discussions and two originals, with independent source invariance. Other workspace record families, complete cross-family revisions and grants, other original-file cases and requirement-wide completeness remain unproven; privacy, import, erasure, ADMIN-007 and shared company-policy prerequisites remain unchanged.",
       "supportingTests": [
         {
           "file": "tests/flagship/federation/federation.test.ts",
@@ -3008,7 +3022,7 @@
       "id": "IMP-016",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Missing a public reviewed-mapping journey that applies active and unresolved restrictions and tries unsafe principal mapping without widening; the cited incumbent-export test reads parsed source restrictions only.",
+      "unmetReason": "Acceptance 1's complete content, tree, labels, versions, comments, ordinals, status, publication, links and named user and group restriction matrix; acceptance 4's complete empty, unknown and unmapped restriction and recovery-access matrix; and acceptance 7's complete general-grant and personal-space matrix remain unproven. The genuine incumbent fixture lacks the missing cases; synthetic parser cases do not replace them. ADMIN-007 and shared company-policy, IMP-001, full PORT-004 and imported-record SEARCH-001 through SEARCH-006 prerequisites remain unchanged.",
       "supportingTests": [
         {
           "file": "tests/flagship/federation/federation.test.ts",
@@ -3231,8 +3245,13 @@
       "id": "AUTO-008",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No validated CI-run proof for this acceptance point: \"a Workers journey kills a job mid-run and finds it resumed once with no duplicate effect.\"<br>No validated CI-run proof for this acceptance point: \"A forced failure appears on the owner's Home, and stopping a queued job cancels its pending sends.\"",
-      "supportingTests": []
+      "unmetReason": "Native automation-rule acceptance 1 is exercised by automationRestartJourney through the existing desktop database run-log caller: a genuinely killed emitted Worker, same persistent store, genuine lease boundary, canonical record, comment and inbox effects, receipt and activity reconciliation and replay. The existing automation-repairs Workers registration retains supporting exception recovery and authority checks. Other background-job families, owner Home failure and stuck projection, explicit stop and cancellation, complete accountable follow-through and message, record and issue deduplication remain unproven. Connector, agent, provider, ADMIN-007 and shared company-policy prerequisites remain authoritative. CONTRACT.md owns the partial judgment; exact candidate Verify and guarded landing remain required.",
+      "supportingTests": [
+        {
+          "file": "tests/flagship/structured/automation-repairs.test.ts",
+          "testName": "automation admission, resumed effects and schedules preserve current scope and exactly-once recovery"
+        }
+      ]
     },
     {
       "id": "IMP-006",

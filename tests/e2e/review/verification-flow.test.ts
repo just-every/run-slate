@@ -1,6 +1,7 @@
 import { env, createExecutionContext, waitOnExecutionContext } from 'cloudflare:test';
 import { test, expect, vi } from 'vitest';
 import { reviewFixture } from './fixture';
+import { openGuardCases } from './open-guard-cases';
 import { sessionFor } from '../setup/fixtures';
 import { createApi } from '../../../src/core/app/hono';
 import { handleApplicationRequest } from '../../../src/core/app/request-handler';
@@ -129,6 +130,7 @@ test('Verifying offers 7, 30 or 90 days, a date or none, only on the opened revi
   const bulk = await request('owner', 'POST', '/api/status/review/bulk-verify', {items: [{pageId: id, operationKey: op(), pageRevisionId: revision, attestRevisionId: changed.workingRevisionId, statusKey: 'verified'}]});
   expect(bulk.data.items).toEqual([{pageId: id, verified: true}]);
   await citationJourney(f);
+  await openGuardCases(f);
 }, 60_000);
 
 
