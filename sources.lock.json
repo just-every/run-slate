@@ -12388,7 +12388,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/version-deletion-journey.mjs": {
-      "sha256": "3aee0017b44a49db41eb303ae06e865cfc1e5e6ac79d8884221da1e1445320e1",
+      "sha256": "54aab5f087a84bde5bedf55539922305a517eb32d48cf6c1293b76df0b994270",
       "executable": false
     },
     "tests/qualification/ui-convergence/webhook-access-journey.mjs": {
