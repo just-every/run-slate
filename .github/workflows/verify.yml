@@ -135,13 +135,11 @@ jobs:
             browser: true
             command: pnpm test:ui:reachability && pnpm test:ui:state && node --test --test-concurrency=1 --test-name-pattern='^insertion recovery' tests/ui/polish-journeys.test.mjs
           - suite: ui-focus-desktop
-            serial: true
             ui: 5
             worker: 0
             browser: true
             command: node --test --test-concurrency=1 --test-name-pattern='^genuine insertion focus.*1440' tests/ui/polish-journeys.test.mjs
           - suite: ui-focus-mobile
-            serial: true
             ui: 6
             worker: 0
             browser: true
@@ -174,13 +172,11 @@ jobs:
         with:
           name: verified-app-build
           path: .
-      # The browser owns its workspace; the other lane owns its Workers/suite
-      # processes. Join both and retain each exit status before aggregation.
+      # Each lane owns the runner in turn; retain both exit statuses.
       - name: Workers, public-door journeys and suite
         env:
           SLATE_UI_SHARD: ${{ matrix.ui }}/8
           SLATE_UI_ASSIGNMENTS: .github/scripts/journey-shards.json
-          SERIAL_SUITE: ${{ matrix.serial == true && 'true' || 'false' }}
           WORKER_SHARD: ${{ matrix.worker }}
           SUITE_COMMAND: ${{ matrix.command }}
         run: bash .github/scripts/run-shard.sh
