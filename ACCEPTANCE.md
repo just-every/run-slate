@@ -1630,8 +1630,8 @@ Core · published · **partial**
 1. It reads the same filtered records the view shows and states which view it reads.
 2. A chart over one view states its view and embeds in a page.
 
-**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
-**Gap.** No validated CI-run proof for this acceptance point: "A chart is built over one view, showing counts or a numeric field aggregated by a grouping field, and can be embedded in a page (`DB-011`)."<br>No validated CI-run proof for this acceptance point: "It reads the same filtered records the view shows and states which view it reads."
+**Evidence.** `tests/flagship/structured/http.test.ts` — Worker HTTP rejects missing expired revoked and denied sessions and persists authorized input (chartHttpJourney); `tests/qualification/ui-convergence/touch-database-tools-journey.mjs` — standaloneChartJourney, loaded by the existing spreadsheet database journey in `tests/qualification/ui-convergence/journeys.test.mjs`; the existing phone core journey shows its named-view screen.
+**Gap.** Acceptance 2 page embedding and the requirement’s `DB-011` live embedded-view duties remain unimplemented or unproven: reader-scoped embedded results, source changes within 5 seconds and independent embedded filters and sorts. Standalone native controls, source names, filtered record counts and numeric aggregates are covered; no embedded-chart acceptance is claimed.
 
 #### DB-009 — Lock structure
 

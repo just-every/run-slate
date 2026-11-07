@@ -1139,8 +1139,17 @@
       "id": "DB-008",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for DB-008 — Charts. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
-      "supportingTests": []
+      "unmetReason": "Standalone named saved-view counts and numeric aggregation have supporting native HTTP and browser journeys. Acceptance 2 page embedding and the requirement’s inherited DB-011 live embedded-view duties remain unimplemented or unproven; this is not full clause acceptance.",
+      "supportingTests": [
+        {
+          "file": "tests/flagship/structured/http.test.ts",
+          "testName": "Worker HTTP rejects missing expired revoked and denied sessions and persists authorized input"
+        },
+        {
+          "file": "tests/flagship/structured/structured.test.ts",
+          "testName": "structured records, computation, readers, templates, automation, policies and views retain durable semantics"
+        }
+      ]
     },
     {
       "id": "DB-009",
