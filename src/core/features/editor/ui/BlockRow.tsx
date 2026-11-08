@@ -49,6 +49,7 @@ export function describeBlock(block: EditorBlock): string {
     case "link-card":
       return "link card";
     case "table-of-contents": return "table of contents";
+    case "database-view": return "database view";
     case "task-report": return "task report";
     case "content-query":
       return "content query";

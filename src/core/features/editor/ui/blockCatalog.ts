@@ -51,6 +51,7 @@ export type InsertKind =
   | "link-card"
   | "content-query"
   | "table-of-contents"
+  | "database-view"
   | "task-report"
   | "status";
 
@@ -97,6 +98,7 @@ const media: InsertEntry[] = [
 ];
 
 const advanced: InsertEntry[] = [
+  {kind:"database-view",name:"Database view",icon:Table,description:"A live saved view with reader-scoped records"},
   {kind:"synced-reference",name:"Synced block",icon:Link,description:"A live copy of a synced paragraph"},
   {kind:"columns",name:"Columns",icon:Columns3,description:"Two to five columns, stacked on phones"},
   {kind:"table-of-contents",name:"Table of contents",icon:ListTree,description:"Links to headings in this page"},

@@ -1,3 +1,4 @@
+import type {DatabaseViewDefinition} from '../database-view-definition';
 import type {SyncedResolution} from '../../../shared/api/content';
 import type {FileReference} from '../file-cards/reference';
 import type {TableContent} from '../tables/model';
@@ -216,6 +217,7 @@ export interface ContentQueryBlockData extends BlockBase {
 }
 
 export interface TableOfContentsBlockData extends BlockBase, TableOfContentsSettings { type: "table-of-contents" }
+export interface DatabaseViewBlockData extends BlockBase { type: "database-view"; definition: DatabaseViewDefinition }
 export interface TaskReportBlockData extends BlockBase { type: "task-report"; definition:TaskReportDefinition }
 
 export interface ColumnsBlockData extends BlockBase {type:"columns";count:number}
@@ -244,7 +246,8 @@ export type EditorBlock =
   | LinkCardBlockData
   | ContentQueryBlockData
   | TableOfContentsBlockData
-  | TaskReportBlockData;
+  | TaskReportBlockData
+  | DatabaseViewBlockData;
 
 export type EditorBlockType = EditorBlock["type"];
 

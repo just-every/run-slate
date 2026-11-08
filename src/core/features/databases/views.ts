@@ -230,8 +230,13 @@ export async function queryView(
       updated_at: string;
       revision_id: string;
     }>();
-  const fs = await fields(ctx, id),
-    records: {
+  const fs = await fields(ctx, id);
+  for (const filter of embedded?.filters ?? []) validateFilter(filter, fs);
+  for (const sort of embedded?.sorts ?? []) {
+    if (sort.field !== "$title" && !fs.some(field => field.id === sort.field))
+      throw new ApiProblem(400, "INVALID_SORT", "Unknown sort.");
+  }
+  const records: {
       pageId: string;
       revisionId: string;
       title: string;
