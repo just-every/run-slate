@@ -1,0 +1,13 @@
+{
+  "head": "78dfd3248667a89cac808aba15548ac4c3b454bd",
+  "addedLines": 314,
+  "emailShapedAddedLines": 0,
+  "credentialShapedAddedLines": 0,
+  "shallow": "false",
+  "basePublicationScan": {
+    "status": "NOT RUN in cloud; guarded lander owns exact-tree full-history scan",
+    "complete": null,
+    "historyScanned": null,
+    "findings": null
+  }
+}

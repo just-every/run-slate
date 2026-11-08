@@ -1,0 +1,15 @@
+{
+  "head": "70a1ca379440899480c93f715fb7f7be094bdfc6",
+  "command": "cloud_run timeout 1800 node --test --test-concurrency=1 --test-name-pattern='^(real core-wiki and touch-member journeys at 390px|page outline follows headings and navigates long pages at 1440px)$' tests/qualification/ui-convergence/journeys.test.mjs",
+  "status": "passed",
+  "exit": 0,
+  "tests": 2,
+  "passed": 2,
+  "failed": 0,
+  "durationMs": 1286874.371031,
+  "phoneDurationMs": 776778.613958,
+  "sameCloudRunnerAsCandidate": true,
+  "node": "22.20.0",
+  "runner": "Debian 13",
+  "productionRateLimitsAndFiveSecondAssertionsUnchanged": true
+}

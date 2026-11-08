@@ -1,0 +1,71 @@
+{
+  "head": "2045ae66a1f9c9007ef89f5886917296e85232e3",
+  "run": 42519566407,
+  "job": 128850604522,
+  "command": "bash .github/scripts/run-shard.sh",
+  "wrapper": "cloud_run timeout 1200",
+  "parameters": {
+    "uiShard": "1/8",
+    "assignments": ".github/scripts/journey-shards.json",
+    "workerShard": 4,
+    "serialSuite": false,
+    "suiteCommand": "node src/base/runtime/contract-docs.mjs check && node --test .github/scripts/journey-shard.test.mjs && pnpm test:foundation && pnpm test:platform && pnpm test:profile && pnpm test:local-outbox && pnpm exec tsx --test --test-concurrency=1 tests/flagship/core/mail.node.test.mts"
+  },
+  "runner": {
+    "local": "Debian 13",
+    "ci": "Ubuntu 24.04",
+    "node": "22.20.0",
+    "chromium": "/usr/bin/chromium"
+  },
+  "exit": 1,
+  "originalRateAssertionReproduced": false,
+  "originalLatencyAssertionReproduced": false,
+  "localFailures": [
+    {
+      "tests": [
+        "real core-wiki and touch-member journeys at 390px",
+        "BLOCK-016 \u2014 task reports, My tasks and typed assignments preserve reader access and completion at 1440px",
+        "editable space home and curated company hub for a new member at 1440px"
+      ],
+      "failure": "ENOENT: no such file or directory, open .cache/slate/build-source.json",
+      "cause": "An accidental concurrent rebuild invalidated the active artifact."
+    },
+    {
+      "test": "the development Worker serves the Start documents and the Hono families",
+      "failure": "404 !== 200",
+      "cause": "Setup local settings overrode fixture configuration."
+    },
+    {
+      "test": "native outbox sign-in preserves custom and retained Aurora workspaces",
+      "failure": "403 !== 200",
+      "cause": "Same setup local settings."
+    }
+  ],
+  "followup": {
+    "foundationCleanSettings": {
+      "exit": 0,
+      "passed": 4,
+      "failed": 0
+    },
+    "savedDesktopOutlineAndAuthority": {
+      "passed": true,
+      "durationMs": 411808.642768,
+      "allSixExternalVetoDeadlinesPassed": true
+    },
+    "savedNativeAutomation": {
+      "exit": 0,
+      "rules": 7,
+      "runs": 7,
+      "conditionRefusals": 2
+    },
+    "savedNativeFormWidths": {
+      "exit": 0,
+      "widths": [
+        1440,
+        390
+      ]
+    }
+  },
+  "productRepairRounds": 0,
+  "integration": "Forward merge of existing main sharing-inventory repair; no product or deadline assertion changed in this continuation."
+}

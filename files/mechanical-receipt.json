@@ -1,0 +1,57 @@
+{
+  "head": "78dfd3248667a89cac808aba15548ac4c3b454bd",
+  "sourceAndTestBytesUnchangedSinceMergedTreeChecks": true,
+  "checks": [
+    {
+      "command": "pnpm integration:sync",
+      "exit": 0
+    },
+    {
+      "command": "node src/base/runtime/contract-docs.mjs write",
+      "exit": 0
+    },
+    {
+      "command": "node src/base/runtime/contract-docs.mjs check",
+      "exit": 0
+    },
+    {
+      "command": "git checkout origin/main -- ACCEPTANCE.md docs/CLAIMS.md",
+      "exit": 0
+    },
+    {
+      "command": "pnpm source:lock",
+      "exit": 0
+    },
+    {
+      "command": "pnpm source:check",
+      "exit": 0
+    },
+    {
+      "command": "pnpm typecheck",
+      "exit": 0
+    },
+    {
+      "command": "npx -y @runeditrun/rer check --profile first-party",
+      "exit": 0
+    },
+    {
+      "command": "pnpm test:profile",
+      "exit": 0,
+      "workersPassed": 5,
+      "nodeProfilePassed": 1
+    },
+    {
+      "command": "pnpm exec vitest run tests/flagship/structured/structured.test.ts tests/flagship/structured/automation-repairs.test.ts",
+      "exit": 0,
+      "passed": 2
+    }
+  ],
+  "migrationLedger": {
+    "command": null,
+    "reason": "No migration changed",
+    "exit": 0
+  },
+  "contractAndViewsEqualMain": true,
+  "expandedRegistrationsBefore": 211,
+  "expandedRegistrationsAfter": 211
+}

@@ -1,0 +1,1347 @@
+TAP version 13
+# PROBE PORT-001 1: native authored subtree -> Settings workspace ZIP retains 4 ordered pages, bodies, properties, thirteen revisions, changed, revoked and regranted member and group grants, edited and resolved anchored thread and reply with retained histories
+# PROBE PORT-001 2: native original downloads -> Settings ZIP has both exact original byte sequences and SHA-256 hashes; independent source snapshots unchanged
+# PROBE PORT-003 1: failed native export and restore replay and reload -> failed, no download or successful restore action
+# PROBE PORT-003 2: Settings export and empty-deployment restore -> queued, running, completed and failed persisted; counts equal native archive; safe reports identify commit failures
+# NAV-006 touch create, type, insert and drag persisted
+# BLOCK-012 columns insert, desktop drag and touch layout passed at 390px
+# PROBE COMM-002 acceptance 1–2: native comment controls and HTTP at 390px -> two authors edit/delete; cross-author and owner override 403; edited times, two in-place tombstones and six activities survive replay/reload
+# NAV-006 touch comment and resolve persisted
+# WEB-006 native unpublish response {"width":390,"elapsedMs":607}
+# PROBE SHARE-002 full: selected reads, title, body, comment and direct grants; 0 refused requests preserve inventories at 390px
+# PROBE SHARE-002 edit: selected reads, title, body, comment and direct grants; 2 refused requests preserve inventories at 390px
+# PROBE SHARE-002 comment: selected reads, title, body, comment and direct grants; 4 refused requests preserve inventories at 390px
+# PROBE SHARE-002 view: selected reads, title, body, comment and direct grants; 5 refused requests preserve inventories at 390px
+# NAV-006 touch workspace publication and sharing persisted
+# PAGE-007 Details, replay and edit-only refusal passed at 390px
+# NAV-006 touch Search, Inbox, My tasks, requested reviews and verification health passed
+# Journey failure context {
+#   "rejected": [],
+#   "consoleErrors": [
+#     {
+#       "url": "http://127.0.0.1:43805/app/pages/01M6YNZX0Y687RHK9G1X9KWB09",
+#       "message": "Failed to load resource: net::ERR_INTERNET_DISCONNECTED"
+#     },
+#     {
+#       "url": "http://127.0.0.1:43805/app/pages/01M6YNZX0Y687RHK9G1X9KWB09",
+#       "message": "Failed to load resource: net::ERR_INTERNET_DISCONNECTED"
+#     }
+#   ]
+# }
+# Journey failure context REQUEST TIMELINE {
+#   "primary": {
+#     "requestsAtDump": [
+#       {
+#         "method": "POST",
+#         "path": "/api/status",
+#         "startMs": 0,
+#         "durationMs": 15,
+#         "status": 200
+#       },
+#       {
+#         "method": "POST",
+#         "path": "/api/status",
+#         "startMs": 18,
+#         "durationMs": 15,
+#         "status": 200
+#       },
+#       {
+#         "method": "POST",
+#         "path": "/api/status",
+#         "startMs": 37,
+#         "durationMs": 13,
+#         "status": 200
+#       },
+#       {
+#         "method": "POST",
+#         "path": "/api/containers",
+#         "startMs": 53,
+#         "durationMs": 28,
+#         "status": 200
+#       },
+#       {
+#         "method": "POST",
+#         "path": "/api/sharing",
+#         "startMs": 86,
+#         "durationMs": 33,
+#         "status": 200
+#       },
+#       {
+#         "method": "POST",
+#         "path": "/api/pages",
+#         "startMs": 123,
+#         "durationMs": 20,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6YP…AQK0",
+#         "startMs": 149,
+#         "durationMs": 10,
+#         "status": 200
+#       },
+#       {
+#         "method": "POST",
+#         "path": "/api/pages",
+#         "startMs": 162,
+#         "durationMs": 18,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6YP…5SGP",
+#         "startMs": 184,
+#         "durationMs": 11,
+#         "status": 200
+#       },
+#       {
+#         "method": "POST",
+#         "path": "/api/status/<id>/01M6YP…5SGP",
+#         "startMs": 199,
+#         "durationMs": 27,
+#         "status": 200
+#       },
+#       {
+#         "method": "POST",
+#         "path": "/api/pages",
+#         "startMs": 230,
+#         "durationMs": 21,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6YP…WE7G",
+#         "startMs": 254,
+#         "durationMs": 11,
+#         "status": 200
+#       },
+#       {
+#         "method": "POST",
+#         "path": "/api/status/<id>/01M6YP…WE7G",
+#         "startMs": 269,
+#         "durationMs": 25,
+#         "status": 200
+#       },
+#       {
+#         "method": "POST",
+#         "path": "/api/pages",
+#         "startMs": 299,
+#         "durationMs": 21,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/01M6YP…K4CS",
+#         "startMs": 503,
+#         "durationMs": 153,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/01M6YP…K4CS",
+#         "startMs": 3510,
+#         "durationMs": 14,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/01M6YP…K4CS",
+#         "startMs": 6513,
+#         "durationMs": 10,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/workspace",
+#         "startMs": 8724,
+#         "durationMs": 19,
+#         "status": 200
+#       },
+#       {
+#         "method": "PUT",
+#         "path": "/api/workspace",
+#         "startMs": 8746,
+#         "durationMs": 24,
+#         "status": 200
+#       },
+#       {
+#         "method": "POST",
+#         "path": "/api/<id>/01M6YP…K4CS/presence",
+#         "startMs": 9507,
+#         "durationMs": 54,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/session",
+#         "startMs": 9558,
+#         "durationMs": 8,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/01M6YP…K4CS",
+#         "startMs": 9561,
+#         "durationMs": 17,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/containers",
+#         "startMs": 9656,
+#         "durationMs": 13,
+#         "status": 200
+#       },
+#       {
+#         "method": "POST",
+#         "path": "/api/pages",
+#         "startMs": 9674,
+#         "durationMs": 27,
+#         "status": 200
+#       },
+#       {
+#         "method": "POST",
+#         "path": "/api/sharing",
+#         "startMs": 9704,
+#         "durationMs": 26,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/app/settings",
+#         "startMs": 9742,
+#         "durationMs": 61,
+#         "status": 307
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/app/settings/<id>",
+#         "startMs": 9802,
+#         "durationMs": 119,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 9907,
+#         "durationMs": 4,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 9911,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 9911,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 9911,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 9911,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 9911,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 9911,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6YN…J9VS/<id>",
+#         "startMs": 9976,
+#         "durationMs": 19,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6YP…M2JV/<id>",
+#         "startMs": 9979,
+#         "durationMs": 49,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6YP…ER3J/<id>",
+#         "startMs": 9979,
+#         "durationMs": 50,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6YP…0DRM/<id>",
+#         "startMs": 9979,
+#         "durationMs": 50,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6YP…FEQH/<id>",
+#         "startMs": 9979,
+#         "durationMs": 50,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/notifications/<id>/<id>",
+#         "startMs": 9979,
+#         "durationMs": 50,
+#         "status": 200
+#       }
+#     ]
+#   },
+#   "others": []
+# }
+# Subtest: real core-wiki and touch-member journeys at 390px
+not ok 1 - real core-wiki and touch-member journeys at 390px
+  ---
+  duration_ms: 456969.858739
+  type: 'test'
+  location: '/home/agent/rer-consolidation/work/sd-slate-c-f221-pc1/run-slate/tests/qualification/ui-convergence/journey-shard.mjs:23:97'
+  failureType: 'testCodeFailure'
+  error: "ENOENT: no such file or directory, open '/home/agent/rer-consolidation/work/sd-slate-c-f221-pc1/run-slate/.cache/slate/build-source.json'"
+  code: 'ENOENT'
+  stack: |-
+    async open (node:internal/fs/promises:641:25)
+    async readFile (node:internal/fs/promises:1245:14)
+    async withWorkspace (file:///home/agent/rer-consolidation/work/sd-slate-c-f221-pc1/run-slate/tests/qualification/ui-convergence/browser-support.mjs:220:35)
+    async TestContext.<anonymous> (file:///home/agent/rer-consolidation/work/sd-slate-c-f221-pc1/run-slate/tests/qualification/ui-convergence/journeys.test.mjs:87:5)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+# Journey failure context {
+#   "rejected": [],
+#   "consoleErrors": []
+# }
+# Journey failure context REQUEST TIMELINE {
+#   "primary": {
+#     "requestsAtDump": [
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 0,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/<id>/<id>/<id>",
+#         "startMs": 0,
+#         "durationMs": 2,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 0,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 0,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 0,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 0,
+#         "durationMs": 1,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 1,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 1,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/<id>/<id>",
+#         "startMs": 1,
+#         "durationMs": 1,
+#         "status": 304
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 30,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/workspace/first-run",
+#         "startMs": 537,
+#         "durationMs": 20,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/app",
+#         "startMs": 564,
+#         "durationMs": 41,
+#         "status": 307
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/setup",
+#         "startMs": 605,
+#         "durationMs": 70,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 675,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/<id>",
+#         "startMs": 675,
+#         "durationMs": 0,
+#         "status": 304
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 675,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 675,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/<id>/<id>/<id>",
+#         "startMs": 675,
+#         "durationMs": 1,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 675,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 675,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 675,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 675,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 675,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 675,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/<id>/<id>",
+#         "startMs": 675,
+#         "durationMs": 0,
+#         "status": 304
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 699,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/setup",
+#         "startMs": 4071,
+#         "durationMs": 188,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 4250,
+#         "durationMs": 1,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/<id>",
+#         "startMs": 4251,
+#         "durationMs": 8,
+#         "status": 304
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 4251,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 4251,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/<id>/<id>/<id>",
+#         "startMs": 4251,
+#         "durationMs": 8,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 4251,
+#         "durationMs": 7,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 4258,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 4258,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 4258,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 4258,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 4258,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/<id>/<id>",
+#         "startMs": 4258,
+#         "durationMs": 1,
+#         "status": 304
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 4288,
+#         "durationMs": 0,
+#         "status": 200
+#       }
+#     ]
+#   },
+#   "others": []
+# }
+# Subtest: BLOCK-016 — task reports, My tasks and typed assignments preserve reader access and completion at 1440px
+not ok 2 - BLOCK-016 — task reports, My tasks and typed assignments preserve reader access and completion at 1440px
+  ---
+  duration_ms: 15320.806817
+  type: 'test'
+  location: '/home/agent/rer-consolidation/work/sd-slate-c-f221-pc1/run-slate/tests/qualification/ui-convergence/journey-shard.mjs:23:97'
+  failureType: 'testCodeFailure'
+  error: "ENOENT: no such file or directory, open '/home/agent/rer-consolidation/work/sd-slate-c-f221-pc1/run-slate/.cache/slate/build-source.json'"
+  code: 'ENOENT'
+  stack: |-
+    async open (node:internal/fs/promises:641:25)
+    async readFile (node:internal/fs/promises:1245:14)
+    async withWorkspace (file:///home/agent/rer-consolidation/work/sd-slate-c-f221-pc1/run-slate/tests/qualification/ui-convergence/browser-support.mjs:220:35)
+    async TestContext.<anonymous> (file:///home/agent/rer-consolidation/work/sd-slate-c-f221-pc1/run-slate/tests/qualification/ui-convergence/journeys.test.mjs:283:5)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Journey failure context {
+#   "rejected": [],
+#   "consoleErrors": []
+# }
+# Journey failure context REQUEST TIMELINE {
+#   "primary": {
+#     "requestsAtDump": [
+#       {
+#         "method": "GET",
+#         "path": "/<id>/<id>/<id>",
+#         "startMs": 0,
+#         "durationMs": 2,
+#         "status": 304
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 0,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 0,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 0,
+#         "durationMs": 1,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 1,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 1,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 1,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/<id>/<id>",
+#         "startMs": 1,
+#         "durationMs": 1,
+#         "status": 304
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 46,
+#         "durationMs": 2,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/app/settings",
+#         "startMs": 557,
+#         "durationMs": 52,
+#         "status": 307
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/setup",
+#         "startMs": 609,
+#         "durationMs": 85,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 689,
+#         "durationMs": 1,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/<id>",
+#         "startMs": 690,
+#         "durationMs": 3,
+#         "status": 304
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 692,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 693,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/<id>/<id>/<id>",
+#         "startMs": 693,
+#         "durationMs": 1,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 693,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 693,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 693,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 693,
+#         "durationMs": 1,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 693,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 693,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/<id>/<id>",
+#         "startMs": 693,
+#         "durationMs": 0,
+#         "status": 304
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 708,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/workspace/first-run",
+#         "startMs": 1217,
+#         "durationMs": 10,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/app",
+#         "startMs": 1234,
+#         "durationMs": 49,
+#         "status": 307
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/setup",
+#         "startMs": 1283,
+#         "durationMs": 74,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 1355,
+#         "durationMs": 1,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/<id>",
+#         "startMs": 1356,
+#         "durationMs": 12,
+#         "status": 304
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 1356,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 1356,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/<id>/<id>/<id>",
+#         "startMs": 1356,
+#         "durationMs": 12,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 1356,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 1356,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 1357,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 1357,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 1357,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 1357,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/<id>/<id>",
+#         "startMs": 1357,
+#         "durationMs": 11,
+#         "status": 304
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 1385,
+#         "durationMs": 0,
+#         "status": 200
+#       }
+#     ]
+#   },
+#   "others": []
+# }
+# Subtest: editable space home and curated company hub for a new member at 1440px
+not ok 3 - editable space home and curated company hub for a new member at 1440px
+  ---
+  duration_ms: 11134.555942
+  type: 'test'
+  location: '/home/agent/rer-consolidation/work/sd-slate-c-f221-pc1/run-slate/tests/qualification/ui-convergence/journey-shard.mjs:23:97'
+  failureType: 'testCodeFailure'
+  error: "ENOENT: no such file or directory, open '/home/agent/rer-consolidation/work/sd-slate-c-f221-pc1/run-slate/.cache/slate/build-source.json'"
+  code: 'ENOENT'
+  stack: |-
+    async open (node:internal/fs/promises:641:25)
+    async readFile (node:internal/fs/promises:1245:14)
+    async withWorkspace (file:///home/agent/rer-consolidation/work/sd-slate-c-f221-pc1/run-slate/tests/qualification/ui-convergence/browser-support.mjs:220:35)
+    async TestContext.<anonymous> (file:///home/agent/rer-consolidation/work/sd-slate-c-f221-pc1/run-slate/tests/qualification/ui-convergence/journeys.test.mjs:339:5)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# STATUS_PROFILE width=1440 value=verification-only
+# PROBE STAT-001 profile=verification-only: native owner controls, retained pages, non-owner refusals and explicit bulk receipts passed at 1440px
+# STATUS_PROFILE width=1440 value=open-vocabulary
+# PROBE STAT-001 profile=open-vocabulary: native owner controls, retained pages, non-owner refusals and explicit bulk receipts passed at 1440px
+# PROBE WORK-001 acceptance-1: Settings name/mark -> persisted Field operations 🌿, owner reload and fresh member headers at 1440px; member write refused unchanged
+# Theme route 1440px light: /app
+# Theme route 1440px light: /app/search
+# Theme route 1440px light: /app/inbox
+# Theme route 1440px light: /app/tasks
+# Theme route 1440px light: /app/review
+# Theme route 1440px light: /app/containers
+# Theme route 1440px light: /app/templates
+# Theme route 1440px light: /app/archive
+# Theme route 1440px light: /app/settings
+# Theme route 1440px light: /app/settings/workspace
+# Theme route 1440px light: /app/settings/members
+# Theme route 1440px light: /app/settings/saml
+# Theme route 1440px light: /app/settings/developer
+# Theme route 1440px light: /app/settings/appearance
+# Theme route 1440px light: /app/settings/preferences
+# Theme route 1440px light: /app/settings/activity
+# Theme route 1440px light: /app/settings/automation
+# Theme route 1440px light: /app/settings/statuses
+# Theme route 1440px light: /app/settings/spaces
+# Theme route 1440px light: /app/settings/chat
+# Theme route 1440px light: /app/settings/portability
+# Theme route 1440px light: /app/pages/01M6YPEGW3WD5DYRZCDWMQRF47
+# Theme route 1440px light: /app/databases/01M6YPEGWWEY8MDRYP26VV00A0
+# Theme route 1440px light: /app/databases/01M6YPEGWWEY8MDRYP26VV00A0/records/01M6YPEGZ991KHF9TJTY7Z3S5B
+# Theme route 1440px dark: /app
+# Theme route 1440px dark: /app/search
+# Theme route 1440px dark: /app/inbox
+# Theme route 1440px dark: /app/tasks
+# Theme route 1440px dark: /app/review
+# Theme route 1440px dark: /app/containers
+# Theme route 1440px dark: /app/templates
+# Theme route 1440px dark: /app/archive
+# Theme route 1440px dark: /app/settings
+# Theme route 1440px dark: /app/settings/workspace
+# Theme route 1440px dark: /app/settings/members
+# Theme route 1440px dark: /app/settings/saml
+# Theme route 1440px dark: /app/settings/developer
+# Theme route 1440px dark: /app/settings/appearance
+# Theme route 1440px dark: /app/settings/preferences
+# Theme route 1440px dark: /app/settings/activity
+# Theme route 1440px dark: /app/settings/automation
+# Theme route 1440px dark: /app/settings/statuses
+# Theme route 1440px dark: /app/settings/spaces
+# Theme route 1440px dark: /app/settings/chat
+# Theme route 1440px dark: /app/settings/portability
+# Theme route 1440px dark: /app/pages/01M6YPEGW3WD5DYRZCDWMQRF47
+# Theme route 1440px dark: /app/databases/01M6YPEGWWEY8MDRYP26VV00A0
+# Theme route 1440px dark: /app/databases/01M6YPEGWWEY8MDRYP26VV00A0/records/01M6YPEGZ991KHF9TJTY7Z3S5B
+# Theme route 1440px system: /app
+# Theme route 1440px system: /app/search
+# Theme route 1440px system: /app/inbox
+# Theme route 1440px system: /app/tasks
+# Theme route 1440px system: /app/review
+# Theme route 1440px system: /app/containers
+# Theme route 1440px system: /app/templates
+# Theme route 1440px system: /app/archive
+# Theme route 1440px system: /app/settings
+# Theme route 1440px system: /app/settings/workspace
+# Theme route 1440px system: /app/settings/members
+# Theme route 1440px system: /app/settings/saml
+# Theme route 1440px system: /app/settings/developer
+# Theme route 1440px system: /app/settings/appearance
+# Theme route 1440px system: /app/settings/preferences
+# Theme route 1440px system: /app/settings/activity
+# Theme route 1440px system: /app/settings/automation
+# Theme route 1440px system: /app/settings/statuses
+# Theme route 1440px system: /app/settings/spaces
+# Theme route 1440px system: /app/settings/chat
+# Theme route 1440px system: /app/settings/portability
+# Theme route 1440px system: /app/pages/01M6YPEGW3WD5DYRZCDWMQRF47
+# Theme route 1440px system: /app/databases/01M6YPEGWWEY8MDRYP26VV00A0
+# Theme route 1440px system: /app/databases/01M6YPEGWWEY8MDRYP26VV00A0/records/01M6YPEGZ991KHF9TJTY7Z3S5B
+# WORK-012 native themes, new sessions, independent members and anonymous exposures passed at 1440px
+# IMPORT_BROWSER_RECEIPT {"width":1440,"jobId":"01M6YPHCEB4W67G2N4Q8ESFNEC","state":"completed","mappings":[{"sourceId":"confluence-member:100001:d9d99555-7c2d-5fc9-9d5f-444042ec9317","kind":"member","targetId":"browser-reader"}],"access":{"restrictedPages":3,"sourceNamedGrants":3,"mappedLiveGrants":3,"unresolvedRestrictedPages":0,"recoveryGrants":3,"historicalMembers":34,"historicalGroups":0},"pages":[{"id":"21a7b71d6cb3bb73:page:54","title":"Overview","anonymousNative":401,"anonymousPublished":404},{"id":"21a7b71d6cb3bb73:page:36","title":"Getting started in Confluence","anonymousNative":401,"anonymousPublished":404},{"id":"21a7b71d6cb3bb73:page:299","title":"Pizza Restaurant Launch Plan","anonymousNative":401,"anonymousPublished":404}],"unavailableTargetShown":true,"retainedMappingUnchanged":true}
+# PROBE IMP-016 Settings 1440: genuine archive upload, explicit mapping, Apply and reload -> completed; reviewed member and historical people displayed; conversion retained; 3 restricted reader pages and no anonymous page
+# PROBE CONT-009 native controls 1440: owner and non-owner administrator grant changes=46; replay and inherited snapshots pass; deadlines={"narrowed":{"writeStatus":404,"editorMs":489,"projectionsMs":669},"revoked":{"writeStatus":404,"editorMs":505,"projectionsMs":652}}
+# PROBE CONT-007 container guestAccess 1440: native settings persisted; independent veto, retained address and authority reconciled
+# PROBE CONT-007 container publicLinkAccess 1440: native settings persisted; independent veto, retained address and authority reconciled
+# PROBE CONT-007 container anonymousAccess 1440: native settings persisted; independent veto, retained address and authority reconciled
+# PROBE CONT-007 workspace guestAccess 1440: native settings persisted; independent veto, retained address and authority reconciled
+# PROBE CONT-007 workspace publicLinkAccess 1440: native settings persisted; independent veto, retained address and authority reconciled
+# PROBE CONT-007 workspace anonymousAccess 1440: native settings persisted; independent veto, retained address and authority reconciled
+# Subtest: page outline follows headings and navigates long pages at 1440px
+ok 4 - page outline follows headings and navigates long pages at 1440px
+  ---
+  duration_ms: 411808.642768
+  type: 'test'
+  ...
+# Subtest: BLOCK-010 — native content queries retain criteria and current-reader results at 390px
+ok 5 - BLOCK-010 — native content queries retain criteria and current-reader results at 390px
+  ---
+  duration_ms: 53567.479957
+  type: 'test'
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 2
+# fail 3
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 967723.673734
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mProxy environment variables detected. We'll use your proxy for fetch requests.[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mProxy environment variables detected. We'll use your proxy for fetch requests.[0m
+
+
+(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:
+  - import "./source-fixtures" without a file extension (scripts/import-scale/generate-server-dc.ts:2:91). Add the file extension
+  - import "./types" without a file extension (scripts/import-scale/generate-server-dc.ts:3:82). Add the file extension
+  - import "./source-fixtures" without a file extension (scripts/import-scale/generate-server-dc.ts:4:22). Add the file extension
+  - import "./csv" without a file extension (scripts/import-scale/source-fixtures.ts:4:46). Add the file extension
+Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.
+
+ RUN  v4.1.11 /home/agent/rer-consolidation/work/sd-slate-c-f221-pc1/run-slate
+
+ ✓ tests/flagship/structured/structured.test.ts (1 test) 9351ms
+   ✓ structured records, computation, readers, templates, automation, policies and views retain durable semantics  9350ms
+ ✓ tests/e2e/databases/record-templates.test.ts (2 tests) 774ms
+   ✓ DB-015 — record templates fill fields and a body; a weekly schedule in its last saver's time zone creates exactly one record per occurrence across restarts, runs as its last saver and pauses with its reason when that saver loses access  353ms
+   ✓ record templates show each database viewer only the page mention titles they can open  421ms
+ ✓ tests/flagship/release-clauses/value/comparison-integrity.test.ts (1 test) 1979ms
+   ✓ FLAG-003 — comparison arms preserve equal inputs, current grants and attributable costs  1977ms
+ ✓ tests/e2e/landing.test.ts (1 test) 1008ms
+     ✓ installed lobby and public landing preserve owner configuration, navigation and privacy  1006ms
+ ✓ tests/qualification/authority/learned-provenance.test.ts (1 test) 3888ms
+   ✓ INQ-005 — learned provenance and published inquiry references preserve exact disclosed sources  3887ms
+ ✓ tests/flagship/content/repair.test.ts (1 test) 2808ms
+   ✓ content structure, task attribution, privacy and activity retain exact revisions  2807ms
+ ✓ tests/e2e/pages/starter-templates.test.ts (1 test) 1019ms
+   ✓ TMPL-007 — every starter template ships from the first sign-in, is found by category, previews, creates working pages and duplicates into an editable copy while the shipped one never changes  1018ms
+ ✓ tests/e2e/pages/display-options.test.ts (1 test) 2257ms
+   ✓ PAGE-012 — page display is shared, content preserving and retained by readable and complete workspace archives  2256ms
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"atomic page creation","id":"01M6YNXAP579NZXZS1GEEQ1DJ8","action":"pages.create","actor_member_id":"01M6YNXAMJBNWD745DK7C3R9NN","feature":"pages","target_kind":"page","target_id":"01M6YNXAP54T6BZ3VKEQKM9N26","occurred_at":"2026-11-08T22:54:20.355Z","operation_key":"01M6YNXAP1QD94ZVDGHCQ6DYP1"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"atomic page creation","id":"01M6YNXAP579NZXZS1GEEQ1DJ8","action":"pages.create","actor_member_id":"01M6YNXAMJBNWD745DK7C3R9NN","feature":"pages","target_kind":"page","target_id":"01M6YNXAP54T6BZ3VKEQKM9N26","occurred_at":"2026-11-08T22:54:20.355Z","operation_key":"01M6YNXAP1QD94ZVDGHCQ6DYP1"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"atomic native body","id":"01M6YNXAQC88G305AXRPRRQDHK","action":"pages.blocks.replace","actor_member_id":"01M6YNXAMJBNWD745DK7C3R9NN","feature":"pages","target_kind":"page","target_id":"01M6YNXAP54T6BZ3VKEQKM9N26","occurred_at":"2026-11-08T22:54:20.395Z","operation_key":"01M6YNXAQ9VQ6W0EH0G0VQ1ZZ9"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"atomic native body","id":"01M6YNXAQC88G305AXRPRRQDHK","action":"pages.blocks.replace","actor_member_id":"01M6YNXAMJBNWD745DK7C3R9NN","feature":"pages","target_kind":"page","target_id":"01M6YNXAP54T6BZ3VKEQKM9N26","occurred_at":"2026-11-08T22:54:20.395Z","operation_key":"01M6YNXAQ9VQ6W0EH0G0VQ1ZZ9"}
+
+stderr | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+Slate request failed with an internal error.
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+PROBE REV-002 autosnapshot page: native list and snapshots -> 7 exact newest-first rows; receipts, actors, times, origins, labels, immutable writes, published-only reads and revoked refusal passed
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+PROBE REV-002 autosnapshot database: native list and snapshots -> 7 exact newest-first rows; receipts, actors, times, origins, labels, immutable writes, published-only reads and revoked refusal passed
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+PROBE REV-002 autosnapshot record: native list and snapshots -> 8 exact newest-first rows; receipts, actors, times, origins, labels, immutable writes, published-only reads and revoked refusal passed
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+PROBE REV-002 labelled page: native list and snapshots -> 7 exact newest-first rows; receipts, actors, times, origins, labels, immutable writes, published-only reads and revoked refusal passed
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+PROBE REV-002 labelled database: native list and snapshots -> 7 exact newest-first rows; receipts, actors, times, origins, labels, immutable writes, published-only reads and revoked refusal passed
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+PROBE REV-002 labelled record: native list and snapshots -> 8 exact newest-first rows; receipts, actors, times, origins, labels, immutable writes, published-only reads and revoked refusal passed
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"exact comment context","id":"01M6YNXCN7RKCHPMZDKPJK3HA7","action":"comments.create","actor_member_id":"01M6YNXAMJBNWD745DK7C3R9NN","feature":"comments","target_kind":"comment-thread","target_id":"01M6YNXCNA53JADK8866MCFZMB","occurred_at":"2026-11-08T22:54:22.374Z","operation_key":"01M6YNXCN4CB6AE6A0BSD8WBMK"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"exact comment context","id":"01M6YNXCN7RKCHPMZDKPJK3HA7","action":"comments.create","actor_member_id":"01M6YNXAMJBNWD745DK7C3R9NN","feature":"comments","target_kind":"comment-thread","target_id":"01M6YNXCNA53JADK8866MCFZMB","occurred_at":"2026-11-08T22:54:22.374Z","operation_key":"01M6YNXCN4CB6AE6A0BSD8WBMK"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"exact grant context","id":"01M6YNXCNTKNVW0Y38VHRWG1BA","action":"sharing.grant","actor_member_id":"01M6YNXAMJBNWD745DK7C3R9NN","feature":"sharing","target_kind":"page","target_id":"01M6YNXCMYKZT0ENRXRMJHCEMK","occurred_at":"2026-11-08T22:54:22.393Z","operation_key":"01M6YNXCNQ3D3Y8V9EFTMA4JFK"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"exact grant context","id":"01M6YNXCNTKNVW0Y38VHRWG1BA","action":"sharing.grant","actor_member_id":"01M6YNXAMJBNWD745DK7C3R9NN","feature":"sharing","target_kind":"page","target_id":"01M6YNXCMYKZT0ENRXRMJHCEMK","occurred_at":"2026-11-08T22:54:22.393Z","operation_key":"01M6YNXCNQ3D3Y8V9EFTMA4JFK"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"revoke context access","id":"01M6YNXCTNFRADV1BT27NG3KB4","action":"sharing.grant","actor_member_id":"01M6YNXAMJBNWD745DK7C3R9NN","feature":"sharing","target_kind":"page","target_id":"01M6YNXCMYKZT0ENRXRMJHCEMK","occurred_at":"2026-11-08T22:54:22.547Z","operation_key":"01M6YNXCTJGYBX1HSDJ4BW7E89"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"revoke context access","id":"01M6YNXCTNFRADV1BT27NG3KB4","action":"sharing.grant","actor_member_id":"01M6YNXAMJBNWD745DK7C3R9NN","feature":"sharing","target_kind":"page","target_id":"01M6YNXCMYKZT0ENRXRMJHCEMK","occurred_at":"2026-11-08T22:54:22.547Z","operation_key":"01M6YNXCTJGYBX1HSDJ4BW7E89"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"page creation","id":"01M6YNXCWG09T4MN5VH1CSDFN6","action":"pages.create","actor_member_id":"01M6YNXAMJBNWD745DK7C3R9NN","feature":"pages","target_kind":"page","target_id":"01M6YNXCWGZ327ENYVDA9DRSJJ","occurred_at":"2026-11-08T22:54:22.607Z","operation_key":"01M6YNXCWECZSA8XKWQGSZXDQ3"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"page creation","id":"01M6YNXCWG09T4MN5VH1CSDFN6","action":"pages.create","actor_member_id":"01M6YNXAMJBNWD745DK7C3R9NN","feature":"pages","target_kind":"page","target_id":"01M6YNXCWGZ327ENYVDA9DRSJJ","occurred_at":"2026-11-08T22:54:22.607Z","operation_key":"01M6YNXCWECZSA8XKWQGSZXDQ3"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"body changes","id":"01M6YNXCWZZ5FWYZSVYWBFQNT8","action":"pages.blocks.replace","actor_member_id":"01M6YNXAMJBNWD745DK7C3R9NN","feature":"pages","target_kind":"page","target_id":"01M6YNXCWGZ327ENYVDA9DRSJJ","occurred_at":"2026-11-08T22:54:22.621Z","operation_key":"01M6YNXCWVEF27BVEE3129EVB3"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"body changes","id":"01M6YNXCWZZ5FWYZSVYWBFQNT8","action":"pages.blocks.replace","actor_member_id":"01M6YNXAMJBNWD745DK7C3R9NN","feature":"pages","target_kind":"page","target_id":"01M6YNXCWGZ327ENYVDA9DRSJJ","occurred_at":"2026-11-08T22:54:22.621Z","operation_key":"01M6YNXCWVEF27BVEE3129EVB3"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"property changes","id":"01M6YNXCXQKF3C2A34TJZPEB3V","action":"pages.update","actor_member_id":"01M6YNXAMJBNWD745DK7C3R9NN","feature":"pages","target_kind":"page","target_id":"01M6YNXCWGZ327ENYVDA9DRSJJ","occurred_at":"2026-11-08T22:54:22.646Z","operation_key":"01M6YNXCXKYTHPSN92M4BKHT8T"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"property changes","id":"01M6YNXCXQKF3C2A34TJZPEB3V","action":"pages.update","actor_member_id":"01M6YNXAMJBNWD745DK7C3R9NN","feature":"pages","target_kind":"page","target_id":"01M6YNXCWGZ327ENYVDA9DRSJJ","occurred_at":"2026-11-08T22:54:22.646Z","operation_key":"01M6YNXCXKYTHPSN92M4BKHT8T"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"page moves","id":"01M6YNXD0VBYGC7N90C8KS62HJ","action":"pages.move","actor_member_id":"01M6YNXAMJBNWD745DK7C3R9NN","feature":"pages","target_kind":"page","target_id":"01M6YNXCWGZ327ENYVDA9DRSJJ","occurred_at":"2026-11-08T22:54:22.743Z","operation_key":"01M6YNXD0PQ98RFATV1NBJCQBJ"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"page moves","id":"01M6YNXD0VBYGC7N90C8KS62HJ","action":"pages.move","actor_member_id":"01M6YNXAMJBNWD745DK7C3R9NN","feature":"pages","target_kind":"page","target_id":"01M6YNXCWGZ327ENYVDA9DRSJJ","occurred_at":"2026-11-08T22:54:22.743Z","operation_key":"01M6YNXD0PQ98RFATV1NBJCQBJ"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"publish","id":"01M6YNXD2C2ZG5EYRYJYQAVV57","action":"pages.publish","actor_member_id":"01M6YNXAMJBNWD745DK7C3R9NN","feature":"pages","target_kind":"page","target_id":"01M6YNXD21GK4XYX9SKBKYJ1J5","occurred_at":"2026-11-08T22:54:22.792Z","operation_key":"01M6YNXD27GVAHCKVGGFM0B4K5"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"publish","id":"01M6YNXD2C2ZG5EYRYJYQAVV57","action":"pages.publish","actor_member_id":"01M6YNXAMJBNWD745DK7C3R9NN","feature":"pages","target_kind":"page","target_id":"01M6YNXD21GK4XYX9SKBKYJ1J5","occurred_at":"2026-11-08T22:54:22.792Z","operation_key":"01M6YNXD27GVAHCKVGGFM0B4K5"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"archive","id":"01M6YNXD6H8P263W9NHGRHN0AJ","action":"archive.archive","actor_member_id":"01M6YNXAMJBNWD745DK7C3R9NN","feature":"archive","target_kind":"page","target_id":"01M6YNXD65AY91E3JQZ6XQ523C","occurred_at":"2026-11-08T22:54:22.927Z","operation_key":"01M6YNXD6D4BW8CPF6HF4433GS"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"archive","id":"01M6YNXD6H8P263W9NHGRHN0AJ","action":"archive.archive","actor_member_id":"01M6YNXAMJBNWD745DK7C3R9NN","feature":"archive","target_kind":"page","target_id":"01M6YNXD65AY91E3JQZ6XQ523C","occurred_at":"2026-11-08T22:54:22.927Z","operation_key":"01M6YNXD6D4BW8CPF6HF4433GS"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"restore","id":"01M6YNXD74KHM3H1D4522KFHYH","action":"archive.restore","actor_member_id":"01M6YNXAMJBNWD745DK7C3R9NN","feature":"archive","target_kind":"page","target_id":"01M6YNXD65AY91E3JQZ6XQ523C","occurred_at":"2026-11-08T22:54:22.947Z","operation_key":"01M6YNXD713JEDJWME06SW1JFZ"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"restore","id":"01M6YNXD74KHM3H1D4522KFHYH","action":"archive.restore","actor_member_id":"01M6YNXAMJBNWD745DK7C3R9NN","feature":"archive","target_kind":"page","target_id":"01M6YNXD65AY91E3JQZ6XQ523C","occurred_at":"2026-11-08T22:54:22.947Z","operation_key":"01M6YNXD713JEDJWME06SW1JFZ"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"trash","id":"01M6YNXD7VM4FQ53A3QB2DYMF4","action":"archive.trash","actor_member_id":"01M6YNXAMJBNWD745DK7C3R9NN","feature":"archive","target_kind":"page","target_id":"01M6YNXD65AY91E3JQZ6XQ523C","occurred_at":"2026-11-08T22:54:22.969Z","operation_key":"01M6YNXD7QQTC4H5WMSY7VKCPY"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"trash","id":"01M6YNXD7VM4FQ53A3QB2DYMF4","action":"archive.trash","actor_member_id":"01M6YNXAMJBNWD745DK7C3R9NN","feature":"archive","target_kind":"page","target_id":"01M6YNXD65AY91E3JQZ6XQ523C","occurred_at":"2026-11-08T22:54:22.969Z","operation_key":"01M6YNXD7QQTC4H5WMSY7VKCPY"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"permanent deletion","id":"01M6YNXD8WFA7X3QB54VHE3ADR","action":"archive.permanent-delete","actor_member_id":"01M6YNXAMJBNWD745DK7C3R9NN","feature":"archive","target_kind":"page","target_id":"01M6YNXD65AY91E3JQZ6XQ523C","occurred_at":"2026-11-08T22:54:23.001Z","operation_key":"01M6YNXD8FGGHSPYE67Y63TXYK"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"permanent deletion","id":"01M6YNXD8WFA7X3QB54VHE3ADR","action":"archive.permanent-delete","actor_member_id":"01M6YNXAMJBNWD745DK7C3R9NN","feature":"archive","target_kind":"page","target_id":"01M6YNXD65AY91E3JQZ6XQ523C","occurred_at":"2026-11-08T22:54:23.001Z","operation_key":"01M6YNXD8FGGHSPYE67Y63TXYK"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"version restores","id":"01M6YNXDC17YTJG3H1XXAWHS11","action":"pages.restore","actor_member_id":"01M6YNXAMJBNWD745DK7C3R9NN","feature":"pages","target_kind":"page","target_id":"01M6YNXDB4J674H55RBSQCT6KH","occurred_at":"2026-11-08T22:54:23.103Z","operation_key":"01M6YNXDBXA3NENXVKQK41018Z"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"version restores","id":"01M6YNXDC17YTJG3H1XXAWHS11","action":"pages.restore","actor_member_id":"01M6YNXAMJBNWD745DK7C3R9NN","feature":"pages","target_kind":"page","target_id":"01M6YNXDB4J674H55RBSQCT6KH","occurred_at":"2026-11-08T22:54:23.103Z","operation_key":"01M6YNXDBXA3NENXVKQK41018Z"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"version deletions","id":"01M6YNXDCK6V0JNW0FTSNG4ZQR","action":"versions.delete","actor_member_id":"01M6YNXAMJBNWD745DK7C3R9NN","feature":"versions","target_kind":"page","target_id":"01M6YNXDB4J674H55RBSQCT6KH","occurred_at":"2026-11-08T22:54:23.122Z","operation_key":"01M6YNXDCGX7AZ8Y5QWX08PP08"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+AUDIT_RECEIPT {"family":"version deletions","id":"01M6YNXDCK6V0JNW0FTSNG4ZQR","action":"versions.delete","actor_member_id":"01M6YNXAMJBNWD745DK7C3R9NN","feature":"versions","target_kind":"page","target_id":"01M6YNXDB4J674H55RBSQCT6KH","occurred_at":"2026-11-08T22:54:23.122Z","operation_key":"01M6YNXDCGX7AZ8Y5QWX08PP08"}
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+PROBE ARCH-004 retention: native page tree archive and restore -> bodies, history, comments, grants, status, definitions, records and bytes unchanged
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+PROBE ARCH-004 retention: native database archive and restore -> bodies, history, comments, grants, status, definitions, records and bytes unchanged
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+PROBE ARCH-004 retention: native container archive and restore -> populated tree and uploaded bytes unchanged
+
+stdout | tests/qualification/core/audit-content.test.ts > ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+PROBE ARCH-004 confirmation: native delete -> untrashed, archived, incomplete cascade and stale-proof requests refused unchanged; exact fresh-proof cascade erased, replay cannot resurrect
+
+ ✓ tests/qualification/core/audit-content.test.ts (1 test) 4951ms
+   ✓ ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time  4950ms
+ ✓ tests/flagship/release-clauses/trials/predeclaration.test.ts (1 test) 1668ms
+   ✓ TRIAL-001 — immutable plans require exact approval and constrain treatment content  1667ms
+ ✓ tests/e2e/navigation/global-create.test.ts (1 test) 4885ms
+   ✓ NAV-005 — creation names authorized destinations and creates pages, databases, spaces and template copies  4883ms
+stdout | tests/flagship/release-clauses/inquiry/replay-analysis.test.ts > INQ-002 — durable numerical replay separates observation, assumption, deduction and refused business authority
+U5_NATIVE_INQ002 {"analysis":{"id":"01M6YNXV3AD0XN1BQ5R935CRMA","inquiry_id":"01M6YNXV0EXG22H7TKY4H1A27D","kind":"compare-means","engine_version":"difference-means-conservative-t-v1","inputs_json":"{\"kind\":\"compare-means\",\"treatment\":[1,3,5],\"comparison\":[4,6,8]}","input_hash":"2bfc23348d73c76151fb17a081c0d2b23d94d5f6167e7c2a8d19c8778ca8f374","result_json":"{\"treatment\":{\"n\":3,\"mean\":3,\"variance\":4},\"comparison\":{\"n\":3,\"mean\":6,\"variance\":4},\"effect\":3,\"lower\":-4.0267695754640105,\"upper\":10.02676957546401,\"halfWidth\":7.0267695754640105,\"confidence\":0.95,\"engine\":\"difference-means-conservative-t-v1\"}","refs_json":"[{\"kind\":\"page\",\"sourceId\":\"01M6YNXTXS500VDP226Z23MV6W\",\"revisionId\":\"01M6YNXTXSYYJ7TN70NJD08B26\"}]","created_at":"2026-11-08T22:54:37.142Z"},"artifacts":[{"id":"01M6YNXV1D5QN0SPT4T6TQEMWA","inquiry_id":"01M6YNXV0EXG22H7TKY4H1A27D","kind":"observation","content_json":"{\"finding\":\"observation: scoped to supplied measured population\",\"hypothesisId\":\"01M6YNXV0E758R8W17S29979H3\"}","refs_json":"[{\"kind\":\"page\",\"sourceId\":\"01M6YNXTXS500VDP226Z23MV6W\",\"revisionId\":\"01M6YNXTXSYYJ7TN70NJD08B26\"}]","created_at":"2026-11-08T22:54:37.083Z"},{"id":"01M6YNXV20AV6BMRDJ1EJN25QP","inquiry_id":"01M6YNXV0EXG22H7TKY4H1A27D","kind":"assumption","content_json":"{\"finding\":\"assumption: scoped to supplied measured population\",\"hypothesisId\":\"01M6YNXV0E758R8W17S29979H3\"}","refs_json":"[{\"kind\":\"page\",\"sourceId\":\"01M6YNXTXS500VDP226Z23MV6W\",\"revisionId\":\"01M6YNXTXSYYJ7TN70NJD08B26\"}]","created_at":"2026-11-08T22:54:37.104Z"},{"id":"01M6YNXV2HFMSZHEV8RCEKX8B3","inquiry_id":"01M6YNXV0EXG22H7TKY4H1A27D","kind":"deduction","content_json":"{\"finding\":\"deduction: scoped to supplied measured population\",\"hypothesisId\":\"01M6YNXV0E758R8W17S29979H3\"}","refs_json":"[{\"kind\":\"page\",\"sourceId\":\"01M6YNXTXS500VDP226Z23MV6W\",\"revisionId\":\"01M6YNXTXSYYJ7TN70NJD08B26\"}]","created_at":"2026-11-08T22:54:37.122Z"}]}
+
+ ✓ tests/flagship/release-clauses/inquiry/replay-analysis.test.ts (1 test) 275ms
+ ✓ tests/e2e/imports/archive-safety.test.ts (1 test) 14ms
+ ✓ tests/qualification/authority/native-boundaries.test.ts (1 test) 54ms
+ ✓ tests/qualification/release-integration-repairs/branch-migration.test.ts (1 test) 572ms
+   ✓ Forward branch admission migration preserves native prior inquiry findings and leaves unknown history unknown  570ms
+ ✓ tests/e2e/navigation/tree-filter.test.ts (1 test) 5178ms
+   ✓ TREE-004 — tree inputs expose only readable titles and retain member expansion across filtered reads  5177ms
+ ✓ tests/e2e/saving/failed-writes.test.ts (1 test) 5104ms
+   ✓ SAVE-002 — refused title and block writes preserve committed data and a corrected retry commits once  5103ms
+
+ Test Files  17 passed (17)
+      Tests  18 passed (18)
+   Start at  22:53:08
+   Duration  107.60s (transform 9.41s, setup 7.67s, import 45.37s, tests 45.78s, environment 1ms)
+
+JSON report written to /home/agent/rer-consolidation/work/sd-slate-c-f221-pc1/run-slate/.artifacts/contract-4.json
+Contract documents are current.
+TAP version 13
+# Subtest: named moves and new ordinal registrations each execute once
+ok 1 - named moves and new ordinal registrations each execute once
+  ---
+  duration_ms: 0.761665
+  type: 'test'
+  ...
+# Subtest: ordinary partitioning covers every registration across arbitrary widths
+ok 2 - ordinary partitioning covers every registration across arbitrary widths
+  ---
+  duration_ms: 1.611112
+  type: 'test'
+  ...
+# Subtest: malformed assignments fail closed instead of silently losing a journey
+ok 3 - malformed assignments fail closed instead of silently losing a journey
+  ---
+  duration_ms: 0.564055
+  type: 'test'
+  ...
+1..3
+# tests 3
+# suites 0
+# pass 3
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 44.099029
+
+> slate@0.4.0 test:foundation /home/agent/rer-consolidation/work/sd-slate-c-f221-pc1/run-slate
+> tsx --test --test-concurrency=1 tests/e2e/auth-paths.test.js tests/e2e/runtime-config.test.js tests/e2e/foundation-runtime.test.mjs
+
+TAP version 13
+# Subtest: local sign-in admits only loopback hosts and keeps next paths inside the operator app
+ok 1 - local sign-in admits only loopback hosts and keeps next paths inside the operator app
+  ---
+  duration_ms: 1.302845
+  type: 'test'
+  ...
+# Subtest: the development Worker serves the Start documents and the Hono families
+not ok 2 - the development Worker serves the Start documents and the Hono families
+  ---
+  duration_ms: 24637.617172
+  type: 'test'
+  location: '/home/agent/rer-consolidation/work/sd-slate-c-f221-pc1/run-slate/tests/e2e/foundation-runtime.test.mjs:19:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    404 !== 200
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 200
+  actual: 404
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///home/agent/rer-consolidation/work/sd-slate-c-f221-pc1/run-slate/tests/e2e/foundation-runtime.test.mjs:41:12)
+    process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+# Subtest: native outbox sign-in preserves custom and retained Aurora workspaces
+not ok 3 - native outbox sign-in preserves custom and retained Aurora workspaces
+  ---
+  duration_ms: 51375.676661
+  type: 'test'
+  location: '/home/agent/rer-consolidation/work/sd-slate-c-f221-pc1/run-slate/tests/e2e/foundation-runtime.test.mjs:153:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    403 !== 200
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 200
+  actual: 403
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///home/agent/rer-consolidation/work/sd-slate-c-f221-pc1/run-slate/tests/e2e/foundation-runtime.test.mjs:166:12)
+    process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: runtime configuration admits explicit local origins and providers and refuses unsafe deployments
+ok 4 - runtime configuration admits explicit local origins and providers and refuses unsafe deployments
+  ---
+  duration_ms: 1.785998
+  type: 'test'
+  ...
+1..4
+# tests 4
+# suites 0
+# pass 2
+# fail 2
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 76625.013409
+ ELIFECYCLE  Command failed with exit code 1.
+Shard lane results: journeys=1 worker-suite=1

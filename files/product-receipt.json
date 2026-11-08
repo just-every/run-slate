@@ -1,0 +1,21 @@
+{
+  "repository": "just-every/run-slate",
+  "branch": "cloud/sd-slate-c-f221-pc1",
+  "commit": "78dfd3248667a89cac808aba15548ac4c3b454bd",
+  "tree": "b0ded7caeacfe7e91a810abd2d0be9da5c534624",
+  "sourceSha256": "268ace566f5414778f53564e4cbbb57965622f10132863e90b3e68e1424cc954",
+  "lockSha256": "199aeda6b3bbb893124c38d0afee95e28e3c9fd3f9e1fb1d4f5cb6ebaadad28f",
+  "artifact": {
+    "schema": 1,
+    "commit": "78dfd3248667a89cac808aba15548ac4c3b454bd",
+    "tree": "b0ded7caeacfe7e91a810abd2d0be9da5c534624",
+    "sourceSha256": "268ace566f5414778f53564e4cbbb57965622f10132863e90b3e68e1424cc954",
+    "lockSha256": "199aeda6b3bbb893124c38d0afee95e28e3c9fd3f9e1fb1d4f5cb6ebaadad28f",
+    "outputSha256": "8504c8779a8b5679abbfabdb756995527372767f3445593cca5bc059f1f7d7de"
+  },
+  "outputSha256": "8504c8779a8b5679abbfabdb756995527372767f3445593cca5bc059f1f7d7de",
+  "preservedHead": "2045ae66a1f9c9007ef89f5886917296e85232e3",
+  "mergedMain": "70a1ca379440899480c93f715fb7f7be094bdfc6",
+  "viewsDiffFromMain": "",
+  "status": ""
+}

@@ -1,0 +1,23 @@
+{
+  "repository": "just-every/run-slate",
+  "head": "2045ae66a1f9c9007ef89f5886917296e85232e3",
+  "run": 42519566407,
+  "job": 128850604522,
+  "runArchiveCommand": "gh api repos/just-every/run-slate/actions/runs/42519566407/logs",
+  "runArchiveExit": 0,
+  "failures": [
+    {
+      "test": "real core-wiki and touch-member journeys at 390px",
+      "failure": "Step invite existing member, persisted grant and canonical copied link; touch member publishes and shares failed: {\"code\":\"RATE_LIMITED\",\"message\":\"Too many requests. Try again later.\"}; 429 !== 200",
+      "location": "tests/qualification/ui-convergence/sharing-journey.mjs:443",
+      "durationMs": 324953.161893
+    },
+    {
+      "test": "page outline follows headings and navigates long pages at 1440px",
+      "failure": "Anonymous next request took 5460 ms.",
+      "location": "tests/qualification/ui-convergence/guest-scope-journey.mjs:215",
+      "durationMs": 517858.218456
+    }
+  ],
+  "notes": "The per-job log command returned zero bytes. One full run archive request succeeded, with no blocked blob redirect retry. Exact local shard reproduction is recorded separately."
+}

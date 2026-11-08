@@ -1,0 +1,38 @@
+
+> slate@0.4.0 test:foundation /home/agent/rer-consolidation/work/sd-slate-c-f221-pc1/run-slate
+> tsx --test --test-concurrency=1 tests/e2e/auth-paths.test.js tests/e2e/runtime-config.test.js tests/e2e/foundation-runtime.test.mjs
+
+TAP version 13
+# Subtest: local sign-in admits only loopback hosts and keeps next paths inside the operator app
+ok 1 - local sign-in admits only loopback hosts and keeps next paths inside the operator app
+  ---
+  duration_ms: 0.832471
+  type: 'test'
+  ...
+# Subtest: the development Worker serves the Start documents and the Hono families
+ok 2 - the development Worker serves the Start documents and the Hono families
+  ---
+  duration_ms: 52334.77674
+  type: 'test'
+  ...
+# Subtest: native outbox sign-in preserves custom and retained Aurora workspaces
+ok 3 - native outbox sign-in preserves custom and retained Aurora workspaces
+  ---
+  duration_ms: 45000.810835
+  type: 'test'
+  ...
+# Subtest: runtime configuration admits explicit local origins and providers and refuses unsafe deployments
+ok 4 - runtime configuration admits explicit local origins and providers and refuses unsafe deployments
+  ---
+  duration_ms: 4.279007
+  type: 'test'
+  ...
+1..4
+# tests 4
+# suites 0
+# pass 4
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 97874.114278

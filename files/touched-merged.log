@@ -1,0 +1,56 @@
+
+> slate@0.4.0 test:profile /home/agent/rer-consolidation/work/sd-slate-c-f221-pc1/run-slate
+> tsx --test tests/profile/*.node.tsx tests/profile/*.node.mjs && vitest run --config tests/profile/vitest.config.ts
+
+TAP version 13
+# Subtest: FLAG-001 — core wiki defaults, route boundaries and controls require explicit flagship opt-in
+ok 1 - FLAG-001 — core wiki defaults, route boundaries and controls require explicit flagship opt-in
+  ---
+  duration_ms: 33.46479
+  type: 'test'
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 1
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 692.390139
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mProxy environment variables detected. We'll use your proxy for fetch requests.[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mProxy environment variables detected. We'll use your proxy for fetch requests.[0m
+
+
+
+ RUN  v4.1.11 /home/agent/rer-consolidation/work/sd-slate-c-f221-pc1/run-slate
+
+
+ Test Files  2 passed (2)
+      Tests  5 passed (5)
+   Start at  23:11:36
+   Duration  26.07s (transform 8.55s, setup 1.46s, import 14.97s, tests 11.41s, environment 0ms)
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mProxy environment variables detected. We'll use your proxy for fetch requests.[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mProxy environment variables detected. We'll use your proxy for fetch requests.[0m
+
+
+(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:
+  - import "./source-fixtures" without a file extension (scripts/import-scale/generate-server-dc.ts:2:91). Add the file extension
+  - import "./types" without a file extension (scripts/import-scale/generate-server-dc.ts:3:82). Add the file extension
+  - import "./source-fixtures" without a file extension (scripts/import-scale/generate-server-dc.ts:4:22). Add the file extension
+  - import "./csv" without a file extension (scripts/import-scale/source-fixtures.ts:4:46). Add the file extension
+Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.
+
+ RUN  v4.1.11 /home/agent/rer-consolidation/work/sd-slate-c-f221-pc1/run-slate
+
+
+ Test Files  2 passed (2)
+      Tests  2 passed (2)
+   Start at  23:12:05
+   Duration  42.11s (transform 7.09s, setup 1.09s, import 14.15s, tests 25.65s, environment 0ms)
+

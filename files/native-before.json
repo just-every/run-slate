@@ -1,0 +1,1005 @@
+{
+  "head": "2045ae66a1f9c9007ef89f5886917296e85232e3",
+  "test": "FLAG-001 — core wiki public doors retain native content while flagship routes and queued work require opt-in",
+  "state": "passed",
+  "receipt": {
+    "profile": "core-wiki",
+    "actorId": "01M57E43G04A5XPAG60M0V3CYJ",
+    "rules": [
+      {
+        "id": "01M57E43G0PR36F5S5K0DKZDY7",
+        "name": "Native page arrival",
+        "scope": "container",
+        "trigger": {
+          "event": "created"
+        },
+        "conditions": [],
+        "actions": [
+          {
+            "type": "comment",
+            "body": "Page arrived"
+          }
+        ]
+      },
+      {
+        "id": "01M57E43G0TW0CCQY9NGDN5C9E",
+        "name": "Native property movement",
+        "scope": "container",
+        "trigger": {
+          "event": "properties"
+        },
+        "conditions": [],
+        "actions": [
+          {
+            "type": "move",
+            "containerId": "01M57E43G0AB4CSHGW4TZ7EBHW",
+            "parentPageId": "01M57E43G09T6X0YHV9NMZBGY9"
+          }
+        ]
+      },
+      {
+        "id": "01M57E43G0P0G17P4CYVJAZW9B",
+        "name": "Native body follow-up",
+        "scope": "container",
+        "trigger": {
+          "event": "blocks"
+        },
+        "conditions": [],
+        "actions": [
+          {
+            "type": "create-page",
+            "containerId": "01M57E43G0AB4CSHGW4TZ7EBHW",
+            "title": "Body follow-up"
+          }
+        ]
+      },
+      {
+        "id": "01M57E43G0V8CY8BV1ZA0WBSMZ",
+        "name": "Native publication archive",
+        "scope": "container",
+        "trigger": {
+          "event": "published"
+        },
+        "conditions": [],
+        "actions": [
+          {
+            "type": "archive",
+            "reason": "Published procedure retained"
+          }
+        ]
+      },
+      {
+        "id": "01M57E43G0Q36QSQCX5AMM453Y",
+        "name": "Native ordered intake",
+        "scope": "source",
+        "trigger": {
+          "event": "record-created"
+        },
+        "conditions": [
+          {
+            "field": "stage",
+            "op": "eq",
+            "value": "Ready"
+          },
+          {
+            "field": "score",
+            "op": "gte",
+            "value": 2
+          }
+        ],
+        "actions": [
+          {
+            "type": "edit-fields",
+            "values": {
+              "stage": "First"
+            }
+          },
+          {
+            "type": "comment",
+            "body": "First ordered comment"
+          },
+          {
+            "type": "edit-fields",
+            "values": {
+              "stage": "Processed",
+              "score": 7
+            }
+          },
+          {
+            "type": "create-record",
+            "databaseId": "01M57E43G0FQZMHC8PJAW2KBP1",
+            "title": "Created by intake",
+            "values": {
+              "stage": "Produced",
+              "score": 3
+            }
+          },
+          {
+            "type": "comment",
+            "body": "Second ordered comment"
+          },
+          {
+            "type": "notify",
+            "recipientMemberIds": [
+              "01M57E43G0XAWRPVJSVW8J5M9W",
+              "01M57E43G0EX84QZKPYHW032K5"
+            ],
+            "message": "Intake processed"
+          }
+        ]
+      },
+      {
+        "id": "01M57E43G0W8PKMMWYKKX5V87Y",
+        "name": "Native related update",
+        "scope": "source",
+        "trigger": {
+          "event": "record-updated"
+        },
+        "conditions": [
+          {
+            "field": "stage",
+            "op": "eq",
+            "value": "Fan out"
+          }
+        ],
+        "branch": {
+          "relationField": "related"
+        },
+        "actions": [
+          {
+            "type": "comment",
+            "body": "Related update"
+          },
+          {
+            "type": "edit-fields",
+            "values": {
+              "score": 11
+            }
+          }
+        ]
+      },
+      {
+        "id": "01M57E43G0D3WJ5KTB6FTE397C",
+        "name": "Native related schedule",
+        "scope": "source",
+        "trigger": {
+          "event": "schedule",
+          "startsAt": "2026-10-18T11:59:00.000Z",
+          "intervalMinutes": 60
+        },
+        "conditions": [
+          {
+            "field": "stage",
+            "op": "eq",
+            "value": "Scheduled"
+          }
+        ],
+        "branch": {
+          "relationField": "related"
+        },
+        "actions": [
+          {
+            "type": "comment",
+            "body": "Scheduled relation"
+          }
+        ]
+      }
+    ],
+    "runs": [
+      {
+        "id": "01M57E43G0DE1Z6ANF5SZEPPRY",
+        "state": "success",
+        "actor": {
+          "id": "01M57E43G04A5XPAG60M0V3CYJ",
+          "name": "Automation editor"
+        },
+        "trigger": {
+          "key": "content:6",
+          "occurredAt": "2026-10-18T12:00:00.000Z",
+          "event": "created",
+          "pageId": "01M57E43G00TZQD438TS0KTS4Z",
+          "containerId": "01M57E43G0AB4CSHGW4TZ7EBHW",
+          "depth": 0,
+          "chainRuleIds": []
+        },
+        "receipts": [
+          {
+            "actionIndex": 0,
+            "targetId": "01M57E43G00TZQD438TS0KTS4Z",
+            "state": "confirmed",
+            "receipt": {
+              "value": {
+                "id": "01M57E43G016Z8QY6CBHZGJ3Y9",
+                "threadId": "01M57E43G038WGV6W6E3Z1G407",
+                "revisionId": "01M57E43G0DWN3844NTGXRZYRM"
+              },
+              "receipt": {
+                "operationKey": "auto:01M57E43G0DE1Z6ANF5SZEPPRY:0:01M57E43G00TZQD438TS0KTS4Z",
+                "entity": {
+                  "id": "01M57E43G038WGV6W6E3Z1G407",
+                  "kind": "comment-thread",
+                  "revisionId": "01M57E43G0DWN3844NTGXRZYRM"
+                },
+                "revisionId": "01M57E43G0DWN3844NTGXRZYRM",
+                "activityId": "01M57E43G0428FPC3VTAY4BG91",
+                "committedAt": "2026-10-18T12:00:00.000Z"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "id": "01M57E43G0E3A882KJ5HDS01N2",
+        "state": "success",
+        "actor": {
+          "id": "01M57E43G04A5XPAG60M0V3CYJ",
+          "name": "Automation editor"
+        },
+        "trigger": {
+          "key": "content:7",
+          "occurredAt": "2026-10-18T12:00:00.000Z",
+          "event": "properties",
+          "pageId": "01M57E43G00TZQD438TS0KTS4Z",
+          "containerId": "01M57E43G0AB4CSHGW4TZ7EBHW",
+          "depth": 0,
+          "chainRuleIds": []
+        },
+        "receipts": [
+          {
+            "actionIndex": 0,
+            "targetId": "01M57E43G00TZQD438TS0KTS4Z",
+            "state": "confirmed",
+            "receipt": {
+              "value": {
+                "pageId": "01M57E43G00TZQD438TS0KTS4Z",
+                "revisionId": "01M57E43G0D0D912G6XKWGC3HA"
+              },
+              "receipt": {
+                "operationKey": "auto:01M57E43G0E3A882KJ5HDS01N2:0:01M57E43G00TZQD438TS0KTS4Z",
+                "entity": {
+                  "id": "01M57E43G00TZQD438TS0KTS4Z",
+                  "kind": "page",
+                  "revisionId": "01M57E43G0D0D912G6XKWGC3HA"
+                },
+                "revisionId": "01M57E43G0D0D912G6XKWGC3HA",
+                "activityId": "01M57E43G0SCR775WM0JETPQ0K",
+                "committedAt": "2026-10-18T12:00:00.000Z"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "id": "01M57E43G0ES22D6DE8NJYEKP5",
+        "state": "success",
+        "actor": {
+          "id": "01M57E43G04A5XPAG60M0V3CYJ",
+          "name": "Automation editor"
+        },
+        "trigger": {
+          "key": "content:9",
+          "occurredAt": "2026-10-18T12:00:00.000Z",
+          "event": "blocks",
+          "pageId": "01M57E43G00TZQD438TS0KTS4Z",
+          "containerId": "01M57E43G0AB4CSHGW4TZ7EBHW",
+          "depth": 0,
+          "chainRuleIds": []
+        },
+        "receipts": [
+          {
+            "actionIndex": 0,
+            "targetId": "01M57E43G00TZQD438TS0KTS4Z",
+            "state": "confirmed",
+            "receipt": {
+              "value": {
+                "pageId": "01M57E43G049EP7EVD5PMNHTQC",
+                "revisionId": "01M57E43G0PQGG08X4YG7ZZBTC"
+              },
+              "receipt": {
+                "operationKey": "auto:01M57E43G0ES22D6DE8NJYEKP5:0:01M57E43G00TZQD438TS0KTS4Z",
+                "entity": {
+                  "id": "01M57E43G049EP7EVD5PMNHTQC",
+                  "kind": "page",
+                  "revisionId": "01M57E43G0PQGG08X4YG7ZZBTC"
+                },
+                "revisionId": "01M57E43G0PQGG08X4YG7ZZBTC",
+                "activityId": "01M57E43G0K36ND4Q3KWF1K90T",
+                "committedAt": "2026-10-18T12:00:00.000Z"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "id": "01M57E43G0GH440K636TXD4A75",
+        "state": "success",
+        "actor": {
+          "id": "01M57E43G04A5XPAG60M0V3CYJ",
+          "name": "Automation editor"
+        },
+        "trigger": {
+          "key": "content:13",
+          "occurredAt": "2026-10-18T12:00:00.000Z",
+          "event": "published",
+          "pageId": "01M57E43G00TZQD438TS0KTS4Z",
+          "containerId": "01M57E43G0AB4CSHGW4TZ7EBHW",
+          "depth": 0,
+          "chainRuleIds": []
+        },
+        "receipts": [
+          {
+            "actionIndex": 0,
+            "targetId": "01M57E43G00TZQD438TS0KTS4Z",
+            "state": "confirmed",
+            "receipt": {
+              "value": {
+                "pageId": "01M57E43G00TZQD438TS0KTS4Z",
+                "revisionId": "01M57E43G0B0G78YQ4ANH869HZ",
+                "action": "archive"
+              },
+              "receipt": {
+                "operationKey": "auto:01M57E43G0GH440K636TXD4A75:0:01M57E43G00TZQD438TS0KTS4Z",
+                "entity": {
+                  "id": "01M57E43G00TZQD438TS0KTS4Z",
+                  "kind": "page",
+                  "revisionId": "01M57E43G0B0G78YQ4ANH869HZ"
+                },
+                "revisionId": "01M57E43G0B0G78YQ4ANH869HZ",
+                "activityId": "01M57E43G0DBW50NQCD67WZ89V",
+                "committedAt": "2026-10-18T12:00:00.000Z"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "id": "01M57E43G0F31KYJ9M72KEKPNJ",
+        "state": "success",
+        "actor": {
+          "id": "01M57E43G04A5XPAG60M0V3CYJ",
+          "name": "Automation editor"
+        },
+        "trigger": {
+          "key": "content:15",
+          "occurredAt": "2026-10-18T12:00:00.000Z",
+          "event": "record-created",
+          "pageId": "01M57E43G0BRH8CNBHHHFEH682",
+          "databaseId": "01M57E43G0FQZMHC8PJAW2KBP1",
+          "containerId": "01M57E43G0AB4CSHGW4TZ7EBHW",
+          "depth": 0,
+          "chainRuleIds": []
+        },
+        "receipts": [
+          {
+            "actionIndex": 0,
+            "targetId": "01M57E43G0BRH8CNBHHHFEH682",
+            "state": "confirmed",
+            "receipt": {
+              "value": {
+                "pageId": "01M57E43G0BRH8CNBHHHFEH682",
+                "revisionId": "01M57E43G0AJTWCK8EFQ838DB9",
+                "values": {
+                  "stage": "First",
+                  "score": 2,
+                  "related": []
+                }
+              },
+              "receipt": {
+                "operationKey": "auto:01M57E43G0F31KYJ9M72KEKPNJ:0:01M57E43G0BRH8CNBHHHFEH682",
+                "entity": {
+                  "id": "01M57E43G0BRH8CNBHHHFEH682",
+                  "kind": "page",
+                  "revisionId": "01M57E43G0AJTWCK8EFQ838DB9"
+                },
+                "revisionId": "01M57E43G0AJTWCK8EFQ838DB9",
+                "activityId": "01M57E43G0WMN26ZB4HZF48J99",
+                "committedAt": "2026-10-18T12:00:00.000Z"
+              }
+            }
+          },
+          {
+            "actionIndex": 1,
+            "targetId": "01M57E43G0BRH8CNBHHHFEH682",
+            "state": "confirmed",
+            "receipt": {
+              "value": {
+                "id": "01M57E43G0HH1THA1DA8438BG1",
+                "threadId": "01M57E43G0AWRTJ6753MC8DPVC",
+                "revisionId": "01M57E43G0ZRVYVY5P0Z4S6EWC"
+              },
+              "receipt": {
+                "operationKey": "auto:01M57E43G0F31KYJ9M72KEKPNJ:1:01M57E43G0BRH8CNBHHHFEH682",
+                "entity": {
+                  "id": "01M57E43G0AWRTJ6753MC8DPVC",
+                  "kind": "comment-thread",
+                  "revisionId": "01M57E43G0ZRVYVY5P0Z4S6EWC"
+                },
+                "revisionId": "01M57E43G0ZRVYVY5P0Z4S6EWC",
+                "activityId": "01M57E43G0M9E1CKKNJM7JY1WV",
+                "committedAt": "2026-10-18T12:00:00.000Z"
+              }
+            }
+          },
+          {
+            "actionIndex": 2,
+            "targetId": "01M57E43G0BRH8CNBHHHFEH682",
+            "state": "confirmed",
+            "receipt": {
+              "value": {
+                "pageId": "01M57E43G0BRH8CNBHHHFEH682",
+                "revisionId": "01M57E43G0FR6D220F1Q6MSE61",
+                "values": {
+                  "stage": "Processed",
+                  "score": 7,
+                  "related": []
+                }
+              },
+              "receipt": {
+                "operationKey": "auto:01M57E43G0F31KYJ9M72KEKPNJ:2:01M57E43G0BRH8CNBHHHFEH682",
+                "entity": {
+                  "id": "01M57E43G0BRH8CNBHHHFEH682",
+                  "kind": "page",
+                  "revisionId": "01M57E43G0FR6D220F1Q6MSE61"
+                },
+                "revisionId": "01M57E43G0FR6D220F1Q6MSE61",
+                "activityId": "01M57E43G0SGGMARWSH1RNHAZY",
+                "committedAt": "2026-10-18T12:00:00.000Z"
+              }
+            }
+          },
+          {
+            "actionIndex": 3,
+            "targetId": "01M57E43G0BRH8CNBHHHFEH682",
+            "state": "confirmed",
+            "receipt": {
+              "value": {
+                "pageId": "01M57E43G0AZX0QQAZCXFZ5ZJ2",
+                "revisionId": "01M57E43G0CB0MACE8A5QKHSXH",
+                "values": {
+                  "stage": "Produced",
+                  "score": 3
+                }
+              },
+              "receipt": {
+                "operationKey": "auto:01M57E43G0F31KYJ9M72KEKPNJ:3:01M57E43G0BRH8CNBHHHFEH682",
+                "entity": {
+                  "id": "01M57E43G0AZX0QQAZCXFZ5ZJ2",
+                  "kind": "page",
+                  "revisionId": "01M57E43G0CB0MACE8A5QKHSXH"
+                },
+                "revisionId": "01M57E43G0CB0MACE8A5QKHSXH",
+                "activityId": "01M57E43G0K1YEJTD8ZWDWM6W7",
+                "committedAt": "2026-10-18T12:00:00.000Z"
+              }
+            }
+          },
+          {
+            "actionIndex": 4,
+            "targetId": "01M57E43G0BRH8CNBHHHFEH682",
+            "state": "confirmed",
+            "receipt": {
+              "value": {
+                "id": "01M57E43G03KJZSHN70AEN405A",
+                "threadId": "01M57E43G0NZCEYH957R6FVRSX",
+                "revisionId": "01M57E43G0FKAPFHS2PX4C7RAH"
+              },
+              "receipt": {
+                "operationKey": "auto:01M57E43G0F31KYJ9M72KEKPNJ:4:01M57E43G0BRH8CNBHHHFEH682",
+                "entity": {
+                  "id": "01M57E43G0NZCEYH957R6FVRSX",
+                  "kind": "comment-thread",
+                  "revisionId": "01M57E43G0FKAPFHS2PX4C7RAH"
+                },
+                "revisionId": "01M57E43G0FKAPFHS2PX4C7RAH",
+                "activityId": "01M57E43G0R16QHFMH86R9E7PY",
+                "committedAt": "2026-10-18T12:00:00.000Z"
+              }
+            }
+          },
+          {
+            "actionIndex": 5,
+            "targetId": "01M57E43G0BRH8CNBHHHFEH682",
+            "state": "confirmed",
+            "receipt": {
+              "value": {
+                "id": "01M57E43G0TNX5JTZPAJMGDBXP",
+                "state": "queued"
+              },
+              "receipt": {
+                "operationKey": "auto:01M57E43G0F31KYJ9M72KEKPNJ:5:01M57E43G0BRH8CNBHHHFEH682",
+                "entity": {
+                  "id": "01M57E43G04A5XPAG60M0V3CYJ",
+                  "kind": "notification",
+                  "revisionId": "01M57E43G0TNX5JTZPAJMGDBXP"
+                },
+                "revisionId": "01M57E43G0TNX5JTZPAJMGDBXP",
+                "activityId": "01M57E43G0ZPZDBYNSJF01NXTD",
+                "committedAt": "2026-10-18T12:00:00.000Z"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "id": "01M57E43G0KEQ9AVWGT6WT5M16",
+        "state": "success",
+        "actor": {
+          "id": "01M57E43G04A5XPAG60M0V3CYJ",
+          "name": "Automation editor"
+        },
+        "trigger": {
+          "key": "content:21",
+          "occurredAt": "2026-10-18T12:00:00.000Z",
+          "event": "record-updated",
+          "pageId": "01M57E43G0F21QEE7PF6F29BRV",
+          "databaseId": "01M57E43G0FQZMHC8PJAW2KBP1",
+          "containerId": "01M57E43G0AB4CSHGW4TZ7EBHW",
+          "depth": 0,
+          "chainRuleIds": []
+        },
+        "receipts": [
+          {
+            "actionIndex": 0,
+            "targetId": "01M57E43G0EK4H7T48VQF7A32D",
+            "state": "confirmed",
+            "receipt": {
+              "value": {
+                "id": "01M57E43G02CTH0N79S05WJJKM",
+                "threadId": "01M57E43G09PXX3C0QVE24C1A3",
+                "revisionId": "01M57E43G0MN3C3AYE32YS2DEG"
+              },
+              "receipt": {
+                "operationKey": "auto:01M57E43G0KEQ9AVWGT6WT5M16:0:01M57E43G0EK4H7T48VQF7A32D",
+                "entity": {
+                  "id": "01M57E43G09PXX3C0QVE24C1A3",
+                  "kind": "comment-thread",
+                  "revisionId": "01M57E43G0MN3C3AYE32YS2DEG"
+                },
+                "revisionId": "01M57E43G0MN3C3AYE32YS2DEG",
+                "activityId": "01M57E43G0BPW37NGR2RPH56YQ",
+                "committedAt": "2026-10-18T12:00:00.000Z"
+              }
+            }
+          },
+          {
+            "actionIndex": 0,
+            "targetId": "01M57E43G0EPYAQEYW87EVKGE6",
+            "state": "confirmed",
+            "receipt": {
+              "value": {
+                "id": "01M57E43G0DWFCNNVH7GXPWTSS",
+                "threadId": "01M57E43G0602YG7DRD6HBVDFG",
+                "revisionId": "01M57E43G0STG09HE31YH3ERVK"
+              },
+              "receipt": {
+                "operationKey": "auto:01M57E43G0KEQ9AVWGT6WT5M16:0:01M57E43G0EPYAQEYW87EVKGE6",
+                "entity": {
+                  "id": "01M57E43G0602YG7DRD6HBVDFG",
+                  "kind": "comment-thread",
+                  "revisionId": "01M57E43G0STG09HE31YH3ERVK"
+                },
+                "revisionId": "01M57E43G0STG09HE31YH3ERVK",
+                "activityId": "01M57E43G0GQFXNBK6623SEFKG",
+                "committedAt": "2026-10-18T12:00:00.000Z"
+              }
+            }
+          },
+          {
+            "actionIndex": 1,
+            "targetId": "01M57E43G0EK4H7T48VQF7A32D",
+            "state": "confirmed",
+            "receipt": {
+              "value": {
+                "pageId": "01M57E43G0EK4H7T48VQF7A32D",
+                "revisionId": "01M57E43G0K9GZWER14A34ZS1A",
+                "values": {
+                  "stage": "Target",
+                  "score": 11,
+                  "related": []
+                }
+              },
+              "receipt": {
+                "operationKey": "auto:01M57E43G0KEQ9AVWGT6WT5M16:1:01M57E43G0EK4H7T48VQF7A32D",
+                "entity": {
+                  "id": "01M57E43G0EK4H7T48VQF7A32D",
+                  "kind": "page",
+                  "revisionId": "01M57E43G0K9GZWER14A34ZS1A"
+                },
+                "revisionId": "01M57E43G0K9GZWER14A34ZS1A",
+                "activityId": "01M57E43G0QSZTK8PJWP8MGRRV",
+                "committedAt": "2026-10-18T12:00:00.000Z"
+              }
+            }
+          },
+          {
+            "actionIndex": 1,
+            "targetId": "01M57E43G0EPYAQEYW87EVKGE6",
+            "state": "confirmed",
+            "receipt": {
+              "value": {
+                "pageId": "01M57E43G0EPYAQEYW87EVKGE6",
+                "revisionId": "01M57E43G0GFVPM4D8JP6Q3RF7",
+                "values": {
+                  "stage": "Target",
+                  "score": 11,
+                  "related": []
+                }
+              },
+              "receipt": {
+                "operationKey": "auto:01M57E43G0KEQ9AVWGT6WT5M16:1:01M57E43G0EPYAQEYW87EVKGE6",
+                "entity": {
+                  "id": "01M57E43G0EPYAQEYW87EVKGE6",
+                  "kind": "page",
+                  "revisionId": "01M57E43G0GFVPM4D8JP6Q3RF7"
+                },
+                "revisionId": "01M57E43G0GFVPM4D8JP6Q3RF7",
+                "activityId": "01M57E43G04YCXCME7WTMGB875",
+                "committedAt": "2026-10-18T12:00:00.000Z"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "id": "01M57E43G0BK49P7SFBY7H1PNX",
+        "state": "success",
+        "actor": {
+          "id": "01M57E43G04A5XPAG60M0V3CYJ",
+          "name": "Automation editor"
+        },
+        "trigger": {
+          "key": "schedule:01M57E43G0D3WJ5KTB6FTE397C:0:01M57E43G09D24AZ66PANM0ARQ",
+          "pageId": "01M57E43G09D24AZ66PANM0ARQ",
+          "ruleId": "01M57E43G0D3WJ5KTB6FTE397C",
+          "event": "schedule",
+          "databaseId": "01M57E43G0FQZMHC8PJAW2KBP1",
+          "containerId": "01M57E43G0AB4CSHGW4TZ7EBHW"
+        },
+        "receipts": [
+          {
+            "actionIndex": 0,
+            "targetId": "01M57E43G0EK4H7T48VQF7A32D",
+            "state": "confirmed",
+            "receipt": {
+              "value": {
+                "id": "01M57E43G06ABQEF777EYDV4Q6",
+                "threadId": "01M57E43G0XF12VSM16ZWN6P0Y",
+                "revisionId": "01M57E43G0S6RXY4F1JYNWV9SA"
+              },
+              "receipt": {
+                "operationKey": "auto:01M57E43G0BK49P7SFBY7H1PNX:0:01M57E43G0EK4H7T48VQF7A32D",
+                "entity": {
+                  "id": "01M57E43G0XF12VSM16ZWN6P0Y",
+                  "kind": "comment-thread",
+                  "revisionId": "01M57E43G0S6RXY4F1JYNWV9SA"
+                },
+                "revisionId": "01M57E43G0S6RXY4F1JYNWV9SA",
+                "activityId": "01M57E43G06M8REKKMZVM3ZHKE",
+                "committedAt": "2026-10-18T12:00:00.000Z"
+              }
+            }
+          },
+          {
+            "actionIndex": 0,
+            "targetId": "01M57E43G0EPYAQEYW87EVKGE6",
+            "state": "confirmed",
+            "receipt": {
+              "value": {
+                "id": "01M57E43G035G74M5RPB9V86PV",
+                "threadId": "01M57E43G0QRE350FKS18KA60C",
+                "revisionId": "01M57E43G0RWVMS170A45SH0Z7"
+              },
+              "receipt": {
+                "operationKey": "auto:01M57E43G0BK49P7SFBY7H1PNX:0:01M57E43G0EPYAQEYW87EVKGE6",
+                "entity": {
+                  "id": "01M57E43G0QRE350FKS18KA60C",
+                  "kind": "comment-thread",
+                  "revisionId": "01M57E43G0RWVMS170A45SH0Z7"
+                },
+                "revisionId": "01M57E43G0RWVMS170A45SH0Z7",
+                "activityId": "01M57E43G0BZAK21WV7MPEC49N",
+                "committedAt": "2026-10-18T12:00:00.000Z"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "unmet": [
+      {
+        "id": "01M57E43G0TKK4A9HFKJG7ZSZH",
+        "state": "condition-not-met",
+        "receipts": []
+      },
+      {
+        "id": "01M57E43G0HEKXW4WSKPXNJ7M4",
+        "state": "condition-not-met",
+        "receipts": []
+      }
+    ],
+    "relatedIds": [
+      "01M57E43G0EK4H7T48VQF7A32D",
+      "01M57E43G0EPYAQEYW87EVKGE6"
+    ],
+    "notificationId": "01M57E43G0TNX5JTZPAJMGDBXP:01M57E43G0XAWRPVJSVW8J5M9W",
+    "archived": {
+      "action": "archive",
+      "actor_member_id": "01M57E43G04A5XPAG60M0V3CYJ",
+      "reason": "Published procedure retained",
+      "prior_parent_id": "01M57E43G09T6X0YHV9NMZBGY9"
+    },
+    "bodyRunIds": [
+      "01M57E43G0ES22D6DE8NJYEKP5",
+      "01M57E43G0839FDRTAG8FJ2YB9"
+    ],
+    "cursor": 23,
+    "activity": [
+      {
+        "id": "01M57E43G0XS2AZ2ZZEY8H6T6F",
+        "actor": {
+          "id": "01M57E43G04A5XPAG60M0V3CYJ",
+          "displayName": "Automation editor"
+        },
+        "feature": "automation",
+        "action": "automation.queued",
+        "target": {
+          "kind": "automation-run",
+          "id": "01M57E43G0F31KYJ9M72KEKPNJ"
+        },
+        "occurredAt": "2026-10-18T12:00:00.000Z",
+        "operationKey": null,
+        "automationRunId": "01M57E43G0F31KYJ9M72KEKPNJ",
+        "aiRunId": null,
+        "deleted": false,
+        "context": {}
+      },
+      {
+        "id": "01M57E43G0VFVX1N2472RJEAJV",
+        "actor": {
+          "id": "01M57E43G04A5XPAG60M0V3CYJ",
+          "displayName": "Automation editor"
+        },
+        "feature": "automation",
+        "action": "automation.queued",
+        "target": {
+          "kind": "automation-run",
+          "id": "01M57E43G0ES22D6DE8NJYEKP5"
+        },
+        "occurredAt": "2026-10-18T12:00:00.000Z",
+        "operationKey": null,
+        "automationRunId": "01M57E43G0ES22D6DE8NJYEKP5",
+        "aiRunId": null,
+        "deleted": false,
+        "context": {}
+      },
+      {
+        "id": "01M57E43G0TGSSJJYKSTQWVEBW",
+        "actor": {
+          "id": "01M57E43G04A5XPAG60M0V3CYJ",
+          "displayName": "Automation editor"
+        },
+        "feature": "automation",
+        "action": "automation.success",
+        "target": {
+          "kind": "automation-run",
+          "id": "01M57E43G0E3A882KJ5HDS01N2"
+        },
+        "occurredAt": "2026-10-18T12:00:00.000Z",
+        "operationKey": null,
+        "automationRunId": "01M57E43G0E3A882KJ5HDS01N2",
+        "aiRunId": null,
+        "deleted": false,
+        "context": {}
+      },
+      {
+        "id": "01M57E43G0MGJQQD3YEGKN28ZS",
+        "actor": {
+          "id": "01M57E43G04A5XPAG60M0V3CYJ",
+          "displayName": "Automation editor"
+        },
+        "feature": "automation",
+        "action": "automation.success",
+        "target": {
+          "kind": "automation-run",
+          "id": "01M57E43G0DE1Z6ANF5SZEPPRY"
+        },
+        "occurredAt": "2026-10-18T12:00:00.000Z",
+        "operationKey": null,
+        "automationRunId": "01M57E43G0DE1Z6ANF5SZEPPRY",
+        "aiRunId": null,
+        "deleted": false,
+        "context": {}
+      },
+      {
+        "id": "01M57E43G0JY75F2S61S97PKQE",
+        "actor": {
+          "id": "01M57E43G04A5XPAG60M0V3CYJ",
+          "displayName": "Automation editor"
+        },
+        "feature": "automation",
+        "action": "automation.queued",
+        "target": {
+          "kind": "automation-run",
+          "id": "01M57E43G0E3A882KJ5HDS01N2"
+        },
+        "occurredAt": "2026-10-18T12:00:00.000Z",
+        "operationKey": null,
+        "automationRunId": "01M57E43G0E3A882KJ5HDS01N2",
+        "aiRunId": null,
+        "deleted": false,
+        "context": {}
+      },
+      {
+        "id": "01M57E43G0ETH1YDJRPMQM4DV2",
+        "actor": {
+          "id": "01M57E43G04A5XPAG60M0V3CYJ",
+          "displayName": "Automation editor"
+        },
+        "feature": "automation",
+        "action": "automation.queued",
+        "target": {
+          "kind": "automation-run",
+          "id": "01M57E43G0KEQ9AVWGT6WT5M16"
+        },
+        "occurredAt": "2026-10-18T12:00:00.000Z",
+        "operationKey": null,
+        "automationRunId": "01M57E43G0KEQ9AVWGT6WT5M16",
+        "aiRunId": null,
+        "deleted": false,
+        "context": {}
+      },
+      {
+        "id": "01M57E43G0EKQDHGCKDAENK56F",
+        "actor": {
+          "id": "01M57E43G04A5XPAG60M0V3CYJ",
+          "displayName": "Automation editor"
+        },
+        "feature": "automation",
+        "action": "automation.success",
+        "target": {
+          "kind": "automation-run",
+          "id": "01M57E43G0KEQ9AVWGT6WT5M16"
+        },
+        "occurredAt": "2026-10-18T12:00:00.000Z",
+        "operationKey": null,
+        "automationRunId": "01M57E43G0KEQ9AVWGT6WT5M16",
+        "aiRunId": null,
+        "deleted": false,
+        "context": {}
+      },
+      {
+        "id": "01M57E43G0DHS60NE2QKBR4B4D",
+        "actor": {
+          "id": "01M57E43G04A5XPAG60M0V3CYJ",
+          "displayName": "Automation editor"
+        },
+        "feature": "automation",
+        "action": "automation.success",
+        "target": {
+          "kind": "automation-run",
+          "id": "01M57E43G0F31KYJ9M72KEKPNJ"
+        },
+        "occurredAt": "2026-10-18T12:00:00.000Z",
+        "operationKey": null,
+        "automationRunId": "01M57E43G0F31KYJ9M72KEKPNJ",
+        "aiRunId": null,
+        "deleted": false,
+        "context": {}
+      },
+      {
+        "id": "01M57E43G0DFY9P8TXM9NX5965",
+        "actor": {
+          "id": "01M57E43G04A5XPAG60M0V3CYJ",
+          "displayName": "Automation editor"
+        },
+        "feature": "automation",
+        "action": "automation.queued",
+        "target": {
+          "kind": "automation-run",
+          "id": "01M57E43G0BK49P7SFBY7H1PNX"
+        },
+        "occurredAt": "2026-10-18T12:00:00.000Z",
+        "operationKey": null,
+        "automationRunId": "01M57E43G0BK49P7SFBY7H1PNX",
+        "aiRunId": null,
+        "deleted": false,
+        "context": {}
+      },
+      {
+        "id": "01M57E43G0CTFYADXNPKQW0QB6",
+        "actor": {
+          "id": "01M57E43G04A5XPAG60M0V3CYJ",
+          "displayName": "Automation editor"
+        },
+        "feature": "automation",
+        "action": "automation.queued",
+        "target": {
+          "kind": "automation-run",
+          "id": "01M57E43G0GH440K636TXD4A75"
+        },
+        "occurredAt": "2026-10-18T12:00:00.000Z",
+        "operationKey": null,
+        "automationRunId": "01M57E43G0GH440K636TXD4A75",
+        "aiRunId": null,
+        "deleted": false,
+        "context": {}
+      },
+      {
+        "id": "01M57E43G0ANGGXM87MYTT0537",
+        "actor": {
+          "id": "01M57E43G04A5XPAG60M0V3CYJ",
+          "displayName": "Automation editor"
+        },
+        "feature": "automation",
+        "action": "automation.success",
+        "target": {
+          "kind": "automation-run",
+          "id": "01M57E43G0ES22D6DE8NJYEKP5"
+        },
+        "occurredAt": "2026-10-18T12:00:00.000Z",
+        "operationKey": null,
+        "automationRunId": "01M57E43G0ES22D6DE8NJYEKP5",
+        "aiRunId": null,
+        "deleted": false,
+        "context": {}
+      },
+      {
+        "id": "01M57E43G02Y6V3PSKEDXKNTWD",
+        "actor": {
+          "id": "01M57E43G04A5XPAG60M0V3CYJ",
+          "displayName": "Automation editor"
+        },
+        "feature": "automation",
+        "action": "automation.success",
+        "target": {
+          "kind": "automation-run",
+          "id": "01M57E43G0GH440K636TXD4A75"
+        },
+        "occurredAt": "2026-10-18T12:00:00.000Z",
+        "operationKey": null,
+        "automationRunId": "01M57E43G0GH440K636TXD4A75",
+        "aiRunId": null,
+        "deleted": false,
+        "context": {}
+      },
+      {
+        "id": "01M57E43G02G2BX6B6H1CNMGNK",
+        "actor": {
+          "id": "01M57E43G04A5XPAG60M0V3CYJ",
+          "displayName": "Automation editor"
+        },
+        "feature": "automation",
+        "action": "automation.queued",
+        "target": {
+          "kind": "automation-run",
+          "id": "01M57E43G0DE1Z6ANF5SZEPPRY"
+        },
+        "occurredAt": "2026-10-18T12:00:00.000Z",
+        "operationKey": null,
+        "automationRunId": "01M57E43G0DE1Z6ANF5SZEPPRY",
+        "aiRunId": null,
+        "deleted": false,
+        "context": {}
+      },
+      {
+        "id": "01M57E43G002348N4FT5PYEE99",
+        "actor": {
+          "id": "01M57E43G04A5XPAG60M0V3CYJ",
+          "displayName": "Automation editor"
+        },
+        "feature": "automation",
+        "action": "automation.success",
+        "target": {
+          "kind": "automation-run",
+          "id": "01M57E43G0BK49P7SFBY7H1PNX"
+        },
+        "occurredAt": "2026-10-18T12:00:00.000Z",
+        "operationKey": null,
+        "automationRunId": "01M57E43G0BK49P7SFBY7H1PNX",
+        "aiRunId": null,
+        "deleted": false,
+        "context": {}
+      }
+    ]
+  }
+}

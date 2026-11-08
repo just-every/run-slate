@@ -1,0 +1,11 @@
+{
+  "repository": "just-every/run-slate",
+  "head": "2045ae66a1f9c9007ef89f5886917296e85232e3",
+  "run": 42519566407,
+  "job": 128850604522,
+  "command": "gh run view 42519566407 --repo just-every/run-slate --job 128850604522 --log-failed",
+  "exit": 0,
+  "stdoutBytes": 0,
+  "stderr": "",
+  "result": "The command produced an empty log. No job-log blob redirect or repeated log request was attempted."
+}
