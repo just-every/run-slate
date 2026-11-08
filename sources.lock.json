@@ -1108,7 +1108,7 @@
       "executable": false
     },
     "docs/site.json": {
-      "sha256": "9e8d745dcb9ba590ed383a828852bf0e609eec8566387b0cb47aa3932ab45183",
+      "sha256": "6f26632ebcdc5e9d55c81a150718f21362453ea45735c40232a3c27b7db86ffe",
       "executable": false
     },
     "docs/TRUSTWORTHY-HANDBOOK.md": {
@@ -4689,6 +4689,10 @@
     },
     "RELEASE.json": {
       "sha256": "d8d8731dbf1964a4a6456a0af53a92ae2d80bbaacf8931c26830e671ec284aac",
+      "executable": false
+    },
+    "REPORT.md": {
+      "sha256": "9ae90bc6a2cfadd9293897832c65f62508e76dead7f1bdb83d3694c9817de5cc",
       "executable": false
     },
     "rer-project.json": {
@@ -12268,7 +12272,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/sharing-journey.mjs": {
-      "sha256": "9cf4534c36c8110d65ddcf9c0312c21d02b9b2dd90ef23eafca18bd2af33500b",
+      "sha256": "caf76a5c37b86bd344fb96402c92843eb292b737c18c958d5cf201ef7f73b0b3",
       "executable": false
     },
     "tests/qualification/ui-convergence/sharing-lifecycle-matrix.mjs": {

@@ -275,6 +275,10 @@
     {
       "source": "docs/verify.md",
       "reason": "Retained full-product acceptance gates and qualification guidance"
+    },
+    {
+      "source": "REPORT.md",
+      "reason": "Measured SHARE-002 journey timeout diagnosis and supporting CI repair, for maintainers"
     }
   ]
 }

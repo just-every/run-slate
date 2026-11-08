@@ -443,7 +443,7 @@ export async function permissionLevelsJourney(state, { extended = true, levels =
       await accessible(view, `${level} revoked member cannot recover prior content`);
       }
       records.push({ level, pageId, blockId, readerGrant, final: await snapshot() });
-      console.log(`PROBE SHARE-002 ${level}: ${extended ? 'page edits, ownership, locks, metadata reads, discussion, reactions, grants and revoked captures' : 'selected reads, title, body, comment and direct grants'}; ${refusals.filter(item => item.level === level).length} refused requests preserve inventories at ${width}px`);
+      console.log(`PROBE SHARE-002 ${level}/${section}: ${extended ? 'native operation inventories, replays and revoked captures' : 'selected reads, title, body, comment and direct grants'}; ${refusals.filter(item => item.level === level).length} refused requests preserve inventories at ${width}px`);
     }
   }); } finally { await recipientContext?.close(); }
   const directory = path.join(root, '.artifacts/ui-convergence/permission-levels', String(width));
