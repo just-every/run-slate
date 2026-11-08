@@ -164,6 +164,8 @@ export async function automationJourney(api:ReturnType<typeof createApi>,contain
   expect((await logs(scheduleId)).filter((r:any)=>r.state==='success')).toHaveLength(1);
   const cursor=await env.DB.prepare('SELECT sequence FROM automation_event_cursors WHERE workspace_id=?').bind(workspaceId).first<{sequence:number}>();
   expect(cursor!.sequence).toBe((await env.DB.prepare('SELECT MAX(e.sequence) AS n FROM content_events e JOIN pages p ON p.id=e.page_id WHERE p.workspace_id=?').bind(workspaceId).first<{n:number}>())!.n);
+  const runActivity=(await ok('/api/activity?kind=automation-run&limit=100')).items;
+  for(const run of runs)expect(runActivity.some((entry:any)=>entry.target.id===run.id&&entry.action==='automation.success'&&entry.actor?.id===editor.memberId)).toBe(true);
   console.log('AUTO001_NATIVE_RECEIPT '+JSON.stringify({
     profile:(await ok('/api/profile')).profile,actorId:editor.memberId,
     rules:definitions.map(({id,name,scope,trigger,conditions,branch,actions})=>({id,name,scope,trigger,conditions,branch,actions})),
@@ -171,6 +173,7 @@ export async function automationJourney(api:ReturnType<typeof createApi>,contain
     unmet:{id:unmetRun.id,state:unmetRun.state,receipts:unmetRun.receipts},
     relatedIds:[targetA.pageId,targetB.pageId],notificationId:notifications.results[0].id,
     bodyRunIds:bodyRuns.map((run:any)=>run.id),cursor:cursor!.sequence,
+    activity:runActivity.filter((entry:any)=>runs.some(run=>run.id===entry.target.id)),
   }));
   console.log('PROBE AUTO-001 1: native member rule HTTP and committed page and record mutations -> all seven triggers, all seven exact canonical action effects, configured inbox adapter and saving actor in effects and activity');
   console.log('PROBE AUTO-001 2: native ordered conditions and actions, related record event and schedule -> exact stored order, two related targets, unmet condition has no effect, repeated real outbox and schedule drains are duplicate-safe');

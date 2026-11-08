@@ -75,6 +75,12 @@ export async function automationRuleJourney(state,touch) {
   assert.ok(runs.some(item=>item.state==='condition-not-met'&&item.trigger.pageId===refused.pageId));
   assert.equal((await api(`/api/databases/${database.id}/records/${refused.pageId}`)).values['form-stage'],'Ready');
   assert.deepEqual((await api(`/api/comments/page/${refused.pageId}`)).comments,[]);
+  const activity=(await api(`/api/activity?actorId=${actor.id}&limit=100`)).items;
+  const effects=activity.filter(item=>item.operationKey?.startsWith(`auto:${run.id}:`));
+  assert.deepEqual(effects.map(item=>item.action).sort(),['comments.create','comments.create','databases.record.update'].sort());
+  assert.ok(effects.every(item=>item.actor?.id===actor.id));
+  assert.ok(activity.some(item=>item.target.id===run.id&&item.action==='automation.success'&&item.actor?.id===actor.id));
+  console.log('AUTO001_FORM_RECEIPT '+JSON.stringify({width:page.viewportSize().width,ruleId,actorId:actor.id,triggerRecordId:record.pageId,run,conditions:JSON.parse(rule.conditions_json),actions:JSON.parse(rule.actions_json),effects,unmetRecordId:refused.pageId}));
   await open();await tap(card().getByRole('button',{name:'Run log',exact:true}));
   await expect(page.getByRole('heading',{name:'Run log',exact:true}).locator('..')).toContainText(`Actor: ${actor.displayName}`);
   await checkpoint(page,'AUTO-001 saved rule canonical outcome');
