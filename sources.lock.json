@@ -11972,7 +11972,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/decision-log-journey.mjs": {
-      "sha256": "a4c3437914cfc9ae206f48b959554e630c843a12694e768150e7293eb3430795",
+      "sha256": "1822426de71060b7157df3b165b1d912c0372194d15b153f706054f7185dcb3c",
       "executable": false
     },
     "tests/qualification/ui-convergence/developer-access-journey.mjs": {

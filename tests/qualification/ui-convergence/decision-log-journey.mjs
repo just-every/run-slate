@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import {mkdir, writeFile} from 'node:fs/promises';
+import {mkdir, readFile, writeFile} from 'node:fs/promises';
 import path from 'node:path';
 import {expect} from '@playwright/test';
 import {decisionLogCorpus, assertDecisionMembership} from '../../helpers/decision-log-corpus.ts';
@@ -115,7 +115,7 @@ export async function decisionLogJourney(state, width) {
     assert.equal(replay.status, 404);
     const evidence = path.join('.artifacts/ui-convergence/decisions', String(width));
     await mkdir(evidence, {recursive: true});
-    await writeFile(path.join(evidence, 'decision-log.json'), JSON.stringify({width, profile: 'core-wiki', receipts: corpus.receipts, observations, excluded: {private: rows.private.id, removed: rows.removed.id, revoked: revoked.id}}, null, 2));
+    await writeFile(path.join(evidence, 'decision-log.json'), JSON.stringify({width, profile: 'core-wiki', artifact: JSON.parse(await readFile('.cache/slate/build-source.json', 'utf8')), receipts: corpus.receipts, observations, excluded: {private: rows.private.id, removed: rows.removed.id, revoked: revoked.id}}, null, 2));
   });
   await state.switchIdentity('owner');
   await page.goto('about:blank');
