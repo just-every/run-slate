@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import {randomUUID} from 'node:crypto';
 import {expect,request} from '@playwright/test';
-import {inbox,newOutboxLink} from '../../e2e/outbox-auth.mjs';
+import {inbox,newOutboxLink,signInWithOutbox} from '../../e2e/outbox-auth.mjs';
 import {accessible} from './browser-evidence.mjs';
 import {call,ok,caretAtEnd,elapsedUntil} from './two-people-support.mjs';
 import {mkdir,writeFile} from 'node:fs/promises';
@@ -74,14 +74,18 @@ async function externalSwitchesJourney(state,width,{guest,who,view,space,shared,
   const adminPage=await admin.newPage(),proof={width,changes:[],deadlines:[],publication:[],invitations:[],policies:[]};
   const read=()=>api(`/api/containers/${space}`);
   const workspace=()=>api('/api/workspace');
-  const grant=(targetKind,targetId,principalId,level)=>ok(context,origin,'POST','/api/sharing',{operationKey:key(),targetKind,targetId,principalKind:'member',principalId,level});
+  const grant=(targetKind,targetId,principalId,level,id)=>ok(context,origin,'POST','/api/sharing',{operationKey:key(),targetKind,targetId,principalKind:'member',principalId,level,...(id?{id}:{})});
   const publicRead=async(actor,id)=>{
     const response=await actor.request.get(`${origin}/p/native-switch-${id}`,{maxRedirects:0});
     return {status:response.status(),body:await response.text()};
   };
+  const firstPublications=new Map();
   const publish=async(id,actor=context)=>{
     const document=await api(`/api/pages/${id}`);
-    return call(actor,origin,'POST',`/api/publishing/${id}`,{operationKey:key(),expectedRevisionId:document.page.revisionId,host:new URL(origin).host,slug:`native-switch-${id}`,headerControls:[],theme:'default'});
+    const input={operationKey:key(),expectedRevisionId:document.page.revisionId,host:new URL(origin).host,slug:`native-switch-${id}`,headerControls:[],theme:'default'};
+    const result=await call(actor,origin,'POST',`/api/publishing/${id}`,input);
+    if(actor===context&&result.status===200&&!firstPublications.has(id))firstPublications.set(id,{input,result});
+    return result;
   };
   // Use the same controls people use; the response supplies the actual commit boundary.
   const change=async(scope,setting,value,{actor=scope==='workspace'?context:admin,actorPage=scope==='workspace'?page:adminPage,beforeSave}={})=>{
@@ -120,7 +124,7 @@ async function externalSwitchesJourney(state,width,{guest,who,view,space,shared,
   };
   try {
     assert.equal((await ok(admin,origin,'GET','/api/members/current')).role,'member');
-    await grant('container',space,'browser-reader','full');
+    const adminGrant=await grant('container',space,'browser-reader','full');
     assert.equal((await ok(admin,origin,'GET',`/api/containers/${space}`)).permissions.canManage,true);
     // A full grant for one space gives no administration over another.
     const ordinary=(await ok(context,origin,'POST','/api/containers',{operationKey:key(),name:'Unrelated external-switch control',visibility:'private'})).value.id;
@@ -159,16 +163,17 @@ async function externalSwitchesJourney(state,width,{guest,who,view,space,shared,
       exposure:await api(`/api/publishing/${editable}`),
       grants:await api(`/api/sharing/containers/${space}`),
     });
-    await grant('container',space,'browser-reader','edit');
+    await grant('container',space,'browser-reader','edit',adminGrant.value.id);
     assert.equal((await ok(admin,origin,'GET',`/api/pages/${editable}`)).permissions.level,'edit');
     const editBefore=await publicationSnapshot(),editRefusal=await publish(editable,admin);
-    assert.equal(editRefusal.status,403);
+    assert.equal(editRefusal.status,404);
+    assert.equal(editRefusal.body.code,'NOT_FOUND');
     assert.deepEqual(await publicationSnapshot(),editBefore,'An edit-level publication attempt changes neither content, exposure nor grants.');
-    await grant('container',space,'browser-reader','full');
+    await grant('container',space,'browser-reader','full',adminGrant.value.id);
     const memberPublished=await publish(editable,admin);
     assert.equal(memberPublished.status,200,JSON.stringify(memberPublished.body));
     assert.equal((await publicRead(anonymous,editable)).status,200);
-    proof.publication.push({actor:'ordinary member',edit:editRefusal,full:memberPublished});
+    proof.publication.push({actor:'ordinary member',edit:editRefusal,unchanged:editBefore,full:memberPublished});
     const exposure=(await api(`/api/publishing/${editable}`)).exposure;
     const retainedBlocks=(await api(`/api/pages/${editable}`)).blocks;
     const visible=async()=>{
@@ -186,10 +191,21 @@ async function externalSwitchesJourney(state,width,{guest,who,view,space,shared,
       assert.equal(publicResult.status,publicExpected?200:404);
       assert.equal(publicResult.body.includes(marker),publicExpected);
       assert.equal((await publicRead(context,editable)).status,forbidden&&setting==='publicLinkAccess'?404:200,'Anonymous veto retains a currently authorized signed-in reader.');
+      assert.equal((await publish(editable)).status,forbidden&&setting==='publicLinkAccess'?403:200,'Only the public-links veto forbids publication.');
       const beforePublication=await publicationSnapshot(),publication=await publish(editable,admin);
       assert.equal(publication.status,forbidden&&setting==='publicLinkAccess'?403:200,'Full access still requires effective container and workspace publication permission.');
       if(publication.status===403)assert.deepEqual(await publicationSnapshot(),beforePublication,'Refused publication leaves all content, exposure and grants unchanged.');
-      proof.publication.push({scope,setting,forbidden,status:publication.status,receipt:publication.body.receipt});
+      proof.publication.push({scope,setting,forbidden,status:publication.status,receipt:publication.body.receipt,...(publication.status===403?{unchanged:beforePublication}:{})});
+      if(forbidden&&setting==='publicLinkAccess') {
+        const capture=firstPublications.get(editable),beforeReplay=await publicationSnapshot();
+        const replay=await call(context,origin,'POST',`/api/publishing/${editable}`,capture.input);
+        assert.ok([200,403].includes(replay.status),JSON.stringify(replay));
+        if(replay.status===200)assert.deepEqual(replay.body,capture.result.body,'A replay can return only its original receipt.');
+        assert.deepEqual(await publicationSnapshot(),beforeReplay,'A previously successful publication capture cannot change a vetoed exposure.');
+        assert.equal((await publicRead(anonymous,editable)).status,404);
+        proof.publication.push({scope,replayedCapture:capture.input.operationKey,status:replay.status,unchanged:beforeReplay});
+      }
+
       for(const target of [{pageId:editable},{containerId:space}]) {
         const snapshot=async()=>({
           invitations:await api('/api/invitations'),
@@ -203,7 +219,7 @@ async function externalSwitchesJourney(state,width,{guest,who,view,space,shared,
           assert.equal(invitation.body.code,'GUESTS_FORBIDDEN');
           assert.deepEqual(await snapshot(),beforeInvitation,'A refused invitation issues no invitation or resource grant.');
         }
-        proof.invitations.push({scope,setting,forbidden,target,status:invitation.status,code:invitation.body.code,receipt:invitation.body.receipt});
+        proof.invitations.push({scope,setting,forbidden,target,status:invitation.status,code:invitation.body.code,receipt:invitation.body.receipt,...(invitation.status===403?{unchanged:beforeInvitation}:{})});
       }
       assert.deepEqual((await api(`/api/publishing/${editable}`)).exposure,exposure,'Vetoes preserve the exact host, slug and exposure settings.');
       assert.deepEqual(await api(`/api/containers/${ordinary}`),unrelated,'Editing a switch never rewrites an unrelated container.');
@@ -332,9 +348,14 @@ async function automationVetoProof(state,{space,anonymous,publicRead,publish,cha
     assert.deepEqual({document:await api(`/api/pages/${pageId}`),exposure:await api(`/api/publishing/${pageId}`),grants:await api(`/api/sharing/pages/${pageId}`)},before);
   }
   assert.equal((await api(`/api/publishing/${created[0].id}`)).exposure,null,'Creating content never creates a public exposure.');
+  const replaySnapshot=async()=>({pages:await api(`/api/pages?containerId=${space}`),moved:await api(`/api/pages/${id}`),
+    created:await api(`/api/pages/${created[0].id}`),exposure:await api(`/api/publishing/${id}`),grants:await api(`/api/sharing/pages/${id}`)});
+  const beforeReplay=await replaySnapshot();
   const replay=await ok(context,origin,'PATCH',`/api/pages/${id}`,command);
-  assert.deepEqual(replay,update);
+  assert.deepEqual(replay.receipt,update.receipt,'The replay retains the original mutation receipt while its document reflects the current moved page.');
+  assert.deepEqual(replay.value,update.value);
   await state.runScheduled();
+  assert.deepEqual(await replaySnapshot(),beforeReplay,'Replayed input changes no moved or created content, exposure, grants or page inventory.');
   assert.equal((await api(`/api/pages?containerId=${space}`)).items.filter(item=>item.title===title).length,1);
   assert.equal((await publicRead(anonymous,id)).status,404,'Replay cannot restore anonymous resolution.');
   const beforeRules=await api('/api/automation');
@@ -356,10 +377,14 @@ async function automationVetoProof(state,{space,anonymous,publicRead,publish,cha
 /** A real write-scoped owner token cannot call signed-in publication or settings doors. */
 async function tokenVetoProof(state,{space,editable,anonymous,publicRead,change,proof}) {
   const {context,origin,api}=state,key=()=>randomUUID();
-  const transport=await request.newContext();
+  const transport=await request.newContext(),credentialContext=await context.browser().newContext();
+  const owner=await api('/api/members/current');
+  const fresh=await signInWithOutbox(origin,owner.email);
+  await credentialContext.addCookies([{name:'slate_session',value:fresh.cookie.split('=')[1],url:origin}]);
+  assert.equal((await ok(credentialContext,origin,'GET','/api/members/current')).id,owner.id);
   let tokenId;
   try {
-    const minted=await ok(context,origin,'POST','/api/developer/tokens',{operationKey:key(),name:'Publication boundary proof',scopes:[{containerId:space,level:'write'}]});
+    const minted=await ok(credentialContext,origin,'POST','/api/developer/tokens',{operationKey:key(),name:'Publication boundary proof',scopes:[{containerId:space,level:'write'}]});
     tokenId=minted.value.id;
     const headers={authorization:`Bearer ${minted.secret}`,origin};
     const invoke=async(method,route,data)=>{
@@ -393,13 +418,14 @@ async function tokenVetoProof(state,{space,editable,anonymous,publicRead,change,
       ||Object.values(operations).some(operation=>/publish|switch/i.test(operation.operationId))),'The public operation catalog exposes no privileged publication or switch operation.');
     assert.deepEqual(await snapshot(),before,'Token attempts change no settings, grants, page or public exposure.');
     assert.equal((await publicRead(anonymous,editable)).status,404);
-    await ok(context,origin,'POST',`/api/developer/tokens/${tokenId}/revoke`,{operationKey:key()});
+    await ok(credentialContext,origin,'POST',`/api/developer/tokens/${tokenId}/revoke`,{operationKey:key()});
     assert.equal((await invoke('GET',`/api/v1/pages/${editable}`)).status,401,'Revocation ends the issued credential immediately.');
     assert.equal((await invoke('POST',`/api/v1/publishing/${editable}`,publication)).status,401,'A revoked capture cannot regain publication.');
     proof.token={id:tokenId,scope:{containerId:space,level:'write'},attempts,revokedRead:401};
   } finally {
     await transport.dispose();
-    if(tokenId)await ok(context,origin,'POST',`/api/developer/tokens/${tokenId}/revoke`,{operationKey:key()});
+    if(tokenId)await ok(credentialContext,origin,'POST',`/api/developer/tokens/${tokenId}/revoke`,{operationKey:key()});
+    await credentialContext.close();
     await change('container','publicLinkAccess','allowed');
   }
 }
