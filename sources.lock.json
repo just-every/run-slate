@@ -920,7 +920,7 @@
       "executable": false
     },
     ".github/scripts/journey-shards.json": {
-      "sha256": "8df2d2701ecf2bb2a7387d89473782ff85e7a57f186d78aff0e4997076ce5f3e",
+      "sha256": "70b7e33e48792a80dd4f8e28f1752b7ba671949e13ed99e4da16e7c66943a036",
       "executable": false
     },
     ".github/scripts/run-shard.sh": {
@@ -960,7 +960,7 @@
       "executable": false
     },
     "ACCEPTANCE.md": {
-      "sha256": "711251b8ec00c15b5c33ecbe45e5db56194a8cbb0d3b9546f2b716010b2e9fb5",
+      "sha256": "a6add7c76cc085714200611f8b69b40d3c41ee86e9bc2cdf617d636810923e2c",
       "executable": false
     },
     "AGENTS.consumer.md": {
@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "c5f934b93251348918018b17ccf6d0f4966178a6f4efced2283e22a0f39d7067",
+      "sha256": "3699cbdd5b0a588834042526ac837bf2c64a22957839b6e3df92f63c06255664",
       "executable": false
     },
     "DEMO.md": {
@@ -10376,7 +10376,7 @@
       "executable": false
     },
     "test-budget.json": {
-      "sha256": "b5545b56d8b505980188d264d584618237e8212b6028c31b717b86161ecf94fb",
+      "sha256": "19fb59e96b56b61c58682d1fb20054c0d294b91153e27cf2d3fce26dba060a39",
       "executable": false
     },
     "tests/base-proof/provenance.test.mjs": {
@@ -11343,6 +11343,10 @@
       "sha256": "a2b1267633887f9991ac3bd123204fa69202e692fb4992a1ff0ab60401110ca2",
       "executable": false
     },
+    "tests/helpers/decision-log-corpus.ts": {
+      "sha256": "38236ee6273371c7b1bd23c5a5923ae88ef9c80f6b1333e9f020e075278b146b",
+      "executable": false
+    },
     "tests/helpers/embed-edge.mjs": {
       "sha256": "2f76cc778d7e62cdd5bb7f16253c47cf405a632454525817a50acdddcab6a44b",
       "executable": false
@@ -11471,6 +11475,10 @@
       "sha256": "f73b8a002fd4d6b5941d924c9cc4aac2bfaba77d81b9fb4f2201f4f13e0c33de",
       "executable": false
     },
+    "tests/profile/decision-log-journey.ts": {
+      "sha256": "8ce143983241e31b14dd88edbc1a656aba3ede05e45f4170451d87e9b18a48be",
+      "executable": false
+    },
     "tests/profile/first-run-shell.worker.test.ts": {
       "sha256": "b91f14d9b8ea3cc1dcff536157ced2d2ab38a8d0072838364829bde51a37d0a0",
       "executable": false
@@ -11484,7 +11492,7 @@
       "executable": false
     },
     "tests/profile/profile.worker.test.ts": {
-      "sha256": "340038de88fbe48fd99db7c8d1090268bcc1a8b7564ea76507aea02786d60227",
+      "sha256": "4e5a42ccc5ab35c66f210305ef026f6b069ad06084e3ac2447f436d7e614df9b",
       "executable": false
     },
     "tests/profile/vitest.config.ts": {
@@ -11940,7 +11948,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/container-grants-journey.mjs": {
-      "sha256": "0641ae2b335aa196fdeac89119f75ab024136ce9d1709b43c77696104be75df7",
+      "sha256": "67c89571f9348c4804f528c681429bf75fc3a9061a7870c864d7c6b3bd4f69e6",
       "executable": false
     },
     "tests/qualification/ui-convergence/container-identity-journey.mjs": {
@@ -11964,7 +11972,11 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/decision-layer-journey.mjs": {
-      "sha256": "b70080650e7b59d9e6f42a6580492e258ae51105f132c77bd411e3fe66fd5149",
+      "sha256": "417afea7ae32da80e179d6c2f547e10486247eca09d20ee4991cbb23f09d77b8",
+      "executable": false
+    },
+    "tests/qualification/ui-convergence/decision-log-journey.mjs": {
+      "sha256": "1822426de71060b7157df3b165b1d912c0372194d15b153f706054f7185dcb3c",
       "executable": false
     },
     "tests/qualification/ui-convergence/developer-access-journey.mjs": {
@@ -12148,7 +12160,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
-      "sha256": "9b2861649733fcaefc9ed7d36596fb6a302a94ca5b8fe0f959e1c2694d079446",
+      "sha256": "a327c45eb4aaba39929b09e70541efe5cca80a27dd9c3a6932d468d978d13d73",
       "executable": false
     },
     "tests/qualification/ui-convergence/link-access-journey.mjs": {
@@ -12272,7 +12284,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/sharing-journey.mjs": {
-      "sha256": "d29c4a93c10e3d9634cc97f95c87963acc1aee3f53b8e0b8b4755d0d057e8fd8",
+      "sha256": "992c2ccd5b1354f82a92f79c22481f9edbd75c90bd3b1f4c48945dea79b61ac9",
       "executable": false
     },
     "tests/qualification/ui-convergence/sharing-lifecycle-matrix.mjs": {
@@ -12460,11 +12472,11 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "5fe79308bde0266876275ef864ee83b885517d19bd79d7666c278a3ffddace73",
+      "sha256": "b19e59868d3a43aa33f72be9649bb66bd0534a98d1364240e2e010f72e17d948",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
-      "sha256": "6228a2903af5752c20d17c19ea7fedcb6897d984f40543e0eb0807efb6a156f7",
+      "sha256": "b6af885e9a31ac8b28803a826dd7f70555306da86e94159030df51f6889297b4",
       "executable": false
     },
     "tests/requirements/count-registrations.mjs": {

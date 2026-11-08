@@ -158,11 +158,21 @@ export async function decisionLayerJourney(state,people) {
     await view.getByText('Choose the outcome',{exact:true}).click();
     await view.getByPlaceholder('Which outcome should this decision record?').fill('Second procedure');
     await view.getByRole('textbox',{name:'Why this choice?',exact:true}).fill('Review selected the second procedure.');
+    // The committed POST precedes the card's own reload. Its retained options
+    // already contain the new outcome inside a closed disclosure, so getByText(...).first()
+    // can select that hidden option while the old outcome is still displayed.
+    const refreshed=view.waitForResponse(response=>new URL(response.url()).pathname===`/api/decisions/${decisionId}`&&response.request().method()==='GET');
     const edited=await capture('/api/decisions',()=>view.getByRole('button',{name:'Save proposed decision',exact:true}).click());
-    await expect(view.getByRole('article').getByText('Second procedure',{exact:true}).first()).toBeVisible();
+    const refreshedResponse=await refreshed;assert.equal(refreshedResponse.status(),200);
+    const refreshedDecision=await refreshedResponse.json();
+    assert.equal(refreshedDecision.revision_id,edited.result.value.revisionId);
+    assert.equal(refreshedDecision.content.outcome,'Second procedure');
+    const outcome=view.getByRole('article').locator(':scope > p').filter({hasText:/^Second procedure$/});
+    await expect(outcome).toHaveCount(1);await expect(outcome).toBeVisible();
+    await accessible(view,'decision layer revised outcome');
     await unchanged('after edit');
     await view.goto(`${origin}/app/decisions/${decisionId}?revision=${original.revision_id}`,{waitUntil:'networkidle'});
-    await expect(view.getByRole('article').getByText('First procedure',{exact:true}).first()).toBeVisible();
+    await expect(view.getByRole('article').locator(':scope > p').filter({hasText:/^First procedure$/})).toBeVisible();
     await expect(view.getByRole('button',{name:'Save proposed decision',exact:true})).toHaveCount(0);
     await view.goto(`${origin}/app/decisions/${decisionId}`,{waitUntil:'networkidle'});
     await capture(`/api/decisions/${decisionId}/accept`,()=>view.getByRole('button',{name:'Accept decision',exact:true}).click());
@@ -224,7 +234,7 @@ export async function decisionLayerJourney(state,people) {
     }
     assert.deepEqual({page:await read(`/api/pages/${pageId}`),history:await read(`/api/decisions/${decisionId}/history`),replacement:await read(`/api/decisions/${replacement.result.value.id}`)},protectedBefore);
     const evidence=path.join(root,'.artifacts/ui-convergence/decision-layer');await mkdir(evidence,{recursive:true});
-    await writeFile(path.join(evidence,`${width}.json`),JSON.stringify({width,pageId,decisionId,receipts,snapshots,refusals,history,original,accepted,edited:edited.result,replacement:replacement.result},null,2));
+    await writeFile(path.join(evidence,`${width}.json`),JSON.stringify({width,pageId,decisionId,receipts,snapshots,refusals,history,original,accepted,edited:edited.result,refreshedDecision,replacement:replacement.result},null,2));
     console.log(`DEC-001 decisionLayerJourney complete at ${width}px: populated page unchanged across create, duplicate refusal, edit, accept, review, removal and replacement; revoked member denied after reload.`);
   } catch(cause) {
     await view.screenshot({path:path.join(people.evidence,'decision-layer-failure.png'),fullPage:true});
