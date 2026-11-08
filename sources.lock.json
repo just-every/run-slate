@@ -5988,7 +5988,7 @@
       "executable": false
     },
     "src/core/features/blog/ui/PostList.tsx": {
-      "sha256": "0bf696251998f626c0d5995d1c17b70ef16649de15be8ec8b8ca370b67b0239c",
+      "sha256": "9d9c24fe2f01e796a74f82c71e2dc57a49e14eb6a4a887b24efa70e279bcdc21",
       "executable": false
     },
     "src/core/features/claims/contracts.ts": {
@@ -6880,7 +6880,7 @@
       "executable": false
     },
     "src/core/features/editor/ui/blocks/MediaBlock.tsx": {
-      "sha256": "eaa0cf5f6a1da1758d85d3346ecb0a01f6ed2973e2432964492ef807dfba7ddb",
+      "sha256": "fe843bc8d06a6e8c9cd112f46770c0e9efad9f556c62a047388af3d514fa4dbe",
       "executable": false
     },
     "src/core/features/editor/ui/blocks/MentionPicker.tsx": {
@@ -8420,7 +8420,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageAppearance.tsx": {
-      "sha256": "397aa04aa1537f6f5263f667b3bd4e16569a9e28030fb3906c2eb76495e69e75",
+      "sha256": "94ae7bb3933f2779b1ebdd518ad1445da39386553a7f25a942563e666149d346",
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageAppearanceDialog.tsx": {
@@ -8712,11 +8712,11 @@
       "executable": false
     },
     "src/core/features/publishing/render.ts": {
-      "sha256": "fa52c6c47a385731878530b44aaea80d16148a9cc7d77b4a84928dfdf5335a7c",
+      "sha256": "8f8ea6d0c642e8f419efc260ec4b5d1d58c943dc26d737792211e1563d4e6084",
       "executable": false
     },
     "src/core/features/publishing/routes.ts": {
-      "sha256": "c12b59f5a03fbf07f24c0c59a8a149b08198730dda7e1f565feebb8c588720c0",
+      "sha256": "8f209b3048e13060043f39fd55f9a17f42a58434444b693e1e8e2361154f7090",
       "executable": false
     },
     "src/core/features/publishing/service.ts": {
