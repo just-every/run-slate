@@ -1,0 +1,22 @@
+{
+  "origin/main": {
+    "head": "6a6232f31641de9e5935ed1899a080aee6bb23ec",
+    "rows": 338,
+    "counts": {
+      "partial": 239,
+      "done": 58,
+      "missing": 41
+    },
+    "registrations": 211
+  },
+  "HEAD": {
+    "head": "9c2ce26594799f93f45b683f306ea5545683d10f",
+    "rows": 338,
+    "counts": {
+      "partial": 239,
+      "done": 58,
+      "missing": 41
+    },
+    "registrations": 211
+  }
+}

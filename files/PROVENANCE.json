@@ -1,0 +1,30 @@
+{
+  "head": "9c2ce26594799f93f45b683f306ea5545683d10f",
+  "branch": "cloud/sd-slate-c-f222",
+  "main": "6a6232f31641de9e5935ed1899a080aee6bb23ec",
+  "predecessor": "5f38804cccacdea3811eced07c7175e0108ad1db",
+  "changedMediaFiles": [
+    "tests/profile/media-blocks-journey.ts"
+  ],
+  "change": "Native HTTP headers now compare with the original upload declaration. Product and browser journey bytes are identical to the predecessor.",
+  "files": {
+    "src/core/features/pages/ui/workspace/PageAppearance.tsx": "94ae7bb3933f2779b1ebdd518ad1445da39386553a7f25a942563e666149d346",
+    "src/core/features/blog/ui/PostList.tsx": "9d9c24fe2f01e796a74f82c71e2dc57a49e14eb6a4a887b24efa70e279bcdc21",
+    "src/core/features/editor/ui/blocks/MediaBlock.tsx": "fe843bc8d06a6e8c9cd112f46770c0e9efad9f556c62a047388af3d514fa4dbe",
+    "src/core/features/publishing/render.ts": "8f8ea6d0c642e8f419efc260ec4b5d1d58c943dc26d737792211e1563d4e6084",
+    "src/core/features/publishing/routes.ts": "8f209b3048e13060043f39fd55f9a17f42a58434444b693e1e8e2361154f7090",
+    "src/core/features/media/service.ts": "c6bb696af6edc3cd9a551710adf3a917a77810352d0b9c47ce2055b5cd63bef2",
+    "src/core/features/media/references.ts": "10b6857f1c1c1bac798471a3bf33a3d5c88f4e899653e97e9cca588cd425bccf",
+    "src/core/features/media/sanitize.ts": "6fe2fe70c8678fd8b830f2866339ccf64e2b53f934f0336f21db9017de970c51",
+    "tests/profile/media-blocks-journey.ts": "a6f2e0e8644f91db410447cfc7235ef728e8eb06713160c13dccde486d996208",
+    "tests/profile/profile.worker.test.ts": "7416f514209090a9f9cde89b043fb243fed460c2e62a92ad19bbf5573847a944",
+    "tests/qualification/ui-convergence/media-blocks-journey.mjs": "a22514a9afb2ac10fe625e8557c3fe79c4f204e05d02b9e179e80318484ad944",
+    "tests/qualification/ui-convergence/journeys.test.mjs": "5f0e67583faa2ee5533a18642cd6f6bc350f30443fe03822ca328ca0d3b101f7",
+    "tests/fixtures/media/synthetic-slate.mp3": "c4e6589408a56cf73fba7d8812c6ca251bf71601d6f2784970244ded5908e03f",
+    "tests/fixtures/media/synthetic-slate.mp4": "f5a7301e2d3ccb71a392a2d098066fc2279474f78ecb2a29d9168b994a3cf0cd"
+  },
+  "contractDiffAgainstMain": "",
+  "productPush": "success on attempt 1 for both published heads; no history rewrite",
+  "identityAudit": "All six candidate authors and committers use the fleet identity. No co-author trailers.",
+  "githubApiCallsSoFar": 9
+}

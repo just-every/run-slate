@@ -1,0 +1,231 @@
+{
+  "width": 390,
+  "pageId": "01M6YG22QRPPPX6VXQXBMH4YH8",
+  "receipts": [
+    {
+      "kind": "image",
+      "mode": "upload",
+      "status": 200,
+      "value": {
+        "id": "01M6YG2420DDJVDER4FXREABW4",
+        "pageId": "01M6YG22QRPPPX6VXQXBMH4YH8",
+        "name": "synthetic-slate-image.svg",
+        "contentType": "image/svg+xml",
+        "sizeBytes": 119,
+        "url": "/api/media/01M6YG2420DDJVDER4FXREABW4"
+      }
+    },
+    {
+      "kind": "image",
+      "mode": "upload",
+      "blockId": "c3e51cca-6df1-4195-a3e7-621fcff6434c",
+      "caption": "Image upload caption",
+      "alt": "Image upload description",
+      "source": {
+        "url": "/api/media/01M6YG2420DDJVDER4FXREABW4",
+        "name": "synthetic-slate-image.svg",
+        "fileId": "01M6YG2420DDJVDER4FXREABW4",
+        "sizeLabel": "1 KB",
+        "contentType": "image/svg+xml"
+      }
+    },
+    {
+      "kind": "video",
+      "mode": "upload",
+      "status": 200,
+      "value": {
+        "id": "01M6YG25MVD3Q9P0PK9NJ5WB6A",
+        "pageId": "01M6YG22QRPPPX6VXQXBMH4YH8",
+        "name": "synthetic-slate-video.mp4",
+        "contentType": "video/mp4",
+        "sizeBytes": 1599,
+        "url": "/api/media/01M6YG25MVD3Q9P0PK9NJ5WB6A"
+      }
+    },
+    {
+      "kind": "video",
+      "mode": "upload",
+      "blockId": "30e49815-cb6e-4a34-86a0-221f2804dc62",
+      "caption": "Video upload caption",
+      "alt": "Video upload description",
+      "source": {
+        "url": "/api/media/01M6YG25MVD3Q9P0PK9NJ5WB6A",
+        "name": "synthetic-slate-video.mp4",
+        "fileId": "01M6YG25MVD3Q9P0PK9NJ5WB6A",
+        "sizeLabel": "2 KB",
+        "contentType": "video/mp4"
+      }
+    },
+    {
+      "kind": "audio",
+      "mode": "upload",
+      "status": 200,
+      "value": {
+        "id": "01M6YG278XYB8D358CVQ7P0CFS",
+        "pageId": "01M6YG22QRPPPX6VXQXBMH4YH8",
+        "name": "synthetic-slate-audio.mp3",
+        "contentType": "audio/mpeg",
+        "sizeBytes": 620,
+        "url": "/api/media/01M6YG278XYB8D358CVQ7P0CFS"
+      }
+    },
+    {
+      "kind": "audio",
+      "mode": "upload",
+      "blockId": "77ce4926-0263-4d95-98fe-f866ac67ac36",
+      "caption": "Audio upload caption",
+      "alt": "Audio upload description",
+      "source": {
+        "url": "/api/media/01M6YG278XYB8D358CVQ7P0CFS",
+        "name": "synthetic-slate-audio.mp3",
+        "fileId": "01M6YG278XYB8D358CVQ7P0CFS",
+        "sizeLabel": "1 KB",
+        "contentType": "audio/mpeg"
+      }
+    },
+    {
+      "kind": "file",
+      "mode": "upload",
+      "status": 200,
+      "value": {
+        "id": "01M6YG28SD2RKSM7GT9BDPD9N5",
+        "pageId": "01M6YG22QRPPPX6VXQXBMH4YH8",
+        "name": "synthetic-slate-file.txt",
+        "contentType": "text/plain",
+        "sizeBytes": 26,
+        "url": "/api/media/01M6YG28SD2RKSM7GT9BDPD9N5"
+      }
+    },
+    {
+      "kind": "file",
+      "mode": "upload",
+      "blockId": "8f96fee1-acd6-43a2-ba26-61acc2e903d6",
+      "caption": "File attachment upload caption",
+      "alt": "File attachment upload description",
+      "source": {
+        "url": "/api/media/01M6YG28SD2RKSM7GT9BDPD9N5",
+        "name": "synthetic-slate-file.txt",
+        "fileId": "01M6YG28SD2RKSM7GT9BDPD9N5",
+        "sizeLabel": "1 KB",
+        "contentType": "text/plain"
+      }
+    },
+    {
+      "kind": "image",
+      "mode": "link",
+      "blockId": "a7321bdb-984a-493a-9dd9-055dc4a9ca93",
+      "caption": "Image link caption",
+      "alt": "Image link description",
+      "source": {
+        "url": "https://media.example.test/synthetic-slate-image.svg",
+        "name": "Linked Image"
+      }
+    },
+    {
+      "kind": "video",
+      "mode": "link",
+      "blockId": "206bab27-fbc6-4ec2-9bb2-055f87cb576f",
+      "caption": "Video link caption",
+      "alt": "Video link description",
+      "source": {
+        "url": "https://media.example.test/synthetic-slate-video.mp4",
+        "name": "Linked Video"
+      }
+    },
+    {
+      "kind": "audio",
+      "mode": "link",
+      "blockId": "5a1b2bfc-5810-4dc4-acb2-d84822b1ec6e",
+      "caption": "Audio link caption",
+      "alt": "Audio link description",
+      "source": {
+        "url": "https://media.example.test/synthetic-slate-audio.mp3",
+        "name": "Linked Audio"
+      }
+    },
+    {
+      "kind": "file",
+      "mode": "link",
+      "blockId": "cd40fb43-850f-4c14-8a64-81fcd5a4d88b",
+      "caption": "File attachment link caption",
+      "alt": "File attachment link description",
+      "source": {
+        "url": "https://media.example.test/synthetic-slate-file.txt",
+        "name": "Linked File attachment"
+      }
+    }
+  ],
+  "matrix": [
+    {
+      "audience": "member",
+      "kind": "icon",
+      "status": 200,
+      "headers": {
+        "transfer-encoding": "chunked",
+        "content-type": "image/svg+xml",
+        "cache-control": "private, no-store",
+        "content-disposition": "inline; filename=\"synthetic-slate-icon.svg\"; filename*=UTF-8''synthetic-slate-icon.svg",
+        "content-encoding": "gzip",
+        "content-security-policy": "default-src 'none'; sandbox, base-uri 'self'; object-src 'none'; frame-src 'self' https://embed.figma.com https://miro.com https://lucid.app https://www.lucidchart.com https://www.loom.com https://www.youtube-nocookie.com https://player.vimeo.com https://docs.google.com https://onedrive.live.com https://*.sharepoint.com; frame-ancestors 'self'",
+        "x-content-type-options": "nosniff"
+      }
+    },
+    {
+      "audience": "member",
+      "kind": "cover",
+      "status": 200,
+      "headers": {
+        "transfer-encoding": "chunked",
+        "content-type": "image/svg+xml",
+        "cache-control": "private, no-store",
+        "content-disposition": "inline; filename=\"synthetic-slate-cover.svg\"; filename*=UTF-8''synthetic-slate-cover.svg",
+        "content-encoding": "gzip",
+        "content-security-policy": "default-src 'none'; sandbox, base-uri 'self'; object-src 'none'; frame-src 'self' https://embed.figma.com https://miro.com https://lucid.app https://www.lucidchart.com https://www.loom.com https://www.youtube-nocookie.com https://player.vimeo.com https://docs.google.com https://onedrive.live.com https://*.sharepoint.com; frame-ancestors 'self'",
+        "x-content-type-options": "nosniff"
+      }
+    },
+    {
+      "audience": "public",
+      "kind": ".page-cover",
+      "status": 200,
+      "headers": {
+        "transfer-encoding": "chunked",
+        "content-type": "image/svg+xml",
+        "cache-control": "private, no-store",
+        "content-disposition": "inline; filename=\"synthetic-slate-cover.svg\"; filename*=UTF-8''synthetic-slate-cover.svg",
+        "content-encoding": "gzip",
+        "content-security-policy": "default-src 'none'; sandbox, base-uri 'self'; object-src 'none'; frame-src 'self' https://embed.figma.com https://miro.com https://lucid.app https://www.lucidchart.com https://www.loom.com https://www.youtube-nocookie.com https://player.vimeo.com https://docs.google.com https://onedrive.live.com https://*.sharepoint.com; frame-ancestors 'self'",
+        "x-content-type-options": "nosniff"
+      }
+    },
+    {
+      "audience": "public",
+      "kind": ".page-icon img",
+      "status": 200,
+      "headers": {
+        "transfer-encoding": "chunked",
+        "content-type": "image/svg+xml",
+        "cache-control": "private, no-store",
+        "content-disposition": "inline; filename=\"synthetic-slate-icon.svg\"; filename*=UTF-8''synthetic-slate-icon.svg",
+        "content-encoding": "gzip",
+        "content-security-policy": "default-src 'none'; sandbox, base-uri 'self'; object-src 'none'; frame-src 'self' https://embed.figma.com https://miro.com https://lucid.app https://www.lucidchart.com https://www.loom.com https://www.youtube-nocookie.com https://player.vimeo.com https://docs.google.com https://onedrive.live.com https://*.sharepoint.com; frame-ancestors 'self'",
+        "x-content-type-options": "nosniff"
+      }
+    },
+    {
+      "audience": "blog",
+      "kind": "cover",
+      "status": 200,
+      "headers": {
+        "transfer-encoding": "chunked",
+        "content-type": "image/svg+xml",
+        "cache-control": "private, no-store",
+        "content-disposition": "inline; filename=\"synthetic-slate-cover.svg\"; filename*=UTF-8''synthetic-slate-cover.svg",
+        "content-encoding": "gzip",
+        "content-security-policy": "default-src 'none'; sandbox, base-uri 'self'; object-src 'none'; frame-src 'self' https://embed.figma.com https://miro.com https://lucid.app https://www.lucidchart.com https://www.loom.com https://www.youtube-nocookie.com https://player.vimeo.com https://docs.google.com https://onedrive.live.com https://*.sharepoint.com; frame-ancestors 'self'",
+        "x-content-type-options": "nosniff"
+      }
+    }
+  ],
+  "stock": "unproved: owner provider key not held"
+}

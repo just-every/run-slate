@@ -1,0 +1,66 @@
+{
+  "tag": "sd-slate-c-f222",
+  "repository": "just-every/run-slate",
+  "branch": "cloud/sd-slate-c-f222",
+  "head": "9c2ce26594799f93f45b683f306ea5545683d10f",
+  "productPush": {
+    "status": "pushed",
+    "attempts": 1,
+    "priorPublishedSave": "64ea1351d17e495acf96d86f4096ffddc9c14fe1",
+    "historyRewritten": false
+  },
+  "checks": {
+    "profile": 0,
+    "browser": 0,
+    "contract": 0,
+    "typecheck": 0,
+    "first-party": 0
+  },
+  "nativeMatrix": {
+    "successfulRequests": 74,
+    "inline": 15,
+    "attachment": 59,
+    "refusedRequestSnapshots": 8,
+    "entityRefusal": 400,
+    "fileRowsAndObjectsUnchangedOnEntityRefusal": true
+  },
+  "browser": {
+    "widths": [
+      1440,
+      390
+    ],
+    "insertionsPerWidth": 8,
+    "captionAndAltPairsPerWidth": 8,
+    "nativeUploadReceiptsPerWidth": 4,
+    "appearanceResponsesPerWidth": 5,
+    "screenshots": 22
+  },
+  "contract": {
+    "passed": 17,
+    "failed": 0
+  },
+  "ci": [
+    {
+      "conclusion": null,
+      "event": "push",
+      "head_sha": "9c2ce26594799f93f45b683f306ea5545683d10f",
+      "html_url": "https://github.com/just-every/run-slate/actions/runs/42523733570",
+      "id": 42523733570,
+      "name": "Verify Slate",
+      "status": "in_progress"
+    }
+  ],
+  "publicationScan": {
+    "commit": "9c2ce26594799f93f45b683f306ea5545683d10f",
+    "complete": "not run in cloud",
+    "historyScanned": "not established",
+    "findings": "not established",
+    "custody": "guarded Mac lander"
+  },
+  "landing": {
+    "mainEquality": false,
+    "runSiteOnCandidate": "not run before landing",
+    "doneCountChange": 0
+  },
+  "scope": "All selected native points are proved locally. Configured stock insertion remains held on the unavailable owner provider key. No previews, versions, live erasure, agent authority, external provider acceptance or release is claimed."
+}

@@ -1,0 +1,66 @@
+{
+  "predecessor": "5f38804cccacdea3811eced07c7175e0108ad1db",
+  "predecessorVerify": {
+    "id": 42518187051,
+    "event": "push",
+    "conclusion": "failure",
+    "passedJobs": [
+      "verify (app)",
+      "verify (core)",
+      "verify (ui-focus-desktop)",
+      "verify (ui-focus-mobile)",
+      "verify (ui-state)",
+      "verify (delivery)",
+      "verify (ui-polish-desktop)",
+      "verify (tooling)",
+      "verify (ui-polish-mobile)"
+    ],
+    "failedJobs": [
+      {
+        "id": 128852279106,
+        "name": "contract",
+        "command": "SLATE_WORKERS_REPORTS=.artifacts/contract-shards node scripts/verify.mjs"
+      },
+      {
+        "id": 128853258923,
+        "name": "verify",
+        "reason": "contract dependency"
+      }
+    ]
+  },
+  "referenceMain": {
+    "head": "6a6232f31641de9e5935ed1899a080aee6bb23ec",
+    "verify": 42505283306,
+    "verifyConclusion": "success",
+    "runSite": 42505283443,
+    "runSiteConclusion": "success",
+    "scheduledFailure": 42505405529
+  },
+  "artifactTransfer": {
+    "command": "gh api repos/just-every/run-slate/actions/artifacts/13633375309/zip",
+    "status": "Forbidden",
+    "httpStatus": 403,
+    "attempts": 1,
+    "boundary": "The redirected artifact host rejected the download. No retry or alternate credential was used."
+  },
+  "browserBefore": {
+    "head": "5f38804cccacdea3811eced07c7175e0108ad1db",
+    "command": "SLATE_CHROMIUM_PATH=/usr/bin/chromium node /tmp/slate-media-proof.mjs",
+    "exit": 0,
+    "widths": [
+      1440,
+      390
+    ],
+    "insertionsPerWidth": 8,
+    "uploadReceiptsPerWidth": 4,
+    "persistedCaptionAndAltPairsPerWidth": 8
+  },
+  "profileBefore": {
+    "head": "5f38804cccacdea3811eced07c7175e0108ad1db",
+    "command": "pnpm exec vitest run --config tests/profile/vitest.config.ts --testNamePattern='^FLAG-001'",
+    "exit": 0,
+    "matrixRows": 74,
+    "refusals": 8,
+    "entityRefusal": 400
+  }
+}
