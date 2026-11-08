@@ -116,7 +116,11 @@ it("FLAG-001 — core wiki public doors retain native content while flagship rou
   expect((await read('/api/decisions',editorCookie)).items.some((item:any)=>item.id===id)).toBe(false);
   const history=await read(`/api/decisions/${id}/history`,editorCookie);expect(history.items.map((item:any)=>item.entity_kind)).toContain('decision-removal');expect(history.items.length).toBe(4);
   expect((await read(`/api/decisions/${id}?revision=${created.value.revisionId}`,editorCookie)).content.outcome).toBe('First');
+  const removedReplay=await request('/api/decisions','POST',{operationKey:key,...input},editorCookie);expect(removedReplay.status).toBe(200);expect(await removedReplay.json()).toEqual(created);
+  expect((await read(`/api/decisions?pageId=${pageId}`,editorCookie)).items).toEqual([]);expect(await read(`/api/decisions/${id}/history`,editorCookie)).toEqual(history);expect(await snapshot()).toEqual(before);
   const replacement=await command('/api/decisions',{...input,question:'Which procedure next?'},editorCookie);expect(replacement.value.id).not.toBe(id);expect(await snapshot()).toEqual(before);
+  const replacedReplay=await request('/api/decisions','POST',{operationKey:key,...input},editorCookie);expect(replacedReplay.status).toBe(200);expect(await replacedReplay.json()).toEqual(created);
+  expect((await read(`/api/decisions?pageId=${pageId}`,editorCookie)).items.map((item:any)=>item.id)).toEqual([replacement.value.id]);expect(await read(`/api/decisions/${id}/history`,editorCookie)).toEqual(history);expect(await snapshot()).toEqual(before);
   await command('/api/sharing',{targetKind:'page',targetId:pageId,id:grant.id,principalKind:'member',principalId:editor.memberId,level:'edit',revoke:true},cookie);
   for(const path of [`/api/pages/${pageId}`,`/api/decisions/${id}`,`/api/decisions/${id}/history`,`/api/decisions/${id}/reviews`,`/api/decisions/${id}?revision=${created.value.revisionId}`,`/api/decisions/${replacement.value.id}`])expect((await request(path,'GET',undefined,editorCookie)).status).toBe(404);
   expect((await read(`/api/decisions?pageId=${pageId}`,editorCookie)).items).toEqual([]);

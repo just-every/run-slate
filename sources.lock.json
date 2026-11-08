@@ -11484,7 +11484,7 @@
       "executable": false
     },
     "tests/profile/profile.worker.test.ts": {
-      "sha256": "633d4d6b755ef443496edeebf2e35549d1a4255b70b43af2819c4941e16f0948",
+      "sha256": "340038de88fbe48fd99db7c8d1090268bcc1a8b7564ea76507aea02786d60227",
       "executable": false
     },
     "tests/profile/vitest.config.ts": {
@@ -12464,7 +12464,7 @@
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
-      "sha256": "2eab103b3aba5686504b838aedf399a7e109dd919d21d5a63875be5dbcd4789b",
+      "sha256": "6228a2903af5752c20d17c19ea7fedcb6897d984f40543e0eb0807efb6a156f7",
       "executable": false
     },
     "tests/requirements/count-registrations.mjs": {
