@@ -1,3 +1,4 @@
+import {scheduledRequiredReading} from '../features/required-reading/scheduled';
 import { pruneAudit } from '../features/activity/audit-settings';
 import { scheduleWebhooks } from '../features/webhooks/worker';
 import { recheckSamlDomains } from '../features/session/saml/domain';
@@ -40,6 +41,7 @@ export async function scheduledJobs(env:AppBindings,now=new Date().toISOString()
     ['backups', () => scheduledBackups(env,now)],
     // STAT-007: nightly verification rules, in every profile.
     ['verification-rules', () => runVerificationRules(env)],
+    ['required-reading', () => scheduledRequiredReading(env,now)],
     ['discovery', () => scheduledDiscovery(env)],
     ['automation', () => scheduledAutomation(env)],
     // A cron event comes from the runtime itself, not a remote request; the loopback

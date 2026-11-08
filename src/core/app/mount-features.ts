@@ -1,3 +1,5 @@
+import {createRequiredReadingRoutes} from '../features/required-reading/routes';
+import {registerRequiredReadingVisibility} from '../features/required-reading/service';
 import {createBackupRoutes} from '../features/backups/routes';
 import {createWorkItemsRoutes} from '../features/work-items/routes';
 import {createReminderRoutes} from '../features/reminders/routes';
@@ -58,6 +60,8 @@ import type { AppEnvironment } from "./types";
 export function mountFeatures(app: Hono<AppEnvironment>): Hono<AppEnvironment> {
   mountLaunchProfile(app);
   registerIntelligenceVisibility();
+  registerRequiredReadingVisibility();
+  app.route("/api/required-reading",createRequiredReadingRoutes());
   app.route("/", createWorkspaceRoutes());
   app.route("/api/tasks",createWorkItemsRoutes());
   app.route("/api/reminders",createReminderRoutes());

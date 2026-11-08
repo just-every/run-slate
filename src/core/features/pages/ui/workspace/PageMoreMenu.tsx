@@ -1,3 +1,5 @@
+import {useWorkspace} from '../../../../app/ui/WorkspaceContext';
+import {RequiredReadingDialog} from '../../../required-reading/ui/RequiredReadingDialog';
 import {
   Archive,
   Bell,
@@ -68,6 +70,8 @@ export function PageMoreMenu({
   onAddDescription?: () => void;
 }) {
   const [dialog, setDialog] = useState<PageDialog | null>(null);
+  const {member}=useWorkspace();
+  const [requiredReading,setRequiredReading]=useState(false);
   const [reminder,setReminder]=useState(false);
   const [locking,setLocking]=useState(false);
   const [lockError,setLockError]=useState<unknown>();
@@ -156,6 +160,7 @@ export function PageMoreMenu({
           {item(<Presentation aria-hidden="true" />, "Present this page", open(onPresent), false)}
           {item(<FileDown aria-hidden="true" />, "Export page", dialogItem("export"))}
           {item(<Bell aria-hidden="true" />, "Remind me", open(()=>setReminder(true)))}
+          {member.role==='owner'?item(<Send aria-hidden="true" />, "Required reading", open(()=>setRequiredReading(true))):null}
           {extraItems}
           {onAddDescription ? item(<FileText aria-hidden="true" />, "Add description", open(onAddDescription), false) : null}
           <DropdownMenuItem disabled={following.disabled} onSelect={stayOpen(() => void following.toggleFavourite())}>
@@ -225,6 +230,7 @@ export function PageMoreMenu({
         reload={reload}
         onClose={() => setDialog(null)}
       />
+      {requiredReading?<RequiredReadingDialog pageId={document.page.id} onClose={()=>setRequiredReading(false)}/>:null}
       {reminder?<ReminderDialog pageId={document.page.id} onClose={()=>setReminder(false)}/>:null}
     </>
   );

@@ -1,3 +1,4 @@
+import {ReadingAcknowledgment} from "../../required-reading/ui/ReadingAcknowledgment";
 import { useState } from "react";
 import { useResource } from "../../../client/useResource";
 import { mutate, operationKey, errorMessage } from "../../../client/transport";
@@ -14,7 +15,7 @@ interface Notice {
   createdAt: string;
   period: string;
   readAt: string | null;
-  detail?: { outcome?: string; verificationRules?: { unverified: number; flagged: number; pages: { id: string; title: string; change: string }[] } };
+  detail?: { requiredReadingId?:string; outcome?: string; verificationRules?: { unverified: number; flagged: number; pages: { id: string; title: string; change: string }[] } };
 }
 /** STAT-007: one coalesced notice per owner and run, counts and titles only. */
 function rulesSummary(rules: { unverified: number; flagged: number }) {
@@ -107,6 +108,7 @@ export function WorkspaceInbox() {
                       {localDevelopment && item.detail?.outcome ? <p>{item.detail.outcome}</p> : null}
                       <time dateTime={item.createdAt}>{displayDate(item.createdAt, true)}</time>
                     </a>
+                    {item.detail?.requiredReadingId?<ReadingAcknowledgment readingId={item.detail.requiredReadingId}/>:null}
                   </li>
                 ))}
               </ul>
