@@ -1059,6 +1059,15 @@
         "ACT-002"
       ],
       "reason": "Exercises the SCIM HTTP protocol through native invitation, Member identity, group and removal services, including credential custody and current authority. Real directory-provider acceptance and native invitation capacity outside SCIM remain unproven."
+    },
+    {
+      "file": "tests/profile/profile.worker.test.ts",
+      "testName": "FLAG-001 — core wiki public doors retain native content while flagship routes and queued work require opt-in",
+      "kind": "supporting-regression",
+      "clauses": [
+        "DEC-003"
+      ],
+      "reason": "The DEC-003 native scenario accepts two exact page revisions, preserves the complete accepted snapshot after another member edits a source, reports changed currency, refuses immutable writes without changing history or activity, permits owner preparation with retained citations, refuses stale acceptance, accepts current replacement citations and preserves both lineage identifiers. Restricted replacement reads disclose no question. The focused decisionImmutabilityJourney in the existing responsive core callers supplies routed controls, card and log warnings, reload and exact two-way navigation. Independent exact-candidate Verify and guarded landing remain required."
     }
   ]
 }
