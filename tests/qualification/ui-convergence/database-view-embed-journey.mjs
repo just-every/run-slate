@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
+import { execFileSync } from 'node:child_process';
 import { mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { unzipSync, strFromU8 } from 'fflate';
@@ -48,6 +49,16 @@ export async function databaseViewEmbedJourney(state, width) {
     const editGrant = await grant(alice.context, origin, target, bob.id, 'edit');
     await mutate('PUT', `/api/sharing/pages/${target}/inheritance`, { expectedRevisionId: (await read(`/api/pages/${target}`)).page.revisionId, restricted: true });
     const endpoint = `/api/databases/${databaseId}/views/${viewId}/query`;
+    const queryReceipts = [], blockReceipts = [], captures = [];
+    for (const [person, context] of [['owner', alice.context], ['editor', bob.context]]) context.on('response', response => {
+      const route = new URL(response.url()).pathname;
+      if (response.request().method() === 'GET' || (route !== endpoint && !route.startsWith(`/api/pages/${target}/blocks`))) return;
+      const capture = response.json().then(body => {
+        const receipt = { person, route, status: response.status(), input: response.request().postDataJSON(), body };
+        (route === endpoint ? queryReceipts : blockReceipts).push(receipt);
+      }).catch(() => {});
+      captures.push(capture);
+    });
     const region = page => page.getByRole('region', { name: 'Database view', exact: true });
     const visibleIds = page => region(page).locator('tbody tr').evaluateAll(rows => rows.map(row => row.dataset.recordId));
     const expectIds = async (page, ids, timeout = 10000) => {
@@ -181,6 +192,15 @@ export async function databaseViewEmbedJourney(state, width) {
     await expect(region(bob.page).getByText('The database view is unavailable.', { exact: true })).toBeVisible();
     await expect(region(bob.page).locator('tbody tr')).toHaveCount(0);
     await expect(region(alice.page).getByText('The database view is unavailable.', { exact: true })).toBeVisible();
-    await writeFile(path.join(output, 'receipt.json'), JSON.stringify({ width, databaseId, pageId: target, sourceBefore: sourceBefore.views, storedDefinition: stored.content.definition, expectedOwner: records.map(record => record.pageId), expectedMember: [records[0].pageId, records[2].pageId], sourceChangeVisibleMs: timing, receipts }, null, 2));
+    const deletedViewSource = await read(`/api/databases/${databaseId}`);
+    await mutate('POST', `/api/databases/${databaseId}/views`, { expectedRevisionId: deletedViewSource.database.revision_id, view: latest.views[0] });
+    await expectIds(bob.page, width === 1440 ? [records[0].pageId] : []);
+    await mutate('POST', `/api/archive/${source.database.page_id}`, { expectedRevisionId: (await read(`/api/pages/${source.database.page_id}`)).page.revisionId, action: 'trash' });
+    await expect(region(bob.page).getByText('The database view is unavailable.', { exact: true })).toBeVisible();
+    await expect(region(bob.page).locator('tbody tr')).toHaveCount(0);
+    await expect(region(bob.page).locator('[data-record-count]')).toHaveCount(0);
+    await expect(region(alice.page).getByText('The database view is unavailable.', { exact: true })).toBeVisible();
+    await Promise.all(captures);
+    await writeFile(path.join(output, 'receipt.json'), JSON.stringify({ head: execFileSync('git', ['rev-parse', 'HEAD'], { cwd: root, encoding: 'utf8' }).trim(), queryReceipts, blockReceipts, width, databaseId, pageId: target, sourceBefore: sourceBefore.views, storedDefinition: stored.content.definition, expectedOwner: records.map(record => record.pageId), expectedMember: [records[0].pageId, records[2].pageId], sourceChangeVisibleMs: timing, receipts }, null, 2));
   });
 }

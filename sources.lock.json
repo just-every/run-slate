@@ -11492,7 +11492,7 @@
       "executable": false
     },
     "tests/profile/database-view-journey.ts": {
-      "sha256": "1dbe6703a4e2b228e1f4db9172b66a892664aad31b06b03aaed242c7c6edabe2",
+      "sha256": "3aac8d5579862ea6e8c7018949c8f0b7120ddedc25385a383c6066dda738a16a",
       "executable": false
     },
     "tests/profile/decision-log-journey.ts": {
@@ -11992,7 +11992,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/database-view-embed-journey.mjs": {
-      "sha256": "800502394152c0a516df4d99c67ad88689b1b904b4af6876341c59db55df84e6",
+      "sha256": "506a94b45ae3b39ca84e065de89de7b7380223e61056787bd87a05956fbc1c3c",
       "executable": false
     },
     "tests/qualification/ui-convergence/decision-log-journey.mjs": {
