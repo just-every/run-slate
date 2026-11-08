@@ -20,6 +20,7 @@ export async function activity(ctx:FeatureContext,input:ActivityInput={}){
  for(const row of rows.results){
   const pageId=contexts.get(row.id);const {allowed,detail}=await activityVisibility(ctx,row,pageId,pageId?!!retained.get(pageId)?.decision.allowed:undefined);if(!allowed)continue;
   const page=await ctx.db.prepare('SELECT container_id,deleted_at FROM pages WHERE id=? AND workspace_id=?').bind(pageId??'',ctx.actor.workspaceId).first<{container_id:string;deleted_at:string|null}>();if(input.containerId&&row.target_id!==input.containerId&&page?.container_id!==input.containerId)continue;
+  // Erasure already anonymizes prior rows; a later deletion receipt keeps its responsible actor.
   let actor:null|{id:string;displayName:string}=null;if(row.actor_member_id){const a=await ctx.db.prepare("SELECT id,display_name AS displayName FROM members WHERE id=? AND workspace_id=? AND (member_kind='member' OR id=?)").bind(row.actor_member_id,ctx.actor.workspaceId,ctx.actor.id).first<{id:string;displayName:string}>();actor=a?{...a,displayName:activityActorLabel(row)??a.displayName}:null;}
   // A thread revision is not a page version; only retained page revisions open history.
   const candidateRevision=detail.revisionId??(row.target_kind==='revision'?row.target_id:undefined);
@@ -45,7 +46,6 @@ export async function auditRecord(ctx:FeatureContext,id:string){
  if(!row)return null;
  const pageId=await activityPageId(ctx,row.target_kind,row.target_id);
  if(!(await activityVisibility(ctx,row,pageId)).allowed)return null;
- const deleted=pageId?!!(await ctx.db.prepare('SELECT deleted_at FROM pages WHERE id=?').bind(pageId).first<{deleted_at:string|null}>())?.deleted_at:false;
  const actor=row.actor_member_id?await ctx.db.prepare("SELECT id,display_name AS displayName FROM members WHERE id=? AND workspace_id=? AND (member_kind='member' OR id=?)").bind(row.actor_member_id,ctx.actor.workspaceId,ctx.actor.id).first<{id:string;displayName:string}>():null;
  return {id:row.id,actor:actor?{...actor,displayName:activityActorLabel(row)??actor.displayName}:null,occurredAt:new Date(row.occurred_at).toISOString(),action:row.action,target:{kind:row.target_kind,id:row.target_id}};
 }

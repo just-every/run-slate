@@ -37,6 +37,7 @@ export async function activityCoverageProof(door) {
  const pageTarget=id=>({kind:'page',id});
  const create=async(title,actor=ownerId)=>mutate('page creation','pages.create','POST','/api/pages',{containerId,title},r=>pageTarget(r.value.pageId),actor);
  const shared=await mutate('container member grant','sharing.grant','POST','/api/sharing',{targetKind:'container',targetId:containerId,principalKind:'member',principalId:memberId,level:'full'},{kind:'container',id:containerId});
+ for(const level of ['edit','full'])await mutate('container grant change','sharing.grant','POST','/api/sharing',{targetKind:'container',targetId:containerId,id:shared.value.id,principalKind:'member',principalId:memberId,level},{kind:'container',id:containerId});
  const created=await create('synthetic-slate-coverage',memberId),id=created.value.pageId;
  const initial=created.receipt.revisionId;
  await mutate('member body change','pages.blocks.replace','PUT',`/api/pages/${id}/blocks`,{expectedRevisionId:await revision(id),blocks:[{id:key(),blockType:'paragraph',treePosition:'1',content:{text:[{text:'synthetic-slate-audited-body'}]}}]},pageTarget(id),memberId);
@@ -131,6 +132,19 @@ export async function activityCoverageProof(door) {
   const entry={family:`readable ${scope} export`,action:'exports.readable',actorId:actor,target:{kind:scope,id:target},receipt};await assertRow(entry);
   const retry=await door.request('POST','/api/exports/readable',input,actor);assert.equal(retry.status,200);assert.deepEqual(JSON.parse(retry.headers['x-slate-receipt']),receipt);await assertRow(entry);receipts.push(entry);exports.push(entry);
  }
+ const privatePage=await mutate('export revocation target','pages.create','POST','/api/pages',{containerId:space.value.id,title:'synthetic-slate-export-revocation'},r=>pageTarget(r.value.pageId));
+ await mutate('export target publication','pages.publish','POST',`/api/pages/${privatePage.value.pageId}/publish`,{expectedRevisionId:await revision(privatePage.value.pageId)},pageTarget(privatePage.value.pageId));
+ const exportGrant=await mutate('export reader grant','sharing.grant','POST','/api/sharing',{targetKind:'page',targetId:privatePage.value.pageId,principalKind:'member',principalId:memberId,level:'view'},pageTarget(privatePage.value.pageId));
+ const capturedExport={operationKey:key(),scope:'page',id:privatePage.value.pageId,format:'html'},acceptedExport=await door.request('POST','/api/exports/readable',capturedExport,memberId);assert.equal(acceptedExport.status,200);assert.ok(Object.keys(unzipSync(acceptedExport.bytes)).length>0);
+ const capturedReceipt=JSON.parse(acceptedExport.headers['x-slate-receipt']);
+ const capturedRecord={family:'readable export before revocation',action:'exports.readable',actorId:memberId,target:pageTarget(privatePage.value.pageId),receipt:capturedReceipt};await assertRow(capturedRecord);receipts.push(capturedRecord);
+ await mutate('revoke export reader','sharing.grant','POST','/api/sharing',{targetKind:'page',targetId:privatePage.value.pageId,id:exportGrant.value.id,principalKind:'member',principalId:memberId,level:'view',revoke:true},pageTarget(privatePage.value.pageId));
+ for(const operationKey of [capturedExport.operationKey,key()]){const refused=await door.request('POST','/api/exports/readable',{...capturedExport,operationKey},memberId);assert.equal(refused.status,404,'Revocation denies new and captured readable exports before releasing bytes');if(operationKey!==capturedExport.operationKey)refusals.push(operationKey);}
+ const retainedExport=(await entries({action:'exports.readable'})).filter(row=>row.operationKey===capturedExport.operationKey);assert.equal(retainedExport.length,1);assert.equal(retainedExport[0].id,capturedReceipt.activityId);
+ assert.ok(!(await entries({action:'exports.readable'},memberId)).some(row=>row.id===capturedReceipt.activityId),'Revocation also hides the retained export entry from its former reader');
+ // Remove the separate export target before proving deletion of its now-empty space.
+ await mutate('revoked export target trash','archive.trash','POST',`/api/archive/${privatePage.value.pageId}`,{action:'trash',expectedRevisionId:await revision(privatePage.value.pageId)},pageTarget(privatePage.value.pageId));
+ await mutate('revoked export target erasure','archive.permanent-delete','POST',`/api/archive/${privatePage.value.pageId}/permanent-delete`,{confirmedPageIds:[privatePage.value.pageId]},pageTarget(privatePage.value.pageId));
  const workspaceKey=key(),exported=await door.request('POST','/api/exports/workspace',{operationKey:workspaceKey},ownerId);assert.equal(exported.status,200,JSON.stringify(exported.data));assert.equal(exported.data.state,'completed');
  const zip=await door.request('GET',`/api/exports/${exported.data.id}/download`,undefined,ownerId);assert.equal(zip.status,200);assert.ok(Object.keys(unzipSync(zip.bytes)).length>0);
  assert.deepEqual((await door.request('POST','/api/exports/workspace',{operationKey:workspaceKey},ownerId)).data,exported.data);
@@ -160,6 +174,6 @@ export async function activityCoverageProof(door) {
  const all=await entries({});
  for(const operationKey of [...refusals,...unchanged])assert.ok(!all.some(row=>row.operationKey===operationKey),'Refused and unchanged operations create no activity');
  // The inventory is based on independently named operations above, never on the queried rows.
- for(const actorId of [ownerId,memberId])for(const action of new Set(receipts.filter(row=>row.actorId===actorId).map(row=>row.action))){const expected=receipts.filter(row=>row.action===action&&row.actorId===actorId);const found=(await entries({action},actorId)).filter(row=>expected.some(item=>item.receipt.operationKey===row.operationKey));assert.deepEqual(found.map(row=>row.operationKey).sort(),expected.map(row=>row.receipt.operationKey).sort(),`${action}: exact operation inventory for its current reader`);}
- return {redactedPageIds:[erased.value.pageId,home],receipts,automation,import:importRows[0],workspaceExport:workspaceRows[0],refusals,unchanged,pageId:id,memberContainerGrant:shared.value.id};
+ for(const actorId of [ownerId,memberId])for(const action of new Set(receipts.filter(row=>row.actorId===actorId).map(row=>row.action))){const expected=receipts.filter(row=>row.action===action&&row.actorId===actorId);const found=(await entries({action},action==='exports.readable'?ownerId:actorId)).filter(row=>expected.some(item=>item.receipt.operationKey===row.operationKey));assert.deepEqual(found.map(row=>row.operationKey).sort(),expected.map(row=>row.receipt.operationKey).sort(),`${action}: exact operation inventory for its current reader`);}
+ return {redactedPageIds:[erased.value.pageId,home,privatePage.value.pageId],receipts,automation,import:importRows[0],workspaceExport:workspaceRows[0],refusals,unchanged,pageId:id,memberContainerGrant:shared.value.id};
 }

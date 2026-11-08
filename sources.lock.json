@@ -5660,7 +5660,7 @@
       "executable": false
     },
     "src/core/features/activity/service.ts": {
-      "sha256": "7231a39a196455a74671dde99c5d720ad174398662609517bd18e1023a14b383",
+      "sha256": "7c687e8f29a39da72532e837da504a9ef613a9791383e9d46d2569731257b372",
       "executable": false
     },
     "src/core/features/activity/ui/workspace/ActivityWorkspace.tsx": {
@@ -11568,7 +11568,7 @@
       "executable": false
     },
     "tests/qualification/core/activity-coverage-proof.mjs": {
-      "sha256": "87d0232ab5af353f9f2cb3120d7c520dba6457b0665bde3f633b35093d0289e1",
+      "sha256": "446f0b9cb47a322e984e8d9add307f8309fbe54922766c5858af1d3f7d5230e7",
       "executable": false
     },
     "tests/qualification/core/archive-retention-proof.ts": {
@@ -11900,7 +11900,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/activity-coverage-journey.mjs": {
-      "sha256": "fe61147a9277c430c01bb6bf9e71b83a4d9dc6777fa578688975e69ed13f2d81",
+      "sha256": "90b33328a0fd1270f31f18679b2b14e475c94f96d04c0e2a692bce821cc2f969",
       "executable": false
     },
     "tests/qualification/ui-convergence/analytics-journey.mjs": {
@@ -12492,7 +12492,7 @@
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
-      "sha256": "7f730d5f429b5fa9982abba06af81e05c47f80d19c0a8095b283a8ee2495bcbe",
+      "sha256": "a792470a7f70f0886ce565b281fce876920a140977dc61bd7114de926b4b9693",
       "executable": false
     },
     "tests/requirements/count-registrations.mjs": {

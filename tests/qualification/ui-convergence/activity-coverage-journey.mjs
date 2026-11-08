@@ -43,10 +43,12 @@ export async function activityCoverageJourney(state,{phone=false}={}){
  await state.switchIdentity('owner');
  // Every action is inspected in the real timeline after a fresh document load.
  const rows=[...result.receipts.map(item=>({id:item.receipt.activityId,action:item.action,target:item.target,occurredAt:item.receipt.committedAt,actorId:result.redactedPageIds.includes(item.target.id)&&item.action!=='archive.permanent-delete'?null:item.actorId})),...[...result.automation,result.import,result.workspaceExport].map(row=>({...row,actorId:row.actor?.id}))];
- for(const actorId of ['browser-owner','browser-reader'])for(const action of new Set(rows.filter(row=>(row.actorId??'browser-owner')===actorId).map(row=>row.action))){
+ for(const actorId of ['browser-owner','browser-reader']){
   await state.switchIdentity(actorId==='browser-reader'?'reader':'owner');
   await page.goto(origin+'/app/settings?section=activity',{waitUntil:'networkidle'});
   await page.reload({waitUntil:'networkidle'});
+  for(const action of new Set(rows.filter(row=>(row.actorId??'browser-owner')===actorId).map(row=>row.action))){
+   console.log('ACTIVITY_TIMELINE',actorId,action);
   await page.getByRole('textbox',{name:'Action',exact:true}).fill(action);
   await page.getByRole('button',{name:'Filter activity',exact:true}).click();
   for(const row of rows.filter(item=>item.action===action&&(item.actorId??'browser-owner')===actorId)){
@@ -56,6 +58,7 @@ export async function activityCoverageJourney(state,{phone=false}={}){
    await expect(visible).toContainText(row.target.kind);await expect(visible).toContainText(row.target.id);
    await expect(visible.locator('time')).toHaveAttribute('dateTime',row.occurredAt);
    if(row.actorId)await expect(visible.locator('strong')).toHaveText(row.actorId==='browser-reader'?'Morgan Reader':'Alex Owner');
+  }
   }
  }
  await state.switchIdentity('owner');
