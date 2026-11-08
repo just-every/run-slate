@@ -2746,7 +2746,7 @@ Core · published · **partial**
 
 Core · published · **partial**
 
-**Requirement.** Accepting freezes the decision's content together with the revisions it cites.
+**Requirement.** Accepting freezes the decision's content together with the revisions it cites. In the default core-wiki product, each lineage direction opens the exact other decision in its decision workspace under current page access. Preparing a replacement retains readable historical citations for reconsideration; accepting it still requires current cited revisions.
 
 **Acceptance.**
 1. Later edits to a cited page add a warning that the citation is no longer current and never rewrite the accepted rationale; changing an accepted decision is done by superseding it, which links both decisions in both directions.
