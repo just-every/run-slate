@@ -2074,9 +2074,7 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 #### DEC-004 — Decision log
 
-*Tier:* Core · Native human decision records use the default core-wiki profile. Run-derived preparation remains flagship-only under ADMIN-007 and shared company-policy prerequisites.
-
-**Requirement.** Decisions are listed and filtered by state, container, owner, decided date, review date and whether their citations are current, and each result opens the exact accepted revision.
+**Requirement.** Decisions are listed and filtered by state, container, owner, decided date, review date and whether their citations are current, and each result opens the exact accepted revision. Native human decision records use the default core-wiki profile. Run-derived preparation remains flagship-only under ADMIN-007 and shared company-policy prerequisites.
 
 **Acceptance.**
 1. Decisions are listed and filtered by state, container, owner, decided date, review date and whether their citations are current, and each result opens the exact accepted revision.
