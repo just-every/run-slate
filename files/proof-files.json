@@ -1,0 +1,27 @@
+{
+  "head": "946d8e0c2ae6058d99a04303f042738aa2473d9a",
+  "files": [
+    "external-switches-1440.json",
+    "external-switches-390.json",
+    "screens/034-390-native-container-external-switches-390.json",
+    "screens/034-390-native-container-external-switches-390.png",
+    "screens/035-390-native-container-guest-veto-preserves-unsaved-text-390.json",
+    "screens/035-390-native-container-guest-veto-preserves-unsaved-text-390.png",
+    "screens/036-390-native-workspace-external-switches-390.json",
+    "screens/036-390-native-workspace-external-switches-390.png",
+    "screens/037-390-native-workspace-guest-veto-preserves-unsaved-text-390.json",
+    "screens/037-390-native-workspace-guest-veto-preserves-unsaved-text-390.png",
+    "screens/079-1440-native-container-external-switches-1440.json",
+    "screens/079-1440-native-container-external-switches-1440.png",
+    "screens/080-1440-native-container-guest-veto-preserves-unsaved-text-1440.json",
+    "screens/080-1440-native-container-guest-veto-preserves-unsaved-text-1440.png",
+    "screens/081-1440-native-workspace-external-switches-1440.json",
+    "screens/081-1440-native-workspace-external-switches-1440.png",
+    "screens/082-1440-native-workspace-guest-veto-preserves-unsaved-text-1440.json",
+    "screens/082-1440-native-workspace-guest-veto-preserves-unsaved-text-1440.png"
+  ],
+  "screens": {
+    "1440": 4,
+    "390": 4
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "head": "946d8e0c2ae6058d99a04303f042738aa2473d9a",
+  "lock": {
+    "command": "node scripts/edition-authoring/cli.mjs check",
+    "exit": 0,
+    "sourceHead": "946d8e0c2ae6058d99a04303f042738aa2473d9a",
+    "write": "pnpm source:lock",
+    "writeExit": 0
+  },
+  "views": {
+    "write": "node src/base/runtime/contract-docs.mjs write",
+    "writeExit": 0,
+    "check": "node src/base/runtime/contract-docs.mjs check",
+    "exit": 0,
+    "result": "Contract documents are current.",
+    "generatedFilesCommitted": false,
+    "sourceHead": "946d8e0c2ae6058d99a04303f042738aa2473d9a"
+  },
+  "ledger": {
+    "command": null,
+    "exit": 0,
+    "reason": "No migration changed"
+  },
+  "contractDiffAgainstMain": "",
+  "typecheck": {
+    "command": "pnpm typecheck",
+    "exit": 0,
+    "sourceHead": "946d8e0c2ae6058d99a04303f042738aa2473d9a"
+  },
+  "firstParty": {
+    "command": "pnpm exec rer check --profile first-party",
+    "exit": 0,
+    "sourceHead": "946d8e0c2ae6058d99a04303f042738aa2473d9a"
+  },
+  "build": {
+    "command": "cloud_run npx -y @runeditrun/rer build",
+    "exit": 0,
+    "sourceHead": "946d8e0c2ae6058d99a04303f042738aa2473d9a"
+  },
+  "runtime": "v22.20.0",
+  "unchangedTypecheckedSources": true
+}

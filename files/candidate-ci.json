@@ -1,0 +1,11 @@
+{
+  "conclusion": null,
+  "event": "push",
+  "head_sha": "946d8e0c2ae6058d99a04303f042738aa2473d9a",
+  "html_url": "https://github.com/just-every/run-slate/actions/runs/42513420265",
+  "id": 42513420265,
+  "name": "Verify Slate",
+  "status": "in_progress",
+  "github_calls": 8,
+  "observedAt": "2026-11-08T19:34:35.179540+00:00"
+}

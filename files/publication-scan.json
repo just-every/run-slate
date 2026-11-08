@@ -1,0 +1,7 @@
+{
+  "commit": "946d8e0c2ae6058d99a04303f042738aa2473d9a",
+  "complete": null,
+  "historyScanned": null,
+  "findings": null,
+  "status": "Not run in cloud; the guarded lander must run the complete full-history publication scan on the exact branch ref and candidate SHA."
+}

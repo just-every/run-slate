@@ -1,0 +1,18 @@
+{
+  "repository": "just-every/run-slate",
+  "run": 42513420265,
+  "head": "946d8e0c2ae6058d99a04303f042738aa2473d9a",
+  "failedCommand": "gh api repos/just-every/run-slate/actions/runs/42513420265",
+  "failedHttpStatus": 401,
+  "diagnostic": "gh: Bad credentials (HTTP 401)",
+  "launcherRefreshed": true,
+  "decryptedBundleHelperReinstalled": true,
+  "credentialSourceUnchanged": "launcher decrypted bundle",
+  "retryDelaySeconds": 15,
+  "recoveryAttempt": 2,
+  "recoveryExit": 0,
+  "actualGitHubCalls": 8,
+  "lastRunStatus": "in_progress",
+  "lastRunConclusion": null,
+  "productPushSucceeded": true
+}

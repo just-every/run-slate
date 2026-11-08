@@ -1,0 +1,30 @@
+{
+  "head": "946d8e0c2ae6058d99a04303f042738aa2473d9a",
+  "command": "SLATE_CHROMIUM_PATH=/usr/bin/chromium cloud_run timeout 1200 node --test --test-concurrency=1 --test-name-pattern='space tree title filtering|page outline follows' tests/qualification/ui-convergence/journeys.test.mjs",
+  "exactPattern": "space tree title filtering|page outline follows",
+  "status": "passed",
+  "node": "v22.20.0",
+  "browser": "/usr/bin/chromium",
+  "nativeApplicationResponsesMocked": false,
+  "businessDeadlineMilliseconds": 5000,
+  "testOnlyRequestPacingMilliseconds": 150,
+  "httpSupportingTest": {
+    "command": "cloud_run timeout 300 pnpm exec vitest run tests/flagship/content/http.test.ts -t 'publication, human verification and media enforce current reader authority'",
+    "exit": 0,
+    "sourceHead": "fcb0143eccb5b7653537c6671c110d189e083a22",
+    "relevantSourceAndHttpTestUnchangedAtCandidate": true
+  },
+  "exit": 0,
+  "passed": 2,
+  "failed": 0,
+  "cancelled": 0,
+  "skipped": 0,
+  "durationsMilliseconds": [
+    "381310.264796",
+    "563130.269096"
+  ],
+  "nativeReceipts": [
+    "external-switches-390.json",
+    "external-switches-1440.json"
+  ]
+}
