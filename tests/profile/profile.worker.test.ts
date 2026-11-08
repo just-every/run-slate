@@ -123,7 +123,6 @@ it("FLAG-001 — core wiki public doors retain native content while flagship rou
   expect((await request('/api/decisions','POST',{operationKey:key,...input},editorCookie)).status).toBe(404);
   expect((await read(`/api/decisions/${replacement.value.id}`)).content.question).toBe('Which procedure next?');
   expect(receipts.every(Boolean)).toBe(true);
-  console.log('DECISION_NATIVE_RECEIPT '+JSON.stringify({receipts,before,history,created,edited,accepted,removed,replacement}));
 } },
     { name: 'FLAG-001 — old queued flagship work records failure and retries without dispatch or acknowledgement', run: async () => {
   for(const kind of ['intelligence.run','intelligence.finalize','federation.refresh']) {

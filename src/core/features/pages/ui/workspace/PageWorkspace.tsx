@@ -383,7 +383,7 @@ function LoadedPage({
           </div>
           {host?.database ? null : <PageReadMetadata document={document} />}
           <RequestState loading={decisions.loading} error={decisions.error} retry={decisions.reload}>
-            {decision ? <p className="page-notice" data-page-decision>Decision record: <a href={`/app/decisions/${decision.id}`}>{decision.question}</a> · {decision.state}</p> : null}
+            {decision ? <p className="page-byline" data-page-decision>Decision record: <a href={`/app/decisions/${decision.id}`}>{decision.question}</a> · {decision.state}</p> : null}
           </RequestState>
           {recovered.current && title!==savedTitle ? <SaveStatus state="unsaved" recoveredDraft onRetry={()=>void saveTitle()}/> : null}
           {titleFailure ? <SaveStatus state="failed" failureMessage={titleFailure} onRetry={() => void saveTitle()} /> : null}

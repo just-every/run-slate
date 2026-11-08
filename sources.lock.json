@@ -5388,7 +5388,7 @@
       "executable": false
     },
     "src/core/app/styles/page.css": {
-      "sha256": "2f50af5a1c09c95dad71b685495c31e76f7bb5dccbfc4a601eda411af612122c",
+      "sha256": "7062d6fa009eed3059d051a90693f063a5cb2bcdee3352e9af91e23040053d20",
       "executable": false
     },
     "src/core/app/styles/panels.css": {
@@ -8488,7 +8488,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageWorkspace.tsx": {
-      "sha256": "2d050cac48ab903f8e864c494b11ad8e3ed6202cea144e4c758656d2326d9de6",
+      "sha256": "679db47452c0283aed0ec8f91b300f495bd212f5af011c7af622a7eb8ec3eaa6",
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PublicationReviewPanel.tsx": {
@@ -11484,7 +11484,7 @@
       "executable": false
     },
     "tests/profile/profile.worker.test.ts": {
-      "sha256": "8d2c459efeba6bfd92af4ca5ea4c835b0ec12077af7c07072cceb21dd14ac8e0",
+      "sha256": "633d4d6b755ef443496edeebf2e35549d1a4255b70b43af2819c4941e16f0948",
       "executable": false
     },
     "tests/profile/vitest.config.ts": {
@@ -11964,7 +11964,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/decision-layer-journey.mjs": {
-      "sha256": "d8f28b997a92f9c6cbcb2e7127381de1bed05e7aaff03312e265b59078742bab",
+      "sha256": "b70080650e7b59d9e6f42a6580492e258ae51105f132c77bd411e3fe66fd5149",
       "executable": false
     },
     "tests/qualification/ui-convergence/developer-access-journey.mjs": {

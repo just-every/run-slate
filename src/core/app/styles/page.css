@@ -1,5 +1,6 @@
 .slate-app .page-byline { display: flex; align-items: center; flex-wrap: wrap; gap: 4px 14px; color: var(--slate-ink-muted); font-size: 13px; margin: 0 0 20px; }
 .slate-app .page-byline:empty { display: none; }
+.slate-app [data-page-decision] a { color: var(--slate-accent); text-decoration: underline; text-underline-offset: 3px; }
 .slate-app .byline-avatar { display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--slate-accent); color: var(--slate-accent-ink); font-size: var(--text-small); font-weight: 600; }
 .slate-app .byline-owner { display: inline-flex; align-items: center; gap: 10px; }
 .slate-app .draft-label { color: var(--slate-ink-muted); font-size: var(--text-small); margin-bottom: 10px; }

@@ -28,6 +28,10 @@ export async function decisionLayerJourney(state,people) {
     {id:randomUUID(),blockType:'paragraph',treePosition:'a',content:{text:[{text:'Decision layer source',link:{href:`${origin}/app/pages/${pageId}`}}]}},
   ]);
   await native('PATCH',`/api/pages/${pageId}`,{expectedRevisionId:(await read(`/api/pages/${pageId}`)).page.revisionId,properties:{title:'Decision layer source revised'}});
+  await grant(context,origin,pageId,'browser-owner','full');
+  await native('PUT',`/api/sharing/pages/${pageId}/inheritance`,{expectedRevisionId:(await read(`/api/pages/${pageId}`)).page.revisionId,restricted:true});
+  // Space visibility permits its decision filter; page restriction keeps access explicit.
+  await native('POST','/api/sharing',{targetKind:'container',targetId:space.id,principalKind:'member',principalId:editor.id,level:'view'});
   const editorGrant=await grant(context,origin,pageId,editor.id,'edit');
   for(const id of [target,inbound])await grant(context,origin,id,editor.id,'view');
   await native('POST',`/api/comments/page/${pageId}`,{body:[{text:'Retain this page discussion independently of its decision.'}]},editor.context);
@@ -70,11 +74,26 @@ export async function decisionLayerJourney(state,people) {
     await dialog.getByRole('button',{name:'Add current revision',exact:true}).click();
     await expect(dialog.getByText('1 exact reference retained.',{exact:true})).toBeVisible();
     const capture=async(route,action)=>{
-      const pending=view.waitForResponse(response=>new URL(response.url()).pathname===route&&response.request().method()==='POST');
-      await action();const response=await pending;assert.equal(response.status(),200,await response.text());
-      const result=await response.json();receipts.push(result.receipt);return {result,input:response.request().postDataJSON()};
+      // Buffer the genuine committed response before creation navigates away.
+      // Only delivery timing changes; the native Worker supplies every byte.
+      let resolve,reject;
+      const pending=new Promise((yes,no)=>{resolve=yes;reject=no;});
+      const matches=url=>url.pathname===route;
+      const intercept=async requestRoute=>{
+        if(requestRoute.request().method()!=='POST')return requestRoute.continue();
+        try {
+          const response=await requestRoute.fetch({maxRetries:0});
+          assert.equal(response.status(),200,await response.text());
+          const result=await response.json(),input=requestRoute.request().postDataJSON();
+          await requestRoute.fulfill({response});resolve({result,input});
+        } catch(cause) {reject(cause);await requestRoute.abort().catch(()=>{});}
+      };
+      await view.route(matches,intercept);
+      try {await action();const captured=await pending;receipts.push(captured.result.receipt);return captured;}
+      finally {await view.unroute(matches,intercept);}
     };
     const close=dialog.getByRole('button',{name:'Close dialog',exact:true});
+    await view.keyboard.press('Tab');
     await close.focus();
     await expect.poll(()=>close.evaluate(element=>getComputedStyle(element,'::after').opacity)).toBe('1');
     await expect(close).toHaveAttribute('data-tooltip',/\S+\s+\S+/);
@@ -119,9 +138,18 @@ export async function decisionLayerJourney(state,people) {
     await expect(readerView.getByRole('menuitem',{name:'Open decision record',exact:true})).toBeVisible();
     await expect(readerView.getByRole('menuitem',{name:'Add decision record',exact:true})).toHaveCount(0);
     await readerView.keyboard.press('Escape');
+    const entryBox=await entry.boundingBox(),bodyBox=await readerView.locator(`[data-block-id="${blockId}"]`).first().boundingBox();
+    assert.ok(entryBox&&bodyBox&&entryBox.y+entryBox.height<=bodyBox.y,'The current decision entry is in the page metadata above its body.');
     await accessible(readerView,'decision layer read-only page entry');
     await entry.getByRole('link').click();
     await expect(readerView.getByRole('article').getByRole('heading',{name:original.question,exact:true})).toBeVisible();
+    const card=readerView.getByRole('article');
+    await card.getByText('Options & supporting sources',{exact:true}).click();
+    for(const option of original.content.options)await expect(card.getByRole('listitem').filter({hasText:option})).toBeVisible();
+    await card.getByText('Source 1',{exact:true}).click();
+    await expect(card.locator('.evidence-reference')).toContainText('Keep the operational body and its discussion.');
+    await card.getByText('Reference details',{exact:true}).click();
+    await expect(card.locator('.evidence-reference')).toContainText(before.document.workingRevisionId);
     await view.goto(`${origin}/app/pages/${pageId}`,{waitUntil:'networkidle'});
     await view.reload({waitUntil:'networkidle'});
     await view.getByRole('button',{name:'More',exact:true}).click();
@@ -129,7 +157,7 @@ export async function decisionLayerJourney(state,people) {
     await view.getByRole('menuitem',{name:'Open decision record',exact:true}).click();
     await view.getByText('Choose the outcome',{exact:true}).click();
     await view.getByPlaceholder('Which outcome should this decision record?').fill('Second procedure');
-    await view.getByLabel('Why this choice?',{exact:true}).fill('Review selected the second procedure.');
+    await view.getByRole('textbox',{name:'Why this choice?',exact:true}).fill('Review selected the second procedure.');
     const edited=await capture('/api/decisions',()=>view.getByRole('button',{name:'Save proposed decision',exact:true}).click());
     await expect(view.getByRole('article').getByText('Second procedure',{exact:true}).first()).toBeVisible();
     await unchanged('after edit');
