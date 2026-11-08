@@ -159,7 +159,6 @@ export function MediaBlock({
   actions,
 }: BlockRenderProps<MediaBlockData>) {
   const altId = useId();
-  const describesDisplay = block.kind !== "file";
 
   return (
     <figure className="my-2 flex flex-col gap-2">
@@ -182,7 +181,7 @@ export function MediaBlock({
         />
       </figcaption>
 
-      {canEdit && describesDisplay ? (
+      {canEdit ? (
         <div className="flex flex-col gap-1">
           <Label htmlFor={altId}>Alt text</Label>
           <Input
@@ -195,7 +194,7 @@ export function MediaBlock({
             value={block.alt}
           />
           <p className="text-tiny text-ink-faint" id={`${altId}-hint`}>
-            Read out in place of the {kindLabel[block.kind].toLowerCase()}.
+            {block.kind === "file" ? "Describe this attachment." : `Read out in place of the ${kindLabel[block.kind].toLowerCase()}.`}
           </p>
         </div>
       ) : null}

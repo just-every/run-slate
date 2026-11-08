@@ -54,7 +54,7 @@ function renderBlock(b: BlockView, slug: string, links: Record<string, string>, 
         if (!c.source?.fileId)
             return `<p>${html(c.caption || c.source?.name || '')}</p>`;
         const base = `/p/${encodeURIComponent(slug)}/media/${encodeURIComponent(c.source.fileId)}${revisionId ? `?revision=${encodeURIComponent(revisionId)}` : ''}`, url = `${base}${revisionId ? '&amp;' : '?'}display=${encodeURIComponent(b.id)}`;
-        return c.kind === 'image' ? `<figure><img src="${url}" alt="${html(c.alt)}"><figcaption>${html(c.caption)}</figcaption></figure>` : c.kind === 'audio' ? `<audio controls src="${url}"></audio>` : c.kind === 'video' ? `<video controls src="${url}"></video>` : `<a href="${base}">${html(c.source.name)}</a>`;
+        return c.kind === 'image' ? `<figure><img src="${url}" alt="${html(c.alt)}"><figcaption>${html(c.caption)}</figcaption></figure>` : c.kind === 'audio' ? `<figure><audio controls src="${url}" aria-label="${html(c.alt || c.source.name)}"></audio><figcaption>${html(c.caption)}</figcaption></figure>` : c.kind === 'video' ? `<figure><video controls src="${url}" aria-label="${html(c.alt || c.source.name)}"></video><figcaption>${html(c.caption)}</figcaption></figure>` : `<figure><a href="${base}" aria-label="${html(c.alt || c.source.name)}">${html(c.source.name)}</a><figcaption>${html(c.caption)}</figcaption></figure>`;
     }
     case 'file-card': return `<p id="${id}"><a href="${html(c.url)}" rel="noopener noreferrer">${html(c.provider)} file</a></p>`;
     case 'link-card': {
@@ -83,9 +83,9 @@ export function renderPublicDocument(exposure: Record<string, any>, links: Recor
     function tree(parent: string | null): string {
         return (byParent.get(parent) ?? []).map(block => block.blockType==='columns' ? `<section class="slate-columns" style="--column-count:${Number((block.content as {count:number}).count)}">${tree(block.id)}</section>` : block.blockType==='column' ? `<div class="slate-column">${tree(block.id)}</div>` : `${renderBlock(block, exposure.slug, links, blocks, refusedHosts, exposure.selectedRevisionId)}${byParent.has(block.id) ? `<section class="nested">${tree(block.id)}</section>` : ''}`).join('');
     }
-    const media = (id: string) => `/p/${encodeURIComponent(exposure.slug)}/media/${encodeURIComponent(id)}${exposure.selectedRevisionId ? `?revision=${encodeURIComponent(exposure.selectedRevisionId)}` : ''}`;
-    const cover = properties.coverFileId ? `<img class="page-cover" src="${media(properties.coverFileId)}" alt="">` : '';
-    const icon = properties.icon ? `<div class="page-icon">${properties.icon.startsWith('file:') ? `<img src="${media(properties.icon.slice(5))}" alt="">` : html(properties.icon)}</div>` : '';
+    const media = (id: string, display: 'icon' | 'cover') => `/p/${encodeURIComponent(exposure.slug)}/media/${encodeURIComponent(id)}${exposure.selectedRevisionId ? `?revision=${encodeURIComponent(exposure.selectedRevisionId)}&amp;` : '?'}display=${display}`;
+    const cover = properties.coverFileId ? `<img class="page-cover" src="${media(properties.coverFileId, 'cover')}" alt="">` : '';
+    const icon = properties.icon ? `<div class="page-icon">${properties.icon.startsWith('file:') ? `<img src="${media(properties.icon.slice(5), 'icon')}" alt="">` : html(properties.icon)}</div>` : '';
     return publicDocumentShell({
         title: properties.title,
         theme: exposure.theme,

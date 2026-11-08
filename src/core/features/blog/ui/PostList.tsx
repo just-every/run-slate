@@ -5,7 +5,7 @@ export interface PostItem { pageId: string; title: string; containerId: string; 
 
 /** A cover never loads a remote link by itself; linked covers show on the post once the reader asks. */
 function Cover({ post }: { post: PostItem }) {
- if (post.coverFileId) return <img className="post-cover" src={`/api/media/${encodeURIComponent(post.coverFileId)}?display=inline`} alt=""/>;
+ if (post.coverFileId) return <img className="post-cover" src={`/api/media/${encodeURIComponent(post.coverFileId)}?display=cover`} alt=""/>;
  if (post.cover?.kind === 'gallery' && galleries[post.cover.id]) return <div className="post-cover" aria-hidden="true" style={{ background: galleries[post.cover.id] }}/>;
  return null;
 }
