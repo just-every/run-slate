@@ -120,5 +120,5 @@ export async function mediaBlocksJourney(api:ReturnType<typeof createApi>, works
     refusedRequests.push({path,status:response.status,type:response.headers.get('content-type'),disposition:response.headers.get('content-disposition'),nosniff:response.headers.get('x-content-type-options'),body:await response.text()});
   }
   expect((await request(`/p/${slug}/media/${files[0]!.id}`,'GET',undefined,'')).status).toBe(404);
-  console.log('MEDIA_DISPOSITION_MATRIX '+JSON.stringify({matrix,refusedRequests,sanitizedSvg,entitySvg:{status:entities.status,body:entityRefusal,filesUnchanged:true,objectsUnchanged:true},revokedPublic:404,trashedPage:404}));
+  console.warn('MEDIA_DISPOSITION_MATRIX '+JSON.stringify({matrix,refusedRequests,sanitizedSvg,entitySvg:{status:entities.status,body:entityRefusal,filesUnchanged:true,objectsUnchanged:true},revokedPublic:404,trashedPage:404}));
 }
