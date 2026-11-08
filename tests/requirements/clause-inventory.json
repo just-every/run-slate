@@ -2027,7 +2027,7 @@
       "id": "DEC-005",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Default-profile scheduled processing and the existing responsive core-wiki registrations now exercise overdue review delivery, current owner access, unchanged Accepted state, completed review attribution and next review date, repeated periods and supersession. Exact-SHA Verify and guarded landing remain required before the source judgment changes. The profile and browser registrations run outside the Workers-only supporting registry; this inventory does not promote a contract status.",
+      "unmetReason": "Cold default-profile scheduled processing without a prior API request and the existing responsive core-wiki registrations now exercise overdue review delivery, current owner access, unchanged Accepted state, completed review attribution and next review date, repeated periods and supersession. Exact-SHA Verify and guarded landing remain required before the source judgment changes. The profile and browser registrations run outside the Workers-only supporting registry; this inventory does not promote a contract status.",
       "supportingTests": []
     },
     {

@@ -42,6 +42,9 @@ export async function decisionReviewJourney(state,people,width) {
 
   // The emitted scheduled handler sees real accepted decisions; only their clock inputs move.
   await fixtureSql([`UPDATE knowledge_decisions SET review_at='2000-01-01T00:00:00.000Z' WHERE id IN ('${draft.id}','${denied.id}')`]);
+  // A fresh cron isolate has not served an API request to register notification rules.
+  await alice.page.goto('about:blank');
+  await state.atRest('SELECT 1');
   await runScheduled();await runScheduled();
   const first=await notices(alice,draft.id);
   await verify(async()=>{
