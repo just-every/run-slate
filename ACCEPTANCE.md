@@ -2077,6 +2077,8 @@ Core · published · **partial** · Cites BASE-AUDIT-001
 
 **Requirement.** Activity records page creation, body and property changes, publish and unpublish, moves, archive, trash, restore and permanent deletion, version restores and deletions, status and verification changes, grant and external-access changes, comment activity, container and group changes, database structure changes, automation runs, AI runs and their acceptance or rejection, member invitation and removal, import and export.
 
+Readable downloads record only the authorized target and export metadata after rendering and access validation. Replaying the same operation key retains one success entry; refused exports release no bytes or success entry. Empty-space deletion requires explicit confirmation, owner authority and fresh session proof; populated spaces retain their pages until those pages are moved or erased through the existing page doors.
+
 **Acceptance.**
 1. Activity records page creation, body and property changes, publish and unpublish, moves, archive, trash, restore and permanent deletion, version restores and deletions, status and verification changes, grant and external-access changes, comment activity, container and group changes, database structure changes, automation runs, AI runs and their acceptance or rejection, member invitation and removal, import and export.
 2. Each listed action kind produces an activity entry.
