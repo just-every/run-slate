@@ -1,0 +1,14 @@
+{
+  "mode": "after",
+  "pageId": "01M6XSE25BMV3YN6NC9N0K3EZD",
+  "pendingBodyY": 339.59375,
+  "afterBodyY": 339.59375,
+  "threshold": 379.8,
+  "loadingIndicators": 0,
+  "pendingCompact": true,
+  "afterCompact": true,
+  "head": "dfa6b60e27c6850dd64ee5b899a7ca3eacd63694",
+  "command": "node /tmp/decision-layout-probe.mjs after",
+  "exit": 0,
+  "transport": "Native decision-list GET held before dispatch, then continued unchanged"
+}

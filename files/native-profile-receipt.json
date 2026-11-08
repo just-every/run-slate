@@ -1,0 +1,9 @@
+{
+  "head": "20880dc2358c4259312f7ebf1263534d95bf290f",
+  "exit": 0,
+  "passed": 4,
+  "failed": 0,
+  "command": "pnpm exec vitest run --config tests/profile/vitest.config.ts tests/profile/profile.worker.test.ts --reporter=default --reporter=json",
+  "resultFile": "native-profile-results.json",
+  "includesRemovedAndReplacedCreationReplay": true
+}

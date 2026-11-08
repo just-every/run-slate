@@ -1,0 +1,209 @@
+{
+  "head": "20880dc2358c4259312f7ebf1263534d95bf290f",
+  "run": {
+    "conclusion": "failure",
+    "event": "push",
+    "head_sha": "20880dc2358c4259312f7ebf1263534d95bf290f",
+    "html_url": "https://github.com/just-every/run-slate/actions/runs/42491403269",
+    "id": 42491403269,
+    "name": "Verify Slate",
+    "status": "completed"
+  },
+  "jobs": [
+    {
+      "conclusion": "success",
+      "html_url": "https://github.com/just-every/run-slate/actions/runs/42491403269/job/128764372717",
+      "id": 128764372717,
+      "name": "plan",
+      "status": "completed",
+      "steps": [
+        {
+          "conclusion": "success",
+          "name": "Set up job",
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/checkout@v5",
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run set -euo pipefail",
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v5",
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Complete job",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "conclusion": "failure",
+      "html_url": "https://github.com/just-every/run-slate/actions/runs/42491403269/job/128764402150",
+      "id": 128764402150,
+      "name": "verify (app)",
+      "status": "completed",
+      "steps": [
+        {
+          "conclusion": "success",
+          "name": "Set up job",
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/checkout@v5",
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run pnpm/action-setup@v4",
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/setup-node@v5",
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run pnpm install --frozen-lockfile",
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Install Chromium",
+          "status": "completed"
+        },
+        {
+          "conclusion": "failure",
+          "name": "Run node src/base/runtime/contract-docs.mjs check",
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Run node scripts/sync-project-setup.mjs --check && pnpm verify",
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Run actions/upload-artifact@v4",
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Retain failures",
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Post Run actions/setup-node@v5",
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run pnpm/action-setup@v4",
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v5",
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Complete job",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "conclusion": "skipped",
+      "html_url": "https://github.com/just-every/run-slate/actions/runs/42491403269/job/128764403044",
+      "id": 128764403044,
+      "name": "import-scale",
+      "status": "completed",
+      "steps": []
+    },
+    {
+      "conclusion": "failure",
+      "html_url": "https://github.com/just-every/run-slate/actions/runs/42491403269/job/128764552723",
+      "id": 128764552723,
+      "name": "verify",
+      "status": "completed",
+      "steps": [
+        {
+          "conclusion": "success",
+          "name": "Set up job",
+          "status": "completed"
+        },
+        {
+          "conclusion": "failure",
+          "name": "Require the plan and every expected job",
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Complete job",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "conclusion": "skipped",
+      "html_url": "https://github.com/just-every/run-slate/actions/runs/42491403269/job/128764553198",
+      "id": 128764553198,
+      "name": "verify (${{ matrix.suite }})",
+      "status": "completed",
+      "steps": []
+    },
+    {
+      "conclusion": "skipped",
+      "html_url": "https://github.com/just-every/run-slate/actions/runs/42491403269/job/128764553321",
+      "id": 128764553321,
+      "name": "local-journeys",
+      "status": "completed",
+      "steps": []
+    },
+    {
+      "conclusion": "skipped",
+      "html_url": "https://github.com/just-every/run-slate/actions/runs/42491403269/job/128764554780",
+      "id": 128764554780,
+      "name": "contract",
+      "status": "completed",
+      "steps": []
+    }
+  ],
+  "expectedGeneratedViewFailureOnly": true,
+  "archiveCommands": [
+    {
+      "command": "gh run view 42491403269 --repo just-every/run-slate --job 128764402150 --log-failed",
+      "exit": 0,
+      "excerpt": [
+        "verify (app)\tRun node src/base/runtime/contract-docs.mjs check\t2026-11-08T14:46:38.7512359Z ACCEPTANCE.md: generated content differs; run contract-docs write.",
+        "verify (app)\tRun node src/base/runtime/contract-docs.mjs check\t2026-11-08T14:46:38.7630257Z ##[error]Process completed with exit code 1."
+      ]
+    },
+    {
+      "command": "gh run view 42491403269 --repo just-every/run-slate --job 128764552723 --log-failed",
+      "exit": 0,
+      "excerpt": [
+        "verify\tRequire the plan and every expected job\t2026-11-08T14:46:44.3437211Z   APP: failure",
+        "verify\tRequire the plan and every expected job\t2026-11-08T14:46:44.3437908Z   SHARDS: skipped",
+        "verify\tRequire the plan and every expected job\t2026-11-08T14:46:44.3438556Z   CONTRACT: skipped",
+        "verify\tRequire the plan and every expected job\t2026-11-08T14:46:44.3439337Z   LOCAL: skipped",
+        "verify\tRequire the plan and every expected job\t2026-11-08T14:46:44.3440061Z   SCALE: skipped",
+        "verify\tRequire the plan and every expected job\t2026-11-08T14:46:44.3618533Z ##[error]Process completed with exit code 1."
+      ]
+    }
+  ],
+  "manualGitHubCallsUsed": 10,
+  "productTestFailureInCi": false,
+  "shardsSkipped": true
+}

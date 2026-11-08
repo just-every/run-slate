@@ -1,0 +1,34 @@
+{
+  "head": "dfa6b60e27c6850dd64ee5b899a7ca3eacd63694",
+  "exit": 0,
+  "passed": 2,
+  "failed": 0,
+  "command": "node --test --test-concurrency=1 --test-name-pattern='^BLOCK-010 \u2014 native content queries retain criteria and current-reader results at (390|1440)px$' tests/qualification/ui-convergence/journeys.test.mjs",
+  "durationsMs": {
+    "1440": 215074.87946,
+    "390": 142380.007478
+  },
+  "browserCodeAndCallerHashes": {
+    "CONTRACT.md": "c5f934b93251348918018b17ccf6d0f4966178a6f4efced2283e22a0f39d7067",
+    "src/core/app/styles/page.css": "7062d6fa009eed3059d051a90693f063a5cb2bcdee3352e9af91e23040053d20",
+    "src/core/features/decisions/records.ts": "59926669e339c59e1239ca25c07b524e85b59b8225fdcd20101b91d4fb35b422",
+    "src/core/features/decisions/service.ts": "7aea085bfe937498b3f2577031ab53f585a1b1a901f9e976303d6557b401f4d4",
+    "src/core/features/decisions/ui/CreateDecisionDialog.tsx": "d6010780c4fe16a4336dcf0d84a2b098755c1047b7d7570149e1aef1c53f1fea",
+    "src/core/features/pages/ui/workspace/PageActionDialogs.tsx": "79284fd3f9cfa70b310aadc578a7eff06fdf60ead131fcd18855f7d1a5ca1b5d",
+    "src/core/features/pages/ui/workspace/PageMoreMenu.tsx": "2cf0b4a4bf80c5dfda99dede28820044dafcc87f40e55e480316257019ad512c",
+    "src/core/features/pages/ui/workspace/PageWorkspace.tsx": "d6c9d4d6df0409d36c602a82004cb4a1bba9ab57f614cd18b2eaa84685c21bba",
+    "tests/qualification/ui-convergence/decision-layer-journey.mjs": "b70080650e7b59d9e6f42a6580492e258ae51105f132c77bd411e3fe66fd5149",
+    "tests/qualification/ui-convergence/journeys.test.mjs": "9b2861649733fcaefc9ed7d36596fb6a302a94ca5b8fe0f959e1c2694d079446",
+    "tests/requirements/clause-inventory.json": "5fe79308bde0266876275ef864ee83b885517d19bd79d7666c278a3ffddace73"
+  },
+  "artifact": {
+    "schema": 1,
+    "commit": "dfa6b60e27c6850dd64ee5b899a7ca3eacd63694",
+    "tree": "baa27a7d707dedc13c81dd16db86c518e4871a65",
+    "sourceSha256": "30e23d3bbbc2f3681ba0db93e6fe7e291bb11019697d06976733a7373f627883",
+    "lockSha256": "914432557ba9356543186ff7d09182d6773aa1f72c8960a77641b4b3221accff",
+    "outputSha256": "8098d798dd190800b4421f125ddef28dc5cd73afdf9f8a0c964cff69a20e05a5"
+  },
+  "candidate": "20880dc2358c4259312f7ebf1263534d95bf290f",
+  "browserCodeAndCallersIdentical": true
+}

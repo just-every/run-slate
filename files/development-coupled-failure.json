@@ -1,0 +1,21 @@
+{
+  "head": "15c5e942625b22bf95a2c4836b9a0fb559869da6",
+  "command": "node --test --test-concurrency=1 --test-name-pattern='^real core-wiki and touch-member journeys at (390|1440)px$' tests/qualification/ui-convergence/journeys.test.mjs",
+  "exit": 1,
+  "stage": "development; before optional loading fix and helper relocation",
+  "failures": [
+    {
+      "test": "real core-wiki and touch-member journeys at 390px",
+      "kind": "assertion",
+      "failure": "The page body begins within the first 45% of the viewport.",
+      "file": "tests/qualification/ui-convergence/browser-evidence.mjs",
+      "line": 52
+    },
+    {
+      "test": "real core-wiki and touch-member journeys at 1440px",
+      "kind": "harness timeout",
+      "failure": "test timed out after 720000ms",
+      "durationMs": 720003.797908
+    }
+  ]
+}

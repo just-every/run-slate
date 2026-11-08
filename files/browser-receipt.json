@@ -1,0 +1,54 @@
+{
+  "head": "20880dc2358c4259312f7ebf1263534d95bf290f",
+  "exit": 0,
+  "command": "SLATE_CHROMIUM_PATH=/usr/bin/chromium cloud_run perl alarm-1200 node /tmp/decision-browser.mjs",
+  "profile": "core-wiki",
+  "widths": [
+    1440,
+    390
+  ],
+  "artifact": {
+    "schema": 1,
+    "commit": "20880dc2358c4259312f7ebf1263534d95bf290f",
+    "tree": "92bdb50c2538288f4f0f98185efc603855195891",
+    "sourceSha256": "dc7cbbc3aebb8d15a09e17a75183fc8b66e276cddb17bcd5fa6ecc435b88518f",
+    "lockSha256": "ddcab3b7c6f1d444525dcb85ac0c316e7a645bf1c1b4a6af0cedf03ce109815f",
+    "outputSha256": "8098d798dd190800b4421f125ddef28dc5cd73afdf9f8a0c964cff69a20e05a5"
+  },
+  "results": [
+    {
+      "width": 1440,
+      "snapshots": 8,
+      "receipts": 15,
+      "refusals": [
+        409,
+        409,
+        404,
+        404,
+        404,
+        404,
+        404,
+        404,
+        404
+      ],
+      "historyRevisions": 5
+    },
+    {
+      "width": 390,
+      "snapshots": 8,
+      "receipts": 15,
+      "refusals": [
+        409,
+        409,
+        404,
+        404,
+        404,
+        404,
+        404,
+        404,
+        404
+      ],
+      "historyRevisions": 5
+    }
+  ]
+}

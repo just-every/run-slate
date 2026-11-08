@@ -1,0 +1,10 @@
+{
+  "head": "20880dc2358c4259312f7ebf1263534d95bf290f",
+  "before": 211,
+  "after": 211,
+  "registrationSites": 204,
+  "unresolved": [],
+  "command": "node tests/requirements/count-registrations.mjs origin/main; node tests/requirements/count-registrations.mjs",
+  "exit": 0,
+  "registrationsAdded": 0
+}

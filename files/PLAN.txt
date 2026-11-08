@@ -1,0 +1,8 @@
+DEC-001 plan
+1. Retain the full requirement and acceptance 1 and 2; preserve every main Status cell and generated view.
+2. Expose the active decision beside the default page metadata and in More for readers. Offer creation only when no active layer exists. Explicitly refuse a duplicate at the service and dialog doors while retaining the unique database constraint.
+3. Extend existing core responsive callers with one focused native browser journey. A non-owner editor creates populated decision content over a page with body, earlier revisions, comments, explicit grants and both link directions. Snapshot every retained page revision and public projection before and after create, edit, accept, duplicate refusal, removal and replacement.
+4. Add the native case inside the existing profile registration, preserving test count. Exercise allowed and unauthorized routes, exact citations, duplicate-safe replay and removal history.
+5. Run touched native proof, focused browser helper at 1440 and 390, typecheck, first-party, contract write and check; restore generated views, sync integration and lock source last.
+6. Save and push coherent commits through the fleet push guard, merge refreshed main before final candidate, inspect all candidate identities and trailers, publish reports separately, discover exact-SHA Verify and report custody honestly.
+Acceptance gaps on initial main: the default page has no decision entry; duplicate submissions expose generic ENTITY_CONFLICT; no loaded semantic DEC-001 journey proves populated page invariance and current-access denial across the complete layer lifecycle.

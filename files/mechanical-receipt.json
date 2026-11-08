@@ -1,0 +1,42 @@
+{
+  "head": "20880dc2358c4259312f7ebf1263534d95bf290f",
+  "main": "67b706484e5430012d9c154c1e14090ea1e49bc2",
+  "lock": {
+    "command": "pnpm source:lock && pnpm source:check",
+    "exit": 0
+  },
+  "views": {
+    "command": "node src/base/runtime/contract-docs.mjs write && node src/base/runtime/contract-docs.mjs check",
+    "exit": 0,
+    "generatedFilesRestored": true
+  },
+  "integration": {
+    "command": "pnpm integration:sync",
+    "exit": 0
+  },
+  "ledger": {
+    "command": "none; no migration changed",
+    "exit": 0
+  },
+  "typecheck": {
+    "command": "pnpm typecheck",
+    "exit": 0
+  },
+  "firstParty": {
+    "command": "npx -y @runeditrun/rer check --profile first-party",
+    "exit": 0
+  },
+  "statusCellsUnchanged": true,
+  "identity": "Run Edit Run fleet",
+  "trailers": [],
+  "restoredViewCheck": {
+    "command": "node src/base/runtime/contract-docs.mjs check",
+    "exit": 1,
+    "expected": true,
+    "output": "ACCEPTANCE.md: generated content differs; run contract-docs write."
+  },
+  "finalLockCheck": {
+    "command": "pnpm source:check",
+    "exit": 0
+  }
+}

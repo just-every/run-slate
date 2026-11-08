@@ -1,0 +1,35 @@
+{
+  "result": "passed",
+  "exit": 0,
+  "widths": [
+    1440,
+    390
+  ],
+  "command": "SLATE_CHROMIUM_PATH=/usr/bin/chromium node /tmp/decision-browser.mjs",
+  "artifact": {
+    "schema": 1,
+    "commit": "dfe5a94a803625d6252d80db4a633681499cde6d",
+    "tree": "cb73106a6cff02f661ef4b3d633111e7d395119f",
+    "sourceSha256": "ce4d767805a8e618944aea35d2012ec3a35e93fa33496860bcab68dbaaebd122",
+    "lockSha256": "9a27f34da912f3a96e6ae0074910f8b12a58ae41f9696e13ffeeff14a8c78bc8",
+    "outputSha256": "098d3f60435c9c165c8399d6c84d4d351c5ade75ea70bb2003103935c229823c"
+  },
+  "codeAndTestHashes": {
+    "CONTRACT.md": "c5f934b93251348918018b17ccf6d0f4966178a6f4efced2283e22a0f39d7067",
+    "src/core/app/styles/page.css": "7062d6fa009eed3059d051a90693f063a5cb2bcdee3352e9af91e23040053d20",
+    "src/core/features/decisions/records.ts": "59926669e339c59e1239ca25c07b524e85b59b8225fdcd20101b91d4fb35b422",
+    "src/core/features/decisions/service.ts": "7aea085bfe937498b3f2577031ab53f585a1b1a901f9e976303d6557b401f4d4",
+    "src/core/features/decisions/ui/CreateDecisionDialog.tsx": "d6010780c4fe16a4336dcf0d84a2b098755c1047b7d7570149e1aef1c53f1fea",
+    "src/core/features/pages/ui/workspace/PageActionDialogs.tsx": "79284fd3f9cfa70b310aadc578a7eff06fdf60ead131fcd18855f7d1a5ca1b5d",
+    "src/core/features/pages/ui/workspace/PageMoreMenu.tsx": "2cf0b4a4bf80c5dfda99dede28820044dafcc87f40e55e480316257019ad512c",
+    "src/core/features/pages/ui/workspace/PageWorkspace.tsx": "679db47452c0283aed0ec8f91b300f495bd212f5af011c7af622a7eb8ec3eaa6",
+    "tests/profile/profile.worker.test.ts": "633d4d6b755ef443496edeebf2e35549d1a4255b70b43af2819c4941e16f0948",
+    "tests/qualification/ui-convergence/decision-layer-journey.mjs": "b70080650e7b59d9e6f42a6580492e258ae51105f132c77bd411e3fe66fd5149",
+    "tests/qualification/ui-convergence/journeys.test.mjs": "9fbfd16c0885eef6596e921bdfe0220e2a10b01dc5bc5e75403faa2716f7f29b",
+    "tests/requirements/clause-inventory.json": "5fe79308bde0266876275ef864ee83b885517d19bd79d7666c278a3ffddace73",
+    "tests/requirements/cli-journey.md": "df3b35a28aa751bcb79f03162452e9636d7d5e53b7a5f4f09222fa25722b9e73"
+  },
+  "stage": "before final lock and candidate commit",
+  "candidate": "15c5e942625b22bf95a2c4836b9a0fb559869da6",
+  "candidateCodeAndTestsIdentical": true
+}
