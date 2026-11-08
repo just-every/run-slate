@@ -122,11 +122,14 @@ export async function decisionEditJourney(api: ReturnType<typeof createApi>, con
   expect(acceptedBefore.revisions).toHaveLength(beforeNoop.revisions.length + 1);
   expect(acceptedBefore.revisions.find(row => row.id === accepted.receipt.revisionId)).toMatchObject({entity_kind: 'decision-acceptance', actor_id: ownerId, created_at: accepted.receipt.committedAt});
   const forbiddenChanges = {question: 'Cannot revise acceptance', options: ['Forbidden option'], outcome: 'First', rationale: 'Forbidden reasoning', ownerId: editor.memberId, decidedAt: '2026-10-19T00:00:00.000Z', reviewAt: '2099-03-01T00:00:00.000Z', citations: []};
-  for (const [field, value] of Object.entries(forbiddenChanges)) {
-    const refused = await request('/api/decisions', 'POST', {...draft, [field]: value, operationKey: crypto.randomUUID(), expectedRevisionId: accepted.receipt.revisionId});
-    expect(refused.status).toBe(409);
-    expect(await refused.json()).toMatchObject({code: 'IMMUTABLE_DECISION'});
-    expect(await raw()).toEqual(acceptedBefore);
+  for (const cookie of [editorCookie, ownerCookie]) {
+    // Even the appointed owner cannot change frozen content or resubmit it.
+    for (const change of [{}, ...Object.entries(forbiddenChanges).map(([field, value]) => ({[field]: value}))]) {
+      const refused = await request('/api/decisions', 'POST', {...draft, ...change, operationKey: crypto.randomUUID(), expectedRevisionId: accepted.receipt.revisionId}, cookie);
+      expect(refused.status).toBe(409);
+      expect(await refused.json()).toMatchObject({code: 'IMMUTABLE_DECISION'});
+      expect(await raw()).toEqual(acceptedBefore);
+    }
   }
   // Acceptance cannot replace any earlier proposal snapshot.
   for (const snapshot of snapshots) expect((await read(route + '?revision=' + snapshot.id)).content).toEqual(snapshot.content);

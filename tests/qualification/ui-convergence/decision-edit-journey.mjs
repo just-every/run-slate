@@ -197,13 +197,17 @@ export async function decisionEditJourney(state, width) {
     await expect(article.getByText('Choose the outcome', {exact: true})).toHaveCount(0);
     // Each editable field is separately refused after acceptance, with identical history.
     const forbiddenChanges = {question: 'Cannot revise acceptance', options: ['Forbidden option'], outcome: 'First', rationale: 'Forbidden reasoning', ownerId: bob.id, decidedAt: '2026-10-19T00:00:00.000Z', reviewAt: '2099-03-01T00:00:00.000Z', citations: []};
-    for (const [field, value] of Object.entries(forbiddenChanges)) {
-      const attempt = await call(bob.context, origin, 'POST', '/api/decisions', {...unchanged.request, id, operationKey: crypto.randomUUID(), expectedRevisionId: acceptedBefore.decision.revision_id, [field]: value});
-      assert.equal(attempt.status, 409);
-      assert.equal(attempt.body.code, 'IMMUTABLE_DECISION');
-      assert.deepEqual(await stored(), acceptedBefore);
-      refusals.push({name: 'accepted ' + field, ...attempt});
+    for (const [actor, actorContext] of [['editor', bob.context], ['appointed owner', context]]) {
+      const changes = [['unchanged resubmit', {}], ...Object.entries(forbiddenChanges).map(([field, value]) => [field, {[field]: value}])];
+      for (const [field, change] of changes) {
+        const attempt = await call(actorContext, origin, 'POST', '/api/decisions', {...unchanged.request, id, operationKey: crypto.randomUUID(), expectedRevisionId: acceptedBefore.decision.revision_id, ...change});
+        assert.equal(attempt.status, 409);
+        assert.equal(attempt.body.code, 'IMMUTABLE_DECISION');
+        assert.deepEqual(await stored(), acceptedBefore);
+        refusals.push({name: 'accepted ' + actor + ' ' + field, ...attempt});
+      }
     }
+    await verifyHistory();
     assert.deepEqual((await read('/api/pages/' + host.pageId)).blocks, hostBefore.blocks);
     await accessible(view, 'accepted decision retains immutable history');
     const directory = path.join('.artifacts/ui-convergence/decision-edit', String(width));

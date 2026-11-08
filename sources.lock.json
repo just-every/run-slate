@@ -11476,7 +11476,7 @@
       "executable": false
     },
     "tests/profile/decision-edit-journey.ts": {
-      "sha256": "c64495a91be9ca171e202e0c5002f8734577d14598175f58656003e8f2ce97ec",
+      "sha256": "2a3189d6bf5975139bad384424f4c6c367984f772f9071bce38bc249827fe95a",
       "executable": false
     },
     "tests/profile/decision-log-journey.ts": {
@@ -11976,7 +11976,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/decision-edit-journey.mjs": {
-      "sha256": "4171f9eca8c48b44b4f786892ac39a3850da5774e563a5c8a1c10aa7a2649fe7",
+      "sha256": "fd1c18261174d9cab27ad680bce35b22b7d288165fd8e707fece2d2d0acd9dc3",
       "executable": false
     },
     "tests/qualification/ui-convergence/decision-log-journey.mjs": {
@@ -12480,7 +12480,7 @@
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
-      "sha256": "6c7e55c2c476ca67f1cd50d9b94e76b8d7d7b62dd42304134836ab9469fa22cc",
+      "sha256": "476d9d02921b3126ec832d90f41c18bfd118d60340ba3556fa1ae39cadc0c4ab",
       "executable": false
     },
     "tests/requirements/count-registrations.mjs": {
