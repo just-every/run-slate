@@ -2001,7 +2001,7 @@
       "id": "DEC-002",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for DEC-002 — States. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "This legacy Workers inventory records supporting regressions only; CONTRACT.md owns clause status. The existing core-wiki browser registrations load decision-states-journey.mjs at 1440 and 390. Native human proposals, owner-only acceptance, both supersession doors, five terminal refusals, exact history kinds, actors and times, and the decision-filtered Activity timeline are reconciled with the native activity API after replay and reload. The profile Worker case also compares canonical rows, revisions, receipts and activity across every refusal and replay. Exact-candidate Verify and guarded landing receipts remain separate.",
       "supportingTests": []
     },
     {

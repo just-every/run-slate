@@ -2057,7 +2057,7 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 #### DEC-002 — States
 
-**Requirement.** A decision is Proposed, Accepted or Superseded.
+**Requirement.** A decision is Proposed, Accepted or Superseded. Native human proposals are accepted by their appointed owner. Preparing a replacement leaves the earlier decision Accepted until the replacement is accepted; selecting an earlier accepted decision at acceptance follows the same terminal supersession rule. Replaying a committed request returns its original transition receipt after current authority is checked.
 
 **Acceptance.**
 1. Proposed becomes Accepted, an Accepted decision is superseded by another decision, and Superseded is terminal.
