@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "635da0b4c7f54bd5b136a8a9195e442ba863325269c5d70c7b70ae139e79e2e3",
+      "sha256": "c57fc1007b3c71dfc1d163f45d74a7e3a1593fc035f231a2e836787d3d325515",
       "executable": false
     },
     "DEMO.md": {
@@ -11964,7 +11964,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/decision-states-journey.mjs": {
-      "sha256": "045456c04ae592abefb340bc3a013e9d3253054e9548bf1ae3b3145adb9a8bb7",
+      "sha256": "cb3ee86701fdcc3f696251ad793359bf3a60891803b6cf0b50134d360745c48b",
       "executable": false
     },
     "tests/qualification/ui-convergence/developer-access-journey.mjs": {

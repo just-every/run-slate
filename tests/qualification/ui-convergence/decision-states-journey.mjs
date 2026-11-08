@@ -1,12 +1,15 @@
 import assert from 'node:assert/strict';
 import {randomUUID} from 'node:crypto';
 import {expect} from '@playwright/test';
+import {mkdir,readFile,writeFile} from 'node:fs/promises';
+import path from 'node:path';
+import {root} from '../../e2e/runtime-harness.mjs';
 import {openPageAction} from './browser-support.mjs';
 import {call, ok, withSecondPerson} from './two-people-support.mjs';
 
 /** Native human decisions: both replacement doors, terminal refusals and audit readback. */
 export async function decisionStatesJourney(state) {
-  const width = state.page.viewportSize().width;
+  const width = state.page.viewportSize().width, entryUrl = state.page.url();
   await withSecondPerson(state, width, async people => {
     const {alice, bob, record, shot} = people, {origin} = state;
     const read = path => ok(alice.context, origin, 'GET', path);
@@ -96,7 +99,7 @@ export async function decisionStatesJourney(state) {
     await expect(alice.page.locator('.finding .eyebrow')).toHaveText('proposed');
     assert.equal((await read(`/api/decisions/${firstId}`)).state,'accepted','Preparation alone leaves the earlier decision accepted.');
     await alice.page.getByLabel('Decision',{exact:true}).fill('Proceed with a staged launch');
-    await alice.page.getByLabel('Why this choice?',{exact:true}).fill('The replacement has current evidence.');
+    await alice.page.getByLabel('Why this choice?').fill('The replacement has current evidence.');
     await uiWrite(alice,'/api/decisions',()=>alice.page.getByRole('button',{name:'Save proposed decision',exact:true}).click());
     await expect(alice.page.getByRole('button',{name:'Accept decision',exact:true})).toBeVisible();
     await accept(secondId);
@@ -104,7 +107,7 @@ export async function decisionStatesJourney(state) {
     const third = await propose(bob, await createPage('Decision selected replacement'), 'Which launch follows the staged launch?');
     const thirdId = third.value.id;
     await alice.page.goto(`${origin}/app/decisions/${thirdId}`,{waitUntil:'networkidle'});
-    await alice.page.getByLabel('Replaces an earlier decision',{exact:true}).selectOption(secondId);
+    await alice.page.getByLabel('Replaces an earlier decision').selectOption(secondId);
     await accept(thirdId);
     for(const [earlier,replacement] of [[firstId,secondId],[secondId,thirdId]]) {
       const row=await read(`/api/decisions/${earlier}`);
@@ -155,22 +158,29 @@ export async function decisionStatesJourney(state) {
     assert.equal(actual.length,expected.length,'Exactly one activity entry per committed decision operation or supersession, under replay.');
     for(const item of expected){const entry=actual.find(row=>row.id===item.id);assert.ok(entry);assert.equal(entry.actor.id,item.actorId);assert.equal(entry.occurredAt,item.at);assert.equal(entry.target.id,item.targetId);}
     for(const id of ids){
+      const retained=(await read(`/api/decisions/${id}/history`)).items;
+      assert.deepEqual(retained.map(row=>row.id).sort(),expected.filter(row=>row.targetId===id).map(row=>row.revisionId).sort(),'Every retained revision corresponds to exactly one committed decision transition.');
       await alice.page.goto(`${origin}/app/decisions/${id}`,{waitUntil:'networkidle'});
       await alice.page.reload({waitUntil:'networkidle'});
       await alice.page.getByText('Decision history and reviews',{exact:true}).click();
       const history=(await read(`/api/decisions/${id}/history`)).items;
-      for(const row of history){const link=alice.page.locator(`a[href="/app/decisions/${id}?revision=${row.id}"]`);await expect(link).toContainText(row.entity_kind);await expect(link.locator('..')).toContainText(row.actor_id==='browser-owner'?alice.name:bob.name);await expect(link).toContainText(new Date(row.created_at).toLocaleString('en-US'));}
+      for(const row of history){const link=alice.page.getByText('Decision history and reviews',{exact:true}).locator('..').locator(`a[href="/app/decisions/${id}?revision=${row.id}"]`);await expect(link).toContainText(row.entity_kind);await expect(link.locator('..')).toContainText(row.actor_id==='browser-owner'?alice.name:bob.name);await expect(link).toContainText(new Date(row.created_at).toLocaleString('en-US'));}
     }
     await shot('alice','decision history actor and time after reload');
     await alice.page.goto(origin+'/app/settings/activity',{waitUntil:'networkidle'});
     await alice.page.reload({waitUntil:'networkidle'});
-    await alice.page.getByLabel('Kind',{exact:true}).selectOption('decision');
+    await alice.page.getByLabel('Kind').selectOption('decision');
     const filtered=alice.page.waitForResponse(response=>new URL(response.url()).pathname==='/api/activity'&&new URL(response.url()).searchParams.get('kind')==='decision');
     await alice.page.getByRole('button',{name:'Filter activity',exact:true}).click();await filtered;
     await expect(alice.page.locator('[data-activity-id]')).toHaveCount(actual.length);
     for(const entry of actual){const row=alice.page.locator(`[data-activity-id="${entry.id}"]`);await expect(row).toContainText(entry.actor.displayName);await expect(row).toContainText(entry.action.replace(/[._-]/g,' '));await expect(row.locator('time')).toHaveAttribute('datetime',entry.occurredAt);}
     await shot('alice','native decision activity actor and time');
-    record('DEC-002',{committed:committed.map(({result,path,input,actorId})=>({result,path,input,actorId})),expected,activity:actual,refusals,unchanged:beforeTerminal});
+    const receipts={width,artifact:JSON.parse(await readFile(path.join(root,'.cache/slate/build-source.json'),'utf8')),committed:committed.map(({result,path,input,actorId})=>({result,path,input,actorId})),expected,activity:actual,refusals,unchanged:beforeTerminal};
+    record('DEC-002',receipts);
+    const evidence=path.join(root,'.artifacts/ui-convergence/decisions',String(width));
+    await mkdir(evidence,{recursive:true});
+    await writeFile(path.join(evidence,'receipts.json'),JSON.stringify(receipts,null,2));
     console.log(`PROBE DEC-002 1-3: non-owner proposal and acceptance refusal; appointed-owner acceptance; both supersession doors; five terminal refusals; ${expected.length} exact history and activity rows after replay and reload at ${width}px`);
   });
+  await state.page.goto(entryUrl,{waitUntil:'networkidle'});
 }
