@@ -1,0 +1,728 @@
+Journey failure context {
+  "rejected": [],
+  "consoleErrors": []
+}
+Journey failure context REQUEST TIMELINE {
+  "primary": {
+    "requestsAtDump": [
+      {
+        "method": "GET",
+        "path": "/api/pages/01M6YJ…GRKC",
+        "startMs": 0,
+        "durationMs": 21,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/pages/01M6YJ…XVNN",
+        "startMs": 27,
+        "durationMs": 19,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/<id>/01M6YJ…GT3F",
+        "startMs": 742,
+        "durationMs": 24,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/<id>/01M6YJ…GT3F",
+        "startMs": 3759,
+        "durationMs": 107,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/<id>/01M6YJ…GT3F",
+        "startMs": 6762,
+        "durationMs": 30,
+        "status": 200
+      },
+      {
+        "method": "POST",
+        "path": "/api/<id>/01M6YJ…GT3F/presence",
+        "startMs": 9782,
+        "durationMs": 33,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/<id>/01M6YJ…GT3F",
+        "startMs": 9815,
+        "durationMs": 31,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/<id>/01M6YJ…GT3F",
+        "startMs": 12774,
+        "durationMs": 51,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/revisions/01M6YJ…WTN9",
+        "startMs": 13970,
+        "durationMs": 24,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/pages/01M6YJ…WTN9",
+        "startMs": 14001,
+        "durationMs": 27,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/comments/<id>/01M6YJ…WTN9",
+        "startMs": 14035,
+        "durationMs": 15,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/sharing/pages/01M6YJ…WTN9",
+        "startMs": 14054,
+        "durationMs": 33,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/revisions/01M6YJ…WTN9/01M6YJ…9671",
+        "startMs": 14095,
+        "durationMs": 24,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/revisions/01M6YJ…WTN9/01M6YJ…WT3N",
+        "startMs": 14095,
+        "durationMs": 46,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/revisions/01M6YJ…WTN9/01M6YJ…Z8E2",
+        "startMs": 14095,
+        "durationMs": 46,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/pages/01M6YJ…WTN9/<id>",
+        "startMs": 14145,
+        "durationMs": 23,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/pages/01M6YJ…GRKC",
+        "startMs": 14172,
+        "durationMs": 15,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/pages/01M6YJ…XVNN",
+        "startMs": 14190,
+        "durationMs": 14,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/<id>/01M6YJ…YH7K/history",
+        "startMs": 14271,
+        "durationMs": 25,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/<id>",
+        "startMs": 14300,
+        "durationMs": 28,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/activity",
+        "startMs": 14332,
+        "durationMs": 35,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/<id>/01M6YJ…YH7K",
+        "startMs": 14430,
+        "durationMs": 24,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/<id>/01M6YJ…YH7K/history",
+        "startMs": 14457,
+        "durationMs": 27,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/<id>",
+        "startMs": 14488,
+        "durationMs": 36,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/activity",
+        "startMs": 14539,
+        "durationMs": 31,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/revisions/01M6YJ…WTN9",
+        "startMs": 14575,
+        "durationMs": 15,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/pages/01M6YJ…WTN9",
+        "startMs": 14593,
+        "durationMs": 16,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/comments/<id>/01M6YJ…WTN9",
+        "startMs": 14613,
+        "durationMs": 12,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/sharing/pages/01M6YJ…WTN9",
+        "startMs": 14629,
+        "durationMs": 27,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/revisions/01M6YJ…WTN9/01M6YJ…9671",
+        "startMs": 14662,
+        "durationMs": 16,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/revisions/01M6YJ…WTN9/01M6YJ…WT3N",
+        "startMs": 14662,
+        "durationMs": 49,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/revisions/01M6YJ…WTN9/01M6YJ…Z8E2",
+        "startMs": 14664,
+        "durationMs": 49,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/pages/01M6YJ…WTN9/<id>",
+        "startMs": 14716,
+        "durationMs": 23,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/pages/01M6YJ…GRKC",
+        "startMs": 14745,
+        "durationMs": 20,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/pages/01M6YJ…XVNN",
+        "startMs": 14768,
+        "durationMs": 16,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/<id>/01M6YJ…GT3F",
+        "startMs": 15784,
+        "durationMs": 25,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/<id>/01M6YJ…GT3F",
+        "startMs": 18776,
+        "durationMs": 29,
+        "status": 200
+      },
+      {
+        "method": "POST",
+        "path": "/api/<id>/01M6YJ…GT3F/presence",
+        "startMs": 21776,
+        "durationMs": 14,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/<id>/01M6YJ…GT3F",
+        "startMs": 21790,
+        "durationMs": 18,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/<id>/01M6YJ…GT3F",
+        "startMs": 24774,
+        "durationMs": 20,
+        "status": 200
+      }
+    ]
+  },
+  "others": [
+    {
+      "requestsAtDump": [
+        {
+          "method": "GET",
+          "path": "/api/<id>/01M6YJ…YH7K/history",
+          "startMs": 0,
+          "durationMs": 175,
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/<id>/01M6YJ…YH7K/<id>",
+          "startMs": 0,
+          "durationMs": 223,
+          "status": 200
+        },
+        {
+          "method": "POST",
+          "path": "/api/<id>",
+          "startMs": 929,
+          "durationMs": 379,
+          "status": 409
+        },
+        {
+          "method": "GET",
+          "path": "/api/<id>/01M6YJ…WTN9",
+          "startMs": 1308,
+          "durationMs": 73,
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/<id>/01M6YJ…WTN9",
+          "startMs": 4303,
+          "durationMs": 38,
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/<id>/01M6YJ…YH7K",
+          "startMs": 4830,
+          "durationMs": 49,
+          "status": 200
+        },
+        {
+          "method": "POST",
+          "path": "/api/<id>",
+          "startMs": 5122,
+          "durationMs": 60,
+          "status": 200
+        },
+        {
+          "method": "POST",
+          "path": "/api/<id>",
+          "startMs": 5286,
+          "durationMs": 54,
+          "status": 409
+        },
+        {
+          "method": "GET",
+          "path": "/app/pages/01M6YJ…WTN9",
+          "startMs": 9692,
+          "durationMs": 170,
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/assets/<id>",
+          "startMs": 9857,
+          "durationMs": 1,
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/assets/<id>",
+          "startMs": 9858,
+          "durationMs": 1,
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/assets/<id>",
+          "startMs": 9859,
+          "durationMs": 1,
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/assets/<id>",
+          "startMs": 9862,
+          "durationMs": 0,
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/tasks/01M6YJ…WTN9/assignees",
+          "startMs": 9946,
+          "durationMs": 77,
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/<id>",
+          "startMs": 9947,
+          "durationMs": 65,
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/app/pages/01M6YJ…WTN9",
+          "startMs": 10532,
+          "durationMs": 155,
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/assets/<id>",
+          "startMs": 10684,
+          "durationMs": 0,
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/assets/<id>",
+          "startMs": 10684,
+          "durationMs": 1,
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/assets/<id>",
+          "startMs": 10685,
+          "durationMs": 1,
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/assets/<id>",
+          "startMs": 10686,
+          "durationMs": 0,
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/tasks/01M6YJ…WTN9/assignees",
+          "startMs": 10773,
+          "durationMs": 40,
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/<id>",
+          "startMs": 10774,
+          "durationMs": 74,
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/navigation",
+          "startMs": 11451,
+          "durationMs": 7,
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/app/<id>/01M6YJ…YH7K",
+          "startMs": 11543,
+          "durationMs": 117,
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/assets/<id>",
+          "startMs": 11657,
+          "durationMs": 0,
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/assets/<id>",
+          "startMs": 11657,
+          "durationMs": 0,
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/assets/<id>",
+          "startMs": 11657,
+          "durationMs": 0,
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/assets/<id>",
+          "startMs": 11657,
+          "durationMs": 0,
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/assets/<id>",
+          "startMs": 11658,
+          "durationMs": 0,
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/assets/<id>",
+          "startMs": 11658,
+          "durationMs": 0,
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/<id>",
+          "startMs": 11735,
+          "durationMs": 42,
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/<id>/01M6YJ…YH7K",
+          "startMs": 11737,
+          "durationMs": 79,
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/members",
+          "startMs": 11737,
+          "durationMs": 60,
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/<id>/01M6YJ…YH7K/history",
+          "startMs": 11825,
+          "durationMs": 33,
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/members",
+          "startMs": 11825,
+          "durationMs": 59,
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/<id>/01M6YJ…YH7K/<id>",
+          "startMs": 11827,
+          "durationMs": 81,
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/<id>/01M6YJ…YH7K/history",
+          "startMs": 11827,
+          "durationMs": 112,
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/<id>/01M6YJ…YH7K/<id>",
+          "startMs": 11828,
+          "durationMs": 158,
+          "status": 200
+        },
+        {
+          "method": "POST",
+          "path": "/api/<id>",
+          "startMs": 12037,
+          "durationMs": 140,
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/<id>/01M6YJ…YH7K",
+          "startMs": 12179,
+          "durationMs": 5246,
+          "status": "pending"
+        }
+      ]
+    }
+  ]
+}
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+ExpectError: expect(locator).toBeVisible() failed
+
+Locator:  getByRole('article').getByText('Second procedure', { exact: true }).first()
+Expected: visible
+Received: hidden
+Timeout:  5000ms
+
+Call log:
+  - Expect "toBeVisible" getByRole('article').getByText('Second procedure', { exact: true }).first() with timeout 5000ms
+  - waiting for getByRole('article').getByText('Second procedure', { exact: true }).first()
+    14 × locator resolved to <li>Second procedure</li>
+       - unexpected value "hidden"
+
+    at captureRawStack (/home/agent/rer-consolidation/work/sd-slate-c-f205-fix1/run-slate/node_modules/.pnpm/playwright-core@1.63.0/node_modules/playwright-core/lib/coreBundle.js:8588:17)
+    at callMatcherAsStep (/home/agent/rer-consolidation/work/sd-slate-c-f205-fix1/run-slate/node_modules/.pnpm/playwright@1.63.0/node_modules/playwright/lib/matchers/expect.js:13310:57)
+    at Object.toBeVisible (/home/agent/rer-consolidation/work/sd-slate-c-f205-fix1/run-slate/node_modules/.pnpm/playwright@1.63.0/node_modules/playwright/lib/matchers/expect.js:13302:23)
+    at decisionLayerJourney (/tmp/slate-diagnostic-journey.mjs:172:96)
+    at async withSecondPerson (/home/agent/rer-consolidation/work/sd-slate-c-f205-fix1/run-slate/tests/qualification/ui-convergence/two-people-support.mjs:48:5)
+    at async file:///tmp/slate-decision-probe.mjs:30:3
+    at async withWorkspace (/home/agent/rer-consolidation/work/sd-slate-c-f205-fix1/run-slate/tests/qualification/ui-convergence/browser-support.mjs:197:7)
+    at async file:///tmp/slate-decision-probe.mjs:28:1 {
+  matcherResult: {
+    message: 'expect(locator).toBeVisible() failed\n' +
+      '\n' +
+      "Locator:  getByRole('article').getByText('Second procedure', { exact: true }).first()\n" +
+      'Expected: visible\n' +
+      'Received: hidden\n' +
+      'Timeout:  5000ms\n' +
+      '\n' +
+      'Call log:\n' +
+      `  - Expect "toBeVisible" getByRole('article').getByText('Second procedure', { exact: true }).first() with timeout 5000ms\n` +
+      "  - waiting for getByRole('article').getByText('Second procedure', { exact: true }).first()\n" +
+      '    14 × locator resolved to <li>Second procedure</li>\n' +
+      '       - unexpected value "hidden"\n',
+    pass: false,
+    actual: 'hidden',
+    name: 'toBeVisible',
+    expected: 'visible',
+    log: [
+      `  - Expect "toBeVisible" getByRole('article').getByText('Second procedure', { exact: true }).first() with timeout 5000ms`,
+      "  - waiting for getByRole('article').getByText('Second procedure', { exact: true }).first()",
+      '    14 × locator resolved to <li>Second procedure</li>',
+      '       - unexpected value "hidden"'
+    ],
+    timeout: 5000,
+    ariaSnapshot: '- link "Skip to content":\n' +
+      '  - /url: "#workspace-content"\n' +
+      '- complementary:\n' +
+      '  - link "Field notes":\n' +
+      '    - /url: /app\n' +
+      '  - button "Collapse sidebar"\n' +
+      '  - navigation "Workspace navigation":\n' +
+      '    - link "Today":\n' +
+      '      - /url: /app\n' +
+      '    - link "Search ⌘ K":\n' +
+      '      - /url: /app/search\n' +
+      '    - link "Inbox":\n' +
+      '      - /url: /app/inbox\n' +
+      '    - link "My tasks":\n' +
+      '      - /url: /app/tasks\n' +
+      '    - link "Needs review":\n' +
+      '      - /url: /app/review\n' +
+      '    - link "Spaces":\n' +
+      '      - /url: /app/containers\n' +
+      '    - link "Templates":\n' +
+      '      - /url: /app/templates\n' +
+      '    - link "Archive":\n' +
+      '      - /url: /app/archive\n' +
+      '    - link "Settings":\n' +
+      '      - /url: /app/settings\n' +
+      '  - button "Create"\n' +
+      '  - paragraph: Pages\n' +
+      '  - navigation "Pages":\n' +
+      '    - group:\n' +
+      '      - text: Handbook\n' +
+      '      - textbox "Filter pages in Handbook":\n' +
+      '        - /placeholder: Filter pages\n' +
+      '      - list:\n' +
+      '        - listitem:\n' +
+      '          - link "Welcome":\n' +
+      '            - /url: /app/pages/01M6YJBR631Q4K410V115QGT3F\n' +
+      '    - group:\n' +
+      '      - text: Decision layer handbook\n' +
+      '      - textbox "Filter pages in Decision layer handbook":\n' +
+      '        - /placeholder: Filter pages\n' +
+      '      - list:\n' +
+      '        - listitem:\n' +
+      '          - link "Decision layer handbook home":\n' +
+      '            - /url: /app/pages/01M6YJCD5JQHTCCQ8KW8V9TDJC\n' +
+      '    - group:\n' +
+      '      - text: Personal\n' +
+      '      - textbox "Filter pages in Personal":\n' +
+      '        - /placeholder: Filter pages\n' +
+      '      - list\n' +
+      '      - button "Create page in Personal"\n' +
+      '    - region "Shared with me":\n' +
+      '      - heading "Shared with me" [level=2]\n' +
+      '      - group:\n' +
+      '        - text: Decision layer handbook\n' +
+      '        - textbox "Filter pages in Shared with me · Decision layer handbook":\n' +
+      '          - /placeholder: Filter pages\n' +
+      '        - list:\n' +
+      '          - listitem:\n' +
+      '            - link "Decision supporting procedure":\n' +
+      '              - /url: /app/pages/01M6YJCD8F3VN05SW9JBZAXVNN\n' +
+      '          - listitem:\n' +
+      '            - link "Decision layer source revised":\n' +
+      '              - /url: /app/pages/01M6YJCDA3Q4W3TQ5E01GTWTN9\n' +
+      '          - listitem:\n' +
+      '            - link "Decision inbound reference":\n' +
+      '              - /url: /app/pages/01M6YJCDC208QT1WHTHNKDGRKC\n' +
+      '  - button "MR Morgan Reader"\n' +
+      '- main:\n' +
+      '  - navigation "Location":\n' +
+      '    - list:\n' +
+      '      - listitem:\n' +
+      '        - link "Decisions":\n' +
+      '          - /url: /app/decisions\n' +
+      '      - listitem: › Decision\n' +
+      '  - heading "Decisions" [level=1]\n' +
+      '  - link "All decisions":\n' +
+      '    - /url: /app/decisions\n' +
+      '  - paragraph: decision · 11/8/2026, 9:52:49 PM · Morgan Reader\n' +
+      '  - link "Open underlying page":\n' +
+      '    - /url: /app/pages/01M6YJCDA3Q4W3TQ5E01GTWTN9\n' +
+      '  - article:\n' +
+      '    - paragraph: proposed\n' +
+      '    - heading "Which recovery procedure should we adopt?" [level=4]\n' +
+      '    - paragraph: First procedure\n' +
+      '    - paragraph: Keep the documented recovery path.\n' +
+      '    - group: Options & supporting sources\n' +
+      '    - group:\n' +
+      '      - text: Choose the outcome Decision\n' +
+      '      - textbox "Decision":\n' +
+      '        - /placeholder: Which outcome should this decision record?\n' +
+      '        - text: Second procedure\n' +
+      '      - group: Question, owner, dates & evidence\n' +
+      '      - text: Why this choice?\n' +
+      '      - textbox "Why this choice?": Review selected the second procedure.\n' +
+      '      - button "Save proposed decision"\n' +
+      '    - paragraph: Acceptance records this exact decision. Only its appointed owner can accept it.\n' +
+      '    - button "Accept decision"\n' +
+      '  - button "Remove decision layer"\n' +
+      '  - group: Decision history and reviews'
+  }
+}
+
+Node.js v24.19.0

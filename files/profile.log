@@ -1,0 +1,35 @@
+
+> slate@0.4.0 test:profile /home/agent/rer-consolidation/work/sd-slate-c-f205-fix1/run-slate
+> tsx --test tests/profile/*.node.tsx tests/profile/*.node.mjs && vitest run --config tests/profile/vitest.config.ts
+
+TAP version 13
+# Subtest: FLAG-001 — core wiki defaults, route boundaries and controls require explicit flagship opt-in
+ok 1 - FLAG-001 — core wiki defaults, route boundaries and controls require explicit flagship opt-in
+  ---
+  duration_ms: 66.135902
+  type: 'test'
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 1
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1987.941022
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mProxy environment variables detected. We'll use your proxy for fetch requests.[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mProxy environment variables detected. We'll use your proxy for fetch requests.[0m
+
+
+
+ RUN  v4.1.11 /home/agent/rer-consolidation/work/sd-slate-c-f205-fix1/run-slate
+
+
+ Test Files  2 passed (2)
+      Tests  5 passed (5)
+   Start at  22:08:01
+   Duration  54.48s (transform 20.12s, setup 2.59s, import 34.76s, tests 20.31s, environment 1ms)
+

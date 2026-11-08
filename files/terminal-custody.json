@@ -1,0 +1,13 @@
+{
+  "repository": "just-every/run-slate",
+  "branch": "cloud/sd-slate-c-f205-fix1",
+  "head": "d199ea3a5120f38b54a4e29cbecb9e7a20469cd1",
+  "custody": "READY",
+  "basis": "Explicit generated-view-only exemption; Verify remains completed/failure",
+  "runId": 42528103360,
+  "productPushed": true,
+  "allTouchedLocalChecksPassed": true,
+  "clauseJudgmentChanges": [],
+  "acceptanceOrLandingClaim": false,
+  "evidencePublication": "separate report-only ref"
+}

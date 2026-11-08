@@ -1,0 +1,30 @@
+{
+  "mode": "delay genuine GET delivery 6000 ms",
+  "nativeRevision": "01M6YJMDMWG3ZXPK235YW676W0",
+  "nativeOutcome": "Second procedure",
+  "matches": [
+    {
+      "tag": "LI",
+      "text": "Second procedure",
+      "visible": false,
+      "details": {
+        "summary": "Options & supporting sources",
+        "open": false
+      }
+    },
+    {
+      "tag": "TEXTAREA",
+      "text": "Second procedure",
+      "visible": true,
+      "details": {
+        "summary": "Choose the outcome",
+        "open": true
+      }
+    }
+  ],
+  "displayedParagraphs": [
+    "proposed",
+    "First procedure",
+    "Keep the documented recovery path."
+  ]
+}

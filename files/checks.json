@@ -1,0 +1,132 @@
+{
+  "setup": {
+    "command": "cloud_run timeout 600 npx -y @runeditrun/rer setup --owner-email fleet@runeditrun.com --non-interactive",
+    "exit": 0
+  },
+  "profile": {
+    "command": "cloud_run timeout --signal=TERM --kill-after=20s 360s pnpm test:profile",
+    "exit": 0,
+    "nodeTests": 1,
+    "workerFiles": 2,
+    "workerTests": 5,
+    "runtime": "v22.20.0"
+  },
+  "typecheck": {
+    "command": "cloud_run timeout --signal=TERM --kill-after=20s 180s pnpm typecheck",
+    "exit": 0,
+    "runtime": "v22.20.0"
+  },
+  "firstParty": {
+    "command": "cloud_run timeout 120s pnpm exec rer check --profile first-party",
+    "exit": 0,
+    "runtime": "v22.20.0"
+  },
+  "structural": {
+    "command": "cloud_run timeout 240s bash -c \"pnpm cf-typegen:check && pnpm verify-base && pnpm check:contract && pnpm check:operation-commands && pnpm test:release-source\"",
+    "exit": 0,
+    "releaseSourceTests": 2,
+    "runtime": "v22.20.0"
+  },
+  "contractWrite": {
+    "command": "node src/base/runtime/contract-docs.mjs write",
+    "exit": 0
+  },
+  "contractCheckAfterWrite": {
+    "command": "node src/base/runtime/contract-docs.mjs check",
+    "exit": 0
+  },
+  "naturalDesktopRepro": {
+    "command": "cloud_run timeout --signal=TERM --kill-after=20s 360s node --test --test-concurrency=1 --test-name-pattern='^BLOCK-010 .*1440px$' tests/qualification/ui-convergence/journeys.test.mjs",
+    "exit": 0,
+    "duration_ms": 162164.26565
+  },
+  "main": "95a0372f6692b95607cedc7d1f9a0440dc9d3c38",
+  "candidate": "20880dc2358c4259312f7ebf1263534d95bf290f",
+  "statusRowsPreserved": 338,
+  "beforeCounts": {
+    "done": 58,
+    "partial": 239,
+    "missing": 41,
+    "total": 338
+  },
+  "afterCounts": {
+    "done": 58,
+    "partial": 239,
+    "missing": 41,
+    "total": 338
+  },
+  "DEC-001": "partial unchanged",
+  "latencyDesktopRepro": {
+    "command": "cloud_run timeout --signal=TERM --kill-after=20s 300s node /tmp/slate-decision-probe.mjs (original published test, delayed genuine GET delivery)",
+    "exit": 1,
+    "nativeDelay_ms": 6000,
+    "assertionTimeout_ms": 5000,
+    "cause": "first exact-text match is hidden LI in closed Options & supporting sources while the prior outcome remains displayed; edited native revision already committed"
+  },
+  "restoredGeneratedViewsCheck": {
+    "command": "node src/base/runtime/contract-docs.mjs check",
+    "exit": 1,
+    "reason": "origin/main generated views intentionally restored; lander regenerates"
+  },
+  "build": {
+    "command": "cloud_run timeout --signal=TERM --kill-after=20s 300s npx -y @runeditrun/rer build",
+    "exit": 0,
+    "runtime": "v22.20.0"
+  },
+  "mechanical": {
+    "integration": "pnpm integration:sync",
+    "integrationExit": 0,
+    "viewsWrite": "node src/base/runtime/contract-docs.mjs write",
+    "viewsWriteExit": 0,
+    "viewsCheck": "node src/base/runtime/contract-docs.mjs check",
+    "viewsCheckExit": 0,
+    "restoredViews": "git checkout origin/main -- ACCEPTANCE.md docs/CLAIMS.md",
+    "lock": "pnpm source:lock",
+    "lockExit": 0,
+    "lockCheck": "pnpm source:check",
+    "lockCheckExit": 0
+  },
+  "artifact": {
+    "command": "cloud_run timeout 120s pnpm check:artifact",
+    "exit": 0,
+    "runtime": "v22.20.0"
+  },
+  "publicationInputs": {
+    "command": "node scripts/publish-check.mjs",
+    "exit": 0,
+    "runtime": "v22.20.0"
+  },
+  "latencyDesktopFixed": {
+    "command": "cloud_run timeout --signal=TERM --kill-after=20s 300s node /tmp/slate-decision-probe.mjs (current journey, delayed genuine GET delivery)",
+    "exit": 0,
+    "nativeDelay_ms": 6000,
+    "allLifecycleAssertions": "passed"
+  },
+  "journey390": {
+    "command": "cloud_run timeout --signal=TERM --kill-after=20s 360s node --test --test-concurrency=1 --test-name-pattern='^BLOCK-010 .*390px$' tests/qualification/ui-convergence/journeys.test.mjs",
+    "exit": 0,
+    "tests": 1,
+    "skipped": 0,
+    "duration_ms": 195613.412743,
+    "runtime": "v22.20.0",
+    "head": "d199ea3a5120f38b54a4e29cbecb9e7a20469cd1"
+  },
+  "journey1440": {
+    "command": "cloud_run timeout --signal=TERM --kill-after=20s 360s node --test --test-concurrency=1 --test-name-pattern='^BLOCK-010 .*1440px$' tests/qualification/ui-convergence/journeys.test.mjs",
+    "exit": 0,
+    "tests": 1,
+    "skipped": 0,
+    "duration_ms": 224046.118599,
+    "runtime": "v22.20.0",
+    "head": "d199ea3a5120f38b54a4e29cbecb9e7a20469cd1"
+  },
+  "committedSourceCheck": {
+    "command": "pnpm source:check",
+    "exit": 0,
+    "head": "d199ea3a5120f38b54a4e29cbecb9e7a20469cd1",
+    "runtime": "v22.20.0"
+  },
+  "finalRuntime": "v22.20.0",
+  "finalHead": "d199ea3a5120f38b54a4e29cbecb9e7a20469cd1",
+  "supplementaryDiagnosticsRuntime": "v24.19.0"
+}

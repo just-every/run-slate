@@ -1,0 +1,10 @@
+DEC-001 decisionLayerJourney complete at 1440px: populated page unchanged across create, duplicate refusal, edit, accept, review, removal and replacement; revoked member denied after reload.
+✔ BLOCK-010 — native content queries retain criteria and current-reader results at 1440px (162164.26565ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 192434.83169

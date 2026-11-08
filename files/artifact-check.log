@@ -1,0 +1,6 @@
+ WARN  Unsupported engine: wanted: {"node":"22.20.0"} (current: {"node":"v24.19.0","pnpm":"10.12.4"})
+
+> slate@0.4.0 check:artifact /home/agent/rer-consolidation/work/sd-slate-c-f205-fix1/run-slate
+> node scripts/check-artifact.mjs
+
+Emitted artifact boundaries are valid. Runtime acceptance runs in Slate Verify CI.

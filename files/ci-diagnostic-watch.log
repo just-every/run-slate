@@ -1,0 +1,2 @@
+CI_FAILED_JOBS [{"id": 128876121476, "name": "verify (app)", "failedSteps": ["Run node src/base/runtime/contract-docs.mjs check"]}, {"id": 128876280439, "name": "verify", "failedSteps": ["Require the plan and every expected job"]}]
+CI_DIAGNOSTIC_WAIT seconds=300.0

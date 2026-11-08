@@ -1,0 +1,21 @@
+{
+  "repository": "just-every/run-slate",
+  "branch": "cloud/sd-slate-c-f205-fix1",
+  "head": "d199ea3a5120f38b54a4e29cbecb9e7a20469cd1",
+  "parents": [
+    "20880dc2358c4259312f7ebf1263534d95bf290f",
+    "95a0372f6692b95607cedc7d1f9a0440dc9d3c38"
+  ],
+  "tree": "1cff5039668d5ea19af4a836af0d508672b7e098",
+  "shallow": "false",
+  "workingTree": "",
+  "pushGuard": "python3 $HOME/rer-consolidation/.tools/cloud-push.py origin cloud/sd-slate-c-f205-fix1",
+  "pushExit": 0,
+  "pushAttempts": 1,
+  "publishedRef": "refs/heads/cloud/sd-slate-c-f205-fix1",
+  "PR": null,
+  "landingClaim": false,
+  "clauseJudgmentChanges": [],
+  "finalRuntime": "v22.20.0",
+  "finalLocalChecks": "passed on exact product head"
+}

@@ -1,0 +1,112 @@
+{
+  "repository": "just-every/run-slate",
+  "sha": "d199ea3a5120f38b54a4e29cbecb9e7a20469cd1",
+  "calls": [
+    {
+      "at": "2026-11-08T22:01:48.608377+00:00",
+      "command": [
+        "gh",
+        "api",
+        "repos/just-every/run-slate/actions/runs?head_sha=d199ea3a5120f38b54a4e29cbecb9e7a20469cd1&per_page=100",
+        "--jq",
+        "[.workflow_runs[] | {id,name,status,conclusion,head_sha,html_url,event,head_branch}]"
+      ],
+      "exit": 0
+    },
+    {
+      "at": "2026-11-08T22:06:50.329338+00:00",
+      "command": [
+        "gh",
+        "api",
+        "repos/just-every/run-slate/actions/runs/42528103360",
+        "--jq",
+        "{status,conclusion,head_sha,html_url}"
+      ],
+      "exit": 0
+    },
+    {
+      "at": "2026-11-08T22:11:52.107091+00:00",
+      "command": [
+        "gh",
+        "api",
+        "repos/just-every/run-slate/actions/runs/42528103360/jobs?per_page=100"
+      ],
+      "exit": 0
+    },
+    {
+      "at": "2026-11-08T22:18:11.741897+00:00",
+      "command": [
+        "gh",
+        "run",
+        "view",
+        "42528103360",
+        "--repo",
+        "just-every/run-slate",
+        "--job",
+        "128876121476",
+        "--log-failed"
+      ],
+      "exit": 0
+    },
+    {
+      "at": "2026-11-08T22:25:02.891623+00:00",
+      "command": [
+        "gh",
+        "run",
+        "view",
+        "42528103360",
+        "--repo",
+        "just-every/run-slate",
+        "--job",
+        "128876280439",
+        "--log-failed"
+      ],
+      "exit": 0
+    }
+  ],
+  "budget": 10,
+  "runs": [
+    {
+      "conclusion": "failure",
+      "event": "push",
+      "head_branch": "cloud/sd-slate-c-f205-fix1",
+      "head_sha": "d199ea3a5120f38b54a4e29cbecb9e7a20469cd1",
+      "html_url": "https://github.com/just-every/run-slate/actions/runs/42528103360",
+      "id": 42528103360,
+      "name": "Verify Slate",
+      "status": "completed"
+    }
+  ],
+  "verify": {
+    "conclusion": "failure",
+    "event": "push",
+    "head_branch": "cloud/sd-slate-c-f205-fix1",
+    "head_sha": "d199ea3a5120f38b54a4e29cbecb9e7a20469cd1",
+    "html_url": "https://github.com/just-every/run-slate/actions/runs/42528103360",
+    "id": 42528103360,
+    "name": "Verify Slate",
+    "status": "completed"
+  },
+  "failedJobs": [
+    {
+      "id": 128876121476,
+      "name": "verify (app)",
+      "failedSteps": [
+        "Run node src/base/runtime/contract-docs.mjs check"
+      ]
+    },
+    {
+      "id": 128876280439,
+      "name": "verify",
+      "failedSteps": [
+        "Require the plan and every expected job"
+      ]
+    }
+  ],
+  "watcherInterruption": "Environment reattachment ended the watcher before an aggregate-log receipt was saved; no aggregate transport failure was recorded.",
+  "classification": "generated-view-only READY exemption",
+  "blockers": "none",
+  "archiveResults": "Both failed-job archive commands succeeded; app failure is ACCEPTANCE.md drift; aggregate failure is the dependent job gate.",
+  "pollingPolicy": "At least 300 seconds between all five recorded GitHub commands.",
+  "localFinalRuntime": "v22.20.0"
+}

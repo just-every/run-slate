@@ -1,0 +1,17 @@
+TAP version 13
+# DEC-001 decisionLayerJourney complete at 390px: populated page unchanged across create, duplicate refusal, edit, accept, review, removal and replacement; revoked member denied after reload.
+# Subtest: BLOCK-010 — native content queries retain criteria and current-reader results at 390px
+ok 1 - BLOCK-010 — native content queries retain criteria and current-reader results at 390px
+  ---
+  duration_ms: 195613.412743
+  type: 'test'
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 1
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 232879.418933

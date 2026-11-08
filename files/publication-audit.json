@@ -1,0 +1,31 @@
+{
+  "candidateCommits": [
+    "d199ea3a5120f38b54a4e29cbecb9e7a20469cd1",
+    "20880dc2358c4259312f7ebf1263534d95bf290f",
+    "dfa6b60e27c6850dd64ee5b899a7ca3eacd63694",
+    "15c5e942625b22bf95a2c4836b9a0fb559869da6",
+    "dfe5a94a803625d6252d80db4a633681499cde6d",
+    "f5363173c737ddd1443e46f51e17b99af55b9871"
+  ],
+  "identityAndTrailers": "passed all candidates including side parents",
+  "mainStatusRowsPreserved": 338,
+  "mainIdMap": "unchanged",
+  "generatedViews": "exact origin/main",
+  "scope": "within candidate lease",
+  "files": [
+    "CONTRACT.md",
+    "sources.lock.json",
+    "src/core/app/styles/page.css",
+    "src/core/features/decisions/records.ts",
+    "src/core/features/decisions/service.ts",
+    "src/core/features/decisions/ui/CreateDecisionDialog.tsx",
+    "src/core/features/pages/ui/workspace/PageActionDialogs.tsx",
+    "src/core/features/pages/ui/workspace/PageMoreMenu.tsx",
+    "src/core/features/pages/ui/workspace/PageWorkspace.tsx",
+    "tests/profile/profile.worker.test.ts",
+    "tests/qualification/ui-convergence/decision-layer-journey.mjs",
+    "tests/qualification/ui-convergence/journeys.test.mjs",
+    "tests/requirements/clause-inventory.json",
+    "tests/requirements/cli-journey.md"
+  ]
+}
