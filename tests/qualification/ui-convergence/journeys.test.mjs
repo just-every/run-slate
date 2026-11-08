@@ -87,7 +87,6 @@ for (const width of [390, 1440]) {
   test(`real core-wiki and touch-member journeys at ${width}px`, { timeout: width === 390 ? 780000 : 720000 }, async () => {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
-      await step('BLOCK-008 native media upload and link persistence with scoped appearance', () => mediaBlocksJourney(state));
       if(width===390)await transferJobsJourney(state);
       const refused = await state.context.request.get(state.origin + '/api/ai/availability');
       assert.equal(refused.status(), 403);
@@ -131,6 +130,8 @@ for (const width of [390, 1440]) {
           }
         }
         await step('DEC-004 — populated native decision filters, current access and exact accepted navigation', () => decisionLogJourney(state, width));
+        // Keep this member's private media fixtures after the workspace archive proof.
+        await step('BLOCK-008 native media upload and link persistence with scoped appearance', () => mediaBlocksJourney(state));
       } finally {await touch?.close();}
     }, {}, { scheduled: true, slack: true });
   });
