@@ -39,6 +39,7 @@ export async function decisionStatesJourney(state) {
         assert.equal(status,200,JSON.stringify(result));
         assert.equal(result.receipt.operationKey,input.operationKey);
         assert.equal(result.receipt.entity.kind,'decision');
+        console.log('Native decision commit',path,result.value.state??'review',result.receipt.revisionId);
         committed.push({result,path,input,actorId:actor===alice?'browser-owner':bob.id});
         replays.push({actor,path,input,result});
         assert.deepEqual(await ok(actor.context,origin,'POST',path,input),result);
@@ -68,13 +69,14 @@ export async function decisionStatesJourney(state) {
       const ids = (await read('/api/decisions')).items.filter(item => item.content?.citations?.some(ref=>ref.sourceId===evidenceId)).map(item=>item.id).sort();
       return {decisions:await Promise.all(ids.map(id=>read(`/api/decisions/${id}`))), histories:await Promise.all(ids.map(id=>read(`/api/decisions/${id}/history`))), reviews:await Promise.all(ids.map(id=>read(`/api/decisions/${id}/reviews`))), activity:await read('/api/activity?kind=decision&limit=100'), pages:await read(`/api/pages?containerId=${containerId}`)};
     };
+    await shot('bob','non-owner proposed decision');
     const beforeDenied = await snapshot();
     const denied = bob.page.waitForResponse(response => new URL(response.url()).pathname === `/api/decisions/${firstId}/accept` && response.request().method()==='POST');
     await bob.page.getByRole('button', {name:'Accept decision', exact:true}).click();
     const refusal = await denied;
     assert.equal(refusal.status(),403);
     assert.equal((await refusal.json()).code,'DECISION_OWNER_REQUIRED');
-    await expect(bob.page.getByRole('alert')).toContainText('Only the appointed decision owner');
+    await expect(bob.page.getByRole('alert')).toContainText('This content isn’t available.');
     assert.deepEqual(await snapshot(),beforeDenied,'A non-owner acceptance changes no decisions, histories, reviews, activity or pages.');
     const accept = async id => {
       const result = await uiWrite(alice, `/api/decisions/${id}/accept`, () => alice.page.getByRole('button',{name:'Accept decision',exact:true}).click());
@@ -83,6 +85,7 @@ export async function decisionStatesJourney(state) {
     };
     await alice.page.goto(`${origin}/app/decisions/${firstId}`,{waitUntil:'networkidle'});
     await accept(firstId);
+    await shot('alice','appointed-owner accepted decision');
     await alice.page.getByText('Record a review',{exact:true}).click();
     await alice.page.getByLabel('What did you conclude?',{exact:true}).fill('The current outcome still applies.');
     await uiWrite(alice, `/api/decisions/${firstId}/review`, () => alice.page.getByRole('button',{name:'Record review',exact:true}).click());
@@ -111,7 +114,7 @@ export async function decisionStatesJourney(state) {
       await alice.page.reload({waitUntil:'networkidle'});
       await expect(alice.page.locator('.finding .eyebrow')).toHaveText('superseded');
       await expect(alice.page.getByRole('button',{name:/^(Accept decision|Save proposed decision|Record review|Prepare a replacement decision)$/})).toHaveCount(0);
-      await expect(alice.page.getByRole('link',{name:'Read the replacement decision',exact:true})).toBeVisible();
+      await expect(alice.page.getByRole('link',{name:/^Read the replacement decision:/})).toBeVisible();
       await shot('alice',`superseded ${earlier===firstId?'prepared':'selected'} replacement`);
     }
     // A fresh proposal tries to reuse a terminal predecessor; every other terminal verb is also attempted.
@@ -164,6 +167,7 @@ export async function decisionStatesJourney(state) {
     await alice.page.getByLabel('Kind',{exact:true}).selectOption('decision');
     const filtered=alice.page.waitForResponse(response=>new URL(response.url()).pathname==='/api/activity'&&new URL(response.url()).searchParams.get('kind')==='decision');
     await alice.page.getByRole('button',{name:'Filter activity',exact:true}).click();await filtered;
+    await expect(alice.page.locator('[data-activity-id]')).toHaveCount(actual.length);
     for(const entry of actual){const row=alice.page.locator(`[data-activity-id="${entry.id}"]`);await expect(row).toContainText(entry.actor.displayName);await expect(row).toContainText(entry.action.replace(/[._-]/g,' '));await expect(row.locator('time')).toHaveAttribute('datetime',entry.occurredAt);}
     await shot('alice','native decision activity actor and time');
     record('DEC-002',{committed:committed.map(({result,path,input,actorId})=>({result,path,input,actorId})),expected,activity:actual,refusals,unchanged:beforeTerminal});

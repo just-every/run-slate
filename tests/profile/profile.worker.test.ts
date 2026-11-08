@@ -157,6 +157,12 @@ it("FLAG-001 — core wiki public doors retain native content while flagship rou
     const entries=audit.filter((row:any)=>row.target.id===id&&row.action==='decisions.supersede');
     expect(entries).toHaveLength(1);expect(entries[0]).toMatchObject({actor:expect.objectContaining({id:supersession[0].actor_id}),occurredAt:supersession[0].created_at});
   }
+  await env.DB.prepare('UPDATE sessions SET revoked_at=? WHERE member_id=?').bind(new Date().toISOString(),memberId).run();
+  const revokedSnapshot=await snapshot(), prepared=writes.find(write=>write.path.endsWith('/propose-successor'))!;
+  const revokedReplay=await send(prepared.path,prepared.input);
+  expect(revokedReplay.status).toBe(401);
+  expect((await send('/api/decisions/'+secondId)).status).toBe(401);
+  expect(await snapshot()).toEqual(revokedSnapshot);
 } },
     { name: 'FLAG-001 — old queued flagship work records failure and retries without dispatch or acknowledgement', run: async () => {
   for(const kind of ['intelligence.run','intelligence.finalize','federation.refresh']) {

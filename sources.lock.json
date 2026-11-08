@@ -11484,7 +11484,7 @@
       "executable": false
     },
     "tests/profile/profile.worker.test.ts": {
-      "sha256": "a7b34448e60f14a48f9e056dd27ee0eb228e0dfb7a4eebd85b5de849acd0c688",
+      "sha256": "fcb4e209c7a4a536728701d7fb2a57ea0669064248dbc7a92734f47316010e13",
       "executable": false
     },
     "tests/profile/vitest.config.ts": {
@@ -11964,7 +11964,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/decision-states-journey.mjs": {
-      "sha256": "d0b976baf48fbfc50531d1f67ea8f815d8373e2c021d148e0a53e171180fa16e",
+      "sha256": "045456c04ae592abefb340bc3a013e9d3253054e9548bf1ae3b3145adb9a8bb7",
       "executable": false
     },
     "tests/qualification/ui-convergence/developer-access-journey.mjs": {
