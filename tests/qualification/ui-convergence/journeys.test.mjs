@@ -86,7 +86,6 @@ for (const width of [390, 1440]) {
   test(`real core-wiki and touch-member journeys at ${width}px`, { timeout: width === 390 ? 780000 : 720000 }, async () => {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
-      await withSecondPerson(state,width,people=>step('DEC-001 populated decision layer and page invariance',()=>decisionLayerJourney(state,people)));
       if(width===390)await transferJobsJourney(state);
       const refused = await state.context.request.get(state.origin + '/api/ai/availability');
       assert.equal(refused.status(), 403);
@@ -439,11 +438,14 @@ for (const width of [1440]) {
 
 // Give the complete query journey its own workspace and deadline, keeping the
 // established member journey's timeout and every query assertion unchanged.
+// The existing query workspaces also carry the native decision-layer lifecycle;
+// their harness deadline includes its controls and complete persisted snapshots.
 for (const width of [1440, 390]) {
-  test(`BLOCK-010 — native content queries retain criteria and current-reader results at ${width}px`, { timeout: 180000 }, async () => {
+  test(`BLOCK-010 — native content queries retain criteria and current-reader results at ${width}px`, { timeout: 300000 }, async () => {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
       await contentQueryJourney(state, width);
+      await withSecondPerson(state,width,people=>step('DEC-001 populated decision layer and page invariance',()=>decisionLayerJourney(state,people)));
     });
   });
 }

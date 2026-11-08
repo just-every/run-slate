@@ -382,9 +382,8 @@ function LoadedPage({
           {newPage && document.permissions.canEdit ? <script dangerouslySetInnerHTML={{__html:newPageArrivalScript}}/> : null}
           </div>
           {host?.database ? null : <PageReadMetadata document={document} />}
-          <RequestState loading={decisions.loading} error={decisions.error} retry={decisions.reload}>
-            {decision ? <p className="page-byline" data-page-decision>Decision record: <a href={`/app/decisions/${decision.id}`}>{decision.question}</a> · {decision.state}</p> : null}
-          </RequestState>
+          {decisions.error ? <RequestState loading={false} error={decisions.error} retry={decisions.reload}/> : null}
+          {decision ? <p className="page-byline" data-page-decision>Decision record: <a href={`/app/decisions/${decision.id}`}>{decision.question}</a> · {decision.state}</p> : null}
           {recovered.current && title!==savedTitle ? <SaveStatus state="unsaved" recoveredDraft onRetry={()=>void saveTitle()}/> : null}
           {titleFailure ? <SaveStatus state="failed" failureMessage={titleFailure} onRetry={() => void saveTitle()} /> : null}
           {host?.properties}
