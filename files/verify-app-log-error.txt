@@ -1,0 +1,6 @@
+Command: gh run view 42495945826 --repo just-every/run-slate --job 128778249009 --log-failed
+Exit: 1
+HTTP status: not supplied
+Sanitized transport error:
+EOF
+No archive retry attempted.

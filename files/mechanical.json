@@ -1,0 +1,28 @@
+{
+  "head": "20880dc2358c4259312f7ebf1263534d95bf290f",
+  "views": {
+    "write": "node src/base/runtime/contract-docs.mjs write",
+    "writeExit": 0,
+    "check": "node src/base/runtime/contract-docs.mjs check",
+    "checkExit": 0,
+    "restored": [
+      "ACCEPTANCE.md",
+      "docs/CLAIMS.md"
+    ]
+  },
+  "integration": {
+    "command": "pnpm integration:sync",
+    "exit": 0
+  },
+  "lock": {
+    "command": "pnpm source:lock && pnpm source:check",
+    "exit": 0,
+    "unchanged": true
+  },
+  "migrationLedger": {
+    "command": "none",
+    "reason": "No migration added or changed"
+  },
+  "statusSectionMatchesMain": true,
+  "addedEmailShapedStrings": 0
+}

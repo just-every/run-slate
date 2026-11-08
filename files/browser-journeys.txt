@@ -1,0 +1,12 @@
+DEC-001 decisionLayerJourney complete at 1440px: populated page unchanged across create, duplicate refusal, edit, accept, review, removal and replacement; revoked member denied after reload.
+✔ BLOCK-010 — native content queries retain criteria and current-reader results at 1440px (104552.461016ms)
+DEC-001 decisionLayerJourney complete at 390px: populated page unchanged across create, duplicate refusal, edit, accept, review, removal and replacement; revoked member denied after reload.
+✔ BLOCK-010 — native content queries retain criteria and current-reader results at 390px (81189.176937ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 202913.059997

@@ -1,0 +1,17 @@
+{
+  "head": "67b706484e5430012d9c154c1e14090ea1e49bc2",
+  "verify": {
+    "id": 42416085031,
+    "event": "push",
+    "status": "completed",
+    "conclusion": "success"
+  },
+  "site": {
+    "id": 42416085015,
+    "event": "push",
+    "status": "completed",
+    "conclusion": "success"
+  },
+  "cancelledDuplicateVerify": 42482646230,
+  "apiCallsUsed": 2
+}

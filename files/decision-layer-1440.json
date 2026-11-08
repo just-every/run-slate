@@ -1,0 +1,4930 @@
+{
+  "width": 1440,
+  "pageId": "01M6XWVP2ERSWVQ91DK34R8GBF",
+  "decisionId": "01M6XWVX1TMTK4AV5CY89A4PPE",
+  "receipts": [
+    {
+      "operationKey": "ad00893f-d77b-4e57-b621-407540eafedf",
+      "entity": {
+        "id": "01M6XWVNZT6ZDVXEMBK9YRNF5E",
+        "kind": "container",
+        "revisionId": "01M6XWVNZTVFQMJVWHV5F5VSJZ"
+      },
+      "revisionId": "01M6XWVNZTVFQMJVWHV5F5VSJZ",
+      "activityId": "01M6XWVNZTE4TYZYN7WF1KJ4MB",
+      "committedAt": "2026-11-08T15:36:31.991Z"
+    },
+    {
+      "operationKey": "19fdb50e-d42c-409c-8631-e9a5c85890c7",
+      "entity": {
+        "id": "01M6XWVP12AAT26C0X0HN9XDGR",
+        "kind": "page",
+        "revisionId": "01M6XWVP12TB6HJ1ZPNMZT3EQX"
+      },
+      "revisionId": "01M6XWVP12TB6HJ1ZPNMZT3EQX",
+      "activityId": "01M6XWVP12EYFP2CXWD5ZWR2C7",
+      "committedAt": "2026-11-08T15:36:32.030Z"
+    },
+    {
+      "operationKey": "877c5dd1-9d6b-470d-81f8-f99627c66fd5",
+      "entity": {
+        "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+        "kind": "page",
+        "revisionId": "01M6XWVP2EP6018ZHKMG1QKQH4"
+      },
+      "revisionId": "01M6XWVP2EP6018ZHKMG1QKQH4",
+      "activityId": "01M6XWVP2E9T9344WXM7H0WSJQ",
+      "committedAt": "2026-11-08T15:36:32.076Z"
+    },
+    {
+      "operationKey": "7956739d-7b8e-4523-8c36-a4be94c8ce51",
+      "entity": {
+        "id": "01M6XWVP3HFZ7GNBJX91P9CBTF",
+        "kind": "page",
+        "revisionId": "01M6XWVP3HSS5RMY3D2N4YVJTR"
+      },
+      "revisionId": "01M6XWVP3HSS5RMY3D2N4YVJTR",
+      "activityId": "01M6XWVP3H294F9HF2BNYFH0DH",
+      "committedAt": "2026-11-08T15:36:32.111Z"
+    },
+    {
+      "operationKey": "ddece93b-889f-4ac1-9022-00c62c554e90",
+      "entity": {
+        "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+        "kind": "page",
+        "revisionId": "01M6XWVP567JRMW6XKM4FF08GV"
+      },
+      "revisionId": "01M6XWVP567JRMW6XKM4FF08GV",
+      "activityId": "01M6XWVP56M4VY9Q9KJ905802T",
+      "committedAt": "2026-11-08T15:36:32.163Z"
+    },
+    {
+      "operationKey": "081c948f-d9b1-4ea5-9b9c-70f495783664",
+      "entity": {
+        "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+        "kind": "page",
+        "revisionId": "01M6XWVP81W7PKYZ7KHN83XYE0"
+      },
+      "revisionId": "01M6XWVP81W7PKYZ7KHN83XYE0",
+      "activityId": "01M6XWVP812YNMBJBN5N85DSKJ",
+      "committedAt": "2026-11-08T15:36:32.254Z"
+    },
+    {
+      "operationKey": "b6a0aa78-ecca-4862-8b92-a66d1caed656",
+      "entity": {
+        "id": "01M6XWVNZT6ZDVXEMBK9YRNF5E",
+        "kind": "container",
+        "revisionId": "01M6XWVP8SZ0EHYQYJ5WAVCR87"
+      },
+      "revisionId": "01M6XWVP8SZ0EHYQYJ5WAVCR87",
+      "activityId": "01M6XWVP8SV6GZTXS25RMZ9KQ1",
+      "committedAt": "2026-11-08T15:36:32.279Z"
+    },
+    {
+      "operationKey": "2c514a1e-11d9-4f21-83d9-cbbc5757b903",
+      "entity": {
+        "id": "01M6XWVPFJAGADGHV7XDR7A1NK",
+        "kind": "comment-thread",
+        "revisionId": "01M6XWVPFFZ721YZA3B0N6P7TG"
+      },
+      "revisionId": "01M6XWVPFFZ721YZA3B0N6P7TG",
+      "activityId": "01M6XWVPFF9W0DX3Z6QNY315KN",
+      "committedAt": "2026-11-08T15:36:32.493Z"
+    },
+    {
+      "operationKey": "654d227e-ef67-4e1c-89f1-b82a54f46585",
+      "entity": {
+        "id": "browser-workspace",
+        "kind": "invitation",
+        "revisionId": "01M6XWVPGAWG5H56GFNPYFTC7Q"
+      },
+      "revisionId": "01M6XWVPGAWG5H56GFNPYFTC7Q",
+      "activityId": "01M6XWVPGAXZAW5C21GYH4E0KR",
+      "committedAt": "2026-11-08T15:36:32.520Z"
+    },
+    {
+      "operationKey": "0993a394-2d9f-4315-afe8-74c770e9492f",
+      "entity": {
+        "id": "01M6XWVX1TMTK4AV5CY89A4PPE",
+        "kind": "decision",
+        "revisionId": "01M6XWVX1J73E1DMYXRPP34YN8"
+      },
+      "revisionId": "01M6XWVX1J73E1DMYXRPP34YN8",
+      "activityId": "01M6XWVX1JFNKM50GK66XZS15F",
+      "committedAt": "2026-11-08T15:36:39.135Z"
+    },
+    {
+      "operationKey": "1a48e4cb-8f7d-4502-bbdd-24471cdc200d",
+      "entity": {
+        "id": "01M6XWVX1TMTK4AV5CY89A4PPE",
+        "kind": "decision",
+        "revisionId": "01M6XWW6GEMN14CHRMRVQK34MF"
+      },
+      "revisionId": "01M6XWW6GEMN14CHRMRVQK34MF",
+      "activityId": "01M6XWW6GECRXHWBQMMX4BME6W",
+      "committedAt": "2026-11-08T15:36:48.870Z"
+    },
+    {
+      "operationKey": "24e9f7c4-76f0-493f-9aac-5a51aac98bb4",
+      "entity": {
+        "id": "01M6XWVX1TMTK4AV5CY89A4PPE",
+        "kind": "decision",
+        "revisionId": "01M6XWW8MFSDENDGW7XH2A3SQ9"
+      },
+      "revisionId": "01M6XWW8MFSDENDGW7XH2A3SQ9",
+      "activityId": "01M6XWW8MFV6FMY3J46VM36NG4",
+      "committedAt": "2026-11-08T15:36:51.033Z"
+    },
+    {
+      "operationKey": "7c35a5c4-1692-4443-957f-06ad4ce31cc0",
+      "entity": {
+        "id": "01M6XWVX1TMTK4AV5CY89A4PPE",
+        "kind": "decision",
+        "revisionId": "01M6XWW92469MG0BG93KS59FV5"
+      },
+      "revisionId": "01M6XWW92469MG0BG93KS59FV5",
+      "activityId": "01M6XWW924HG9MD11G5FWF9X3R",
+      "committedAt": "2026-11-08T15:36:51.506Z"
+    },
+    {
+      "operationKey": "6ac88723-145a-437b-a682-d220581d7809",
+      "entity": {
+        "id": "01M6XWVX1TMTK4AV5CY89A4PPE",
+        "kind": "decision",
+        "revisionId": "01M6XWWBYTR08VXJCMHNV30R7C"
+      },
+      "revisionId": "01M6XWWBYTR08VXJCMHNV30R7C",
+      "activityId": "01M6XWWBYTJE7A4EW7E2EGGDQN",
+      "committedAt": "2026-11-08T15:36:54.480Z"
+    },
+    {
+      "operationKey": "db9f0de7-4cfe-4a35-a2ac-67496e295a4f",
+      "entity": {
+        "id": "01M6XWWGWXJGQW3Z2P8S0MBCPV",
+        "kind": "decision",
+        "revisionId": "01M6XWWGWVS834GWVFC6JYANY5"
+      },
+      "revisionId": "01M6XWWGWVS834GWVFC6JYANY5",
+      "activityId": "01M6XWWGWVWQT9WWKBZ0VSE049",
+      "committedAt": "2026-11-08T15:36:59.519Z"
+    }
+  ],
+  "snapshots": [
+    {
+      "label": "before create",
+      "value": {
+        "document": {
+          "lock": null,
+          "authorDisplayName": "Alex Owner",
+          "ownerDisplayName": "Alex Owner",
+          "contributors": [],
+          "schedule": null,
+          "mentions": {},
+          "page": {
+            "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+            "containerId": "01M6XWVNZT6ZDVXEMBK9YRNF5E",
+            "title": "Decision layer source revised",
+            "revisionId": "01M6XWVP81W7PKYZ7KHN83XYE0",
+            "lifecycle": "live"
+          },
+          "blocks": [
+            {
+              "id": "d3a1abf6-c1d5-4623-ba5f-8d86e5153146",
+              "pageId": "01M6XWVP2ERSWVQ91DK34R8GBF",
+              "parentBlockId": null,
+              "blockType": "paragraph",
+              "content": {
+                "text": [
+                  {
+                    "text": "Keep the operational body and its discussion. "
+                  },
+                  {
+                    "text": "Supporting procedure",
+                    "link": {
+                      "href": "http://127.0.0.1:41199/app/pages/01M6XWVP12AAT26C0X0HN9XDGR"
+                    }
+                  }
+                ]
+              },
+              "treePosition": "a",
+              "revisionId": "01M6XWVP2F44402SMHE0W1SSVT"
+            }
+          ],
+          "properties": {
+            "title": "Decision layer source revised",
+            "icon": null,
+            "coverFileId": null,
+            "ownerMemberId": "browser-owner",
+            "statusKey": null,
+            "labels": [],
+            "typeface": "default",
+            "smallText": false,
+            "fullWidth": false
+          },
+          "parentPageId": null,
+          "createdAt": "2026-11-08T15:36:32.076Z",
+          "updatedAt": "2026-11-08T15:36:32.254Z",
+          "authorMemberId": "browser-owner",
+          "workingRevisionId": "01M6XWVP567JRMW6XKM4FF08GV",
+          "publishedRevisionId": "01M6XWVP567JRMW6XKM4FF08GV",
+          "permissions": {
+            "level": "full",
+            "canEdit": true,
+            "canUnlock": true,
+            "canShare": true
+          },
+          "policyProfile": {
+            "page.lifecycle.v1": "always-live",
+            "page.access.v1": "workspace-general",
+            "page.public-access.v1": "site",
+            "page.version.v1": "autosnapshot",
+            "page.status.v1": "verification-only",
+            "record.page-parity.v1": "record-is-page",
+            "automation.scope.v1": "source",
+            "container.access.v1": "class-led"
+          }
+        },
+        "comments": {
+          "threads": [
+            {
+              "id": "01M6XWVPFJAGADGHV7XDR7A1NK",
+              "workspace_id": "browser-workspace",
+              "page_id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+              "kind": "page",
+              "block_id": null,
+              "anchor_json": null,
+              "anchor_revision_id": null,
+              "state": "open",
+              "resolved_at": null,
+              "resolved_by_member_id": null,
+              "created_at": "2026-11-08T15:36:32.493Z",
+              "updated_at": "2026-11-08T15:36:32.493Z",
+              "revision_id": "01M6XWVPFFZ721YZA3B0N6P7TG",
+              "orphaned": 0
+            }
+          ],
+          "comments": [
+            {
+              "id": "01M6XWVPFJXW6WWP0KCS74S3G8",
+              "threadId": "01M6XWVPFJAGADGHV7XDR7A1NK",
+              "parentCommentId": null,
+              "authorMemberId": "browser-reader",
+              "body": [
+                {
+                  "text": "Retain this page discussion independently of its decision."
+                }
+              ],
+              "authorDisplayName": "Morgan Reader",
+              "createdAt": "2026-11-08T15:36:32.493Z",
+              "updatedAt": "2026-11-08T15:36:32.493Z",
+              "deletedAt": null,
+              "revisionId": "01M6XWVPFFZ721YZA3B0N6P7TG"
+            }
+          ],
+          "reactions": []
+        },
+        "grants": {
+          "items": [
+            {
+              "id": "01M6XWVP6M76YM022FYSQPV3PF",
+              "principalKind": "member",
+              "principalId": "browser-owner",
+              "level": "full",
+              "expiresAt": null,
+              "revokedAt": null,
+              "invitationId": null,
+              "invitationEmail": null,
+              "invitationExpiresAt": null,
+              "invitationRevokedAt": null,
+              "principalLabel": "Alex Owner",
+              "origin": {
+                "kind": "page",
+                "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "name": "Decision layer source revised"
+              },
+              "inherited": false,
+              "status": "active",
+              "effective": true
+            },
+            {
+              "id": "01M6XWVP9NTTBA8GZ6SWXBZJQZ",
+              "principalKind": "member",
+              "principalId": "browser-reader",
+              "level": "edit",
+              "expiresAt": null,
+              "revokedAt": null,
+              "invitationId": null,
+              "invitationEmail": null,
+              "invitationExpiresAt": null,
+              "invitationRevokedAt": null,
+              "principalLabel": "Morgan Reader",
+              "origin": {
+                "kind": "page",
+                "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "name": "Decision layer source revised"
+              },
+              "inherited": false,
+              "status": "active",
+              "effective": true
+            },
+            {
+              "id": "01M6XWVPJFBBSYZQ07BXEK3VAK",
+              "principalKind": "member",
+              "principalId": "01M6XWVPHK9SHPRA8B4G1PPZ1V",
+              "level": "view",
+              "expiresAt": null,
+              "revokedAt": null,
+              "invitationId": null,
+              "invitationEmail": null,
+              "invitationExpiresAt": null,
+              "invitationRevokedAt": null,
+              "principalLabel": "decision-reader-1f96660d-be20-491e-b316-6a27d74f98e0",
+              "origin": {
+                "kind": "page",
+                "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "name": "Decision layer source revised"
+              },
+              "inherited": false,
+              "status": "active",
+              "effective": true
+            }
+          ],
+          "inheritedItems": [],
+          "effectiveItems": [
+            {
+              "id": "01M6XWVP6M76YM022FYSQPV3PF",
+              "principalKind": "member",
+              "principalId": "browser-owner",
+              "level": "full",
+              "expiresAt": null,
+              "revokedAt": null,
+              "invitationId": null,
+              "invitationEmail": null,
+              "invitationExpiresAt": null,
+              "invitationRevokedAt": null,
+              "principalLabel": "Alex Owner",
+              "origin": {
+                "kind": "page",
+                "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "name": "Decision layer source revised"
+              },
+              "inherited": false,
+              "status": "active",
+              "effective": true
+            },
+            {
+              "id": "01M6XWVP9NTTBA8GZ6SWXBZJQZ",
+              "principalKind": "member",
+              "principalId": "browser-reader",
+              "level": "edit",
+              "expiresAt": null,
+              "revokedAt": null,
+              "invitationId": null,
+              "invitationEmail": null,
+              "invitationExpiresAt": null,
+              "invitationRevokedAt": null,
+              "principalLabel": "Morgan Reader",
+              "origin": {
+                "kind": "page",
+                "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "name": "Decision layer source revised"
+              },
+              "inherited": false,
+              "status": "active",
+              "effective": true
+            },
+            {
+              "id": "01M6XWVPJFBBSYZQ07BXEK3VAK",
+              "principalKind": "member",
+              "principalId": "01M6XWVPHK9SHPRA8B4G1PPZ1V",
+              "level": "view",
+              "expiresAt": null,
+              "revokedAt": null,
+              "invitationId": null,
+              "invitationEmail": null,
+              "invitationExpiresAt": null,
+              "invitationRevokedAt": null,
+              "principalLabel": "decision-reader-1f96660d-be20-491e-b316-6a27d74f98e0",
+              "origin": {
+                "kind": "page",
+                "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "name": "Decision layer source revised"
+              },
+              "inherited": false,
+              "status": "active",
+              "effective": true
+            }
+          ],
+          "levels": [
+            "full",
+            "edit",
+            "comment",
+            "view"
+          ],
+          "container": {
+            "id": "01M6XWVNZT6ZDVXEMBK9YRNF5E",
+            "name": "Decision layer handbook"
+          },
+          "restricted": true,
+          "restriction": {
+            "scope": "page",
+            "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+            "name": "Decision layer source revised"
+          }
+        },
+        "revisions": {
+          "items": [
+            {
+              "id": "01M6XWVP81W7PKYZ7KHN83XYE0",
+              "origin": "autosave",
+              "authorMemberId": "browser-owner",
+              "authorDisplayName": "Alex Owner",
+              "ordinal": null,
+              "label": null,
+              "statusKey": null,
+              "createdAt": "2026-11-08T15:36:32.254Z",
+              "deletedAt": null,
+              "deletedByMemberId": null,
+              "deletedByDisplayName": null
+            },
+            {
+              "id": "01M6XWVP567JRMW6XKM4FF08GV",
+              "origin": "autosave",
+              "authorMemberId": "browser-owner",
+              "authorDisplayName": "Alex Owner",
+              "ordinal": null,
+              "label": null,
+              "statusKey": null,
+              "createdAt": "2026-11-08T15:36:32.163Z",
+              "deletedAt": null,
+              "deletedByMemberId": null,
+              "deletedByDisplayName": null
+            },
+            {
+              "id": "01M6XWVP2EP6018ZHKMG1QKQH4",
+              "origin": "autosave",
+              "authorMemberId": "browser-owner",
+              "authorDisplayName": "Alex Owner",
+              "ordinal": null,
+              "label": null,
+              "statusKey": null,
+              "createdAt": "2026-11-08T15:36:32.076Z",
+              "deletedAt": null,
+              "deletedByMemberId": null,
+              "deletedByDisplayName": null
+            }
+          ]
+        },
+        "exactRevisions": [
+          {
+            "id": "01M6XWVP81W7PKYZ7KHN83XYE0",
+            "blocks": [
+              {
+                "id": "d3a1abf6-c1d5-4623-ba5f-8d86e5153146",
+                "pageId": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "parentBlockId": null,
+                "blockType": "paragraph",
+                "content": {
+                  "text": [
+                    {
+                      "text": "Keep the operational body and its discussion. "
+                    },
+                    {
+                      "text": "Supporting procedure",
+                      "link": {
+                        "href": "http://127.0.0.1:41199/app/pages/01M6XWVP12AAT26C0X0HN9XDGR"
+                      }
+                    }
+                  ]
+                },
+                "treePosition": "a",
+                "revisionId": "01M6XWVP2F44402SMHE0W1SSVT"
+              }
+            ],
+            "properties": {
+              "title": "Decision layer source revised",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            },
+            "createdAt": "2026-11-08T15:36:32.254Z",
+            "newerRevisionExists": true
+          },
+          {
+            "id": "01M6XWVP567JRMW6XKM4FF08GV",
+            "blocks": [
+              {
+                "id": "d3a1abf6-c1d5-4623-ba5f-8d86e5153146",
+                "pageId": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "parentBlockId": null,
+                "blockType": "paragraph",
+                "content": {
+                  "text": [
+                    {
+                      "text": "Keep the operational body and its discussion. "
+                    },
+                    {
+                      "text": "Supporting procedure",
+                      "link": {
+                        "href": "http://127.0.0.1:41199/app/pages/01M6XWVP12AAT26C0X0HN9XDGR"
+                      }
+                    }
+                  ]
+                },
+                "treePosition": "a",
+                "revisionId": "01M6XWVP2F44402SMHE0W1SSVT"
+              }
+            ],
+            "properties": {
+              "title": "Decision layer source revised",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            },
+            "createdAt": "2026-11-08T15:36:32.163Z",
+            "newerRevisionExists": false
+          },
+          {
+            "id": "01M6XWVP2EP6018ZHKMG1QKQH4",
+            "blocks": [
+              {
+                "id": "d3a1abf6-c1d5-4623-ba5f-8d86e5153146",
+                "blockType": "paragraph",
+                "content": {
+                  "text": [
+                    {
+                      "text": "Keep the operational body and its discussion. "
+                    },
+                    {
+                      "text": "Supporting procedure",
+                      "link": {
+                        "href": "http://127.0.0.1:41199/app/pages/01M6XWVP12AAT26C0X0HN9XDGR"
+                      }
+                    }
+                  ]
+                },
+                "treePosition": "a",
+                "parentBlockId": null,
+                "pageId": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "revisionId": "01M6XWVP2F44402SMHE0W1SSVT"
+              }
+            ],
+            "properties": {
+              "title": "Decision layer source",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            },
+            "createdAt": "2026-11-08T15:36:32.076Z",
+            "newerRevisionExists": true
+          }
+        ],
+        "links": [
+          {
+            "id": "01M6XWVP3HFZ7GNBJX91P9CBTF",
+            "title": "Decision inbound reference"
+          }
+        ],
+        "inbound": {
+          "lock": null,
+          "authorDisplayName": "Alex Owner",
+          "ownerDisplayName": "Alex Owner",
+          "contributors": [],
+          "schedule": null,
+          "mentions": {},
+          "page": {
+            "id": "01M6XWVP3HFZ7GNBJX91P9CBTF",
+            "containerId": "01M6XWVNZT6ZDVXEMBK9YRNF5E",
+            "title": "Decision inbound reference",
+            "revisionId": "01M6XWVP3HSS5RMY3D2N4YVJTR",
+            "lifecycle": "live"
+          },
+          "blocks": [
+            {
+              "id": "227f6e90-09d7-4910-84a9-04675d4e616e",
+              "blockType": "paragraph",
+              "content": {
+                "text": [
+                  {
+                    "text": "Decision layer source",
+                    "link": {
+                      "href": "http://127.0.0.1:41199/app/pages/01M6XWVP2ERSWVQ91DK34R8GBF"
+                    }
+                  }
+                ]
+              },
+              "treePosition": "a",
+              "parentBlockId": null,
+              "pageId": "01M6XWVP3HFZ7GNBJX91P9CBTF",
+              "revisionId": "01M6XWVP3K8A4QDCQAD6SJRA38"
+            }
+          ],
+          "properties": {
+            "title": "Decision inbound reference",
+            "icon": null,
+            "coverFileId": null,
+            "ownerMemberId": "browser-owner",
+            "statusKey": null,
+            "labels": [],
+            "typeface": "default",
+            "smallText": false,
+            "fullWidth": false
+          },
+          "parentPageId": null,
+          "createdAt": "2026-11-08T15:36:32.111Z",
+          "updatedAt": "2026-11-08T15:36:32.111Z",
+          "authorMemberId": "browser-owner",
+          "workingRevisionId": "01M6XWVP3HSS5RMY3D2N4YVJTR",
+          "publishedRevisionId": "01M6XWVP3HSS5RMY3D2N4YVJTR",
+          "permissions": {
+            "level": "full",
+            "canEdit": true,
+            "canUnlock": true,
+            "canShare": true
+          },
+          "policyProfile": {
+            "page.lifecycle.v1": "always-live",
+            "page.access.v1": "workspace-general",
+            "page.public-access.v1": "site",
+            "page.version.v1": "autosnapshot",
+            "page.status.v1": "verification-only",
+            "record.page-parity.v1": "record-is-page",
+            "automation.scope.v1": "source",
+            "container.access.v1": "class-led"
+          }
+        },
+        "outbound": {
+          "lock": null,
+          "authorDisplayName": "Alex Owner",
+          "ownerDisplayName": "Alex Owner",
+          "contributors": [],
+          "schedule": null,
+          "mentions": {},
+          "page": {
+            "id": "01M6XWVP12AAT26C0X0HN9XDGR",
+            "containerId": "01M6XWVNZT6ZDVXEMBK9YRNF5E",
+            "title": "Decision supporting procedure",
+            "revisionId": "01M6XWVP12TB6HJ1ZPNMZT3EQX",
+            "lifecycle": "live"
+          },
+          "blocks": [],
+          "properties": {
+            "title": "Decision supporting procedure",
+            "icon": null,
+            "coverFileId": null,
+            "ownerMemberId": "browser-owner",
+            "statusKey": null,
+            "labels": [],
+            "typeface": "default",
+            "smallText": false,
+            "fullWidth": false
+          },
+          "parentPageId": null,
+          "createdAt": "2026-11-08T15:36:32.030Z",
+          "updatedAt": "2026-11-08T15:36:32.030Z",
+          "authorMemberId": "browser-owner",
+          "workingRevisionId": "01M6XWVP12TB6HJ1ZPNMZT3EQX",
+          "publishedRevisionId": "01M6XWVP12TB6HJ1ZPNMZT3EQX",
+          "permissions": {
+            "level": "full",
+            "canEdit": true,
+            "canUnlock": true,
+            "canShare": true
+          },
+          "policyProfile": {
+            "page.lifecycle.v1": "always-live",
+            "page.access.v1": "workspace-general",
+            "page.public-access.v1": "site",
+            "page.version.v1": "autosnapshot",
+            "page.status.v1": "verification-only",
+            "record.page-parity.v1": "record-is-page",
+            "automation.scope.v1": "source",
+            "container.access.v1": "class-led"
+          }
+        }
+      }
+    },
+    {
+      "label": "after create",
+      "value": {
+        "document": {
+          "lock": null,
+          "authorDisplayName": "Alex Owner",
+          "ownerDisplayName": "Alex Owner",
+          "contributors": [],
+          "schedule": null,
+          "mentions": {},
+          "page": {
+            "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+            "containerId": "01M6XWVNZT6ZDVXEMBK9YRNF5E",
+            "title": "Decision layer source revised",
+            "revisionId": "01M6XWVP81W7PKYZ7KHN83XYE0",
+            "lifecycle": "live"
+          },
+          "blocks": [
+            {
+              "id": "d3a1abf6-c1d5-4623-ba5f-8d86e5153146",
+              "pageId": "01M6XWVP2ERSWVQ91DK34R8GBF",
+              "parentBlockId": null,
+              "blockType": "paragraph",
+              "content": {
+                "text": [
+                  {
+                    "text": "Keep the operational body and its discussion. "
+                  },
+                  {
+                    "text": "Supporting procedure",
+                    "link": {
+                      "href": "http://127.0.0.1:41199/app/pages/01M6XWVP12AAT26C0X0HN9XDGR"
+                    }
+                  }
+                ]
+              },
+              "treePosition": "a",
+              "revisionId": "01M6XWVP2F44402SMHE0W1SSVT"
+            }
+          ],
+          "properties": {
+            "title": "Decision layer source revised",
+            "icon": null,
+            "coverFileId": null,
+            "ownerMemberId": "browser-owner",
+            "statusKey": null,
+            "labels": [],
+            "typeface": "default",
+            "smallText": false,
+            "fullWidth": false
+          },
+          "parentPageId": null,
+          "createdAt": "2026-11-08T15:36:32.076Z",
+          "updatedAt": "2026-11-08T15:36:32.254Z",
+          "authorMemberId": "browser-owner",
+          "workingRevisionId": "01M6XWVP567JRMW6XKM4FF08GV",
+          "publishedRevisionId": "01M6XWVP567JRMW6XKM4FF08GV",
+          "permissions": {
+            "level": "full",
+            "canEdit": true,
+            "canUnlock": true,
+            "canShare": true
+          },
+          "policyProfile": {
+            "page.lifecycle.v1": "always-live",
+            "page.access.v1": "workspace-general",
+            "page.public-access.v1": "site",
+            "page.version.v1": "autosnapshot",
+            "page.status.v1": "verification-only",
+            "record.page-parity.v1": "record-is-page",
+            "automation.scope.v1": "source",
+            "container.access.v1": "class-led"
+          }
+        },
+        "comments": {
+          "threads": [
+            {
+              "id": "01M6XWVPFJAGADGHV7XDR7A1NK",
+              "workspace_id": "browser-workspace",
+              "page_id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+              "kind": "page",
+              "block_id": null,
+              "anchor_json": null,
+              "anchor_revision_id": null,
+              "state": "open",
+              "resolved_at": null,
+              "resolved_by_member_id": null,
+              "created_at": "2026-11-08T15:36:32.493Z",
+              "updated_at": "2026-11-08T15:36:32.493Z",
+              "revision_id": "01M6XWVPFFZ721YZA3B0N6P7TG",
+              "orphaned": 0
+            }
+          ],
+          "comments": [
+            {
+              "id": "01M6XWVPFJXW6WWP0KCS74S3G8",
+              "threadId": "01M6XWVPFJAGADGHV7XDR7A1NK",
+              "parentCommentId": null,
+              "authorMemberId": "browser-reader",
+              "body": [
+                {
+                  "text": "Retain this page discussion independently of its decision."
+                }
+              ],
+              "authorDisplayName": "Morgan Reader",
+              "createdAt": "2026-11-08T15:36:32.493Z",
+              "updatedAt": "2026-11-08T15:36:32.493Z",
+              "deletedAt": null,
+              "revisionId": "01M6XWVPFFZ721YZA3B0N6P7TG"
+            }
+          ],
+          "reactions": []
+        },
+        "grants": {
+          "items": [
+            {
+              "id": "01M6XWVP6M76YM022FYSQPV3PF",
+              "principalKind": "member",
+              "principalId": "browser-owner",
+              "level": "full",
+              "expiresAt": null,
+              "revokedAt": null,
+              "invitationId": null,
+              "invitationEmail": null,
+              "invitationExpiresAt": null,
+              "invitationRevokedAt": null,
+              "principalLabel": "Alex Owner",
+              "origin": {
+                "kind": "page",
+                "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "name": "Decision layer source revised"
+              },
+              "inherited": false,
+              "status": "active",
+              "effective": true
+            },
+            {
+              "id": "01M6XWVP9NTTBA8GZ6SWXBZJQZ",
+              "principalKind": "member",
+              "principalId": "browser-reader",
+              "level": "edit",
+              "expiresAt": null,
+              "revokedAt": null,
+              "invitationId": null,
+              "invitationEmail": null,
+              "invitationExpiresAt": null,
+              "invitationRevokedAt": null,
+              "principalLabel": "Morgan Reader",
+              "origin": {
+                "kind": "page",
+                "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "name": "Decision layer source revised"
+              },
+              "inherited": false,
+              "status": "active",
+              "effective": true
+            },
+            {
+              "id": "01M6XWVPJFBBSYZQ07BXEK3VAK",
+              "principalKind": "member",
+              "principalId": "01M6XWVPHK9SHPRA8B4G1PPZ1V",
+              "level": "view",
+              "expiresAt": null,
+              "revokedAt": null,
+              "invitationId": null,
+              "invitationEmail": null,
+              "invitationExpiresAt": null,
+              "invitationRevokedAt": null,
+              "principalLabel": "decision-reader-1f96660d-be20-491e-b316-6a27d74f98e0",
+              "origin": {
+                "kind": "page",
+                "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "name": "Decision layer source revised"
+              },
+              "inherited": false,
+              "status": "active",
+              "effective": true
+            }
+          ],
+          "inheritedItems": [],
+          "effectiveItems": [
+            {
+              "id": "01M6XWVP6M76YM022FYSQPV3PF",
+              "principalKind": "member",
+              "principalId": "browser-owner",
+              "level": "full",
+              "expiresAt": null,
+              "revokedAt": null,
+              "invitationId": null,
+              "invitationEmail": null,
+              "invitationExpiresAt": null,
+              "invitationRevokedAt": null,
+              "principalLabel": "Alex Owner",
+              "origin": {
+                "kind": "page",
+                "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "name": "Decision layer source revised"
+              },
+              "inherited": false,
+              "status": "active",
+              "effective": true
+            },
+            {
+              "id": "01M6XWVP9NTTBA8GZ6SWXBZJQZ",
+              "principalKind": "member",
+              "principalId": "browser-reader",
+              "level": "edit",
+              "expiresAt": null,
+              "revokedAt": null,
+              "invitationId": null,
+              "invitationEmail": null,
+              "invitationExpiresAt": null,
+              "invitationRevokedAt": null,
+              "principalLabel": "Morgan Reader",
+              "origin": {
+                "kind": "page",
+                "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "name": "Decision layer source revised"
+              },
+              "inherited": false,
+              "status": "active",
+              "effective": true
+            },
+            {
+              "id": "01M6XWVPJFBBSYZQ07BXEK3VAK",
+              "principalKind": "member",
+              "principalId": "01M6XWVPHK9SHPRA8B4G1PPZ1V",
+              "level": "view",
+              "expiresAt": null,
+              "revokedAt": null,
+              "invitationId": null,
+              "invitationEmail": null,
+              "invitationExpiresAt": null,
+              "invitationRevokedAt": null,
+              "principalLabel": "decision-reader-1f96660d-be20-491e-b316-6a27d74f98e0",
+              "origin": {
+                "kind": "page",
+                "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "name": "Decision layer source revised"
+              },
+              "inherited": false,
+              "status": "active",
+              "effective": true
+            }
+          ],
+          "levels": [
+            "full",
+            "edit",
+            "comment",
+            "view"
+          ],
+          "container": {
+            "id": "01M6XWVNZT6ZDVXEMBK9YRNF5E",
+            "name": "Decision layer handbook"
+          },
+          "restricted": true,
+          "restriction": {
+            "scope": "page",
+            "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+            "name": "Decision layer source revised"
+          }
+        },
+        "revisions": {
+          "items": [
+            {
+              "id": "01M6XWVP81W7PKYZ7KHN83XYE0",
+              "origin": "autosave",
+              "authorMemberId": "browser-owner",
+              "authorDisplayName": "Alex Owner",
+              "ordinal": null,
+              "label": null,
+              "statusKey": null,
+              "createdAt": "2026-11-08T15:36:32.254Z",
+              "deletedAt": null,
+              "deletedByMemberId": null,
+              "deletedByDisplayName": null
+            },
+            {
+              "id": "01M6XWVP567JRMW6XKM4FF08GV",
+              "origin": "autosave",
+              "authorMemberId": "browser-owner",
+              "authorDisplayName": "Alex Owner",
+              "ordinal": null,
+              "label": null,
+              "statusKey": null,
+              "createdAt": "2026-11-08T15:36:32.163Z",
+              "deletedAt": null,
+              "deletedByMemberId": null,
+              "deletedByDisplayName": null
+            },
+            {
+              "id": "01M6XWVP2EP6018ZHKMG1QKQH4",
+              "origin": "autosave",
+              "authorMemberId": "browser-owner",
+              "authorDisplayName": "Alex Owner",
+              "ordinal": null,
+              "label": null,
+              "statusKey": null,
+              "createdAt": "2026-11-08T15:36:32.076Z",
+              "deletedAt": null,
+              "deletedByMemberId": null,
+              "deletedByDisplayName": null
+            }
+          ]
+        },
+        "exactRevisions": [
+          {
+            "id": "01M6XWVP81W7PKYZ7KHN83XYE0",
+            "blocks": [
+              {
+                "id": "d3a1abf6-c1d5-4623-ba5f-8d86e5153146",
+                "pageId": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "parentBlockId": null,
+                "blockType": "paragraph",
+                "content": {
+                  "text": [
+                    {
+                      "text": "Keep the operational body and its discussion. "
+                    },
+                    {
+                      "text": "Supporting procedure",
+                      "link": {
+                        "href": "http://127.0.0.1:41199/app/pages/01M6XWVP12AAT26C0X0HN9XDGR"
+                      }
+                    }
+                  ]
+                },
+                "treePosition": "a",
+                "revisionId": "01M6XWVP2F44402SMHE0W1SSVT"
+              }
+            ],
+            "properties": {
+              "title": "Decision layer source revised",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            },
+            "createdAt": "2026-11-08T15:36:32.254Z",
+            "newerRevisionExists": true
+          },
+          {
+            "id": "01M6XWVP567JRMW6XKM4FF08GV",
+            "blocks": [
+              {
+                "id": "d3a1abf6-c1d5-4623-ba5f-8d86e5153146",
+                "pageId": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "parentBlockId": null,
+                "blockType": "paragraph",
+                "content": {
+                  "text": [
+                    {
+                      "text": "Keep the operational body and its discussion. "
+                    },
+                    {
+                      "text": "Supporting procedure",
+                      "link": {
+                        "href": "http://127.0.0.1:41199/app/pages/01M6XWVP12AAT26C0X0HN9XDGR"
+                      }
+                    }
+                  ]
+                },
+                "treePosition": "a",
+                "revisionId": "01M6XWVP2F44402SMHE0W1SSVT"
+              }
+            ],
+            "properties": {
+              "title": "Decision layer source revised",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            },
+            "createdAt": "2026-11-08T15:36:32.163Z",
+            "newerRevisionExists": false
+          },
+          {
+            "id": "01M6XWVP2EP6018ZHKMG1QKQH4",
+            "blocks": [
+              {
+                "id": "d3a1abf6-c1d5-4623-ba5f-8d86e5153146",
+                "blockType": "paragraph",
+                "content": {
+                  "text": [
+                    {
+                      "text": "Keep the operational body and its discussion. "
+                    },
+                    {
+                      "text": "Supporting procedure",
+                      "link": {
+                        "href": "http://127.0.0.1:41199/app/pages/01M6XWVP12AAT26C0X0HN9XDGR"
+                      }
+                    }
+                  ]
+                },
+                "treePosition": "a",
+                "parentBlockId": null,
+                "pageId": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "revisionId": "01M6XWVP2F44402SMHE0W1SSVT"
+              }
+            ],
+            "properties": {
+              "title": "Decision layer source",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            },
+            "createdAt": "2026-11-08T15:36:32.076Z",
+            "newerRevisionExists": true
+          }
+        ],
+        "links": [
+          {
+            "id": "01M6XWVP3HFZ7GNBJX91P9CBTF",
+            "title": "Decision inbound reference"
+          }
+        ],
+        "inbound": {
+          "lock": null,
+          "authorDisplayName": "Alex Owner",
+          "ownerDisplayName": "Alex Owner",
+          "contributors": [],
+          "schedule": null,
+          "mentions": {},
+          "page": {
+            "id": "01M6XWVP3HFZ7GNBJX91P9CBTF",
+            "containerId": "01M6XWVNZT6ZDVXEMBK9YRNF5E",
+            "title": "Decision inbound reference",
+            "revisionId": "01M6XWVP3HSS5RMY3D2N4YVJTR",
+            "lifecycle": "live"
+          },
+          "blocks": [
+            {
+              "id": "227f6e90-09d7-4910-84a9-04675d4e616e",
+              "blockType": "paragraph",
+              "content": {
+                "text": [
+                  {
+                    "text": "Decision layer source",
+                    "link": {
+                      "href": "http://127.0.0.1:41199/app/pages/01M6XWVP2ERSWVQ91DK34R8GBF"
+                    }
+                  }
+                ]
+              },
+              "treePosition": "a",
+              "parentBlockId": null,
+              "pageId": "01M6XWVP3HFZ7GNBJX91P9CBTF",
+              "revisionId": "01M6XWVP3K8A4QDCQAD6SJRA38"
+            }
+          ],
+          "properties": {
+            "title": "Decision inbound reference",
+            "icon": null,
+            "coverFileId": null,
+            "ownerMemberId": "browser-owner",
+            "statusKey": null,
+            "labels": [],
+            "typeface": "default",
+            "smallText": false,
+            "fullWidth": false
+          },
+          "parentPageId": null,
+          "createdAt": "2026-11-08T15:36:32.111Z",
+          "updatedAt": "2026-11-08T15:36:32.111Z",
+          "authorMemberId": "browser-owner",
+          "workingRevisionId": "01M6XWVP3HSS5RMY3D2N4YVJTR",
+          "publishedRevisionId": "01M6XWVP3HSS5RMY3D2N4YVJTR",
+          "permissions": {
+            "level": "full",
+            "canEdit": true,
+            "canUnlock": true,
+            "canShare": true
+          },
+          "policyProfile": {
+            "page.lifecycle.v1": "always-live",
+            "page.access.v1": "workspace-general",
+            "page.public-access.v1": "site",
+            "page.version.v1": "autosnapshot",
+            "page.status.v1": "verification-only",
+            "record.page-parity.v1": "record-is-page",
+            "automation.scope.v1": "source",
+            "container.access.v1": "class-led"
+          }
+        },
+        "outbound": {
+          "lock": null,
+          "authorDisplayName": "Alex Owner",
+          "ownerDisplayName": "Alex Owner",
+          "contributors": [],
+          "schedule": null,
+          "mentions": {},
+          "page": {
+            "id": "01M6XWVP12AAT26C0X0HN9XDGR",
+            "containerId": "01M6XWVNZT6ZDVXEMBK9YRNF5E",
+            "title": "Decision supporting procedure",
+            "revisionId": "01M6XWVP12TB6HJ1ZPNMZT3EQX",
+            "lifecycle": "live"
+          },
+          "blocks": [],
+          "properties": {
+            "title": "Decision supporting procedure",
+            "icon": null,
+            "coverFileId": null,
+            "ownerMemberId": "browser-owner",
+            "statusKey": null,
+            "labels": [],
+            "typeface": "default",
+            "smallText": false,
+            "fullWidth": false
+          },
+          "parentPageId": null,
+          "createdAt": "2026-11-08T15:36:32.030Z",
+          "updatedAt": "2026-11-08T15:36:32.030Z",
+          "authorMemberId": "browser-owner",
+          "workingRevisionId": "01M6XWVP12TB6HJ1ZPNMZT3EQX",
+          "publishedRevisionId": "01M6XWVP12TB6HJ1ZPNMZT3EQX",
+          "permissions": {
+            "level": "full",
+            "canEdit": true,
+            "canUnlock": true,
+            "canShare": true
+          },
+          "policyProfile": {
+            "page.lifecycle.v1": "always-live",
+            "page.access.v1": "workspace-general",
+            "page.public-access.v1": "site",
+            "page.version.v1": "autosnapshot",
+            "page.status.v1": "verification-only",
+            "record.page-parity.v1": "record-is-page",
+            "automation.scope.v1": "source",
+            "container.access.v1": "class-led"
+          }
+        }
+      }
+    },
+    {
+      "label": "after duplicate refusal and replay",
+      "value": {
+        "document": {
+          "lock": null,
+          "authorDisplayName": "Alex Owner",
+          "ownerDisplayName": "Alex Owner",
+          "contributors": [],
+          "schedule": null,
+          "mentions": {},
+          "page": {
+            "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+            "containerId": "01M6XWVNZT6ZDVXEMBK9YRNF5E",
+            "title": "Decision layer source revised",
+            "revisionId": "01M6XWVP81W7PKYZ7KHN83XYE0",
+            "lifecycle": "live"
+          },
+          "blocks": [
+            {
+              "id": "d3a1abf6-c1d5-4623-ba5f-8d86e5153146",
+              "pageId": "01M6XWVP2ERSWVQ91DK34R8GBF",
+              "parentBlockId": null,
+              "blockType": "paragraph",
+              "content": {
+                "text": [
+                  {
+                    "text": "Keep the operational body and its discussion. "
+                  },
+                  {
+                    "text": "Supporting procedure",
+                    "link": {
+                      "href": "http://127.0.0.1:41199/app/pages/01M6XWVP12AAT26C0X0HN9XDGR"
+                    }
+                  }
+                ]
+              },
+              "treePosition": "a",
+              "revisionId": "01M6XWVP2F44402SMHE0W1SSVT"
+            }
+          ],
+          "properties": {
+            "title": "Decision layer source revised",
+            "icon": null,
+            "coverFileId": null,
+            "ownerMemberId": "browser-owner",
+            "statusKey": null,
+            "labels": [],
+            "typeface": "default",
+            "smallText": false,
+            "fullWidth": false
+          },
+          "parentPageId": null,
+          "createdAt": "2026-11-08T15:36:32.076Z",
+          "updatedAt": "2026-11-08T15:36:32.254Z",
+          "authorMemberId": "browser-owner",
+          "workingRevisionId": "01M6XWVP567JRMW6XKM4FF08GV",
+          "publishedRevisionId": "01M6XWVP567JRMW6XKM4FF08GV",
+          "permissions": {
+            "level": "full",
+            "canEdit": true,
+            "canUnlock": true,
+            "canShare": true
+          },
+          "policyProfile": {
+            "page.lifecycle.v1": "always-live",
+            "page.access.v1": "workspace-general",
+            "page.public-access.v1": "site",
+            "page.version.v1": "autosnapshot",
+            "page.status.v1": "verification-only",
+            "record.page-parity.v1": "record-is-page",
+            "automation.scope.v1": "source",
+            "container.access.v1": "class-led"
+          }
+        },
+        "comments": {
+          "threads": [
+            {
+              "id": "01M6XWVPFJAGADGHV7XDR7A1NK",
+              "workspace_id": "browser-workspace",
+              "page_id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+              "kind": "page",
+              "block_id": null,
+              "anchor_json": null,
+              "anchor_revision_id": null,
+              "state": "open",
+              "resolved_at": null,
+              "resolved_by_member_id": null,
+              "created_at": "2026-11-08T15:36:32.493Z",
+              "updated_at": "2026-11-08T15:36:32.493Z",
+              "revision_id": "01M6XWVPFFZ721YZA3B0N6P7TG",
+              "orphaned": 0
+            }
+          ],
+          "comments": [
+            {
+              "id": "01M6XWVPFJXW6WWP0KCS74S3G8",
+              "threadId": "01M6XWVPFJAGADGHV7XDR7A1NK",
+              "parentCommentId": null,
+              "authorMemberId": "browser-reader",
+              "body": [
+                {
+                  "text": "Retain this page discussion independently of its decision."
+                }
+              ],
+              "authorDisplayName": "Morgan Reader",
+              "createdAt": "2026-11-08T15:36:32.493Z",
+              "updatedAt": "2026-11-08T15:36:32.493Z",
+              "deletedAt": null,
+              "revisionId": "01M6XWVPFFZ721YZA3B0N6P7TG"
+            }
+          ],
+          "reactions": []
+        },
+        "grants": {
+          "items": [
+            {
+              "id": "01M6XWVP6M76YM022FYSQPV3PF",
+              "principalKind": "member",
+              "principalId": "browser-owner",
+              "level": "full",
+              "expiresAt": null,
+              "revokedAt": null,
+              "invitationId": null,
+              "invitationEmail": null,
+              "invitationExpiresAt": null,
+              "invitationRevokedAt": null,
+              "principalLabel": "Alex Owner",
+              "origin": {
+                "kind": "page",
+                "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "name": "Decision layer source revised"
+              },
+              "inherited": false,
+              "status": "active",
+              "effective": true
+            },
+            {
+              "id": "01M6XWVP9NTTBA8GZ6SWXBZJQZ",
+              "principalKind": "member",
+              "principalId": "browser-reader",
+              "level": "edit",
+              "expiresAt": null,
+              "revokedAt": null,
+              "invitationId": null,
+              "invitationEmail": null,
+              "invitationExpiresAt": null,
+              "invitationRevokedAt": null,
+              "principalLabel": "Morgan Reader",
+              "origin": {
+                "kind": "page",
+                "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "name": "Decision layer source revised"
+              },
+              "inherited": false,
+              "status": "active",
+              "effective": true
+            },
+            {
+              "id": "01M6XWVPJFBBSYZQ07BXEK3VAK",
+              "principalKind": "member",
+              "principalId": "01M6XWVPHK9SHPRA8B4G1PPZ1V",
+              "level": "view",
+              "expiresAt": null,
+              "revokedAt": null,
+              "invitationId": null,
+              "invitationEmail": null,
+              "invitationExpiresAt": null,
+              "invitationRevokedAt": null,
+              "principalLabel": "decision-reader-1f96660d-be20-491e-b316-6a27d74f98e0",
+              "origin": {
+                "kind": "page",
+                "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "name": "Decision layer source revised"
+              },
+              "inherited": false,
+              "status": "active",
+              "effective": true
+            }
+          ],
+          "inheritedItems": [],
+          "effectiveItems": [
+            {
+              "id": "01M6XWVP6M76YM022FYSQPV3PF",
+              "principalKind": "member",
+              "principalId": "browser-owner",
+              "level": "full",
+              "expiresAt": null,
+              "revokedAt": null,
+              "invitationId": null,
+              "invitationEmail": null,
+              "invitationExpiresAt": null,
+              "invitationRevokedAt": null,
+              "principalLabel": "Alex Owner",
+              "origin": {
+                "kind": "page",
+                "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "name": "Decision layer source revised"
+              },
+              "inherited": false,
+              "status": "active",
+              "effective": true
+            },
+            {
+              "id": "01M6XWVP9NTTBA8GZ6SWXBZJQZ",
+              "principalKind": "member",
+              "principalId": "browser-reader",
+              "level": "edit",
+              "expiresAt": null,
+              "revokedAt": null,
+              "invitationId": null,
+              "invitationEmail": null,
+              "invitationExpiresAt": null,
+              "invitationRevokedAt": null,
+              "principalLabel": "Morgan Reader",
+              "origin": {
+                "kind": "page",
+                "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "name": "Decision layer source revised"
+              },
+              "inherited": false,
+              "status": "active",
+              "effective": true
+            },
+            {
+              "id": "01M6XWVPJFBBSYZQ07BXEK3VAK",
+              "principalKind": "member",
+              "principalId": "01M6XWVPHK9SHPRA8B4G1PPZ1V",
+              "level": "view",
+              "expiresAt": null,
+              "revokedAt": null,
+              "invitationId": null,
+              "invitationEmail": null,
+              "invitationExpiresAt": null,
+              "invitationRevokedAt": null,
+              "principalLabel": "decision-reader-1f96660d-be20-491e-b316-6a27d74f98e0",
+              "origin": {
+                "kind": "page",
+                "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "name": "Decision layer source revised"
+              },
+              "inherited": false,
+              "status": "active",
+              "effective": true
+            }
+          ],
+          "levels": [
+            "full",
+            "edit",
+            "comment",
+            "view"
+          ],
+          "container": {
+            "id": "01M6XWVNZT6ZDVXEMBK9YRNF5E",
+            "name": "Decision layer handbook"
+          },
+          "restricted": true,
+          "restriction": {
+            "scope": "page",
+            "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+            "name": "Decision layer source revised"
+          }
+        },
+        "revisions": {
+          "items": [
+            {
+              "id": "01M6XWVP81W7PKYZ7KHN83XYE0",
+              "origin": "autosave",
+              "authorMemberId": "browser-owner",
+              "authorDisplayName": "Alex Owner",
+              "ordinal": null,
+              "label": null,
+              "statusKey": null,
+              "createdAt": "2026-11-08T15:36:32.254Z",
+              "deletedAt": null,
+              "deletedByMemberId": null,
+              "deletedByDisplayName": null
+            },
+            {
+              "id": "01M6XWVP567JRMW6XKM4FF08GV",
+              "origin": "autosave",
+              "authorMemberId": "browser-owner",
+              "authorDisplayName": "Alex Owner",
+              "ordinal": null,
+              "label": null,
+              "statusKey": null,
+              "createdAt": "2026-11-08T15:36:32.163Z",
+              "deletedAt": null,
+              "deletedByMemberId": null,
+              "deletedByDisplayName": null
+            },
+            {
+              "id": "01M6XWVP2EP6018ZHKMG1QKQH4",
+              "origin": "autosave",
+              "authorMemberId": "browser-owner",
+              "authorDisplayName": "Alex Owner",
+              "ordinal": null,
+              "label": null,
+              "statusKey": null,
+              "createdAt": "2026-11-08T15:36:32.076Z",
+              "deletedAt": null,
+              "deletedByMemberId": null,
+              "deletedByDisplayName": null
+            }
+          ]
+        },
+        "exactRevisions": [
+          {
+            "id": "01M6XWVP81W7PKYZ7KHN83XYE0",
+            "blocks": [
+              {
+                "id": "d3a1abf6-c1d5-4623-ba5f-8d86e5153146",
+                "pageId": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "parentBlockId": null,
+                "blockType": "paragraph",
+                "content": {
+                  "text": [
+                    {
+                      "text": "Keep the operational body and its discussion. "
+                    },
+                    {
+                      "text": "Supporting procedure",
+                      "link": {
+                        "href": "http://127.0.0.1:41199/app/pages/01M6XWVP12AAT26C0X0HN9XDGR"
+                      }
+                    }
+                  ]
+                },
+                "treePosition": "a",
+                "revisionId": "01M6XWVP2F44402SMHE0W1SSVT"
+              }
+            ],
+            "properties": {
+              "title": "Decision layer source revised",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            },
+            "createdAt": "2026-11-08T15:36:32.254Z",
+            "newerRevisionExists": true
+          },
+          {
+            "id": "01M6XWVP567JRMW6XKM4FF08GV",
+            "blocks": [
+              {
+                "id": "d3a1abf6-c1d5-4623-ba5f-8d86e5153146",
+                "pageId": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "parentBlockId": null,
+                "blockType": "paragraph",
+                "content": {
+                  "text": [
+                    {
+                      "text": "Keep the operational body and its discussion. "
+                    },
+                    {
+                      "text": "Supporting procedure",
+                      "link": {
+                        "href": "http://127.0.0.1:41199/app/pages/01M6XWVP12AAT26C0X0HN9XDGR"
+                      }
+                    }
+                  ]
+                },
+                "treePosition": "a",
+                "revisionId": "01M6XWVP2F44402SMHE0W1SSVT"
+              }
+            ],
+            "properties": {
+              "title": "Decision layer source revised",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            },
+            "createdAt": "2026-11-08T15:36:32.163Z",
+            "newerRevisionExists": false
+          },
+          {
+            "id": "01M6XWVP2EP6018ZHKMG1QKQH4",
+            "blocks": [
+              {
+                "id": "d3a1abf6-c1d5-4623-ba5f-8d86e5153146",
+                "blockType": "paragraph",
+                "content": {
+                  "text": [
+                    {
+                      "text": "Keep the operational body and its discussion. "
+                    },
+                    {
+                      "text": "Supporting procedure",
+                      "link": {
+                        "href": "http://127.0.0.1:41199/app/pages/01M6XWVP12AAT26C0X0HN9XDGR"
+                      }
+                    }
+                  ]
+                },
+                "treePosition": "a",
+                "parentBlockId": null,
+                "pageId": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "revisionId": "01M6XWVP2F44402SMHE0W1SSVT"
+              }
+            ],
+            "properties": {
+              "title": "Decision layer source",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            },
+            "createdAt": "2026-11-08T15:36:32.076Z",
+            "newerRevisionExists": true
+          }
+        ],
+        "links": [
+          {
+            "id": "01M6XWVP3HFZ7GNBJX91P9CBTF",
+            "title": "Decision inbound reference"
+          }
+        ],
+        "inbound": {
+          "lock": null,
+          "authorDisplayName": "Alex Owner",
+          "ownerDisplayName": "Alex Owner",
+          "contributors": [],
+          "schedule": null,
+          "mentions": {},
+          "page": {
+            "id": "01M6XWVP3HFZ7GNBJX91P9CBTF",
+            "containerId": "01M6XWVNZT6ZDVXEMBK9YRNF5E",
+            "title": "Decision inbound reference",
+            "revisionId": "01M6XWVP3HSS5RMY3D2N4YVJTR",
+            "lifecycle": "live"
+          },
+          "blocks": [
+            {
+              "id": "227f6e90-09d7-4910-84a9-04675d4e616e",
+              "blockType": "paragraph",
+              "content": {
+                "text": [
+                  {
+                    "text": "Decision layer source",
+                    "link": {
+                      "href": "http://127.0.0.1:41199/app/pages/01M6XWVP2ERSWVQ91DK34R8GBF"
+                    }
+                  }
+                ]
+              },
+              "treePosition": "a",
+              "parentBlockId": null,
+              "pageId": "01M6XWVP3HFZ7GNBJX91P9CBTF",
+              "revisionId": "01M6XWVP3K8A4QDCQAD6SJRA38"
+            }
+          ],
+          "properties": {
+            "title": "Decision inbound reference",
+            "icon": null,
+            "coverFileId": null,
+            "ownerMemberId": "browser-owner",
+            "statusKey": null,
+            "labels": [],
+            "typeface": "default",
+            "smallText": false,
+            "fullWidth": false
+          },
+          "parentPageId": null,
+          "createdAt": "2026-11-08T15:36:32.111Z",
+          "updatedAt": "2026-11-08T15:36:32.111Z",
+          "authorMemberId": "browser-owner",
+          "workingRevisionId": "01M6XWVP3HSS5RMY3D2N4YVJTR",
+          "publishedRevisionId": "01M6XWVP3HSS5RMY3D2N4YVJTR",
+          "permissions": {
+            "level": "full",
+            "canEdit": true,
+            "canUnlock": true,
+            "canShare": true
+          },
+          "policyProfile": {
+            "page.lifecycle.v1": "always-live",
+            "page.access.v1": "workspace-general",
+            "page.public-access.v1": "site",
+            "page.version.v1": "autosnapshot",
+            "page.status.v1": "verification-only",
+            "record.page-parity.v1": "record-is-page",
+            "automation.scope.v1": "source",
+            "container.access.v1": "class-led"
+          }
+        },
+        "outbound": {
+          "lock": null,
+          "authorDisplayName": "Alex Owner",
+          "ownerDisplayName": "Alex Owner",
+          "contributors": [],
+          "schedule": null,
+          "mentions": {},
+          "page": {
+            "id": "01M6XWVP12AAT26C0X0HN9XDGR",
+            "containerId": "01M6XWVNZT6ZDVXEMBK9YRNF5E",
+            "title": "Decision supporting procedure",
+            "revisionId": "01M6XWVP12TB6HJ1ZPNMZT3EQX",
+            "lifecycle": "live"
+          },
+          "blocks": [],
+          "properties": {
+            "title": "Decision supporting procedure",
+            "icon": null,
+            "coverFileId": null,
+            "ownerMemberId": "browser-owner",
+            "statusKey": null,
+            "labels": [],
+            "typeface": "default",
+            "smallText": false,
+            "fullWidth": false
+          },
+          "parentPageId": null,
+          "createdAt": "2026-11-08T15:36:32.030Z",
+          "updatedAt": "2026-11-08T15:36:32.030Z",
+          "authorMemberId": "browser-owner",
+          "workingRevisionId": "01M6XWVP12TB6HJ1ZPNMZT3EQX",
+          "publishedRevisionId": "01M6XWVP12TB6HJ1ZPNMZT3EQX",
+          "permissions": {
+            "level": "full",
+            "canEdit": true,
+            "canUnlock": true,
+            "canShare": true
+          },
+          "policyProfile": {
+            "page.lifecycle.v1": "always-live",
+            "page.access.v1": "workspace-general",
+            "page.public-access.v1": "site",
+            "page.version.v1": "autosnapshot",
+            "page.status.v1": "verification-only",
+            "record.page-parity.v1": "record-is-page",
+            "automation.scope.v1": "source",
+            "container.access.v1": "class-led"
+          }
+        }
+      }
+    },
+    {
+      "label": "after edit",
+      "value": {
+        "document": {
+          "lock": null,
+          "authorDisplayName": "Alex Owner",
+          "ownerDisplayName": "Alex Owner",
+          "contributors": [],
+          "schedule": null,
+          "mentions": {},
+          "page": {
+            "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+            "containerId": "01M6XWVNZT6ZDVXEMBK9YRNF5E",
+            "title": "Decision layer source revised",
+            "revisionId": "01M6XWVP81W7PKYZ7KHN83XYE0",
+            "lifecycle": "live"
+          },
+          "blocks": [
+            {
+              "id": "d3a1abf6-c1d5-4623-ba5f-8d86e5153146",
+              "pageId": "01M6XWVP2ERSWVQ91DK34R8GBF",
+              "parentBlockId": null,
+              "blockType": "paragraph",
+              "content": {
+                "text": [
+                  {
+                    "text": "Keep the operational body and its discussion. "
+                  },
+                  {
+                    "text": "Supporting procedure",
+                    "link": {
+                      "href": "http://127.0.0.1:41199/app/pages/01M6XWVP12AAT26C0X0HN9XDGR"
+                    }
+                  }
+                ]
+              },
+              "treePosition": "a",
+              "revisionId": "01M6XWVP2F44402SMHE0W1SSVT"
+            }
+          ],
+          "properties": {
+            "title": "Decision layer source revised",
+            "icon": null,
+            "coverFileId": null,
+            "ownerMemberId": "browser-owner",
+            "statusKey": null,
+            "labels": [],
+            "typeface": "default",
+            "smallText": false,
+            "fullWidth": false
+          },
+          "parentPageId": null,
+          "createdAt": "2026-11-08T15:36:32.076Z",
+          "updatedAt": "2026-11-08T15:36:32.254Z",
+          "authorMemberId": "browser-owner",
+          "workingRevisionId": "01M6XWVP567JRMW6XKM4FF08GV",
+          "publishedRevisionId": "01M6XWVP567JRMW6XKM4FF08GV",
+          "permissions": {
+            "level": "full",
+            "canEdit": true,
+            "canUnlock": true,
+            "canShare": true
+          },
+          "policyProfile": {
+            "page.lifecycle.v1": "always-live",
+            "page.access.v1": "workspace-general",
+            "page.public-access.v1": "site",
+            "page.version.v1": "autosnapshot",
+            "page.status.v1": "verification-only",
+            "record.page-parity.v1": "record-is-page",
+            "automation.scope.v1": "source",
+            "container.access.v1": "class-led"
+          }
+        },
+        "comments": {
+          "threads": [
+            {
+              "id": "01M6XWVPFJAGADGHV7XDR7A1NK",
+              "workspace_id": "browser-workspace",
+              "page_id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+              "kind": "page",
+              "block_id": null,
+              "anchor_json": null,
+              "anchor_revision_id": null,
+              "state": "open",
+              "resolved_at": null,
+              "resolved_by_member_id": null,
+              "created_at": "2026-11-08T15:36:32.493Z",
+              "updated_at": "2026-11-08T15:36:32.493Z",
+              "revision_id": "01M6XWVPFFZ721YZA3B0N6P7TG",
+              "orphaned": 0
+            }
+          ],
+          "comments": [
+            {
+              "id": "01M6XWVPFJXW6WWP0KCS74S3G8",
+              "threadId": "01M6XWVPFJAGADGHV7XDR7A1NK",
+              "parentCommentId": null,
+              "authorMemberId": "browser-reader",
+              "body": [
+                {
+                  "text": "Retain this page discussion independently of its decision."
+                }
+              ],
+              "authorDisplayName": "Morgan Reader",
+              "createdAt": "2026-11-08T15:36:32.493Z",
+              "updatedAt": "2026-11-08T15:36:32.493Z",
+              "deletedAt": null,
+              "revisionId": "01M6XWVPFFZ721YZA3B0N6P7TG"
+            }
+          ],
+          "reactions": []
+        },
+        "grants": {
+          "items": [
+            {
+              "id": "01M6XWVP6M76YM022FYSQPV3PF",
+              "principalKind": "member",
+              "principalId": "browser-owner",
+              "level": "full",
+              "expiresAt": null,
+              "revokedAt": null,
+              "invitationId": null,
+              "invitationEmail": null,
+              "invitationExpiresAt": null,
+              "invitationRevokedAt": null,
+              "principalLabel": "Alex Owner",
+              "origin": {
+                "kind": "page",
+                "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "name": "Decision layer source revised"
+              },
+              "inherited": false,
+              "status": "active",
+              "effective": true
+            },
+            {
+              "id": "01M6XWVP9NTTBA8GZ6SWXBZJQZ",
+              "principalKind": "member",
+              "principalId": "browser-reader",
+              "level": "edit",
+              "expiresAt": null,
+              "revokedAt": null,
+              "invitationId": null,
+              "invitationEmail": null,
+              "invitationExpiresAt": null,
+              "invitationRevokedAt": null,
+              "principalLabel": "Morgan Reader",
+              "origin": {
+                "kind": "page",
+                "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "name": "Decision layer source revised"
+              },
+              "inherited": false,
+              "status": "active",
+              "effective": true
+            },
+            {
+              "id": "01M6XWVPJFBBSYZQ07BXEK3VAK",
+              "principalKind": "member",
+              "principalId": "01M6XWVPHK9SHPRA8B4G1PPZ1V",
+              "level": "view",
+              "expiresAt": null,
+              "revokedAt": null,
+              "invitationId": null,
+              "invitationEmail": null,
+              "invitationExpiresAt": null,
+              "invitationRevokedAt": null,
+              "principalLabel": "decision-reader-1f96660d-be20-491e-b316-6a27d74f98e0",
+              "origin": {
+                "kind": "page",
+                "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "name": "Decision layer source revised"
+              },
+              "inherited": false,
+              "status": "active",
+              "effective": true
+            }
+          ],
+          "inheritedItems": [],
+          "effectiveItems": [
+            {
+              "id": "01M6XWVP6M76YM022FYSQPV3PF",
+              "principalKind": "member",
+              "principalId": "browser-owner",
+              "level": "full",
+              "expiresAt": null,
+              "revokedAt": null,
+              "invitationId": null,
+              "invitationEmail": null,
+              "invitationExpiresAt": null,
+              "invitationRevokedAt": null,
+              "principalLabel": "Alex Owner",
+              "origin": {
+                "kind": "page",
+                "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "name": "Decision layer source revised"
+              },
+              "inherited": false,
+              "status": "active",
+              "effective": true
+            },
+            {
+              "id": "01M6XWVP9NTTBA8GZ6SWXBZJQZ",
+              "principalKind": "member",
+              "principalId": "browser-reader",
+              "level": "edit",
+              "expiresAt": null,
+              "revokedAt": null,
+              "invitationId": null,
+              "invitationEmail": null,
+              "invitationExpiresAt": null,
+              "invitationRevokedAt": null,
+              "principalLabel": "Morgan Reader",
+              "origin": {
+                "kind": "page",
+                "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "name": "Decision layer source revised"
+              },
+              "inherited": false,
+              "status": "active",
+              "effective": true
+            },
+            {
+              "id": "01M6XWVPJFBBSYZQ07BXEK3VAK",
+              "principalKind": "member",
+              "principalId": "01M6XWVPHK9SHPRA8B4G1PPZ1V",
+              "level": "view",
+              "expiresAt": null,
+              "revokedAt": null,
+              "invitationId": null,
+              "invitationEmail": null,
+              "invitationExpiresAt": null,
+              "invitationRevokedAt": null,
+              "principalLabel": "decision-reader-1f96660d-be20-491e-b316-6a27d74f98e0",
+              "origin": {
+                "kind": "page",
+                "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "name": "Decision layer source revised"
+              },
+              "inherited": false,
+              "status": "active",
+              "effective": true
+            }
+          ],
+          "levels": [
+            "full",
+            "edit",
+            "comment",
+            "view"
+          ],
+          "container": {
+            "id": "01M6XWVNZT6ZDVXEMBK9YRNF5E",
+            "name": "Decision layer handbook"
+          },
+          "restricted": true,
+          "restriction": {
+            "scope": "page",
+            "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+            "name": "Decision layer source revised"
+          }
+        },
+        "revisions": {
+          "items": [
+            {
+              "id": "01M6XWVP81W7PKYZ7KHN83XYE0",
+              "origin": "autosave",
+              "authorMemberId": "browser-owner",
+              "authorDisplayName": "Alex Owner",
+              "ordinal": null,
+              "label": null,
+              "statusKey": null,
+              "createdAt": "2026-11-08T15:36:32.254Z",
+              "deletedAt": null,
+              "deletedByMemberId": null,
+              "deletedByDisplayName": null
+            },
+            {
+              "id": "01M6XWVP567JRMW6XKM4FF08GV",
+              "origin": "autosave",
+              "authorMemberId": "browser-owner",
+              "authorDisplayName": "Alex Owner",
+              "ordinal": null,
+              "label": null,
+              "statusKey": null,
+              "createdAt": "2026-11-08T15:36:32.163Z",
+              "deletedAt": null,
+              "deletedByMemberId": null,
+              "deletedByDisplayName": null
+            },
+            {
+              "id": "01M6XWVP2EP6018ZHKMG1QKQH4",
+              "origin": "autosave",
+              "authorMemberId": "browser-owner",
+              "authorDisplayName": "Alex Owner",
+              "ordinal": null,
+              "label": null,
+              "statusKey": null,
+              "createdAt": "2026-11-08T15:36:32.076Z",
+              "deletedAt": null,
+              "deletedByMemberId": null,
+              "deletedByDisplayName": null
+            }
+          ]
+        },
+        "exactRevisions": [
+          {
+            "id": "01M6XWVP81W7PKYZ7KHN83XYE0",
+            "blocks": [
+              {
+                "id": "d3a1abf6-c1d5-4623-ba5f-8d86e5153146",
+                "pageId": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "parentBlockId": null,
+                "blockType": "paragraph",
+                "content": {
+                  "text": [
+                    {
+                      "text": "Keep the operational body and its discussion. "
+                    },
+                    {
+                      "text": "Supporting procedure",
+                      "link": {
+                        "href": "http://127.0.0.1:41199/app/pages/01M6XWVP12AAT26C0X0HN9XDGR"
+                      }
+                    }
+                  ]
+                },
+                "treePosition": "a",
+                "revisionId": "01M6XWVP2F44402SMHE0W1SSVT"
+              }
+            ],
+            "properties": {
+              "title": "Decision layer source revised",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            },
+            "createdAt": "2026-11-08T15:36:32.254Z",
+            "newerRevisionExists": true
+          },
+          {
+            "id": "01M6XWVP567JRMW6XKM4FF08GV",
+            "blocks": [
+              {
+                "id": "d3a1abf6-c1d5-4623-ba5f-8d86e5153146",
+                "pageId": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "parentBlockId": null,
+                "blockType": "paragraph",
+                "content": {
+                  "text": [
+                    {
+                      "text": "Keep the operational body and its discussion. "
+                    },
+                    {
+                      "text": "Supporting procedure",
+                      "link": {
+                        "href": "http://127.0.0.1:41199/app/pages/01M6XWVP12AAT26C0X0HN9XDGR"
+                      }
+                    }
+                  ]
+                },
+                "treePosition": "a",
+                "revisionId": "01M6XWVP2F44402SMHE0W1SSVT"
+              }
+            ],
+            "properties": {
+              "title": "Decision layer source revised",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            },
+            "createdAt": "2026-11-08T15:36:32.163Z",
+            "newerRevisionExists": false
+          },
+          {
+            "id": "01M6XWVP2EP6018ZHKMG1QKQH4",
+            "blocks": [
+              {
+                "id": "d3a1abf6-c1d5-4623-ba5f-8d86e5153146",
+                "blockType": "paragraph",
+                "content": {
+                  "text": [
+                    {
+                      "text": "Keep the operational body and its discussion. "
+                    },
+                    {
+                      "text": "Supporting procedure",
+                      "link": {
+                        "href": "http://127.0.0.1:41199/app/pages/01M6XWVP12AAT26C0X0HN9XDGR"
+                      }
+                    }
+                  ]
+                },
+                "treePosition": "a",
+                "parentBlockId": null,
+                "pageId": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "revisionId": "01M6XWVP2F44402SMHE0W1SSVT"
+              }
+            ],
+            "properties": {
+              "title": "Decision layer source",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            },
+            "createdAt": "2026-11-08T15:36:32.076Z",
+            "newerRevisionExists": true
+          }
+        ],
+        "links": [
+          {
+            "id": "01M6XWVP3HFZ7GNBJX91P9CBTF",
+            "title": "Decision inbound reference"
+          }
+        ],
+        "inbound": {
+          "lock": null,
+          "authorDisplayName": "Alex Owner",
+          "ownerDisplayName": "Alex Owner",
+          "contributors": [],
+          "schedule": null,
+          "mentions": {},
+          "page": {
+            "id": "01M6XWVP3HFZ7GNBJX91P9CBTF",
+            "containerId": "01M6XWVNZT6ZDVXEMBK9YRNF5E",
+            "title": "Decision inbound reference",
+            "revisionId": "01M6XWVP3HSS5RMY3D2N4YVJTR",
+            "lifecycle": "live"
+          },
+          "blocks": [
+            {
+              "id": "227f6e90-09d7-4910-84a9-04675d4e616e",
+              "blockType": "paragraph",
+              "content": {
+                "text": [
+                  {
+                    "text": "Decision layer source",
+                    "link": {
+                      "href": "http://127.0.0.1:41199/app/pages/01M6XWVP2ERSWVQ91DK34R8GBF"
+                    }
+                  }
+                ]
+              },
+              "treePosition": "a",
+              "parentBlockId": null,
+              "pageId": "01M6XWVP3HFZ7GNBJX91P9CBTF",
+              "revisionId": "01M6XWVP3K8A4QDCQAD6SJRA38"
+            }
+          ],
+          "properties": {
+            "title": "Decision inbound reference",
+            "icon": null,
+            "coverFileId": null,
+            "ownerMemberId": "browser-owner",
+            "statusKey": null,
+            "labels": [],
+            "typeface": "default",
+            "smallText": false,
+            "fullWidth": false
+          },
+          "parentPageId": null,
+          "createdAt": "2026-11-08T15:36:32.111Z",
+          "updatedAt": "2026-11-08T15:36:32.111Z",
+          "authorMemberId": "browser-owner",
+          "workingRevisionId": "01M6XWVP3HSS5RMY3D2N4YVJTR",
+          "publishedRevisionId": "01M6XWVP3HSS5RMY3D2N4YVJTR",
+          "permissions": {
+            "level": "full",
+            "canEdit": true,
+            "canUnlock": true,
+            "canShare": true
+          },
+          "policyProfile": {
+            "page.lifecycle.v1": "always-live",
+            "page.access.v1": "workspace-general",
+            "page.public-access.v1": "site",
+            "page.version.v1": "autosnapshot",
+            "page.status.v1": "verification-only",
+            "record.page-parity.v1": "record-is-page",
+            "automation.scope.v1": "source",
+            "container.access.v1": "class-led"
+          }
+        },
+        "outbound": {
+          "lock": null,
+          "authorDisplayName": "Alex Owner",
+          "ownerDisplayName": "Alex Owner",
+          "contributors": [],
+          "schedule": null,
+          "mentions": {},
+          "page": {
+            "id": "01M6XWVP12AAT26C0X0HN9XDGR",
+            "containerId": "01M6XWVNZT6ZDVXEMBK9YRNF5E",
+            "title": "Decision supporting procedure",
+            "revisionId": "01M6XWVP12TB6HJ1ZPNMZT3EQX",
+            "lifecycle": "live"
+          },
+          "blocks": [],
+          "properties": {
+            "title": "Decision supporting procedure",
+            "icon": null,
+            "coverFileId": null,
+            "ownerMemberId": "browser-owner",
+            "statusKey": null,
+            "labels": [],
+            "typeface": "default",
+            "smallText": false,
+            "fullWidth": false
+          },
+          "parentPageId": null,
+          "createdAt": "2026-11-08T15:36:32.030Z",
+          "updatedAt": "2026-11-08T15:36:32.030Z",
+          "authorMemberId": "browser-owner",
+          "workingRevisionId": "01M6XWVP12TB6HJ1ZPNMZT3EQX",
+          "publishedRevisionId": "01M6XWVP12TB6HJ1ZPNMZT3EQX",
+          "permissions": {
+            "level": "full",
+            "canEdit": true,
+            "canUnlock": true,
+            "canShare": true
+          },
+          "policyProfile": {
+            "page.lifecycle.v1": "always-live",
+            "page.access.v1": "workspace-general",
+            "page.public-access.v1": "site",
+            "page.version.v1": "autosnapshot",
+            "page.status.v1": "verification-only",
+            "record.page-parity.v1": "record-is-page",
+            "automation.scope.v1": "source",
+            "container.access.v1": "class-led"
+          }
+        }
+      }
+    },
+    {
+      "label": "after accept",
+      "value": {
+        "document": {
+          "lock": null,
+          "authorDisplayName": "Alex Owner",
+          "ownerDisplayName": "Alex Owner",
+          "contributors": [],
+          "schedule": null,
+          "mentions": {},
+          "page": {
+            "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+            "containerId": "01M6XWVNZT6ZDVXEMBK9YRNF5E",
+            "title": "Decision layer source revised",
+            "revisionId": "01M6XWVP81W7PKYZ7KHN83XYE0",
+            "lifecycle": "live"
+          },
+          "blocks": [
+            {
+              "id": "d3a1abf6-c1d5-4623-ba5f-8d86e5153146",
+              "pageId": "01M6XWVP2ERSWVQ91DK34R8GBF",
+              "parentBlockId": null,
+              "blockType": "paragraph",
+              "content": {
+                "text": [
+                  {
+                    "text": "Keep the operational body and its discussion. "
+                  },
+                  {
+                    "text": "Supporting procedure",
+                    "link": {
+                      "href": "http://127.0.0.1:41199/app/pages/01M6XWVP12AAT26C0X0HN9XDGR"
+                    }
+                  }
+                ]
+              },
+              "treePosition": "a",
+              "revisionId": "01M6XWVP2F44402SMHE0W1SSVT"
+            }
+          ],
+          "properties": {
+            "title": "Decision layer source revised",
+            "icon": null,
+            "coverFileId": null,
+            "ownerMemberId": "browser-owner",
+            "statusKey": null,
+            "labels": [],
+            "typeface": "default",
+            "smallText": false,
+            "fullWidth": false
+          },
+          "parentPageId": null,
+          "createdAt": "2026-11-08T15:36:32.076Z",
+          "updatedAt": "2026-11-08T15:36:32.254Z",
+          "authorMemberId": "browser-owner",
+          "workingRevisionId": "01M6XWVP567JRMW6XKM4FF08GV",
+          "publishedRevisionId": "01M6XWVP567JRMW6XKM4FF08GV",
+          "permissions": {
+            "level": "full",
+            "canEdit": true,
+            "canUnlock": true,
+            "canShare": true
+          },
+          "policyProfile": {
+            "page.lifecycle.v1": "always-live",
+            "page.access.v1": "workspace-general",
+            "page.public-access.v1": "site",
+            "page.version.v1": "autosnapshot",
+            "page.status.v1": "verification-only",
+            "record.page-parity.v1": "record-is-page",
+            "automation.scope.v1": "source",
+            "container.access.v1": "class-led"
+          }
+        },
+        "comments": {
+          "threads": [
+            {
+              "id": "01M6XWVPFJAGADGHV7XDR7A1NK",
+              "workspace_id": "browser-workspace",
+              "page_id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+              "kind": "page",
+              "block_id": null,
+              "anchor_json": null,
+              "anchor_revision_id": null,
+              "state": "open",
+              "resolved_at": null,
+              "resolved_by_member_id": null,
+              "created_at": "2026-11-08T15:36:32.493Z",
+              "updated_at": "2026-11-08T15:36:32.493Z",
+              "revision_id": "01M6XWVPFFZ721YZA3B0N6P7TG",
+              "orphaned": 0
+            }
+          ],
+          "comments": [
+            {
+              "id": "01M6XWVPFJXW6WWP0KCS74S3G8",
+              "threadId": "01M6XWVPFJAGADGHV7XDR7A1NK",
+              "parentCommentId": null,
+              "authorMemberId": "browser-reader",
+              "body": [
+                {
+                  "text": "Retain this page discussion independently of its decision."
+                }
+              ],
+              "authorDisplayName": "Morgan Reader",
+              "createdAt": "2026-11-08T15:36:32.493Z",
+              "updatedAt": "2026-11-08T15:36:32.493Z",
+              "deletedAt": null,
+              "revisionId": "01M6XWVPFFZ721YZA3B0N6P7TG"
+            }
+          ],
+          "reactions": []
+        },
+        "grants": {
+          "items": [
+            {
+              "id": "01M6XWVP6M76YM022FYSQPV3PF",
+              "principalKind": "member",
+              "principalId": "browser-owner",
+              "level": "full",
+              "expiresAt": null,
+              "revokedAt": null,
+              "invitationId": null,
+              "invitationEmail": null,
+              "invitationExpiresAt": null,
+              "invitationRevokedAt": null,
+              "principalLabel": "Alex Owner",
+              "origin": {
+                "kind": "page",
+                "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "name": "Decision layer source revised"
+              },
+              "inherited": false,
+              "status": "active",
+              "effective": true
+            },
+            {
+              "id": "01M6XWVP9NTTBA8GZ6SWXBZJQZ",
+              "principalKind": "member",
+              "principalId": "browser-reader",
+              "level": "edit",
+              "expiresAt": null,
+              "revokedAt": null,
+              "invitationId": null,
+              "invitationEmail": null,
+              "invitationExpiresAt": null,
+              "invitationRevokedAt": null,
+              "principalLabel": "Morgan Reader",
+              "origin": {
+                "kind": "page",
+                "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "name": "Decision layer source revised"
+              },
+              "inherited": false,
+              "status": "active",
+              "effective": true
+            },
+            {
+              "id": "01M6XWVPJFBBSYZQ07BXEK3VAK",
+              "principalKind": "member",
+              "principalId": "01M6XWVPHK9SHPRA8B4G1PPZ1V",
+              "level": "view",
+              "expiresAt": null,
+              "revokedAt": null,
+              "invitationId": null,
+              "invitationEmail": null,
+              "invitationExpiresAt": null,
+              "invitationRevokedAt": null,
+              "principalLabel": "decision-reader-1f96660d-be20-491e-b316-6a27d74f98e0",
+              "origin": {
+                "kind": "page",
+                "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "name": "Decision layer source revised"
+              },
+              "inherited": false,
+              "status": "active",
+              "effective": true
+            }
+          ],
+          "inheritedItems": [],
+          "effectiveItems": [
+            {
+              "id": "01M6XWVP6M76YM022FYSQPV3PF",
+              "principalKind": "member",
+              "principalId": "browser-owner",
+              "level": "full",
+              "expiresAt": null,
+              "revokedAt": null,
+              "invitationId": null,
+              "invitationEmail": null,
+              "invitationExpiresAt": null,
+              "invitationRevokedAt": null,
+              "principalLabel": "Alex Owner",
+              "origin": {
+                "kind": "page",
+                "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "name": "Decision layer source revised"
+              },
+              "inherited": false,
+              "status": "active",
+              "effective": true
+            },
+            {
+              "id": "01M6XWVP9NTTBA8GZ6SWXBZJQZ",
+              "principalKind": "member",
+              "principalId": "browser-reader",
+              "level": "edit",
+              "expiresAt": null,
+              "revokedAt": null,
+              "invitationId": null,
+              "invitationEmail": null,
+              "invitationExpiresAt": null,
+              "invitationRevokedAt": null,
+              "principalLabel": "Morgan Reader",
+              "origin": {
+                "kind": "page",
+                "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "name": "Decision layer source revised"
+              },
+              "inherited": false,
+              "status": "active",
+              "effective": true
+            },
+            {
+              "id": "01M6XWVPJFBBSYZQ07BXEK3VAK",
+              "principalKind": "member",
+              "principalId": "01M6XWVPHK9SHPRA8B4G1PPZ1V",
+              "level": "view",
+              "expiresAt": null,
+              "revokedAt": null,
+              "invitationId": null,
+              "invitationEmail": null,
+              "invitationExpiresAt": null,
+              "invitationRevokedAt": null,
+              "principalLabel": "decision-reader-1f96660d-be20-491e-b316-6a27d74f98e0",
+              "origin": {
+                "kind": "page",
+                "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "name": "Decision layer source revised"
+              },
+              "inherited": false,
+              "status": "active",
+              "effective": true
+            }
+          ],
+          "levels": [
+            "full",
+            "edit",
+            "comment",
+            "view"
+          ],
+          "container": {
+            "id": "01M6XWVNZT6ZDVXEMBK9YRNF5E",
+            "name": "Decision layer handbook"
+          },
+          "restricted": true,
+          "restriction": {
+            "scope": "page",
+            "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+            "name": "Decision layer source revised"
+          }
+        },
+        "revisions": {
+          "items": [
+            {
+              "id": "01M6XWVP81W7PKYZ7KHN83XYE0",
+              "origin": "autosave",
+              "authorMemberId": "browser-owner",
+              "authorDisplayName": "Alex Owner",
+              "ordinal": null,
+              "label": null,
+              "statusKey": null,
+              "createdAt": "2026-11-08T15:36:32.254Z",
+              "deletedAt": null,
+              "deletedByMemberId": null,
+              "deletedByDisplayName": null
+            },
+            {
+              "id": "01M6XWVP567JRMW6XKM4FF08GV",
+              "origin": "autosave",
+              "authorMemberId": "browser-owner",
+              "authorDisplayName": "Alex Owner",
+              "ordinal": null,
+              "label": null,
+              "statusKey": null,
+              "createdAt": "2026-11-08T15:36:32.163Z",
+              "deletedAt": null,
+              "deletedByMemberId": null,
+              "deletedByDisplayName": null
+            },
+            {
+              "id": "01M6XWVP2EP6018ZHKMG1QKQH4",
+              "origin": "autosave",
+              "authorMemberId": "browser-owner",
+              "authorDisplayName": "Alex Owner",
+              "ordinal": null,
+              "label": null,
+              "statusKey": null,
+              "createdAt": "2026-11-08T15:36:32.076Z",
+              "deletedAt": null,
+              "deletedByMemberId": null,
+              "deletedByDisplayName": null
+            }
+          ]
+        },
+        "exactRevisions": [
+          {
+            "id": "01M6XWVP81W7PKYZ7KHN83XYE0",
+            "blocks": [
+              {
+                "id": "d3a1abf6-c1d5-4623-ba5f-8d86e5153146",
+                "pageId": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "parentBlockId": null,
+                "blockType": "paragraph",
+                "content": {
+                  "text": [
+                    {
+                      "text": "Keep the operational body and its discussion. "
+                    },
+                    {
+                      "text": "Supporting procedure",
+                      "link": {
+                        "href": "http://127.0.0.1:41199/app/pages/01M6XWVP12AAT26C0X0HN9XDGR"
+                      }
+                    }
+                  ]
+                },
+                "treePosition": "a",
+                "revisionId": "01M6XWVP2F44402SMHE0W1SSVT"
+              }
+            ],
+            "properties": {
+              "title": "Decision layer source revised",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            },
+            "createdAt": "2026-11-08T15:36:32.254Z",
+            "newerRevisionExists": true
+          },
+          {
+            "id": "01M6XWVP567JRMW6XKM4FF08GV",
+            "blocks": [
+              {
+                "id": "d3a1abf6-c1d5-4623-ba5f-8d86e5153146",
+                "pageId": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "parentBlockId": null,
+                "blockType": "paragraph",
+                "content": {
+                  "text": [
+                    {
+                      "text": "Keep the operational body and its discussion. "
+                    },
+                    {
+                      "text": "Supporting procedure",
+                      "link": {
+                        "href": "http://127.0.0.1:41199/app/pages/01M6XWVP12AAT26C0X0HN9XDGR"
+                      }
+                    }
+                  ]
+                },
+                "treePosition": "a",
+                "revisionId": "01M6XWVP2F44402SMHE0W1SSVT"
+              }
+            ],
+            "properties": {
+              "title": "Decision layer source revised",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            },
+            "createdAt": "2026-11-08T15:36:32.163Z",
+            "newerRevisionExists": false
+          },
+          {
+            "id": "01M6XWVP2EP6018ZHKMG1QKQH4",
+            "blocks": [
+              {
+                "id": "d3a1abf6-c1d5-4623-ba5f-8d86e5153146",
+                "blockType": "paragraph",
+                "content": {
+                  "text": [
+                    {
+                      "text": "Keep the operational body and its discussion. "
+                    },
+                    {
+                      "text": "Supporting procedure",
+                      "link": {
+                        "href": "http://127.0.0.1:41199/app/pages/01M6XWVP12AAT26C0X0HN9XDGR"
+                      }
+                    }
+                  ]
+                },
+                "treePosition": "a",
+                "parentBlockId": null,
+                "pageId": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "revisionId": "01M6XWVP2F44402SMHE0W1SSVT"
+              }
+            ],
+            "properties": {
+              "title": "Decision layer source",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            },
+            "createdAt": "2026-11-08T15:36:32.076Z",
+            "newerRevisionExists": true
+          }
+        ],
+        "links": [
+          {
+            "id": "01M6XWVP3HFZ7GNBJX91P9CBTF",
+            "title": "Decision inbound reference"
+          }
+        ],
+        "inbound": {
+          "lock": null,
+          "authorDisplayName": "Alex Owner",
+          "ownerDisplayName": "Alex Owner",
+          "contributors": [],
+          "schedule": null,
+          "mentions": {},
+          "page": {
+            "id": "01M6XWVP3HFZ7GNBJX91P9CBTF",
+            "containerId": "01M6XWVNZT6ZDVXEMBK9YRNF5E",
+            "title": "Decision inbound reference",
+            "revisionId": "01M6XWVP3HSS5RMY3D2N4YVJTR",
+            "lifecycle": "live"
+          },
+          "blocks": [
+            {
+              "id": "227f6e90-09d7-4910-84a9-04675d4e616e",
+              "blockType": "paragraph",
+              "content": {
+                "text": [
+                  {
+                    "text": "Decision layer source",
+                    "link": {
+                      "href": "http://127.0.0.1:41199/app/pages/01M6XWVP2ERSWVQ91DK34R8GBF"
+                    }
+                  }
+                ]
+              },
+              "treePosition": "a",
+              "parentBlockId": null,
+              "pageId": "01M6XWVP3HFZ7GNBJX91P9CBTF",
+              "revisionId": "01M6XWVP3K8A4QDCQAD6SJRA38"
+            }
+          ],
+          "properties": {
+            "title": "Decision inbound reference",
+            "icon": null,
+            "coverFileId": null,
+            "ownerMemberId": "browser-owner",
+            "statusKey": null,
+            "labels": [],
+            "typeface": "default",
+            "smallText": false,
+            "fullWidth": false
+          },
+          "parentPageId": null,
+          "createdAt": "2026-11-08T15:36:32.111Z",
+          "updatedAt": "2026-11-08T15:36:32.111Z",
+          "authorMemberId": "browser-owner",
+          "workingRevisionId": "01M6XWVP3HSS5RMY3D2N4YVJTR",
+          "publishedRevisionId": "01M6XWVP3HSS5RMY3D2N4YVJTR",
+          "permissions": {
+            "level": "full",
+            "canEdit": true,
+            "canUnlock": true,
+            "canShare": true
+          },
+          "policyProfile": {
+            "page.lifecycle.v1": "always-live",
+            "page.access.v1": "workspace-general",
+            "page.public-access.v1": "site",
+            "page.version.v1": "autosnapshot",
+            "page.status.v1": "verification-only",
+            "record.page-parity.v1": "record-is-page",
+            "automation.scope.v1": "source",
+            "container.access.v1": "class-led"
+          }
+        },
+        "outbound": {
+          "lock": null,
+          "authorDisplayName": "Alex Owner",
+          "ownerDisplayName": "Alex Owner",
+          "contributors": [],
+          "schedule": null,
+          "mentions": {},
+          "page": {
+            "id": "01M6XWVP12AAT26C0X0HN9XDGR",
+            "containerId": "01M6XWVNZT6ZDVXEMBK9YRNF5E",
+            "title": "Decision supporting procedure",
+            "revisionId": "01M6XWVP12TB6HJ1ZPNMZT3EQX",
+            "lifecycle": "live"
+          },
+          "blocks": [],
+          "properties": {
+            "title": "Decision supporting procedure",
+            "icon": null,
+            "coverFileId": null,
+            "ownerMemberId": "browser-owner",
+            "statusKey": null,
+            "labels": [],
+            "typeface": "default",
+            "smallText": false,
+            "fullWidth": false
+          },
+          "parentPageId": null,
+          "createdAt": "2026-11-08T15:36:32.030Z",
+          "updatedAt": "2026-11-08T15:36:32.030Z",
+          "authorMemberId": "browser-owner",
+          "workingRevisionId": "01M6XWVP12TB6HJ1ZPNMZT3EQX",
+          "publishedRevisionId": "01M6XWVP12TB6HJ1ZPNMZT3EQX",
+          "permissions": {
+            "level": "full",
+            "canEdit": true,
+            "canUnlock": true,
+            "canShare": true
+          },
+          "policyProfile": {
+            "page.lifecycle.v1": "always-live",
+            "page.access.v1": "workspace-general",
+            "page.public-access.v1": "site",
+            "page.version.v1": "autosnapshot",
+            "page.status.v1": "verification-only",
+            "record.page-parity.v1": "record-is-page",
+            "automation.scope.v1": "source",
+            "container.access.v1": "class-led"
+          }
+        }
+      }
+    },
+    {
+      "label": "after review",
+      "value": {
+        "document": {
+          "lock": null,
+          "authorDisplayName": "Alex Owner",
+          "ownerDisplayName": "Alex Owner",
+          "contributors": [],
+          "schedule": null,
+          "mentions": {},
+          "page": {
+            "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+            "containerId": "01M6XWVNZT6ZDVXEMBK9YRNF5E",
+            "title": "Decision layer source revised",
+            "revisionId": "01M6XWVP81W7PKYZ7KHN83XYE0",
+            "lifecycle": "live"
+          },
+          "blocks": [
+            {
+              "id": "d3a1abf6-c1d5-4623-ba5f-8d86e5153146",
+              "pageId": "01M6XWVP2ERSWVQ91DK34R8GBF",
+              "parentBlockId": null,
+              "blockType": "paragraph",
+              "content": {
+                "text": [
+                  {
+                    "text": "Keep the operational body and its discussion. "
+                  },
+                  {
+                    "text": "Supporting procedure",
+                    "link": {
+                      "href": "http://127.0.0.1:41199/app/pages/01M6XWVP12AAT26C0X0HN9XDGR"
+                    }
+                  }
+                ]
+              },
+              "treePosition": "a",
+              "revisionId": "01M6XWVP2F44402SMHE0W1SSVT"
+            }
+          ],
+          "properties": {
+            "title": "Decision layer source revised",
+            "icon": null,
+            "coverFileId": null,
+            "ownerMemberId": "browser-owner",
+            "statusKey": null,
+            "labels": [],
+            "typeface": "default",
+            "smallText": false,
+            "fullWidth": false
+          },
+          "parentPageId": null,
+          "createdAt": "2026-11-08T15:36:32.076Z",
+          "updatedAt": "2026-11-08T15:36:32.254Z",
+          "authorMemberId": "browser-owner",
+          "workingRevisionId": "01M6XWVP567JRMW6XKM4FF08GV",
+          "publishedRevisionId": "01M6XWVP567JRMW6XKM4FF08GV",
+          "permissions": {
+            "level": "full",
+            "canEdit": true,
+            "canUnlock": true,
+            "canShare": true
+          },
+          "policyProfile": {
+            "page.lifecycle.v1": "always-live",
+            "page.access.v1": "workspace-general",
+            "page.public-access.v1": "site",
+            "page.version.v1": "autosnapshot",
+            "page.status.v1": "verification-only",
+            "record.page-parity.v1": "record-is-page",
+            "automation.scope.v1": "source",
+            "container.access.v1": "class-led"
+          }
+        },
+        "comments": {
+          "threads": [
+            {
+              "id": "01M6XWVPFJAGADGHV7XDR7A1NK",
+              "workspace_id": "browser-workspace",
+              "page_id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+              "kind": "page",
+              "block_id": null,
+              "anchor_json": null,
+              "anchor_revision_id": null,
+              "state": "open",
+              "resolved_at": null,
+              "resolved_by_member_id": null,
+              "created_at": "2026-11-08T15:36:32.493Z",
+              "updated_at": "2026-11-08T15:36:32.493Z",
+              "revision_id": "01M6XWVPFFZ721YZA3B0N6P7TG",
+              "orphaned": 0
+            }
+          ],
+          "comments": [
+            {
+              "id": "01M6XWVPFJXW6WWP0KCS74S3G8",
+              "threadId": "01M6XWVPFJAGADGHV7XDR7A1NK",
+              "parentCommentId": null,
+              "authorMemberId": "browser-reader",
+              "body": [
+                {
+                  "text": "Retain this page discussion independently of its decision."
+                }
+              ],
+              "authorDisplayName": "Morgan Reader",
+              "createdAt": "2026-11-08T15:36:32.493Z",
+              "updatedAt": "2026-11-08T15:36:32.493Z",
+              "deletedAt": null,
+              "revisionId": "01M6XWVPFFZ721YZA3B0N6P7TG"
+            }
+          ],
+          "reactions": []
+        },
+        "grants": {
+          "items": [
+            {
+              "id": "01M6XWVP6M76YM022FYSQPV3PF",
+              "principalKind": "member",
+              "principalId": "browser-owner",
+              "level": "full",
+              "expiresAt": null,
+              "revokedAt": null,
+              "invitationId": null,
+              "invitationEmail": null,
+              "invitationExpiresAt": null,
+              "invitationRevokedAt": null,
+              "principalLabel": "Alex Owner",
+              "origin": {
+                "kind": "page",
+                "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "name": "Decision layer source revised"
+              },
+              "inherited": false,
+              "status": "active",
+              "effective": true
+            },
+            {
+              "id": "01M6XWVP9NTTBA8GZ6SWXBZJQZ",
+              "principalKind": "member",
+              "principalId": "browser-reader",
+              "level": "edit",
+              "expiresAt": null,
+              "revokedAt": null,
+              "invitationId": null,
+              "invitationEmail": null,
+              "invitationExpiresAt": null,
+              "invitationRevokedAt": null,
+              "principalLabel": "Morgan Reader",
+              "origin": {
+                "kind": "page",
+                "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "name": "Decision layer source revised"
+              },
+              "inherited": false,
+              "status": "active",
+              "effective": true
+            },
+            {
+              "id": "01M6XWVPJFBBSYZQ07BXEK3VAK",
+              "principalKind": "member",
+              "principalId": "01M6XWVPHK9SHPRA8B4G1PPZ1V",
+              "level": "view",
+              "expiresAt": null,
+              "revokedAt": null,
+              "invitationId": null,
+              "invitationEmail": null,
+              "invitationExpiresAt": null,
+              "invitationRevokedAt": null,
+              "principalLabel": "decision-reader-1f96660d-be20-491e-b316-6a27d74f98e0",
+              "origin": {
+                "kind": "page",
+                "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "name": "Decision layer source revised"
+              },
+              "inherited": false,
+              "status": "active",
+              "effective": true
+            }
+          ],
+          "inheritedItems": [],
+          "effectiveItems": [
+            {
+              "id": "01M6XWVP6M76YM022FYSQPV3PF",
+              "principalKind": "member",
+              "principalId": "browser-owner",
+              "level": "full",
+              "expiresAt": null,
+              "revokedAt": null,
+              "invitationId": null,
+              "invitationEmail": null,
+              "invitationExpiresAt": null,
+              "invitationRevokedAt": null,
+              "principalLabel": "Alex Owner",
+              "origin": {
+                "kind": "page",
+                "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "name": "Decision layer source revised"
+              },
+              "inherited": false,
+              "status": "active",
+              "effective": true
+            },
+            {
+              "id": "01M6XWVP9NTTBA8GZ6SWXBZJQZ",
+              "principalKind": "member",
+              "principalId": "browser-reader",
+              "level": "edit",
+              "expiresAt": null,
+              "revokedAt": null,
+              "invitationId": null,
+              "invitationEmail": null,
+              "invitationExpiresAt": null,
+              "invitationRevokedAt": null,
+              "principalLabel": "Morgan Reader",
+              "origin": {
+                "kind": "page",
+                "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "name": "Decision layer source revised"
+              },
+              "inherited": false,
+              "status": "active",
+              "effective": true
+            },
+            {
+              "id": "01M6XWVPJFBBSYZQ07BXEK3VAK",
+              "principalKind": "member",
+              "principalId": "01M6XWVPHK9SHPRA8B4G1PPZ1V",
+              "level": "view",
+              "expiresAt": null,
+              "revokedAt": null,
+              "invitationId": null,
+              "invitationEmail": null,
+              "invitationExpiresAt": null,
+              "invitationRevokedAt": null,
+              "principalLabel": "decision-reader-1f96660d-be20-491e-b316-6a27d74f98e0",
+              "origin": {
+                "kind": "page",
+                "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "name": "Decision layer source revised"
+              },
+              "inherited": false,
+              "status": "active",
+              "effective": true
+            }
+          ],
+          "levels": [
+            "full",
+            "edit",
+            "comment",
+            "view"
+          ],
+          "container": {
+            "id": "01M6XWVNZT6ZDVXEMBK9YRNF5E",
+            "name": "Decision layer handbook"
+          },
+          "restricted": true,
+          "restriction": {
+            "scope": "page",
+            "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+            "name": "Decision layer source revised"
+          }
+        },
+        "revisions": {
+          "items": [
+            {
+              "id": "01M6XWVP81W7PKYZ7KHN83XYE0",
+              "origin": "autosave",
+              "authorMemberId": "browser-owner",
+              "authorDisplayName": "Alex Owner",
+              "ordinal": null,
+              "label": null,
+              "statusKey": null,
+              "createdAt": "2026-11-08T15:36:32.254Z",
+              "deletedAt": null,
+              "deletedByMemberId": null,
+              "deletedByDisplayName": null
+            },
+            {
+              "id": "01M6XWVP567JRMW6XKM4FF08GV",
+              "origin": "autosave",
+              "authorMemberId": "browser-owner",
+              "authorDisplayName": "Alex Owner",
+              "ordinal": null,
+              "label": null,
+              "statusKey": null,
+              "createdAt": "2026-11-08T15:36:32.163Z",
+              "deletedAt": null,
+              "deletedByMemberId": null,
+              "deletedByDisplayName": null
+            },
+            {
+              "id": "01M6XWVP2EP6018ZHKMG1QKQH4",
+              "origin": "autosave",
+              "authorMemberId": "browser-owner",
+              "authorDisplayName": "Alex Owner",
+              "ordinal": null,
+              "label": null,
+              "statusKey": null,
+              "createdAt": "2026-11-08T15:36:32.076Z",
+              "deletedAt": null,
+              "deletedByMemberId": null,
+              "deletedByDisplayName": null
+            }
+          ]
+        },
+        "exactRevisions": [
+          {
+            "id": "01M6XWVP81W7PKYZ7KHN83XYE0",
+            "blocks": [
+              {
+                "id": "d3a1abf6-c1d5-4623-ba5f-8d86e5153146",
+                "pageId": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "parentBlockId": null,
+                "blockType": "paragraph",
+                "content": {
+                  "text": [
+                    {
+                      "text": "Keep the operational body and its discussion. "
+                    },
+                    {
+                      "text": "Supporting procedure",
+                      "link": {
+                        "href": "http://127.0.0.1:41199/app/pages/01M6XWVP12AAT26C0X0HN9XDGR"
+                      }
+                    }
+                  ]
+                },
+                "treePosition": "a",
+                "revisionId": "01M6XWVP2F44402SMHE0W1SSVT"
+              }
+            ],
+            "properties": {
+              "title": "Decision layer source revised",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            },
+            "createdAt": "2026-11-08T15:36:32.254Z",
+            "newerRevisionExists": true
+          },
+          {
+            "id": "01M6XWVP567JRMW6XKM4FF08GV",
+            "blocks": [
+              {
+                "id": "d3a1abf6-c1d5-4623-ba5f-8d86e5153146",
+                "pageId": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "parentBlockId": null,
+                "blockType": "paragraph",
+                "content": {
+                  "text": [
+                    {
+                      "text": "Keep the operational body and its discussion. "
+                    },
+                    {
+                      "text": "Supporting procedure",
+                      "link": {
+                        "href": "http://127.0.0.1:41199/app/pages/01M6XWVP12AAT26C0X0HN9XDGR"
+                      }
+                    }
+                  ]
+                },
+                "treePosition": "a",
+                "revisionId": "01M6XWVP2F44402SMHE0W1SSVT"
+              }
+            ],
+            "properties": {
+              "title": "Decision layer source revised",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            },
+            "createdAt": "2026-11-08T15:36:32.163Z",
+            "newerRevisionExists": false
+          },
+          {
+            "id": "01M6XWVP2EP6018ZHKMG1QKQH4",
+            "blocks": [
+              {
+                "id": "d3a1abf6-c1d5-4623-ba5f-8d86e5153146",
+                "blockType": "paragraph",
+                "content": {
+                  "text": [
+                    {
+                      "text": "Keep the operational body and its discussion. "
+                    },
+                    {
+                      "text": "Supporting procedure",
+                      "link": {
+                        "href": "http://127.0.0.1:41199/app/pages/01M6XWVP12AAT26C0X0HN9XDGR"
+                      }
+                    }
+                  ]
+                },
+                "treePosition": "a",
+                "parentBlockId": null,
+                "pageId": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "revisionId": "01M6XWVP2F44402SMHE0W1SSVT"
+              }
+            ],
+            "properties": {
+              "title": "Decision layer source",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            },
+            "createdAt": "2026-11-08T15:36:32.076Z",
+            "newerRevisionExists": true
+          }
+        ],
+        "links": [
+          {
+            "id": "01M6XWVP3HFZ7GNBJX91P9CBTF",
+            "title": "Decision inbound reference"
+          }
+        ],
+        "inbound": {
+          "lock": null,
+          "authorDisplayName": "Alex Owner",
+          "ownerDisplayName": "Alex Owner",
+          "contributors": [],
+          "schedule": null,
+          "mentions": {},
+          "page": {
+            "id": "01M6XWVP3HFZ7GNBJX91P9CBTF",
+            "containerId": "01M6XWVNZT6ZDVXEMBK9YRNF5E",
+            "title": "Decision inbound reference",
+            "revisionId": "01M6XWVP3HSS5RMY3D2N4YVJTR",
+            "lifecycle": "live"
+          },
+          "blocks": [
+            {
+              "id": "227f6e90-09d7-4910-84a9-04675d4e616e",
+              "blockType": "paragraph",
+              "content": {
+                "text": [
+                  {
+                    "text": "Decision layer source",
+                    "link": {
+                      "href": "http://127.0.0.1:41199/app/pages/01M6XWVP2ERSWVQ91DK34R8GBF"
+                    }
+                  }
+                ]
+              },
+              "treePosition": "a",
+              "parentBlockId": null,
+              "pageId": "01M6XWVP3HFZ7GNBJX91P9CBTF",
+              "revisionId": "01M6XWVP3K8A4QDCQAD6SJRA38"
+            }
+          ],
+          "properties": {
+            "title": "Decision inbound reference",
+            "icon": null,
+            "coverFileId": null,
+            "ownerMemberId": "browser-owner",
+            "statusKey": null,
+            "labels": [],
+            "typeface": "default",
+            "smallText": false,
+            "fullWidth": false
+          },
+          "parentPageId": null,
+          "createdAt": "2026-11-08T15:36:32.111Z",
+          "updatedAt": "2026-11-08T15:36:32.111Z",
+          "authorMemberId": "browser-owner",
+          "workingRevisionId": "01M6XWVP3HSS5RMY3D2N4YVJTR",
+          "publishedRevisionId": "01M6XWVP3HSS5RMY3D2N4YVJTR",
+          "permissions": {
+            "level": "full",
+            "canEdit": true,
+            "canUnlock": true,
+            "canShare": true
+          },
+          "policyProfile": {
+            "page.lifecycle.v1": "always-live",
+            "page.access.v1": "workspace-general",
+            "page.public-access.v1": "site",
+            "page.version.v1": "autosnapshot",
+            "page.status.v1": "verification-only",
+            "record.page-parity.v1": "record-is-page",
+            "automation.scope.v1": "source",
+            "container.access.v1": "class-led"
+          }
+        },
+        "outbound": {
+          "lock": null,
+          "authorDisplayName": "Alex Owner",
+          "ownerDisplayName": "Alex Owner",
+          "contributors": [],
+          "schedule": null,
+          "mentions": {},
+          "page": {
+            "id": "01M6XWVP12AAT26C0X0HN9XDGR",
+            "containerId": "01M6XWVNZT6ZDVXEMBK9YRNF5E",
+            "title": "Decision supporting procedure",
+            "revisionId": "01M6XWVP12TB6HJ1ZPNMZT3EQX",
+            "lifecycle": "live"
+          },
+          "blocks": [],
+          "properties": {
+            "title": "Decision supporting procedure",
+            "icon": null,
+            "coverFileId": null,
+            "ownerMemberId": "browser-owner",
+            "statusKey": null,
+            "labels": [],
+            "typeface": "default",
+            "smallText": false,
+            "fullWidth": false
+          },
+          "parentPageId": null,
+          "createdAt": "2026-11-08T15:36:32.030Z",
+          "updatedAt": "2026-11-08T15:36:32.030Z",
+          "authorMemberId": "browser-owner",
+          "workingRevisionId": "01M6XWVP12TB6HJ1ZPNMZT3EQX",
+          "publishedRevisionId": "01M6XWVP12TB6HJ1ZPNMZT3EQX",
+          "permissions": {
+            "level": "full",
+            "canEdit": true,
+            "canUnlock": true,
+            "canShare": true
+          },
+          "policyProfile": {
+            "page.lifecycle.v1": "always-live",
+            "page.access.v1": "workspace-general",
+            "page.public-access.v1": "site",
+            "page.version.v1": "autosnapshot",
+            "page.status.v1": "verification-only",
+            "record.page-parity.v1": "record-is-page",
+            "automation.scope.v1": "source",
+            "container.access.v1": "class-led"
+          }
+        }
+      }
+    },
+    {
+      "label": "after removal",
+      "value": {
+        "document": {
+          "lock": null,
+          "authorDisplayName": "Alex Owner",
+          "ownerDisplayName": "Alex Owner",
+          "contributors": [],
+          "schedule": null,
+          "mentions": {},
+          "page": {
+            "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+            "containerId": "01M6XWVNZT6ZDVXEMBK9YRNF5E",
+            "title": "Decision layer source revised",
+            "revisionId": "01M6XWVP81W7PKYZ7KHN83XYE0",
+            "lifecycle": "live"
+          },
+          "blocks": [
+            {
+              "id": "d3a1abf6-c1d5-4623-ba5f-8d86e5153146",
+              "pageId": "01M6XWVP2ERSWVQ91DK34R8GBF",
+              "parentBlockId": null,
+              "blockType": "paragraph",
+              "content": {
+                "text": [
+                  {
+                    "text": "Keep the operational body and its discussion. "
+                  },
+                  {
+                    "text": "Supporting procedure",
+                    "link": {
+                      "href": "http://127.0.0.1:41199/app/pages/01M6XWVP12AAT26C0X0HN9XDGR"
+                    }
+                  }
+                ]
+              },
+              "treePosition": "a",
+              "revisionId": "01M6XWVP2F44402SMHE0W1SSVT"
+            }
+          ],
+          "properties": {
+            "title": "Decision layer source revised",
+            "icon": null,
+            "coverFileId": null,
+            "ownerMemberId": "browser-owner",
+            "statusKey": null,
+            "labels": [],
+            "typeface": "default",
+            "smallText": false,
+            "fullWidth": false
+          },
+          "parentPageId": null,
+          "createdAt": "2026-11-08T15:36:32.076Z",
+          "updatedAt": "2026-11-08T15:36:32.254Z",
+          "authorMemberId": "browser-owner",
+          "workingRevisionId": "01M6XWVP567JRMW6XKM4FF08GV",
+          "publishedRevisionId": "01M6XWVP567JRMW6XKM4FF08GV",
+          "permissions": {
+            "level": "full",
+            "canEdit": true,
+            "canUnlock": true,
+            "canShare": true
+          },
+          "policyProfile": {
+            "page.lifecycle.v1": "always-live",
+            "page.access.v1": "workspace-general",
+            "page.public-access.v1": "site",
+            "page.version.v1": "autosnapshot",
+            "page.status.v1": "verification-only",
+            "record.page-parity.v1": "record-is-page",
+            "automation.scope.v1": "source",
+            "container.access.v1": "class-led"
+          }
+        },
+        "comments": {
+          "threads": [
+            {
+              "id": "01M6XWVPFJAGADGHV7XDR7A1NK",
+              "workspace_id": "browser-workspace",
+              "page_id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+              "kind": "page",
+              "block_id": null,
+              "anchor_json": null,
+              "anchor_revision_id": null,
+              "state": "open",
+              "resolved_at": null,
+              "resolved_by_member_id": null,
+              "created_at": "2026-11-08T15:36:32.493Z",
+              "updated_at": "2026-11-08T15:36:32.493Z",
+              "revision_id": "01M6XWVPFFZ721YZA3B0N6P7TG",
+              "orphaned": 0
+            }
+          ],
+          "comments": [
+            {
+              "id": "01M6XWVPFJXW6WWP0KCS74S3G8",
+              "threadId": "01M6XWVPFJAGADGHV7XDR7A1NK",
+              "parentCommentId": null,
+              "authorMemberId": "browser-reader",
+              "body": [
+                {
+                  "text": "Retain this page discussion independently of its decision."
+                }
+              ],
+              "authorDisplayName": "Morgan Reader",
+              "createdAt": "2026-11-08T15:36:32.493Z",
+              "updatedAt": "2026-11-08T15:36:32.493Z",
+              "deletedAt": null,
+              "revisionId": "01M6XWVPFFZ721YZA3B0N6P7TG"
+            }
+          ],
+          "reactions": []
+        },
+        "grants": {
+          "items": [
+            {
+              "id": "01M6XWVP6M76YM022FYSQPV3PF",
+              "principalKind": "member",
+              "principalId": "browser-owner",
+              "level": "full",
+              "expiresAt": null,
+              "revokedAt": null,
+              "invitationId": null,
+              "invitationEmail": null,
+              "invitationExpiresAt": null,
+              "invitationRevokedAt": null,
+              "principalLabel": "Alex Owner",
+              "origin": {
+                "kind": "page",
+                "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "name": "Decision layer source revised"
+              },
+              "inherited": false,
+              "status": "active",
+              "effective": true
+            },
+            {
+              "id": "01M6XWVP9NTTBA8GZ6SWXBZJQZ",
+              "principalKind": "member",
+              "principalId": "browser-reader",
+              "level": "edit",
+              "expiresAt": null,
+              "revokedAt": null,
+              "invitationId": null,
+              "invitationEmail": null,
+              "invitationExpiresAt": null,
+              "invitationRevokedAt": null,
+              "principalLabel": "Morgan Reader",
+              "origin": {
+                "kind": "page",
+                "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "name": "Decision layer source revised"
+              },
+              "inherited": false,
+              "status": "active",
+              "effective": true
+            },
+            {
+              "id": "01M6XWVPJFBBSYZQ07BXEK3VAK",
+              "principalKind": "member",
+              "principalId": "01M6XWVPHK9SHPRA8B4G1PPZ1V",
+              "level": "view",
+              "expiresAt": null,
+              "revokedAt": null,
+              "invitationId": null,
+              "invitationEmail": null,
+              "invitationExpiresAt": null,
+              "invitationRevokedAt": null,
+              "principalLabel": "decision-reader-1f96660d-be20-491e-b316-6a27d74f98e0",
+              "origin": {
+                "kind": "page",
+                "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "name": "Decision layer source revised"
+              },
+              "inherited": false,
+              "status": "active",
+              "effective": true
+            }
+          ],
+          "inheritedItems": [],
+          "effectiveItems": [
+            {
+              "id": "01M6XWVP6M76YM022FYSQPV3PF",
+              "principalKind": "member",
+              "principalId": "browser-owner",
+              "level": "full",
+              "expiresAt": null,
+              "revokedAt": null,
+              "invitationId": null,
+              "invitationEmail": null,
+              "invitationExpiresAt": null,
+              "invitationRevokedAt": null,
+              "principalLabel": "Alex Owner",
+              "origin": {
+                "kind": "page",
+                "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "name": "Decision layer source revised"
+              },
+              "inherited": false,
+              "status": "active",
+              "effective": true
+            },
+            {
+              "id": "01M6XWVP9NTTBA8GZ6SWXBZJQZ",
+              "principalKind": "member",
+              "principalId": "browser-reader",
+              "level": "edit",
+              "expiresAt": null,
+              "revokedAt": null,
+              "invitationId": null,
+              "invitationEmail": null,
+              "invitationExpiresAt": null,
+              "invitationRevokedAt": null,
+              "principalLabel": "Morgan Reader",
+              "origin": {
+                "kind": "page",
+                "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "name": "Decision layer source revised"
+              },
+              "inherited": false,
+              "status": "active",
+              "effective": true
+            },
+            {
+              "id": "01M6XWVPJFBBSYZQ07BXEK3VAK",
+              "principalKind": "member",
+              "principalId": "01M6XWVPHK9SHPRA8B4G1PPZ1V",
+              "level": "view",
+              "expiresAt": null,
+              "revokedAt": null,
+              "invitationId": null,
+              "invitationEmail": null,
+              "invitationExpiresAt": null,
+              "invitationRevokedAt": null,
+              "principalLabel": "decision-reader-1f96660d-be20-491e-b316-6a27d74f98e0",
+              "origin": {
+                "kind": "page",
+                "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "name": "Decision layer source revised"
+              },
+              "inherited": false,
+              "status": "active",
+              "effective": true
+            }
+          ],
+          "levels": [
+            "full",
+            "edit",
+            "comment",
+            "view"
+          ],
+          "container": {
+            "id": "01M6XWVNZT6ZDVXEMBK9YRNF5E",
+            "name": "Decision layer handbook"
+          },
+          "restricted": true,
+          "restriction": {
+            "scope": "page",
+            "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+            "name": "Decision layer source revised"
+          }
+        },
+        "revisions": {
+          "items": [
+            {
+              "id": "01M6XWVP81W7PKYZ7KHN83XYE0",
+              "origin": "autosave",
+              "authorMemberId": "browser-owner",
+              "authorDisplayName": "Alex Owner",
+              "ordinal": null,
+              "label": null,
+              "statusKey": null,
+              "createdAt": "2026-11-08T15:36:32.254Z",
+              "deletedAt": null,
+              "deletedByMemberId": null,
+              "deletedByDisplayName": null
+            },
+            {
+              "id": "01M6XWVP567JRMW6XKM4FF08GV",
+              "origin": "autosave",
+              "authorMemberId": "browser-owner",
+              "authorDisplayName": "Alex Owner",
+              "ordinal": null,
+              "label": null,
+              "statusKey": null,
+              "createdAt": "2026-11-08T15:36:32.163Z",
+              "deletedAt": null,
+              "deletedByMemberId": null,
+              "deletedByDisplayName": null
+            },
+            {
+              "id": "01M6XWVP2EP6018ZHKMG1QKQH4",
+              "origin": "autosave",
+              "authorMemberId": "browser-owner",
+              "authorDisplayName": "Alex Owner",
+              "ordinal": null,
+              "label": null,
+              "statusKey": null,
+              "createdAt": "2026-11-08T15:36:32.076Z",
+              "deletedAt": null,
+              "deletedByMemberId": null,
+              "deletedByDisplayName": null
+            }
+          ]
+        },
+        "exactRevisions": [
+          {
+            "id": "01M6XWVP81W7PKYZ7KHN83XYE0",
+            "blocks": [
+              {
+                "id": "d3a1abf6-c1d5-4623-ba5f-8d86e5153146",
+                "pageId": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "parentBlockId": null,
+                "blockType": "paragraph",
+                "content": {
+                  "text": [
+                    {
+                      "text": "Keep the operational body and its discussion. "
+                    },
+                    {
+                      "text": "Supporting procedure",
+                      "link": {
+                        "href": "http://127.0.0.1:41199/app/pages/01M6XWVP12AAT26C0X0HN9XDGR"
+                      }
+                    }
+                  ]
+                },
+                "treePosition": "a",
+                "revisionId": "01M6XWVP2F44402SMHE0W1SSVT"
+              }
+            ],
+            "properties": {
+              "title": "Decision layer source revised",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            },
+            "createdAt": "2026-11-08T15:36:32.254Z",
+            "newerRevisionExists": true
+          },
+          {
+            "id": "01M6XWVP567JRMW6XKM4FF08GV",
+            "blocks": [
+              {
+                "id": "d3a1abf6-c1d5-4623-ba5f-8d86e5153146",
+                "pageId": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "parentBlockId": null,
+                "blockType": "paragraph",
+                "content": {
+                  "text": [
+                    {
+                      "text": "Keep the operational body and its discussion. "
+                    },
+                    {
+                      "text": "Supporting procedure",
+                      "link": {
+                        "href": "http://127.0.0.1:41199/app/pages/01M6XWVP12AAT26C0X0HN9XDGR"
+                      }
+                    }
+                  ]
+                },
+                "treePosition": "a",
+                "revisionId": "01M6XWVP2F44402SMHE0W1SSVT"
+              }
+            ],
+            "properties": {
+              "title": "Decision layer source revised",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            },
+            "createdAt": "2026-11-08T15:36:32.163Z",
+            "newerRevisionExists": false
+          },
+          {
+            "id": "01M6XWVP2EP6018ZHKMG1QKQH4",
+            "blocks": [
+              {
+                "id": "d3a1abf6-c1d5-4623-ba5f-8d86e5153146",
+                "blockType": "paragraph",
+                "content": {
+                  "text": [
+                    {
+                      "text": "Keep the operational body and its discussion. "
+                    },
+                    {
+                      "text": "Supporting procedure",
+                      "link": {
+                        "href": "http://127.0.0.1:41199/app/pages/01M6XWVP12AAT26C0X0HN9XDGR"
+                      }
+                    }
+                  ]
+                },
+                "treePosition": "a",
+                "parentBlockId": null,
+                "pageId": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "revisionId": "01M6XWVP2F44402SMHE0W1SSVT"
+              }
+            ],
+            "properties": {
+              "title": "Decision layer source",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            },
+            "createdAt": "2026-11-08T15:36:32.076Z",
+            "newerRevisionExists": true
+          }
+        ],
+        "links": [
+          {
+            "id": "01M6XWVP3HFZ7GNBJX91P9CBTF",
+            "title": "Decision inbound reference"
+          }
+        ],
+        "inbound": {
+          "lock": null,
+          "authorDisplayName": "Alex Owner",
+          "ownerDisplayName": "Alex Owner",
+          "contributors": [],
+          "schedule": null,
+          "mentions": {},
+          "page": {
+            "id": "01M6XWVP3HFZ7GNBJX91P9CBTF",
+            "containerId": "01M6XWVNZT6ZDVXEMBK9YRNF5E",
+            "title": "Decision inbound reference",
+            "revisionId": "01M6XWVP3HSS5RMY3D2N4YVJTR",
+            "lifecycle": "live"
+          },
+          "blocks": [
+            {
+              "id": "227f6e90-09d7-4910-84a9-04675d4e616e",
+              "blockType": "paragraph",
+              "content": {
+                "text": [
+                  {
+                    "text": "Decision layer source",
+                    "link": {
+                      "href": "http://127.0.0.1:41199/app/pages/01M6XWVP2ERSWVQ91DK34R8GBF"
+                    }
+                  }
+                ]
+              },
+              "treePosition": "a",
+              "parentBlockId": null,
+              "pageId": "01M6XWVP3HFZ7GNBJX91P9CBTF",
+              "revisionId": "01M6XWVP3K8A4QDCQAD6SJRA38"
+            }
+          ],
+          "properties": {
+            "title": "Decision inbound reference",
+            "icon": null,
+            "coverFileId": null,
+            "ownerMemberId": "browser-owner",
+            "statusKey": null,
+            "labels": [],
+            "typeface": "default",
+            "smallText": false,
+            "fullWidth": false
+          },
+          "parentPageId": null,
+          "createdAt": "2026-11-08T15:36:32.111Z",
+          "updatedAt": "2026-11-08T15:36:32.111Z",
+          "authorMemberId": "browser-owner",
+          "workingRevisionId": "01M6XWVP3HSS5RMY3D2N4YVJTR",
+          "publishedRevisionId": "01M6XWVP3HSS5RMY3D2N4YVJTR",
+          "permissions": {
+            "level": "full",
+            "canEdit": true,
+            "canUnlock": true,
+            "canShare": true
+          },
+          "policyProfile": {
+            "page.lifecycle.v1": "always-live",
+            "page.access.v1": "workspace-general",
+            "page.public-access.v1": "site",
+            "page.version.v1": "autosnapshot",
+            "page.status.v1": "verification-only",
+            "record.page-parity.v1": "record-is-page",
+            "automation.scope.v1": "source",
+            "container.access.v1": "class-led"
+          }
+        },
+        "outbound": {
+          "lock": null,
+          "authorDisplayName": "Alex Owner",
+          "ownerDisplayName": "Alex Owner",
+          "contributors": [],
+          "schedule": null,
+          "mentions": {},
+          "page": {
+            "id": "01M6XWVP12AAT26C0X0HN9XDGR",
+            "containerId": "01M6XWVNZT6ZDVXEMBK9YRNF5E",
+            "title": "Decision supporting procedure",
+            "revisionId": "01M6XWVP12TB6HJ1ZPNMZT3EQX",
+            "lifecycle": "live"
+          },
+          "blocks": [],
+          "properties": {
+            "title": "Decision supporting procedure",
+            "icon": null,
+            "coverFileId": null,
+            "ownerMemberId": "browser-owner",
+            "statusKey": null,
+            "labels": [],
+            "typeface": "default",
+            "smallText": false,
+            "fullWidth": false
+          },
+          "parentPageId": null,
+          "createdAt": "2026-11-08T15:36:32.030Z",
+          "updatedAt": "2026-11-08T15:36:32.030Z",
+          "authorMemberId": "browser-owner",
+          "workingRevisionId": "01M6XWVP12TB6HJ1ZPNMZT3EQX",
+          "publishedRevisionId": "01M6XWVP12TB6HJ1ZPNMZT3EQX",
+          "permissions": {
+            "level": "full",
+            "canEdit": true,
+            "canUnlock": true,
+            "canShare": true
+          },
+          "policyProfile": {
+            "page.lifecycle.v1": "always-live",
+            "page.access.v1": "workspace-general",
+            "page.public-access.v1": "site",
+            "page.version.v1": "autosnapshot",
+            "page.status.v1": "verification-only",
+            "record.page-parity.v1": "record-is-page",
+            "automation.scope.v1": "source",
+            "container.access.v1": "class-led"
+          }
+        }
+      }
+    },
+    {
+      "label": "after replacement",
+      "value": {
+        "document": {
+          "lock": null,
+          "authorDisplayName": "Alex Owner",
+          "ownerDisplayName": "Alex Owner",
+          "contributors": [],
+          "schedule": null,
+          "mentions": {},
+          "page": {
+            "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+            "containerId": "01M6XWVNZT6ZDVXEMBK9YRNF5E",
+            "title": "Decision layer source revised",
+            "revisionId": "01M6XWVP81W7PKYZ7KHN83XYE0",
+            "lifecycle": "live"
+          },
+          "blocks": [
+            {
+              "id": "d3a1abf6-c1d5-4623-ba5f-8d86e5153146",
+              "pageId": "01M6XWVP2ERSWVQ91DK34R8GBF",
+              "parentBlockId": null,
+              "blockType": "paragraph",
+              "content": {
+                "text": [
+                  {
+                    "text": "Keep the operational body and its discussion. "
+                  },
+                  {
+                    "text": "Supporting procedure",
+                    "link": {
+                      "href": "http://127.0.0.1:41199/app/pages/01M6XWVP12AAT26C0X0HN9XDGR"
+                    }
+                  }
+                ]
+              },
+              "treePosition": "a",
+              "revisionId": "01M6XWVP2F44402SMHE0W1SSVT"
+            }
+          ],
+          "properties": {
+            "title": "Decision layer source revised",
+            "icon": null,
+            "coverFileId": null,
+            "ownerMemberId": "browser-owner",
+            "statusKey": null,
+            "labels": [],
+            "typeface": "default",
+            "smallText": false,
+            "fullWidth": false
+          },
+          "parentPageId": null,
+          "createdAt": "2026-11-08T15:36:32.076Z",
+          "updatedAt": "2026-11-08T15:36:32.254Z",
+          "authorMemberId": "browser-owner",
+          "workingRevisionId": "01M6XWVP567JRMW6XKM4FF08GV",
+          "publishedRevisionId": "01M6XWVP567JRMW6XKM4FF08GV",
+          "permissions": {
+            "level": "full",
+            "canEdit": true,
+            "canUnlock": true,
+            "canShare": true
+          },
+          "policyProfile": {
+            "page.lifecycle.v1": "always-live",
+            "page.access.v1": "workspace-general",
+            "page.public-access.v1": "site",
+            "page.version.v1": "autosnapshot",
+            "page.status.v1": "verification-only",
+            "record.page-parity.v1": "record-is-page",
+            "automation.scope.v1": "source",
+            "container.access.v1": "class-led"
+          }
+        },
+        "comments": {
+          "threads": [
+            {
+              "id": "01M6XWVPFJAGADGHV7XDR7A1NK",
+              "workspace_id": "browser-workspace",
+              "page_id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+              "kind": "page",
+              "block_id": null,
+              "anchor_json": null,
+              "anchor_revision_id": null,
+              "state": "open",
+              "resolved_at": null,
+              "resolved_by_member_id": null,
+              "created_at": "2026-11-08T15:36:32.493Z",
+              "updated_at": "2026-11-08T15:36:32.493Z",
+              "revision_id": "01M6XWVPFFZ721YZA3B0N6P7TG",
+              "orphaned": 0
+            }
+          ],
+          "comments": [
+            {
+              "id": "01M6XWVPFJXW6WWP0KCS74S3G8",
+              "threadId": "01M6XWVPFJAGADGHV7XDR7A1NK",
+              "parentCommentId": null,
+              "authorMemberId": "browser-reader",
+              "body": [
+                {
+                  "text": "Retain this page discussion independently of its decision."
+                }
+              ],
+              "authorDisplayName": "Morgan Reader",
+              "createdAt": "2026-11-08T15:36:32.493Z",
+              "updatedAt": "2026-11-08T15:36:32.493Z",
+              "deletedAt": null,
+              "revisionId": "01M6XWVPFFZ721YZA3B0N6P7TG"
+            }
+          ],
+          "reactions": []
+        },
+        "grants": {
+          "items": [
+            {
+              "id": "01M6XWVP6M76YM022FYSQPV3PF",
+              "principalKind": "member",
+              "principalId": "browser-owner",
+              "level": "full",
+              "expiresAt": null,
+              "revokedAt": null,
+              "invitationId": null,
+              "invitationEmail": null,
+              "invitationExpiresAt": null,
+              "invitationRevokedAt": null,
+              "principalLabel": "Alex Owner",
+              "origin": {
+                "kind": "page",
+                "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "name": "Decision layer source revised"
+              },
+              "inherited": false,
+              "status": "active",
+              "effective": true
+            },
+            {
+              "id": "01M6XWVP9NTTBA8GZ6SWXBZJQZ",
+              "principalKind": "member",
+              "principalId": "browser-reader",
+              "level": "edit",
+              "expiresAt": null,
+              "revokedAt": null,
+              "invitationId": null,
+              "invitationEmail": null,
+              "invitationExpiresAt": null,
+              "invitationRevokedAt": null,
+              "principalLabel": "Morgan Reader",
+              "origin": {
+                "kind": "page",
+                "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "name": "Decision layer source revised"
+              },
+              "inherited": false,
+              "status": "active",
+              "effective": true
+            },
+            {
+              "id": "01M6XWVPJFBBSYZQ07BXEK3VAK",
+              "principalKind": "member",
+              "principalId": "01M6XWVPHK9SHPRA8B4G1PPZ1V",
+              "level": "view",
+              "expiresAt": null,
+              "revokedAt": null,
+              "invitationId": null,
+              "invitationEmail": null,
+              "invitationExpiresAt": null,
+              "invitationRevokedAt": null,
+              "principalLabel": "decision-reader-1f96660d-be20-491e-b316-6a27d74f98e0",
+              "origin": {
+                "kind": "page",
+                "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "name": "Decision layer source revised"
+              },
+              "inherited": false,
+              "status": "active",
+              "effective": true
+            }
+          ],
+          "inheritedItems": [],
+          "effectiveItems": [
+            {
+              "id": "01M6XWVP6M76YM022FYSQPV3PF",
+              "principalKind": "member",
+              "principalId": "browser-owner",
+              "level": "full",
+              "expiresAt": null,
+              "revokedAt": null,
+              "invitationId": null,
+              "invitationEmail": null,
+              "invitationExpiresAt": null,
+              "invitationRevokedAt": null,
+              "principalLabel": "Alex Owner",
+              "origin": {
+                "kind": "page",
+                "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "name": "Decision layer source revised"
+              },
+              "inherited": false,
+              "status": "active",
+              "effective": true
+            },
+            {
+              "id": "01M6XWVP9NTTBA8GZ6SWXBZJQZ",
+              "principalKind": "member",
+              "principalId": "browser-reader",
+              "level": "edit",
+              "expiresAt": null,
+              "revokedAt": null,
+              "invitationId": null,
+              "invitationEmail": null,
+              "invitationExpiresAt": null,
+              "invitationRevokedAt": null,
+              "principalLabel": "Morgan Reader",
+              "origin": {
+                "kind": "page",
+                "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "name": "Decision layer source revised"
+              },
+              "inherited": false,
+              "status": "active",
+              "effective": true
+            },
+            {
+              "id": "01M6XWVPJFBBSYZQ07BXEK3VAK",
+              "principalKind": "member",
+              "principalId": "01M6XWVPHK9SHPRA8B4G1PPZ1V",
+              "level": "view",
+              "expiresAt": null,
+              "revokedAt": null,
+              "invitationId": null,
+              "invitationEmail": null,
+              "invitationExpiresAt": null,
+              "invitationRevokedAt": null,
+              "principalLabel": "decision-reader-1f96660d-be20-491e-b316-6a27d74f98e0",
+              "origin": {
+                "kind": "page",
+                "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "name": "Decision layer source revised"
+              },
+              "inherited": false,
+              "status": "active",
+              "effective": true
+            }
+          ],
+          "levels": [
+            "full",
+            "edit",
+            "comment",
+            "view"
+          ],
+          "container": {
+            "id": "01M6XWVNZT6ZDVXEMBK9YRNF5E",
+            "name": "Decision layer handbook"
+          },
+          "restricted": true,
+          "restriction": {
+            "scope": "page",
+            "id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+            "name": "Decision layer source revised"
+          }
+        },
+        "revisions": {
+          "items": [
+            {
+              "id": "01M6XWVP81W7PKYZ7KHN83XYE0",
+              "origin": "autosave",
+              "authorMemberId": "browser-owner",
+              "authorDisplayName": "Alex Owner",
+              "ordinal": null,
+              "label": null,
+              "statusKey": null,
+              "createdAt": "2026-11-08T15:36:32.254Z",
+              "deletedAt": null,
+              "deletedByMemberId": null,
+              "deletedByDisplayName": null
+            },
+            {
+              "id": "01M6XWVP567JRMW6XKM4FF08GV",
+              "origin": "autosave",
+              "authorMemberId": "browser-owner",
+              "authorDisplayName": "Alex Owner",
+              "ordinal": null,
+              "label": null,
+              "statusKey": null,
+              "createdAt": "2026-11-08T15:36:32.163Z",
+              "deletedAt": null,
+              "deletedByMemberId": null,
+              "deletedByDisplayName": null
+            },
+            {
+              "id": "01M6XWVP2EP6018ZHKMG1QKQH4",
+              "origin": "autosave",
+              "authorMemberId": "browser-owner",
+              "authorDisplayName": "Alex Owner",
+              "ordinal": null,
+              "label": null,
+              "statusKey": null,
+              "createdAt": "2026-11-08T15:36:32.076Z",
+              "deletedAt": null,
+              "deletedByMemberId": null,
+              "deletedByDisplayName": null
+            }
+          ]
+        },
+        "exactRevisions": [
+          {
+            "id": "01M6XWVP81W7PKYZ7KHN83XYE0",
+            "blocks": [
+              {
+                "id": "d3a1abf6-c1d5-4623-ba5f-8d86e5153146",
+                "pageId": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "parentBlockId": null,
+                "blockType": "paragraph",
+                "content": {
+                  "text": [
+                    {
+                      "text": "Keep the operational body and its discussion. "
+                    },
+                    {
+                      "text": "Supporting procedure",
+                      "link": {
+                        "href": "http://127.0.0.1:41199/app/pages/01M6XWVP12AAT26C0X0HN9XDGR"
+                      }
+                    }
+                  ]
+                },
+                "treePosition": "a",
+                "revisionId": "01M6XWVP2F44402SMHE0W1SSVT"
+              }
+            ],
+            "properties": {
+              "title": "Decision layer source revised",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            },
+            "createdAt": "2026-11-08T15:36:32.254Z",
+            "newerRevisionExists": true
+          },
+          {
+            "id": "01M6XWVP567JRMW6XKM4FF08GV",
+            "blocks": [
+              {
+                "id": "d3a1abf6-c1d5-4623-ba5f-8d86e5153146",
+                "pageId": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "parentBlockId": null,
+                "blockType": "paragraph",
+                "content": {
+                  "text": [
+                    {
+                      "text": "Keep the operational body and its discussion. "
+                    },
+                    {
+                      "text": "Supporting procedure",
+                      "link": {
+                        "href": "http://127.0.0.1:41199/app/pages/01M6XWVP12AAT26C0X0HN9XDGR"
+                      }
+                    }
+                  ]
+                },
+                "treePosition": "a",
+                "revisionId": "01M6XWVP2F44402SMHE0W1SSVT"
+              }
+            ],
+            "properties": {
+              "title": "Decision layer source revised",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            },
+            "createdAt": "2026-11-08T15:36:32.163Z",
+            "newerRevisionExists": false
+          },
+          {
+            "id": "01M6XWVP2EP6018ZHKMG1QKQH4",
+            "blocks": [
+              {
+                "id": "d3a1abf6-c1d5-4623-ba5f-8d86e5153146",
+                "blockType": "paragraph",
+                "content": {
+                  "text": [
+                    {
+                      "text": "Keep the operational body and its discussion. "
+                    },
+                    {
+                      "text": "Supporting procedure",
+                      "link": {
+                        "href": "http://127.0.0.1:41199/app/pages/01M6XWVP12AAT26C0X0HN9XDGR"
+                      }
+                    }
+                  ]
+                },
+                "treePosition": "a",
+                "parentBlockId": null,
+                "pageId": "01M6XWVP2ERSWVQ91DK34R8GBF",
+                "revisionId": "01M6XWVP2F44402SMHE0W1SSVT"
+              }
+            ],
+            "properties": {
+              "title": "Decision layer source",
+              "icon": null,
+              "coverFileId": null,
+              "ownerMemberId": "browser-owner",
+              "statusKey": null,
+              "labels": [],
+              "typeface": "default",
+              "smallText": false,
+              "fullWidth": false
+            },
+            "createdAt": "2026-11-08T15:36:32.076Z",
+            "newerRevisionExists": true
+          }
+        ],
+        "links": [
+          {
+            "id": "01M6XWVP3HFZ7GNBJX91P9CBTF",
+            "title": "Decision inbound reference"
+          }
+        ],
+        "inbound": {
+          "lock": null,
+          "authorDisplayName": "Alex Owner",
+          "ownerDisplayName": "Alex Owner",
+          "contributors": [],
+          "schedule": null,
+          "mentions": {},
+          "page": {
+            "id": "01M6XWVP3HFZ7GNBJX91P9CBTF",
+            "containerId": "01M6XWVNZT6ZDVXEMBK9YRNF5E",
+            "title": "Decision inbound reference",
+            "revisionId": "01M6XWVP3HSS5RMY3D2N4YVJTR",
+            "lifecycle": "live"
+          },
+          "blocks": [
+            {
+              "id": "227f6e90-09d7-4910-84a9-04675d4e616e",
+              "blockType": "paragraph",
+              "content": {
+                "text": [
+                  {
+                    "text": "Decision layer source",
+                    "link": {
+                      "href": "http://127.0.0.1:41199/app/pages/01M6XWVP2ERSWVQ91DK34R8GBF"
+                    }
+                  }
+                ]
+              },
+              "treePosition": "a",
+              "parentBlockId": null,
+              "pageId": "01M6XWVP3HFZ7GNBJX91P9CBTF",
+              "revisionId": "01M6XWVP3K8A4QDCQAD6SJRA38"
+            }
+          ],
+          "properties": {
+            "title": "Decision inbound reference",
+            "icon": null,
+            "coverFileId": null,
+            "ownerMemberId": "browser-owner",
+            "statusKey": null,
+            "labels": [],
+            "typeface": "default",
+            "smallText": false,
+            "fullWidth": false
+          },
+          "parentPageId": null,
+          "createdAt": "2026-11-08T15:36:32.111Z",
+          "updatedAt": "2026-11-08T15:36:32.111Z",
+          "authorMemberId": "browser-owner",
+          "workingRevisionId": "01M6XWVP3HSS5RMY3D2N4YVJTR",
+          "publishedRevisionId": "01M6XWVP3HSS5RMY3D2N4YVJTR",
+          "permissions": {
+            "level": "full",
+            "canEdit": true,
+            "canUnlock": true,
+            "canShare": true
+          },
+          "policyProfile": {
+            "page.lifecycle.v1": "always-live",
+            "page.access.v1": "workspace-general",
+            "page.public-access.v1": "site",
+            "page.version.v1": "autosnapshot",
+            "page.status.v1": "verification-only",
+            "record.page-parity.v1": "record-is-page",
+            "automation.scope.v1": "source",
+            "container.access.v1": "class-led"
+          }
+        },
+        "outbound": {
+          "lock": null,
+          "authorDisplayName": "Alex Owner",
+          "ownerDisplayName": "Alex Owner",
+          "contributors": [],
+          "schedule": null,
+          "mentions": {},
+          "page": {
+            "id": "01M6XWVP12AAT26C0X0HN9XDGR",
+            "containerId": "01M6XWVNZT6ZDVXEMBK9YRNF5E",
+            "title": "Decision supporting procedure",
+            "revisionId": "01M6XWVP12TB6HJ1ZPNMZT3EQX",
+            "lifecycle": "live"
+          },
+          "blocks": [],
+          "properties": {
+            "title": "Decision supporting procedure",
+            "icon": null,
+            "coverFileId": null,
+            "ownerMemberId": "browser-owner",
+            "statusKey": null,
+            "labels": [],
+            "typeface": "default",
+            "smallText": false,
+            "fullWidth": false
+          },
+          "parentPageId": null,
+          "createdAt": "2026-11-08T15:36:32.030Z",
+          "updatedAt": "2026-11-08T15:36:32.030Z",
+          "authorMemberId": "browser-owner",
+          "workingRevisionId": "01M6XWVP12TB6HJ1ZPNMZT3EQX",
+          "publishedRevisionId": "01M6XWVP12TB6HJ1ZPNMZT3EQX",
+          "permissions": {
+            "level": "full",
+            "canEdit": true,
+            "canUnlock": true,
+            "canShare": true
+          },
+          "policyProfile": {
+            "page.lifecycle.v1": "always-live",
+            "page.access.v1": "workspace-general",
+            "page.public-access.v1": "site",
+            "page.version.v1": "autosnapshot",
+            "page.status.v1": "verification-only",
+            "record.page-parity.v1": "record-is-page",
+            "automation.scope.v1": "source",
+            "container.access.v1": "class-led"
+          }
+        }
+      }
+    }
+  ],
+  "refusals": [
+    {
+      "door": "stale creation dialog",
+      "status": 409,
+      "body": {
+        "code": "PAGE_DECISION_EXISTS",
+        "message": "This page already has a decision record. Open it or remove its layer before adding another."
+      }
+    },
+    {
+      "door": "second active layer",
+      "status": 409,
+      "body": {
+        "code": "PAGE_DECISION_EXISTS",
+        "message": "This page already has a decision record. Open it or remove its layer before adding another."
+      }
+    },
+    {
+      "door": "/api/pages/01M6XWVP2ERSWVQ91DK34R8GBF",
+      "status": 404,
+      "body": {
+        "code": "NOT_FOUND",
+        "message": "Not found."
+      }
+    },
+    {
+      "door": "/api/decisions/01M6XWVX1TMTK4AV5CY89A4PPE",
+      "status": 404,
+      "body": {
+        "code": "NOT_FOUND",
+        "message": "Not found."
+      }
+    },
+    {
+      "door": "/api/decisions/01M6XWVX1TMTK4AV5CY89A4PPE/history",
+      "status": 404,
+      "body": {
+        "code": "NOT_FOUND",
+        "message": "Not found."
+      }
+    },
+    {
+      "door": "/api/decisions/01M6XWVX1TMTK4AV5CY89A4PPE/reviews",
+      "status": 404,
+      "body": {
+        "code": "NOT_FOUND",
+        "message": "Not found."
+      }
+    },
+    {
+      "door": "/api/decisions/01M6XWVX1TMTK4AV5CY89A4PPE?revision=01M6XWVX1J73E1DMYXRPP34YN8",
+      "status": 404,
+      "body": {
+        "code": "NOT_FOUND",
+        "message": "Not found."
+      }
+    },
+    {
+      "door": "/api/decisions/01M6XWWGWXJGQW3Z2P8S0MBCPV",
+      "status": 404,
+      "body": {
+        "code": "NOT_FOUND",
+        "message": "Not found."
+      }
+    },
+    {
+      "door": "revoked creation replay",
+      "status": 404,
+      "body": {
+        "code": "NOT_FOUND",
+        "message": "Not found."
+      }
+    }
+  ],
+  "history": {
+    "items": [
+      {
+        "id": "01M6XWWBYTR08VXJCMHNV30R7C",
+        "entity_kind": "decision-removal",
+        "actor_id": "browser-reader",
+        "created_at": "2026-11-08T15:36:54.480Z",
+        "content": {
+          "previousRevisionId": "01M6XWW92469MG0BG93KS59FV5",
+          "removedAt": "2026-11-08T15:36:54.480Z",
+          "removedBy": "browser-reader"
+        }
+      },
+      {
+        "id": "01M6XWW92469MG0BG93KS59FV5",
+        "entity_kind": "decision-review",
+        "actor_id": "browser-reader",
+        "created_at": "2026-11-08T15:36:51.506Z",
+        "content": {
+          "operationKey": "1a48e4cb-8f7d-4502-bbdd-24471cdc200d",
+          "pageId": "01M6XWVP2ERSWVQ91DK34R8GBF",
+          "id": "01M6XWVX1TMTK4AV5CY89A4PPE",
+          "expectedRevisionId": "01M6XWVX1J73E1DMYXRPP34YN8",
+          "question": "Which recovery procedure should we adopt?",
+          "options": [
+            "First procedure",
+            "Second procedure"
+          ],
+          "outcome": "Second procedure",
+          "rationale": "Review selected the second procedure.",
+          "ownerId": "browser-reader",
+          "decidedAt": "2026-10-18T00:00:00.000Z",
+          "reviewAt": "2099-01-01T00:00:00.000Z",
+          "citations": [
+            {
+              "kind": "page",
+              "sourceId": "01M6XWVP2ERSWVQ91DK34R8GBF",
+              "revisionId": "01M6XWVP567JRMW6XKM4FF08GV"
+            }
+          ],
+          "acceptedBy": "browser-reader",
+          "acceptedAt": "2026-11-08T15:36:51.033Z",
+          "supersedesId": null,
+          "review": {
+            "note": "Completed local review",
+            "nextReviewAt": "2099-02-01T00:00:00.000Z",
+            "reviewedBy": "browser-reader",
+            "reviewedAt": "2026-11-08T15:36:51.506Z"
+          }
+        }
+      },
+      {
+        "id": "01M6XWW8MFSDENDGW7XH2A3SQ9",
+        "entity_kind": "decision-acceptance",
+        "actor_id": "browser-reader",
+        "created_at": "2026-11-08T15:36:51.033Z",
+        "content": {
+          "operationKey": "1a48e4cb-8f7d-4502-bbdd-24471cdc200d",
+          "pageId": "01M6XWVP2ERSWVQ91DK34R8GBF",
+          "id": "01M6XWVX1TMTK4AV5CY89A4PPE",
+          "expectedRevisionId": "01M6XWVX1J73E1DMYXRPP34YN8",
+          "question": "Which recovery procedure should we adopt?",
+          "options": [
+            "First procedure",
+            "Second procedure"
+          ],
+          "outcome": "Second procedure",
+          "rationale": "Review selected the second procedure.",
+          "ownerId": "browser-reader",
+          "decidedAt": "2026-10-18T00:00:00.000Z",
+          "reviewAt": "2099-01-01T00:00:00.000Z",
+          "citations": [
+            {
+              "kind": "page",
+              "sourceId": "01M6XWVP2ERSWVQ91DK34R8GBF",
+              "revisionId": "01M6XWVP567JRMW6XKM4FF08GV"
+            }
+          ],
+          "acceptedBy": "browser-reader",
+          "acceptedAt": "2026-11-08T15:36:51.033Z",
+          "supersedesId": null
+        }
+      },
+      {
+        "id": "01M6XWW6GEMN14CHRMRVQK34MF",
+        "entity_kind": "decision",
+        "actor_id": "browser-reader",
+        "created_at": "2026-11-08T15:36:48.870Z",
+        "content": {
+          "operationKey": "1a48e4cb-8f7d-4502-bbdd-24471cdc200d",
+          "pageId": "01M6XWVP2ERSWVQ91DK34R8GBF",
+          "id": "01M6XWVX1TMTK4AV5CY89A4PPE",
+          "expectedRevisionId": "01M6XWVX1J73E1DMYXRPP34YN8",
+          "question": "Which recovery procedure should we adopt?",
+          "options": [
+            "First procedure",
+            "Second procedure"
+          ],
+          "outcome": "Second procedure",
+          "rationale": "Review selected the second procedure.",
+          "ownerId": "browser-reader",
+          "decidedAt": "2026-10-18T00:00:00.000Z",
+          "reviewAt": "2099-01-01T00:00:00.000Z",
+          "citations": [
+            {
+              "kind": "page",
+              "sourceId": "01M6XWVP2ERSWVQ91DK34R8GBF",
+              "revisionId": "01M6XWVP567JRMW6XKM4FF08GV"
+            }
+          ]
+        }
+      },
+      {
+        "id": "01M6XWVX1J73E1DMYXRPP34YN8",
+        "entity_kind": "decision",
+        "actor_id": "browser-reader",
+        "created_at": "2026-11-08T15:36:39.135Z",
+        "content": {
+          "operationKey": "0993a394-2d9f-4315-afe8-74c770e9492f",
+          "pageId": "01M6XWVP2ERSWVQ91DK34R8GBF",
+          "question": "Which recovery procedure should we adopt?",
+          "options": [
+            "First procedure",
+            "Second procedure"
+          ],
+          "outcome": "First procedure",
+          "rationale": "Keep the documented recovery path.",
+          "ownerId": "browser-reader",
+          "decidedAt": "2026-10-18T00:00:00.000Z",
+          "reviewAt": "2099-01-01T00:00:00.000Z",
+          "citations": [
+            {
+              "kind": "page",
+              "sourceId": "01M6XWVP2ERSWVQ91DK34R8GBF",
+              "revisionId": "01M6XWVP567JRMW6XKM4FF08GV"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "original": {
+    "id": "01M6XWVX1TMTK4AV5CY89A4PPE",
+    "page_id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+    "workspace_id": "browser-workspace",
+    "question": "Which recovery procedure should we adopt?",
+    "options_json": "[\"First procedure\",\"Second procedure\"]",
+    "outcome": "First procedure",
+    "rationale": "Keep the documented recovery path.",
+    "owner_member_id": "browser-reader",
+    "decided_at": "2026-10-18T00:00:00.000Z",
+    "review_at": "2099-01-01T00:00:00.000Z",
+    "overdue_notified_at": null,
+    "state": "proposed",
+    "accepted_snapshot_json": null,
+    "superseded_by_decision_id": null,
+    "created_at": "2026-11-08T15:36:39.135Z",
+    "updated_at": "2026-11-08T15:36:39.135Z",
+    "revision_id": "01M6XWVX1J73E1DMYXRPP34YN8",
+    "removed_at": null,
+    "removed_by_member_id": null,
+    "accepted_revision_id": null,
+    "content": {
+      "operationKey": "0993a394-2d9f-4315-afe8-74c770e9492f",
+      "pageId": "01M6XWVP2ERSWVQ91DK34R8GBF",
+      "question": "Which recovery procedure should we adopt?",
+      "options": [
+        "First procedure",
+        "Second procedure"
+      ],
+      "outcome": "First procedure",
+      "rationale": "Keep the documented recovery path.",
+      "ownerId": "browser-reader",
+      "decidedAt": "2026-10-18T00:00:00.000Z",
+      "reviewAt": "2099-01-01T00:00:00.000Z",
+      "citations": [
+        {
+          "kind": "page",
+          "sourceId": "01M6XWVP2ERSWVQ91DK34R8GBF",
+          "revisionId": "01M6XWVP567JRMW6XKM4FF08GV"
+        }
+      ]
+    },
+    "viewedRevisionId": "01M6XWVX1J73E1DMYXRPP34YN8",
+    "revision": {
+      "id": "01M6XWVX1J73E1DMYXRPP34YN8",
+      "kind": "decision",
+      "actorId": "browser-reader",
+      "createdAt": "2026-11-08T15:36:39.135Z"
+    },
+    "acceptedRevisionId": null,
+    "acceptedRevisionHref": null,
+    "citationsCurrent": true,
+    "overdue": false
+  },
+  "accepted": {
+    "id": "01M6XWVX1TMTK4AV5CY89A4PPE",
+    "page_id": "01M6XWVP2ERSWVQ91DK34R8GBF",
+    "workspace_id": "browser-workspace",
+    "question": "Which recovery procedure should we adopt?",
+    "options_json": "[\"First procedure\",\"Second procedure\"]",
+    "outcome": "Second procedure",
+    "rationale": "Review selected the second procedure.",
+    "owner_member_id": "browser-reader",
+    "decided_at": "2026-10-18T00:00:00.000Z",
+    "review_at": "2099-01-01T00:00:00.000Z",
+    "overdue_notified_at": null,
+    "state": "accepted",
+    "accepted_snapshot_json": "{\"operationKey\":\"1a48e4cb-8f7d-4502-bbdd-24471cdc200d\",\"pageId\":\"01M6XWVP2ERSWVQ91DK34R8GBF\",\"id\":\"01M6XWVX1TMTK4AV5CY89A4PPE\",\"expectedRevisionId\":\"01M6XWVX1J73E1DMYXRPP34YN8\",\"question\":\"Which recovery procedure should we adopt?\",\"options\":[\"First procedure\",\"Second procedure\"],\"outcome\":\"Second procedure\",\"rationale\":\"Review selected the second procedure.\",\"ownerId\":\"browser-reader\",\"decidedAt\":\"2026-10-18T00:00:00.000Z\",\"reviewAt\":\"2099-01-01T00:00:00.000Z\",\"citations\":[{\"kind\":\"page\",\"sourceId\":\"01M6XWVP2ERSWVQ91DK34R8GBF\",\"revisionId\":\"01M6XWVP567JRMW6XKM4FF08GV\"}],\"acceptedBy\":\"browser-reader\",\"acceptedAt\":\"2026-11-08T15:36:51.033Z\",\"supersedesId\":null}",
+    "superseded_by_decision_id": null,
+    "created_at": "2026-11-08T15:36:39.135Z",
+    "updated_at": "2026-11-08T15:36:51.033Z",
+    "revision_id": "01M6XWW8MFSDENDGW7XH2A3SQ9",
+    "removed_at": null,
+    "removed_by_member_id": null,
+    "accepted_revision_id": "01M6XWW8MFSDENDGW7XH2A3SQ9",
+    "content": {
+      "operationKey": "1a48e4cb-8f7d-4502-bbdd-24471cdc200d",
+      "pageId": "01M6XWVP2ERSWVQ91DK34R8GBF",
+      "id": "01M6XWVX1TMTK4AV5CY89A4PPE",
+      "expectedRevisionId": "01M6XWVX1J73E1DMYXRPP34YN8",
+      "question": "Which recovery procedure should we adopt?",
+      "options": [
+        "First procedure",
+        "Second procedure"
+      ],
+      "outcome": "Second procedure",
+      "rationale": "Review selected the second procedure.",
+      "ownerId": "browser-reader",
+      "decidedAt": "2026-10-18T00:00:00.000Z",
+      "reviewAt": "2099-01-01T00:00:00.000Z",
+      "citations": [
+        {
+          "kind": "page",
+          "sourceId": "01M6XWVP2ERSWVQ91DK34R8GBF",
+          "revisionId": "01M6XWVP567JRMW6XKM4FF08GV"
+        }
+      ],
+      "acceptedBy": "browser-reader",
+      "acceptedAt": "2026-11-08T15:36:51.033Z",
+      "supersedesId": null
+    },
+    "viewedRevisionId": "01M6XWW8MFSDENDGW7XH2A3SQ9",
+    "revision": {
+      "id": "01M6XWW8MFSDENDGW7XH2A3SQ9",
+      "kind": "decision-acceptance",
+      "actorId": "browser-reader",
+      "createdAt": "2026-11-08T15:36:51.033Z"
+    },
+    "acceptedRevisionId": "01M6XWW8MFSDENDGW7XH2A3SQ9",
+    "acceptedRevisionHref": "/app/decisions/01M6XWVX1TMTK4AV5CY89A4PPE?revision=01M6XWW8MFSDENDGW7XH2A3SQ9",
+    "citationsCurrent": true,
+    "overdue": false
+  },
+  "edited": {
+    "value": {
+      "id": "01M6XWVX1TMTK4AV5CY89A4PPE",
+      "revisionId": "01M6XWW6GEMN14CHRMRVQK34MF",
+      "state": "proposed"
+    },
+    "receipt": {
+      "operationKey": "1a48e4cb-8f7d-4502-bbdd-24471cdc200d",
+      "entity": {
+        "id": "01M6XWVX1TMTK4AV5CY89A4PPE",
+        "kind": "decision",
+        "revisionId": "01M6XWW6GEMN14CHRMRVQK34MF"
+      },
+      "revisionId": "01M6XWW6GEMN14CHRMRVQK34MF",
+      "activityId": "01M6XWW6GECRXHWBQMMX4BME6W",
+      "committedAt": "2026-11-08T15:36:48.870Z"
+    }
+  },
+  "replacement": {
+    "value": {
+      "id": "01M6XWWGWXJGQW3Z2P8S0MBCPV",
+      "revisionId": "01M6XWWGWVS834GWVFC6JYANY5",
+      "state": "proposed"
+    },
+    "receipt": {
+      "operationKey": "db9f0de7-4cfe-4a35-a2ac-67496e295a4f",
+      "entity": {
+        "id": "01M6XWWGWXJGQW3Z2P8S0MBCPV",
+        "kind": "decision",
+        "revisionId": "01M6XWWGWVS834GWVFC6JYANY5"
+      },
+      "revisionId": "01M6XWWGWVS834GWVFC6JYANY5",
+      "activityId": "01M6XWWGWVWQT9WWKBZ0VSE049",
+      "committedAt": "2026-11-08T15:36:59.519Z"
+    }
+  }
+}
