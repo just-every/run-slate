@@ -271,3 +271,50 @@ Independent canonical inventory reads overlap with the activity cursor walk whil
 Lock, unlock and native archive change editor availability and remount it. Their native page-open response settles before the complete activity-first snapshot, so the read remains in both replay inventories instead of racing their comparison. All activity, content, revision, comment and grant comparisons remain exact.
 
 DEC-004 uses decisionLogJourney in the existing core-wiki callers in tests/qualification/ui-convergence/journeys.test.mjs, with native corpus receipts from tests/helpers/decision-log-corpus.ts. The 1440 case compares every individual filter and combined criteria with explicit independent expected memberships and the native decision API; the 390 case shows the populated log, combined changed-citation criteria and exact revision destinations. Both reload the log and every result, retain earlier manual decision creation, proposal history, acceptance, review and removal assertions from decisionChecks, and refuse current and exact captured reads after host access is revoked. The default-profile FLAG-001 case in tests/profile/profile.worker.test.ts uses the same native corpus through authenticated routes, including start and end instants of a UTC day. No test registration is added; browser references remain outside the Workers-only evidence registry. The run-derived preparation endpoint and Ask decision surfaces remain flagship-only under their existing prerequisites.
+
+## Native anonymous publication authority (WEB-001)
+
+The existing "page outline follows headings and navigates long pages at 1440px"
+and "space tree title filtering preserves ancestors, access and expansion at
+390px" registrations in tests/qualification/ui-convergence/journeys.test.mjs
+retain guestScopeJourney and externalSwitchesJourney from
+tests/qualification/ui-convergence/guest-scope-journey.mjs. Their emitted Worker
+also exposes its real scheduled handler to the same workspace; no registration
+or existing CONT-007 assertion is removed, narrowed or conditioned.
+
+The native journey proves the independent container and workspace switches,
+retained exposure addresses, currently authorized signed-in readers and issued
+guest access ending within five seconds, including the open editor and populated
+tree, search and inbox. It now attempts both page and container guest invitations:
+GUESTS_FORBIDDEN leaves pending invitations and both grant inventories unchanged.
+A non-owner ordinary member with edit access cannot create a first exposure or\nre-publish an existing exposure; full access admits
+publication only while effective container and workspace public-link permission
+allows it. Refusals leave content, public exposure and grants unchanged.
+
+Every content-policy value is exercised independently of the stored switches and
+their vetoes: the original profile, all alternate values together, and the third
+automation-scope value. The current published revision remains the read target.
+Native event processing moves a genuinely exposed page into a vetoing container
+and creates exactly one page there. Neither page resolves anonymously; creation
+writes no exposure, attempted publication is refused unchanged, and captured
+event replay creates no duplicate or restored public access. Unsupported rule
+actions cannot publish or change a switch.
+
+An actually issued owner token with write scope first reads native content, then
+attempts publication and workspace and container settings through both the native
+session namespace and the public-token namespace. Those attempts are refused and
+change no exposure, page, grant or switch. The public operation catalog exposes no
+publication or switch command. Revocation refuses the same credential immediately.
+Token secrets are never written into the proof object. The installed declared
+extension slots, events and adapters are inspected alongside these runtime
+authority doors; no installed extension adds a privileged publication command.
+
+This closes native acceptance 1–4 and 7 and supports the native portion of 5.
+Acceptance 5's AI-action duty and acceptance 6's delegated publication through an
+explicit owner grant remain unproven under AI-011, ADMIN-007 and shared company
+policy. CONT-007's held AI-answer removal and SHARE-007's unresolved general
+grant-narrowing conflict remain held. No Status, Gap or Evidence cell changes;
+no clause is released. The existing Workers publication and media assertions in
+tests/flagship/content/http.test.ts remain intact and recorded separately.
+
+The two existing registration deadlines allow the added native operations (720\nseconds for the phone tree case and 900 for desktop outline). Every five-second\naccess-removal assertion and every production deadline remains unchanged. Token\nissuance obtains fresh native mailbox proof for the same owner rather than\ndepending on time spent in earlier settings steps. Captured successful\npublication and automation inputs are replayed under the veto with unchanged\ncanonical exposure and content snapshots. No browser registration is added.\n

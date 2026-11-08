@@ -673,8 +673,13 @@
       "id": "WEB-001",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for WEB-001 — Anonymous access takes two acts. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
-      "supportingTests": []
+      "unmetReason": "The Workers-only inventory records supporting regressions, not Node browser journeys. WEB-001 native acceptance 1–4 and 7 and the native portion of 5 are specified in tests/requirements/cli-journey.md: externalSwitchesJourney is loaded through the existing desktop outline and phone tree callers. Delegated publication under AI-011 and AI-action non-bypass remain unproven under ADMIN-007 and shared company-policy prerequisites. No clause-wide completion or release is claimed.",
+      "supportingTests": [
+        {
+          "file": "tests/flagship/content/http.test.ts",
+          "testName": "content durable HTTP publication, human verification and media enforce current reader authority"
+        }
+      ]
     },
     {
       "id": "WEB-002",

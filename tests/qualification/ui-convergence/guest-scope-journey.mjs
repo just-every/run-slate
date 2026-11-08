@@ -158,9 +158,9 @@ async function externalSwitchesJourney(state,width,{guest,who,view,space,shared,
       assert.ok(exposed.body.includes(marker));
     }
     // The same non-owner member must hold full access for the external act.
-    const publicationSnapshot=async()=>({
-      document:await api(`/api/pages/${editable}`),
-      exposure:await api(`/api/publishing/${editable}`),
+    const publicationSnapshot=async(id=editable)=>({
+      document:await api(`/api/pages/${id}`),
+      exposure:await api(`/api/publishing/${id}`),
       grants:await api(`/api/sharing/containers/${space}`),
     });
     await grant('container',space,'browser-reader','edit',adminGrant.value.id);
@@ -169,7 +169,18 @@ async function externalSwitchesJourney(state,width,{guest,who,view,space,shared,
     assert.equal(editRefusal.status,404);
     assert.equal(editRefusal.body.code,'NOT_FOUND');
     assert.deepEqual(await publicationSnapshot(),editBefore,'An edit-level publication attempt changes neither content, exposure nor grants.');
+    const memberPage=(await ok(context,origin,'POST','/api/pages',{operationKey:key(),containerId:space,title:'Member publication intake'})).value.pageId;
+    const newBefore=await publicationSnapshot(memberPage),newRefusal=await publish(memberPage,admin);
+    assert.equal(newBefore.exposure.exposure,null);
+    assert.equal(newRefusal.status,404);
+    assert.equal(newRefusal.body.code,'NOT_FOUND');
+    assert.deepEqual(await publicationSnapshot(memberPage),newBefore,'An edit-only member cannot create the first exposure either.');
+    assert.equal((await publicRead(anonymous,memberPage)).status,404);
     await grant('container',space,'browser-reader','full',adminGrant.value.id);
+    const firstMemberPublication=await publish(memberPage,admin);
+    assert.equal(firstMemberPublication.status,200,JSON.stringify(firstMemberPublication.body));
+    assert.equal((await publicRead(anonymous,memberPage)).status,200,'Full access admits first publication while both scopes permit it.');
+    proof.publication.push({actor:'ordinary member first publication',edit:newRefusal,unchanged:newBefore,full:firstMemberPublication});
     const memberPublished=await publish(editable,admin);
     assert.equal(memberPublished.status,200,JSON.stringify(memberPublished.body));
     assert.equal((await publicRead(anonymous,editable)).status,200);
