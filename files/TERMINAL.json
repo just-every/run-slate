@@ -1,0 +1,318 @@
+{
+  "repository": "just-every/run-slate",
+  "branch": "cloud/sd-slate-c-f212",
+  "head": "1ce8fa17f7358ec5d77165d77edad10535a81d17",
+  "main": "6a6232f31641de9e5935ed1899a080aee6bb23ec",
+  "fullHistory": true,
+  "counts": {
+    "before": {
+      "done": 58,
+      "partial": 239,
+      "missing": 41,
+      "total": 338
+    },
+    "after": {
+      "done": 58,
+      "partial": 239,
+      "missing": 41,
+      "total": 338
+    }
+  },
+  "registrations": 211,
+  "publicationScan": {
+    "status": "not run in cloud; guarded lander owns the complete scan",
+    "complete": null,
+    "historyScanned": null,
+    "findings": null
+  },
+  "landing": "pending guarded lander",
+  "proofs": [
+    {
+      "width": 1440,
+      "profile": "core-wiki",
+      "decision": "01M6Y9P7WGXDQ08PZ4SAXY5843",
+      "receipts": 13,
+      "proposalSnapshots": 10,
+      "finalHistory": 11,
+      "saveActivities": 10,
+      "refusals": [
+        {
+          "name": "stale revision",
+          "status": 409,
+          "code": "REVISION_CONFLICT"
+        },
+        {
+          "name": "view only",
+          "status": 404,
+          "code": "NOT_FOUND"
+        },
+        {
+          "name": "accepted question",
+          "status": 409,
+          "code": "IMMUTABLE_DECISION"
+        },
+        {
+          "name": "accepted options",
+          "status": 409,
+          "code": "IMMUTABLE_DECISION"
+        },
+        {
+          "name": "accepted outcome",
+          "status": 409,
+          "code": "IMMUTABLE_DECISION"
+        },
+        {
+          "name": "accepted rationale",
+          "status": 409,
+          "code": "IMMUTABLE_DECISION"
+        },
+        {
+          "name": "accepted ownerId",
+          "status": 409,
+          "code": "IMMUTABLE_DECISION"
+        },
+        {
+          "name": "accepted decidedAt",
+          "status": 409,
+          "code": "IMMUTABLE_DECISION"
+        },
+        {
+          "name": "accepted reviewAt",
+          "status": 409,
+          "code": "IMMUTABLE_DECISION"
+        },
+        {
+          "name": "accepted citations",
+          "status": 409,
+          "code": "IMMUTABLE_DECISION"
+        }
+      ],
+      "artifact": {
+        "schema": 1,
+        "commit": "1ce8fa17f7358ec5d77165d77edad10535a81d17",
+        "tree": "69182912dab86009a99583eba54917b318cefe21",
+        "sourceSha256": "a467ed600a7164d4ba59bf684125f46dd4d94276dcf89d2ffe1cc92966fc04c1",
+        "lockSha256": "6594787608cf3e893137a9be89fc75284f799a661eeda2112dcde919eee14ead",
+        "outputSha256": "41002649cb6a81737455499b05a3e8d50b00efb2726b6c4eabeb3b2ff64aae3c"
+      }
+    },
+    {
+      "width": 390,
+      "profile": "core-wiki",
+      "decision": "01M6Y94CD9C1W0JPEAA0DPDES4",
+      "receipts": 13,
+      "proposalSnapshots": 10,
+      "finalHistory": 11,
+      "saveActivities": 10,
+      "refusals": [
+        {
+          "name": "stale revision",
+          "status": 409,
+          "code": "REVISION_CONFLICT"
+        },
+        {
+          "name": "view only",
+          "status": 404,
+          "code": "NOT_FOUND"
+        },
+        {
+          "name": "accepted question",
+          "status": 409,
+          "code": "IMMUTABLE_DECISION"
+        },
+        {
+          "name": "accepted options",
+          "status": 409,
+          "code": "IMMUTABLE_DECISION"
+        },
+        {
+          "name": "accepted outcome",
+          "status": 409,
+          "code": "IMMUTABLE_DECISION"
+        },
+        {
+          "name": "accepted rationale",
+          "status": 409,
+          "code": "IMMUTABLE_DECISION"
+        },
+        {
+          "name": "accepted ownerId",
+          "status": 409,
+          "code": "IMMUTABLE_DECISION"
+        },
+        {
+          "name": "accepted decidedAt",
+          "status": 409,
+          "code": "IMMUTABLE_DECISION"
+        },
+        {
+          "name": "accepted reviewAt",
+          "status": 409,
+          "code": "IMMUTABLE_DECISION"
+        },
+        {
+          "name": "accepted citations",
+          "status": 409,
+          "code": "IMMUTABLE_DECISION"
+        }
+      ],
+      "artifact": {
+        "schema": 1,
+        "commit": "1ce8fa17f7358ec5d77165d77edad10535a81d17",
+        "tree": "69182912dab86009a99583eba54917b318cefe21",
+        "sourceSha256": "a467ed600a7164d4ba59bf684125f46dd4d94276dcf89d2ffe1cc92966fc04c1",
+        "lockSha256": "6594787608cf3e893137a9be89fc75284f799a661eeda2112dcde919eee14ead",
+        "outputSha256": "41002649cb6a81737455499b05a3e8d50b00efb2726b6c4eabeb3b2ff64aae3c"
+      }
+    }
+  ],
+  "build": {
+    "schema": 1,
+    "commit": "1ce8fa17f7358ec5d77165d77edad10535a81d17",
+    "tree": "69182912dab86009a99583eba54917b318cefe21",
+    "sourceSha256": "a467ed600a7164d4ba59bf684125f46dd4d94276dcf89d2ffe1cc92966fc04c1",
+    "lockSha256": "6594787608cf3e893137a9be89fc75284f799a661eeda2112dcde919eee14ead",
+    "outputSha256": "41002649cb6a81737455499b05a3e8d50b00efb2726b6c4eabeb3b2ff64aae3c"
+  },
+  "sourceFiles": {
+    "src/core/features/decisions/records.ts": "541f420e554404e6cd2a787b3c7155e294f50cf3f29fd5da73ebf80caf59abeb",
+    "src/core/features/decisions/ui/DecisionWorkspace.tsx": "2fb7bd2d6490a0aa22747fb5625be0431a9520e84a4ab1421728e70852d5d44e",
+    "src/core/features/decisions/ui/PageDecisions.tsx": "cab05668b7498ebe4e5c80725a0568ce01f11eb56f5ed21a36976b3e492cf1d6",
+    "src/core/features/decisions/ui/DecisionProposal.tsx": "882154a6fd57c55541e541ff8edbaf4f64fb8c89656e90cbadf00085fffa670b",
+    "tests/profile/decision-edit-journey.ts": "c64495a91be9ca171e202e0c5002f8734577d14598175f58656003e8f2ce97ec",
+    "tests/qualification/ui-convergence/decision-edit-journey.mjs": "4171f9eca8c48b44b4f786892ac39a3850da5774e563a5c8a1c10aa7a2649fe7",
+    "tests/qualification/ui-convergence/journeys.test.mjs": "a837d249ee5f5df2be5705103ad27f4d57091c56acdc6ef717ba99c5d29c5342"
+  },
+  "ci": [
+    {
+      "conclusion": "failure",
+      "event": "push",
+      "head_sha": "1ce8fa17f7358ec5d77165d77edad10535a81d17",
+      "html_url": "https://github.com/just-every/run-slate/actions/runs/42512829399",
+      "id": 42512829399,
+      "name": "Verify Slate",
+      "status": "completed"
+    }
+  ],
+  "ciJobs": [
+    {
+      "conclusion": "success",
+      "id": 128829400438,
+      "name": "plan",
+      "status": "completed",
+      "steps": []
+    },
+    {
+      "conclusion": "failure",
+      "id": 128829430758,
+      "name": "verify (app)",
+      "status": "completed",
+      "steps": [
+        {
+          "conclusion": "failure",
+          "name": "Run node src/base/runtime/contract-docs.mjs check"
+        }
+      ]
+    },
+    {
+      "conclusion": "skipped",
+      "id": 128829432037,
+      "name": "import-scale",
+      "status": "completed",
+      "steps": []
+    },
+    {
+      "conclusion": "failure",
+      "id": 128829597041,
+      "name": "verify",
+      "status": "completed",
+      "steps": [
+        {
+          "conclusion": "failure",
+          "name": "Require the plan and every expected job"
+        }
+      ]
+    },
+    {
+      "conclusion": "skipped",
+      "id": 128829597717,
+      "name": "local-journeys",
+      "status": "completed",
+      "steps": []
+    },
+    {
+      "conclusion": "skipped",
+      "id": 128829597770,
+      "name": "verify (${{ matrix.suite }})",
+      "status": "completed",
+      "steps": []
+    },
+    {
+      "conclusion": "skipped",
+      "id": 128829597842,
+      "name": "contract",
+      "status": "completed",
+      "steps": []
+    }
+  ],
+  "checks": [
+    {
+      "command": "pnpm typecheck",
+      "exit": 0
+    },
+    {
+      "command": "pnpm exec vitest run --config tests/profile/vitest.config.ts tests/profile/profile.worker.test.ts -t FLAG-001",
+      "exit": 0,
+      "result": "1 passed; 3 untouched top-level tests outside the selected case"
+    },
+    {
+      "command": "pnpm exec tsx --test tests/profile/profile.node.tsx",
+      "exit": 0
+    },
+    {
+      "command": "pnpm exec rer check --profile first-party",
+      "exit": 0
+    },
+    {
+      "command": "node src/base/runtime/contract-docs.mjs write; node src/base/runtime/contract-docs.mjs check",
+      "exit": 0,
+      "generatedViewsRestoredFrom": "origin/main"
+    },
+    {
+      "command": "pnpm source:lock; pnpm source:check",
+      "exit": 0
+    },
+    {
+      "command": "SLATE_CHROMIUM_PATH=/usr/bin/chromium timeout 1800 node --test --test-concurrency=1 --test-name-pattern='real core-wiki and touch-member journeys' tests/qualification/ui-convergence/journeys.test.mjs",
+      "exit": 0,
+      "result": "2 passed; 0 failed; 0 skipped; duration 1353629.514046 ms"
+    },
+    {
+      "command": "SLATE_CHROMIUM_PATH=/usr/bin/chromium timeout 1200 node /tmp/run-decision-edit.mjs",
+      "exit": 0,
+      "result": "focused native controls pass at 1440 and 390"
+    }
+  ],
+  "mechanical": {
+    "lock": {
+      "command": "pnpm source:lock; pnpm source:check",
+      "exit": 0
+    },
+    "views": {
+      "command": "node src/base/runtime/contract-docs.mjs write; node src/base/runtime/contract-docs.mjs check",
+      "exit": 0,
+      "viewsCommitted": false
+    },
+    "ledger": {
+      "command": "none; no migration change",
+      "exit": 0
+    }
+  },
+  "custody": {
+    "remote": "https://github.com/just-every/run-slate.git",
+    "ref": "refs/heads/cloud/sd-slate-c-f212",
+    "head": "1ce8fa17f7358ec5d77165d77edad10535a81d17",
+    "pushGuard": "PUSH_OK branch=cloud/sd-slate-c-f212",
+    "identity": "all three author and committer identities are Run Edit Run fleet; no trailers"
+  }
+}
