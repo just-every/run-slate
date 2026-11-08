@@ -1,0 +1,28 @@
+{
+  "head": "7fae0de94a6dedd43b0a72edeb9c12ae92bc0e10",
+  "job": 128780380396,
+  "run": 42496468671,
+  "os": "Ubuntu 24.04.4 LTS",
+  "node": "22.20.0",
+  "pnpm": "10.12.4",
+  "image": "mcr.microsoft.com/playwright:v1.63.0-noble",
+  "imageDigest": "sha256:eff16c30e6f3f4af0a03fa4b706120d5e9b0891c344a27d64559aff5900a4a27",
+  "command": "bash .github/scripts/run-shard.sh",
+  "configuration": {
+    "SLATE_UI_SHARD": "2/8",
+    "SLATE_UI_ASSIGNMENTS": ".github/scripts/journey-shards.json",
+    "SERIAL_SUITE": "false",
+    "WORKER_SHARD": "1",
+    "SUITE_COMMAND": "pnpm test:base-proof && pnpm test:docs && pnpm test:typegen && pnpm test:portability && pnpm test:release-source && pnpm test:rer-editor"
+  },
+  "originalFailure": "page.waitForURL: Timeout 30000ms exceeded.",
+  "nativeDecisionStep": "passed",
+  "correctedFullShard": "finished; journeys=1 worker-suite=0",
+  "sourceRepairs": 0,
+  "preliminaryAttempt": "Invalid container layout: a portability fixture could not create a sibling directory under root; stopped own container and corrected the writable parent mount. No product or test code changed.",
+  "originalFailureReproduced": false,
+  "wrapperExit": null,
+  "wrapperExitNote": "The resumed execution environment no longer retained the command session. The complete output records the shard lane results, but no final wrapper exit marker; no exit code is invented.",
+  "otherFailure": "touchOperatorJourney: Verify this exact revision dialog remained visible after 5000 ms",
+  "repairDisposition": "Stop under the brief rule for an unreproduced original Verify failure; no speculative repair or workflow rerun."
+}

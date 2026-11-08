@@ -9,10 +9,14 @@
     "run": 42496468671,
     "event": "push",
     "head": "7fae0de94a6dedd43b0a72edeb9c12ae92bc0e10",
-    "status": "in_progress",
-    "conclusion": null,
+    "status": "completed",
+    "conclusion": "failure",
     "head_sha": "7fae0de94a6dedd43b0a72edeb9c12ae92bc0e10",
-    "html_url": "https://github.com/just-every/run-slate/actions/runs/42496468671"
+    "html_url": "https://github.com/just-every/run-slate/actions/runs/42496468671",
+    "failedJob": 128780380396,
+    "failure": "Step DEC-002 native decision states, terminal refusals and activity failed: page.waitForURL: Timeout 30000ms exceeded.",
+    "reproduction": "Original navigation timeout did not reproduce under Ubuntu 24.04.4, Node 22.20.0 and the exact tooling shard. DEC-002 passed; a later unrelated dialog assertion failed. No repair made.",
+    "aggregateFailedJob": 128786426484
   },
   "checks": [
     {
@@ -132,5 +136,53 @@
   "newCommits": [
     "7fae0de94a6dedd43b0a72edeb9c12ae92bc0e10 Reconcile decision receipts with exact audit actions",
     "67487e714802ed7755ea1aac6beff9b769ebb9ee Replay native decision state proof onto current main [skip ci]"
-  ]
+  ],
+  "terminal": "BLOCKED",
+  "clauseClaim": {
+    "id": "DEC-002",
+    "status": "PARTIAL",
+    "pointsLocallyProven": [
+      1,
+      2,
+      3
+    ],
+    "gap": "Exact-SHA Verify navigation timeout was not reproduced; brief requires stopping before a speculative repair."
+  },
+  "reproduction": {
+    "head": "7fae0de94a6dedd43b0a72edeb9c12ae92bc0e10",
+    "job": 128780380396,
+    "run": 42496468671,
+    "os": "Ubuntu 24.04.4 LTS",
+    "node": "22.20.0",
+    "pnpm": "10.12.4",
+    "image": "mcr.microsoft.com/playwright:v1.63.0-noble",
+    "imageDigest": "sha256:eff16c30e6f3f4af0a03fa4b706120d5e9b0891c344a27d64559aff5900a4a27",
+    "command": "bash .github/scripts/run-shard.sh",
+    "configuration": {
+      "SLATE_UI_SHARD": "2/8",
+      "SLATE_UI_ASSIGNMENTS": ".github/scripts/journey-shards.json",
+      "SERIAL_SUITE": "false",
+      "WORKER_SHARD": "1",
+      "SUITE_COMMAND": "pnpm test:base-proof && pnpm test:docs && pnpm test:typegen && pnpm test:portability && pnpm test:release-source && pnpm test:rer-editor"
+    },
+    "originalFailure": "page.waitForURL: Timeout 30000ms exceeded.",
+    "nativeDecisionStep": "passed",
+    "correctedFullShard": "finished; journeys=1 worker-suite=0",
+    "sourceRepairs": 0,
+    "preliminaryAttempt": "Invalid container layout: a portability fixture could not create a sibling directory under root; stopped own container and corrected the writable parent mount. No product or test code changed.",
+    "originalFailureReproduced": false,
+    "wrapperExit": null,
+    "wrapperExitNote": "The resumed execution environment no longer retained the command session. The complete output records the shard lane results, but no final wrapper exit marker; no exit code is invented.",
+    "otherFailure": "touchOperatorJourney: Verify this exact revision dialog remained visible after 5000 ms",
+    "repairDisposition": "Stop under the brief rule for an unreproduced original Verify failure; no speculative repair or workflow rerun."
+  },
+  "exactHeadBuild": {
+    "schema": 1,
+    "commit": "7fae0de94a6dedd43b0a72edeb9c12ae92bc0e10",
+    "tree": "aadd72a490d43b57d00090a00ccc77d8436ec23a",
+    "sourceSha256": "dee929ca62cb5ba38316adfa740e16577aaeb285783e94f12505db37639c92b8",
+    "lockSha256": "bd0579a1299f5b1b2f43a2a2fe7f1975f20268e4307c3c90106ac9cd7d45d5f2",
+    "outputSha256": "08f1497261f96c230449313b3ca6a85a3d706ce72feab593cec0b0185b04b576"
+  },
+  "githubCalls": 10
 }

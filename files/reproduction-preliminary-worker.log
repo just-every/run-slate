@@ -1,0 +1,271 @@
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mProxy environment variables detected. We'll use your proxy for fetch requests.[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mProxy environment variables detected. We'll use your proxy for fetch requests.[0m
+
+
+(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:
+  - import "./source-fixtures" without a file extension (scripts/import-scale/generate-server-dc.ts:2:91). Add the file extension
+  - import "./types" without a file extension (scripts/import-scale/generate-server-dc.ts:3:82). Add the file extension
+  - import "./source-fixtures" without a file extension (scripts/import-scale/generate-server-dc.ts:4:22). Add the file extension
+  - import "./csv" without a file extension (scripts/import-scale/source-fixtures.ts:4:46). Add the file extension
+Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.
+
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.11 [39m[90m/work[39m
+
+[90mstdout[2m | tests/e2e/review/verification-flow.test.ts[2m > [22m[2mVerifying offers 7, 30 or 90 days, a date or none, only on the opened revision, and an edit makes it not current
+[22m[39mOpen guard response {"case":"page_revision","status":409,"body":{"code":"STALE_REVISION","message":"This page changed. Open the current content before verifying.","details":{"guard":"page_revision"}}}
+
+[90mstdout[2m | tests/e2e/review/verification-flow.test.ts[2m > [22m[2mVerifying offers 7, 30 or 90 days, a date or none, only on the opened revision, and an edit makes it not current
+[22m[39mOpen guard response {"case":"revision_tuple","status":409,"body":{"code":"REVISION_CONFLICT","message":"The record changed. Reload before saving.","details":{"guard":"revision_tuple"}}}
+
+[90mstdout[2m | tests/e2e/review/verification-flow.test.ts[2m > [22m[2mVerifying offers 7, 30 or 90 days, a date or none, only on the opened revision, and an edit makes it not current
+[22m[39mOpen guard response {"case":"acl_epoch","status":409,"body":{"code":"REVISION_CONFLICT","message":"The record changed. Reload before saving.","details":{"guard":"acl_epoch","compared":{"expected":45,"current":46}}}}
+
+[90mstdout[2m | tests/e2e/review/verification-flow.test.ts[2m > [22m[2mVerifying offers 7, 30 or 90 days, a date or none, only on the opened revision, and an edit makes it not current
+[22m[39mOpen guard response {"case":"acl_epoch","status":409,"body":{"code":"REVISION_CONFLICT","message":"The record changed. Reload before saving.","details":{"guard":"acl_epoch","compared":{"expected":46,"current":47}}}}
+
+[90mstdout[2m | tests/e2e/review/verification-flow.test.ts[2m > [22m[2mVerifying offers 7, 30 or 90 days, a date or none, only on the opened revision, and an edit makes it not current
+[22m[39mOpen guard response {"case":"membership","status":409,"body":{"code":"REVISION_CONFLICT","message":"The record changed. Reload before saving.","details":{"guard":"membership"}}}
+
+[90mstdout[2m | tests/e2e/review/verification-flow.test.ts[2m > [22m[2mVerifying offers 7, 30 or 90 days, a date or none, only on the opened revision, and an edit makes it not current
+[22m[39mOpen guard response {"case":"normal","status":200,"body":{"value":{"revisionId":"01M6XZNTFWN7V3S36NQGYFQN5E"},"receipt":{"operationKey":"215ff94a-27d7-4b07-894e-16e8bee52db2","entity":{"id":"01M6XZNTEVXKXD1VPKPVGR8AHN","kind":"page","revisionId":"01M6XZNTFWN7V3S36NQGYFQN5E"},"revisionId":"01M6XZNTFWN7V3S36NQGYFQN5E","activityId":"01M6XZNTR144N71JDNXAFPWP40","committedAt":"2026-11-08T16:25:45.983Z"}}}
+
+ [32m✓[39m tests/e2e/review/verification-flow.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 2877[2mms[22m[39m
+   [33m[2m✓[22m[39m Verifying offers 7, 30 or 90 days, a date or none, only on the opened revision, and an edit makes it not current [33m 2874[2mms[22m[39m
+ [32m✓[39m tests/flagship/discovery/following.test.ts [2m([22m[2m2 tests[22m[2m)[22m[33m 7399[2mms[22m[39m
+   [33m[2m✓[22m[39m PAGE-016 — authoring watches respect durable unwatch, personal overrides and workspace defaults [33m 3585[2mms[22m[39m
+   [33m[2m✓[22m[39m CONT-012 — a watched container delivers creation, two edit sessions and a comment once each, nothing for restricted or draft pages, one item when the page is also watched, and rechecks moves, lifecycle and access [33m 3812[2mms[22m[39m
+ [32m✓[39m tests/e2e/pages/analytics.test.ts [2m([22m[2m2 tests[22m[2m)[22m[33m 3136[2mms[22m[39m
+   [33m[2m✓[22m[39m PAGE-013 — page and container readership retain daily totals, uniques and author views without exposing private readers or pages [33m 938[2mms[22m[39m
+   [33m[2m✓[22m[39m ADMIN-004 — owner reports export every report as CSV and container owners see only their readable container figures [33m 2196[2mms[22m[39m
+ [32m✓[39m tests/e2e/webhooks/deliveries.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 5850[2mms[22m[39m
+   [33m[2m✓[22m[39m owner webhook subscriptions sign current readable events, persist backoff, replay and disable once without following refused destinations [33m 5847[2mms[22m[39m
+console warning; message = Called .text() on an HTTP body which does not appear to be text. The body's Content-Type is "application/zip". The result will probably be corrupted. Consider checking the Content-Type header before interpreting entities as text.
+ [32m✓[39m tests/qualification/authority/skill-disclosure.test.ts [2m([22m[2m4 tests[22m[2m)[22m[33m 1808[2mms[22m[39m
+   [33m[2m✓[22m[39m SKILL-001 — method disclosure and portable snapshots retain exact source, audience and attachment boundaries [33m 1131[2mms[22m[39m
+[90mstdout[2m | tests/flagship/release-clauses/federation/exact-passages.test.ts[2m > [22m[2mSOURCE-002 — passages stay revision-pinned and content-free after source or connection revocation
+[22m[39mU2 passage effects {"initialPassages":3,"reference":{"sourceId":"01M6XZQG1F1KMSHS2DYREZWWJ1","sourceRevisionId":"a8df8dded1dcf0812b1f4a3922cf6c21f9ce35e712561ec97997d201a1c1a914","passageId":"a8df8dded1dcf0812b1f4a3922cf6c21f9ce35e712561ec97997d201a1c1a914:1"},"retainedContentHash":"bd6e502e24744a6c51c6bbd235103de84f8c927c6d75081c4112d4c4ab0aaf1f","publishedPointerBeforeFailure":"edcac6c888b1c11a68cb9fd6393b8c3cf35f0e59002fb0fab5aca13a02a73a29","publishedPointerAfterFailure":"edcac6c888b1c11a68cb9fd6393b8c3cf35f0e59002fb0fab5aca13a02a73a29","revisionsBeforeFailure":2,"revisionsAfterFailure":2,"passagesBeforeFailure":6,"passagesAfterFailure":6,"refreshes":[{"state":"completed","error_code":null},{"state":"completed","error_code":null},{"state":"failed","error_code":"SOURCE_CHANGED"}],"controlledCalls":[{"origin":"https://passages.u2.test","path":"identity","method":"GET","status":200},{"origin":"https://passages.u2.test","path":"identity","method":"GET","status":200},{"origin":"https://passages.u2.test","path":"evidence","method":"GET","status":200},{"origin":"https://passages.u2.test","path":"identity","method":"GET","status":200},{"origin":"https://passages.u2.test","path":"check","method":"GET","status":200},{"origin":"https://passages.u2.test","path":"identity","method":"GET","status":200},{"origin":"https://passages.u2.test","path":"check","method":"GET","status":200},{"origin":"https://passages.u2.test","path":"identity","method":"GET","status":200},{"origin":"https://passages.u2.test","path":"evidence","method":"GET","status":200},{"origin":"https://passages.u2.test","path":"identity","method":"GET","status":200},{"origin":"https://passages.u2.test","path":"check","method":"GET","status":200},{"origin":"https://passages.u2.test","path":"identity","method":"GET","status":200},{"origin":"https://passages.u2.test","path":"check","method":"GET","status":200},{"origin":"https://passages.u2.test","path":"identity","method":"GET","status":200},{"origin":"https://passages.u2.test","path":"evidence","method":"GET","status":200},{"origin":"https://passages.u2.test","path":"identity","method":"GET","status":200},{"origin":"https://passages.u2.test","path":"check","method":"GET","status":200},{"origin":"https://passages.u2.test","path":"identity","method":"GET","status":200},{"origin":"https://passages.u2.test","path":"check","method":"GET","status":200},{"origin":"https://passages.u2.test","path":"identity","method":"GET","status":200},{"origin":"https://passages.u2.test","path":"check","method":"GET","status":403},{"origin":"https://passages.u2.test","path":"identity","method":"GET","status":200},{"origin":"https://passages.u2.test","path":"check","method":"GET","status":200},{"origin":"https://passages.u2.test","path":"identity","method":"GET","status":200},{"origin":"https://passages.u2.test","path":"check","method":"GET","status":404}],"operationalEffects":0}
+
+[90mstdout[2m | tests/flagship/release-clauses/federation/exact-passages.test.ts[2m > [22m[2mSOURCE-002 — passages stay revision-pinned and content-free after source or connection revocation
+[22m[39mU2 final authority effects {"controlledCalls":[{"origin":"https://final-authority.u2.test","path":"identity","method":"GET","status":200},{"origin":"https://final-authority.u2.test","path":"identity","method":"GET","status":200},{"origin":"https://final-authority.u2.test","path":"evidence","method":"GET","status":200},{"origin":"https://final-authority.u2.test","path":"identity","method":"GET","status":200},{"origin":"https://final-authority.u2.test","path":"check","method":"GET","status":200},{"origin":"https://final-authority.u2.test","path":"identity","method":"GET","status":200},{"origin":"https://final-authority.u2.test","path":"check","method":"GET","status":200},{"origin":"https://final-authority.u2.test","path":"identity","method":"GET","status":200},{"origin":"https://final-authority.u2.test","path":"check","method":"GET","status":200},{"origin":"https://final-authority.u2.test","path":"identity","method":"GET","status":200},{"origin":"https://final-authority.u2.test","path":"check","method":"GET","status":200},{"origin":"https://final-authority.u2.test","path":"identity","method":"GET","status":200},{"origin":"https://final-authority.u2.test","path":"revoke","method":"POST","status":200},{"origin":"https://final-authority.u2.test","path":"check","method":"GET","status":200}],"remoteRevocations":1,"operationalEffects":0}
+
+ [32m✓[39m tests/flagship/release-clauses/federation/exact-passages.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 719[2mms[22m[39m
+   [33m[2m✓[22m[39m SOURCE-002 — passages stay revision-pinned and content-free after source or connection revocation [33m 718[2mms[22m[39m
+ [32m✓[39m tests/flagship/core/identity.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 3845[2mms[22m[39m
+   [33m[2m✓[22m[39m native authentication, invitations and secret custody preserve current authority [33m 3844[2mms[22m[39m
+ [32m✓[39m tests/qualification/authority/decision-authority.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 6549[2mms[22m[39m
+   [33m[2m✓[22m[39m SOURCE-003 — decision authority and exact historical prose retain current citation boundaries through review and restore [33m 6546[2mms[22m[39m
+[2m4:27:16 PM[22m [33m[1m[vite][22m[39m (ssr) warning: /work/src/core/app/loaders.ts:18:30 createServerFn().inputValidator() is deprecated. Use createServerFn().validator() instead.
+  Plugin: tanstack-start-core::server-fn:ssr
+  File: /work/src/core/app/loaders.ts
+[2m4:27:16 PM[22m [33m[1m[vite][22m[39m (ssr) warning: /work/src/core/features/session/loader.ts:7:39 createServerFn().inputValidator() is deprecated. Use createServerFn().validator() instead.
+  Plugin: tanstack-start-core::server-fn:ssr
+  File: /work/src/core/features/session/loader.ts
+[90mstderr[2m | tests/e2e/docs.test.ts[2m > [22m[2mDOCS-001 public documentation supporting regressions[2m > [22m[2mpublic docs serve declared pages with accessible navigation and refuse unknown routes
+[22m[39mReact encountered a `<link rel="stylesheet" .../>` with a `precedence` prop and expected the `href` prop to be a non-empty string but ecountered an empty string instead. If your intent was to have React hoist and deduplciate this stylesheet using the `precedence` prop ensure there is a non-empty string `href` prop as well, otherwise remove the `precedence` prop.
+An empty string ("") was passed to the href attribute. To fix this, either do not render the element at all or pass null to href instead of an empty string.
+
+[90mstderr[2m | tests/e2e/docs.test.ts[2m > [22m[2mDOCS-001 public documentation supporting regressions[2m > [22m[2mpublic docs serve declared pages with accessible navigation and refuse unknown routes
+[22m[39mReact encountered a `<link rel="stylesheet" .../>` with a `precedence` prop and expected the `href` prop to be a non-empty string but ecountered an empty string instead. If your intent was to have React hoist and deduplciate this stylesheet using the `precedence` prop ensure there is a non-empty string `href` prop as well, otherwise remove the `precedence` prop.
+An empty string ("") was passed to the href attribute. To fix this, either do not render the element at all or pass null to href instead of an empty string.
+
+[90mstderr[2m | tests/e2e/docs.test.ts[2m > [22m[2mDOCS-001 public documentation supporting regressions[2m > [22m[2mpublic docs serve declared pages with accessible navigation and refuse unknown routes
+[22m[39mReact encountered a `<link rel="stylesheet" .../>` with a `precedence` prop and expected the `href` prop to be a non-empty string but ecountered an empty string instead. If your intent was to have React hoist and deduplciate this stylesheet using the `precedence` prop ensure there is a non-empty string `href` prop as well, otherwise remove the `precedence` prop.
+An empty string ("") was passed to the href attribute. To fix this, either do not render the element at all or pass null to href instead of an empty string.
+
+[90mstderr[2m | tests/e2e/docs.test.ts[2m > [22m[2mDOCS-001 public documentation supporting regressions[2m > [22m[2mpublic docs serve declared pages with accessible navigation and refuse unknown routes
+[22m[39mReact encountered a `<link rel="stylesheet" .../>` with a `precedence` prop and expected the `href` prop to be a non-empty string but ecountered an empty string instead. If your intent was to have React hoist and deduplciate this stylesheet using the `precedence` prop ensure there is a non-empty string `href` prop as well, otherwise remove the `precedence` prop.
+An empty string ("") was passed to the href attribute. To fix this, either do not render the element at all or pass null to href instead of an empty string.
+
+[90mstderr[2m | tests/e2e/docs.test.ts[2m > [22m[2mDOCS-001 public documentation supporting regressions[2m > [22m[2mpublic docs serve declared pages with accessible navigation and refuse unknown routes
+[22m[39mReact encountered a `<link rel="stylesheet" .../>` with a `precedence` prop and expected the `href` prop to be a non-empty string but ecountered an empty string instead. If your intent was to have React hoist and deduplciate this stylesheet using the `precedence` prop ensure there is a non-empty string `href` prop as well, otherwise remove the `precedence` prop.
+An empty string ("") was passed to the href attribute. To fix this, either do not render the element at all or pass null to href instead of an empty string.
+
+[90mstderr[2m | tests/e2e/docs.test.ts[2m > [22m[2mDOCS-001 public documentation supporting regressions[2m > [22m[2mpublic docs serve declared pages with accessible navigation and refuse unknown routes
+[22m[39mReact encountered a `<link rel="stylesheet" .../>` with a `precedence` prop and expected the `href` prop to be a non-empty string but ecountered an empty string instead. If your intent was to have React hoist and deduplciate this stylesheet using the `precedence` prop ensure there is a non-empty string `href` prop as well, otherwise remove the `precedence` prop.
+An empty string ("") was passed to the href attribute. To fix this, either do not render the element at all or pass null to href instead of an empty string.
+
+[90mstderr[2m | tests/e2e/docs.test.ts[2m > [22m[2mDOCS-001 public documentation supporting regressions[2m > [22m[2mpublic docs serve declared pages with accessible navigation and refuse unknown routes
+[22m[39mReact encountered a `<link rel="stylesheet" .../>` with a `precedence` prop and expected the `href` prop to be a non-empty string but ecountered an empty string instead. If your intent was to have React hoist and deduplciate this stylesheet using the `precedence` prop ensure there is a non-empty string `href` prop as well, otherwise remove the `precedence` prop.
+An empty string ("") was passed to the href attribute. To fix this, either do not render the element at all or pass null to href instead of an empty string.
+
+[90mstderr[2m | tests/e2e/docs.test.ts[2m > [22m[2mDOCS-001 public documentation supporting regressions[2m > [22m[2mpublic docs serve declared pages with accessible navigation and refuse unknown routes
+[22m[39mReact encountered a `<link rel="stylesheet" .../>` with a `precedence` prop and expected the `href` prop to be a non-empty string but ecountered an empty string instead. If your intent was to have React hoist and deduplciate this stylesheet using the `precedence` prop ensure there is a non-empty string `href` prop as well, otherwise remove the `precedence` prop.
+An empty string ("") was passed to the href attribute. To fix this, either do not render the element at all or pass null to href instead of an empty string.
+
+[90mstderr[2m | tests/e2e/docs.test.ts[2m > [22m[2mDOCS-001 public documentation supporting regressions[2m > [22m[2mpublic docs serve declared pages with accessible navigation and refuse unknown routes
+[22m[39mReact encountered a `<link rel="stylesheet" .../>` with a `precedence` prop and expected the `href` prop to be a non-empty string but ecountered an empty string instead. If your intent was to have React hoist and deduplciate this stylesheet using the `precedence` prop ensure there is a non-empty string `href` prop as well, otherwise remove the `precedence` prop.
+An empty string ("") was passed to the href attribute. To fix this, either do not render the element at all or pass null to href instead of an empty string.
+
+[90mstderr[2m | tests/e2e/docs.test.ts[2m > [22m[2mDOCS-001 public documentation supporting regressions[2m > [22m[2mpublic docs serve declared pages with accessible navigation and refuse unknown routes
+[22m[39mReact encountered a `<link rel="stylesheet" .../>` with a `precedence` prop and expected the `href` prop to be a non-empty string but ecountered an empty string instead. If your intent was to have React hoist and deduplciate this stylesheet using the `precedence` prop ensure there is a non-empty string `href` prop as well, otherwise remove the `precedence` prop.
+An empty string ("") was passed to the href attribute. To fix this, either do not render the element at all or pass null to href instead of an empty string.
+
+[90mstderr[2m | tests/e2e/docs.test.ts[2m > [22m[2mDOCS-001 public documentation supporting regressions[2m > [22m[2mpublic docs serve declared pages with accessible navigation and refuse unknown routes
+[22m[39mReact encountered a `<link rel="stylesheet" .../>` with a `precedence` prop and expected the `href` prop to be a non-empty string but ecountered an empty string instead. If your intent was to have React hoist and deduplciate this stylesheet using the `precedence` prop ensure there is a non-empty string `href` prop as well, otherwise remove the `precedence` prop.
+An empty string ("") was passed to the href attribute. To fix this, either do not render the element at all or pass null to href instead of an empty string.
+
+[90mstderr[2m | tests/e2e/docs.test.ts[2m > [22m[2mDOCS-001 public documentation supporting regressions[2m > [22m[2mpublic docs serve declared pages with accessible navigation and refuse unknown routes
+[22m[39mReact encountered a `<link rel="stylesheet" .../>` with a `precedence` prop and expected the `href` prop to be a non-empty string but ecountered an empty string instead. If your intent was to have React hoist and deduplciate this stylesheet using the `precedence` prop ensure there is a non-empty string `href` prop as well, otherwise remove the `precedence` prop.
+An empty string ("") was passed to the href attribute. To fix this, either do not render the element at all or pass null to href instead of an empty string.
+
+[90mstderr[2m | tests/e2e/docs.test.ts[2m > [22m[2mDOCS-001 public documentation supporting regressions[2m > [22m[2mpublic docs serve declared pages with accessible navigation and refuse unknown routes
+[22m[39mReact encountered a `<link rel="stylesheet" .../>` with a `precedence` prop and expected the `href` prop to be a non-empty string but ecountered an empty string instead. If your intent was to have React hoist and deduplciate this stylesheet using the `precedence` prop ensure there is a non-empty string `href` prop as well, otherwise remove the `precedence` prop.
+An empty string ("") was passed to the href attribute. To fix this, either do not render the element at all or pass null to href instead of an empty string.
+
+[90mstderr[2m | tests/e2e/docs.test.ts[2m > [22m[2mDOCS-001 public documentation supporting regressions[2m > [22m[2mpublic docs serve declared pages with accessible navigation and refuse unknown routes
+[22m[39mReact encountered a `<link rel="stylesheet" .../>` with a `precedence` prop and expected the `href` prop to be a non-empty string but ecountered an empty string instead. If your intent was to have React hoist and deduplciate this stylesheet using the `precedence` prop ensure there is a non-empty string `href` prop as well, otherwise remove the `precedence` prop.
+An empty string ("") was passed to the href attribute. To fix this, either do not render the element at all or pass null to href instead of an empty string.
+
+[90mstderr[2m | tests/e2e/docs.test.ts[2m > [22m[2mDOCS-001 public documentation supporting regressions[2m > [22m[2mpublic docs serve declared pages with accessible navigation and refuse unknown routes
+[22m[39mReact encountered a `<link rel="stylesheet" .../>` with a `precedence` prop and expected the `href` prop to be a non-empty string but ecountered an empty string instead. If your intent was to have React hoist and deduplciate this stylesheet using the `precedence` prop ensure there is a non-empty string `href` prop as well, otherwise remove the `precedence` prop.
+An empty string ("") was passed to the href attribute. To fix this, either do not render the element at all or pass null to href instead of an empty string.
+
+ [32m✓[39m tests/e2e/docs.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 2716[2mms[22m[39m
+     [33m[2m✓[22m[39m public docs serve declared pages with accessible navigation and refuse unknown routes [33m 2715[2mms[22m[39m
+ [2m[90m↓[39m[22m tests/e2e/imports/undo-cross-references.test.ts [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+ [32m✓[39m tests/flagship/structured/template-repairs.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 1641[2mms[22m[39m
+   [33m[2m✓[22m[39m template snapshots, privacy and typed repairs preserve immutable definitions [33m 1640[2mms[22m[39m
+ [32m✓[39m tests/flagship/structured/typed-repairs.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 1942[2mms[22m[39m
+   [33m[2m✓[22m[39m typed relation, aggregate and formula repairs preserve current source authority [33m 1941[2mms[22m[39m
+ [32m✓[39m tests/e2e/editor/provider-embeds.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 11679[2mms[22m[39m
+   [33m[2m✓[22m[39m EMBED-003 — allowlisted embeds use isolated provider frames, authorized documents and published click gates [EMBED-004] with reader-authorized file references [33m 11678[2mms[22m[39m
+ [32m✓[39m tests/e2e/editor/tables.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 5418[2mms[22m[39m
+   [33m[2m✓[22m[39m BLOCK-014 — tables, columns and synced paragraphs preserve structured content through editing, validation, exports and access [33m 5416[2mms[22m[39m
+ [32m✓[39m tests/e2e/workspace/health.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 10041[2mms[22m[39m
+   [33m[2m✓[22m[39m BASE-OPS-001 — health reports ready when the database answers [33m 10040[2mms[22m[39m
+[90mstdout[2m | tests/flagship/release-clauses/inquiry/bounded-allocation.test.ts[2m > [22m[2mINQ-003 — persisted allocations expose exhaustive optimum, capacity sensitivity and invalid input atomicity
+[22m[39mU5_NATIVE_INQ003 {"id":"01M6XZTJCKJMKF81SB3VHGXSN3","inquiry_id":"01M6XZTJAVPFTQ8S6743SCQMJA","kind":"allocate","engine_version":"knapsack-01-v1","inputs_json":"{\"kind\":\"allocate\",\"items\":[{\"id\":\"greedy\",\"cost\":3,\"value\":5},{\"id\":\"pair-a\",\"cost\":2,\"value\":3},{\"id\":\"pair-b\",\"cost\":2,\"value\":3}],\"capacity\":3}","input_hash":"903174b78a6440eb44e3f2cd443e57bcbe63fe9538a4608a5bc1a49deea9b068","result_json":"{\"engine\":\"knapsack-01-v1\",\"capacity\":3,\"value\":5,\"ids\":[\"greedy\"],\"feasibilityOnly\":true}","refs_json":"[{\"kind\":\"page\",\"sourceId\":\"01M6XZTJ48BZGH5PJCEDJXWB72\",\"revisionId\":\"01M6XZTJ48Q119787B9M6QBCKV\"}]","created_at":"2026-11-08T16:28:21.216Z"}
+
+[90mstdout[2m | tests/flagship/release-clauses/inquiry/bounded-allocation.test.ts[2m > [22m[2mINQ-003 — persisted allocations expose exhaustive optimum, capacity sensitivity and invalid input atomicity
+[22m[39mU5_NATIVE_INQ003 {"id":"01M6XZTJE7S0FK0ZA0X2138M54","inquiry_id":"01M6XZTJAVPFTQ8S6743SCQMJA","kind":"allocate","engine_version":"knapsack-01-v1","inputs_json":"{\"kind\":\"allocate\",\"items\":[{\"id\":\"greedy\",\"cost\":3,\"value\":5},{\"id\":\"pair-a\",\"cost\":2,\"value\":3},{\"id\":\"pair-b\",\"cost\":2,\"value\":3}],\"capacity\":4}","input_hash":"a4edd04bde0bb5f48b567d5b9a4642791b8c50c6406cdb016301993362785ed3","result_json":"{\"engine\":\"knapsack-01-v1\",\"capacity\":4,\"value\":6,\"ids\":[\"pair-a\",\"pair-b\"],\"feasibilityOnly\":true}","refs_json":"[{\"kind\":\"page\",\"sourceId\":\"01M6XZTJ48BZGH5PJCEDJXWB72\",\"revisionId\":\"01M6XZTJ48Q119787B9M6QBCKV\"}]","created_at":"2026-11-08T16:28:21.275Z"}
+
+ [32m✓[39m tests/flagship/release-clauses/inquiry/bounded-allocation.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 533[2mms[22m[39m
+   [33m[2m✓[22m[39m INQ-003 — persisted allocations expose exhaustive optimum, capacity sensitivity and invalid input atomicity [33m 531[2mms[22m[39m
+ [32m✓[39m tests/flagship/core/erasure.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 159[2mms[22m[39m
+ [32m✓[39m tests/e2e/scim/contract.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 4013[2mms[22m[39m
+   [33m[2m✓[22m[39m SCIM RFC7643/7644 HTTP sequence uses native invitations, Members, groups and revocation authority [33m 4011[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m17 passed[39m[22m[2m | [22m[33m1 skipped[39m[90m (18)[39m
+[2m      Tests [22m [1m[32m22 passed[39m[22m[2m | [22m[33m1 skipped[39m[90m (23)[39m
+[2m   Start at [22m 16:25:24
+[2m   Duration [22m 192.49s[2m (transform 13.31s, setup 12.24s, import 95.97s, tests 70.33s, environment 3ms)[22m
+
+JSON report written to /work/.artifacts/contract-1.json
+
+> slate@0.4.0 test:base-proof /work
+> node --test --test-concurrency=1 tests/base-proof/*.test.mjs
+
+TAP version 13
+# Subtest: native Base provenance authenticates exact copies and refuses every forged or missing origin
+ok 1 - native Base provenance authenticates exact copies and refuses every forged or missing origin
+  ---
+  duration_ms: 4111.053692
+  type: 'test'
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 1
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 4208.762976
+
+> slate@0.4.0 test:docs /work
+> node --test tests/docs/docs-site.test.mjs tests/docs/docs-dev-sync.test.mjs
+
+TAP version 13
+# Subtest: the docs plugin follows edits to Markdown and docs/site.json in a running dev server
+ok 1 - the docs plugin follows edits to Markdown and docs/site.json in a running dev server
+  ---
+  duration_ms: 5363.418762
+  type: 'test'
+  ...
+# Subtest: docs build renders declared pages and refuses invalid manifests, markup, links and images
+ok 2 - docs build renders declared pages and refuses invalid manifests, markup, links and images
+  ---
+  duration_ms: 80.982892
+  type: 'test'
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 2
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 5721.264647
+
+> slate@0.4.0 test:typegen /work
+> node --test --test-concurrency=2 tests/typegen*.test.mjs
+
+TAP version 13
+# Subtest: local deployment validation names missing mail provider and selected key
+ok 1 - local deployment validation names missing mail provider and selected key
+  ---
+  duration_ms: 5.565817
+  type: 'test'
+  ...
+# Subtest: operation checker rejects missing scripts for pnpm run and pnpm shorthand
+ok 2 - operation checker rejects missing scripts for pnpm run and pnpm shorthand
+  ---
+  duration_ms: 19.658867
+  type: 'test'
+  ...
+# Subtest: binding check rejects stale declarations without overwriting them
+ok 3 - binding check rejects stale declarations without overwriting them
+  ---
+  duration_ms: 288.710567
+  type: 'test'
+  ...
+1..3
+# tests 3
+# suites 0
+# pass 3
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 359.811442
+
+> slate@0.4.0 test:portability /work
+> node --test --test-concurrency=2 tests/portability/*.test.mjs
+
+TAP version 13
+# (node:1743) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: restore admission accepts pristine bootstrap targets and preserves every retained identity and record
+ok 1 - restore admission accepts pristine bootstrap targets and preserves every retained identity and record
+  ---
+  duration_ms: 13053.581314
+  type: 'test'
+  ...
+# Subtest: BASE-DATA-001 PORT-001 PORT-002 PORT-003 PORT-005 — native ZIP backup, failed restore, retry and backup preserve populated D1 and original R2 bytes in a separate empty deployment
+not ok 2 - BASE-DATA-001 PORT-001 PORT-002 PORT-003 PORT-005 — native ZIP backup, failed restore, retry and backup preserve populated D1 and original R2 bytes in a separate empty deployment
+  ---
+  duration_ms: 3.665039
+  type: 'test'
+  location: '/work/tests/portability/roundtrip.test.mjs:14:1'
+  failureType: 'testCodeFailure'
+  error: "EACCES: permission denied, mkdtemp '/portability-riQCN6'"
+  code: 'EACCES'
+  stack: |-
+    async mkdtemp (node:internal/fs/promises:1185:10)
+    async TestContext.<anonymous> (file:///work/tests/portability/roundtrip.test.mjs:15:17)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 1
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 13650.644733
+ ELIFECYCLE  Command failed with exit code 1.

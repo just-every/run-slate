@@ -1,0 +1,39 @@
+rer toolchain: node v24.19.0 pnpm 10.12.4 (pins 22.20.0 / 10.12.4)
+v22.20.0
+10.12.4
+PRETTY_NAME="Ubuntu 24.04.4 LTS"
+NAME="Ubuntu"
+VERSION_ID="24.04"
+VERSION="24.04.4 LTS (Noble Numbat)"
+VERSION_CODENAME=noble
+ID=ubuntu
+ID_LIKE=debian
+HOME_URL="https://www.ubuntu.com/"
+SUPPORT_URL="https://help.ubuntu.com/"
+BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+UBUNTU_CODENAME=noble
+LOGO=ubuntu-logo
+TAP version 13
+# Native decision commit /api/decisions proposed 01M6XZPWNG1546915ZN50YEBPR
+# Native decision commit /api/decisions/01M6XZPWNGJP8KACWF985HB31N/accept accepted 01M6XZQ0V4MVPEJ1QT10F0C0X8
+# Native decision commit /api/decisions/01M6XZPWNGJP8KACWF985HB31N/review review 01M6XZQ16Q2HHD00N4TTNARJCA
+# Native decision commit /api/decisions/01M6XZPWNGJP8KACWF985HB31N/propose-successor proposed 01M6XZQ1DEAN638P6G1ZEY36TT
+# Native decision commit /api/decisions proposed 01M6XZQ22F24T7081TFBC1ZM0E
+# Native decision commit /api/decisions/01M6XZQ1DF5985H2JNJX94EE87/accept accepted 01M6XZQ2C46SZT8DZZ3BC9QAXA
+# Native decision commit /api/decisions proposed 01M6XZQ75X39ZQEKY88X1MJ8X7
+# Native decision commit /api/decisions/01M6XZQ75XSTPG231YEXMPXC7K/accept accepted 01M6XZQ98NSX9ESB3N2J1ACAEY
+# Native decision commit /api/decisions proposed 01M6XZQJ277Q2V2CX8PXZB5Z9P
+# PROBE DEC-002 1-3: non-owner proposal and acceptance refusal; appointed-owner acceptance; both supersession doors; five terminal refusals; 11 exact history and activity rows after replay and reload at 1440px
+# NAV-006 touch create, type, insert and drag persisted
+# BLOCK-012 columns insert, desktop drag and touch layout passed at 1440px
+# PROBE COMM-002 acceptance 1–2: native comment controls and HTTP at 1440px -> two authors edit/delete; cross-author and owner override 403; edited times, two in-place tombstones and six activities survive replay/reload
+# NAV-006 touch comment and resolve persisted
+# WEB-006 native unpublish response {"width":1440,"elapsedMs":561}
+# PROBE SHARE-002 full: selected reads, title, body, comment and direct grants; 0 refused requests preserve inventories at 1440px
+# PROBE SHARE-002 edit: selected reads, title, body, comment and direct grants; 2 refused requests preserve inventories at 1440px
+# PROBE SHARE-002 comment: selected reads, title, body, comment and direct grants; 4 refused requests preserve inventories at 1440px
+# PROBE SHARE-002 view: selected reads, title, body, comment and direct grants; 5 refused requests preserve inventories at 1440px
+# NAV-006 touch workspace publication and sharing persisted
+# PAGE-007 Details, replay and edit-only refusal passed at 1440px
+REPRODUCTION_EXIT=143

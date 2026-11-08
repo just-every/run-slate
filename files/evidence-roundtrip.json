@@ -1,0 +1,8 @@
+{
+  "ref": "refs/heads/evidence/sd-slate-c-f209",
+  "head": "973ef39da8580df0532e7a555dcd851058a7c4b7",
+  "productHead": "7fae0de94a6dedd43b0a72edeb9c12ae92bc0e10",
+  "filesVerified": 33,
+  "allBytesAndHashesMatch": true,
+  "note": "Round-trip validation of the initial evidence publication; final publication follows the last CI poll."
+}

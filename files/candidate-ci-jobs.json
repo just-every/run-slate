@@ -1,0 +1,112 @@
+[
+  {
+    "conclusion": "success",
+    "id": 128779776797,
+    "name": "plan",
+    "status": "completed",
+    "steps": []
+  },
+  {
+    "conclusion": "success",
+    "id": 128779806281,
+    "name": "verify (app)",
+    "status": "completed",
+    "steps": []
+  },
+  {
+    "conclusion": "skipped",
+    "id": 128779807441,
+    "name": "import-scale",
+    "status": "completed",
+    "steps": []
+  },
+  {
+    "conclusion": "success",
+    "id": 128780380196,
+    "name": "verify (delivery)",
+    "status": "completed",
+    "steps": []
+  },
+  {
+    "conclusion": "success",
+    "id": 128780380223,
+    "name": "verify (ui-polish-mobile)",
+    "status": "completed",
+    "steps": []
+  },
+  {
+    "conclusion": "success",
+    "id": 128780380236,
+    "name": "verify (ui-focus-mobile)",
+    "status": "completed",
+    "steps": []
+  },
+  {
+    "conclusion": "success",
+    "id": 128780380240,
+    "name": "verify (ui-polish-desktop)",
+    "status": "completed",
+    "steps": []
+  },
+  {
+    "conclusion": "success",
+    "id": 128780380293,
+    "name": "verify (core)",
+    "status": "completed",
+    "steps": []
+  },
+  {
+    "conclusion": "success",
+    "id": 128780380342,
+    "name": "verify (ui-state)",
+    "status": "completed",
+    "steps": []
+  },
+  {
+    "conclusion": "success",
+    "id": 128780380363,
+    "name": "verify (ui-focus-desktop)",
+    "status": "completed",
+    "steps": []
+  },
+  {
+    "conclusion": "failure",
+    "id": 128780380396,
+    "name": "verify (tooling)",
+    "status": "completed",
+    "steps": [
+      {
+        "conclusion": "failure",
+        "name": "Workers, public-door journeys and suite",
+        "number": 8
+      }
+    ]
+  },
+  {
+    "conclusion": "skipped",
+    "id": 128780381363,
+    "name": "local-journeys",
+    "status": "completed",
+    "steps": []
+  },
+  {
+    "conclusion": "failure",
+    "id": 128786426484,
+    "name": "verify",
+    "status": "completed",
+    "steps": [
+      {
+        "conclusion": "failure",
+        "name": "Require the plan and every expected job",
+        "number": 2
+      }
+    ]
+  },
+  {
+    "conclusion": "skipped",
+    "id": 128786428011,
+    "name": "contract",
+    "status": "completed",
+    "steps": []
+  }
+]

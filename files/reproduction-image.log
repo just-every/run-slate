@@ -1,0 +1,35 @@
+v1.63.0-noble: Pulling from playwright
+0926a8eb0e60: Pulling fs layer
+e2bfec3c8017: Pulling fs layer
+74c72610aa2d: Pulling fs layer
+d8cf7dc1ff62: Pulling fs layer
+b4dfe9b5d621: Pulling fs layer
+a2ac83a9a562: Pulling fs layer
+1b189482e65c: Pulling fs layer
+d8cf7dc1ff62: Waiting
+b4dfe9b5d621: Waiting
+a2ac83a9a562: Waiting
+1b189482e65c: Waiting
+74c72610aa2d: Verifying Checksum
+74c72610aa2d: Download complete
+0926a8eb0e60: Download complete
+0926a8eb0e60: Pull complete
+e2bfec3c8017: Verifying Checksum
+e2bfec3c8017: Download complete
+e2bfec3c8017: Pull complete
+74c72610aa2d: Pull complete
+a2ac83a9a562: Verifying Checksum
+a2ac83a9a562: Download complete
+d8cf7dc1ff62: Verifying Checksum
+d8cf7dc1ff62: Download complete
+d8cf7dc1ff62: Pull complete
+1b189482e65c: Verifying Checksum
+1b189482e65c: Download complete
+b4dfe9b5d621: Verifying Checksum
+b4dfe9b5d621: Pull complete
+a2ac83a9a562: Pull complete
+1b189482e65c: Pull complete
+Digest: sha256:eff16c30e6f3f4af0a03fa4b706120d5e9b0891c344a27d64559aff5900a4a27
+Status: Downloaded newer image for mcr.microsoft.com/playwright:v1.63.0-noble
+mcr.microsoft.com/playwright:v1.63.0-noble
+IMAGE_PULL_EXIT=0

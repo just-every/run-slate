@@ -26,15 +26,15 @@ R6: Existing Verify registrations load these paths; no existing assertion is rem
 
 ## Execution results
 
-Final candidate: `7fae0de94a6dedd43b0a72edeb9c12ae92bc0e10`. Both product pushes succeeded through the cloud push guard. Push Verify `42496468671` is in progress on this exact SHA. The focused native browser probe and final Worker case pass on Node 22.20.0. The initial emitted application was built at `67487e714802ed7755ea1aac6beff9b769ebb9ee`; no production source changed afterward. The final focused helper bytes are identical to the committed candidate. The only subsequent changes were audit assertions, requirements prose and the regenerated source lock. Both complete existing core registrations passed: 2 tests, 0 failures. The phone registration took 768 seconds and the desktop registration took 586 seconds. The final focused helper assertions also passed independently at both widths. No PR is required: the named branch has a native push Verify entry point.
+Final candidate: `7fae0de94a6dedd43b0a72edeb9c12ae92bc0e10`. Both product pushes succeeded through the cloud push guard. Push Verify `42496468671` completed with failure on this exact SHA; no DONE or READY claim is made. The focused native browser probe and final Worker case pass on Node 22.20.0. The initial emitted application was built at `67487e714802ed7755ea1aac6beff9b769ebb9ee`; no production source changed afterward. The final focused helper bytes are identical to the committed candidate. The only subsequent changes were audit assertions, requirements prose and the regenerated source lock. Both complete existing core registrations passed: 2 tests, 0 failures. The phone registration took 768 seconds and the desktop registration took 586 seconds. The final focused helper assertions also passed independently at both widths. No PR is required: the named branch has a native push Verify entry point.
 
 ## Acceptance and inherited-duty matrix
 
 | Item | Public-door proof and assertions | Result |
 | --- | --- | --- |
-| Requirement: Proposed, Accepted or Superseded | `tests/qualification/ui-convergence/decision-states-journey.mjs` `decisionStatesJourney`, native proposal, owner acceptance and both reloaded superseded cards; existing core registrations at both widths | Focused 1440 and 390 passed; exact-head Verify pending |
+| Requirement: Proposed, Accepted or Superseded | `tests/qualification/ui-convergence/decision-states-journey.mjs` `decisionStatesJourney`, native proposal, owner acceptance and both reloaded superseded cards; existing core registrations at both widths | Focused 1440 and 390 passed; exact-head core shard passed, but overall Verify failed |
 | Acceptance 1: Proposed becomes Accepted; an Accepted decision is superseded by another; Superseded is terminal | Same journey, proposal and acceptance at lines 54–113, links and reloaded terminal controls at lines 114–123, five terminal refusal requests and unchanged snapshots at lines 125–144; `tests/profile/profile.worker.test.ts` native DEC-002 case at lines 119–144 applies all five refusals to both terminal decisions | Native HTTP and focused 1440 and 390 passed on Node 22.20.0 |
-| Acceptance 2: Every transition records actor and time and appears in activity | Browser receipt collection, exact action and operation-key reconciliation, revision-kind and actor and time checks, complete history inventory, populated history and decision-filtered Settings Activity; native Worker case at lines 145–160 checks receipt and supersession entries | Native HTTP and focused browser passed; final exact-head Verify pending |
+| Acceptance 2: Every transition records actor and time and appears in activity | Browser receipt collection, exact action and operation-key reconciliation, revision-kind and actor and time checks, complete history inventory, populated history and decision-filtered Settings Activity; native Worker case at lines 145–160 checks receipt and supersession entries | Native HTTP, focused browser and exact-head core shard passed; overall Verify failed |
 | Acceptance 3: Proposed, Accepted and Superseded transitions recorded with actor and time | Both native paths above, nine committed operations and two supersession entries, exact time and actor comparisons, immediate and later replay and reloaded browser readback | Both widths observe exactly 11 entries with no duplicates |
 | Current authority under replay | `tests/profile/profile.worker.test.ts` native DEC-002 case at lines 161–166 revokes the owner session, attempts the retained successor request again, refuses 401 and compares all canonical rows unchanged | Native HTTP passed |
 | No resurrection by a replayed capture | Same native case compares complete decision, revision, review, receipt, page and activity rows before and after replay; browser replays every successful request after supersession and compares unchanged snapshots | Native HTTP and both browser widths passed |
@@ -45,9 +45,9 @@ Line numbers identify the final authored test area; the packet contains terminal
 
 | Row | Result and proof |
 | --- | --- |
-| 1 | Native HTTP and both focused browser widths pass; exact-head Verify pending. The acceptance matrix names every sentence. |
+| 1 | PASS local outcomes and exact-head core shard; overall Verify is red, so the clause remains PARTIAL. The acceptance matrix names every sentence. |
 | 2 | PASS: populated real native records; non-owner and terminal unsafe requests are actually attempted; complete canonical snapshots stay unchanged. |
-| 3 | PENDING: existing Verify foundation command loads the native profile case; existing UI partitions 1 and 2 load phone and desktop core callers. Exact candidate run event and conclusion will be recorded below. |
+| 3 | FAIL: push Verify 42496468671 on 7fae0de94a6dedd43b0a72edeb9c12ae92bc0e10 completed with failure. Core job 128780380293 succeeded, including native profile and phone proof. Desktop tooling job 128780380396 failed in DEC-002 proposal navigation. The same Ubuntu tooling reproduction passes DEC-002; the original failure is unreproduced. |
 | 4 | PASS source continuity: final native and focused browser assertions passed immediately before the final commit; only the source lock changed afterward. Final production bytes equal the app built at 67487e714802ed7755ea1aac6beff9b769ebb9ee. The packet preserves the honest build stamp, final source hashes, command outputs and receipts. |
 | 5 | INSPECTED: no new Base duty is claimed; DEC-002 itself names the state and actor and time activity duties. Existing company-policy and agent commitment obligations are retained outside this native-human claim. |
 | 6 | PASS builder obligation: contract generator write and check pass; no generated view changed. Every Status, Gap and Evidence cell remains byte-identical to main; the lander owns the eventual claim update. |
@@ -67,7 +67,7 @@ Line numbers identify the final authored test area; the packet contains terminal
 
 ## Plan return
 
-Only the DEC-002 target row is proposed for completion. No other clause, hold, campaign ordering, external dependency or main count is changed. A successful handoff proposes DEC-002 PARTIAL to DONE after the independent gate. Counts then become 58 DONE, 239 PARTIAL and 41 MISSING; current committed counts remain 57, 240 and 41.
+Only the DEC-002 target row is proposed for completion. No other clause, hold, campaign ordering, external dependency or main count is changed. This handoff retains DEC-002 PARTIAL because the exact-head Verify failure could not be reproduced. No status promotion is requested. Current committed counts remain 57 DONE, 240 PARTIAL and 41 MISSING; registrations remain 211.
 
 ## Probes and mechanical receipt
 
@@ -84,3 +84,36 @@ Final source lock SHA-256: bd0579a1299f5b1b2f43a2a2fe7f1975f20268e4307c3c90106ac
 Exact candidate scan: commit=7fae0de94a6dedd43b0a72edeb9c12ae92bc0e10 complete=unestablished historyScanned=unestablished findings=unestablished. The cloud task does not run the publication scanner; the guarded lander must supply COMPLETE with zero findings before landing. Main equality is false: main remains 67b706484e5430012d9c154c1e14090ea1e49bc2. That main SHA has successful Verify 42416085031 and Run site 42416085015; neither is presented as a candidate result. Candidate Verify is push run 42496468671. Candidate Run site remains a post-landing duty.
 
 The full local registered core run completed with exit 0: both existing core-wiki and touch-member registrations passed, with no skipped or removed assertion. Its complete actual output is `core-browser.log`. The final native Worker case, typecheck, first-party, view generation and source lock also pass. No local command or browser remains pending.
+
+## Completed Verify failure
+
+Push Verify 42496468671 completed with failure on 7fae0de94a6dedd43b0a72edeb9c12ae92bc0e10. Primary failed job: 128780380396, verify (tooling); dependent aggregate job 128786426484 also failed. App, core, delivery, UI state, both focus and both polish jobs succeeded. The contract aggregate was skipped. This is a real recorded red check, so no READY or DONE claim is made.
+
+Exact failure: `Step DEC-002 native decision states, terminal refusals and activity failed: page.waitForURL: Timeout 30000ms exceeded.` Stack: `propose`, decision-states-journey.mjs line 67, called for the third proposal at line 109. The native create request committed 200; recorded rejection and console-error lists were empty. This observation is not yet classified as a flake or a diagnosed product defect.
+
+The failed job command is `bash .github/scripts/run-shard.sh`, with SLATE_UI_SHARD 2 of 8, SLATE_UI_ASSIGNMENTS .github/scripts/journey-shards.json, SERIAL_SUITE false, WORKER_SHARD 1 and SUITE_COMMAND `pnpm test:base-proof && pnpm test:docs && pnpm test:typegen && pnpm test:portability && pnpm test:release-source && pnpm test:rer-editor`. CI used Ubuntu 24.04 and Node 22.20.0. Its once-only failed-job log was retrieved with `gh run view 42496468671 --repo just-every/run-slate --job 128780380396 --log-failed`; the transport succeeded. Ten of ten GitHub calls are used.
+
+Before any repair, the exact candidate was rebuilt using Node 22.20.0. The emitted output SHA-256 remains 08f1497261f96c230449313b3ca6a85a3d706ce72feab593cec0b0185b04b576, identical to the passing local application. The exact Ubuntu reproduction completed its native DEC-002 journey successfully. No source or test changed after the failure.
+
+
+## Terminal reproduction result
+
+The completed native reproduction uses Ubuntu 24.04.4, Node 22.20.0, pnpm 10.12.4 and the pinned Playwright 1.63.0 Noble image. It rebuilt the exact candidate first, retaining the identical emitted output hash. The actual script is `reproduction-command.sh`, and the complete output is `reproduction-tooling.log`.
+
+The command is `bash .github/scripts/run-shard.sh`, with SLATE_UI_SHARD `2/8`, SLATE_UI_ASSIGNMENTS `.github/scripts/journey-shards.json`, SERIAL_SUITE `false`, WORKER_SHARD `1`, and SUITE_COMMAND `pnpm test:base-proof && pnpm test:docs && pnpm test:typegen && pnpm test:portability && pnpm test:release-source && pnpm test:rer-editor`. The existing source, test and workflow files remain unchanged after the failed SHA.
+
+At log line 27 the DEC-002 step passes: nine committed operations, both supersessions, five terminal refusals and exactly eleven matching history and activity rows at 1440. The exact-head native receipt is `ubuntu-decisions-1440.json`; six corresponding screens are retained under `screens/ubuntu-1440`. The original `page.waitForURL: Timeout 30000ms exceeded.` is **not reproduced**.
+
+The same full shard later fails an existing touch-operator assertion at log line 342: `Verify this exact revision` remains visible when expected hidden after 5000 ms, in `touch-operator-journey.mjs` line 87. Its final output records `Shard lane results: journeys=1 worker-suite=0`. The environment resumed without retaining the command session; the log has no final wrapper exit marker, so the receipt leaves wrapperExit null instead of inventing it. This later assertion is reported separately and is not called a reproduction of the CI navigation timeout. No source repair, assertion narrowing, workflow dispatch or rerun was attempted. Preliminary container layout and name-conflict attempts are retained separately and are not counted as source repairs.
+
+The brief's binding rule is: “before editing, run the failing job's exact command on its failed SHA, with the same shard and environment ... If it does not reproduce, stop BLOCKED with that output; do not guess a fix.” That rule applies here. A main control would not contain this newly added DEC-002 helper, and no claim of a main reproduction or proven infrastructure flake is made. The current limitation is the unreproduced recorded navigation timeout, not a missing implementation or account.
+
+Ten permitted GitHub calls were used: main discovery, candidate discovery and six spaced polls, failed-job discovery, and one `gh run view 42496468671 --repo just-every/run-slate --job 128780380396 --log-failed` archive read. The dependent aggregate job's failure is recorded from job metadata; no additional archive call was spent on its propagated failure.
+
+The initial evidence publication was independently fetched: all 33 files matched their manifest bytes, SHA-256 hashes and Git blob IDs. `evidence-roundtrip.json` records that check. The final evidence publication includes the failure and reproduction material as well. Product commits remain safely pushed; no main or default branch was modified, and no PR was opened.
+
+Riders: 1 and 2 PASS local and exact-head core outcomes; 3 FAIL overall exact-head Verify; 4 PASS exact-head Ubuntu native receipts and source continuity; 5 INSPECTED; 6 and 7 PASS mechanical and unchanged contract; 8 PASS unsafe refusals and revoked-session replay; 9 and 10 INSPECTED; 11 NOT MET because landing remains held. Pre-ready check 5 fails at overall Verify; all other local touched checks remain passed. The publication scan, main equality and candidate Run site remain unestablished; no success is inferred.
+
+CLAIM DEC-002 PARTIAL points=1,2,3 tests=tests/qualification/ui-convergence/decision-states-journey.mjs#decisionStatesJourney; tests/profile/profile.worker.test.ts#FLAG-001 — core wiki public doors retain native content while flagship routes and queued work require opt-in
+GAP DEC-002: Verify 42496468671 job 128780380396 failed at third-proposal navigation; the exact Ubuntu tooling reproduction passes DEC-002, so the original failure is unreproduced and the brief requires stopping without a speculative repair.
+BLOCKED repo=just-every/run-slate branch=cloud/sd-slate-c-f209 head=7fae0de94a6dedd43b0a72edeb9c12ae92bc0e10 reason=unreproduced Verify navigation timeout
