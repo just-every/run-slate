@@ -1,0 +1,362 @@
+Theme route 390px light: /app
+Theme route 390px light: /app/search
+Theme route 390px light: /app/inbox
+Theme route 390px light: /app/tasks
+Theme route 390px light: /app/review
+Theme route 390px light: /app/containers
+Theme route 390px light: /app/templates
+Theme route 390px light: /app/archive
+Theme route 390px light: /app/settings
+Journey failure context {
+  "rejected": [
+    {
+      "url": "http://127.0.0.1:42903/api/invitations",
+      "method": "POST",
+      "requestBody": "{\"operationKey\":\"7f0c2e37-b149-4189-9dd2-d6bf41cc189e\",\"kind\":\"guest\",\"email\":\"new-partner@blocked.invalid\",\"pageId\":\"01M6XEHQ5WAQ8DMCE4E96J86QJ\"}",
+      "status": 403,
+      "responseBody": "{\"code\":\"GUEST_DOMAIN_DENIED\",\"message\":\"This email domain is not allowed for guests.\"}"
+    }
+  ],
+  "consoleErrors": [
+    {
+      "url": "http://127.0.0.1:42903/app/settings/members",
+      "message": "Failed to load resource: the server responded with a status of 403 (Forbidden)"
+    }
+  ]
+}
+Journey failure context REQUEST TIMELINE {
+  "primary": {
+    "requestsAtDump": [
+      {
+        "method": "GET",
+        "path": "/api/pages/01M6XE…7SXM/<id>",
+        "startMs": 0,
+        "durationMs": 187,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/pages/01M6XE…2BCY/<id>",
+        "startMs": 0,
+        "durationMs": 187,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/pages/01M6XE…PZTS/<id>",
+        "startMs": 0,
+        "durationMs": 187,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/pages/01M6XE…7CJW/<id>",
+        "startMs": 0,
+        "durationMs": 187,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/pages/01M6XE…GJKB/<id>",
+        "startMs": 0,
+        "durationMs": 189,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/<id>",
+        "startMs": 1,
+        "durationMs": 185,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/tasks",
+        "startMs": 1,
+        "durationMs": 278,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/<id>/<id>",
+        "startMs": 185,
+        "durationMs": 171,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/pages/01M6XE…7SXM/<id>",
+        "startMs": 381,
+        "durationMs": 11,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/pages/01M6XE…2BCY/<id>",
+        "startMs": 382,
+        "durationMs": 39,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/pages/01M6XE…PZTS/<id>",
+        "startMs": 382,
+        "durationMs": 39,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/pages/01M6XE…7CJW/<id>",
+        "startMs": 382,
+        "durationMs": 39,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/pages/01M6XE…GJKB/<id>",
+        "startMs": 382,
+        "durationMs": 41,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/status/requests/queue",
+        "startMs": 382,
+        "durationMs": 41,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/<id>/<id>",
+        "startMs": 508,
+        "durationMs": 44,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/pages/01M6XE…7SXM/<id>",
+        "startMs": 573,
+        "durationMs": 91,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/pages/01M6XE…2BCY/<id>",
+        "startMs": 573,
+        "durationMs": 91,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/pages/01M6XE…PZTS/<id>",
+        "startMs": 573,
+        "durationMs": 91,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/pages/01M6XE…7CJW/<id>",
+        "startMs": 573,
+        "durationMs": 91,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/pages/01M6XE…GJKB/<id>",
+        "startMs": 575,
+        "durationMs": 90,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/<id>/<id>",
+        "startMs": 730,
+        "durationMs": 49,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/pages/01M6XE…7SXM/<id>",
+        "startMs": 807,
+        "durationMs": 97,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/pages/01M6XE…2BCY/<id>",
+        "startMs": 807,
+        "durationMs": 96,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/pages/01M6XE…PZTS/<id>",
+        "startMs": 807,
+        "durationMs": 96,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/pages/01M6XE…7CJW/<id>",
+        "startMs": 807,
+        "durationMs": 96,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/pages/01M6XE…GJKB/<id>",
+        "startMs": 807,
+        "durationMs": 96,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/<id>/<id>",
+        "startMs": 961,
+        "durationMs": 46,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/pages/01M6XE…7SXM/<id>",
+        "startMs": 1024,
+        "durationMs": 57,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/pages/01M6XE…2BCY/<id>",
+        "startMs": 1025,
+        "durationMs": 58,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/pages/01M6XE…PZTS/<id>",
+        "startMs": 1025,
+        "durationMs": 58,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/pages/01M6XE…7CJW/<id>",
+        "startMs": 1025,
+        "durationMs": 58,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/pages/01M6XE…GJKB/<id>",
+        "startMs": 1025,
+        "durationMs": 58,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/<id>/<id>",
+        "startMs": 1213,
+        "durationMs": 69,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/<id>/<id>",
+        "startMs": 1288,
+        "durationMs": 56,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/pages/01M6XE…7SXM/<id>",
+        "startMs": 1362,
+        "durationMs": 7,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/pages/01M6XE…2BCY/<id>",
+        "startMs": 1363,
+        "durationMs": 34,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/pages/01M6XE…PZTS/<id>",
+        "startMs": 1363,
+        "durationMs": 34,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/pages/01M6XE…7CJW/<id>",
+        "startMs": 1363,
+        "durationMs": 34,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/pages/01M6XE…GJKB/<id>",
+        "startMs": 1363,
+        "durationMs": 34,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/workspace/<id>",
+        "startMs": 1363,
+        "durationMs": 33,
+        "status": 200
+      }
+    ]
+  },
+  "others": []
+}
+✖ space tree title filtering preserves ancestors, access and expansion at 390px (89125.485399ms)
+SHARING_PHASE full page edits 1440: 27540 ms
+SHARING_PHASE full lifecycle 1440: 29031 ms
+SHARING_PHASE full archive 1440: 18971 ms
+PROBE SHARE-002 erasure full: non-owner confirmed deletion and old-capture refusal
+SHARING_PHASE full erasure 1440: 8379 ms
+SHARING_PHASE full discussion 1440: 32243 ms
+✖ native ordinary page full authority retains inventories and refuses revoked captures at 1440px (240000.648183ms)
+ℹ Sharing full setup: 25915 ms
+PROBE SHARE-002 full: page edits, ownership, locks, metadata reads, discussion, reactions, grants and revoked captures; 45 refused requests preserve inventories at 1440px
+ℹ tests 2
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 1
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 348763.410899
+
+✖ failing tests:
+
+test at tests/qualification/ui-convergence/journey-shard.mjs:23:97
+✖ space tree title filtering preserves ancestors, access and expansion at 390px (89125.485399ms)
+  Error: expect(page).toHaveURL(expected) failed
+  
+  Expected: "http://127.0.0.1:42903/app/settings"
+  Received: "http://127.0.0.1:42903/app/settings/workspace"
+  Timeout:  5000ms
+  
+  Call log:
+    - Expect "toHaveURL" with timeout 5000ms
+      14 × locator resolved to <html lang="en" data-theme="light">…</html>
+         - unexpected value "http://127.0.0.1:42903/app/settings/workspace"
+  
+      at captureRawStack (/home/agent/rer-consolidation/work/sd-slate-c-f174-rb2/run-slate/node_modules/.pnpm/playwright-core@1.63.0/node_modules/playwright-core/lib/coreBundle.js:8588:17)
+      at callMatcherAsStep (/home/agent/rer-consolidation/work/sd-slate-c-f174-rb2/run-slate/node_modules/.pnpm/playwright@1.63.0/node_modules/playwright/lib/matchers/expect.js:13310:57)
+      at Object.toHaveURL (/home/agent/rer-consolidation/work/sd-slate-c-f174-rb2/run-slate/node_modules/.pnpm/playwright@1.63.0/node_modules/playwright/lib/matchers/expect.js:13302:23)
+      at operatorDestination (/home/agent/rer-consolidation/work/sd-slate-c-f174-rb2/run-slate/tests/qualification/ui-convergence/theme-journey.mjs:107:24)
+      at async themeJourney (/home/agent/rer-consolidation/work/sd-slate-c-f174-rb2/run-slate/tests/qualification/ui-convergence/theme-journey.mjs:178:26)
+      at async settingsJourney (/home/agent/rer-consolidation/work/sd-slate-c-f174-rb2/run-slate/tests/qualification/ui-convergence/reading-journeys.mjs:103:3)
+      at async withWorkspace.RER_DEMO (/home/agent/rer-consolidation/work/sd-slate-c-f174-rb2/run-slate/tests/qualification/ui-convergence/journeys.test.mjs:147:7)
+      at async withWorkspace (/home/agent/rer-consolidation/work/sd-slate-c-f174-rb2/run-slate/tests/qualification/ui-convergence/browser-support.mjs:197:7)
+      at async TestContext.<anonymous> (/home/agent/rer-consolidation/work/sd-slate-c-f174-rb2/run-slate/tests/qualification/ui-convergence/journeys.test.mjs:143:5) {
+    matcherResult: { name: 'toHaveURL', expected: 'http://127.0.0.1:42903/app/settings', message: 'expect(page).toHaveURL(expected) failed\n\nExpected: "http://127.0.0.1:42903/app/settings"\nReceived: "http://127.0.0.1:42903/app/settings/workspace"\nTimeout:  5000ms\n\nCall log:\n  - Expect "toHaveURL" with timeout 5000ms\n    14 × locator resolved to <html lang="en" data-theme="light">…</html>\n       - unexpected value "http://127.0.0.1:42903/app/settings/workspace"\n', pass: false, actual: 'http://127.0.0.1:42903/app/settings/workspace', log: [ '  - Expect "toHaveURL" with timeout 5000ms', '    14 × locator resolved to <html lang="en" data-theme="light">…</html>', '       - unexpected value "http://127.0.0.1:42903/app/settings/workspace"' ], timeout: 5000, ariaSnapshot: '- link "Skip to content":\n  - /url: "#workspace-content"\n- button "Open navigation"\n- text: Field operations\n- main:\n  - navigation "Location":\n    - list:\n      - listitem: Settings\n  - link "Back to workspace":\n    - /url: /app\n  - heading "Settings" [level=1]\n  - navigation "Settings sections":\n    - link "Workspace":\n      - /url: /app/settings/workspace\n    - link "People":\n      - /url: /app/settings/members\n    - link "SAML single sign-on":\n      - /url: /app/settings/saml\n    - link "Developer access":\n      - /url: /app/settings/developer\n    - link "Appearance":\n      - /url: /app/settings/appearance\n    - link "Preferences":\n      - /url: /app/settings/preferences\n    - link "Activity":\n      - /url: /app/settings/activity\n    - link "Automations":\n      - /url: /app/settings/automation\n    - link "Statuses":\n      - /url: /app/settings/statuses\n    - link "Spaces":\n      - /url: /app/settings/spaces\n    - link "Chat notifications":\n      - /url: /app/settings/chat\n    - link "Import & export":\n      - /url: /app/settings/portability\n  - button "Previous settings sections": ← Previous settings sections\n  - text: Scroll for more sections\n  - button "More settings sections": → More settings sections\n  - heading "Workspace settings" [level=2]\n  - heading "Workspace navigation" [level=3]\n  - button "Configure navigation"\n  - region "Group mentions":\n    - heading "Group mentions" [level=3]\n    - checkbox "Only space administrators may mention groups larger than 50 people" [checked]\n    - text: Only space administrators may mention groups larger than 50 people\n    - paragraph: Mentions notify only people who can read the page. Authors see the recipient count before sending.\n  - heading "Field operations" [level=3]\n  - paragraph: No description yet.\n  - term: Publishing\n  - definition: Changes are live\n  - term: General access\n  - definition: Workspace members\n  - term: Public pages\n  - definition: Published site\n  - term: History\n  - definition: Automatic snapshots\n  - term: Page status\n  - definition: Human verification\n  - term: Records\n  - definition: Every record is a page\n  - term: Automation boundaries\n  - definition: Source\n  - term: Space access\n  - definition: Open, closed or private\n  - button "Edit workspace & policies"' }
+  }
+
+test at tests/qualification/ui-convergence/journey-shard.mjs:23:97
+✖ native ordinary page full authority retains inventories and refuses revoked captures at 1440px (240000.648183ms)
+  'test timed out after 240000ms'

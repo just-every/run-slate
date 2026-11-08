@@ -1,0 +1,51 @@
+{
+  "head": "eea242aadb6d934d750b1c18dc7039229d0c2bbf",
+  "files": [
+    {
+      "path": "CONTRACT.md",
+      "sha256": "86fa130c01f4b6581b353450d515c4a91c957628a7cc9251bdcdff2e5284c80c"
+    },
+    {
+      "path": "sources.lock.json",
+      "sha256": "d835be2b07fdfea39c3c69597b14a9f97fd83a8c3de03494c1add49c63925046"
+    },
+    {
+      "path": "src/core/features/databases/discovery.ts",
+      "sha256": "6a711c379bdd6c75a009dfc1862b54798a3b6c8d4c4c46a2b1e57291a48d6c50"
+    },
+    {
+      "path": "src/core/features/databases/service.ts",
+      "sha256": "d44781a6dc58ad7cf29b1d79f31cb22b415019b75bb678fb328806ddb9ea8f52"
+    },
+    {
+      "path": "src/core/features/databases/ui/fields/FieldCell.tsx",
+      "sha256": "b920e3b74d0f43093751d7401c9b4e4c0820fd4b5f13205b2b3c0b7a53a6c439"
+    },
+    {
+      "path": "tests/flagship/structured/http.test.ts",
+      "sha256": "0952b20cb22143a55c56514553ec626bab7ebfb09df5e337d8a01da4e5a66f5b"
+    },
+    {
+      "path": "tests/qualification/ui-convergence/record-detail-journey.mjs",
+      "sha256": "72a142ff019377ed6581f31e172d6b1ab4db6a74c897bdaa0ae2f15778ca2fcc"
+    },
+    {
+      "path": "tests/requirements/clause-inventory.json",
+      "sha256": "ec0decef2497430ff311bbcacf0ab82275159bc5a75bfebcd0f1ca3649420e42"
+    },
+    {
+      "path": "tests/requirements/cli-journey.md",
+      "sha256": "35c580ebe4e089fa0d2741106380b9c1f5e8a98c06f5a2986ff5f82f2307725c"
+    },
+    {
+      "path": "tests/requirements/test-evidence.json",
+      "sha256": "8e2a38166e546bd109dcaae097f76032c26d3ac2f9dd0ff07e960a086a304a5e"
+    }
+  ],
+  "lease_exact": true,
+  "db002_row_exactly_original": true,
+  "candidate_commits": 1,
+  "fleet_identity": true,
+  "trailers": "absent",
+  "unpublished_candidate_has_no_skip_ci": true
+}

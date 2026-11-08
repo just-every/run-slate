@@ -1,0 +1,101 @@
+Theme route 390px light: /app
+Theme route 390px light: /app/search
+Theme route 390px light: /app/inbox
+Theme route 390px light: /app/tasks
+Theme route 390px light: /app/review
+Theme route 390px light: /app/containers
+Theme route 390px light: /app/templates
+Theme route 390px light: /app/archive
+Theme route 390px light: /app/settings
+Theme route 390px light: /app/settings/workspace
+Theme route 390px light: /app/settings/members
+Theme route 390px light: /app/settings/saml
+Theme route 390px light: /app/settings/developer
+Theme route 390px light: /app/settings/appearance
+Theme route 390px light: /app/settings/preferences
+Theme route 390px light: /app/settings/activity
+Theme route 390px light: /app/settings/automation
+Theme route 390px light: /app/settings/statuses
+Theme route 390px light: /app/settings/spaces
+Theme route 390px light: /app/settings/chat
+Theme route 390px light: /app/settings/portability
+Theme route 390px light: /app/pages/01M6XE2QQ263FPXEG4GA43AXBJ
+Theme route 390px light: /app/databases/01M6XE2QQQ5MF156GNC474NCMY
+Theme route 390px light: /app/databases/01M6XE2QQQ5MF156GNC474NCMY/records/01M6XE2QTA46CSYPGS78S69TQS
+Theme route 390px dark: /app
+Theme route 390px dark: /app/search
+Theme route 390px dark: /app/inbox
+Theme route 390px dark: /app/tasks
+Theme route 390px dark: /app/review
+Theme route 390px dark: /app/containers
+Theme route 390px dark: /app/templates
+Theme route 390px dark: /app/archive
+Theme route 390px dark: /app/settings
+Theme route 390px dark: /app/settings/workspace
+Theme route 390px dark: /app/settings/members
+Theme route 390px dark: /app/settings/saml
+Theme route 390px dark: /app/settings/developer
+Theme route 390px dark: /app/settings/appearance
+Theme route 390px dark: /app/settings/preferences
+Theme route 390px dark: /app/settings/activity
+Theme route 390px dark: /app/settings/automation
+Theme route 390px dark: /app/settings/statuses
+Theme route 390px dark: /app/settings/spaces
+Theme route 390px dark: /app/settings/chat
+Theme route 390px dark: /app/settings/portability
+Theme route 390px dark: /app/pages/01M6XE2QQ263FPXEG4GA43AXBJ
+Theme route 390px dark: /app/databases/01M6XE2QQQ5MF156GNC474NCMY
+Theme route 390px dark: /app/databases/01M6XE2QQQ5MF156GNC474NCMY/records/01M6XE2QTA46CSYPGS78S69TQS
+Theme route 390px system: /app
+Theme route 390px system: /app/search
+Theme route 390px system: /app/inbox
+Theme route 390px system: /app/tasks
+Theme route 390px system: /app/review
+Theme route 390px system: /app/containers
+Theme route 390px system: /app/templates
+Theme route 390px system: /app/archive
+Theme route 390px system: /app/settings
+Theme route 390px system: /app/settings/workspace
+Theme route 390px system: /app/settings/members
+Theme route 390px system: /app/settings/saml
+Theme route 390px system: /app/settings/developer
+Theme route 390px system: /app/settings/appearance
+Theme route 390px system: /app/settings/preferences
+Theme route 390px system: /app/settings/activity
+Theme route 390px system: /app/settings/automation
+Theme route 390px system: /app/settings/statuses
+Theme route 390px system: /app/settings/spaces
+Theme route 390px system: /app/settings/chat
+Theme route 390px system: /app/settings/portability
+Theme route 390px system: /app/pages/01M6XE2QQ263FPXEG4GA43AXBJ
+Theme route 390px system: /app/databases/01M6XE2QQQ5MF156GNC474NCMY
+Theme route 390px system: /app/databases/01M6XE2QQQ5MF156GNC474NCMY/records/01M6XE2QTA46CSYPGS78S69TQS
+WORK-012 native themes, new sessions, independent members and anonymous exposures passed at 390px
+IMPORT_BROWSER_RECEIPT {"width":390,"jobId":"01M6XE4NN6K6X4J12Q74JF4CGG","state":"completed","mappings":[{"sourceId":"confluence-member:100001:d9d99555-7c2d-5fc9-9d5f-444042ec9317","kind":"member","targetId":"browser-reader"}],"access":{"restrictedPages":3,"sourceNamedGrants":3,"mappedLiveGrants":3,"unresolvedRestrictedPages":0,"recoveryGrants":3,"historicalMembers":34,"historicalGroups":0},"pages":[{"id":"9359f511965f0dd7:page:54","title":"Overview","anonymousNative":401,"anonymousPublished":404},{"id":"9359f511965f0dd7:page:36","title":"Getting started in Confluence","anonymousNative":401,"anonymousPublished":404},{"id":"9359f511965f0dd7:page:299","title":"Pizza Restaurant Launch Plan","anonymousNative":401,"anonymousPublished":404}],"unavailableTargetShown":true,"retainedMappingUnchanged":true}
+PROBE IMP-016 Settings 390: genuine archive upload, explicit mapping, Apply and reload -> completed; reviewed member and historical people displayed; conversion retained; 3 restricted reader pages and no anonymous page
+PROBE CONT-009 native controls 390: owner and non-owner administrator grant changes=6; replay and inherited snapshots pass; deadlines={}
+PROBE CONT-007 container guestAccess 390: native settings persisted; independent veto, retained address and authority reconciled
+PROBE CONT-007 container publicLinkAccess 390: native settings persisted; independent veto, retained address and authority reconciled
+PROBE CONT-007 container anonymousAccess 390: native settings persisted; independent veto, retained address and authority reconciled
+PROBE CONT-007 workspace guestAccess 390: native settings persisted; independent veto, retained address and authority reconciled
+PROBE CONT-007 workspace publicLinkAccess 390: native settings persisted; independent veto, retained address and authority reconciled
+PROBE CONT-007 workspace anonymousAccess 390: native settings persisted; independent veto, retained address and authority reconciled
+✔ space tree title filtering preserves ancestors, access and expansion at 390px (225469.738623ms)
+SHARING_PHASE full page edits 1440: 27652 ms
+SHARING_PHASE full lifecycle 1440: 29399 ms
+SHARING_PHASE full archive 1440: 18387 ms
+PROBE SHARE-002 erasure full: non-owner confirmed deletion and old-capture refusal
+SHARING_PHASE full erasure 1440: 8540 ms
+SHARING_PHASE full discussion 1440: 32188 ms
+PROBE SHARE-002 full: page edits, ownership, locks, metadata reads, discussion, reactions, grants and revoked captures; 45 refused requests preserve inventories at 1440px
+✔ native ordinary page full authority retains inventories and refuses revoked captures at 1440px (237979.188809ms)
+ℹ Sharing full setup: 25380 ms
+ℹ Sharing full matrix: 209016 ms
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 479835.575632

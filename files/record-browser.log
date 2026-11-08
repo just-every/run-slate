@@ -1,0 +1,16 @@
+PROBE DB-012 ordinary edit: native record Quantity 7 -> 11; computed value 22 and reload retained
+PROBE DB-012 record-is-page: viewer fields, retained comments, exact historical body and unchanged stored current body passed
+PROBE DB-012 record-is-row: viewer fields, retained comments, exact historical body and unchanged stored current body passed
+PROBE DB-012 record-is-page: viewer fields, retained comments, exact historical body and unchanged stored current body passed
+PROBE DB-012 read-only: all six fields readable; native viewer PATCH -> 404 and unchanged record and history
+PROBE DB-002 3 1440: native relation configuration, empty and multiple selections, reload, rename and canonical target address passed
+PROBE DB-002 3 1440: revoked target removed from native values, labels and picker; retained owner identities unchanged; forbidden write and follow refused
+PROBE replay: recordDetailJourney(1440) including relationRecordsJourney -> PASS (70919ms)
+PROBE DB-012 ordinary edit: native record Quantity 7 -> 11; computed value 22 and reload retained
+PROBE DB-012 record-is-page: viewer fields, retained comments, exact historical body and unchanged stored current body passed
+PROBE DB-012 record-is-row: viewer fields, retained comments, exact historical body and unchanged stored current body passed
+PROBE DB-012 record-is-page: viewer fields, retained comments, exact historical body and unchanged stored current body passed
+PROBE DB-012 read-only: all six fields readable; native viewer PATCH -> 404 and unchanged record and history
+PROBE DB-002 3 390: native relation configuration, empty and multiple selections, reload, rename and canonical target address passed
+PROBE DB-002 3 390: revoked target removed from native values, labels and picker; retained owner identities unchanged; forbidden write and follow refused
+PROBE replay: recordDetailJourney(390) including relationRecordsJourney -> PASS (53142ms)

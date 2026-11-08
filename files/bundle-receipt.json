@@ -1,0 +1,9 @@
+{
+  "path": "/home/agent/rer-consolidation/work/sd-slate-c-f174-rb2/sd-slate-c-f174-rb2.bundle",
+  "head": "eea242aadb6d934d750b1c18dc7039229d0c2bbf",
+  "sha256": "b382d9ae5485f506a369f6baae91effc5f371bc7cf15b319c1ff62585ee95efd",
+  "bytes": 49396112,
+  "verified": true,
+  "verify_command": "git bundle verify ../sd-slate-c-f174-rb2.bundle",
+  "reason": "Local mandatory probes failed; no product push attempted. Finished unpushed work is retained outside the disposable clone."
+}

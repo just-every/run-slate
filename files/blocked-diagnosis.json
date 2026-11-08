@@ -1,0 +1,29 @@
+{
+  "unleased_files_unchanged_from_main": {
+    "tests/qualification/ui-convergence/theme-journey.mjs": true,
+    "src/routes/app.settings.index.tsx": true,
+    "src/core/features/navigation/configuration.ts": true,
+    "tests/qualification/ui-convergence/sharing-journey.mjs": true,
+    "tests/qualification/ui-convergence/sharing-page-edit-matrix.mjs": true,
+    "tests/qualification/ui-convergence/sharing-discussion-matrix.mjs": true,
+    "tests/qualification/ui-convergence/browser-support.mjs": true,
+    "tests/qualification/ui-convergence/journeys.test.mjs": true
+  },
+  "phone_failure": {
+    "assertion": "tests/qualification/ui-convergence/theme-journey.mjs:107",
+    "expected": "/app/settings",
+    "actual": "/app/settings/workspace",
+    "redirect": "src/routes/app.settings.index.tsx:7",
+    "configured_navigation": "src/core/features/navigation/configuration.ts:11",
+    "timeout_ms": 5000,
+    "candidate_scope_overlap": false
+  },
+  "authority_failure": {
+    "registration": "tests/qualification/ui-convergence/journeys.test.mjs:189",
+    "deadline_ms": 240000,
+    "observed_ms": 240000.648183,
+    "last_probe": "PROBE SHARE-002 full: page edits, ownership, locks, metadata reads, discussion, reactions, grants and revoked captures; 45 refused requests preserve inventories at 1440px",
+    "candidate_caused_cause": "not established; main passed at 237979.188809 ms, very near the same deadline"
+  },
+  "resolution": "No code, test or deadline changed. Fixing canonical Settings navigation assertions would change unleased tests; no ruling or authorization is supplied. Preserve the replay and report the observed head-only failures."
+}

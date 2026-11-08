@@ -1,0 +1,60 @@
+{
+  "original": "1cdf1136e9c96585ff79237cc00f24c3fe0f396d",
+  "main": "67b706484e5430012d9c154c1e14090ea1e49bc2",
+  "head": "eea242aadb6d934d750b1c18dc7039229d0c2bbf",
+  "branch": "cloud/sd-slate-c-f174-rb2",
+  "history": "five original commits rebased and fixup-folded into one replay commit",
+  "changed_contract_rows": [
+    "`DB-002`"
+  ],
+  "all_clause_statuses_preserved": true,
+  "generated_views_restored_to_main": true,
+  "conflict_resolutions": [
+    "HTTP test append: retain chartHttpJourney before relation assertions",
+    "test-evidence: retain DB-008 registration and chart reason, append DB-002",
+    "CLI journey: keep all newer prose, append relation section",
+    "sources.lock.json regenerated last at each stop"
+  ],
+  "mechanical": {
+    "views_write": 0,
+    "views_check_before_restore": 0,
+    "integration_sync": 0,
+    "source_lock": 0,
+    "source_check": 0,
+    "views_check_after_required_main_restore": {
+      "exit": 1,
+      "output": "ACCEPTANCE.md: generated content differs; run contract-docs write.\n",
+      "expected_exemption": true
+    }
+  },
+  "counts_before": {
+    "done": 57,
+    "partial": 240,
+    "missing": 41,
+    "total": 338
+  },
+  "counts_after": {
+    "done": 57,
+    "partial": 240,
+    "missing": 41,
+    "total": 338
+  },
+  "changed_tests": {
+    "worker_file": "tests/flagship/structured/http.test.ts",
+    "test": "Worker HTTP rejects missing expired revoked and denied sessions and persists authorized input",
+    "browser_file": "tests/qualification/ui-convergence/record-detail-journey.mjs",
+    "browser_functions": [
+      "recordDetailJourney",
+      "relationRecordsJourney"
+    ],
+    "new_registrations": 0,
+    "deleted_or_skipped_assertions": 0
+  },
+  "toolchain": {
+    "shell_node": "24.19.0",
+    "pnpm": "10.12.4",
+    "rer_project_node": "22.20.0",
+    "rer_pin": "0.2.80",
+    "browser": "/usr/bin/chromium --no-sandbox"
+  }
+}

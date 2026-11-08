@@ -1,0 +1,30 @@
+{
+  "head": "eea242aadb6d934d750b1c18dc7039229d0c2bbf",
+  "main": "67b706484e5430012d9c154c1e14090ea1e49bc2",
+  "run_count_per_tree": 1,
+  "head_exit": 1,
+  "main_exit": 0,
+  "head_summary": {
+    "tests": 2,
+    "pass": 0,
+    "fail": 1,
+    "cancelled": 1,
+    "skip": 0
+  },
+  "main_summary": {
+    "tests": 2,
+    "pass": 2,
+    "fail": 0,
+    "cancelled": 0,
+    "skip": 0
+  },
+  "probe_lines": [
+    "PROBE ui-focus-mobile: space tree title filtering preserves ancestors, access and expansion at 390px -> FAIL on head (89125.485399 ms; theme helper expects /app/settings, received /app/settings/workspace) / PASS on main (225469.738623 ms).",
+    "PROBE ui-focus-mobile: native ordinary page full authority retains inventories and refuses revoked captures at 1440px -> TIMEOUT on head (240000.648183 ms; original 240000 ms deadline) / PASS on main (237979.188809 ms)."
+  ],
+  "tests_unchanged": true,
+  "deadlines_unchanged": true,
+  "candidate_caused_cause_established": false,
+  "permitted_fix_found": false,
+  "publication": "blocked; no product push and no CI discovery"
+}

@@ -1,0 +1,9 @@
+{
+  "repository": "just-every/run-slate",
+  "head_sha": "eea242aadb6d934d750b1c18dc7039229d0c2bbf",
+  "status": "not_run",
+  "reason": "Mandatory local pre-push comparison failed; no product push attempted.",
+  "calls": [],
+  "run_ids": [],
+  "pr": null
+}

@@ -1,0 +1,6 @@
+{
+  "check": "source-publication-inputs",
+  "passed": true,
+  "failures": [],
+  "limits": "Does not certify live providers, sealed prior-store upgrade, qualification suites, a tag, public visibility or deployment."
+}

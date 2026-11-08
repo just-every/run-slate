@@ -1,0 +1,151 @@
+{
+  "head": "eea242aadb6d934d750b1c18dc7039229d0c2bbf",
+  "runner": "existing withWorkspace + setupWorkspace + recordDetailJourney; includes relationRecordsJourney; no new assertion or registration",
+  "widths": [
+    1440,
+    390
+  ],
+  "exit": 0,
+  "selected_files": [
+    {
+      "path": "browser/008-1440-relation-configured-database.png",
+      "sha256": "8c368e38f38a5dc899f3792cc5f6b9e5bc6644b5ec94df202c28997eea29ed99",
+      "bytes": 114736
+    },
+    {
+      "path": "browser/008-1440-relation-configured-database.json",
+      "sha256": "004c018bda2febf096c0aa6b9d87778727863b04945f0ff3d106a1dca66911a0",
+      "bytes": 188986
+    },
+    {
+      "path": "browser/009-1440-relation-field-keyboard-tooltip.png",
+      "sha256": "709836a9a44362e29e69bc205bc6450422e78b22bc676c28124079bde8756212",
+      "bytes": 81043
+    },
+    {
+      "path": "browser/009-1440-relation-field-keyboard-tooltip.json",
+      "sha256": "1821cc6bcf13be21ecbe180481846b34ebbe14769999ba30e7e8b824a9cc348d",
+      "bytes": 452673
+    },
+    {
+      "path": "browser/010-1440-relation-multiple-target-picker.png",
+      "sha256": "8982aad87b3f47c2eb152a524d73a81f7470bc7370adf33e456c19a0e757178a",
+      "bytes": 122117
+    },
+    {
+      "path": "browser/010-1440-relation-multiple-target-picker.json",
+      "sha256": "d0e246551b4accaf56fd7d13f450da8b78ec283c2c43e9c943fc6ece98165dd5",
+      "bytes": 176762
+    },
+    {
+      "path": "browser/011-1440-relation-retained-multiple-records.png",
+      "sha256": "052ad9dc14a4d957bc2ba75cf21128664ac002b08620254a30c60e7664048f19",
+      "bytes": 87522
+    },
+    {
+      "path": "browser/011-1440-relation-retained-multiple-records.json",
+      "sha256": "092658c84461d0a521397b88ddaec99ef4299637a8a6c54ef0e5003da6e3e8ff",
+      "bytes": 481967
+    },
+    {
+      "path": "browser/012-1440-relation-follows-retained-renamed-record.png",
+      "sha256": "b55d6be865d18669c1da50f8cbcb23999f46cb897c793bcf5f936a91344997f6",
+      "bytes": 79563
+    },
+    {
+      "path": "browser/012-1440-relation-follows-retained-renamed-record.json",
+      "sha256": "c162b05bf7ec119fcffe8edbe0cbedbf2b6fe2b2ddf2801a79b05d023d9f59c6",
+      "bytes": 413352
+    },
+    {
+      "path": "browser/013-1440-relation-current-reader-after-revocation.png",
+      "sha256": "301a249405fcdc84798faa22536cf67d753a85b5707b91689555025cdd6cce73",
+      "bytes": 85742
+    },
+    {
+      "path": "browser/013-1440-relation-current-reader-after-revocation.json",
+      "sha256": "a85353e0233dba8626df5f4964028714ef071af67600bf759cc241032fbb9624",
+      "bytes": 475732
+    },
+    {
+      "path": "browser/014-1440-relation-reader-safe-picker-after-revocation.png",
+      "sha256": "b08e85905294183aca90538eea630864b068bc288be4d3f7019d3bc223e0ace3",
+      "bytes": 125482
+    },
+    {
+      "path": "browser/014-1440-relation-reader-safe-picker-after-revocation.json",
+      "sha256": "af706eca4bc90afe0b2c0c9fa03e9c6df7b19ab403cbfc67b99bf8fbcd4da786",
+      "bytes": 174896
+    },
+    {
+      "path": "browser/022-390-relation-configured-database.png",
+      "sha256": "9648ee04bf770beacb7111ec941c539264e1613dad1fe559d0cd5ae7377a9758",
+      "bytes": 32760
+    },
+    {
+      "path": "browser/022-390-relation-configured-database.json",
+      "sha256": "9a987eb58fc1bda04e3151c8e82ac0561c117a3e46a668dbf5303e5bef1bd1aa",
+      "bytes": 188897
+    },
+    {
+      "path": "browser/023-390-relation-field-keyboard-tooltip.png",
+      "sha256": "09e1b684b76122d7030de5006f1de1a1c17cfc7ab8fe4a4755f8cba0a83cdcb9",
+      "bytes": 35818
+    },
+    {
+      "path": "browser/023-390-relation-field-keyboard-tooltip.json",
+      "sha256": "979539113689161988f4f67768a0b261652df82858825d5194b22438ca802196",
+      "bytes": 306821
+    },
+    {
+      "path": "browser/024-390-relation-multiple-target-picker.png",
+      "sha256": "f5ccbc1cef5924975f7b52e9a7cddf1c930390b13f86e3e662d944ec312f8fb3",
+      "bytes": 32257
+    },
+    {
+      "path": "browser/024-390-relation-multiple-target-picker.json",
+      "sha256": "df56c3039aebc63fab41d26df7d8848420eecdba99bd037bf14a2605168b02f3",
+      "bytes": 176600
+    },
+    {
+      "path": "browser/025-390-relation-retained-multiple-records.png",
+      "sha256": "682538252ded569ed17bb6dd4b27ea4933e4df59a6067ed7c51170b7c73340a7",
+      "bytes": 29241
+    },
+    {
+      "path": "browser/025-390-relation-retained-multiple-records.json",
+      "sha256": "d86107de81cf2dc558fc5bd0c4a524263a2b0a650c12504836ca67118980c5f0",
+      "bytes": 268991
+    },
+    {
+      "path": "browser/026-390-relation-follows-retained-renamed-record.png",
+      "sha256": "c1a317475958bda6a3f9352df4746d8c2069b96eac2c8eb1cecc547eada21cb5",
+      "bytes": 25463
+    },
+    {
+      "path": "browser/026-390-relation-follows-retained-renamed-record.json",
+      "sha256": "0955bd6fc6bd9256ff63b98cb953294805b5c6b79542bd8968ba42e768bde15e",
+      "bytes": 214089
+    },
+    {
+      "path": "browser/027-390-relation-current-reader-after-revocation.png",
+      "sha256": "a39785ae369a4a15ade7ea80c08ac279751fbea93e6ade511225543329db6cd4",
+      "bytes": 27004
+    },
+    {
+      "path": "browser/027-390-relation-current-reader-after-revocation.json",
+      "sha256": "079c9b2093a4e65c9e7721f5b28d170ea6e803872d2c7bc4f3953fb037f457c7",
+      "bytes": 262354
+    },
+    {
+      "path": "browser/028-390-relation-reader-safe-picker-after-revocation.png",
+      "sha256": "947817a75de4778db025b29b7d4fc7c54d1246e5fec251e8733922b683323659",
+      "bytes": 37721
+    },
+    {
+      "path": "browser/028-390-relation-reader-safe-picker-after-revocation.json",
+      "sha256": "3a43bf9ef653bf7f15e5084fe13ff925c3d7ba863dda0f37829f988110c3d3bf",
+      "bytes": 174968
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "head": "67b706484e5430012d9c154c1e14090ea1e49bc2",
+  "exit": 0,
+  "tests": 2,
+  "pass": 2,
+  "fail": 0,
+  "timings_ms": {
+    "space tree title filtering preserves ancestors, access and expansion at 390px": 225469.738623,
+    "native ordinary page full authority retains inventories and refuses revoked captures at 1440px": 237979.188809
+  },
+  "command": "cloud_run timeout 840 node --test --test-concurrency=1 --test-name-pattern='^(native ordinary page full authority retains inventories and refuses revoked captures at 1440px|space tree title filtering preserves ancestors, access and expansion at 390px)$' tests/qualification/ui-convergence/journeys.test.mjs"
+}

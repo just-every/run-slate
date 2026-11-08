@@ -1,0 +1,108 @@
+{
+  "captures": [
+    {
+      "file": "browser/008-1440-relation-configured-database.json",
+      "state": "relation configured database",
+      "width": 1440,
+      "serious_critical": 0,
+      "overflow": false
+    },
+    {
+      "file": "browser/009-1440-relation-field-keyboard-tooltip.json",
+      "state": "relation field keyboard tooltip",
+      "width": 1440,
+      "serious_critical": 0,
+      "overflow": false
+    },
+    {
+      "file": "browser/010-1440-relation-multiple-target-picker.json",
+      "state": "relation multiple target picker",
+      "width": 1440,
+      "serious_critical": 0,
+      "overflow": false
+    },
+    {
+      "file": "browser/011-1440-relation-retained-multiple-records.json",
+      "state": "relation retained multiple records",
+      "width": 1440,
+      "serious_critical": 0,
+      "overflow": false
+    },
+    {
+      "file": "browser/012-1440-relation-follows-retained-renamed-record.json",
+      "state": "relation follows retained renamed record",
+      "width": 1440,
+      "serious_critical": 0,
+      "overflow": false
+    },
+    {
+      "file": "browser/013-1440-relation-current-reader-after-revocation.json",
+      "state": "relation current reader after revocation",
+      "width": 1440,
+      "serious_critical": 0,
+      "overflow": false
+    },
+    {
+      "file": "browser/014-1440-relation-reader-safe-picker-after-revocation.json",
+      "state": "relation reader safe picker after revocation",
+      "width": 1440,
+      "serious_critical": 0,
+      "overflow": false
+    },
+    {
+      "file": "browser/022-390-relation-configured-database.json",
+      "state": "relation configured database",
+      "width": 390,
+      "serious_critical": 0,
+      "overflow": false
+    },
+    {
+      "file": "browser/023-390-relation-field-keyboard-tooltip.json",
+      "state": "relation field keyboard tooltip",
+      "width": 390,
+      "serious_critical": 0,
+      "overflow": false
+    },
+    {
+      "file": "browser/024-390-relation-multiple-target-picker.json",
+      "state": "relation multiple target picker",
+      "width": 390,
+      "serious_critical": 0,
+      "overflow": false
+    },
+    {
+      "file": "browser/025-390-relation-retained-multiple-records.json",
+      "state": "relation retained multiple records",
+      "width": 390,
+      "serious_critical": 0,
+      "overflow": false
+    },
+    {
+      "file": "browser/026-390-relation-follows-retained-renamed-record.json",
+      "state": "relation follows retained renamed record",
+      "width": 390,
+      "serious_critical": 0,
+      "overflow": false
+    },
+    {
+      "file": "browser/027-390-relation-current-reader-after-revocation.json",
+      "state": "relation current reader after revocation",
+      "width": 390,
+      "serious_critical": 0,
+      "overflow": false
+    },
+    {
+      "file": "browser/028-390-relation-reader-safe-picker-after-revocation.json",
+      "state": "relation reader safe picker after revocation",
+      "width": 390,
+      "serious_critical": 0,
+      "overflow": false
+    }
+  ],
+  "total": 14,
+  "widths": [
+    1440,
+    390
+  ],
+  "passed": true
+}

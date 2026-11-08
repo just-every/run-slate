@@ -1,0 +1,21 @@
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mProxy environment variables detected. We'll use your proxy for fetch requests.[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mProxy environment variables detected. We'll use your proxy for fetch requests.[0m
+
+
+(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:
+  - import "./source-fixtures" without a file extension (scripts/import-scale/generate-server-dc.ts:2:91). Add the file extension
+  - import "./types" without a file extension (scripts/import-scale/generate-server-dc.ts:3:82). Add the file extension
+  - import "./source-fixtures" without a file extension (scripts/import-scale/generate-server-dc.ts:4:22). Add the file extension
+  - import "./csv" without a file extension (scripts/import-scale/source-fixtures.ts:4:46). Add the file extension
+Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.
+
+ RUN  v4.1.11 /home/agent/rer-consolidation/work/sd-slate-c-f174-rb2/run-slate
+
+
+ Test Files  1 passed (1)
+      Tests  2 passed (2)
+   Start at  11:12:58
+   Duration  24.04s (transform 7.61s, setup 718ms, import 87ms, tests 22.57s, environment 0ms)
+

@@ -1,0 +1,4 @@
+MECHANICAL lock=pnpm source:lock exit=0; views=node src/base/runtime/contract-docs.mjs write && node src/base/runtime/contract-docs.mjs check exit=0
+Lock check: pnpm source:check exit=0
+Views restored: git checkout origin/main -- ACCEPTANCE.md docs/CLAIMS.md exit=0
+No generated view committed. CONTRACT.md DB-002 row equals original candidate; every other row and every status equals current main.
