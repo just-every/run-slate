@@ -1,10 +1,10 @@
 # AUTO-001 native rule completion
 
-Tag: sd-slate-c-f221-pc1. Repository: just-every/run-slate. Branch: `cloud/sd-slate-c-f221-pc1`. Full candidate: `78dfd3248667a89cac808aba15548ac4c3b454bd`. Report updated 2026-11-08T23:41:45.427636+00:00.
+Tag: sd-slate-c-f221-pc1. Repository: just-every/run-slate. Branch: `cloud/sd-slate-c-f221-pc1`. Full candidate: `78dfd3248667a89cac808aba15548ac4c3b454bd`. Report updated 2026-11-08T23:50:20.637800+00:00.
 
-CLAIM AUTO-001 PARTIAL points=1,2 tests=tests/profile/profile.worker.test.ts#FLAG-001 — core wiki public doors retain native content while flagship routes and queued work require opt-in; tests/flagship/structured/automation-repairs.test.ts#automation admission, resumed effects and schedules preserve current scope and exactly-once recovery; tests/qualification/ui-convergence/journeys.test.mjs#spreadsheet tables merge, sort and round-trip through edited database records at 1440px; tests/qualification/ui-convergence/journeys.test.mjs#real core-wiki and touch-member journeys at 390px
+CLAIM AUTO-001 DONE points=1,2 tests=tests/profile/profile.worker.test.ts#FLAG-001 — core wiki public doors retain native content while flagship routes and queued work require opt-in; tests/flagship/structured/automation-repairs.test.ts#automation admission, resumed effects and schedules preserve current scope and exactly-once recovery; tests/qualification/ui-convergence/journeys.test.mjs#spreadsheet tables merge, sort and round-trip through edited database records at 1440px; tests/qualification/ui-convergence/journeys.test.mjs#real core-wiki and touch-member journeys at 390px
 
-The native requirement and acceptance points 1 and 2 have local runtime proof. push Verify 42534135265: in_progress / None on 78dfd3248667a89cac808aba15548ac4c3b454bd. Main landing, its publication scan and Run site remain guarded-lander work. No main count or landing is claimed.
+The native requirement and acceptance points 1 and 2 have local runtime proof. push Verify 42534135265: completed / success on 78dfd3248667a89cac808aba15548ac4c3b454bd. Main landing, its publication scan and Run site remain guarded-lander work. No main count or landing is claimed.
 
 ## Plan and resulting change
 
@@ -20,9 +20,9 @@ Starting source counts were 58 DONE, 239 PARTIAL, 41 MISSING. Merging main inher
 
 | Item | Public door and observed outcome | Test and lines | Recorded candidate Verify |
 | --- | --- | --- | --- |
-| Requirement | A non-owner saves named source and container rules; exact trigger, ordered conditions, relation branch, ordered actions and saving actor persist. Member site scope is refused; owner site configuration persists. The native member form saves and reopens its ordered rule at 1440 and 390. | ./tests/profile/profile.worker.test.ts:26 and :167 invokes ./tests/profile/automation-journey.ts:9; definitions and readback at :46–94. ./tests/qualification/ui-convergence/automation-rule-journey.mjs:8–59. | PENDING; push Verify 42534135265: in_progress / None on 78dfd3248667a89cac808aba15548ac4c3b454bd |
-| Acceptance 1 | Native page create, properties, structure, block text and publication, record create and update, and actual schedule processing fire all seven served triggers. Canonical readback verifies edit fields, create page, create record, move, archive, comments and one delivered inbox notification through the configured adapter. Effects, runs and activity retain the saving member. Removed recipients receive nothing. | ./tests/profile/automation-journey.ts:96–158 and :166–189; retained ./tests/flagship/structured/automation-repairs.test.ts:21 and :139. | PENDING; push Verify 42534135265: in_progress / None on 78dfd3248667a89cac808aba15548ac4c3b454bd |
-| Acceptance 2 | Both ordered conditions persist and are each refused when unmet. Runtime action order yields the exact final fields and action-specific comments. A real relation field fans event and schedule actions over exactly two related records. Real outbox and scheduled drains leave confirmed effects duplicate-safe; cursor catches up to canonical content events. | ./tests/profile/automation-journey.ts:52–71, :135–181; ./tests/qualification/ui-convergence/automation-rule-journey.mjs:60–86. | PENDING; push Verify 42534135265: in_progress / None on 78dfd3248667a89cac808aba15548ac4c3b454bd |
+| Requirement | A non-owner saves named source and container rules; exact trigger, ordered conditions, relation branch, ordered actions and saving actor persist. Member site scope is refused; owner site configuration persists. The native member form saves and reopens its ordered rule at 1440 and 390. | ./tests/profile/profile.worker.test.ts:26 and :167 invokes ./tests/profile/automation-journey.ts:9; definitions and readback at :46–94. ./tests/qualification/ui-convergence/automation-rule-journey.mjs:8–59. | PASS; push Verify 42534135265: completed / success on 78dfd3248667a89cac808aba15548ac4c3b454bd |
+| Acceptance 1 | Native page create, properties, structure, block text and publication, record create and update, and actual schedule processing fire all seven served triggers. Canonical readback verifies edit fields, create page, create record, move, archive, comments and one delivered inbox notification through the configured adapter. Effects, runs and activity retain the saving member. Removed recipients receive nothing. | ./tests/profile/automation-journey.ts:96–158 and :166–189; retained ./tests/flagship/structured/automation-repairs.test.ts:21 and :139. | PASS; push Verify 42534135265: completed / success on 78dfd3248667a89cac808aba15548ac4c3b454bd |
+| Acceptance 2 | Both ordered conditions persist and are each refused when unmet. Runtime action order yields the exact final fields and action-specific comments. A real relation field fans event and schedule actions over exactly two related records. Real outbox and scheduled drains leave confirmed effects duplicate-safe; cursor catches up to canonical content events. | ./tests/profile/automation-journey.ts:52–71, :135–181; ./tests/qualification/ui-convergence/automation-rule-journey.mjs:60–86. | PASS; push Verify 42534135265: completed / success on 78dfd3248667a89cac808aba15548ac4c3b454bd |
 
 The FLAG-001 registration executes the native automation case in the default core-wiki profile. The retained structured recovery registration invokes the same helper. The existing desktop database-tools case and phone core case invoke automationRunLogJourney, which calls automationRuleJourney at ./tests/qualification/ui-convergence/automation-run-log-journey.mjs:12. There is no new Verify registration.
 
@@ -40,9 +40,9 @@ PROBE AUTO-001 form: native RuleForm at 1440 and 390 -> saved and reopened membe
 
 | Rider | Result | Evidence or boundary |
 | --- | --- | --- |
-| 1 | PENDING | Requirement and both acceptance rows above reach populated canonical outcomes; exact-SHA Verify conclusion is recorded above. |
+| 1 | PASS | Requirement and both acceptance rows above reach populated canonical outcomes; exact-SHA Verify conclusion is recorded above. |
 | 2 | PASS | Native records have real values, related records, comments and inbox results; both unmet conditions change nothing. Removing a trigger or action breaks a concrete run or canonical-effect assertion. |
-| 3 | PENDING | The default profile, retained structured caller and both responsive browser callers are loaded by the existing push Verify; run 42534135265, event push. |
+| 3 | PASS | The default profile, retained structured caller and both responsive browser callers are loaded by the existing push Verify; run 42534135265, event push. |
 | 4 | PASS | Exact-head native receipt, exact-head emitted build and both exact-head browser receipts. Merged-tree retained suites passed before the metadata-only commit step; no source or test byte changed afterward. |
 | 5 | INSPECTED | AUTO-001 adds no new Base inheritance claim. No duty owned by a future automation clause is counted here. |
 | 6 | PASS for builder mechanics | Generator write and check passed; both view files were restored from main. All 338 Status rows and main's judgments are retained. The lander owns the later status, Evidence and provenance flip. |
@@ -78,7 +78,7 @@ MECHANICAL lock=pnpm source:lock and pnpm source:check exit=0; views=node src/ba
 
 ## PRE-READY self-check
 
-1. Native user-visible outcomes have populated public-door checks and canonical readback. Exact-SHA Verify is pending as recorded above.
+1. Native user-visible outcomes have populated public-door checks and canonical readback. Exact-SHA Verify is pass as recorded above.
 2. This round removes or narrows no existing assertion. Both supporting registrations and both responsive callers remain. Requested legacy vocabulary files are the only deletions relative to main.
 3. Current actor and recipient authority remains checked; removed recipients are excluded; repeated outbox and schedule processing is duplicate-safe. No erasure, replay or delegated provider boundary is broadened.
 4. No production screen was changed. The existing form controls use the seed look, visible labels and normal text; ActionDialog's icon-only close control has its existing two-word tooltip. Actual responsive form captures pass accessibility and overflow checks.
@@ -91,5 +91,3 @@ Publication scan receipt: commit=78dfd3248667a89cac808aba15548ac4c3b454bd, compl
 The product push succeeded on its first guarded attempt. The remote branch is the named cloud branch. Candidate authors, committers and all candidate-parent messages were audited before publication; no forbidden co-author trailer is present. Product provenance is in product-receipt.json and product-push.log. Evidence publication uses only the separate evidence ref; reports are absent from the product tree.
 
 No missing account, key, policy ruling or external prerequisite blocks the selected native points. At report time, remaining custody is the actual Verify conclusion and the guarded landing checks described above. Evidence transfer is recorded by its exact EVIDENCE line at terminal handoff.
-
-GAP AUTO-001: Exact-candidate Verify is still in progress; local native points 1 and 2 are complete.
