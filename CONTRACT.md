@@ -2748,6 +2748,8 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 **Requirement.** An owner can send a page or card to a group as required reading. Each member gets an inbox item and a reminder after a set number of days, and their acknowledgment is recorded. The sender sees who has acknowledged. Slate records no reading time and no scroll depth, and acknowledgments are visible only to the sender and workspace owners.
 
+The native page action uses the active workspace-owner role in `WORK-008`; ordinary members cannot send required reading. Assignments capture the active group audience at send, notify only current page readers, and expose excluded members to the sender without notifying them. Acknowledgment is explicit and records the member and timestamp. One reminder per unacknowledged reader is committed through the notification outbox after the chosen interval, with current access rechecked. Reports and acknowledgment activity are private to the sender and workspace owners who can read the page. Complete workspace archives retain these facts; restore cancels future reminders until fresh assignments are sent, and member erasure removes their assignment and acknowledgment records. The card kind and other delivery channels retain their existing prerequisite clauses.
+
 **Acceptance.**
 1. a browser journey sends a page to a group, two members acknowledge, one is reminded once, and the sender's report lists exactly those states with no reading-time data.
 

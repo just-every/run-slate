@@ -1,3 +1,4 @@
+import {requiredReadingJourney} from './required-reading-journey.mjs';
 import {decisionLogJourney} from './decision-log-journey.mjs';
 import {automationRunLogJourney} from "./automation-run-log-journey.mjs";
 import {contentQueryJourney} from './content-query-journey.mjs';
@@ -105,6 +106,7 @@ for (const width of [390, 1440]) {
         await step('query, highlighted results and opening exact page; touch Search, Inbox, My tasks and review queues', async () => {await searchJourney(state, pageId);await touchOperatorJourney(state,touch);});
         await step('published readers, editor indication, republish and lossless discard', () => withSecondPerson(state, width, people => unpublishedChangesJourney(state, people)));
         await step('STAT-002 — member status changes retain one status, activity and exact search/query membership', () => pageStatusJourney(state));
+        await step('CARD-003 — send required reading, explicit acknowledgments and one private reminder report', () => withSecondPerson(state,width,people=>requiredReadingJourney(state,people,width)));
         // Finish earlier page notifications before connecting the chat journey destinations.
         await state.runScheduled();
         await chatJourney(state, width);

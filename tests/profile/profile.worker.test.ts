@@ -1,3 +1,4 @@
+import {requiredReadingJourney} from './required-reading-journey';
 import {decisionLogJourney} from './decision-log-journey';
 import {pageLockJourney} from './page-lock-journey';
 import {bodyBlocksJourney} from './body-blocks-journey';
@@ -87,6 +88,10 @@ it("FLAG-001 — core wiki public doors retain native content while flagship rou
     { name: 'DEC-004 — populated native decision log filters exact memberships and retains accepted revisions under current access', run: async () => {
       const {workspaceId,memberId,cookie} = await workspace();
       await decisionLogJourney(createApi(),workspaceId,memberId,cookie);
+    } },
+    { name: 'CARD-003 — required reading retains acknowledgments and duplicate-safe reminders in the default profile', run: async () => {
+      const {workspaceId,memberId,containerId,cookie}=await workspace();
+      await requiredReadingJourney(createApi(),workspaceId,memberId,containerId,cookie);
     } },
     { name: 'FLAG-001 — old queued flagship work records failure and retries without dispatch or acknowledgement', run: async () => {
   for(const kind of ['intelligence.run','intelligence.finalize','federation.refresh']) {

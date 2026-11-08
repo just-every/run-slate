@@ -3185,8 +3185,13 @@
       "id": "CARD-003",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "not implemented",
-      "supportingTests": []
+      "unmetReason": "Native default-profile page sending, explicit acknowledgment, one reminder under replay and races, private reports, erasure and restored facts are covered by the existing FLAG-001 case list and responsive core journeys. Card sending depends on CARD-001; external delivery retains NOTIF-005 and NOTIF-006. CONTRACT.md remains the judgment source; exact-SHA Verify and guarded landing are separate.",
+      "supportingTests": [
+        {
+          "file": "tests/profile/profile.worker.test.ts",
+          "testName": "FLAG-001 — core wiki public doors retain native content while flagship routes and queued work require opt-in"
+        }
+      ]
     },
     {
       "id": "DB-013",
