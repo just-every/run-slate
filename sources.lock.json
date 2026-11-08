@@ -11492,7 +11492,7 @@
       "executable": false
     },
     "tests/profile/media-blocks-journey.ts": {
-      "sha256": "05a10820ddfdadbf96e506331e41c2426fa1d830f3f976f15fea917f423a9939",
+      "sha256": "7d401a7e78cbeb6a343079f8ffa01cf2ba5c5450d81caea01208b441945a7f29",
       "executable": false
     },
     "tests/profile/page-lock-journey.ts": {
@@ -12484,7 +12484,7 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "eec2bb922aa628c07d73556c88640bfefa43ec6e60f6a8ef956ab945d9887a9c",
+      "sha256": "224bbc99304ab24d7cd054692711921be38df82e9cc714242895f1eaf977b54a",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
@@ -12500,7 +12500,7 @@
       "executable": false
     },
     "tests/requirements/test-evidence.json": {
-      "sha256": "060dd4ba5440d5a43137eaa9d865019e86026ce03e89ebebe08bfd7520f03130",
+      "sha256": "ebbacd15f950d6fdc6879fe8cec64a3bb5926fbed5c21b3a45e1c39ca82ad803",
       "executable": false
     },
     "tests/rer/editor.test.mjs": {
