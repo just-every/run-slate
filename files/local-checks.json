@@ -1,0 +1,21 @@
+{
+  "head": "e7bda0b09948bf60c6caa3140080a0a9253ab610",
+  "checks": {
+    "native": {
+      "command": "python3 /tmp/rer-reap.py pnpm exec vitest run --config tests/profile/vitest.config.ts tests/profile/profile.worker.test.ts",
+      "exit": 0
+    },
+    "typecheck": {
+      "command": "python3 /tmp/rer-reap.py pnpm typecheck",
+      "exit": 0
+    },
+    "firstParty": {
+      "command": "python3 /tmp/rer-reap.py pnpm exec rer check --profile first-party",
+      "exit": 0
+    },
+    "lock": {
+      "command": "pnpm source:check",
+      "exit": 0
+    }
+  }
+}

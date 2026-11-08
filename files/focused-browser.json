@@ -1,0 +1,14 @@
+{
+  "head": "e7bda0b09948bf60c6caa3140080a0a9253ab610",
+  "exit": 0,
+  "widths": [
+    1440,
+    390
+  ],
+  "driver": "withWorkspace core-wiki, native first-run route, withSecondPerson and decisionImmutabilityJourney",
+  "consoleErrorCheck": "passed for both widths",
+  "receipts": [
+    "receipts/1440.json",
+    "receipts/390.json"
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "repository": "just-every/run-slate",
+  "head": "e7bda0b09948bf60c6caa3140080a0a9253ab610",
+  "run": 42489131094,
+  "event": "push",
+  "name": "Verify Slate",
+  "status": "completed",
+  "conclusion": "failure",
+  "url": "https://github.com/just-every/run-slate/actions/runs/42489131094",
+  "primary": {
+    "job": 128757455519,
+    "step": "node src/base/runtime/contract-docs.mjs check",
+    "exit": 1,
+    "failure": "ACCEPTANCE.md: generated content differs; run contract-docs write."
+  },
+  "aggregate": {
+    "job": 128757588009,
+    "step": "Require the plan and every expected job",
+    "exit": 1,
+    "reason": "APP failure; SHARDS and CONTRACT skipped"
+  },
+  "testShards": "skipped; not claimed as CI runtime proof",
+  "classification": "Expected generated-view freshness failure only; task permits READY while guarded lander regenerates and validates.",
+  "archiveReads": [
+    {
+      "command": "gh run view 42489131094 --repo just-every/run-slate --job 128757455519 --log-failed",
+      "exit": 0,
+      "calls": 1
+    },
+    {
+      "command": "gh run view 42489131094 --repo just-every/run-slate --job 128757588009 --log-failed",
+      "exit": 0,
+      "calls": 1
+    }
+  ],
+  "githubTaskCalls": 10,
+  "reruns": 0,
+  "dispatches": 0,
+  "pullRequests": 0,
+  "priorCandidateRun": 42487261065,
+  "baselineMain": {
+    "head": "67b706484e5430012d9c154c1e14090ea1e49bc2",
+    "verify": 42416085031,
+    "verifyConclusion": "success",
+    "runSite": 42416085015,
+    "runSiteConclusion": "success"
+  }
+}

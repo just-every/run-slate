@@ -1,0 +1,11 @@
+{
+  "candidate": "e7bda0b09948bf60c6caa3140080a0a9253ab610",
+  "completeCallerProof": "1e54a11f6e9c7e2a07760ef49fa1fd405cee9ffe",
+  "unchangedPaths": [
+    "src/core",
+    "tests/profile/profile.worker.test.ts",
+    "tests/qualification/ui-convergence/journeys.test.mjs"
+  ],
+  "acceptanceAssertionLinesEqual": true,
+  "changes": "Root evidence metadata documentation, direct build provenance in receipts, and waiting for history reads before changing access. No production or acceptance assertion changes."
+}

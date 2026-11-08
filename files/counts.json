@@ -1,0 +1,21 @@
+{
+  "head": "e7bda0b09948bf60c6caa3140080a0a9253ab610",
+  "base": "67b706484e5430012d9c154c1e14090ea1e49bc2",
+  "registrationsBefore": 211,
+  "registrationsAfter": 211,
+  "sitesBefore": 204,
+  "sitesAfter": 204,
+  "contractStatusSourceChanged": false,
+  "contractBefore": {
+    "done": 57,
+    "partial": 240,
+    "missing": 41,
+    "total": 338
+  },
+  "contractAfter": {
+    "done": 57,
+    "partial": 240,
+    "missing": 41,
+    "total": 338
+  }
+}

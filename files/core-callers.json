@@ -1,0 +1,28 @@
+{
+  "head": "1e54a11f6e9c7e2a07760ef49fa1fd405cee9ffe",
+  "command": "node --test --test-reporter=tap --test-concurrency=1 --test-name-pattern='real core-wiki and touch-member journeys' tests/qualification/ui-convergence/journeys.test.mjs",
+  "exit": 0,
+  "results": [
+    {
+      "name": "real core-wiki and touch-member journeys at 390px",
+      "width": 390,
+      "durationMs": 726674.975215,
+      "result": "passed"
+    },
+    {
+      "name": "real core-wiki and touch-member journeys at 1440px",
+      "width": 1440,
+      "durationMs": 565875.595945,
+      "result": "passed"
+    }
+  ],
+  "fullOutputSha256": "fb14f41ea6654830366df377e22d8970e54279dacb1a99cdbff76f9cd61523f8",
+  "build": {
+    "schema": 1,
+    "commit": "1e54a11f6e9c7e2a07760ef49fa1fd405cee9ffe",
+    "tree": "5df0b09b8f77b84177a3461060d51a8f37189090",
+    "sourceSha256": "f564d332a26d90d96336f08c4e78353eeb67238a2d4345eb2eeb988865f63bf9",
+    "lockSha256": "445b815a84ea747d078aa93e4fbc015e955caf1d890a465fbe602fd58fe0b6a9",
+    "outputSha256": "1318c01afa4b2390aa3afe2d6e13d8909eb768199cc9bf5b217f6869f0adc27f"
+  }
+}

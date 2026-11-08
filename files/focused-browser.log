@@ -1,0 +1,6 @@
+PROBE DEC-003 1: core-wiki at 1440px -> stale card and log warnings, unchanged accepted content, immutable edit refusal, current replacement acceptance, both exact lineage links and restricted replacement without a question
+PROBE DEC-003 2: native acceptance at 1440px -> two exact cited revisions frozen; another member's edit leaves the complete accepted snapshot unchanged through API, UI and reload
+DEC-003 exact candidate focused native browser journey passed at 1440px
+PROBE DEC-003 1: core-wiki at 390px -> stale card and log warnings, unchanged accepted content, immutable edit refusal, current replacement acceptance, both exact lineage links and restricted replacement without a question
+PROBE DEC-003 2: native acceptance at 390px -> two exact cited revisions frozen; another member's edit leaves the complete accepted snapshot unchanged through API, UI and reload
+DEC-003 exact candidate focused native browser journey passed at 390px

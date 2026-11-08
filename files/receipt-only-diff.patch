@@ -1,0 +1,29 @@
+diff --git a/tests/qualification/ui-convergence/decision-immutability-journey.mjs b/tests/qualification/ui-convergence/decision-immutability-journey.mjs
+index b6b91936..d0fce707 100644
+--- a/tests/qualification/ui-convergence/decision-immutability-journey.mjs
++++ b/tests/qualification/ui-convergence/decision-immutability-journey.mjs
+@@ -1,5 +1,5 @@
+ import assert from 'node:assert/strict';
+-import { mkdir, writeFile } from 'node:fs/promises';
++import { mkdir, readFile, writeFile } from 'node:fs/promises';
+ import path from 'node:path';
+ import { expect } from '@playwright/test';
+ import { root } from '../../e2e/runtime-harness.mjs';
+@@ -178,6 +178,8 @@ export async function decisionImmutabilityJourney(state, people) {
+   await alice.page.waitForURL(url => url.pathname === `/app/decisions/${nextId}`);
+   await expect(alice.page.locator(`#decision-${nextId}`).getByRole('heading', { name: later.question, exact: true })).toBeVisible();
+ 
++  await alice.page.waitForLoadState('networkidle');
++
+   // Restrict only the replacement; the earlier record remains readable to Morgan.
+   const replacementPage = await read(`/api/pages/${later.page_id}`);
+   await ok(alice.context, origin, 'PUT', `/api/sharing/pages/${later.page_id}/inheritance`, { operationKey: crypto.randomUUID(), expectedRevisionId: replacementPage.page.revisionId, restricted: true });
+@@ -195,6 +197,7 @@ export async function decisionImmutabilityJourney(state, people) {
+   assert.deepEqual((await read(`/api/decisions/${id}?revision=${accepted.acceptedRevisionId}`)).content, accepted.content);
+   console.log(`PROBE DEC-003 1: core-wiki at ${width}px -> stale card and log warnings, unchanged accepted content, immutable edit refusal, current replacement acceptance, both exact lineage links and restricted replacement without a question`);
+   console.log(`PROBE DEC-003 2: native acceptance at ${width}px -> two exact cited revisions frozen; another member's edit leaves the complete accepted snapshot unchanged through API, UI and reload`);
+-  await writeFile(path.join(directory, 'receipts.json'), JSON.stringify({ width, acceptedReceipt, editReceipt, preparedReceipt, supersessionReceipt, accepted, stale, earlier, later, refused, denied }, null, 2));
++  const artifact = JSON.parse(await readFile(path.join(root, '.cache/slate/build-source.json'), 'utf8'));
++  await writeFile(path.join(directory, 'receipts.json'), JSON.stringify({ artifact, width, acceptedReceipt, editReceipt, preparedReceipt, supersessionReceipt, accepted, stale, earlier, later, refused, denied }, null, 2));
+   await alice.page.goto(returnUrl, { waitUntil: 'networkidle' });
+ }

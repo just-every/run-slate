@@ -1,0 +1,370 @@
+{
+  "artifact": {
+    "schema": 1,
+    "commit": "e7bda0b09948bf60c6caa3140080a0a9253ab610",
+    "tree": "149a9fb305e870422d2cb5de4de1d9af55b2cf9d",
+    "sourceSha256": "945256d02118369771ab160b631d071c0441c44d2a8475959ef529c34ee5dfa3",
+    "lockSha256": "8ba2b77ba7b438bb2521fc9821b2c91692c845fa21d73624a7bcd03a4f0c2266",
+    "outputSha256": "1318c01afa4b2390aa3afe2d6e13d8909eb768199cc9bf5b217f6869f0adc27f"
+  },
+  "width": 1440,
+  "acceptedReceipt": {
+    "value": {
+      "id": "01M6XR98VYT1WHPG1HZZB23CZN",
+      "state": "accepted",
+      "revisionId": "01M6XR9AD0PSRPG62D11XE0ZQR"
+    },
+    "receipt": {
+      "operationKey": "858a8882-53ac-447f-b2aa-e0eea8611a1c",
+      "entity": {
+        "id": "01M6XR98VYT1WHPG1HZZB23CZN",
+        "kind": "decision",
+        "revisionId": "01M6XR9AD0PSRPG62D11XE0ZQR"
+      },
+      "revisionId": "01M6XR9AD0PSRPG62D11XE0ZQR",
+      "activityId": "01M6XR9AD0TRFVZF0ZMXXXE5W5",
+      "committedAt": "2026-11-08T14:16:35.890Z"
+    }
+  },
+  "editReceipt": {
+    "pageId": "01M6XR93CXX3TE4G0ZTMVJXJJ0",
+    "revisionId": "01M6XR9CN0A4V74XE24GKPBEGE",
+    "receipt": {
+      "operationKey": "b86c4bab-3bf2-42c9-ac54-34b843b03387",
+      "entity": {
+        "id": "01M6XR93CXX3TE4G0ZTMVJXJJ0",
+        "kind": "page",
+        "revisionId": "01M6XR9CN0A4V74XE24GKPBEGE"
+      },
+      "revisionId": "01M6XR9CN0A4V74XE24GKPBEGE",
+      "activityId": "01M6XR9CN0EM2AGM3114VY6EJZ",
+      "committedAt": "2026-11-08T14:16:38.299Z"
+    },
+    "activity": {
+      "id": "01M6XR9CN0EM2AGM3114VY6EJZ",
+      "actor": {
+        "id": "browser-reader",
+        "displayName": "Morgan Reader"
+      },
+      "feature": "pages",
+      "action": "pages.update",
+      "target": {
+        "kind": "page",
+        "id": "01M6XR93CXX3TE4G0ZTMVJXJJ0"
+      },
+      "occurredAt": "2026-11-08T14:16:38.299Z",
+      "operationKey": "b86c4bab-3bf2-42c9-ac54-34b843b03387",
+      "automationRunId": null,
+      "aiRunId": null,
+      "deleted": false,
+      "context": {
+        "pageId": "01M6XR93CXX3TE4G0ZTMVJXJJ0",
+        "revisionId": "01M6XR9CN0A4V74XE24GKPBEGE"
+      }
+    },
+    "savingShownMs": 1794147397893,
+    "savedAfterCommitMs": 152
+  },
+  "preparedReceipt": {
+    "value": {
+      "id": "01M6XR9M8TMB6DBZ9X8T27Z46W",
+      "pageId": "01M6XR9M8TY8BHG0SG8B06WWTE",
+      "revisionId": "01M6XR9M8T2XRD7Z08GTQJBSAM",
+      "state": "proposed",
+      "supersedesId": "01M6XR98VYT1WHPG1HZZB23CZN"
+    },
+    "receipt": {
+      "operationKey": "4bef1abe-2573-4bb1-8f7d-41f59401fe3c",
+      "entity": {
+        "id": "01M6XR9M8TMB6DBZ9X8T27Z46W",
+        "kind": "decision",
+        "revisionId": "01M6XR9M8T2XRD7Z08GTQJBSAM"
+      },
+      "revisionId": "01M6XR9M8T2XRD7Z08GTQJBSAM",
+      "activityId": "01M6XR9M8TJ3Z62PF21A8F6R9B",
+      "committedAt": "2026-11-08T14:16:46.036Z"
+    }
+  },
+  "supersessionReceipt": {
+    "value": {
+      "id": "01M6XR9M8TMB6DBZ9X8T27Z46W",
+      "state": "accepted",
+      "revisionId": "01M6XR9NT428M0A9YCFYGQ0EN3"
+    },
+    "receipt": {
+      "operationKey": "644244d5-ed30-4dae-9e64-04b9f9d8bc10",
+      "entity": {
+        "id": "01M6XR9M8TMB6DBZ9X8T27Z46W",
+        "kind": "decision",
+        "revisionId": "01M6XR9NT428M0A9YCFYGQ0EN3"
+      },
+      "revisionId": "01M6XR9NT428M0A9YCFYGQ0EN3",
+      "activityId": "01M6XR9NT4CXD99N88YB1WRRG7",
+      "committedAt": "2026-11-08T14:16:47.566Z"
+    }
+  },
+  "accepted": {
+    "id": "01M6XR98VYT1WHPG1HZZB23CZN",
+    "page_id": "01M6XR93Y00G5HCKQGFFHBP8KR",
+    "workspace_id": "browser-workspace",
+    "question": "Which support plan should ship?",
+    "options_json": "[\"Primary\",\"Fallback\"]",
+    "outcome": "Primary",
+    "rationale": "The exact two source revisions support this choice.",
+    "owner_member_id": "browser-owner",
+    "decided_at": "2026-11-08T14:16:35.890Z",
+    "review_at": null,
+    "overdue_notified_at": null,
+    "state": "accepted",
+    "accepted_snapshot_json": "{\"operationKey\":\"2cd61016-1562-4618-b06c-d135272437e4\",\"pageId\":\"01M6XR93Y00G5HCKQGFFHBP8KR\",\"question\":\"Which support plan should ship?\",\"options\":[\"Primary\",\"Fallback\"],\"outcome\":\"Primary\",\"rationale\":\"The exact two source revisions support this choice.\",\"ownerId\":\"browser-owner\",\"decidedAt\":\"2026-11-08T14:16:35.890Z\",\"reviewAt\":null,\"citations\":[{\"kind\":\"page\",\"sourceId\":\"01M6XR93CXX3TE4G0ZTMVJXJJ0\",\"revisionId\":\"01M6XR93CWRZCM7V2JS26YZPCV\"},{\"kind\":\"page\",\"sourceId\":\"01M6XR93QAEPA2S6RSA82ZN0YF\",\"revisionId\":\"01M6XR93QAZ994FDQFM7E1R299\"}],\"acceptedBy\":\"browser-owner\",\"acceptedAt\":\"2026-11-08T14:16:35.890Z\",\"supersedesId\":null}",
+    "superseded_by_decision_id": null,
+    "created_at": "2026-11-08T14:16:34.328Z",
+    "updated_at": "2026-11-08T14:16:35.890Z",
+    "revision_id": "01M6XR9AD0PSRPG62D11XE0ZQR",
+    "removed_at": null,
+    "removed_by_member_id": null,
+    "accepted_revision_id": "01M6XR9AD0PSRPG62D11XE0ZQR",
+    "content": {
+      "operationKey": "2cd61016-1562-4618-b06c-d135272437e4",
+      "pageId": "01M6XR93Y00G5HCKQGFFHBP8KR",
+      "question": "Which support plan should ship?",
+      "options": [
+        "Primary",
+        "Fallback"
+      ],
+      "outcome": "Primary",
+      "rationale": "The exact two source revisions support this choice.",
+      "ownerId": "browser-owner",
+      "decidedAt": "2026-11-08T14:16:35.890Z",
+      "reviewAt": null,
+      "citations": [
+        {
+          "kind": "page",
+          "sourceId": "01M6XR93CXX3TE4G0ZTMVJXJJ0",
+          "revisionId": "01M6XR93CWRZCM7V2JS26YZPCV"
+        },
+        {
+          "kind": "page",
+          "sourceId": "01M6XR93QAEPA2S6RSA82ZN0YF",
+          "revisionId": "01M6XR93QAZ994FDQFM7E1R299"
+        }
+      ],
+      "acceptedBy": "browser-owner",
+      "acceptedAt": "2026-11-08T14:16:35.890Z",
+      "supersedesId": null
+    },
+    "viewedRevisionId": "01M6XR9AD0PSRPG62D11XE0ZQR",
+    "revision": {
+      "id": "01M6XR9AD0PSRPG62D11XE0ZQR",
+      "kind": "decision-acceptance",
+      "actorId": "browser-owner",
+      "createdAt": "2026-11-08T14:16:35.890Z"
+    },
+    "acceptedRevisionId": "01M6XR9AD0PSRPG62D11XE0ZQR",
+    "acceptedRevisionHref": "/app/decisions/01M6XR98VYT1WHPG1HZZB23CZN?revision=01M6XR9AD0PSRPG62D11XE0ZQR",
+    "citationsCurrent": true,
+    "overdue": false
+  },
+  "stale": {
+    "id": "01M6XR98VYT1WHPG1HZZB23CZN",
+    "page_id": "01M6XR93Y00G5HCKQGFFHBP8KR",
+    "workspace_id": "browser-workspace",
+    "question": "Which support plan should ship?",
+    "options_json": "[\"Primary\",\"Fallback\"]",
+    "outcome": "Primary",
+    "rationale": "The exact two source revisions support this choice.",
+    "owner_member_id": "browser-owner",
+    "decided_at": "2026-11-08T14:16:35.890Z",
+    "review_at": null,
+    "overdue_notified_at": null,
+    "state": "accepted",
+    "accepted_snapshot_json": "{\"operationKey\":\"2cd61016-1562-4618-b06c-d135272437e4\",\"pageId\":\"01M6XR93Y00G5HCKQGFFHBP8KR\",\"question\":\"Which support plan should ship?\",\"options\":[\"Primary\",\"Fallback\"],\"outcome\":\"Primary\",\"rationale\":\"The exact two source revisions support this choice.\",\"ownerId\":\"browser-owner\",\"decidedAt\":\"2026-11-08T14:16:35.890Z\",\"reviewAt\":null,\"citations\":[{\"kind\":\"page\",\"sourceId\":\"01M6XR93CXX3TE4G0ZTMVJXJJ0\",\"revisionId\":\"01M6XR93CWRZCM7V2JS26YZPCV\"},{\"kind\":\"page\",\"sourceId\":\"01M6XR93QAEPA2S6RSA82ZN0YF\",\"revisionId\":\"01M6XR93QAZ994FDQFM7E1R299\"}],\"acceptedBy\":\"browser-owner\",\"acceptedAt\":\"2026-11-08T14:16:35.890Z\",\"supersedesId\":null}",
+    "superseded_by_decision_id": null,
+    "created_at": "2026-11-08T14:16:34.328Z",
+    "updated_at": "2026-11-08T14:16:35.890Z",
+    "revision_id": "01M6XR9AD0PSRPG62D11XE0ZQR",
+    "removed_at": null,
+    "removed_by_member_id": null,
+    "accepted_revision_id": "01M6XR9AD0PSRPG62D11XE0ZQR",
+    "content": {
+      "operationKey": "2cd61016-1562-4618-b06c-d135272437e4",
+      "pageId": "01M6XR93Y00G5HCKQGFFHBP8KR",
+      "question": "Which support plan should ship?",
+      "options": [
+        "Primary",
+        "Fallback"
+      ],
+      "outcome": "Primary",
+      "rationale": "The exact two source revisions support this choice.",
+      "ownerId": "browser-owner",
+      "decidedAt": "2026-11-08T14:16:35.890Z",
+      "reviewAt": null,
+      "citations": [
+        {
+          "kind": "page",
+          "sourceId": "01M6XR93CXX3TE4G0ZTMVJXJJ0",
+          "revisionId": "01M6XR93CWRZCM7V2JS26YZPCV"
+        },
+        {
+          "kind": "page",
+          "sourceId": "01M6XR93QAEPA2S6RSA82ZN0YF",
+          "revisionId": "01M6XR93QAZ994FDQFM7E1R299"
+        }
+      ],
+      "acceptedBy": "browser-owner",
+      "acceptedAt": "2026-11-08T14:16:35.890Z",
+      "supersedesId": null
+    },
+    "viewedRevisionId": "01M6XR9AD0PSRPG62D11XE0ZQR",
+    "revision": {
+      "id": "01M6XR9AD0PSRPG62D11XE0ZQR",
+      "kind": "decision-acceptance",
+      "actorId": "browser-owner",
+      "createdAt": "2026-11-08T14:16:35.890Z"
+    },
+    "acceptedRevisionId": "01M6XR9AD0PSRPG62D11XE0ZQR",
+    "acceptedRevisionHref": "/app/decisions/01M6XR98VYT1WHPG1HZZB23CZN?revision=01M6XR9AD0PSRPG62D11XE0ZQR",
+    "citationsCurrent": false,
+    "overdue": false
+  },
+  "earlier": {
+    "id": "01M6XR98VYT1WHPG1HZZB23CZN",
+    "page_id": "01M6XR93Y00G5HCKQGFFHBP8KR",
+    "workspace_id": "browser-workspace",
+    "question": "Which support plan should ship?",
+    "options_json": "[\"Primary\",\"Fallback\"]",
+    "outcome": "Primary",
+    "rationale": "The exact two source revisions support this choice.",
+    "owner_member_id": "browser-owner",
+    "decided_at": "2026-11-08T14:16:35.890Z",
+    "review_at": null,
+    "overdue_notified_at": null,
+    "state": "superseded",
+    "accepted_snapshot_json": "{\"operationKey\":\"2cd61016-1562-4618-b06c-d135272437e4\",\"pageId\":\"01M6XR93Y00G5HCKQGFFHBP8KR\",\"question\":\"Which support plan should ship?\",\"options\":[\"Primary\",\"Fallback\"],\"outcome\":\"Primary\",\"rationale\":\"The exact two source revisions support this choice.\",\"ownerId\":\"browser-owner\",\"decidedAt\":\"2026-11-08T14:16:35.890Z\",\"reviewAt\":null,\"citations\":[{\"kind\":\"page\",\"sourceId\":\"01M6XR93CXX3TE4G0ZTMVJXJJ0\",\"revisionId\":\"01M6XR93CWRZCM7V2JS26YZPCV\"},{\"kind\":\"page\",\"sourceId\":\"01M6XR93QAEPA2S6RSA82ZN0YF\",\"revisionId\":\"01M6XR93QAZ994FDQFM7E1R299\"}],\"acceptedBy\":\"browser-owner\",\"acceptedAt\":\"2026-11-08T14:16:35.890Z\",\"supersedesId\":null}",
+    "superseded_by_decision_id": "01M6XR9M8TMB6DBZ9X8T27Z46W",
+    "created_at": "2026-11-08T14:16:34.328Z",
+    "updated_at": "2026-11-08T14:16:47.566Z",
+    "revision_id": "01M6XR9NTWA27JCAR6E6YW7B0K",
+    "removed_at": null,
+    "removed_by_member_id": null,
+    "accepted_revision_id": "01M6XR9AD0PSRPG62D11XE0ZQR",
+    "content": {
+      "operationKey": "2cd61016-1562-4618-b06c-d135272437e4",
+      "pageId": "01M6XR93Y00G5HCKQGFFHBP8KR",
+      "question": "Which support plan should ship?",
+      "options": [
+        "Primary",
+        "Fallback"
+      ],
+      "outcome": "Primary",
+      "rationale": "The exact two source revisions support this choice.",
+      "ownerId": "browser-owner",
+      "decidedAt": "2026-11-08T14:16:35.890Z",
+      "reviewAt": null,
+      "citations": [
+        {
+          "kind": "page",
+          "sourceId": "01M6XR93CXX3TE4G0ZTMVJXJJ0",
+          "revisionId": "01M6XR93CWRZCM7V2JS26YZPCV"
+        },
+        {
+          "kind": "page",
+          "sourceId": "01M6XR93QAEPA2S6RSA82ZN0YF",
+          "revisionId": "01M6XR93QAZ994FDQFM7E1R299"
+        }
+      ],
+      "acceptedBy": "browser-owner",
+      "acceptedAt": "2026-11-08T14:16:35.890Z",
+      "supersedesId": null
+    },
+    "viewedRevisionId": "01M6XR9AD0PSRPG62D11XE0ZQR",
+    "revision": {
+      "id": "01M6XR9AD0PSRPG62D11XE0ZQR",
+      "kind": "decision-acceptance",
+      "actorId": "browser-owner",
+      "createdAt": "2026-11-08T14:16:35.890Z"
+    },
+    "acceptedRevisionId": "01M6XR9AD0PSRPG62D11XE0ZQR",
+    "acceptedRevisionHref": "/app/decisions/01M6XR98VYT1WHPG1HZZB23CZN?revision=01M6XR9AD0PSRPG62D11XE0ZQR",
+    "citationsCurrent": false,
+    "overdue": false
+  },
+  "later": {
+    "id": "01M6XR9M8TMB6DBZ9X8T27Z46W",
+    "page_id": "01M6XR9M8TY8BHG0SG8B06WWTE",
+    "workspace_id": "browser-workspace",
+    "question": "Which revised support plan should ship?",
+    "options_json": "[\"Primary\",\"Fallback\"]",
+    "outcome": "Fallback",
+    "rationale": "Current evidence changes the choice.",
+    "owner_member_id": "browser-owner",
+    "decided_at": "2026-11-08T14:16:47.566Z",
+    "review_at": null,
+    "overdue_notified_at": null,
+    "state": "accepted",
+    "accepted_snapshot_json": "{\"operationKey\":\"bdd72b8d-6586-4dfd-ae13-03cb52796079\",\"pageId\":\"01M6XR9M8TY8BHG0SG8B06WWTE\",\"id\":\"01M6XR9M8TMB6DBZ9X8T27Z46W\",\"expectedRevisionId\":\"01M6XR9M8T2XRD7Z08GTQJBSAM\",\"question\":\"Which revised support plan should ship?\",\"options\":[\"Primary\",\"Fallback\"],\"outcome\":\"Fallback\",\"rationale\":\"Current evidence changes the choice.\",\"ownerId\":\"browser-owner\",\"decidedAt\":\"2026-11-08T14:16:47.566Z\",\"reviewAt\":null,\"citations\":[{\"kind\":\"page\",\"sourceId\":\"01M6XR93CXX3TE4G0ZTMVJXJJ0\",\"revisionId\":\"01M6XR9CN0A4V74XE24GKPBEGE\"},{\"kind\":\"page\",\"sourceId\":\"01M6XR93QAEPA2S6RSA82ZN0YF\",\"revisionId\":\"01M6XR93QAZ994FDQFM7E1R299\"}],\"supersedesId\":\"01M6XR98VYT1WHPG1HZZB23CZN\",\"acceptedBy\":\"browser-owner\",\"acceptedAt\":\"2026-11-08T14:16:47.566Z\"}",
+    "superseded_by_decision_id": null,
+    "created_at": "2026-11-08T14:16:46.036Z",
+    "updated_at": "2026-11-08T14:16:47.566Z",
+    "revision_id": "01M6XR9NT428M0A9YCFYGQ0EN3",
+    "removed_at": null,
+    "removed_by_member_id": null,
+    "accepted_revision_id": "01M6XR9NT428M0A9YCFYGQ0EN3",
+    "content": {
+      "operationKey": "bdd72b8d-6586-4dfd-ae13-03cb52796079",
+      "pageId": "01M6XR9M8TY8BHG0SG8B06WWTE",
+      "id": "01M6XR9M8TMB6DBZ9X8T27Z46W",
+      "expectedRevisionId": "01M6XR9M8T2XRD7Z08GTQJBSAM",
+      "question": "Which revised support plan should ship?",
+      "options": [
+        "Primary",
+        "Fallback"
+      ],
+      "outcome": "Fallback",
+      "rationale": "Current evidence changes the choice.",
+      "ownerId": "browser-owner",
+      "decidedAt": "2026-11-08T14:16:47.566Z",
+      "reviewAt": null,
+      "citations": [
+        {
+          "kind": "page",
+          "sourceId": "01M6XR93CXX3TE4G0ZTMVJXJJ0",
+          "revisionId": "01M6XR9CN0A4V74XE24GKPBEGE"
+        },
+        {
+          "kind": "page",
+          "sourceId": "01M6XR93QAEPA2S6RSA82ZN0YF",
+          "revisionId": "01M6XR93QAZ994FDQFM7E1R299"
+        }
+      ],
+      "supersedesId": "01M6XR98VYT1WHPG1HZZB23CZN",
+      "acceptedBy": "browser-owner",
+      "acceptedAt": "2026-11-08T14:16:47.566Z"
+    },
+    "viewedRevisionId": "01M6XR9NT428M0A9YCFYGQ0EN3",
+    "revision": {
+      "id": "01M6XR9NT428M0A9YCFYGQ0EN3",
+      "kind": "decision-acceptance",
+      "actorId": "browser-owner",
+      "createdAt": "2026-11-08T14:16:47.566Z"
+    },
+    "acceptedRevisionId": "01M6XR9NT428M0A9YCFYGQ0EN3",
+    "acceptedRevisionHref": "/app/decisions/01M6XR9M8TMB6DBZ9X8T27Z46W?revision=01M6XR9NT428M0A9YCFYGQ0EN3",
+    "citationsCurrent": true,
+    "overdue": false
+  },
+  "refused": {
+    "status": 409,
+    "body": {
+      "code": "IMMUTABLE_DECISION",
+      "message": "Accepted and superseded decisions are immutable."
+    }
+  },
+  "denied": {
+    "status": 404,
+    "body": {
+      "code": "NOT_FOUND",
+      "message": "Not found."
+    }
+  }
+}
