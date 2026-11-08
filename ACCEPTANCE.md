@@ -8,10 +8,10 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 59 | 238 | 35 | 332 |
+| Core | 60 | 237 | 35 | 332 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 59 | 238 | 41 | 338 |
+| Full target | 60 | 237 | 41 | 338 |
 
 Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e6612` (29 October 2026); SEARCH-001 native source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. DB-012 record-detail proof reviewed from source `63a0e8f` (31 October 2026); its exact candidate and Verify are named by the branch handoff. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
@@ -2783,7 +2783,7 @@ Core · published · **partial**
 
 #### DEC-006 — A proposed decision is editable
 
-Core · published · **partial**
+Core · published · **done**
 
 **Requirement.** While a decision is Proposed, a member with edit access on its page can change its question, options, outcome, rationale, owner, decided date, review date and citations. Native human proposal editing and retained decision snapshots use the default core-wiki profile; run-derived preparation remains flagship-only under ADMIN-007 and shared company-policy prerequisites.
 
@@ -2792,8 +2792,8 @@ Core · published · **partial**
 2. Accepting the decision ends this, and `DEC-003` governs from then on.
 3. Proposed decisions are editable with revisions; unchanged resubmits write none.
 
-**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
-**Gap.** No validated CI-run proof for this acceptance point: "While a decision is Proposed, a member with edit access on its page can change its question, options, outcome, rationale, owner, decided date, review date and citations."<br>No validated CI-run proof for this acceptance point: "Each change writes a revision (`REV-001`) keeping the previous content with its actor and time, resubmitting an unchanged proposal writes no revision, and the history is readable under `REV-002`."<br>No validated CI-run proof for this acceptance point: "Accepting the decision ends this, and `DEC-003` governs from then on."
+**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.; `tests/profile/profile.worker.test.ts` (FLAG-001 — core wiki public doors retain native content while flagship routes and queued work require opt-in); `tests/qualification/ui-convergence/journeys.test.mjs` (real core-wiki and touch-member journeys at 1440px); `tests/qualification/ui-convergence/journeys.test.mjs` (real core-wiki and touch-member journeys at 390px)
+**Gap.** None.
 
 ### Full flagship and sustained inquiry
 
