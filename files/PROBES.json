@@ -1,0 +1,66 @@
+{
+  "head": "d710050f90fa1aec43e1ae3dd918a328dd43402e",
+  "provider": "Resend network-edge fake, not a live provider",
+  "points": [
+    {
+      "point": 1,
+      "door": "member preferences, page comments, watch and scheduled Worker",
+      "events": 8,
+      "digestMessages": 1,
+      "digestItems": 7,
+      "accessLostOmitted": true,
+      "bodyAbsent": true
+    },
+    {
+      "point": 2,
+      "door": "anonymous GET and one-click POST unsubscribe, then native preference readback",
+      "mode": "in-app",
+      "laterEmailSuppressed": true,
+      "inboxRetained": true,
+      "invalidCapabilityStatus": 404
+    },
+    {
+      "point": 3,
+      "door": "native block edits, owner email setting and scheduled Worker",
+      "summaries": [
+        "3 blocks changed",
+        "3 blocks changed in Rollout plan"
+      ],
+      "bodyAbsent": true,
+      "nonOwnerStatus": 403
+    },
+    {
+      "point": 4,
+      "door": "native reminder and two concurrent scheduled Workers",
+      "localTime": "09:00 Asia/Kolkata",
+      "instant": "2026-10-22T03:30:00.000Z",
+      "emails": 1,
+      "beforeDueEmails": 0,
+      "revokedPageEmails": 0
+    },
+    {
+      "point": 5,
+      "door": "native task blocks, replay, reassignment, self completion and queued reassignment",
+      "firstAssignmentEmails": 1,
+      "newAssigneeEmails": 1,
+      "previousAssigneeReassignmentEmails": 0,
+      "completionEmails": 0,
+      "queuedPreviousAssigneeEmails": 0
+    },
+    {
+      "point": 6,
+      "door": "native container watch, creation, edit sessions, page watch and comment",
+      "digestMessages": 1,
+      "lines": 4,
+      "creations": 1,
+      "editingSessions": 2,
+      "comments": 1,
+      "restrictedLines": 0
+    }
+  ],
+  "additional": [
+    "default resolves in-app only",
+    "weekly digest at Monday 09:00 Pacific/Honolulu",
+    "archive retains preferences and settings, excludes capabilities and execution state"
+  ]
+}

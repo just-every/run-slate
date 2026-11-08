@@ -1,0 +1,21 @@
+FETCH_BACKOFF attempt=3/5 seconds=45
+fleet Git: decrypted-bundle helper installed; inherited GitHub helpers reset
+fleet Git: removed 0 credential-bearing GitHub URL rewrite sections
+FETCH attempt=3/5 exit=128 HTTP=unknown (not supplied by Git)
+remote: Invalid username or token. Password authentication is not supported for Git operations.
+fatal: Authentication failed for 'https://github.com/just-every/run-slate.git/'
+
+FETCH_BACKOFF attempt=4/5 seconds=90
+fleet Git: decrypted-bundle helper installed; inherited GitHub helpers reset
+fleet Git: removed 0 credential-bearing GitHub URL rewrite sections
+FETCH attempt=4/5 exit=128 HTTP=unknown (not supplied by Git)
+remote: Invalid username or token. Password authentication is not supported for Git operations.
+fatal: Authentication failed for 'https://github.com/just-every/run-slate.git/'
+
+FETCH_BACKOFF attempt=5/5 seconds=150
+fleet Git: decrypted-bundle helper installed; inherited GitHub helpers reset
+fleet Git: removed 0 credential-bearing GitHub URL rewrite sections
+FETCH attempt=5/5 exit=0 HTTP=unknown (not supplied by Git)
+From https://github.com/just-every/run-slate
+ * branch              main       -> FETCH_HEAD
+

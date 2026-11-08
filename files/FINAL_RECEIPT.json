@@ -1,0 +1,76 @@
+{
+  "head": "d710050f90fa1aec43e1ae3dd918a328dd43402e",
+  "branch": "cloud/sd-slate-c-f220",
+  "at": "2026-11-08T20:25:36.315106+00:00",
+  "productPush": "confirmed up to date by cloud-push.py",
+  "checks": [
+    {
+      "name": "workers",
+      "command": "pnpm exec vitest run --config tests/profile/vitest.config.ts tests/profile/profile.worker.test.ts",
+      "exit": 0,
+      "logSha256": "9b36b0d2561f250dd7b843b738f96d6bfee32615a855999686cb23fecd9f4ebd"
+    },
+    {
+      "name": "typecheck",
+      "command": "pnpm typecheck",
+      "exit": 0,
+      "logSha256": "35dc7223b0f4eed5ef6b3ecc863a2804da52419b3f340c87f028ef0c9ab042db"
+    },
+    {
+      "name": "source",
+      "command": "pnpm source:check",
+      "exit": 0,
+      "logSha256": "578bc2aef80f3cf4817afa51d778124221ad1112c131aee5ab32367ea7b02e4c"
+    },
+    {
+      "name": "views",
+      "command": "node src/base/runtime/contract-docs.mjs write then check",
+      "exit": 0,
+      "logSha256": "a0dc3e5a57608862eebb5d81291a8613096d4984f76019b102a0ac55b950fe97"
+    },
+    {
+      "name": "firstParty",
+      "command": "npx -y @runeditrun/rer check --profile first-party",
+      "exit": 0,
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "workerPassed": 4,
+  "workerFailed": 0,
+  "verify": {
+    "run": 42518232129,
+    "event": "push",
+    "conclusion": "failure",
+    "classification": "generated ACCEPTANCE.md freshness only; aggregate dependency failure; other shards skipped"
+  },
+  "claim": "PARTIAL",
+  "points": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+  ],
+  "heldRemainder": [
+    "MOBILE-004 push delivery",
+    "CHAT-004 direct-message delivery"
+  ],
+  "productStatusRowsChanged": false,
+  "countsBeforeAndAfter": {
+    "done": 58,
+    "partial": 239,
+    "missing": 41
+  },
+  "registrationsBeforeAndAfter": 211,
+  "ordinaryRegistrations": 191,
+  "pr": null,
+  "mainChanged": false,
+  "publicationScan": "pending guarded Mac lander",
+  "recovery": {
+    "path": "/home/agent/rer-consolidation/work/push-rescue/sd-slate-c-f220-duplicate-complete.bundle",
+    "sha256": "0a7c53ece9b001cb5adbb9b70815e2b4d913b9011d8390def7b90b54ea413cd7",
+    "verified": true,
+    "productCandidate": false
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "head": "d710050f90fa1aec43e1ae3dd918a328dd43402e",
+  "run": 42518232129,
+  "event": "push",
+  "conclusion": "failure",
+  "classification": "expected generated-view freshness failure only",
+  "failedCommand": "node src/base/runtime/contract-docs.mjs check",
+  "failure": "ACCEPTANCE.md: generated content differs; run contract-docs write.",
+  "failedJobs": [
+    128845880308,
+    128846042597
+  ],
+  "logReads": [
+    {
+      "command": "gh run view 42518232129 --repo just-every/run-slate --job 128845880308 --log-failed",
+      "exit": 0
+    },
+    {
+      "command": "gh run view 42518232129 --repo just-every/run-slate --job 128846042597 --log-failed",
+      "exit": 0
+    }
+  ],
+  "repair": "No repair or rerun: generated views are intentionally restored from main and excluded from builder commits."
+}

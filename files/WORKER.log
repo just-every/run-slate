@@ -1,0 +1,24 @@
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mProxy environment variables detected. We'll use your proxy for fetch requests.[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mProxy environment variables detected. We'll use your proxy for fetch requests.[0m
+
+
+
+ RUN  v4.1.11 /workspace/slate-f220
+
+stderr | tests/profile/profile.worker.test.ts > FLAG-001 — core wiki public doors retain native content while flagship routes and queued work require opt-in
+Import operation failed: This page is locked. Unlock it before editing.
+
+ ✓ tests/profile/profile.worker.test.ts (4 tests) 9401ms
+   ✓ FLAG-001 — core wiki public doors retain native content while flagship routes and queued work require opt-in  5757ms
+   ✓ BLOCK-015 — a task assigned to a member without access prompts a share, notifies its assignee once, reassigns without notifying the previous assignee and records completion  1064ms
+   ✓ NOTIF-004 — page, task and date-mention reminders arrive once at local time in three time zones and not after access is revoked  1199ms
+   ✓ BLOCK-016 — a task report shows each reader only the tasks they can read and completes a task on its page  1380ms
+
+ Test Files  1 passed (1)
+      Tests  4 passed (4)
+   Start at  20:04:53
+   Duration  20.99s (transform 5.51s, setup 578ms, import 10.44s, tests 9.40s, environment 0ms)
+
+JSON report written to /tmp/slate-final-worker-results.json

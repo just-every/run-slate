@@ -1,0 +1,63 @@
+{
+  "head": "d710050f90fa1aec43e1ae3dd918a328dd43402e",
+  "branch": "cloud/sd-slate-c-f220",
+  "productPush": "success",
+  "workerTests": {
+    "passed": 4,
+    "failed": 0,
+    "file": "tests/profile/profile.worker.test.ts"
+  },
+  "browserWidths": [
+    1440,
+    390
+  ],
+  "browserBuildHead": "d710050f90fa1aec43e1ae3dd918a328dd43402e",
+  "portability": {
+    "passed": 1,
+    "tables": 197,
+    "retainedRecords": 61,
+    "attachments": 2
+  },
+  "typecheck": 0,
+  "build": 0,
+  "firstParty": 0,
+  "sourceCheck": 0,
+  "contractWrite": 0,
+  "contractCheckAfterWrite": 0,
+  "generatedViewsRestored": true,
+  "migration": "0063_notification_email.sql",
+  "migrationProof": "native D1 migration application and existing complete ZIP restore",
+  "separateMigrationLedgerCommand": "none declared by seed",
+  "registrationsBefore": 211,
+  "registrationsAfter": 211,
+  "ordinaryRegistrations": 191,
+  "contractCountsBefore": {
+    "done": 58,
+    "partial": 239,
+    "missing": 41
+  },
+  "contractCountsAfter": {
+    "done": 58,
+    "partial": 239,
+    "missing": 41
+  },
+  "statusCellsChanged": false,
+  "fullHistory": true,
+  "scan": {
+    "head": "d710050f90fa1aec43e1ae3dd918a328dd43402e",
+    "status": "guarded-lander-pending",
+    "complete": null,
+    "historyScanned": null,
+    "findings": null
+  },
+  "mainAtLastFetch": "6a6232f31641de9e5935ed1899a080aee6bb23ec",
+  "merge": "already up to date",
+  "verifyRunId": 42518232129,
+  "verifyConclusion": "expected generated-view freshness failure only",
+  "resumedWorkerTests": {
+    "head": "d710050f90fa1aec43e1ae3dd918a328dd43402e",
+    "passed": 4,
+    "failed": 0,
+    "command": "pnpm exec vitest run --config tests/profile/vitest.config.ts tests/profile/profile.worker.test.ts"
+  }
+}

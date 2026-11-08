@@ -1,0 +1,10 @@
+✔ BASE-DATA-001 PORT-001 PORT-002 PORT-003 PORT-005 — native ZIP backup, failed restore, retry and backup preserve populated D1 and original R2 bytes in a separate empty deployment (218555.414012ms)
+ℹ {"tables":197,"records":61,"attachments":2}
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 218684.687365

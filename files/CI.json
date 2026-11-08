@@ -1,0 +1,14 @@
+{
+  "conclusion": "failure",
+  "event": "push",
+  "head_sha": "d710050f90fa1aec43e1ae3dd918a328dd43402e",
+  "html_url": "https://github.com/just-every/run-slate/actions/runs/42518232129",
+  "id": 42518232129,
+  "name": "Verify Slate",
+  "status": "completed",
+  "classification": "expected generated-view freshness failure only",
+  "failingJob": 128845880308,
+  "failure": "ACCEPTANCE.md: generated content differs; run contract-docs write.",
+  "dependentAggregateJob": 128846042597,
+  "otherTestJobs": "skipped after generated-view failure; no green test shard inferred"
+}
