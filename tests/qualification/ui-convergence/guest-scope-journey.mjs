@@ -3,13 +3,27 @@ import {randomUUID} from 'node:crypto';
 import {expect,request} from '@playwright/test';
 import {inbox,newOutboxLink,signInWithOutbox} from '../../e2e/outbox-auth.mjs';
 import {accessible} from './browser-evidence.mjs';
-import {call,ok,caretAtEnd,elapsedUntil} from './two-people-support.mjs';
+import {call as nativeCall,ok as nativeOk,caretAtEnd,elapsedUntil} from './two-people-support.mjs';
 import {mkdir,writeFile} from 'node:fs/promises';
 import path from 'node:path';
 import {root} from '../../e2e/runtime-harness.mjs';
 
+// These settings callers already exercise a populated workspace. Reserve read
+// and command slots below normal operator admission rather than changing limits.
+let nextRequestAt=0;
+async function pace() {
+  const at=Math.max(Date.now(),nextRequestAt);
+  nextRequestAt=at+150;
+  const delay=at-Date.now();
+  if(delay>0)await new Promise(resolve=>setTimeout(resolve,delay));
+}
+async function call(...args) {await pace();return nativeCall(...args);}
+async function ok(...args) {await pace();return nativeOk(...args);}
+
 /** Named page and space grants admit a guest without workspace membership. */
 export async function guestScopeJourney(state,width) {
+  const readApi=state.api;
+  state={...state,api:async(...args)=>{await pace();return readApi(...args);}};
   const {page,context,origin,api}=state,key=()=>randomUUID();
   const space=(await ok(context,origin,'POST','/api/containers',{operationKey:key(),name:'Partner response guides',visibility:'private'})).value.id;
   const create=async title=>(await ok(context,origin,'POST','/api/pages',{operationKey:key(),containerId:space,title})).value.pageId;
