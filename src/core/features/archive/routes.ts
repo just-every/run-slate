@@ -1,3 +1,4 @@
+import {emptyTrash, previewEmptyTrash} from "./empty-trash";
 import { listArchive } from "./list";
 import { requireStepUp } from '../session/step-up';
 import { Hono } from 'hono';
@@ -7,5 +8,5 @@ import { archivePage, permanentDeletePage, previewPermanentDeletePage } from './
 export function createArchiveRoutes() {
     return new Hono<AppEnvironment>().get('/', async (c) => {
         return c.json(await listArchive(featureContext(c)));
-    }).get('/:id/permanent-delete-preview', async (c) => c.json(await previewPermanentDeletePage(featureContext(c), c.req.param('id')))).post('/:id', async (c) => c.json(await archivePage(featureContext(c), c.req.param('id'), await c.req.json()))).post('/:id/permanent-delete', async (c) => { const input = await c.req.json(); await requireStepUp(c, 'delete'); return c.json(await permanentDeletePage(featureContext(c), c.req.param('id'), input)); });
+    }).get('/empty-trash-preview', async c => c.json(await previewEmptyTrash(featureContext(c)))).post('/empty-trash', async c => { const input=await c.req.json(); await requireStepUp(c,'delete'); return c.json(await emptyTrash(featureContext(c),input)); }).get('/:id/permanent-delete-preview', async (c) => c.json(await previewPermanentDeletePage(featureContext(c), c.req.param('id')))).post('/:id', async (c) => c.json(await archivePage(featureContext(c), c.req.param('id'), await c.req.json()))).post('/:id/permanent-delete', async (c) => { const input = await c.req.json(); await requireStepUp(c, 'delete'); return c.json(await permanentDeletePage(featureContext(c), c.req.param('id'), input)); });
 }

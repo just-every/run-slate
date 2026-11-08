@@ -19,7 +19,7 @@ interface Archived {
 export function WorkspaceArchive({containerId,embedded}:{containerId?:string;embedded?:boolean}={}) {
   const resource = useResource<{ items: Archived[] }>("/api/archive");
   const [tab, setTab] = useState(containerId?"trash":"archive");
-  const [selected, setSelected] = useState<Archived>();
+  const [selected, setSelected] = useState<Archived | "empty">();
   const [error, setError] = useState<unknown>();
   async function restore(item: Archived) {
     try {
@@ -49,6 +49,9 @@ export function WorkspaceArchive({containerId,embedded}:{containerId?:string;emb
           error={resource.error}
           retry={resource.reload}
         >
+          {tab === "trash" && !containerId && resource.data?.items.some(item=>item.trashedAt && item.permissions.canDelete) ? (
+            <button className="secondary-button" type="button" onClick={()=>setSelected("empty")}>Empty trash</button>
+          ) : null}
           <ul className="archive-list">
             {resource.data?.items
               .filter((item) =>
@@ -80,7 +83,7 @@ export function WorkspaceArchive({containerId,embedded}:{containerId?:string;emb
         {error ? <p role="alert">{errorMessage(error)}</p> : null}
         {selected ? (
           <PermanentDeleteDialog
-            key={selected.id}
+            key={selected === "empty" ? "empty" : selected.id}
             item={selected}
             onClose={() => setSelected(undefined)}
             onDeleted={resource.reload}
@@ -100,19 +103,22 @@ export function WorkspaceArchive({containerId,embedded}:{containerId?:string;emb
   );
 }
 
-function PermanentDeleteDialog({item,onClose,onDeleted}:{item:Archived;onClose:()=>void;onDeleted:()=>void}) {
-  const preview=useResource<{items:{id:string;title:string}[]}>(`/api/archive/${item.id}/permanent-delete-preview`);
+function PermanentDeleteDialog({item,onClose,onDeleted}:{item:Archived | "empty";onClose:()=>void;onDeleted:()=>void}) {
+  const empty=item==="empty";
+  const title=empty?"Empty trash":item.title;
+  const endpoint=empty?"/api/archive/empty-trash":`/api/archive/${item.id}/permanent-delete`;
+  const preview=useResource<{items:{id:string;title:string}[]}>(empty?"/api/archive/empty-trash-preview":`/api/archive/${item.id}/permanent-delete-preview`);
   return <ActionDialog
-    title={`Permanently delete ${item.title}?`}
-    action="Delete permanently"
+    title={empty?"Empty trash?":`Permanently delete ${title}?`}
+    action={empty?"Empty trash":"Delete permanently"}
     onClose={onClose}
-    submitDisabled={preview.loading || !preview.data || !!preview.error}
+    submitDisabled={preview.loading || !preview.data?.items.length || !!preview.error}
     onSubmit={async data=>{
-      if(data.get("confirm")!==item.title)throw new Error("Type the exact page title to confirm.");
+      if(data.get("confirm")!==title)throw new Error("Type the exact confirmation text.");
       const confirmedPageIds=data.getAll("pageId").map(String);
       if(!preview.data || confirmedPageIds.length!==preview.data.items.length)throw new Error("Confirm every page to be destroyed.");
       try {
-        await mutate(`/api/archive/${item.id}/permanent-delete`,{operationKey:operationKey(),confirmedPageIds});
+        await mutate(endpoint,{operationKey:operationKey(),confirmedPageIds});
         onDeleted();
       } catch(cause) {
         if(cause instanceof ApiError && cause.code==="CONFIRM_CASCADE")preview.reload();
@@ -120,7 +126,7 @@ function PermanentDeleteDialog({item,onClose,onDeleted}:{item:Archived;onClose:(
       }
     }}
   >
-    <p>This permanently removes the named pages, every revision, uploaded files and comments. For imported content, it also removes the retained source archive and import recovery history. Other native pages remain, but that import can no longer be retried or undone.</p>
+    <p>{empty?"Only the named trashed subtrees you can fully administer will be removed. Other content stays untouched. ":""}This permanently removes the named pages, every revision, uploaded files and comments. For imported content, it also removes the retained source archive and import recovery history. Other native pages remain, but that import can no longer be retried or undone.</p>
     <RequestState loading={preview.loading} error={preview.error} retry={preview.reload}>
       <p>Confirm every page to be destroyed:</p>
       {preview.data?.items.map(page=><label key={page.id}>
@@ -128,6 +134,6 @@ function PermanentDeleteDialog({item,onClose,onDeleted}:{item:Archived;onClose:(
         {page.title}
       </label>)}
     </RequestState>
-    <label>Type the page title<input name="confirm" required autoComplete="off" /></label>
+    <label>{empty?'Type "Empty trash"':"Type the page title"}<input name="confirm" required autoComplete="off" /></label>
   </ActionDialog>;
 }

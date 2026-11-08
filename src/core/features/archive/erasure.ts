@@ -15,6 +15,7 @@ export async function prepareErasePages(ctx: FeatureContext, pageIds: string[]) 
     const statements: D1PreparedStatement[] = [...await detachSyncedSources(ctx,pageIds),...webhookPageErasure(ctx,pageIds),...await prepareEraseImportMetadata(ctx,pageIds),...await prepareErasePageDerivatives(ctx,pageIds),...(pageIds.length ? prepareInvalidateExports(ctx, pageIds) : []),...await prepareDeleteStructuredPages(ctx, pageIds), ...prepareEraseLegacy(ctx,pageIds),...await prepareEraseIntelligence(ctx, pageIds)];
     for (const pageId of pageIds) {
         statements.push(...erasePageReviews(ctx,pageId));
+        statements.push(ctx.db.prepare('DELETE FROM page_views WHERE page_id=?').bind(pageId));
         statements.push(ctx.db.prepare('DELETE FROM content_archive_locations WHERE page_id=?').bind(pageId),ctx.db.prepare('DELETE FROM content_schedules WHERE page_id=?').bind(pageId),ctx.db.prepare('DELETE FROM content_presence WHERE page_id=?').bind(pageId),ctx.db.prepare('DELETE FROM discovery_snapshots WHERE workspace_id=?').bind(ctx.actor.workspaceId));
         statements.push(...discoveryPurgePageStatements(ctx, pageId),ctx.db.prepare('DELETE FROM federation_import_mappings WHERE target_id=?').bind(pageId),ctx.db.prepare('DELETE FROM import_mappings WHERE target_id=?').bind(pageId));
         statements.push(ctx.db.prepare('DELETE FROM content_legacy_reactions WHERE page_id=? OR comment_id IN (SELECT c.id FROM comments c JOIN comment_threads t ON t.id=c.thread_id WHERE t.page_id=?)').bind(pageId,pageId));

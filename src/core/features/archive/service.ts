@@ -6,7 +6,7 @@ import { preparePurgePageStatements } from '../ai/erasure';
 import { prepareDeleteStructuredPages } from '../databases/content-plan';
 import { discoveryPurgePageStatements } from '../notifications/purge';
 import type { FeatureContext } from '../../app/feature-context';
-import { commitOperation } from '../../app/operations';
+import { commitOperation, mutationGuard } from '../../app/operations';
 import { ApiProblem } from '../../app/problems';
 import { createUlid } from '../../shared/ulid';
 import { requirePageLevel } from '../sharing/current-access';
@@ -94,7 +94,7 @@ export async function permanentDeletePage(ctx: FeatureContext, id: string, input
         }, prepare: async ({ revisionId }) => {
             const pages = await descendants(ctx, id);
             const expected = pages.map(p => p.id).sort();
-            if (JSON.stringify([...input.confirmedPageIds].sort()) !== JSON.stringify(expected))
+            if (!Array.isArray(input.confirmedPageIds) || input.confirmedPageIds.some(id=>typeof id!=='string') || JSON.stringify([...input.confirmedPageIds].sort()) !== JSON.stringify(expected))
                 throw new ApiProblem(409, 'CONFIRM_CASCADE', 'Confirm every page to be destroyed.', { pageIds: expected });
             const statements: D1PreparedStatement[] = [];
             for (const p of pages) {
@@ -102,6 +102,10 @@ export async function permanentDeletePage(ctx: FeatureContext, id: string, input
                 if (!p.trashed_at)
                     throw new ApiProblem(409, 'NOT_TRASHED', 'Only trash can be permanently deleted.');
             }
+            statements.push(await treeTopologyGuard(ctx,id));
+            for(const p of pages)statements.push(mutationGuard(ctx.db,
+                'SELECT deleted_at IS NULL AND trashed_at IS NOT NULL AND revision_id=? FROM pages WHERE id=? AND workspace_id=?',
+                [p.revision_id,p.id,ctx.actor.workspaceId]));
             statements.push(...await prepareErasePages(ctx, expected));
             return { statements, entity: { id, kind: 'page', revisionId }, value: { deletedPageIds: expected } };
         } });

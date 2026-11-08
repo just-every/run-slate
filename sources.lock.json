@@ -5795,6 +5795,10 @@
       "sha256": "4fbfd0b35227053b1767a54dbdf5a25b0cc765a33b85d77a01f017d324877d01",
       "executable": false
     },
+    "src/core/features/archive/empty-trash.ts": {
+      "sha256": "2cca5da25ec3b10bd59e1f6881a69d75f589cc217d1b697c4dd97ae2e96e55e2",
+      "executable": false
+    },
     "src/core/features/archive/erasure-cleanup.ts": {
       "sha256": "67bd2a7c7b270833d275fddca151281936282ca7b7cebc48d7f1908c037f3599",
       "executable": false
@@ -5836,19 +5840,19 @@
       "executable": false
     },
     "src/core/features/archive/erasure.ts": {
-      "sha256": "edd8b960841d5f7d00ed5b6c2ad9ea698ad26e77dd8cd30e9edffcf26e873298",
+      "sha256": "fec552fc0bbf5614b4f88f5967e4132fb4dbec5ff1da9585ae51345db821626b",
       "executable": false
     },
     "src/core/features/archive/list.ts": {
-      "sha256": "ca0e5d397915f0613ab06253e6b69d49e130eb16098ea85c33fb2a728ca3bf80",
+      "sha256": "47cbc5d1aa304f811f157a09f92796cf08771563383672804ce9a7b68e58ce8f",
       "executable": false
     },
     "src/core/features/archive/routes.ts": {
-      "sha256": "f937bfadc61cd03fe389ee0b8c321353db6aa04ecae1d5fc25accc773263adcc",
+      "sha256": "f51bfc878ef93578eacbc004683f12a2904f0ea14fb04f8017740bedfee28640",
       "executable": false
     },
     "src/core/features/archive/service.ts": {
-      "sha256": "b85da8f3a146b880d104aeea5ec708c03a260cd2aa9bd467beb17163e69446a0",
+      "sha256": "c1d6e8c794e7602bb9217be7ea4ad023c15e1cc7415212fbd2fff005de2ab12e",
       "executable": false
     },
     "src/core/features/archive/ui/types.ts": {
@@ -5856,7 +5860,7 @@
       "executable": false
     },
     "src/core/features/archive/ui/WorkspaceArchive.tsx": {
-      "sha256": "7389ecfcb1b58f3a8a1d9360033da1a3aea2f2a90861e3da33bad350d9443206",
+      "sha256": "72c5be50fd123a266dd695b2b8155c0944bdff7866373961317b576146c1ccec",
       "executable": false
     },
     "src/core/features/automation/actions.ts": {
