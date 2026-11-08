@@ -1,3 +1,4 @@
+import {automationJourney} from './automation-journey';
 import {decisionLogJourney} from './decision-log-journey';
 import {pageLockJourney} from './page-lock-journey';
 import {bodyBlocksJourney} from './body-blocks-journey';
@@ -87,6 +88,10 @@ it("FLAG-001 — core wiki public doors retain native content while flagship rou
     { name: 'DEC-004 — populated native decision log filters exact memberships and retains accepted revisions under current access', run: async () => {
       const {workspaceId,memberId,cookie} = await workspace();
       await decisionLogJourney(createApi(),workspaceId,memberId,cookie);
+    } },
+    { name: 'AUTO-001 — native rules execute committed page and record events and scheduled related actions in the default profile', run: async () => {
+      const {workspaceId,containerId,cookie} = await workspace();
+      await automationJourney(createApi(),containerId,workspaceId,cookie);
     } },
     { name: 'FLAG-001 — old queued flagship work records failure and retries without dispatch or acknowledgement', run: async () => {
   for(const kind of ['intelligence.run','intelligence.finalize','federation.refresh']) {

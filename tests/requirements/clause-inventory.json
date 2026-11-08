@@ -1208,11 +1208,15 @@
       "id": "AUTO-001",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of AUTO-001 — A rule. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Native automationJourney in the existing default-profile FLAG-001 case list and the retained automation-repairs registration saves rules as an ordinary member, fires all seven triggers through committed content and scheduled processing, checks every canonical action including the configured inbox adapter, stored condition and action order, related-record event and schedule fan-out, saving actor and unmet-condition refusal. automationRuleJourney is called by the existing responsive automationRunLogJourney callers to create and reopen the native RuleForm and inspect its committed result. Exact candidate Verify and guarded landing remain separate; CONTRACT.md owns the judgment. AUTO-002, AUTO-004, AUTO-005 and held AUTO-008 are not promoted.",
       "supportingTests": [
         {
           "file": "tests/flagship/structured/automation-repairs.test.ts",
           "testName": "automation admission, resumed effects and schedules preserve current scope and exactly-once recovery"
+        },
+        {
+          "file": "tests/profile/profile.worker.test.ts",
+          "testName": "FLAG-001 — core wiki public doors retain native content while flagship routes and queued work require opt-in"
         }
       ]
     },

@@ -1,3 +1,6 @@
+import {automationJourney} from '../../profile/automation-journey';
+import {createApi} from '../../../src/core/app/hono';
+import {sessionFor} from '../../e2e/setup/fixtures';
 import { automationRunLogCase } from "./automation-run-log.case";
 import {runFoldCases} from '../fold-cases';
 import {resetDeployment as resetFoldDeployment} from '../../e2e/setup/reset-deployment';
@@ -132,7 +135,9 @@ try {
 {name:"AUTO-001 source schedules target current records for edit, comment and archive with typed date conditions",before:async()=>{await resetFoldDeployment();},run:async()=>{
 try {
 
- const {ctx,containerId}=await setup();const db=await databaseWith(ctx,containerId,"schedule-target",[field("n","number"),field("date","date")]);
+ const {ctx,containerId}=await setup();
+ await automationJourney(createApi(),containerId,ctx.actor.workspaceId,await sessionFor(ctx.actor.id));
+ const db=await databaseWith(ctx,containerId,"schedule-target",[field("n","number"),field("date","date")]);
  const record=await createRecord(ctx,db.id,{operationKey:"schedule-target-record",title:"Target",values:{n:1,date:"2026-09-27T00:30:00+10:00"}});
  await saveRule(ctx,{operationKey:"schedule-target-rule",name:"Daily",scope:"source",sourceDatabaseId:db.id,trigger:{event:"schedule",startsAt:ctx.now,intervalMinutes:60},conditions:[{field:"date",op:"lt",value:"2026-09-26T15:00:00Z"}],actions:[{type:"edit-fields",values:{n:2}},{type:"comment",body:"Scheduled comment"},{type:"archive"}]});
  await runAutomationSchedule(ctx,adapters);

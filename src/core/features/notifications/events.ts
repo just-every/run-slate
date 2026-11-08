@@ -17,7 +17,8 @@ export function notificationStatements(ctx:FeatureContext,event:NotificationFact
  const watched=(watchedEvents as readonly string[]).includes(event.event);
  if(!watched&&!event.recipientIds?.length)return [];
  const governed=!!(event.detail?.reviewRequestId||event.detail?.runId||event.detail?.decisionId||event.detail?.inquiryId||event.detail?.experimentId);
- const extra=ctx.localDevelopment&&event.event==='maintenance'&&!governed
+ // Native rule notices use current page access; agent notices retain their governed audience.
+ const extra=event.event==='maintenance'&&!governed
   ? {sql:'1',values:[]}
   : creationResolvers.get(event.event)?.('m',event)??{sql:governed?'0':'1',values:[]};
  const pageRead=pageReadableSql('m','f.page','f.workspace','f.at',event.event==='page-trashed');
