@@ -148,7 +148,7 @@ for (const width of [390]) {
       await state.switchIdentity('owner');
       await settingsJourney(state,width);
       await workspaceAuthorityJourney(state,width);
-    }, {RER_DEMO:'0'});
+    }, {RER_DEMO:'0'}, {scheduled:true});
   });
 }
 
@@ -433,7 +433,7 @@ for (const width of [1440]) {
       await outlineJourney(state);
       await settingsJourney(state,width);
       await workspaceAuthorityJourney(state,width);
-    }, {RER_DEMO:'0'});
+    }, {RER_DEMO:'0'}, {scheduled:true});
   });
 }
 
