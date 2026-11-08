@@ -11464,7 +11464,7 @@
       "executable": false
     },
     "tests/profile/automation-journey.ts": {
-      "sha256": "42b4807e8b5f4e6197a0dc5687cf7aecbac11e5689c5160450962634e179f0fe",
+      "sha256": "34584a30661942fa96d3eedb81da8b79b9ad5b89257dd4d7dd94712eda2cfabc",
       "executable": false
     },
     "tests/profile/body-blocks-journey.ts": {
@@ -11904,7 +11904,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/automation-rule-journey.mjs": {
-      "sha256": "9c83176b1a7dfeb945681e2c95269ced7589ec021190215c71e820cb976205b1",
+      "sha256": "4632df6d685fb0e2aafe83a08d28410d374f3a3b32b77a5140a8b862a9a5de86",
       "executable": false
     },
     "tests/qualification/ui-convergence/automation-run-log-journey.mjs": {

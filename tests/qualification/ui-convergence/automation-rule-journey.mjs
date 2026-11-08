@@ -22,7 +22,7 @@ export async function automationRuleJourney(state,touch) {
   await open();await tap(page.getByRole('button',{name:'New automation',exact:true}));
   const dialog=page.getByRole('dialog',{name:'Create automation',exact:true});
   await dialog.getByLabel('Name',{exact:true}).fill('Member intake sequence');
-  await dialog.getByLabel('When',{exact:true}).selectOption('record-created');
+  await dialog.getByRole('combobox',{name:/^When/}).selectOption('record-created');
   for(const [index,field,op,value] of [[0,'form-stage','eq','Ready'],[1,'form-score','gte','2']]) {
     await tap(dialog.getByRole('button',{name:'Add condition',exact:true}));
     const row=dialog.locator('.filter-builder > fieldset').nth(index);
@@ -49,7 +49,7 @@ export async function automationRuleJourney(state,touch) {
   await open();await tap(card().getByRole('button',{name:'Edit',exact:true}));
   const edit=page.getByRole('dialog',{name:'Edit automation',exact:true});
   await expect(edit.getByLabel('Name',{exact:true})).toHaveValue('Member intake sequence');
-  await expect(edit.getByLabel('When',{exact:true})).toHaveValue('record-created');
+  await expect(edit.getByRole('combobox',{name:/^When/})).toHaveValue('record-created');
   await expect(edit.locator('.filter-builder > fieldset').nth(0).getByLabel('Value',{exact:true})).toHaveValue('Ready');
   await expect(edit.locator('.filter-builder > fieldset').nth(1).getByLabel('Value',{exact:true})).toHaveValue('2');
   const rule=(await api('/api/automation')).items.find(item=>item.id===ruleId);
