@@ -9,7 +9,7 @@ export async function databaseViewJourney(api: ReturnType<typeof createApi>, wor
   const member = await seedMember(workspaceId, { role: 'member', displayName: 'View editor', email: ['synthetic-slate-218', 'test.invalid'].join('@') });
   const memberCookie = await sessionFor(member.memberId);
   async function call(path: string, method = 'GET', body?: unknown, cookie = ownerCookie) {
-    return api.request('https://slate.example' + path, { method, headers: { cookie, ...(body ? { 'content-type': 'application/json' } : {}) }, ...(body ? { body: JSON.stringify(body) } : {}) }, env);
+    return api.request('https://slate.test' + path, { method, headers: { cookie, origin: 'https://slate.test', ...(body ? { 'content-type': 'application/json' } : {}) }, ...(body ? { body: JSON.stringify(body) } : {}) }, env);
   }
   async function ok(path: string, method = 'GET', body?: unknown, cookie = ownerCookie): Promise<any> {
     const response = await call(path, method, body, cookie);
@@ -88,5 +88,16 @@ export async function databaseViewJourney(api: ReturnType<typeof createApi>, wor
   await grant(source.database.page_id, ownerId, 'full');
   await ok(`/api/sharing/pages/${source.database.page_id}/inheritance`, 'PUT', { operationKey: key(), expectedRevisionId: (await ok(`/api/pages/${source.database.page_id}`)).page.revisionId, restricted: true });
   expect((await call(endpoint, 'POST', { pageId }, memberCookie)).status).toBe(404);
+  const unavailableExport = await call('/api/exports/readable', 'POST', { scope: 'page', id: pageId, format: 'html' }, memberCookie);
+  expect(unavailableExport.status).toBe(200);
+  const unavailableFiles = unzipSync(new Uint8Array(await unavailableExport.arrayBuffer()));
+  const unavailableText = strFromU8(unavailableFiles[`pages/${pageId}.html`]!);
+  expect(unavailableText).toContain('Database view unavailable');
+  expect(unavailableText).not.toContain('Source inventory');
+  expect(unavailableText).not.toContain(view.name);
+  expect((await ok(`/api/pages/${pageId}`)).blocks).toEqual(before.blocks);
+  expect((await call('/api/auth/logout', 'POST', undefined, memberCookie)).status).toBe(204);
+  expect((await call(endpoint, 'POST', { pageId }, memberCookie)).status).toBe(401);
+  expect((await call(`/api/pages/${pageId}/blocks`, 'PUT', save, memberCookie)).status).toBe(401);
   expect((await ok(`/api/pages/${pageId}`)).blocks).toEqual(before.blocks);
 }
