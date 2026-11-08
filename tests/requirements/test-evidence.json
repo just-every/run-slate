@@ -1059,6 +1059,33 @@
         "ACT-002"
       ],
       "reason": "Exercises the SCIM HTTP protocol through native invitation, Member identity, group and removal services, including credential custody and current authority. Real directory-provider acceptance and native invitation capacity outside SCIM remain unproven."
+    },
+    {
+      "file": "tests/profile/profile.worker.test.ts",
+      "testName": "FLAG-001 — core wiki public doors retain native content while flagship routes and queued work require opt-in",
+      "kind": "supporting-regression",
+      "clauses": [
+        "NOTIF-005"
+      ],
+      "reason": "Default-profile native notification email proof through member preference, owner settings, page, comment, watch, reminder and task HTTP doors, the scheduled Worker and a Resend network-edge fake. NOTIF-005 acceptance 1, 2, 3, 6. Push, chat direct messages, workspace defaults and held downstream email duties remain unclaimed."
+    },
+    {
+      "file": "tests/profile/profile.worker.test.ts",
+      "testName": "NOTIF-004 — page, task and date-mention reminders arrive once at local time in three time zones and not after access is revoked",
+      "kind": "supporting-regression",
+      "clauses": [
+        "NOTIF-005"
+      ],
+      "reason": "Default-profile native notification email proof through member preference, owner settings, page, comment, watch, reminder and task HTTP doors, the scheduled Worker and a Resend network-edge fake. NOTIF-005 acceptance 4. Push, chat direct messages, workspace defaults and held downstream email duties remain unclaimed."
+    },
+    {
+      "file": "tests/profile/profile.worker.test.ts",
+      "testName": "BLOCK-015 — a task assigned to a member without access prompts a share, notifies its assignee once, reassigns without notifying the previous assignee and records completion",
+      "kind": "supporting-regression",
+      "clauses": [
+        "NOTIF-005"
+      ],
+      "reason": "Default-profile native notification email proof through member preference, owner settings, page, comment, watch, reminder and task HTTP doors, the scheduled Worker and a Resend network-edge fake. NOTIF-005 acceptance 5. Push, chat direct messages, workspace defaults and held downstream email duties remain unclaimed."
     }
   ]
 }

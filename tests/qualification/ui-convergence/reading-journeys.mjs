@@ -1,3 +1,4 @@
+import {notificationPreferencesJourney} from './notification-preferences-journey.mjs';
 import {importReviewJourney} from './import-review-journey.mjs';
 import {statusVocabularyJourney} from './status-vocabulary-journey.mjs';
 import { shortcutReferenceJourney } from './shortcut-reference-journey.mjs';
@@ -67,6 +68,7 @@ export async function searchJourney(state, pageId) {
 }
 
 export async function settingsJourney(state, width) {
+  await notificationPreferencesJourney(state,width);
   await shortcutReferenceJourney(state);
   const {page,origin}=state;
   await page.goto(origin + '/app/settings', { waitUntil: 'networkidle' });

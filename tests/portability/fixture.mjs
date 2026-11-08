@@ -11,6 +11,10 @@ export function populatedFixture(owner){
   statements.push(`UPDATE status_entries SET label='Accepted review Ω',color='#334455' WHERE workspace_id=${quote(workspace)} AND key='verified';`);
   const add=(table,row)=>statements.push(insert(table,row));
   for(const [id,kind,name]of [['archive-member','member','Research member'],['archive-guest','guest','Scoped guest']])add('members',{id,workspace_id:workspace,email:`${id}@example.invalid`,display_name:name,initials:kind==='guest'?'SG':'RM',role:'member',member_kind:kind,status:'active',theme:'dark',created_at:now,updated_at:now});
+  add('notification_delivery_preferences',{member_id:owner.id,workspace_id:workspace,event:'mention',mode:'weekly',revision_id:'synthetic-slate-1',updated_at:now});
+  add('notification_delivery_preferences',{member_id:'archive-member',workspace_id:workspace,event:'comment',mode:'in-app',revision_id:'synthetic-slate-2',updated_at:now});
+  add('notification_email_settings',{workspace_id:workspace,section_names:1});
+  add('notification_unsubscribe_tokens',{token_hash:'0'.repeat(64),member_id:owner.id,workspace_id:workspace,events_json:JSON.stringify(['mention']),created_at:now});
   add('groups',{id:'archive-group',workspace_id:workspace,name:'Researchers',created_at:now,updated_at:now,revision_id:'group-revision'});
   add('group_members',{group_id:'archive-group',member_id:'archive-member',created_at:now});
   for(const [id,key,name]of [['archive-container','DOCS','Documentation'],['archive-private','PRIVATE','Private notes']]){

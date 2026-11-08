@@ -15,7 +15,8 @@ export async function emailIntent(ctx:FeatureContext,row:OutboxRow,memberId:stri
  if(!preference||preference.mode==='default'||preference.mode==='in-app'||preference.updated_at>row.created_at)return [];
  const stored=await ctx.db.prepare('SELECT value_json FROM discovery_preferences WHERE member_id=?').bind(memberId).first<{value_json:string}>();
  const timezone=stored?JSON.parse(stored.value_json).timezone??'UTC':'UTC';
- const period=digestPeriod(row.created_at,preference.mode,timezone,row.event);
+ const period=digestPeriod(ctx.now>row.created_at?ctx.now:row.created_at,preference.mode,timezone,row.event);
+ if(preference.mode==='immediate'&&row.event==='page-edited')period.dueAt=new Date(Date.parse(period.dueAt)+5*60000).toISOString();
  return [ctx.db.prepare('INSERT OR IGNORE INTO notification_email_items(notification_id,member_id,mode,preference_revision,due_at,bucket) SELECT ?,?,?,?,?,? WHERE EXISTS(SELECT 1 FROM notification_delivery_preferences WHERE member_id=? AND event=? AND revision_id=? AND mode=?)').bind(`${row.id}:${memberId}`,memberId,preference.mode,preference.revision_id,period.dueAt,period.bucket,memberId,row.event,preference.revision_id,preference.mode)];
 }
 interface EmailItem extends NotificationRow {notification_id:string;outbox_id:string;mode:'immediate'|'daily'|'weekly';bucket:string;preference_revision:string}
@@ -33,11 +34,15 @@ async function emailLine(ctx:FeatureContext,item:EmailItem,sectionNames:boolean,
  return `${clean(item.event.replaceAll('-',' '))} · ${clean(actor?.display_name??'Slate')} · ${clean(view.title??'Workspace')}${summary?` · ${clean(summary)}`:''} · ${new URL(view.href,origin).href}`;
 }
 export async function deliverNotificationEmail(ctx:FeatureContext,config:RuntimeConfig){
- if(!config.mailProvider||!config.mailFrom)return {sent:0};
+ if(!config.mailProvider||!config.mailFrom||!config.appUrl)return {sent:0};
  const rows=await ctx.db.prepare("SELECT DISTINCT i.member_id FROM notification_email_items i JOIN members m ON m.id=i.member_id WHERE m.workspace_id=? AND i.state='pending' AND i.due_at<=? ORDER BY i.member_id LIMIT 100").bind(ctx.actor.workspaceId,ctx.now).all<{member_id:string}>();let sent=0;
  for(const member of rows.results){
   const recipient=await recipientContext(ctx,member.member_id);
   if(!recipient){await ctx.db.prepare("UPDATE notification_email_items SET state='cancelled' WHERE member_id=? AND state='pending'").bind(member.member_id).run();continue;}
+  // An immediate watched edit is one message for the completed editing session.
+  // A later save extends its idle window without creating another email intent.
+  await ctx.db.prepare(`UPDATE notification_email_items SET due_at=(SELECT strftime('%Y-%m-%dT%H:%M:%fZ',s.last_edit_at,'+5 minutes') FROM notifications n JOIN notification_outbox o ON o.id=n.outbox_id JOIN watch_edit_sessions s ON o.id='watch-edit:'||s.session_id WHERE n.id=notification_email_items.notification_id)
+   WHERE member_id=? AND state='pending' AND mode='immediate' AND notification_id IN (SELECT n.id FROM notifications n JOIN notification_outbox o ON o.id=n.outbox_id JOIN watch_edit_sessions s ON o.id='watch-edit:'||s.session_id WHERE n.event='page-edited' AND strftime('%Y-%m-%dT%H:%M:%fZ',s.last_edit_at,'+5 minutes')>?)`).bind(member.member_id,ctx.now).run();
   const pending=(await ctx.db.prepare("SELECT n.*,i.notification_id,i.mode,i.bucket,i.preference_revision FROM notification_email_items i JOIN notifications n ON n.id=i.notification_id WHERE i.member_id=? AND i.state='pending' AND i.due_at<=? ORDER BY n.created_at,n.id").bind(member.member_id,ctx.now).all<EmailItem>()).results;
   const groups=new Map<string,EmailItem[]>();
   for(const item of pending){const key=item.mode==='immediate'?`notification:${item.notification_id}`:`digest:${member.member_id}:${item.mode}:${item.bucket}`;const group=groups.get(key)??[];group.push(item);groups.set(key,group);}

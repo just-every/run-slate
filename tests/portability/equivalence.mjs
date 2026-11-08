@@ -67,6 +67,6 @@ export function equivalent(before,after,ownerEmail,newExportId,bootstrapAuditRow
       if(table==='core_entity_revisions'){assert.equal(added.author_member_id,owner.id);assert.equal(added.entity_id,newExportId);assert.equal(added.entity_kind,'export');assert.deepEqual(JSON.parse(added.content_json),{state:'queued'});assert.equal(added.id,b.tables.federation_exports.find(row=>row.id===newExportId).revision_id);}
     }else assert.equal(actual.length,0,`No unaccounted-for changes in ${table}.`);
   }
-  for(const forbidden of ['sessions','magic_links','invitations','operation_receipts','rer_mail_development_outbox'])assert.equal(b.tables[forbidden],undefined,`${forbidden} never enters portable data.`);
+  for(const forbidden of ['notification_unsubscribe_tokens','notification_email_items','notification_email_deliveries','notification_change_blocks','sessions','magic_links','invitations','operation_receipts','rer_mail_development_outbox'])assert.equal(b.tables[forbidden],undefined,`${forbidden} never enters portable data.`);
   return {tables:Object.keys(a.tables).length,records:compared,attachments:b.blobs.length};
 }
