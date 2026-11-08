@@ -8,10 +8,10 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 58 | 239 | 35 | 332 |
+| Core | 59 | 238 | 35 | 332 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 58 | 239 | 41 | 338 |
+| Full target | 59 | 238 | 41 | 338 |
 
 Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e6612` (29 October 2026); SEARCH-001 native source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. DB-012 record-detail proof reviewed from source `63a0e8f` (31 October 2026); its exact candidate and Verify are named by the branch handoff. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
@@ -1664,7 +1664,7 @@ Core · published · **partial**
 
 #### DB-011 — A view inside a page
 
-Core · published · **partial**
+Core · published · **done**
 
 **Requirement.** A view can be embedded in a page body and stays live: it shows each reader only the records that reader may read, reflects a change to the source within 5 seconds, and carries its own filters and sorts without changing the source view.
 
@@ -1674,8 +1674,8 @@ Native embeds save the database, saved-view reference and block-owned criteria o
 1. A view can be embedded in a page body and stays live: it shows each reader only the records that reader may read, reflects a change to the source within 5 seconds, and carries its own filters and sorts without changing the source view.
 2. An embedded view shows only readable records, reflects changes within 5 seconds and keeps its own filters.
 
-**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
-**Gap.** No validated CI-run proof for this acceptance point: "A view can be embedded in a page body and stays live: it shows each reader only the records that reader may read, reflects a change to the source within 5 seconds, and carries its own filters and sorts without changing the source view."
+**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.; `tests/qualification/ui-convergence/database-view-embed-journey.mjs` (databaseViewEmbedJourney); `tests/profile/database-view-journey.ts` (databaseViewJourney)
+**Gap.** None.
 
 #### DB-012 — Record detail
 
