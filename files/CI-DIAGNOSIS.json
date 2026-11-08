@@ -30,7 +30,11 @@
     "head": "f733fff9bb25546df80ade82c7b492e5532b005f"
   },
   "mainComparison": {
-    "status": "running",
+    "exit": 0,
+    "journeys": 0,
+    "workerSuite": 0,
+    "matchedOriginalFailure": false,
     "head": "67b706484e5430012d9c154c1e14090ea1e49bc2"
-  }
+  },
+  "disposition": "BLOCKED: original CI assertion did not reproduce; no speculative source edit or unqualified rerun."
 }

@@ -55,5 +55,12 @@
     "lockCheck": "pnpm source:check",
     "lockExit": 0,
     "trackedDiffAfterRegeneration": false
+  },
+  "postReproductionIntegrity": {
+    "command": "pnpm source:check",
+    "exit": 0,
+    "log": "FINAL-INTEGRITY.log",
+    "head": "f733fff9bb25546df80ade82c7b492e5532b005f",
+    "workingTreeClean": true
   }
 }
