@@ -23,7 +23,7 @@ async function workspace() {
   await seedContainerGrant(containerId, {principalKind:'member',principalId:memberId,level:'full'});
   return {containerId,memberId,workspaceId, cookie:await sessionFor(memberId)};
 }
-it("FLAG-001 — core wiki public doors retain native content while flagship routes and queued work require opt-in", async () => {
+it("FLAG-001 — core wiki public doors retain native content while flagship routes and queued work require opt-in", async ({task}) => {
   // Each row retains its original fixture and every assertion.
   const cases = [
     { name: 'FLAG-001 — default API refuses flagship entry points after native authentication; explicit opt-in retains routes', run: async () => {
@@ -91,7 +91,7 @@ it("FLAG-001 — core wiki public doors retain native content while flagship rou
     } },
     { name: 'AUTO-001 — native rules execute committed page and record events and scheduled related actions in the default profile', run: async () => {
       const {workspaceId,containerId,cookie} = await workspace();
-      await automationJourney(createApi(),containerId,workspaceId,cookie);
+      Object.assign(task.meta,{automationReceipt:await automationJourney(createApi(),containerId,workspaceId,cookie)});
     } },
     { name: 'FLAG-001 — old queued flagship work records failure and retries without dispatch or acknowledgement', run: async () => {
   for(const kind of ['intelligence.run','intelligence.finalize','federation.refresh']) {
