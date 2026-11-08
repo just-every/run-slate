@@ -112,6 +112,8 @@ export async function automationJourney(api:ReturnType<typeof createApi>,contain
   await drain();
   const publishedRun=await success(publishedId,'published',created);
   expect((await page(created)).page.lifecycle).toBe('archived');
+  const archived=await env.DB.prepare('SELECT action,actor_member_id,reason,prior_parent_id FROM content_archive_locations WHERE page_id=?').bind(created).first();
+  expect(archived).toEqual({action:'archive',actor_member_id:editor.memberId,reason:'Published procedure retained',prior_parent_id:destination});
   const intake=await record('Accepted intake',{stage:'Ready',score:2});
   const unmet=await record('Unmet intake',{stage:'Ready',score:1});
   const wrongStage=await record('Unmet first condition',{stage:'Waiting',score:2});
@@ -177,7 +179,7 @@ export async function automationJourney(api:ReturnType<typeof createApi>,contain
     rules:definitions.map(({id,name,scope,trigger,conditions,branch,actions})=>({id,name,scope,trigger,conditions,branch,actions})),
     runs:runs.map(({id,state,actor,trigger,receipts}:any)=>({id,state,actor,trigger,receipts})),
     unmet:[unmetRun,wrongStageRun].map(({id,state,receipts}:any)=>({id,state,receipts})),
-    relatedIds:[targetA.pageId,targetB.pageId],notificationId:notifications.results[0].id,
+    relatedIds:[targetA.pageId,targetB.pageId],notificationId:notifications.results[0].id,archived,
     bodyRunIds:bodyRuns.map((run:any)=>run.id),cursor:cursor!.sequence,
     activity:runActivity.filter((entry:any)=>runs.some(run=>run.id===entry.target.id)),
   };

@@ -11464,7 +11464,7 @@
       "executable": false
     },
     "tests/profile/automation-journey.ts": {
-      "sha256": "7b0ff2eb81cae37f233bafc29b93f4c2f5c32c3ec6193e17ab3f246a720c8615",
+      "sha256": "475fe74038bc9f7bfa76d174e8c8f20edb281b8ba2543e70382aa194defac5dc",
       "executable": false
     },
     "tests/profile/body-blocks-journey.ts": {
@@ -12468,7 +12468,7 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "733a3b765e9e22bf2c399655ec29e03aec9347b6c85af8c7b621a5bcdc1d5517",
+      "sha256": "a50a94aeafc8d178e1a7b46b6db6fddfa9f44011eac28b65e31779d67bd024df",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
@@ -12484,7 +12484,7 @@
       "executable": false
     },
     "tests/requirements/test-evidence.json": {
-      "sha256": "65a10bcb382917a7da68836c9d27a948deff68297120b1db634056e3b551744e",
+      "sha256": "522da87eb80898788ca341a8a0d2f709a6c5ec53561adcf4c656916297950ebc",
       "executable": false
     },
     "tests/rer/editor.test.mjs": {
