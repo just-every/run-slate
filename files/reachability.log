@@ -1,0 +1,38 @@
+
+> slate@0.4.0 test:ui:reachability /home/agent/rer-consolidation/work/fv-slate-timeout-6/run-slate
+> node --test tests/qualification/ui-convergence/reachability.test.mjs
+
+TAP version 13
+# Subtest: snapshot probes and call share one actor queue, browser address and real refusal
+ok 1 - snapshot probes and call share one actor queue, browser address and real refusal
+  ---
+  duration_ms: 960.569917
+  type: 'test'
+  ...
+# Subtest: probe bursts stay within 400 per rolling minute without delaying light traffic
+ok 2 - probe bursts stay within 400 per rolling minute without delaying light traffic
+  ---
+  duration_ms: 2.161412
+  type: 'test'
+  ...
+# Subtest: the idle-owner probe budget still reserves 100 native requests per minute
+ok 3 - the idle-owner probe budget still reserves 100 native requests per minute
+  ---
+  duration_ms: 1.778584
+  type: 'test'
+  ...
+# Subtest: the live UI import graph resolves runtime imports and rejects unreachable modules
+ok 4 - the live UI import graph resolves runtime imports and rejects unreachable modules
+  ---
+  duration_ms: 1218.088156
+  type: 'test'
+  ...
+1..4
+# tests 4
+# suites 0
+# pass 4
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2887.127912

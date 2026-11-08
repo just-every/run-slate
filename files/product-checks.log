@@ -1,0 +1,10 @@
+ WARN  Unsupported engine: wanted: {"node":"22.20.0"} (current: {"node":"v24.19.0","pnpm":"10.12.4"})
+
+> slate@0.4.0 integration:sync /home/agent/rer-consolidation/work/fv-slate-timeout-6/run-slate
+> node scripts/sync-integration.mjs --write
+
+Integration resource, migration and source identities match.
+Contract documents are current.
+source:check exit=0
+describe exit=0
+source-publication-inputs exit=0

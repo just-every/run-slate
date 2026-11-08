@@ -1,0 +1,18 @@
+SHARING_PHASE edit page edits 1440: 23058 ms
+SHARING_PHASE edit lifecycle 1440: 19177 ms
+SHARING_PHASE edit archive 1440: 22365 ms
+PROBE SHARE-002 erasure edit: preview and delete refused with fresh native proof and exact restored inventory
+SHARING_PHASE edit erasure 1440: 5492 ms
+SHARING_PHASE edit discussion 1440: 37122 ms
+PROBE SHARE-002 edit/all: native operation inventories, replays and revoked captures; 42 refused requests preserve inventories at 1440px
+✔ native ordinary page edit authority retains inventories and refuses revoked captures at 1440px (207592.173315ms)
+ℹ Sharing edit/all setup: 25904 ms
+ℹ Sharing edit/all matrix: 177700 ms
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 225980.831051

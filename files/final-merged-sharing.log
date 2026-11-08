@@ -1,0 +1,26 @@
+WEB-006 native unpublish response {"width":390,"elapsedMs":604}
+PROBE SHARE-002 full/all: selected reads, title, body, comment and direct grants; 0 refused requests preserve inventories at 390px
+PROBE SHARE-002 edit/all: selected reads, title, body, comment and direct grants; 2 refused requests preserve inventories at 390px
+PROBE SHARE-002 comment/all: selected reads, title, body, comment and direct grants; 4 refused requests preserve inventories at 390px
+PROBE SHARE-002 view/all: selected reads, title, body, comment and direct grants; 5 refused requests preserve inventories at 390px
+✔ merged sharing proof 390 repeat 1 (135639.176239ms)
+WEB-006 native unpublish response {"width":390,"elapsedMs":630}
+PROBE SHARE-002 full/all: selected reads, title, body, comment and direct grants; 0 refused requests preserve inventories at 390px
+PROBE SHARE-002 edit/all: selected reads, title, body, comment and direct grants; 2 refused requests preserve inventories at 390px
+PROBE SHARE-002 comment/all: selected reads, title, body, comment and direct grants; 4 refused requests preserve inventories at 390px
+PROBE SHARE-002 view/all: selected reads, title, body, comment and direct grants; 5 refused requests preserve inventories at 390px
+✔ merged sharing proof 390 repeat 2 (131906.021475ms)
+WEB-006 native unpublish response {"width":1440,"elapsedMs":666}
+PROBE SHARE-002 full/all: selected reads, title, body, comment and direct grants; 0 refused requests preserve inventories at 1440px
+PROBE SHARE-002 edit/all: selected reads, title, body, comment and direct grants; 2 refused requests preserve inventories at 1440px
+PROBE SHARE-002 comment/all: selected reads, title, body, comment and direct grants; 4 refused requests preserve inventories at 1440px
+PROBE SHARE-002 view/all: selected reads, title, body, comment and direct grants; 5 refused requests preserve inventories at 1440px
+✔ merged sharing proof 1440 repeat 1 (142061.633993ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 427401.986527

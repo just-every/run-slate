@@ -1,0 +1,218 @@
+{
+  "before-sharing-requests.jsonl": [
+    {
+      "duration_seconds": 172.325,
+      "actors": {
+        "operator:later-member": {
+          "requests": 15,
+          "max_fixed_window": 15,
+          "max_limiter_key_window": 15,
+          "max_rolling_minute": 15,
+          "rate_limited": 0
+        },
+        "operator:browser-owner": {
+          "requests": 815,
+          "max_fixed_window": 379,
+          "max_limiter_key_window": 379,
+          "max_rolling_minute": 416,
+          "rate_limited": 0
+        },
+        "operator:browser-reader": {
+          "requests": 159,
+          "max_fixed_window": 94,
+          "max_limiter_key_window": 94,
+          "max_rolling_minute": 118,
+          "rate_limited": 0
+        }
+      }
+    }
+  ],
+  "after-requests.jsonl": [
+    {
+      "duration_seconds": 188.5,
+      "actors": {
+        "operator:later-member": {
+          "requests": 15,
+          "max_fixed_window": 15,
+          "max_limiter_key_window": 14,
+          "max_rolling_minute": 15,
+          "rate_limited": 0
+        },
+        "operator:browser-owner": {
+          "requests": 824,
+          "max_fixed_window": 346,
+          "max_limiter_key_window": 346,
+          "max_rolling_minute": 363,
+          "rate_limited": 0
+        },
+        "operator:browser-reader": {
+          "requests": 159,
+          "max_fixed_window": 104,
+          "max_limiter_key_window": 104,
+          "max_rolling_minute": 108,
+          "rate_limited": 0
+        }
+      }
+    },
+    {
+      "duration_seconds": 204.888,
+      "actors": {
+        "operator:later-member": {
+          "requests": 15,
+          "max_fixed_window": 15,
+          "max_limiter_key_window": 14,
+          "max_rolling_minute": 15,
+          "rate_limited": 0
+        },
+        "operator:browser-owner": {
+          "requests": 828,
+          "max_fixed_window": 306,
+          "max_limiter_key_window": 306,
+          "max_rolling_minute": 335,
+          "rate_limited": 0
+        },
+        "operator:browser-reader": {
+          "requests": 161,
+          "max_fixed_window": 85,
+          "max_limiter_key_window": 85,
+          "max_rolling_minute": 106,
+          "rate_limited": 0
+        }
+      }
+    },
+    {
+      "duration_seconds": 220.255,
+      "actors": {
+        "operator:later-member": {
+          "requests": 15,
+          "max_fixed_window": 15,
+          "max_limiter_key_window": 14,
+          "max_rolling_minute": 15,
+          "rate_limited": 0
+        },
+        "operator:browser-owner": {
+          "requests": 830,
+          "max_fixed_window": 278,
+          "max_limiter_key_window": 278,
+          "max_rolling_minute": 334,
+          "rate_limited": 0
+        },
+        "operator:browser-reader": {
+          "requests": 159,
+          "max_fixed_window": 96,
+          "max_limiter_key_window": 96,
+          "max_rolling_minute": 106,
+          "rate_limited": 0
+        }
+      }
+    }
+  ],
+  "final-merged-requests.jsonl": [
+    {
+      "duration_seconds": 132.254,
+      "actors": {
+        "operator:later-member": {
+          "requests": 15,
+          "max_fixed_window": 15,
+          "max_limiter_key_window": 14,
+          "max_rolling_minute": 15,
+          "rate_limited": 0
+        },
+        "operator:browser-owner": {
+          "requests": 803,
+          "max_fixed_window": 396,
+          "max_limiter_key_window": 396,
+          "max_rolling_minute": 539,
+          "rate_limited": 0
+        },
+        "operator:browser-reader": {
+          "requests": 149,
+          "max_fixed_window": 124,
+          "max_limiter_key_window": 124,
+          "max_rolling_minute": 129,
+          "rate_limited": 0
+        }
+      }
+    },
+    {
+      "duration_seconds": 128.623,
+      "actors": {
+        "operator:later-member": {
+          "requests": 15,
+          "max_fixed_window": 15,
+          "max_limiter_key_window": 14,
+          "max_rolling_minute": 15,
+          "rate_limited": 0
+        },
+        "operator:browser-owner": {
+          "requests": 803,
+          "max_fixed_window": 500,
+          "max_limiter_key_window": 500,
+          "max_rolling_minute": 559,
+          "rate_limited": 0
+        },
+        "operator:browser-reader": {
+          "requests": 150,
+          "max_fixed_window": 128,
+          "max_limiter_key_window": 128,
+          "max_rolling_minute": 130,
+          "rate_limited": 0
+        }
+      }
+    },
+    {
+      "duration_seconds": 138.869,
+      "actors": {
+        "operator:later-member": {
+          "requests": 15,
+          "max_fixed_window": 15,
+          "max_limiter_key_window": 14,
+          "max_rolling_minute": 15,
+          "rate_limited": 0
+        },
+        "operator:browser-owner": {
+          "requests": 804,
+          "max_fixed_window": 500,
+          "max_limiter_key_window": 500,
+          "max_rolling_minute": 532,
+          "rate_limited": 0
+        },
+        "operator:browser-reader": {
+          "requests": 150,
+          "max_fixed_window": 107,
+          "max_limiter_key_window": 107,
+          "max_rolling_minute": 130,
+          "rate_limited": 0
+        }
+      }
+    }
+  ],
+  "final-core-mobile-requests.jsonl": [
+    {
+      "duration_seconds": 18.847,
+      "actors": {
+        "operator:later-member": {
+          "requests": 7,
+          "max_fixed_window": 7,
+          "max_limiter_key_window": 6,
+          "max_rolling_minute": 7,
+          "rate_limited": 0
+        },
+        "operator:browser-owner": {
+          "requests": 15,
+          "max_fixed_window": 15,
+          "max_limiter_key_window": 13,
+          "max_rolling_minute": 15,
+          "rate_limited": 0
+        },
+        "operator:browser-reader": {
+          "requests": 1,
+          "max_fixed_window": 1,
+          "max_limiter_key_window": 1,
+          "max_rolling_minute": 1,
+          "rate_limited": 0
+        }
+      }
+    }
+  ]
+}

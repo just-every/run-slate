@@ -1,0 +1,12 @@
+✔ snapshot probes and call share one actor queue, browser address and real refusal (934.206038ms)
+✔ probe bursts stay within 400 per rolling minute without delaying light traffic (3.420778ms)
+✔ the idle-owner probe budget still reserves 100 native requests per minute (1.732466ms)
+✔ the live UI import graph resolves runtime imports and rejects unreachable modules (1161.273318ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2639.434116

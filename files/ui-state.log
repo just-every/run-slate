@@ -1,0 +1,26 @@
+
+> slate@0.4.0 test:ui:state /home/agent/rer-consolidation/work/fv-slate-timeout-6/run-slate
+> tsx --test tests/qualification/ui-convergence/ask-draft.test.ts tests/qualification/ui-convergence/access-expiry.test.ts
+
+TAP version 13
+# Subtest: access expiry round-trips rendered input, rejects invalid dates and clears optional values
+ok 1 - access expiry round-trips rendered input, rejects invalid dates and clears optional values
+  ---
+  duration_ms: 39.054581
+  type: 'test'
+  ...
+# Subtest: Ask drafts survive remounts, are scoped to workspace/member/page and clear when erased
+ok 2 - Ask drafts survive remounts, are scoped to workspace/member/page and clear when erased
+  ---
+  duration_ms: 1.121441
+  type: 'test'
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 2
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 638.007855

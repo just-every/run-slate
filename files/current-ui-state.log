@@ -1,0 +1,15 @@
+ WARN  Unsupported engine: wanted: {"node":"22.20.0"} (current: {"node":"v24.19.0","pnpm":"10.12.4"})
+
+> slate@0.4.0 test:ui:state /home/agent/rer-consolidation/work/fv-slate-timeout-6/run-slate
+> tsx --test tests/qualification/ui-convergence/ask-draft.test.ts tests/qualification/ui-convergence/access-expiry.test.ts
+
+✔ access expiry round-trips rendered input, rejects invalid dates and clears optional values (32.932078ms)
+✔ Ask drafts survive remounts, are scoped to workspace/member/page and clear when erased (0.899603ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 415.379934

@@ -1,0 +1,14 @@
+{
+  "scope": "Every product candidate commit, all parents traversed",
+  "base": "origin/main",
+  "pass": true,
+  "commits": [
+    {
+      "sha": "f9aa1cb913ef9031ab9dde92555871def222c938",
+      "author": "Run Edit Run fleet <fleet@runeditrun.com>",
+      "committer": "Run Edit Run fleet <fleet@runeditrun.com>",
+      "trailers": ""
+    }
+  ],
+  "mac_publication_scan": "external, not run in cloud"
+}

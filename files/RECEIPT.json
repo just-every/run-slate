@@ -1,0 +1,497 @@
+{
+  "schema": 1,
+  "repository": "just-every/run-slate",
+  "tag": "fv-slate-timeout-6",
+  "product_branch": "cloud/fv-slate-timeout-6",
+  "main": "95a0372f6692b95607cedc7d1f9a0440dc9d3c38",
+  "merge_candidate": "1ce8fa17f7358ec5d77165d77edad10535a81d17",
+  "local_proof_merge": "7c4b8a8b22839337ca3d44beaa68fa2d9747a71a",
+  "local_proof_merge_published": false,
+  "rate_limit": {
+    "scope": "operator:<member id>",
+    "key": [
+      "address",
+      "scope",
+      "fixed-minute bucket"
+    ],
+    "requests": 600,
+    "window_seconds": 60,
+    "lowered_test_limit_seam": false
+  },
+  "checks": {
+    "reachability": {
+      "exit": 0,
+      "passed": 4
+    },
+    "ui_state": {
+      "exit": 0,
+      "passed": 2
+    },
+    "release_source": {
+      "exit": 0,
+      "passed": 2
+    },
+    "extended_edit_1440": {
+      "exit": 0,
+      "passed": 1,
+      "deadline_ms": 240000,
+      "test_duration_ms": 207592.173315
+    },
+    "interrupted_final_core_mobile": {
+      "status": "incomplete",
+      "counted_as_pass": false,
+      "partial_requests": "final-core-mobile-requests.jsonl"
+    },
+    "baseline_merged_mobile_sharing": {
+      "exit": 0,
+      "passed": 1,
+      "test_duration_ms": 176922.797298,
+      "reproduced_historic_429": false
+    },
+    "baseline_merged_mobile_core": {
+      "exit": 0,
+      "passed": 1,
+      "test_duration_seconds": 787.26,
+      "reproduced_historic_429": false
+    },
+    "product_setup": {
+      "exit": 0,
+      "log_retained_locally": "slate-setup.log",
+      "owner_email": "fleet@runeditrun.com"
+    },
+    "proof_merge_build": {
+      "exit": 0,
+      "artifact_provenance": "before-artifact.json",
+      "measurement_only_in_generated_output": true
+    },
+    "final_merged_sharing": {
+      "exit": 0,
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0,
+      "cases": [
+        {
+          "width": 390,
+          "repeat": 1,
+          "duration_ms": 135639.176239
+        },
+        {
+          "width": 390,
+          "repeat": 2,
+          "duration_ms": 131906.021475
+        },
+        {
+          "width": 1440,
+          "repeat": 1,
+          "duration_ms": 142061.633993
+        }
+      ]
+    },
+    "integration_sync": {
+      "exit": 0
+    },
+    "contract_docs_check": {
+      "exit": 0
+    },
+    "source_lock": {
+      "exit": 0,
+      "sha256": "9eb3b9dee46ac12b0397df2d17e791811d123c8a35ecfffcf3a6c7deccedc619"
+    },
+    "source_check": {
+      "exit": 0
+    },
+    "proof_matches_product_harness": {
+      "pass": true
+    },
+    "product_build": {
+      "exit": 0
+    },
+    "product_describe": {
+      "exit": 0
+    },
+    "source_publication_inputs": {
+      "exit": 0,
+      "passed": true,
+      "limits": "Local source/package admission only; Mac publication scan and landing remain external"
+    },
+    "product_verify": {
+      "exit": 0,
+      "hydration_pages": 10,
+      "hydration_loads": 99
+    },
+    "temporary_instrumentation_removed": {
+      "pass": true
+    },
+    "product_core_mobile": {
+      "exit": 0,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "test_duration_ms": 683628.19919,
+      "deadline_ms": 900000,
+      "product_head": "f9aa1cb913ef9031ab9dde92555871def222c938"
+    }
+  },
+  "github_api_calls": [
+    {
+      "at": "2026-11-08T22:35:59Z",
+      "epoch": 1794177359.981152,
+      "endpoint": "repos/just-every/run-slate/actions/runs?head_sha=f9aa1cb913ef9031ab9dde92555871def222c938&per_page=100",
+      "exit": 0,
+      "result": [
+        {
+          "conclusion": null,
+          "event": "push",
+          "head_branch": "cloud/fv-slate-timeout-6",
+          "head_sha": "f9aa1cb913ef9031ab9dde92555871def222c938",
+          "html_url": "https://github.com/just-every/run-slate/actions/runs/42531034834",
+          "id": 42531034834,
+          "name": "Verify Slate",
+          "status": "in_progress"
+        }
+      ]
+    },
+    {
+      "at": "2026-11-08T22:41:05Z",
+      "epoch": 1794177665.333817,
+      "endpoint": "repos/just-every/run-slate/actions/runs/42531034834",
+      "exit": 0,
+      "result": {
+        "conclusion": null,
+        "head_sha": "f9aa1cb913ef9031ab9dde92555871def222c938",
+        "html_url": "https://github.com/just-every/run-slate/actions/runs/42531034834",
+        "status": "in_progress"
+      }
+    },
+    {
+      "at": "2026-11-08T22:46:10Z",
+      "epoch": 1794177970.7249918,
+      "endpoint": "repos/just-every/run-slate/actions/runs/42531034834",
+      "exit": 0,
+      "result": {
+        "conclusion": null,
+        "head_sha": "f9aa1cb913ef9031ab9dde92555871def222c938",
+        "html_url": "https://github.com/just-every/run-slate/actions/runs/42531034834",
+        "status": "in_progress"
+      }
+    },
+    {
+      "at": "2026-11-08T22:51:16Z",
+      "epoch": 1794178276.128334,
+      "endpoint": "repos/just-every/run-slate/actions/runs/42531034834",
+      "exit": 0,
+      "result": {
+        "conclusion": null,
+        "head_sha": "f9aa1cb913ef9031ab9dde92555871def222c938",
+        "html_url": "https://github.com/just-every/run-slate/actions/runs/42531034834",
+        "status": "in_progress"
+      }
+    },
+    {
+      "at": "2026-11-08T22:56:21Z",
+      "epoch": 1794178581.4970136,
+      "endpoint": "repos/just-every/run-slate/actions/runs/42531034834",
+      "exit": 0,
+      "result": {
+        "conclusion": null,
+        "head_sha": "f9aa1cb913ef9031ab9dde92555871def222c938",
+        "html_url": "https://github.com/just-every/run-slate/actions/runs/42531034834",
+        "status": "in_progress"
+      }
+    },
+    {
+      "at": "2026-11-08T23:01:26Z",
+      "epoch": 1794178886.9076524,
+      "endpoint": "repos/just-every/run-slate/actions/runs/42531034834",
+      "exit": 0,
+      "result": {
+        "conclusion": null,
+        "head_sha": "f9aa1cb913ef9031ab9dde92555871def222c938",
+        "html_url": "https://github.com/just-every/run-slate/actions/runs/42531034834",
+        "status": "in_progress"
+      }
+    },
+    {
+      "at": "2026-11-08T23:06:32Z",
+      "epoch": 1794179192.3246896,
+      "endpoint": "repos/just-every/run-slate/actions/runs/42531034834",
+      "exit": 0,
+      "result": {
+        "conclusion": "success",
+        "head_sha": "f9aa1cb913ef9031ab9dde92555871def222c938",
+        "html_url": "https://github.com/just-every/run-slate/actions/runs/42531034834",
+        "status": "completed"
+      }
+    }
+  ],
+  "clause_status_changes": [],
+  "counts_before": {
+    "done": 58,
+    "partial": 239,
+    "missing": 41,
+    "total": 338
+  },
+  "counts_after": {
+    "done": 58,
+    "partial": 239,
+    "missing": 41,
+    "total": 338
+  },
+  "request_measurements": {
+    "before-sharing-requests.jsonl": [
+      {
+        "duration_seconds": 172.325,
+        "actors": {
+          "operator:later-member": {
+            "requests": 15,
+            "max_fixed_window": 15,
+            "max_limiter_key_window": 15,
+            "max_rolling_minute": 15,
+            "rate_limited": 0
+          },
+          "operator:browser-owner": {
+            "requests": 815,
+            "max_fixed_window": 379,
+            "max_limiter_key_window": 379,
+            "max_rolling_minute": 416,
+            "rate_limited": 0
+          },
+          "operator:browser-reader": {
+            "requests": 159,
+            "max_fixed_window": 94,
+            "max_limiter_key_window": 94,
+            "max_rolling_minute": 118,
+            "rate_limited": 0
+          }
+        }
+      }
+    ],
+    "after-requests.jsonl": [
+      {
+        "duration_seconds": 188.5,
+        "actors": {
+          "operator:later-member": {
+            "requests": 15,
+            "max_fixed_window": 15,
+            "max_limiter_key_window": 14,
+            "max_rolling_minute": 15,
+            "rate_limited": 0
+          },
+          "operator:browser-owner": {
+            "requests": 824,
+            "max_fixed_window": 346,
+            "max_limiter_key_window": 346,
+            "max_rolling_minute": 363,
+            "rate_limited": 0
+          },
+          "operator:browser-reader": {
+            "requests": 159,
+            "max_fixed_window": 104,
+            "max_limiter_key_window": 104,
+            "max_rolling_minute": 108,
+            "rate_limited": 0
+          }
+        }
+      },
+      {
+        "duration_seconds": 204.888,
+        "actors": {
+          "operator:later-member": {
+            "requests": 15,
+            "max_fixed_window": 15,
+            "max_limiter_key_window": 14,
+            "max_rolling_minute": 15,
+            "rate_limited": 0
+          },
+          "operator:browser-owner": {
+            "requests": 828,
+            "max_fixed_window": 306,
+            "max_limiter_key_window": 306,
+            "max_rolling_minute": 335,
+            "rate_limited": 0
+          },
+          "operator:browser-reader": {
+            "requests": 161,
+            "max_fixed_window": 85,
+            "max_limiter_key_window": 85,
+            "max_rolling_minute": 106,
+            "rate_limited": 0
+          }
+        }
+      },
+      {
+        "duration_seconds": 220.255,
+        "actors": {
+          "operator:later-member": {
+            "requests": 15,
+            "max_fixed_window": 15,
+            "max_limiter_key_window": 14,
+            "max_rolling_minute": 15,
+            "rate_limited": 0
+          },
+          "operator:browser-owner": {
+            "requests": 830,
+            "max_fixed_window": 278,
+            "max_limiter_key_window": 278,
+            "max_rolling_minute": 334,
+            "rate_limited": 0
+          },
+          "operator:browser-reader": {
+            "requests": 159,
+            "max_fixed_window": 96,
+            "max_limiter_key_window": 96,
+            "max_rolling_minute": 106,
+            "rate_limited": 0
+          }
+        }
+      }
+    ],
+    "final-merged-requests.jsonl": [
+      {
+        "duration_seconds": 132.254,
+        "actors": {
+          "operator:later-member": {
+            "requests": 15,
+            "max_fixed_window": 15,
+            "max_limiter_key_window": 14,
+            "max_rolling_minute": 15,
+            "rate_limited": 0
+          },
+          "operator:browser-owner": {
+            "requests": 803,
+            "max_fixed_window": 396,
+            "max_limiter_key_window": 396,
+            "max_rolling_minute": 539,
+            "rate_limited": 0
+          },
+          "operator:browser-reader": {
+            "requests": 149,
+            "max_fixed_window": 124,
+            "max_limiter_key_window": 124,
+            "max_rolling_minute": 129,
+            "rate_limited": 0
+          }
+        }
+      },
+      {
+        "duration_seconds": 128.623,
+        "actors": {
+          "operator:later-member": {
+            "requests": 15,
+            "max_fixed_window": 15,
+            "max_limiter_key_window": 14,
+            "max_rolling_minute": 15,
+            "rate_limited": 0
+          },
+          "operator:browser-owner": {
+            "requests": 803,
+            "max_fixed_window": 500,
+            "max_limiter_key_window": 500,
+            "max_rolling_minute": 559,
+            "rate_limited": 0
+          },
+          "operator:browser-reader": {
+            "requests": 150,
+            "max_fixed_window": 128,
+            "max_limiter_key_window": 128,
+            "max_rolling_minute": 130,
+            "rate_limited": 0
+          }
+        }
+      },
+      {
+        "duration_seconds": 138.869,
+        "actors": {
+          "operator:later-member": {
+            "requests": 15,
+            "max_fixed_window": 15,
+            "max_limiter_key_window": 14,
+            "max_rolling_minute": 15,
+            "rate_limited": 0
+          },
+          "operator:browser-owner": {
+            "requests": 804,
+            "max_fixed_window": 500,
+            "max_limiter_key_window": 500,
+            "max_rolling_minute": 532,
+            "rate_limited": 0
+          },
+          "operator:browser-reader": {
+            "requests": 150,
+            "max_fixed_window": 107,
+            "max_limiter_key_window": 107,
+            "max_rolling_minute": 130,
+            "rate_limited": 0
+          }
+        }
+      }
+    ],
+    "final-core-mobile-requests.jsonl": [
+      {
+        "duration_seconds": 18.847,
+        "actors": {
+          "operator:later-member": {
+            "requests": 7,
+            "max_fixed_window": 7,
+            "max_limiter_key_window": 6,
+            "max_rolling_minute": 7,
+            "rate_limited": 0
+          },
+          "operator:browser-owner": {
+            "requests": 15,
+            "max_fixed_window": 15,
+            "max_limiter_key_window": 13,
+            "max_rolling_minute": 15,
+            "rate_limited": 0
+          },
+          "operator:browser-reader": {
+            "requests": 1,
+            "max_fixed_window": 1,
+            "max_limiter_key_window": 1,
+            "max_rolling_minute": 1,
+            "rate_limited": 0
+          }
+        }
+      }
+    ]
+  },
+  "product_changed_files": [
+    "sources.lock.json",
+    "tests/qualification/ui-convergence/browser-support.mjs",
+    "tests/qualification/ui-convergence/journey-api.mjs",
+    "tests/qualification/ui-convergence/journey-api.test.mjs",
+    "tests/qualification/ui-convergence/journey-request-budget.mjs",
+    "tests/qualification/ui-convergence/public-page-journey.mjs",
+    "tests/qualification/ui-convergence/reachability.test.mjs",
+    "tests/qualification/ui-convergence/sharing-inheritance-journey.mjs",
+    "tests/qualification/ui-convergence/sharing-journey.mjs",
+    "tests/qualification/ui-convergence/touch-journey.mjs",
+    "tests/qualification/ui-convergence/two-people-support.mjs",
+    "tests/requirements/cli-journey.md"
+  ],
+  "product_head": "f9aa1cb913ef9031ab9dde92555871def222c938",
+  "product_push": {
+    "branch": "cloud/fv-slate-timeout-6",
+    "success": true
+  },
+  "evidence_packet_preflight": {
+    "regular_files": 42,
+    "credential_matches": 0,
+    "symlinks": 0,
+    "private_gate_material_selected": false
+  },
+  "hosted_verify": {
+    "run_id": 42531034834,
+    "head_sha": "f9aa1cb913ef9031ab9dde92555871def222c938",
+    "status": "completed",
+    "conclusion": "success",
+    "html_url": "https://github.com/just-every/run-slate/actions/runs/42531034834",
+    "api_calls_used": 7,
+    "reruns": 0
+  },
+  "product_custody": "READY",
+  "blockers": [],
+  "pr_url": null,
+  "landing": "External fleet responsibility; no main/default branch push or landing performed",
+  "evidence_publication": "Separate report-only ref; terminal EVIDENCE line identifies its immutable head"
+}

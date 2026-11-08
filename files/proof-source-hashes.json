@@ -1,0 +1,9 @@
+{
+  "tests/qualification/ui-convergence/journey-api.mjs": "8911f7473b649c715534de6cdae424768535ef0edf825ea0ee52377886ba83c9",
+  "tests/qualification/ui-convergence/journey-shard.mjs": "447883aa8d1402927a61b0cabfe3e2a66ae8e4e472a5d59518e18f98a5f12128",
+  "tests/qualification/ui-convergence/journey-api.test.mjs": "70ef15d639ec3d202288d5307a8e96268443d4db723652fd9dc0b8f3e1884bc3",
+  "tests/qualification/ui-convergence/journey-request-budget.mjs": "1c94d9981cc47f1acc6ee6bcf411df30538f0b389d7d557ed0d7c2191ec483ea",
+  "tests/qualification/ui-convergence/browser-support.mjs": "80f645316a54e9541d6100c6236486572e1210c11ea998893b36dc46fbbe4323",
+  "tests/qualification/ui-convergence/sharing-journey.mjs": "ac942ca3f85ca6da539b567b4999459c4362fe1dbcc298f92e116383551da42b",
+  "tests/qualification/ui-convergence/two-people-support.mjs": "6431a2f58edc13d8cdcb4d2f0d0c6740b5db509c176faacd42172f700ac4121e"
+}

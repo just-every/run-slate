@@ -1,0 +1,28 @@
+TAP version 13
+# SHARING_PHASE edit page edits 1440: 33103 ms
+# SHARING_PHASE edit lifecycle 1440: 26259 ms
+# SHARING_PHASE edit archive 1440: 36876 ms
+# PROBE SHARE-002 erasure edit: preview and delete refused with fresh native proof and exact restored inventory
+# SHARING_PHASE edit erasure 1440: 8673 ms
+# SHARING_PHASE edit discussion 1440: 56659 ms
+# Subtest: native ordinary page edit authority retains inventories and refuses revoked captures at 1440px
+not ok 1 - native ordinary page edit authority retains inventories and refuses revoked captures at 1440px
+  ---
+  duration_ms: 240001.686706
+  type: 'test'
+  location: '/home/agent/rer-consolidation/work/fv-slate-timeout-6/run-slate/tests/qualification/ui-convergence/journey-shard.mjs:23:97'
+  failureType: 'testTimeoutFailure'
+  error: 'test timed out after 240000ms'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# Sharing edit/all setup: 32019 ms
+# PROBE SHARE-002 edit/all: native operation inventories, replays and revoked captures; 42 refused requests preserve inventories at 1440px
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 0
+# cancelled 1
+# skipped 0
+# todo 0
+# duration_ms 328553.081339
