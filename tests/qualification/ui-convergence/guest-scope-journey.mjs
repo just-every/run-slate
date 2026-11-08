@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import {randomUUID} from 'node:crypto';
 import {expect,request} from '@playwright/test';
-import {inbox,newOutboxLink,signInWithOutbox} from '../../e2e/outbox-auth.mjs';
+import {inbox,newOutboxLink} from '../../e2e/outbox-auth.mjs';
 import {accessible} from './browser-evidence.mjs';
 import {call as nativeCall,ok as nativeOk,caretAtEnd,elapsedUntil} from './two-people-support.mjs';
 import {mkdir,writeFile} from 'node:fs/promises';
@@ -402,10 +402,13 @@ async function automationVetoProof(state,{space,anonymous,publicRead,publish,cha
 /** A real write-scoped owner token cannot call signed-in publication or settings doors. */
 async function tokenVetoProof(state,{space,editable,anonymous,publicRead,change,proof}) {
   const {context,origin,api}=state,key=()=>randomUUID();
-  const transport=await request.newContext(),credentialContext=await context.browser().newContext();
-  const owner=await api('/api/members/current');
-  const fresh=await signInWithOutbox(origin,owner.email);
-  await credentialContext.addCookies([{name:'slate_session',value:fresh.cookie.split('=')[1],url:origin}]);
+  const transport=await request.newContext(),credentialContext=context;
+  const owner=await api('/api/members/current'),beforeProof=await inbox(origin);
+  const challenge=await call(credentialContext,origin,'POST','/auth/step-up',{action:'credentials:mint',returnTo:'/app/settings?section=developer'});
+  assert.equal(challenge.status,202);
+  const confirmation=new URL(await newOutboxLink(origin,beforeProof));
+  const confirmed=await credentialContext.request.post(confirmation.href,{headers:{origin},form:{token:confirmation.searchParams.get('token')},maxRedirects:0});
+  assert.equal(confirmed.status(),303,'The existing native session confirms the sensitive operation through its own mailbox.');
   assert.equal((await ok(credentialContext,origin,'GET','/api/members/current')).id,owner.id);
   let tokenId;
   try {
@@ -446,11 +449,10 @@ async function tokenVetoProof(state,{space,editable,anonymous,publicRead,change,
     await ok(credentialContext,origin,'POST',`/api/developer/tokens/${tokenId}/revoke`,{operationKey:key()});
     assert.equal((await invoke('GET',`/api/v1/pages/${editable}`)).status,401,'Revocation ends the issued credential immediately.');
     assert.equal((await invoke('POST',`/api/v1/publishing/${editable}`,publication)).status,401,'A revoked capture cannot regain publication.');
-    proof.token={id:tokenId,scope:{containerId:space,level:'write'},attempts,revokedRead:401};
+    proof.token={id:tokenId,scope:{containerId:space,level:'write'},stepUp:{requested:challenge.status,confirmed:confirmed.status(),actor:owner.id},attempts,revokedRead:401};
   } finally {
     await transport.dispose();
     if(tokenId)await ok(credentialContext,origin,'POST',`/api/developer/tokens/${tokenId}/revoke`,{operationKey:key()});
-    await credentialContext.close();
     await change('container','publicLinkAccess','allowed');
   }
 }
