@@ -1,0 +1,12 @@
+{
+  "head": "2045ae66a1f9c9007ef89f5886917296e85232e3",
+  "clause": "AUTO-001",
+  "actualWorkerSupportingTests": [
+    {
+      "file": "tests/flagship/structured/automation-repairs.test.ts",
+      "testName": "automation admission, resumed effects and schedules preserve current scope and exactly-once recovery"
+    }
+  ],
+  "allObservedPassing": true,
+  "profileEntryInWorkerOnlyRegistry": false
+}

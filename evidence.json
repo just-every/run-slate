@@ -1,0 +1,172 @@
+{
+  "files": [
+    {
+      "blob": "5bec0773f2799cb97f57e4f7c510e673c66c7a97",
+      "bytes": 14886,
+      "path": "REPORT.md",
+      "sha256": "26a54374c79937023479d184e64d8130e0b4c0c1f3dd5a5cab867d3d2430c101"
+    },
+    {
+      "blob": "1d5ea7605ccf5f5ba2510710a7355eba9aa3daa2",
+      "bytes": 22064,
+      "path": "automation-test.log",
+      "sha256": "4e9b02903bde5e2ef3027fbc7fae5c6447704e307abcf81c10dc6d0fa52dc43f"
+    },
+    {
+      "blob": "9916972e2863ae5b04e906fd5e474008318de70f",
+      "bytes": 343,
+      "path": "browser-probes.txt",
+      "sha256": "beda23210341ac94f9c07236ae49815ecc7c90dac2b78d7d913bc6fb1f527846"
+    },
+    {
+      "blob": "61c64cbc6f291c27497237c245bd9ed3eaafca67",
+      "bytes": 15610,
+      "path": "browser-receipts.json",
+      "sha256": "dbe84101700f1c09fb129415941e097fd63973eabb40261150caf90151b406f9"
+    },
+    {
+      "blob": "376f6a6f81ca886fc5123d606fa00596521c501f",
+      "bytes": 5207,
+      "path": "execution-receipt.json",
+      "sha256": "b3aafeb6db0a03578d6c786018adb7222a9a8c3a2e1aa98e1f2175801ee52134"
+    },
+    {
+      "blob": "16a51b263a153c0f9c92fb5b9f2a65e43d5e28b9",
+      "bytes": 678,
+      "path": "focused-browser-runner.mjs",
+      "sha256": "2562aaa9223527c3b201adaa90f41feecbe0b3ba76ab357d10482b406fe1b7b0"
+    },
+    {
+      "blob": "192ba716a92188d28a4ed7fe76e5bad6b1bee6fc",
+      "bytes": 348,
+      "path": "native-receipt-reporter.mjs",
+      "sha256": "10b84c10c32054082c34259a606a79549c46ab7d176c6c16c895aa067c0ed627"
+    },
+    {
+      "blob": "f8886cc58f4d04a93b870578379723dfa63b8fcb",
+      "bytes": 32548,
+      "path": "native-receipt.json",
+      "sha256": "5e77f1d8b257c1549e2d24cfb6be5bc2d150aad23a5831588f0f68f022fe5c40"
+    },
+    {
+      "blob": "dba4b4c6ce0acd96dc8aa5ba156ade8c1edc87bd",
+      "bytes": 22059,
+      "path": "profile-results.json",
+      "sha256": "2ebc246b6dc289ee2071920e36c36af02f268a9891afd53b36e520451b3d99cc"
+    },
+    {
+      "blob": "eff4b1cc4a73641bd9077b06ce03ad046ca8ffbb",
+      "bytes": 21624,
+      "path": "profile-test.log",
+      "sha256": "5907c59192173f757caf5f935f0dfd9d142c0369ee20c15eef24fa185a8260ae"
+    },
+    {
+      "blob": "a65ff26c38ea3642b0c2093985b42edc2e83304a",
+      "bytes": 399,
+      "path": "registry-receipt.json",
+      "sha256": "f81952b90077c35fb076c998dc80894d31c3f382c2bf2d724a418127d3de68ad"
+    },
+    {
+      "blob": "1a3cb4b5d1f8685024939ae1877aa6240b911335",
+      "bytes": 367048,
+      "path": "screen-1440-native-member-rule-form.json",
+      "sha256": "e6fe4bb74c42473c264b6046eca8ac96db8e3cb7d7a077a8d1f8f842ce803d1d"
+    },
+    {
+      "blob": "130451411fe5566fb176777284c17dd3ce0de796",
+      "bytes": 117650,
+      "path": "screen-1440-native-member-rule-form.png",
+      "sha256": "d01592f826f5b9af32c3f3ebd8acd2d5f4790b330d27faef47c655e32d654834"
+    },
+    {
+      "blob": "e422dc77a3b3a80d2e3067433dd70daafbca2dc5",
+      "bytes": 339333,
+      "path": "screen-1440-reopened-saved-member-rule.json",
+      "sha256": "57016fe62d36de47e51f54d24263c102049e42a53f61421078df43103b354f75"
+    },
+    {
+      "blob": "4e3c9200c48998edfb741a605bc261b46b3bf652",
+      "bytes": 117297,
+      "path": "screen-1440-reopened-saved-member-rule.png",
+      "sha256": "b4ff7bd549c3ee67ef74a63894b9da543f2b02bfee4ec1a5c50dbe2d3c491c86"
+    },
+    {
+      "blob": "3b1a145264e2cf78986f05fca5da3d7982432c94",
+      "bytes": 480492,
+      "path": "screen-1440-saved-rule-canonical-outcome.json",
+      "sha256": "a9efde7d1eafff54887d906086bb897d3f10c4d431c896b8368563f4f63137c5"
+    },
+    {
+      "blob": "c8d250fc1e026d73a60306af6ac6a9e003f2e644",
+      "bytes": 137451,
+      "path": "screen-1440-saved-rule-canonical-outcome.png",
+      "sha256": "b34e7cc1b416d048c48bd7917e27f14199189bde3dc4a8cba605338418079db8"
+    },
+    {
+      "blob": "fdd01d0fd29e0062b901887996f874856b723965",
+      "bytes": 366122,
+      "path": "screen-390-native-member-rule-form.json",
+      "sha256": "2f8c2a8770dc6cadff7e9125eaf7cc5e8f71ee3b74ecafa4f6fb86224905e70a"
+    },
+    {
+      "blob": "534fe2d1378255955e9eb0825fb301f9a0714142",
+      "bytes": 24476,
+      "path": "screen-390-native-member-rule-form.png",
+      "sha256": "46e337f9a5eea702cb8723e241766292f9863bbc3f2e259df0383cc63e8ff46c"
+    },
+    {
+      "blob": "d9a25d664235a7a4279ed547445dfb84d5a472e0",
+      "bytes": 337312,
+      "path": "screen-390-reopened-saved-member-rule.json",
+      "sha256": "1d5375e164b7aad47f22890610241b47e5d1b43860c5d7a2a320032e60c828e1"
+    },
+    {
+      "blob": "62f3ad0ce525b63d8155622810925608b00b2e91",
+      "bytes": 21475,
+      "path": "screen-390-reopened-saved-member-rule.png",
+      "sha256": "e4e800b08547d1c35921f30fecd76ba890b0f7dc4ee048470a47e96877f6e9a9"
+    },
+    {
+      "blob": "f07a9cf8fbebd35c1a4ccd9de30cb0137de549c4",
+      "bytes": 297615,
+      "path": "screen-390-saved-rule-canonical-outcome.json",
+      "sha256": "2982cc8371d695d09cc0b68db2ba37d2fc3030ad660dd3748866b68b06b00b3e"
+    },
+    {
+      "blob": "cd9900725ffeae8b5b8fd754411b888e3a4fb7c1",
+      "bytes": 49168,
+      "path": "screen-390-saved-rule-canonical-outcome.png",
+      "sha256": "3dc9ce5b43794e58885ddf2a333a4f57c2b01cd841e19484614e2b57cd6f64f1"
+    },
+    {
+      "blob": "5249aae9d69fa5b892fdbed11f3867fc9c47a168",
+      "bytes": 991,
+      "path": "structured-automation-results.json",
+      "sha256": "b762db61dc2957234b4a2d35fc29e3e92c0924257d501e172fb886ebb52ead5b"
+    },
+    {
+      "blob": "8a42e537c0ab7838c1cb305f8ed0e8921837d9d2",
+      "bytes": 1508,
+      "path": "structured-results.json",
+      "sha256": "870868921f39b8cc0bbf97c2f24a1bc3eb07d40eb67ee8dc4ab1179fd28c0d56"
+    },
+    {
+      "blob": "deb4e118cdd2f6f36142ee96049153aaada83445",
+      "bytes": 22397,
+      "path": "structured-test.log",
+      "sha256": "3b0aeef4b5bc7f2658e61fa1c14e16d41d7bb56a9d689a14562e537891a6d401"
+    },
+    {
+      "blob": "150bd115902893fd8ae95d5d47ab4749d1bf3033",
+      "bytes": 28439,
+      "path": "supporting-restart-receipt.json",
+      "sha256": "67e96cc50c9ff6fc4038434dcf1d1b45045d9a6a8f0efd46902a143f41e6400f"
+    }
+  ],
+  "product_branch": "cloud/sd-slate-c-f221",
+  "product_head": "2045ae66a1f9c9007ef89f5886917296e85232e3",
+  "ref": "refs/heads/evidence/sd-slate-c-f221",
+  "repository": "just-every/run-slate",
+  "schema": 1,
+  "tag": "sd-slate-c-f221"
+}

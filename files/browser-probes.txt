@@ -1,0 +1,2 @@
+PROBE AUTO-001 form 1440: non-owner RuleForm -> saved and reopened ordered rule, committed record trigger, exact fields and comments, saving actor, condition-unmet refusal
+PROBE AUTO-001 form 390: non-owner RuleForm -> saved and reopened ordered rule, committed record trigger, exact fields and comments, saving actor, condition-unmet refusal

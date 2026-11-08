@@ -1,0 +1,163 @@
+{
+  "schema": 1,
+  "tag": "sd-slate-c-f221",
+  "repository": "just-every/run-slate",
+  "branch": "cloud/sd-slate-c-f221",
+  "head": "2045ae66a1f9c9007ef89f5886917296e85232e3",
+  "tree": "b337d9ad91c63b0816d16b94c06969ef2223795d",
+  "createdAt": "2026-11-08T20:28:01.879093+00:00",
+  "checks": [
+    {
+      "command": "pnpm exec vitest run --config tests/profile/vitest.config.ts",
+      "exit": 0,
+      "passed": 5,
+      "head": "2045ae66a1f9c9007ef89f5886917296e85232e3",
+      "receipt": "profile-results.json"
+    },
+    {
+      "command": "pnpm exec vitest run tests/flagship/structured/structured.test.ts tests/flagship/structured/automation-repairs.test.ts",
+      "exit": 0,
+      "passed": 2,
+      "receipt": "structured-results.json",
+      "head": "2045ae66a1f9c9007ef89f5886917296e85232e3"
+    },
+    {
+      "command": "pnpm exec vitest run tests/flagship/structured/automation-repairs.test.ts",
+      "exit": 0,
+      "passed": 1,
+      "source": "before the additional read-only archive provenance assertion",
+      "receipt": "structured-automation-results.json"
+    },
+    {
+      "command": "pnpm typecheck",
+      "exit": 0
+    },
+    {
+      "command": "pnpm exec rer check --profile first-party",
+      "exit": 0
+    },
+    {
+      "command": "pnpm check:contract",
+      "exit": 0
+    },
+    {
+      "command": "node src/base/runtime/contract-docs.mjs write && node src/base/runtime/contract-docs.mjs check",
+      "exit": 0,
+      "generatedViewsCommitted": false
+    },
+    {
+      "command": "pnpm integration:sync",
+      "exit": 0
+    },
+    {
+      "command": "pnpm source:lock && pnpm source:check",
+      "exit": 0,
+      "regeneratedLast": true
+    },
+    {
+      "command": "npx -y @runeditrun/rer setup --owner-email <fleet> --non-interactive",
+      "exit": 0
+    },
+    {
+      "command": "npx -y @runeditrun/rer build",
+      "exit": 0,
+      "head": "2045ae66a1f9c9007ef89f5886917296e85232e3",
+      "artifact": {
+        "schema": 1,
+        "commit": "2045ae66a1f9c9007ef89f5886917296e85232e3",
+        "tree": "b337d9ad91c63b0816d16b94c06969ef2223795d",
+        "sourceSha256": "b73cd9ff6ccd10d167bffdb0672fb5bd4c9df322396efee8dfecc59528bd57e4",
+        "lockSha256": "b10baaaabc0aa3e332929fabe1bd86ba7ae9f2c486f8ecd099a213b56314584f",
+        "outputSha256": "5545d5aca116b817a47a6ec96e891aa08c37011bf4f486192ae07524b9368941"
+      }
+    },
+    {
+      "command": "SLATE_CHROMIUM_PATH=/usr/bin/chromium cloud_run timeout 1200 node /tmp/slate-automation-final-browser.mjs",
+      "exit": 0,
+      "widths": [
+        1440,
+        390
+      ],
+      "head": "2045ae66a1f9c9007ef89f5886917296e85232e3",
+      "receipt": "browser-receipts.json"
+    }
+  ],
+  "migrationLedger": {
+    "command": null,
+    "exit": 0,
+    "reason": "No migration changed"
+  },
+  "counts": {
+    "before": {
+      "done": 58,
+      "partial": 239,
+      "missing": 41,
+      "total": 338
+    },
+    "after": {
+      "done": 58,
+      "partial": 239,
+      "missing": 41,
+      "total": 338
+    }
+  },
+  "declaredRegistrations": {
+    "before": 211,
+    "after": 211
+  },
+  "contractStatusDiff": "",
+  "publicationScan": {
+    "commit": "2045ae66a1f9c9007ef89f5886917296e85232e3",
+    "status": "not-run-cloud-route",
+    "complete": null,
+    "historyScanned": null,
+    "findings": null
+  },
+  "ci": {
+    "runId": 42519566407,
+    "checkedAt": "2026-11-08T20:35:37.887132+00:00",
+    "conclusion": null,
+    "head_sha": "2045ae66a1f9c9007ef89f5886917296e85232e3",
+    "html_url": "https://github.com/just-every/run-slate/actions/runs/42519566407",
+    "status": "in_progress"
+  },
+  "screens": [
+    "screen-1440-native-member-rule-form.json",
+    "screen-1440-native-member-rule-form.png",
+    "screen-1440-reopened-saved-member-rule.json",
+    "screen-1440-reopened-saved-member-rule.png",
+    "screen-1440-saved-rule-canonical-outcome.json",
+    "screen-1440-saved-rule-canonical-outcome.png",
+    "screen-390-native-member-rule-form.json",
+    "screen-390-native-member-rule-form.png",
+    "screen-390-reopened-saved-member-rule.json",
+    "screen-390-reopened-saved-member-rule.png",
+    "screen-390-saved-rule-canonical-outcome.json",
+    "screen-390-saved-rule-canonical-outcome.png"
+  ],
+  "blockers": [],
+  "notes": [
+    "No workflow, Base pin, migration, homepage or contract judgment changed.",
+    "Optional whole-suite test listing was interrupted with SIGINT after excessive collection cost; no test assertion ran in that listing. Counts are the unchanged declared inventory, with no new registration.",
+    "Earlier supporting restart receipt has its own earlier source identity; no AUTO-008 promotion."
+  ],
+  "remoteCustody": {
+    "observedAt": "2026-11-08T20:28:56.259217+00:00",
+    "refs": {
+      "refs/heads/cloud/sd-slate-c-f221": "2045ae66a1f9c9007ef89f5886917296e85232e3",
+      "refs/heads/main": "6a6232f31641de9e5935ed1899a080aee6bb23ec"
+    },
+    "productHeadMatches": true
+  },
+  "handoff": "PUSHED",
+  "claim": {
+    "id": "AUTO-001",
+    "status": "PARTIAL",
+    "points": [
+      1,
+      2
+    ],
+    "remaining": "Recorded exact-SHA Verify conclusion; no remaining local implementation gap found."
+  },
+  "ownedBrowsersAndRuntimesRemaining": []
+}
