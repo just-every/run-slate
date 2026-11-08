@@ -1,0 +1,9 @@
+{
+  "head": "d377dc182364e5966aac96ca6120da7c460aea89",
+  "command": "node --test --test-concurrency=1 --test-name-pattern '^real core-wiki and touch-member journeys' tests/qualification/ui-convergence/journeys.test.mjs",
+  "test": "real core-wiki and touch-member journeys at 390px",
+  "failure": "POST /api/exports/jobs/workspace returned 403 EXPORT_SCOPE_INCOMPLETE because the added member-private media fixtures preceded the complete-workspace archive journey.",
+  "correction": "Move only the new media step after every original core journey; preserve all archive and permission assertions.",
+  "fixedHead": "5f38804cccacdea3811eced07c7175e0108ad1db",
+  "initialDesktopInvalidated": "A concurrent rebuild removed artifact metadata during the initial desktop run; the initial desktop run is not used as proof."
+}

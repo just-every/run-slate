@@ -1,0 +1,109 @@
+{
+  "head": "5f38804cccacdea3811eced07c7175e0108ad1db",
+  "artifact": {
+    "schema": 1,
+    "commit": "5f38804cccacdea3811eced07c7175e0108ad1db",
+    "tree": "d75eb260e671444990e4e8033ad4688e28fe8b8d",
+    "sourceSha256": "667ba54110a43afb228f46454e0a7bb05aa6e8b88da372f36e31dc2b65e5868c",
+    "lockSha256": "8af53c71ff88a91e21d72dbd58a25c136c0e492347afd943712807b4bdfe1b23",
+    "outputSha256": "ebda05d8339c3c39be4d793a9317ae5e2962420245d285673f83e0944f791dc2"
+  },
+  "commands": [
+    {
+      "command": [
+        "pnpm",
+        "typecheck"
+      ],
+      "exit": 0,
+      "head": "5f38804cccacdea3811eced07c7175e0108ad1db"
+    },
+    {
+      "command": [
+        "pnpm",
+        "exec",
+        "vitest",
+        "run",
+        "--config",
+        "tests/profile/vitest.config.ts",
+        "tests/profile/profile.worker.test.ts",
+        "-t",
+        "FLAG-001",
+        "--silent=false",
+        "--disableConsoleIntercept"
+      ],
+      "exit": 0,
+      "head": "5f38804cccacdea3811eced07c7175e0108ad1db"
+    },
+    {
+      "command": [
+        "npx",
+        "-y",
+        "@runeditrun/rer",
+        "check",
+        "--profile",
+        "first-party"
+      ],
+      "exit": 0,
+      "head": "5f38804cccacdea3811eced07c7175e0108ad1db"
+    },
+    {
+      "command": [
+        "npx",
+        "-y",
+        "@runeditrun/rer",
+        "build"
+      ],
+      "head": "5f38804cccacdea3811eced07c7175e0108ad1db",
+      "exit": 0
+    },
+    {
+      "command": [
+        "pnpm",
+        "source:check"
+      ],
+      "head": "5f38804cccacdea3811eced07c7175e0108ad1db",
+      "exit": 0
+    },
+    {
+      "command": [
+        "node",
+        "src/base/runtime/contract-docs.mjs",
+        "write and check"
+      ],
+      "head": "5f38804cccacdea3811eced07c7175e0108ad1db",
+      "exit": 0
+    }
+  ],
+  "generatedViewsCommitted": false,
+  "contractStatusDiff": false,
+  "registrationCountBefore": 211,
+  "registrationCountAfter": 211,
+  "sourceScan": "not run in cloud; guarded lander must supply complete exact-head scan",
+  "node": "v24.19.0",
+  "pnpm": "10.12.4",
+  "productPushedHead": "5f38804cccacdea3811eced07c7175e0108ad1db",
+  "productBranch": "cloud/sd-slate-c-f217",
+  "latestMainFetched": "6a6232f31641de9e5935ed1899a080aee6bb23ec",
+  "browserRegistrations": [
+    {
+      "name": "real core-wiki and touch-member journeys at 390px",
+      "head": "5f38804cccacdea3811eced07c7175e0108ad1db",
+      "exit": 0,
+      "durationMs": 663018.437002
+    },
+    {
+      "name": "real core-wiki and touch-member journeys at 1440px",
+      "head": "5f38804cccacdea3811eced07c7175e0108ad1db",
+      "exit": 0,
+      "durationMs": 543391.90662
+    }
+  ],
+  "ci": {
+    "conclusion": null,
+    "head_sha": "5f38804cccacdea3811eced07c7175e0108ad1db",
+    "html_url": "https://github.com/just-every/run-slate/actions/runs/42518187051",
+    "status": "in_progress"
+  },
+  "coreCommand": "node --test --test-concurrency=1 --test-name-pattern '^real core-wiki and touch-member journeys' tests/qualification/ui-convergence/journeys.test.mjs",
+  "coreExit": 0
+}

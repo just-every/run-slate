@@ -1,0 +1,323 @@
+MEDIA_INSERT width=390 kind=image mode=upload
+MEDIA_INSERT width=390 kind=video mode=upload
+MEDIA_INSERT width=390 kind=audio mode=upload
+MEDIA_INSERT width=390 kind=file mode=upload
+MEDIA_INSERT width=390 kind=image mode=link
+MEDIA_INSERT width=390 kind=video mode=link
+MEDIA_INSERT width=390 kind=audio mode=link
+MEDIA_INSERT width=390 kind=file mode=link
+MEDIA_NATIVE_JOURNEY width=390 inserted=8 captions=8 alt=8 reload=passed appearance=inline public=inline
+Journey failure context {
+  "rejected": [
+    {
+      "url": "http://127.0.0.1:41557/api/exports/jobs/workspace",
+      "method": "POST",
+      "requestBody": "{\"operationKey\":\"e7972913-b05b-43b4-820f-00319e813ad9\"}",
+      "status": 403,
+      "responseBody": "{\"code\":\"EXPORT_SCOPE_INCOMPLETE\",\"message\":\"A complete archive needs access to every working page, including private drafts and personal pages. Ask their owners to deliberately share the required content, or export an accessible page or container. No archive was made.\"}"
+    }
+  ],
+  "consoleErrors": [
+    {
+      "url": "http://127.0.0.1:41557/app/settings/portability",
+      "message": "Failed to load resource: the server responded with a status of 403 (Forbidden)"
+    }
+  ]
+}
+Journey failure context REQUEST TIMELINE {
+  "primary": {
+    "requestsAtDump": [
+      {
+        "method": "GET",
+        "path": "/api/comments/<id>/01M6YB…6MQS",
+        "startMs": 0,
+        "durationMs": 13,
+        "status": 200
+      },
+      {
+        "method": "PATCH",
+        "path": "/api/comments/01M6YB…34GN",
+        "startMs": 17,
+        "durationMs": 17,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/comments/<id>/01M6YB…6MQS",
+        "startMs": 36,
+        "durationMs": 9,
+        "status": 200
+      },
+      {
+        "method": "POST",
+        "path": "/api/comments/<id>/01M6YB…AEQY/<id>",
+        "startMs": 49,
+        "durationMs": 16,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/comments/<id>/01M6YB…6MQS",
+        "startMs": 93,
+        "durationMs": 11,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/pages/01M6YB…6MQS",
+        "startMs": 110,
+        "durationMs": 14,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/pages/01M6YB…323Y",
+        "startMs": 128,
+        "durationMs": 9,
+        "status": 404
+      },
+      {
+        "method": "GET",
+        "path": "/api/pages/01M6YB…6MQS",
+        "startMs": 205,
+        "durationMs": 12,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/revisions/01M6YB…6MQS",
+        "startMs": 220,
+        "durationMs": 10,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/revisions/01M6YB…6MQS/01M6YB…GWMA",
+        "startMs": 233,
+        "durationMs": 12,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/revisions/01M6YB…6MQS/01M6YB…03GC",
+        "startMs": 248,
+        "durationMs": 10,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/revisions/01M6YB…6MQS/01M6YB…KYSP",
+        "startMs": 262,
+        "durationMs": 13,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/sharing/pages/01M6YB…6MQS",
+        "startMs": 278,
+        "durationMs": 19,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/comments/<id>/01M6YB…6MQS",
+        "startMs": 300,
+        "durationMs": 10,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/pages/01M6YB…BCGF",
+        "startMs": 314,
+        "durationMs": 10,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/revisions/01M6YB…BCGF",
+        "startMs": 327,
+        "durationMs": 11,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/revisions/01M6YB…BCGF/01M6YB…MVJC",
+        "startMs": 341,
+        "durationMs": 13,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/revisions/01M6YB…BCGF/01M6YB…09JZ",
+        "startMs": 356,
+        "durationMs": 12,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/revisions/01M6YB…BCGF/01M6YB…JYA9",
+        "startMs": 371,
+        "durationMs": 12,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/sharing/pages/01M6YB…BCGF",
+        "startMs": 386,
+        "durationMs": 56,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/comments/<id>/01M6YB…BCGF",
+        "startMs": 446,
+        "durationMs": 9,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/pages/01M6YB…323Y",
+        "startMs": 458,
+        "durationMs": 12,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/revisions/01M6YB…323Y",
+        "startMs": 472,
+        "durationMs": 9,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/revisions/01M6YB…323Y/01M6YB…6HCP",
+        "startMs": 484,
+        "durationMs": 13,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/revisions/01M6YB…323Y/01M6YB…C2CV",
+        "startMs": 500,
+        "durationMs": 10,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/revisions/01M6YB…323Y/01M6YB…E6D9",
+        "startMs": 513,
+        "durationMs": 10,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/revisions/01M6YB…323Y/01M6YB…C2CC",
+        "startMs": 526,
+        "durationMs": 12,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/sharing/pages/01M6YB…323Y",
+        "startMs": 540,
+        "durationMs": 17,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/comments/<id>/01M6YB…323Y",
+        "startMs": 560,
+        "durationMs": 8,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/pages/01M6YB…T511",
+        "startMs": 571,
+        "durationMs": 10,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/revisions/01M6YB…T511",
+        "startMs": 584,
+        "durationMs": 9,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/revisions/01M6YB…T511/01M6YB…84GY",
+        "startMs": 595,
+        "durationMs": 10,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/revisions/01M6YB…T511/01M6YB…8JJ9",
+        "startMs": 608,
+        "durationMs": 13,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/revisions/01M6YB…T511/01M6YB…MBQ6",
+        "startMs": 624,
+        "durationMs": 12,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/sharing/pages/01M6YB…T511",
+        "startMs": 644,
+        "durationMs": 32,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/comments/<id>/01M6YB…T511",
+        "startMs": 679,
+        "durationMs": 10,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/pages",
+        "startMs": 692,
+        "durationMs": 12,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/containers",
+        "startMs": 3745,
+        "durationMs": 153,
+        "status": 200
+      },
+      {
+        "method": "POST",
+        "path": "/api/pages",
+        "startMs": 3901,
+        "durationMs": 31,
+        "status": 200
+      },
+      {
+        "method": "POST",
+        "path": "/api/<id>/<id>/workspace",
+        "startMs": 4150,
+        "durationMs": 25,
+        "status": 403
+      }
+    ]
+  },
+  "others": []
+}
+✖ real core-wiki and touch-member journeys at 390px (56436.173773ms)
+MEDIA_INSERT width=1440 kind=image mode=upload
+MEDIA_INSERT width=1440 kind=video mode=upload
+MEDIA_INSERT width=1440 kind=audio mode=upload
+MEDIA_INSERT width=1440 kind=file mode=upload
+MEDIA_INSERT width=1440 kind=image mode=link
+MEDIA_INSERT width=1440 kind=video mode=link
+MEDIA_INSERT width=1440 kind=audio mode=link
+MEDIA_INSERT width=1440 kind=file mode=link
+MEDIA_NATIVE_JOURNEY width=1440 inserted=8 captions=8 alt=8 reload=passed appearance=inline public=inline

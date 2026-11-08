@@ -1,0 +1,1 @@
+<svg xmlns="http://www.w3.org/2000/svg"><rect id="safe" width="10" height="10" fill="red"></rect><use></use><use href="#safe"></use><path></path></svg>
