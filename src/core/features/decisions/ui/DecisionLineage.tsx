@@ -6,7 +6,7 @@ export function DecisionLineage({ id, label }: { id: string; label: string }) {
   );
   return resource.data ? (
     <a
-      href={`/app/pages/${encodeURIComponent(resource.data.page_id)}?detail=ask`}
+      href={`/app/decisions/${encodeURIComponent(resource.data.id)}`}
     >
       {label}: {resource.data.question}
     </a>
