@@ -5224,7 +5224,7 @@
       "executable": false
     },
     "src/core/app/background.ts": {
-      "sha256": "684af54176dccb5e408f5b30f2b34e96307d8c222588df20d68b6f9a038a3232",
+      "sha256": "b80888cf14da50d96b3a8f9482fee55e7621509768793ea275f0eae58671ed98",
       "executable": false
     },
     "src/core/app/editor-config.ts": {
@@ -8812,7 +8812,7 @@
       "executable": false
     },
     "src/core/features/runs/worker.ts": {
-      "sha256": "204fc19603dd366e54efa09796722d599064c568b199c0596dd8dc5d7aaf53c1",
+      "sha256": "7ea85b8192912b82da57614e87fe7a0c19e1d4d43f9560e20570081c13802320",
       "executable": false
     },
     "src/core/features/scim/context.ts": {
@@ -11484,7 +11484,7 @@
       "executable": false
     },
     "tests/profile/profile.worker.test.ts": {
-      "sha256": "ffcfa78c6d8c40a4bae2b3366fb1289661246edc4da9816080bf0a838a62489a",
+      "sha256": "54d51981c5c07db8bac374c549ec0d89e0ea862743e0ffd5836f9f8215d7c2d7",
       "executable": false
     },
     "tests/profile/vitest.config.ts": {

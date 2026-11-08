@@ -73,7 +73,6 @@ export async function scheduleIntelligence(env:AppBindings,now=new Date().toISOS
  const {scheduleEvaluations}=await import('../skills/evaluation-scheduler');await scheduleEvaluations(env,now);
  const {scheduleGuidedTasks}=await import('../skills/guided-scheduler');await scheduleGuidedTasks(env,now);
  const {scheduleTrials}=await import('../experiments/scheduler');await scheduleTrials(env,now);
- const {notifyOverdueDecisions}=await import('../decisions/scheduler');await notifyOverdueDecisions(env,now);
  const {scheduleAmbient}=await import('../inquiries/ambient-scheduler');await scheduleAmbient(env,now);
  const {scanImpacts}=await import('../impact/scanner');await scanImpacts(env,now);
  const finalizing=await env.DB.prepare("SELECT id,workspace_id FROM intelligence_runs WHERE status='needs-review' AND stage='finalizing' LIMIT 100").all<{id:string;workspace_id:string}>();await Promise.all(finalizing.results.map(r=>env.JOBS.send({kind:'intelligence.finalize',runId:r.id,workspaceId:r.workspace_id})));

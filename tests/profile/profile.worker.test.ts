@@ -4,7 +4,7 @@ import {workItems,tasksJourney,remindersJourney,taskReportsJourney} from './work
 import {env} from 'cloudflare:test';
 import {afterEach, beforeEach, it, expect, vi} from 'vitest';
 import {createApi} from '../../src/core/app/hono';
-import {consumeJobs} from '../../src/core/app/background';
+import {consumeJobs,scheduledJobs} from '../../src/core/app/background';
 import {seedWorkspace,seedMember,seedContainer,seedContainerGrant,sessionFor} from '../e2e/setup/fixtures';
 import {resetDeployment} from '../e2e/setup/reset-deployment';
 
@@ -82,6 +82,65 @@ it("FLAG-001 — core wiki public doors retain native content while flagship rou
   expect(await run.json()).toMatchObject({state:'completed'});
   await bodyBlocksJourney(api,containerId,cookie);
   await pageLockJourney(api,containerId,workspaceId,cookie);
+} },
+    { name: 'DEC-005 — default scheduled processing notifies the overdue owner once per review period and respects revoked access', run: async () => {
+  const {cookie,containerId,memberId,workspaceId}=await workspace(),api=createApi();
+  const reader=(await seedMember(workspaceId,{role:'member',displayName:'Decision reviewer',email:[crypto.randomUUID(),'test.invalid'].join('@')})).memberId;
+  const readerCookie=await sessionFor(reader);
+  const request=async(path:string,method='GET',body?:unknown,actorCookie=cookie)=>{
+    const response=await api.request('https://slate.example'+path,{method,headers:{cookie:actorCookie,'content-type':'application/json'},...(body?{body:JSON.stringify(body)}:{})},env);
+    expect(response.status,await response.clone().text()).toBe(200);
+    return response.json<any>();
+  };
+  const pageId=(await request('/api/pages','POST',{operationKey:crypto.randomUUID(),containerId,title:'Decision review'})).value.pageId;
+  const share={targetKind:'page',targetId:pageId,principalKind:'member',principalId:reader,level:'edit'};
+  await request('/api/sharing','POST',{operationKey:crypto.randomUUID(),...share});
+  const create=async(ownerId:string,actorCookie=cookie)=>{
+    const target=ownerId===memberId?pageId:(await request('/api/pages','POST',{operationKey:crypto.randomUUID(),containerId,title:'Revoked decision review'})).value.pageId;
+    if(target!==pageId)await request('/api/sharing','POST',{operationKey:crypto.randomUUID(),...share,targetId:target});
+    const proposed=await request('/api/decisions','POST',{operationKey:crypto.randomUUID(),pageId:target,question:'Review the support rota',options:['Retain rota'],outcome:'Retain rota',rationale:'Named review owner',ownerId,decidedAt:null,reviewAt:'2026-10-19T12:00:00.000Z',citations:[]},actorCookie);
+    await request('/api/decisions/'+proposed.value.id+'/accept','POST',{operationKey:crypto.randomUUID(),expectedRevisionId:proposed.value.revisionId},actorCookie);
+    return proposed.value.id as string;
+  };
+  const decisionId=await create(memberId),revokedId=await create(reader,readerCookie);
+  const revoked=await request('/api/decisions/'+revokedId);
+  const revokedGrant=(await env.DB.prepare('SELECT id FROM page_grants WHERE page_id=? AND principal_id=?').bind(revoked.page_id,reader).first<{id:string}>())!;
+  await request('/api/sharing','POST',{operationKey:crypto.randomUUID(),...share,targetId:revoked.page_id,id:revokedGrant.id,revoke:true});
+  const count=async(id:string,recipient:string)=>(await env.DB.prepare("SELECT count(*) AS n FROM notifications WHERE event='decision-required' AND json_extract(detail_json,'$.decisionId')=? AND recipient_member_id=?").bind(id,recipient).first<{n:number}>())!.n;
+  const before=await count(decisionId,memberId),revokedBefore=await count(revokedId,reader);
+  await scheduledJobs(env);
+  expect(await count(decisionId,memberId)).toBe(before);
+  vi.setSystemTime(new Date('2026-10-20T12:00:00.000Z'));
+  await scheduledJobs(env);await scheduledJobs(env);
+  expect(await count(decisionId,memberId)).toBe(before+1);
+  expect(await count(decisionId,reader)).toBe(0);
+  expect(await count(revokedId,reader)).toBe(revokedBefore);
+  expect(await env.DB.prepare('SELECT overdue_notified_at FROM knowledge_decisions WHERE id=?').bind(revokedId).first()).toEqual({overdue_notified_at:null});
+  let decision=await request('/api/decisions/'+decisionId);
+  expect(decision).toMatchObject({state:'accepted',overdue:true});
+  const acceptedRevision=decision.acceptedRevisionId;
+  const today=async()=>((await request('/api/notifications/today')).decisions as {detail:{decisionId:string}}[]).filter(item=>item.detail.decisionId===decisionId);
+  expect((await today()).length).toBeGreaterThan(0);
+  const review={operationKey:crypto.randomUUID(),expectedRevisionId:decision.revision_id,note:'Rota reviewed and retained',nextReviewAt:'2026-10-21T12:00:00.000Z'};
+  await request('/api/decisions/'+decisionId+'/review','POST',review);
+  await request('/api/decisions/'+decisionId+'/review','POST',review);
+  decision=await request('/api/decisions/'+decisionId);
+  expect(decision).toMatchObject({state:'accepted',overdue:false,acceptedRevisionId:acceptedRevision,review_at:review.nextReviewAt});
+  expect(await today()).toEqual([]);
+  const reviews=(await request('/api/decisions/'+decisionId+'/reviews')).items;
+  expect(reviews).toHaveLength(1);
+  expect(reviews[0]).toMatchObject({note:review.note,reviewed_by_member_id:memberId,created_at:'2026-10-20T12:00:00.000Z',next_review_at:review.nextReviewAt});
+  await scheduledJobs(env);expect(await count(decisionId,memberId)).toBe(before+1);
+  vi.setSystemTime(new Date('2026-10-22T12:00:00.000Z'));
+  await scheduledJobs(env);await scheduledJobs(env);
+  expect(await count(decisionId,memberId)).toBe(before+2);
+  expect((await today()).length).toBeGreaterThan(0);
+  const replacementPage=(await request('/api/pages','POST',{operationKey:crypto.randomUUID(),containerId,title:'Replacement decision'})).value.pageId;
+  const replacement=await request('/api/decisions','POST',{operationKey:crypto.randomUUID(),pageId:replacementPage,question:'Replacement rota',options:['New rota'],outcome:'New rota',rationale:'Superseded after review',ownerId:memberId,decidedAt:null,reviewAt:null,citations:[]});
+  await request('/api/decisions/'+replacement.value.id+'/accept','POST',{operationKey:crypto.randomUUID(),expectedRevisionId:replacement.value.revisionId,supersedesId:decisionId});
+  expect(await request('/api/decisions/'+decisionId)).toMatchObject({state:'superseded',overdue:false,superseded_by_decision_id:replacement.value.id});
+  expect(await today()).toEqual([]);
+  await scheduledJobs(env);expect(await count(decisionId,memberId)).toBe(before+2);
 } },
     { name: 'FLAG-001 — old queued flagship work records failure and retries without dispatch or acknowledgement', run: async () => {
   for(const kind of ['intelligence.run','intelligence.finalize','federation.refresh']) {
