@@ -2020,7 +2020,7 @@
       "id": "DEC-004",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for DEC-004 — Decision log. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "The default-profile FLAG-001 registration invokes decisionLogJourney against a populated native corpus with exact independent memberships, UTC day bounds, current-access exclusions and retained acceptance revisions. Responsive UI proof is decisionLogJourney in the existing core-wiki callers in tests/qualification/ui-convergence/journeys.test.mjs. CONTRACT.md remains the status source; exact-candidate Verify and guarded landing are separate.",
       "supportingTests": []
     },
     {

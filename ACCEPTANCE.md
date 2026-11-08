@@ -8,10 +8,10 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 58 | 239 | 35 | 332 |
+| Core | 59 | 238 | 35 | 332 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 58 | 239 | 41 | 338 |
+| Full target | 59 | 238 | 41 | 338 |
 
 Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e6612` (29 October 2026); SEARCH-001 native source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. DB-012 record-detail proof reviewed from source `63a0e8f` (31 October 2026); its exact candidate and Verify are named by the branch handoff. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
@@ -868,7 +868,7 @@ Core · published · **partial** · Cites BASE-ROLE-001
 1. `full` may read, edit, comment, share and change access; `edit` may read, edit and comment; `comment` may read and comment; `view` may read only. no interface offers an action the level does not carry.
 2. Server-side level matrix for full, edit, comment and view on every operation; no interface offers an action beyond the level.
 
-**Evidence.** `tests/qualification/ui-convergence/journeys.test.mjs` — "native ordinary page full authority retains inventories and refuses revoked captures at 1440px" and the corresponding edit, comment and view registrations, calling permissionLevelsJourney in `tests/qualification/ui-convergence/sharing-journey.mjs`, permissionPageEditsMatrix (`tests/qualification/ui-convergence/sharing-page-edit-matrix.mjs`), permissionDiscussionMatrix (`tests/qualification/ui-convergence/sharing-discussion-matrix.mjs`), permissionLifecycleMatrix, permissionArchiveMatrix and permissionPermanentDeleteMatrix (`tests/qualification/ui-convergence/sharing-lifecycle-matrix.mjs`): supporting native ordinary-page level, retained-state, replay and revocation assertions only; the existing responsive core callers retain the selected matrix.
+**Evidence.** `tests/qualification/ui-convergence/journeys.test.mjs` — "native ordinary page full authority retains inventories and refuses revoked captures for page changes at 1440px", "native ordinary page full authority retains inventories and refuses revoked captures for discussion and sharing at 1440px" and the corresponding edit, comment and view registrations, calling permissionLevelsJourney in `tests/qualification/ui-convergence/sharing-journey.mjs`, permissionPageEditsMatrix (`tests/qualification/ui-convergence/sharing-page-edit-matrix.mjs`), permissionDiscussionMatrix (`tests/qualification/ui-convergence/sharing-discussion-matrix.mjs`), permissionLifecycleMatrix, permissionArchiveMatrix and permissionPermanentDeleteMatrix (`tests/qualification/ui-convergence/sharing-lifecycle-matrix.mjs`): supporting native ordinary-page level, retained-state, replay and revocation assertions only; the existing responsive core callers retain the selected matrix.
 **Gap.** Supporting candidate proof only; SHARE-002 remains partial. The complete every-operation matrix across other record families, lifecycles, profiles, principals, extensions, automation and public API surfaces remains unproven. Existing draft privacy, LIFE-002, REV-001, queued scope, inheritance, expiry, grant narrowing, ADMIN-007 and shared company-policy prerequisites remain authoritative.
 
 #### SHARE-003 — Inheritance
@@ -2757,16 +2757,16 @@ Core · published · **done**
 
 #### DEC-004 — Decision log
 
-Core · published · **partial**
+Core · published · **done**
 
-**Requirement.** Decisions are listed and filtered by state, container, owner, decided date, review date and whether their citations are current, and each result opens the exact accepted revision.
+**Requirement.** Decisions are listed and filtered by state, container, owner, decided date, review date and whether their citations are current, and each result opens the exact accepted revision. Native human decision records use the default core-wiki profile. Run-derived preparation remains flagship-only under ADMIN-007 and shared company-policy prerequisites.
 
 **Acceptance.**
 1. Decisions are listed and filtered by state, container, owner, decided date, review date and whether their citations are current, and each result opens the exact accepted revision.
 2. Decision log filters by state, container, owner, dates and citation currency.
 
-**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
-**Gap.** No validated CI-run proof for this acceptance point: "Decisions are listed and filtered by state, container, owner, decided date, review date and whether their citations are current, and each result opens the exact accepted revision."
+**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.; `tests/qualification/ui-convergence/journeys.test.mjs` (real core-wiki and touch-member journeys at 1440px); `tests/qualification/ui-convergence/journeys.test.mjs` (real core-wiki and touch-member journeys at 390px); `tests/profile/profile.worker.test.ts` (FLAG-001 — core wiki public doors retain native content while flagship routes and queued work require opt-in)
+**Gap.** None.
 
 #### DEC-005 — Review dates
 
