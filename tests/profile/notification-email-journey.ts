@@ -124,6 +124,13 @@ export async function taskAssignmentEmailJourney(items:Items){
   doc=await ok(items,'GET',`/api/pages/${page.pageId}`,undefined,other);
   await ok(items,'PATCH',`/api/pages/${page.pageId}/blocks/${block.id}`,{operationKey:createUlid(),expectedRevisionId:doc.blocks[0].revisionId,content:{...doc.blocks[0].content,done:true}},other);
   await send();expect(messages).toHaveLength(2);noBody(messages);
+  // Reassignment while the first assignment is queued must not mail the former assignee.
+  const queued=await create('Queued reassignment');await share(queued.pageId,reader);await share(queued.pageId,other);
+  const next={...block,id:createUlid()};
+  await ok(items,'PUT',`/api/pages/${queued.pageId}/blocks`,{operationKey:createUlid(),expectedRevisionId:queued.revisionId,blocks:[next]});
+  const queuedDoc=await ok(items,'GET',`/api/pages/${queued.pageId}`);
+  await ok(items,'PATCH',`/api/pages/${queued.pageId}/blocks/${next.id}`,{operationKey:createUlid(),expectedRevisionId:queuedDoc.blocks[0].revisionId,content:{...next.content,assigneeMemberId:other}});
+  await send();expect(messages).toHaveLength(3);expect(messages[2]!.to).toEqual(messages[1]!.to);noBody(messages);
  });
 }
 export async function reminderEmailJourney(items:Items){
