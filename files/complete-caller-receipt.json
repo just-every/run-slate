@@ -1,0 +1,16 @@
+{
+  "head": "f5de9971acc1a96db9f5cb7493b3edbc9d9a607b",
+  "command": [
+    "timeout",
+    "1200",
+    "node",
+    "--test",
+    "--test-concurrency=1",
+    "--test-name-pattern=^spreadsheet tables merge, sort and round-trip through edited database records at 1440px$",
+    "tests/qualification/ui-convergence/journeys.test.mjs"
+  ],
+  "started_at": "2026-11-08T18:53:50.431878+00:00",
+  "seconds": 295.345,
+  "exit": 0,
+  "log": "complete-caller.log"
+}

@@ -1,0 +1,13 @@
+{
+  "head": "f5de9971acc1a96db9f5cb7493b3edbc9d9a607b",
+  "tested_head": "e176af61c1cf3f2235eb5bdb6fb0cc2c501b5e05",
+  "relevant_bytes_equal": true,
+  "paths": [
+    "src/core/features/notifications/events.ts",
+    "tests/flagship/release-clauses/authority/impact-scope.test.ts"
+  ],
+  "command": "SLATE_TEST_PORT=60540 cloud_run pnpm exec vitest run --config tests/flagship/release-clauses/authority/vitest.config.ts tests/flagship/release-clauses/authority/impact-scope.test.ts",
+  "exit": 0,
+  "tests": 1,
+  "log": "notification-authority.log"
+}

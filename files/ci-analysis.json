@@ -1,0 +1,62 @@
+{
+  "head": "f5de9971acc1a96db9f5cb7493b3edbc9d9a607b",
+  "main": "6a6232f31641de9e5935ed1899a080aee6bb23ec",
+  "run": 42510370271,
+  "event": "push",
+  "conclusion": "failure",
+  "url": "https://github.com/just-every/run-slate/actions/runs/42510370271",
+  "native_target": {
+    "core_job": 128822629990,
+    "core_conclusion": "success",
+    "desktop_case": "spreadsheet tables merge, sort and round-trip through edited database records at 1440px",
+    "desktop_case_result": "passed within tooling job"
+  },
+  "failed_jobs": [
+    {
+      "id": 128822629995,
+      "job": "verify(ui-focus-mobile)",
+      "test": "native ordinary page full authority retains inventories and refuses revoked captures at 1440px",
+      "failure": "test timed out after 240000ms",
+      "candidate_exit": 1,
+      "main_exit": 1,
+      "classification": "also fails on main; existing timing flake",
+      "candidate_receipt": "reproduce-candidate-mobile.json",
+      "main_receipt": "reproduce-main-mobile.json"
+    },
+    {
+      "id": 128822630052,
+      "job": "verify(tooling)",
+      "test": "real core-wiki and touch-member journeys at 1440px",
+      "failure": "Step BLOCK-001: page.waitForLoadState: Timeout 30000ms exceeded.",
+      "candidate_exit": 0,
+      "main_exit": 0,
+      "classification": "original failure did not reproduce; no speculative repair",
+      "candidate_receipt": "reproduce-candidate-tooling.json",
+      "main_receipt": "reproduce-main-tooling.json"
+    }
+  ],
+  "reproduction_environment": {
+    "os": "Ubuntu 24.04",
+    "node": "22.20.0",
+    "image": "mcr.microsoft.com/playwright:v1.63.0-noble",
+    "image_digest": "sha256:eff16c30e6f3f4af0a03fa4b706120d5e9b0891c344a27d64559aff5900a4a27",
+    "browser": "Playwright Chromium build 1243",
+    "command": "bash .github/scripts/run-shard.sh",
+    "environment_details": "Exact shard and suite arguments recorded in each receipt; no credential environment exported."
+  },
+  "unchanged_reproduction_paths": [
+    "tests/qualification/ui-convergence/write-journey.mjs",
+    "tests/qualification/ui-convergence/browser-evidence.mjs",
+    "tests/qualification/ui-convergence/journeys.test.mjs",
+    "tests/qualification/ui-convergence/sharing-journey.mjs",
+    ".github/scripts/run-shard.sh",
+    ".github/scripts/journey-shards.json"
+  ],
+  "github_calls_used": 10,
+  "github_call_budget": 10,
+  "failed_job_logs_read_once_each": true,
+  "product_ci_repairs": 0,
+  "reruns_dispatched": 0,
+  "claim": "PARTIAL",
+  "blocker": "Exact candidate Verify failed. The sharing failure is present on main; the other failed assertion did not reproduce under the exact failed shard. No speculative repair or green claim is permitted."
+}

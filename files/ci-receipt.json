@@ -1,0 +1,10 @@
+{
+  "head": "f5de9971acc1a96db9f5cb7493b3edbc9d9a607b",
+  "id": 42510370271,
+  "event": "push",
+  "name": "Verify Slate",
+  "conclusion": "failure",
+  "head_sha": "f5de9971acc1a96db9f5cb7493b3edbc9d9a607b",
+  "html_url": "https://github.com/just-every/run-slate/actions/runs/42510370271",
+  "status": "completed"
+}

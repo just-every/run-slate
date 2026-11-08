@@ -1,0 +1,54 @@
+{
+  "head": "f5de9971acc1a96db9f5cb7493b3edbc9d9a607b",
+  "main": "6a6232f31641de9e5935ed1899a080aee6bb23ec",
+  "views": {
+    "write": "node src/base/runtime/contract-docs.mjs write",
+    "write_exit": 0,
+    "check": "node src/base/runtime/contract-docs.mjs check",
+    "check_exit": 0,
+    "written_documents": 0,
+    "restored": [
+      "ACCEPTANCE.md",
+      "docs/CLAIMS.md"
+    ],
+    "committed_generated_views": false
+  },
+  "lock": {
+    "write": "pnpm source:lock",
+    "write_exit": 0,
+    "check": "pnpm source:check",
+    "check_exit": 0
+  },
+  "ledger": {
+    "command": null,
+    "exit": 0,
+    "reason": "No migration added or edited"
+  },
+  "contract_judgments_unchanged": true,
+  "registrations_before": 211,
+  "registrations_after": 211,
+  "counts": {
+    "before": {
+      "done": 58,
+      "partial": 239,
+      "missing": 41
+    },
+    "after": {
+      "done": 58,
+      "partial": 239,
+      "missing": 41
+    }
+  },
+  "publication_scan": {
+    "commit": "f5de9971acc1a96db9f5cb7493b3edbc9d9a607b",
+    "complete": null,
+    "historyScanned": null,
+    "findings": null,
+    "status": "NOT RUN: guarded Mac lander owns publication scan"
+  },
+  "landing": {
+    "main_equals_candidate": false,
+    "run_site_id": null,
+    "status": "Pending guarded landing"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "head": "f5de9971acc1a96db9f5cb7493b3edbc9d9a607b",
+  "job": "128822629995",
+  "command": "SLATE_UI_SHARD=6/8 SLATE_UI_ASSIGNMENTS=.github/scripts/journey-shards.json SERIAL_SUITE=true WORKER_SHARD=0 SUITE_COMMAND=\"node --test --test-concurrency=1 --test-name-pattern='^genuine insertion focus.*390' tests/ui/polish-journeys.test.mjs\" bash .github/scripts/run-shard.sh",
+  "test": "native ordinary page full authority retains inventories and refuses revoked captures at 1440px",
+  "exit": 1,
+  "failure": "test timed out after 240000ms",
+  "product_repairs": 0
+}

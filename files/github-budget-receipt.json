@@ -1,0 +1,90 @@
+[
+  {
+    "args": [
+      "api",
+      "repos/just-every/run-slate/actions/runs?head_sha=6a6232f31641de9e5935ed1899a080aee6bb23ec&per_page=100",
+      "--jq",
+      ".workflow_runs[]|{id,name,event,status,conclusion,head_sha,html_url}"
+    ]
+  },
+  {
+    "args": [
+      "api",
+      "repos/just-every/run-slate/actions/runs?head_sha=f5de9971acc1a96db9f5cb7493b3edbc9d9a607b&per_page=100",
+      "--jq",
+      "[.workflow_runs[]|{id,name,event,status,conclusion,head_sha,html_url}]"
+    ]
+  },
+  {
+    "args": [
+      "api",
+      "repos/just-every/run-slate/actions/runs?head_sha=f5de9971acc1a96db9f5cb7493b3edbc9d9a607b&per_page=100",
+      "--jq",
+      "[.workflow_runs[]|{id,name,event,status,conclusion,head_sha,html_url}]"
+    ]
+  },
+  {
+    "args": [
+      "api",
+      "repos/just-every/run-slate/actions/runs/42510370271",
+      "--jq",
+      "{status,conclusion,head_sha,html_url}"
+    ]
+  },
+  {
+    "args": [
+      "api",
+      "repos/just-every/run-slate/actions/runs/42510370271",
+      "--jq",
+      "{status,conclusion,head_sha,html_url}"
+    ]
+  },
+  {
+    "args": [
+      "api",
+      "repos/just-every/run-slate/actions/runs/42510370271",
+      "--jq",
+      "{status,conclusion,head_sha,html_url}"
+    ]
+  },
+  {
+    "args": [
+      "api",
+      "repos/just-every/run-slate/actions/runs/42510370271",
+      "--jq",
+      "{status,conclusion,head_sha,html_url}"
+    ]
+  },
+  {
+    "args": [
+      "api",
+      "repos/just-every/run-slate/actions/runs/42510370271/jobs?per_page=100",
+      "--jq",
+      "[.jobs[]|{id,name,status,conclusion,head_sha,steps:[.steps[]|{name,status,conclusion}]}]"
+    ]
+  },
+  {
+    "args": [
+      "run",
+      "view",
+      "42510370271",
+      "--repo",
+      "just-every/run-slate",
+      "--job",
+      "128822629995",
+      "--log-failed"
+    ]
+  },
+  {
+    "args": [
+      "run",
+      "view",
+      "42510370271",
+      "--repo",
+      "just-every/run-slate",
+      "--job",
+      "128822630052",
+      "--log-failed"
+    ]
+  }
+]

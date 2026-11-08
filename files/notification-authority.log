@@ -1,0 +1,15 @@
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mProxy environment variables detected. We'll use your proxy for fetch requests.[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mProxy environment variables detected. We'll use your proxy for fetch requests.[0m
+
+
+
+ RUN  v4.1.11 /workspace/slate-f214
+
+
+ Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  18:25:13
+   Duration  15.37s (transform 6.59s, setup 785ms, import 11.96s, tests 1.76s, environment 0ms)
+

@@ -1,0 +1,15 @@
+{
+  "head": "f5de9971acc1a96db9f5cb7493b3edbc9d9a607b",
+  "branch": "cloud/sd-slate-c-f214",
+  "remote_refs": [
+    "f5de9971acc1a96db9f5cb7493b3edbc9d9a607b\trefs/heads/cloud/sd-slate-c-f214",
+    "6a6232f31641de9e5935ed1899a080aee6bb23ec\trefs/heads/main"
+  ],
+  "shallow": "false",
+  "status": "",
+  "commits": [
+    "f5de9971acc1a96db9f5cb7493b3edbc9d9a607b Prove native automation effect attribution through member activity readback",
+    "e176af61c1cf3f2235eb5bdb6fb0cc2c501b5e05 Retain native automation receipts and align form selector with its accessible label [skip ci]",
+    "b16d7a4f08d0f888d259a0ef91272becd8efe8eb Repair native automation event and inbox execution; add native journeys [skip ci]"
+  ]
+}

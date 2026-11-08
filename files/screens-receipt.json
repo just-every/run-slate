@@ -1,0 +1,65 @@
+{
+  "head": "f5de9971acc1a96db9f5cb7493b3edbc9d9a607b",
+  "captures": [
+    {
+      "path": "screens/005-1440-touch-auto-001-native-member-rule-form.json",
+      "bytes": 367048,
+      "sha256": "64136028195c1d79b10084569233b7a5ce5536b81385d5f2169b107dc821d98c"
+    },
+    {
+      "path": "screens/005-1440-touch-auto-001-native-member-rule-form.png",
+      "bytes": 117650,
+      "sha256": "d01592f826f5b9af32c3f3ebd8acd2d5f4790b330d27faef47c655e32d654834"
+    },
+    {
+      "path": "screens/006-1440-touch-auto-001-reopened-saved-member-rule.json",
+      "bytes": 339333,
+      "sha256": "49f31a52bca0b663d4ee232deffcac593edbcde42d85d5ae5b486f30c526a9cc"
+    },
+    {
+      "path": "screens/006-1440-touch-auto-001-reopened-saved-member-rule.png",
+      "bytes": 117297,
+      "sha256": "b4ff7bd549c3ee67ef74a63894b9da543f2b02bfee4ec1a5c50dbe2d3c491c86"
+    },
+    {
+      "path": "screens/007-1440-touch-auto-001-saved-rule-canonical-outcome.json",
+      "bytes": 480492,
+      "sha256": "fbde10be7ca961a3856079a8d5bec807cb5576d3b4a64b4db45e6060b91cf560"
+    },
+    {
+      "path": "screens/007-1440-touch-auto-001-saved-rule-canonical-outcome.png",
+      "bytes": 137121,
+      "sha256": "034780e398a937f428780abcb801f5932c26b7942ad953f1d0291c6176cd8017"
+    },
+    {
+      "path": "screens/012-390-touch-auto-001-native-member-rule-form.json",
+      "bytes": 366122,
+      "sha256": "9a0a38115bffdeea3ca1a4dd5e703bfd242472db89a0e16a0c9cc9e6609714fd"
+    },
+    {
+      "path": "screens/012-390-touch-auto-001-native-member-rule-form.png",
+      "bytes": 24476,
+      "sha256": "46e337f9a5eea702cb8723e241766292f9863bbc3f2e259df0383cc63e8ff46c"
+    },
+    {
+      "path": "screens/013-390-touch-auto-001-reopened-saved-member-rule.json",
+      "bytes": 337312,
+      "sha256": "b9a2b3f0fc87dd3ef98b7f93847abbe994a0084105c437e4a95947cf85f5fc22"
+    },
+    {
+      "path": "screens/013-390-touch-auto-001-reopened-saved-member-rule.png",
+      "bytes": 21475,
+      "sha256": "e4e800b08547d1c35921f30fecd76ba890b0f7dc4ee048470a47e96877f6e9a9"
+    },
+    {
+      "path": "screens/014-390-touch-auto-001-saved-rule-canonical-outcome.json",
+      "bytes": 297615,
+      "sha256": "e1e1fa86e3a7f09ddb17c15196cdae10fe2249b183f375b7b73b4788643d20ec"
+    },
+    {
+      "path": "screens/014-390-touch-auto-001-saved-rule-canonical-outcome.png",
+      "bytes": 49129,
+      "sha256": "11dc2c31995a9eeec9df767db0f923b329ecfc7c8fe2dee98a89247e49c25b53"
+    }
+  ]
+}

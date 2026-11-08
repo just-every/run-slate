@@ -1,0 +1,158 @@
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	﻿2026-11-08T18:34:12.1563725Z ##[group]Run bash .github/scripts/run-shard.sh
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:34:12.1564121Z [36;1mbash .github/scripts/run-shard.sh[0m
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:34:12.1577246Z shell: /usr/bin/bash -e {0}
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:34:12.1577646Z env:
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:34:12.1577948Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:34:12.1578285Z   SLATE_UI_SHARD: 6/8
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:34:12.1578599Z   SLATE_UI_ASSIGNMENTS: .github/scripts/journey-shards.json
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:34:12.1578967Z   SERIAL_SUITE: true
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:34:12.1579231Z   WORKER_SHARD: 0
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:34:12.1579783Z   SUITE_COMMAND: node --test --test-concurrency=1 --test-name-pattern='^genuine insertion focus.*390' tests/ui/polish-journeys.test.mjs
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:34:12.1580373Z ##[endgroup]
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:34:12.2009430Z TAP version 13
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:35:55.0196610Z # Theme route 390px light: /app
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:35:55.2025058Z # Theme route 390px light: /app/search
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:35:55.4197905Z # Theme route 390px light: /app/inbox
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:35:55.6003935Z # Theme route 390px light: /app/tasks
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:35:55.7830510Z # Theme route 390px light: /app/review
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:35:55.9906613Z # Theme route 390px light: /app/containers
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:35:56.2853994Z # Theme route 390px light: /app/templates
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:35:56.4855690Z # Theme route 390px light: /app/archive
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:35:56.6839552Z # Theme route 390px light: /app/settings
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:35:56.9452110Z # Theme route 390px light: /app/settings/workspace
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:35:57.6883509Z # Theme route 390px light: /app/settings/members
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:35:57.8031875Z # Theme route 390px light: /app/settings/saml
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:35:58.0101380Z # Theme route 390px light: /app/settings/developer
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:35:58.3293810Z # Theme route 390px light: /app/settings/appearance
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:35:58.5305848Z # Theme route 390px light: /app/settings/preferences
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:35:58.7221265Z # Theme route 390px light: /app/settings/activity
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:35:58.9735500Z # Theme route 390px light: /app/settings/automation
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:35:59.1690257Z # Theme route 390px light: /app/settings/statuses
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:35:59.5230597Z # Theme route 390px light: /app/settings/spaces
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:35:59.7134475Z # Theme route 390px light: /app/settings/chat
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:35:59.9181734Z # Theme route 390px light: /app/settings/portability
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:36:00.1559208Z # Theme route 390px light: /app/pages/01M6Y741C3780GJKHPX4RJCV9R
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:36:01.0250155Z # Theme route 390px light: /app/databases/01M6Y741CSNEB42G0PN9MC3H2B
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:36:01.8016555Z # Theme route 390px light: /app/databases/01M6Y741CSNEB42G0PN9MC3H2B/records/01M6Y741HVPCDK6YDGNYJCVSQ6
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:36:12.3183502Z # Theme route 390px dark: /app
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:36:12.5425835Z # Theme route 390px dark: /app/search
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:36:12.8223704Z # Theme route 390px dark: /app/inbox
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:36:13.0513387Z # Theme route 390px dark: /app/tasks
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:36:13.2579496Z # Theme route 390px dark: /app/review
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:36:13.4675153Z # Theme route 390px dark: /app/containers
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:36:13.7940151Z # Theme route 390px dark: /app/templates
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:36:14.0410302Z # Theme route 390px dark: /app/archive
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:36:14.3086467Z # Theme route 390px dark: /app/settings
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:36:14.5766958Z # Theme route 390px dark: /app/settings/workspace
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:36:14.8125338Z # Theme route 390px dark: /app/settings/members
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:36:15.0756788Z # Theme route 390px dark: /app/settings/saml
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:36:15.3559988Z # Theme route 390px dark: /app/settings/developer
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:36:15.8651476Z # Theme route 390px dark: /app/settings/appearance
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:36:16.3566891Z # Theme route 390px dark: /app/settings/preferences
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:36:16.8605638Z # Theme route 390px dark: /app/settings/activity
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:36:17.3796717Z # Theme route 390px dark: /app/settings/automation
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:36:17.8780652Z # Theme route 390px dark: /app/settings/statuses
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:36:18.3622699Z # Theme route 390px dark: /app/settings/spaces
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:36:18.8594296Z # Theme route 390px dark: /app/settings/chat
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:36:19.3613105Z # Theme route 390px dark: /app/settings/portability
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:36:19.8764396Z # Theme route 390px dark: /app/pages/01M6Y741C3780GJKHPX4RJCV9R
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:36:20.6983733Z # Theme route 390px dark: /app/databases/01M6Y741CSNEB42G0PN9MC3H2B
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:36:21.6094087Z # Theme route 390px dark: /app/databases/01M6Y741CSNEB42G0PN9MC3H2B/records/01M6Y741HVPCDK6YDGNYJCVSQ6
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:36:32.2010921Z # Theme route 390px system: /app
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:36:32.4441173Z # Theme route 390px system: /app/search
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:36:32.7358939Z # Theme route 390px system: /app/inbox
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:36:33.0085295Z # Theme route 390px system: /app/tasks
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:36:33.4182487Z # Theme route 390px system: /app/review
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:36:33.7219153Z # Theme route 390px system: /app/containers
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:36:33.9692288Z # Theme route 390px system: /app/templates
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:36:34.2152396Z # Theme route 390px system: /app/archive
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:36:34.4552963Z # Theme route 390px system: /app/settings
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:36:34.7149010Z # Theme route 390px system: /app/settings/workspace
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:36:35.5602448Z # Theme route 390px system: /app/settings/members
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:36:35.7704083Z # Theme route 390px system: /app/settings/saml
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:36:36.0994622Z # Theme route 390px system: /app/settings/developer
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:36:36.3359961Z # Theme route 390px system: /app/settings/appearance
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:36:36.6034323Z # Theme route 390px system: /app/settings/preferences
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:36:36.8557110Z # Theme route 390px system: /app/settings/activity
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:36:37.1220501Z # Theme route 390px system: /app/settings/automation
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:36:37.3476006Z # Theme route 390px system: /app/settings/statuses
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:36:37.6492162Z # Theme route 390px system: /app/settings/spaces
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:36:37.9019526Z # Theme route 390px system: /app/settings/chat
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:36:38.1779849Z # Theme route 390px system: /app/settings/portability
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:36:38.5178674Z # Theme route 390px system: /app/pages/01M6Y741C3780GJKHPX4RJCV9R
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:36:39.3621147Z # Theme route 390px system: /app/databases/01M6Y741CSNEB42G0PN9MC3H2B
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:36:40.1942744Z # Theme route 390px system: /app/databases/01M6Y741CSNEB42G0PN9MC3H2B/records/01M6Y741HVPCDK6YDGNYJCVSQ6
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:36:50.4689322Z # WORK-012 native themes, new sessions, independent members and anonymous exposures passed at 390px
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:37:09.9921529Z # IMPORT_BROWSER_RECEIPT {"width":390,"jobId":"01M6Y760JQ7BCM2MXTRA4YXVN4","state":"completed","mappings":[{"sourceId":"confluence-member:100001:d9d99555-7c2d-5fc9-9d5f-444042ec9317","kind":"member","targetId":"browser-reader"}],"access":{"restrictedPages":3,"sourceNamedGrants":3,"mappedLiveGrants":3,"unresolvedRestrictedPages":0,"recoveryGrants":3,"historicalMembers":34,"historicalGroups":0},"pages":[{"id":"72e6a434d5e5d2f0:page:54","title":"Overview","anonymousNative":401,"anonymousPublished":404},{"id":"72e6a434d5e5d2f0:page:36","title":"Getting started in Confluence","anonymousNative":401,"anonymousPublished":404},{"id":"72e6a434d5e5d2f0:page:299","title":"Pizza Restaurant Launch Plan","anonymousNative":401,"anonymousPublished":404}],"unavailableTargetShown":true,"retainedMappingUnchanged":true}
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:37:09.9929835Z # PROBE IMP-016 Settings 390: genuine archive upload, explicit mapping, Apply and reload -> completed; reviewed member and historical people displayed; conversion retained; 3 restricted reader pages and no anonymous page
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:37:32.8346707Z # PROBE CONT-009 native controls 390: owner and non-owner administrator grant changes=6; replay and inherited snapshots pass; deadlines={}
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:37:57.5103826Z # PROBE CONT-007 container guestAccess 390: native settings persisted; independent veto, retained address and authority reconciled
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:38:02.3645297Z # PROBE CONT-007 container publicLinkAccess 390: native settings persisted; independent veto, retained address and authority reconciled
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:38:07.2634508Z # PROBE CONT-007 container anonymousAccess 390: native settings persisted; independent veto, retained address and authority reconciled
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:38:17.2626401Z # PROBE CONT-007 workspace guestAccess 390: native settings persisted; independent veto, retained address and authority reconciled
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:38:23.9559487Z # PROBE CONT-007 workspace publicLinkAccess 390: native settings persisted; independent veto, retained address and authority reconciled
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:38:30.2437172Z # PROBE CONT-007 workspace anonymousAccess 390: native settings persisted; independent veto, retained address and authority reconciled
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:38:30.4380605Z # Subtest: space tree title filtering preserves ancestors, access and expansion at 390px
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:38:30.4387242Z ok 1 - space tree title filtering preserves ancestors, access and expansion at 390px
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:38:30.4388876Z   ---
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:38:30.4389487Z   duration_ms: 238001.463595
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:38:30.4390405Z   type: 'test'
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:38:30.4391005Z   ...
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:39:36.1518695Z # SHARING_PHASE full page edits 1440: 27532 ms
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:40:18.6188089Z # SHARING_PHASE full lifecycle 1440: 42467 ms
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:40:42.3609048Z # SHARING_PHASE full archive 1440: 23742 ms
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:40:53.7594917Z # PROBE SHARE-002 erasure full: non-owner confirmed deletion and old-capture refusal
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:40:53.7596144Z # SHARING_PHASE full erasure 1440: 10911 ms
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:41:28.7362211Z # SHARING_PHASE full discussion 1440: 30646 ms
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:42:30.4418347Z # Subtest: native ordinary page full authority retains inventories and refuses revoked captures at 1440px
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:42:30.4420155Z not ok 2 - native ordinary page full authority retains inventories and refuses revoked captures at 1440px
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:42:30.4421455Z   ---
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:42:30.4422277Z   duration_ms: 240001.045551
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:42:30.4423130Z   type: 'test'
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:42:30.4423973Z   location: '/home/runner/work/run-slate/run-slate/tests/qualification/ui-convergence/journey-shard.mjs:23:97'
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:42:30.4425763Z   failureType: 'testTimeoutFailure'
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:42:30.4426472Z   error: 'test timed out after 240000ms'
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:42:30.4427125Z   code: 'ERR_TEST_FAILURE'
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:42:30.4427834Z   ...
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:42:30.4428443Z # Sharing full setup: 24320 ms
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:42:42.6333368Z # PROBE SHARE-002 full: page edits, ownership, locks, metadata reads, discussion, reactions, grants and revoked captures; 45 refused requests preserve inventories at 1440px
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:43:22.3320280Z # Subtest: page and comment reactions identify people without notifications or views at 1440px
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:43:22.3321517Z ok 3 - page and comment reactions identify people without notifications or views at 1440px
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:43:22.3322229Z   ---
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:43:22.3322765Z   duration_ms: 51892.115128
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:43:22.3323334Z   type: 'test'
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:43:22.3323793Z   ...
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:44:04.2581624Z # Subtest: flagship no-provider Ask retains a page-scoped draft at 1440px
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:44:04.2582991Z ok 4 - flagship no-provider Ask retains a page-scoped draft at 1440px
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:44:04.2583653Z   ---
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:44:04.2584057Z   duration_ms: 41926.489337
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:44:04.2584623Z   type: 'test'
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:44:04.2585038Z   ...
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:44:04.2871195Z 1..4
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:44:04.2871676Z # tests 4
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:44:04.2872262Z # suites 0
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:44:04.2872641Z # pass 3
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:44:04.2873089Z # fail 0
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:44:04.2873513Z # cancelled 1
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:44:04.2873845Z # skipped 0
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:44:04.2874201Z # todo 0
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:44:04.2874555Z # duration_ms 592097.735748
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:44:23.7532689Z TAP version 13
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:44:23.7533338Z 1..0
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:44:23.7533756Z # Subtest: tests/ui/polish-journeys.test.mjs
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:44:23.7534310Z ok 1 - tests/ui/polish-journeys.test.mjs
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:44:23.7534770Z   ---
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:44:23.7535088Z   duration_ms: 19424.87566
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:44:23.7535501Z   type: 'test'
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:44:23.7535895Z   ...
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:44:23.7536711Z 1..1
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:44:23.7537088Z # tests 1
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:44:23.7538169Z # suites 0
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:44:23.7538579Z # pass 1
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:44:23.7538988Z # fail 0
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:44:23.7539440Z # cancelled 0
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:44:23.7539823Z # skipped 0
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:44:23.7540203Z # todo 0
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:44:23.7540527Z # duration_ms 19432.048998
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:44:23.7541039Z Shard lane results: journeys=1 worker-suite=0
+verify (ui-focus-mobile)	Workers, public-door journeys and suite	2026-11-08T18:44:23.7561914Z ##[error]Process completed with exit code 1.

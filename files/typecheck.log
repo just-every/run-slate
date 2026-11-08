@@ -1,0 +1,4 @@
+
+> slate@0.4.0 typecheck /workspace/slate-f214
+> tsc --noEmit
+

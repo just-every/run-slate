@@ -1,0 +1,9 @@
+{
+  "head": "f5de9971acc1a96db9f5cb7493b3edbc9d9a607b",
+  "node": "v22.20.0",
+  "pnpm": "10.12.4",
+  "browser": "/usr/bin/chromium",
+  "browser_args": [
+    "--no-sandbox"
+  ]
+}

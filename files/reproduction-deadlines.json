@@ -1,0 +1,12 @@
+[
+  {
+    "lane": "mobile",
+    "state": "finished before the 25 minute CI job deadline",
+    "exit_text": "1"
+  },
+  {
+    "lane": "tooling",
+    "state": "finished before the 25 minute CI job deadline",
+    "exit_text": "0"
+  }
+]

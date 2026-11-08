@@ -1,0 +1,19 @@
+{
+  "head": "f5de9971acc1a96db9f5cb7493b3edbc9d9a607b",
+  "command": [
+    "timeout",
+    "1200",
+    "node",
+    "/tmp/slate-automation-browser.mjs"
+  ],
+  "started_at": "2026-11-08T18:27:55.820064+00:00",
+  "seconds": 113.585,
+  "exit": 0,
+  "log": "browser.log",
+  "widths": [
+    1440,
+    390
+  ],
+  "helper": "tests/qualification/ui-convergence/automation-rule-journey.mjs",
+  "caller": "tests/qualification/ui-convergence/automation-run-log-journey.mjs"
+}

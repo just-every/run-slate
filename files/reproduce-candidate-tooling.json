@@ -1,0 +1,23 @@
+{
+  "head": "f5de9971acc1a96db9f5cb7493b3edbc9d9a607b",
+  "job": "128822630052",
+  "run": 42510370271,
+  "lane": "tooling",
+  "basis": "candidate",
+  "command": "bash .github/scripts/run-shard.sh",
+  "environment": {
+    "SLATE_UI_SHARD": "2/8",
+    "SERIAL_SUITE": "false",
+    "WORKER_SHARD": "1",
+    "SUITE_COMMAND": "pnpm test:base-proof && pnpm test:docs && pnpm test:typegen && pnpm test:portability && pnpm test:release-source && pnpm test:rer-editor",
+    "SLATE_UI_ASSIGNMENTS": ".github/scripts/journey-shards.json"
+  },
+  "os": "Ubuntu 24.04",
+  "node": "22.20.0",
+  "image": "mcr.microsoft.com/playwright:v1.63.0-noble",
+  "image_digest": "sha256:eff16c30e6f3f4af0a03fa4b706120d5e9b0891c344a27d64559aff5900a4a27",
+  "started_at": "2026-11-08T19:07:48.054625+00:00",
+  "seconds": 1115.108,
+  "exit": 0,
+  "log": "reproduce-candidate-tooling.log"
+}

@@ -1,0 +1,676 @@
+verify (tooling)	Workers, public-door journeys and suite	﻿2026-11-08T18:34:07.9262340Z ##[group]Run bash .github/scripts/run-shard.sh
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:34:07.9262760Z [36;1mbash .github/scripts/run-shard.sh[0m
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:34:07.9282928Z shell: /usr/bin/bash -e {0}
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:34:07.9283204Z env:
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:34:07.9283469Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:34:07.9283796Z   SLATE_UI_SHARD: 2/8
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:34:07.9284103Z   SLATE_UI_ASSIGNMENTS: .github/scripts/journey-shards.json
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:34:07.9284469Z   SERIAL_SUITE: false
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:34:07.9284694Z   WORKER_SHARD: 1
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:34:07.9285260Z   SUITE_COMMAND: pnpm test:base-proof && pnpm test:docs && pnpm test:typegen && pnpm test:portability && pnpm test:release-source && pnpm test:rer-editor
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:34:07.9285892Z ##[endgroup]
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:34:07.9753770Z TAP version 13
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9091523Z # Journey failure context {
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9101943Z #   "rejected": [],
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9122676Z #   "consoleErrors": []
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9192918Z # }
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9193925Z # Journey failure context REQUEST TIMELINE {
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9194566Z #   "primary": {
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9194840Z #     "requestsAtDump": [
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9195093Z #       {
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9195317Z #         "method": "GET",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9195615Z #         "path": "/<id>/<id>",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9195884Z #         "startMs": 0,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9196140Z #         "durationMs": 149,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9196400Z #         "status": 200
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9196627Z #       },
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9196825Z #       {
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9197036Z #         "method": "GET",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9252790Z #         "path": "/api/pages/01M6Y7…78J1",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9253429Z #         "startMs": 25,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9253893Z #         "durationMs": 40,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9254335Z #         "status": 200
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9254725Z #       },
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9255052Z #       {
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9255452Z #         "method": "GET",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9255954Z #         "path": "/api/pages",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9256445Z #         "startMs": 181,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9256885Z #         "durationMs": 12,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9257326Z #         "status": 200
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9257788Z #       },
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9258106Z #       {
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9258470Z #         "method": "GET",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9259197Z #         "path": "/api/pages/01M6Y7…78J1",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9259732Z #         "startMs": 198,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9260556Z #         "durationMs": 11,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9260994Z #         "status": 200
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9261653Z #       },
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9261978Z #       {
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9262349Z #         "method": "GET",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9262848Z #         "path": "/api/session",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9263321Z #         "startMs": 199,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9263771Z #         "durationMs": 14,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9264211Z #         "status": 200
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9264582Z #       },
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9264906Z #       {
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9265270Z #         "method": "PATCH",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9265934Z #         "path": "/api/pages/01M6Y7…78J1",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9266456Z #         "startMs": 376,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9266904Z #         "durationMs": 473,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9267391Z #         "status": 200
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9267776Z #       },
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9268100Z #       {
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9268458Z #         "method": "GET",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9269077Z #         "path": "/api/pages/01M6Y7…78J1",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9269611Z #         "startMs": 385,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9270060Z #         "durationMs": 11,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9270652Z #         "status": 200
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9271023Z #       },
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9271524Z #       {
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9271897Z #         "method": "GET",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9272398Z #         "path": "/api/activity",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9272894Z #         "startMs": 399,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9273354Z #         "durationMs": 8,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9273785Z #         "status": 200
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9274492Z #       },
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9274820Z #       {
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9275184Z #         "method": "GET",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9275968Z #         "path": "/api/pages/01M6Y7…78J1",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9281808Z #         "startMs": 810,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9311843Z #         "durationMs": 10,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9351831Z #         "status": 200
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9371804Z #       },
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9382040Z #       {
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9388310Z #         "method": "GET",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9388718Z #         "path": "/api/activity",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9389024Z #         "startMs": 823,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9389295Z #         "durationMs": 15,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9389555Z #         "status": 200
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9389779Z #       },
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9389980Z #       {
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9390201Z #         "method": "GET",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9390519Z #         "path": "/api/navigation",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9390837Z #         "startMs": 851,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9391572Z #         "durationMs": 36,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9392068Z #         "status": 200
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9421996Z #       },
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9447767Z #       {
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9448502Z #         "method": "GET",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9449121Z #         "path": "/api/pages",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9449665Z #         "startMs": 852,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9450223Z #         "durationMs": 33,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9450746Z #         "status": 200
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9451410Z #       },
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9451759Z #       {
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9452104Z #         "method": "GET",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9452702Z #         "path": "/api/databases",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9453247Z #         "startMs": 854,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9453755Z #         "durationMs": 47,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9454439Z #         "status": 200
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9454889Z #       },
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9455211Z #       {
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9455584Z #         "method": "POST",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9456431Z #         "path": "/api/pages/01M6Y7…78J1/open",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9456946Z #         "startMs": 864,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9457419Z #         "durationMs": 60056,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9457863Z #         "status": "pending"
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9458246Z #       },
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9458556Z #       {
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9458898Z #         "method": "GET",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9459569Z #         "path": "/api/pages/01M6Y7…78J1",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9460081Z #         "startMs": 872,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9460525Z #         "durationMs": 32,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9462349Z #         "status": 200
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9462760Z #       },
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9463070Z #       {
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9463426Z #         "method": "GET",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9464075Z #         "path": "/api/<id>/01M6Y7…78J1",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9464584Z #         "startMs": 2994,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9465016Z #         "durationMs": 9,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9465434Z #         "status": 200
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9465788Z #       },
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9466092Z #       {
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9466434Z #         "method": "GET",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9467025Z #         "path": "/api/<id>/01M6Y7…78J1",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9467528Z #         "startMs": 5995,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9467980Z #         "durationMs": 10,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9468425Z #         "status": 200
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9468810Z #       },
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9469125Z #       {
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9469487Z #         "method": "GET",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9470100Z #         "path": "/api/<id>/01M6Y7…78J1",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9470621Z #         "startMs": 8993,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9471068Z #         "durationMs": 11,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9471753Z #         "status": 200
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9472138Z #       },
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9472460Z #       {
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9472830Z #         "method": "POST",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9473529Z #         "path": "/api/<id>/01M6Y7…78J1/presence",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9474101Z #         "startMs": 11993,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9474556Z #         "durationMs": 11,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9474999Z #         "status": 200
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9475386Z #       },
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9475953Z #       {
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9476319Z #         "method": "GET",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9476937Z #         "path": "/api/<id>/01M6Y7…78J1",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9477463Z #         "startMs": 12004,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9477911Z #         "durationMs": 10,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9478341Z #         "status": 200
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9478771Z #       },
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9479097Z #       {
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9479441Z #         "method": "GET",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9480053Z #         "path": "/api/<id>/01M6Y7…78J1",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9480531Z #         "startMs": 14993,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9480943Z #         "durationMs": 10,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9481587Z #         "status": 200
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9481975Z #       },
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9482291Z #       {
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9482650Z #         "method": "GET",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9483198Z #         "path": "/api/<id>/01M6Y7…78J1",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9483676Z #         "startMs": 17994,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9484085Z #         "durationMs": 15,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9484510Z #         "status": 200
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9484875Z #       },
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9485180Z #       {
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9485534Z #         "method": "GET",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9486132Z #         "path": "/api/<id>/01M6Y7…78J1",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9486647Z #         "startMs": 20994,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9487094Z #         "durationMs": 13,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9487526Z #         "status": 200
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9487912Z #       },
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9488231Z #       {
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9488594Z #         "method": "POST",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9489249Z #         "path": "/api/<id>/01M6Y7…78J1/presence",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9489813Z #         "startMs": 23993,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9490254Z #         "durationMs": 12,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9490676Z #         "status": 200
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9491054Z #       },
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9491557Z #       {
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9491934Z #         "method": "GET",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9492546Z #         "path": "/api/<id>/01M6Y7…78J1",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9493075Z #         "startMs": 24006,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9493517Z #         "durationMs": 10,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9493949Z #         "status": 200
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9494312Z #       },
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9494619Z #       {
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9494973Z #         "method": "GET",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9495552Z #         "path": "/api/<id>/01M6Y7…78J1",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9496091Z #         "startMs": 26993,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9496897Z #         "durationMs": 15,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9497463Z #         "status": 200
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9498151Z #       },
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9498698Z #       {
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9499269Z #         "method": "GET",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9500081Z #         "path": "/api/<id>/01M6Y7…78J1",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9500678Z #         "startMs": 29996,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9501662Z #         "durationMs": 9,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9502298Z #         "status": 200
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9502976Z #       },
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9503502Z #       {
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9504145Z #         "method": "GET",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9522421Z #         "path": "/api/<id>/01M6Y7…78J1",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9523021Z #         "startMs": 32997,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9523523Z #         "durationMs": 11,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9523988Z #         "status": 200
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9524400Z #       },
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9524762Z #       {
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9525166Z #         "method": "POST",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9525932Z #         "path": "/api/<id>/01M6Y7…78J1/presence",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9526534Z #         "startMs": 35994,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9527088Z #         "durationMs": 12,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9527532Z #         "status": 200
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9527917Z #       },
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9528247Z #       {
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9528613Z #         "method": "GET",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9529273Z #         "path": "/api/<id>/01M6Y7…78J1",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9529808Z #         "startMs": 36006,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9530271Z #         "durationMs": 11,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9530719Z #         "status": 200
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9532348Z #       },
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9532690Z #       {
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9533064Z #         "method": "GET",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9533730Z #         "path": "/api/<id>/01M6Y7…78J1",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9534269Z #         "startMs": 38995,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9534740Z #         "durationMs": 10,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9535200Z #         "status": 200
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9535600Z #       },
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9535937Z #       {
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9536329Z #         "method": "GET",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9536981Z #         "path": "/api/<id>/01M6Y7…78J1",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9537515Z #         "startMs": 41994,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9537983Z #         "durationMs": 11,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9538429Z #         "status": 200
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9538820Z #       },
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9539157Z #       {
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9539543Z #         "method": "GET",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9540212Z #         "path": "/api/<id>/01M6Y7…78J1",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9540750Z #         "startMs": 44994,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9541648Z #         "durationMs": 11,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9542070Z #         "status": 200
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9542432Z #       },
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9542734Z #       {
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9543083Z #         "method": "POST",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9543812Z #         "path": "/api/<id>/01M6Y7…78J1/presence",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9544347Z #         "startMs": 47995,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9544750Z #         "durationMs": 10,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9545159Z #         "status": 200
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9545510Z #       },
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9545832Z #       {
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9546200Z #         "method": "GET",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9546867Z #         "path": "/api/<id>/01M6Y7…78J1",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9547419Z #         "startMs": 48005,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9547877Z #         "durationMs": 8,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9548320Z #         "status": 200
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9548720Z #       },
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9549051Z #       {
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9549433Z #         "method": "GET",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9550128Z #         "path": "/api/<id>/01M6Y7…78J1",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9550672Z #         "startMs": 50995,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9551410Z #         "durationMs": 11,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9551880Z #         "status": 200
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9552261Z #       },
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9552582Z #       {
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9552961Z #         "method": "GET",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9553634Z #         "path": "/api/<id>/01M6Y7…78J1",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9554159Z #         "startMs": 53995,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9555009Z #         "durationMs": 15,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9555452Z #         "status": 200
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9582033Z #       },
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9584132Z #       {
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9614033Z #         "method": "GET",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9614935Z #         "path": "/api/<id>/01M6Y7…78J1",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9615628Z #         "startMs": 56994,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9616198Z #         "durationMs": 12,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9616762Z #         "status": 200
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9617259Z #       },
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9617739Z #       {
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9618231Z #         "method": "POST",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9619047Z #         "path": "/api/<id>/01M6Y7…78J1/presence",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9619731Z #         "startMs": 59995,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9620307Z #         "durationMs": 11,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9620896Z #         "status": 200
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9621812Z #       },
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9622255Z #       {
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9622747Z #         "method": "GET",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9623514Z #         "path": "/api/<id>/01M6Y7…78J1",
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9624167Z #         "startMs": 60006,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9624729Z #         "durationMs": 11,
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9625293Z #         "status": 200
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9625785Z #       }
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9626222Z #     ]
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9626653Z #   },
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9627102Z #   "others": []
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:18.9627566Z # }
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:19.0002558Z # Subtest: real core-wiki and touch-member journeys at 1440px
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:19.0013414Z not ok 1 - real core-wiki and touch-member journeys at 1440px
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:19.0025121Z   ---
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:19.0025544Z   duration_ms: 106028.449199
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:19.0025996Z   type: 'test'
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:19.0026944Z   location: '/home/runner/work/run-slate/run-slate/tests/qualification/ui-convergence/journey-shard.mjs:23:97'
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:19.0027937Z   failureType: 'testCodeFailure'
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:19.0030746Z   error: 'Step BLOCK-001 — a new page body takes real keystrokes, including before it finishes loading, and keeps them through committed save, failed save, explicit retry and leaving; touch member creates, inserts and drags blocks failed: page.waitForLoadState: Timeout 30000ms exceeded.'
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:19.0033139Z   code: 'ERR_TEST_FAILURE'
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:19.0033586Z   name: 'TimeoutError'
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:19.0034001Z   stack: |-
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:19.0034966Z     accessible (/home/runner/work/run-slate/run-slate/tests/qualification/ui-convergence/browser-evidence.mjs:10:14)
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:19.0036620Z     writeJourney (/home/runner/work/run-slate/run-slate/tests/qualification/ui-convergence/write-journey.mjs:68:9)
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:19.0038176Z     async file:///home/runner/work/run-slate/run-slate/tests/qualification/ui-convergence/journeys.test.mjs:99:262
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:19.0039691Z     async step (/home/runner/work/run-slate/run-slate/tests/qualification/ui-convergence/journeys.test.mjs:42:9)
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:19.0042263Z     async withWorkspace.scheduled (/home/runner/work/run-slate/run-slate/tests/qualification/ui-convergence/journeys.test.mjs:99:9)
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:19.0044192Z     async withWorkspace (/home/runner/work/run-slate/run-slate/tests/qualification/ui-convergence/browser-support.mjs:197:7)
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:19.0045961Z     async TestContext.<anonymous> (/home/runner/work/run-slate/run-slate/tests/qualification/ui-convergence/journeys.test.mjs:87:5)
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:36:19.0047029Z   ...
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:37:24.2944747Z # PROBE DB-012 ordinary edit: native record Quantity 7 -> 11; computed value 22 and reload retained
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:37:28.0716368Z # PROBE DB-012 record-is-page: viewer fields, retained comments, exact historical body and unchanged stored current body passed
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:37:30.4061491Z # PROBE DB-012 record-is-row: viewer fields, retained comments, exact historical body and unchanged stored current body passed
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:37:33.0168728Z # PROBE DB-012 record-is-page: viewer fields, retained comments, exact historical body and unchanged stored current body passed
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:37:33.9975886Z # PROBE DB-012 read-only: all six fields readable; native viewer PATCH -> 404 and unchanged record and history
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:37:41.2586331Z # NAV-006 touch table layout record edit persisted
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:37:50.8391011Z # NAV-006 touch board layout record edit persisted
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:37:59.9482682Z # NAV-006 touch list layout record edit persisted
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:38:09.3922729Z # NAV-006 touch gallery layout record edit persisted
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:38:19.1052719Z # NAV-006 touch calendar layout record edit persisted
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:38:29.0842691Z # NAV-006 touch timeline layout record edit persisted
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:40:50.6510405Z # PROBE AUTO-008 1: authenticated rule and committed record -> SIGKILL pid=6530; genuine lease 2026-11-08T18:40:46.948Z; same store, one job and run, one record, comment and inbox effect; three confirmed action and operation receipts; one success activity; replay unchanged; recovered log at 1440 and 390
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:41:10.8711983Z # AUTO001_FORM_RECEIPT {"width":1440,"ruleId":"01M6Y7DJ1EQ94FEFRMVZVDSKV1","actorId":"browser-reader","triggerRecordId":"01M6Y7DRKYTG8J8Y6158M37SWS","run":{"id":"01M6Y7DRPRYY6CV4RDZFJE7XH9","rule_id":"01M6Y7DJ1EQ94FEFRMVZVDSKV1","workspace_id":"browser-workspace","actor_member_id":"browser-reader","state":"success","trigger_json":"{\\"key\\":\\"content:41\\",\\"occurredAt\\":\\"2026-11-08T18:41:10.255Z\\",\\"event\\":\\"record-created\\",\\"pageId\\":\\"01M6Y7DRKYTG8J8Y6158M37SWS\\",\\"databaseId\\":\\"01M6Y7D5H8DWKZQN2H009K5B2X\\",\\"containerId\\":\\"01M6Y767HKKEAVZ4ZEST39E8DK\\",\\"depth\\":0,\\"chainRuleIds\\":[]}","records_json":"[\\"01M6Y7DRKYTG8J8Y6158M37SWS\\"]","detail_json":"{}","parent_run_id":null,"chain_depth":0,"queued_at":"2026-11-08T18:41:10.327Z","started_at":"2026-11-08T18:41:10.327Z","finished_at":"2026-11-08T18:41:10.527Z","created_at":"2026-11-08T18:41:10.327Z","actor":{"id":"browser-reader","name":"Morgan Reader"},"trigger":{"key":"content:41","occurredAt":"2026-11-08T18:41:10.255Z","event":"record-created","pageId":"01M6Y7DRKYTG8J8Y6158M37SWS","databaseId":"01M6Y7D5H8DWKZQN2H009K5B2X","containerId":"01M6Y767HKKEAVZ4ZEST39E8DK","depth":0,"chainRuleIds":[]},"records":[{"id":"01M6Y7DRKYTG8J8Y6158M37SWS","title":"Native form accepted"}],"detail":{},"receipts":[{"actionIndex":0,"targetId":"01M6Y7DRKYTG8J8Y6158M37SWS","state":"confirmed","receipt":{"value":{"id":"01M6Y7DRRTWWVM6HZC2JYJF6TD","threadId":"01M6Y7DRRTSSXXF10JB7HHVYWB","revisionId":"01M6Y7DRRQG632MF7869E2WS3V"},"receipt":{"operationKey":"auto:01M6Y7DRPRYY6CV4RDZFJE7XH9:0:01M6Y7DRKYTG8J8Y6158M37SWS","entity":{"id":"01M6Y7DRRTSSXXF10JB7HHVYWB","kind":"comment-thread","revisionId":"01M6Y7DRRQG632MF7869E2WS3V"},"revisionId":"01M6Y7DRRQG632MF7869E2WS3V","activityId":"01M6Y7DRRQ3KTNDETY4SRX71JC","committedAt":"2026-11-08T18:41:10.403Z"}}},{"actionIndex":1,"targetId":"01M6Y7DRKYTG8J8Y6158M37SWS","state":"confirmed","receipt":{"value":{"pageId":"01M6Y7DRKYTG8J8Y6158M37SWS","revisionId":"01M6Y7DRSYXNGMFC915W24RV3B","values":{"form-stage":"Processed","form-score":2}},"receipt":{"operationKey":"auto:01M6Y7DRPRYY6CV4RDZFJE7XH9:1:01M6Y7DRKYTG8J8Y6158M37SWS","entity":{"id":"01M6Y7DRKYTG8J8Y6158M37SWS","kind":"page","revisionId":"01M6Y7DRSYXNGMFC915W24RV3B"},"revisionId":"01M6Y7DRSYXNGMFC915W24RV3B","activityId":"01M6Y7DRSYXYVN5R8JQXEKA1XH","committedAt":"2026-11-08T18:41:10.440Z"}}},{"actionIndex":2,"targetId":"01M6Y7DRKYTG8J8Y6158M37SWS","state":"confirmed","receipt":{"value":{"id":"01M6Y7DRVGMYRNH2H2X9JHFFR6","threadId":"01M6Y7DRVG224CA8YX6RGWVVXH","revisionId":"01M6Y7DRVEB7QPHMNCT1QGPBYP"},"receipt":{"operationKey":"auto:01M6Y7DRPRYY6CV4RDZFJE7XH9:2:01M6Y7DRKYTG8J8Y6158M37SWS","entity":{"id":"01M6Y7DRVG224CA8YX6RGWVVXH","kind":"comment-thread","revisionId":"01M6Y7DRVEB7QPHMNCT1QGPBYP"},"revisionId":"01M6Y7DRVEB7QPHMNCT1QGPBYP","activityId":"01M6Y7DRVEZG1MEJVGZNXTHMF5","committedAt":"2026-11-08T18:41:10.488Z"}}}]},"conditions":[{"field":"form-stage","op":"eq","value":"Ready"},{"field":"form-score","op":"gte","value":2}],"actions":[{"type":"comment","body":"Before field edit"},{"type":"edit-fields","values":{"form-stage":"Processed"}},{"type":"comment","body":"After field edit"}],"effects":[{"id":"01M6Y7DRVEZG1MEJVGZNXTHMF5","actor":{"id":"browser-reader","displayName":"Morgan Reader"},"feature":"comments","action":"comments.create","target":{"kind":"comment-thread","id":"01M6Y7DRVG224CA8YX6RGWVVXH"},"occurredAt":"2026-11-08T18:41:10.488Z","operationKey":"auto:01M6Y7DRPRYY6CV4RDZFJE7XH9:2:01M6Y7DRKYTG8J8Y6158M37SWS","automationRunId":null,"aiRunId":null,"deleted":false,"context":{"pageId":"01M6Y7DRKYTG8J8Y6158M37SWS","commentId":"01M6Y7DRVGMYRNH2H2X9JHFFR6","threadId":"01M6Y7DRVG224CA8YX6RGWVVXH"}},{"id":"01M6Y7DRSYXYVN5R8JQXEKA1XH","actor":{"id":"browser-reader","displayName":"Morgan Reader"},"feature":"databases","action":"databases.record.update","target":{"kind":"page","id":"01M6Y7DRKYTG8J8Y6158M37SWS"},"occurredAt":"2026-11-08T18:41:10.440Z","operationKey":"auto:01M6Y7DRPRYY6CV4RDZFJE7XH9:1:01M6Y7DRKYTG8J8Y6158M37SWS","automationRunId":null,"aiRunId":null,"deleted":false,"context":{"pageId":"01M6Y7DRKYTG8J8Y6158M37SWS","revisionId":"01M6Y7DRSYXNGMFC915W24RV3B"}},{"id":"01M6Y7DRRQ3KTNDETY4SRX71JC","actor":{"id":"browser-reader","displayName":"Morgan Reader"},"feature":"comments","action":"comments.create","target":{"kind":"comment-thread","id":"01M6Y7DRRTSSXXF10JB7HHVYWB"},"occurredAt":"2026-11-08T18:41:10.403Z","operationKey":"auto:01M6Y7DRPRYY6CV4RDZFJE7XH9:0:01M6Y7DRKYTG8J8Y6158M37SWS","automationRunId":null,"aiRunId":null,"deleted":false,"context":{"pageId":"01M6Y7DRKYTG8J8Y6158M37SWS","commentId":"01M6Y7DRRTWWVM6HZC2JYJF6TD","threadId":"01M6Y7DRRTSSXXF10JB7HHVYWB"}}],"unmetRecordId":"01M6Y7DRN6FS2D15PKCWJY6827"}
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:41:13.5493863Z # PROBE AUTO-001 form 1440: non-owner RuleForm -> saved and reopened ordered rule, committed record trigger, exact fields and comments, saving actor, condition-unmet refusal
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:41:27.2355177Z # PROBE AUTO-003 browser 1440: native database Automations -> trigger, actor, readable touched record and time; error retries, visible failure beside rule and persisted disable reason
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:41:39.2925039Z # DB-008 native chart counts, numeric aggregates, filtered source names, fewer grants and revocation passed
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:41:39.3237697Z # NAV-006 touch database charts, templates and automations passed
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:41:39.4277576Z # Subtest: spreadsheet tables merge, sort and round-trip through edited database records at 1440px
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:41:39.4280281Z ok 2 - spreadsheet tables merge, sort and round-trip through edited database records at 1440px
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:41:39.4287236Z   ---
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:41:39.4287794Z   duration_ms: 320429.00901
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:41:39.4288245Z   type: 'test'
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:41:39.4288605Z   ...
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:43:16.6414311Z # Subtest: page creation destinations and editor locks preserve readable content at 1440px
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:43:16.6415973Z ok 3 - page creation destinations and editor locks preserve readable content at 1440px
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:43:16.6416694Z   ---
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:43:16.6417177Z   duration_ms: 97213.254403
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:43:16.6417788Z   type: 'test'
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:43:16.6418273Z   ...
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6451767Z # Subtest: BLOCK-010 — native content queries retain criteria and current-reader results at 1440px
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6453888Z ok 4 - BLOCK-010 — native content queries retain criteria and current-reader results at 1440px
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6454738Z   ---
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6455083Z   duration_ms: 119003.320428
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6455500Z   type: 'test'
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6455839Z   ...
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6771768Z 1..4
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6772231Z # tests 4
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6782931Z # suites 0
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6783314Z # pass 3
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6783666Z # fail 1
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6784014Z # cancelled 0
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6784385Z # skipped 0
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6784724Z # todo 0
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6785104Z # duration_ms 667716.266936
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6837056Z [33m(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6839690Z   - import "./source-fixtures" without a file extension (scripts/import-scale/generate-server-dc.ts:2:91). Add the file extension
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6841729Z   - import "./types" without a file extension (scripts/import-scale/generate-server-dc.ts:3:82). Add the file extension
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6843424Z   - import "./source-fixtures" without a file extension (scripts/import-scale/generate-server-dc.ts:4:22). Add the file extension
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6845042Z   - import "./csv" without a file extension (scripts/import-scale/source-fixtures.ts:4:46). Add the file extension
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6846565Z Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.[39m
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6847129Z 
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6847618Z [1m[30m[46m RUN [49m[39m[22m [36mv4.1.11 [39m[90m/home/runner/work/run-slate/run-slate[39m
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6847996Z 
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6848992Z [90mstdout[2m | tests/e2e/review/verification-flow.test.ts[2m > [22m[2mVerifying offers 7, 30 or 90 days, a date or none, only on the opened revision, and an edit makes it not current
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6850823Z [22m[39mOpen guard response {"case":"page_revision","status":409,"body":{"code":"STALE_REVISION","message":"This page changed. Open the current content before verifying.","details":{"guard":"page_revision"}}}
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6852046Z 
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6853028Z [90mstdout[2m | tests/e2e/review/verification-flow.test.ts[2m > [22m[2mVerifying offers 7, 30 or 90 days, a date or none, only on the opened revision, and an edit makes it not current
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6854854Z [22m[39mOpen guard response {"case":"revision_tuple","status":409,"body":{"code":"REVISION_CONFLICT","message":"The record changed. Reload before saving.","details":{"guard":"revision_tuple"}}}
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6855534Z 
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6856387Z [90mstdout[2m | tests/e2e/review/verification-flow.test.ts[2m > [22m[2mVerifying offers 7, 30 or 90 days, a date or none, only on the opened revision, and an edit makes it not current
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6858061Z [22m[39mOpen guard response {"case":"acl_epoch","status":409,"body":{"code":"REVISION_CONFLICT","message":"The record changed. Reload before saving.","details":{"guard":"acl_epoch","compared":{"expected":45,"current":46}}}}
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6858918Z 
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6859759Z [90mstdout[2m | tests/e2e/review/verification-flow.test.ts[2m > [22m[2mVerifying offers 7, 30 or 90 days, a date or none, only on the opened revision, and an edit makes it not current
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6861816Z [22m[39mOpen guard response {"case":"acl_epoch","status":409,"body":{"code":"REVISION_CONFLICT","message":"The record changed. Reload before saving.","details":{"guard":"acl_epoch","compared":{"expected":46,"current":47}}}}
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6862629Z 
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6863535Z [90mstdout[2m | tests/e2e/review/verification-flow.test.ts[2m > [22m[2mVerifying offers 7, 30 or 90 days, a date or none, only on the opened revision, and an edit makes it not current
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6865061Z [22m[39mOpen guard response {"case":"membership","status":409,"body":{"code":"REVISION_CONFLICT","message":"The record changed. Reload before saving.","details":{"guard":"membership"}}}
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6865716Z 
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6866546Z [90mstdout[2m | tests/e2e/review/verification-flow.test.ts[2m > [22m[2mVerifying offers 7, 30 or 90 days, a date or none, only on the opened revision, and an edit makes it not current
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6869172Z [22m[39mOpen guard response {"case":"normal","status":200,"body":{"value":{"revisionId":"01M6Y71JV16QXX1W37M4JKEPRW"},"receipt":{"operationKey":"30e9a9b0-d289-485b-8fed-071d4e086c5c","entity":{"id":"01M6Y71JT1QFJB7WACX15YKHA6","kind":"page","revisionId":"01M6Y71JV16QXX1W37M4JKEPRW"},"revisionId":"01M6Y71JV16QXX1W37M4JKEPRW","activityId":"01M6Y71K2JGF5DRFAFNBR6HM7J","committedAt":"2026-11-08T18:34:31.376Z"}}}
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6870576Z 
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6871625Z  [32m✓[39m tests/e2e/review/verification-flow.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 2429[2mms[22m[39m
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6872941Z    [33m[2m✓[22m[39m Verifying offers 7, 30 or 90 days, a date or none, only on the opened revision, and an edit makes it not current [33m 2428[2mms[22m[39m
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6873969Z  [32m✓[39m tests/flagship/discovery/following.test.ts [2m([22m[2m2 tests[22m[2m)[22m[33m 6299[2mms[22m[39m
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6875000Z    [33m[2m✓[22m[39m PAGE-016 — authoring watches respect durable unwatch, personal overrides and workspace defaults [33m 3027[2mms[22m[39m
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6876611Z    [33m[2m✓[22m[39m CONT-012 — a watched container delivers creation, two edit sessions and a comment once each, nothing for restricted or draft pages, one item when the page is also watched, and rechecks moves, lifecycle and access [33m 3270[2mms[22m[39m
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6877943Z  [32m✓[39m tests/e2e/pages/analytics.test.ts [2m([22m[2m2 tests[22m[2m)[22m[33m 2860[2mms[22m[39m
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6879121Z    [33m[2m✓[22m[39m PAGE-013 — page and container readership retain daily totals, uniques and author views without exposing private readers or pages [33m 977[2mms[22m[39m
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6880414Z    [33m[2m✓[22m[39m ADMIN-004 — owner reports export every report as CSV and container owners see only their readable container figures [33m 1881[2mms[22m[39m
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6881690Z  [32m✓[39m tests/e2e/webhooks/deliveries.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 3089[2mms[22m[39m
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6883099Z    [33m[2m✓[22m[39m owner webhook subscriptions sign current readable events, persist backoff, replay and disable once without following refused destinations [33m 3087[2mms[22m[39m
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6884823Z console warning; message = Called .text() on an HTTP body which does not appear to be text. The body's Content-Type is "application/zip". The result will probably be corrupted. Consider checking the Content-Type header before interpreting entities as text.
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6886261Z  [32m✓[39m tests/qualification/authority/skill-disclosure.test.ts [2m([22m[2m4 tests[22m[2m)[22m[33m 2014[2mms[22m[39m
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6887390Z    [33m[2m✓[22m[39m SKILL-001 — method disclosure and portable snapshots retain exact source, audience and attachment boundaries [33m 1321[2mms[22m[39m
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6888915Z [90mstdout[2m | tests/flagship/release-clauses/federation/exact-passages.test.ts[2m > [22m[2mSOURCE-002 — passages stay revision-pinned and content-free after source or connection revocation
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6903772Z [22m[39mU2 passage effects {"initialPassages":3,"reference":{"sourceId":"01M6Y731QDE9SD4SSGQGV71558","sourceRevisionId":"ebacd860b9c267437f3859c8e13040ca139ae404fd9abcdfb511bcaa7d0ba061","passageId":"ebacd860b9c267437f3859c8e13040ca139ae404fd9abcdfb511bcaa7d0ba061:1"},"retainedContentHash":"bd6e502e24744a6c51c6bbd235103de84f8c927c6d75081c4112d4c4ab0aaf1f","publishedPointerBeforeFailure":"cbab98d23ff96b6e5aa4f37193cb30d00f0f73a8c3d0b3235cedfb6ab5db737f","publishedPointerAfterFailure":"cbab98d23ff96b6e5aa4f37193cb30d00f0f73a8c3d0b3235cedfb6ab5db737f","revisionsBeforeFailure":2,"revisionsAfterFailure":2,"passagesBeforeFailure":6,"passagesAfterFailure":6,"refreshes":[{"state":"completed","error_code":null},{"state":"completed","error_code":null},{"state":"failed","error_code":"SOURCE_CHANGED"}],"controlledCalls":[{"origin":"https://passages.u2.test","path":"identity","method":"GET","status":200},{"origin":"https://passages.u2.test","path":"identity","method":"GET","status":200},{"origin":"https://passages.u2.test","path":"evidence","method":"GET","status":200},{"origin":"https://passages.u2.test","path":"identity","method":"GET","status":200},{"origin":"https://passages.u2.test","path":"check","method":"GET","status":200},{"origin":"https://passages.u2.test","path":"identity","method":"GET","status":200},{"origin":"https://passages.u2.test","path":"check","method":"GET","status":200},{"origin":"https://passages.u2.test","path":"identity","method":"GET","status":200},{"origin":"https://passages.u2.test","path":"evidence","method":"GET","status":200},{"origin":"https://passages.u2.test","path":"identity","method":"GET","status":200},{"origin":"https://passages.u2.test","path":"check","method":"GET","status":200},{"origin":"https://passages.u2.test","path":"identity","method":"GET","status":200},{"origin":"https://passages.u2.test","path":"check","method":"GET","status":200},{"origin":"https://passages.u2.test","path":"identity","method":"GET","status":200},{"origin":"https://passages.u2.test","path":"evidence","method":"GET","status":200},{"origin":"https://passages.u2.test","path":"identity","method":"GET","status":200},{"origin":"https://passages.u2.test","path":"check","method":"GET","status":200},{"origin":"https://passages.u2.test","path":"identity","method":"GET","status":200},{"origin":"https://passages.u2.test","path":"check","method":"GET","status":200},{"origin":"https://passages.u2.test","path":"identity","method":"GET","status":200},{"origin":"https://passages.u2.test","path":"check","method":"GET","status":403},{"origin":"https://passages.u2.test","path":"identity","method":"GET","status":200},{"origin":"https://passages.u2.test","path":"check","method":"GET","status":200},{"origin":"https://passages.u2.test","path":"identity","method":"GET","status":200},{"origin":"https://passages.u2.test","path":"check","method":"GET","status":404}],"operationalEffects":0}
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6913901Z 
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6914895Z [90mstdout[2m | tests/flagship/release-clauses/federation/exact-passages.test.ts[2m > [22m[2mSOURCE-002 — passages stay revision-pinned and content-free after source or connection revocation
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6922164Z [22m[39mU2 final authority effects {"controlledCalls":[{"origin":"https://final-authority.u2.test","path":"identity","method":"GET","status":200},{"origin":"https://final-authority.u2.test","path":"identity","method":"GET","status":200},{"origin":"https://final-authority.u2.test","path":"evidence","method":"GET","status":200},{"origin":"https://final-authority.u2.test","path":"identity","method":"GET","status":200},{"origin":"https://final-authority.u2.test","path":"check","method":"GET","status":200},{"origin":"https://final-authority.u2.test","path":"identity","method":"GET","status":200},{"origin":"https://final-authority.u2.test","path":"check","method":"GET","status":200},{"origin":"https://final-authority.u2.test","path":"identity","method":"GET","status":200},{"origin":"https://final-authority.u2.test","path":"check","method":"GET","status":200},{"origin":"https://final-authority.u2.test","path":"identity","method":"GET","status":200},{"origin":"https://final-authority.u2.test","path":"check","method":"GET","status":200},{"origin":"https://final-authority.u2.test","path":"identity","method":"GET","status":200},{"origin":"https://final-authority.u2.test","path":"revoke","method":"POST","status":200},{"origin":"https://final-authority.u2.test","path":"check","method":"GET","status":200}],"remoteRevocations":1,"operationalEffects":0}
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6926600Z 
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6927229Z  [32m✓[39m tests/flagship/release-clauses/federation/exact-passages.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 335[2mms[22m[39m
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6929820Z    [33m[2m✓[22m[39m SOURCE-002 — passages stay revision-pinned and content-free after source or connection revocation [33m 334[2mms[22m[39m
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6930906Z  [32m✓[39m tests/flagship/core/identity.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 2982[2mms[22m[39m
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6932235Z    [33m[2m✓[22m[39m native authentication, invitations and secret custody preserve current authority [33m 2980[2mms[22m[39m
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6933246Z  [32m✓[39m tests/qualification/authority/decision-authority.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 4739[2mms[22m[39m
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6934423Z    [33m[2m✓[22m[39m SOURCE-003 — decision authority and exact historical prose retain current citation boundaries through review and restore [33m 4736[2mms[22m[39m
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6936400Z [2m6:35:44 PM[22m [33m[1m[vite][22m[39m [33m[2m(ssr)[22m[39m [33mwarning: /home/runner/work/run-slate/run-slate/src/core/app/loaders.ts:18:30 createServerFn().inputValidator() is deprecated. Use createServerFn().validator() instead.[39m
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6937642Z   Plugin: [35mtanstack-start-core::server-fn:ssr[39m
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6938222Z   File: [36m/home/runner/work/run-slate/run-slate/src/core/app/loaders.ts[39m
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6939771Z [2m6:35:44 PM[22m [33m[1m[vite][22m[39m [33m[2m(ssr)[22m[39m [33mwarning: /home/runner/work/run-slate/run-slate/src/core/features/session/loader.ts:7:39 createServerFn().inputValidator() is deprecated. Use createServerFn().validator() instead.[39m
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6940894Z   Plugin: [35mtanstack-start-core::server-fn:ssr[39m
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6941800Z   File: [36m/home/runner/work/run-slate/run-slate/src/core/features/session/loader.ts[39m
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6943147Z [90mstderr[2m | tests/e2e/docs.test.ts[2m > [22m[2mDOCS-001 public documentation supporting regressions[2m > [22m[2mpublic docs serve declared pages with accessible navigation and refuse unknown routes
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6945627Z [22m[39mReact encountered a `<link rel="stylesheet" .../>` with a `precedence` prop and expected the `href` prop to be a non-empty string but ecountered an empty string instead. If your intent was to have React hoist and deduplciate this stylesheet using the `precedence` prop ensure there is a non-empty string `href` prop as well, otherwise remove the `precedence` prop.
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6947665Z An empty string ("") was passed to the href attribute. To fix this, either do not render the element at all or pass null to href instead of an empty string.
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6948222Z 
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6949247Z [90mstderr[2m | tests/e2e/docs.test.ts[2m > [22m[2mDOCS-001 public documentation supporting regressions[2m > [22m[2mpublic docs serve declared pages with accessible navigation and refuse unknown routes
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6951995Z [22m[39mReact encountered a `<link rel="stylesheet" .../>` with a `precedence` prop and expected the `href` prop to be a non-empty string but ecountered an empty string instead. If your intent was to have React hoist and deduplciate this stylesheet using the `precedence` prop ensure there is a non-empty string `href` prop as well, otherwise remove the `precedence` prop.
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6954005Z An empty string ("") was passed to the href attribute. To fix this, either do not render the element at all or pass null to href instead of an empty string.
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6954559Z 
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6955544Z [90mstderr[2m | tests/e2e/docs.test.ts[2m > [22m[2mDOCS-001 public documentation supporting regressions[2m > [22m[2mpublic docs serve declared pages with accessible navigation and refuse unknown routes
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6958014Z [22m[39mReact encountered a `<link rel="stylesheet" .../>` with a `precedence` prop and expected the `href` prop to be a non-empty string but ecountered an empty string instead. If your intent was to have React hoist and deduplciate this stylesheet using the `precedence` prop ensure there is a non-empty string `href` prop as well, otherwise remove the `precedence` prop.
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6959884Z An empty string ("") was passed to the href attribute. To fix this, either do not render the element at all or pass null to href instead of an empty string.
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6960443Z 
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6961630Z [90mstderr[2m | tests/e2e/docs.test.ts[2m > [22m[2mDOCS-001 public documentation supporting regressions[2m > [22m[2mpublic docs serve declared pages with accessible navigation and refuse unknown routes
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6964119Z [22m[39mReact encountered a `<link rel="stylesheet" .../>` with a `precedence` prop and expected the `href` prop to be a non-empty string but ecountered an empty string instead. If your intent was to have React hoist and deduplciate this stylesheet using the `precedence` prop ensure there is a non-empty string `href` prop as well, otherwise remove the `precedence` prop.
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6966140Z An empty string ("") was passed to the href attribute. To fix this, either do not render the element at all or pass null to href instead of an empty string.
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6966694Z 
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6967663Z [90mstderr[2m | tests/e2e/docs.test.ts[2m > [22m[2mDOCS-001 public documentation supporting regressions[2m > [22m[2mpublic docs serve declared pages with accessible navigation and refuse unknown routes
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6970121Z [22m[39mReact encountered a `<link rel="stylesheet" .../>` with a `precedence` prop and expected the `href` prop to be a non-empty string but ecountered an empty string instead. If your intent was to have React hoist and deduplciate this stylesheet using the `precedence` prop ensure there is a non-empty string `href` prop as well, otherwise remove the `precedence` prop.
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6972223Z An empty string ("") was passed to the href attribute. To fix this, either do not render the element at all or pass null to href instead of an empty string.
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6972777Z 
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6973752Z [90mstderr[2m | tests/e2e/docs.test.ts[2m > [22m[2mDOCS-001 public documentation supporting regressions[2m > [22m[2mpublic docs serve declared pages with accessible navigation and refuse unknown routes
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6976341Z [22m[39mReact encountered a `<link rel="stylesheet" .../>` with a `precedence` prop and expected the `href` prop to be a non-empty string but ecountered an empty string instead. If your intent was to have React hoist and deduplciate this stylesheet using the `precedence` prop ensure there is a non-empty string `href` prop as well, otherwise remove the `precedence` prop.
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6978193Z An empty string ("") was passed to the href attribute. To fix this, either do not render the element at all or pass null to href instead of an empty string.
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6978744Z 
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6979703Z [90mstderr[2m | tests/e2e/docs.test.ts[2m > [22m[2mDOCS-001 public documentation supporting regressions[2m > [22m[2mpublic docs serve declared pages with accessible navigation and refuse unknown routes
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6982475Z [22m[39mReact encountered a `<link rel="stylesheet" .../>` with a `precedence` prop and expected the `href` prop to be a non-empty string but ecountered an empty string instead. If your intent was to have React hoist and deduplciate this stylesheet using the `precedence` prop ensure there is a non-empty string `href` prop as well, otherwise remove the `precedence` prop.
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6984364Z An empty string ("") was passed to the href attribute. To fix this, either do not render the element at all or pass null to href instead of an empty string.
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6984919Z 
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6985909Z [90mstderr[2m | tests/e2e/docs.test.ts[2m > [22m[2mDOCS-001 public documentation supporting regressions[2m > [22m[2mpublic docs serve declared pages with accessible navigation and refuse unknown routes
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6988366Z [22m[39mReact encountered a `<link rel="stylesheet" .../>` with a `precedence` prop and expected the `href` prop to be a non-empty string but ecountered an empty string instead. If your intent was to have React hoist and deduplciate this stylesheet using the `precedence` prop ensure there is a non-empty string `href` prop as well, otherwise remove the `precedence` prop.
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6990229Z An empty string ("") was passed to the href attribute. To fix this, either do not render the element at all or pass null to href instead of an empty string.
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6990781Z 
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6992085Z [90mstderr[2m | tests/e2e/docs.test.ts[2m > [22m[2mDOCS-001 public documentation supporting regressions[2m > [22m[2mpublic docs serve declared pages with accessible navigation and refuse unknown routes
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6994756Z [22m[39mReact encountered a `<link rel="stylesheet" .../>` with a `precedence` prop and expected the `href` prop to be a non-empty string but ecountered an empty string instead. If your intent was to have React hoist and deduplciate this stylesheet using the `precedence` prop ensure there is a non-empty string `href` prop as well, otherwise remove the `precedence` prop.
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6996630Z An empty string ("") was passed to the href attribute. To fix this, either do not render the element at all or pass null to href instead of an empty string.
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6997189Z 
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.6998162Z [90mstderr[2m | tests/e2e/docs.test.ts[2m > [22m[2mDOCS-001 public documentation supporting regressions[2m > [22m[2mpublic docs serve declared pages with accessible navigation and refuse unknown routes
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7000643Z [22m[39mReact encountered a `<link rel="stylesheet" .../>` with a `precedence` prop and expected the `href` prop to be a non-empty string but ecountered an empty string instead. If your intent was to have React hoist and deduplciate this stylesheet using the `precedence` prop ensure there is a non-empty string `href` prop as well, otherwise remove the `precedence` prop.
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7002743Z An empty string ("") was passed to the href attribute. To fix this, either do not render the element at all or pass null to href instead of an empty string.
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7003288Z 
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7004259Z [90mstderr[2m | tests/e2e/docs.test.ts[2m > [22m[2mDOCS-001 public documentation supporting regressions[2m > [22m[2mpublic docs serve declared pages with accessible navigation and refuse unknown routes
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7006959Z [22m[39mReact encountered a `<link rel="stylesheet" .../>` with a `precedence` prop and expected the `href` prop to be a non-empty string but ecountered an empty string instead. If your intent was to have React hoist and deduplciate this stylesheet using the `precedence` prop ensure there is a non-empty string `href` prop as well, otherwise remove the `precedence` prop.
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7008820Z An empty string ("") was passed to the href attribute. To fix this, either do not render the element at all or pass null to href instead of an empty string.
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7009366Z 
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7010324Z [90mstderr[2m | tests/e2e/docs.test.ts[2m > [22m[2mDOCS-001 public documentation supporting regressions[2m > [22m[2mpublic docs serve declared pages with accessible navigation and refuse unknown routes
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7013127Z [22m[39mReact encountered a `<link rel="stylesheet" .../>` with a `precedence` prop and expected the `href` prop to be a non-empty string but ecountered an empty string instead. If your intent was to have React hoist and deduplciate this stylesheet using the `precedence` prop ensure there is a non-empty string `href` prop as well, otherwise remove the `precedence` prop.
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7014997Z An empty string ("") was passed to the href attribute. To fix this, either do not render the element at all or pass null to href instead of an empty string.
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7015550Z 
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7016515Z [90mstderr[2m | tests/e2e/docs.test.ts[2m > [22m[2mDOCS-001 public documentation supporting regressions[2m > [22m[2mpublic docs serve declared pages with accessible navigation and refuse unknown routes
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7018964Z [22m[39mReact encountered a `<link rel="stylesheet" .../>` with a `precedence` prop and expected the `href` prop to be a non-empty string but ecountered an empty string instead. If your intent was to have React hoist and deduplciate this stylesheet using the `precedence` prop ensure there is a non-empty string `href` prop as well, otherwise remove the `precedence` prop.
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7020811Z An empty string ("") was passed to the href attribute. To fix this, either do not render the element at all or pass null to href instead of an empty string.
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7021776Z 
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7022770Z [90mstderr[2m | tests/e2e/docs.test.ts[2m > [22m[2mDOCS-001 public documentation supporting regressions[2m > [22m[2mpublic docs serve declared pages with accessible navigation and refuse unknown routes
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7025227Z [22m[39mReact encountered a `<link rel="stylesheet" .../>` with a `precedence` prop and expected the `href` prop to be a non-empty string but ecountered an empty string instead. If your intent was to have React hoist and deduplciate this stylesheet using the `precedence` prop ensure there is a non-empty string `href` prop as well, otherwise remove the `precedence` prop.
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7027084Z An empty string ("") was passed to the href attribute. To fix this, either do not render the element at all or pass null to href instead of an empty string.
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7027624Z 
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7028574Z [90mstderr[2m | tests/e2e/docs.test.ts[2m > [22m[2mDOCS-001 public documentation supporting regressions[2m > [22m[2mpublic docs serve declared pages with accessible navigation and refuse unknown routes
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7031017Z [22m[39mReact encountered a `<link rel="stylesheet" .../>` with a `precedence` prop and expected the `href` prop to be a non-empty string but ecountered an empty string instead. If your intent was to have React hoist and deduplciate this stylesheet using the `precedence` prop ensure there is a non-empty string `href` prop as well, otherwise remove the `precedence` prop.
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7033119Z An empty string ("") was passed to the href attribute. To fix this, either do not render the element at all or pass null to href instead of an empty string.
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7033820Z 
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7034225Z  [32m✓[39m tests/e2e/docs.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 2018[2mms[22m[39m
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7035140Z      [33m[2m✓[22m[39m public docs serve declared pages with accessible navigation and refuse unknown routes [33m 2016[2mms[22m[39m
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7036185Z  [2m[90m↓[39m[22m tests/e2e/imports/undo-cross-references.test.ts [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7037215Z  [32m✓[39m tests/flagship/structured/template-repairs.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 1318[2mms[22m[39m
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7038188Z    [33m[2m✓[22m[39m template snapshots, privacy and typed repairs preserve immutable definitions [33m 1316[2mms[22m[39m
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7039126Z  [32m✓[39m tests/flagship/structured/typed-repairs.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 1438[2mms[22m[39m
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7040095Z    [33m[2m✓[22m[39m typed relation, aggregate and formula repairs preserve current source authority [33m 1437[2mms[22m[39m
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7041027Z  [32m✓[39m tests/e2e/editor/provider-embeds.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 10106[2mms[22m[39m
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7042484Z    [33m[2m✓[22m[39m EMBED-003 — allowlisted embeds use isolated provider frames, authorized documents and published click gates [EMBED-004] with reader-authorized file references [33m 10105[2mms[22m[39m
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7043651Z  [32m✓[39m tests/e2e/editor/tables.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 5218[2mms[22m[39m
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7044765Z    [33m[2m✓[22m[39m BLOCK-014 — tables, columns and synced paragraphs preserve structured content through editing, validation, exports and access [33m 5217[2mms[22m[39m
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7045815Z  [32m✓[39m tests/e2e/workspace/health.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 10037[2mms[22m[39m
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7046660Z    [33m[2m✓[22m[39m BASE-OPS-001 — health reports ready when the database answers [33m 10036[2mms[22m[39m
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7048047Z [90mstdout[2m | tests/flagship/release-clauses/inquiry/bounded-allocation.test.ts[2m > [22m[2mINQ-003 — persisted allocations expose exhaustive optimum, capacity sensitivity and invalid input atomicity
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7052391Z [22m[39mU5_NATIVE_INQ003 {"id":"01M6Y75FWEWBYB5EHKS0WCT64Y","inquiry_id":"01M6Y75FV3VRCJD0WTDAYVXF0K","kind":"allocate","engine_version":"knapsack-01-v1","inputs_json":"{\"kind\":\"allocate\",\"items\":[{\"id\":\"greedy\",\"cost\":3,\"value\":5},{\"id\":\"pair-a\",\"cost\":2,\"value\":3},{\"id\":\"pair-b\",\"cost\":2,\"value\":3}],\"capacity\":3}","input_hash":"903174b78a6440eb44e3f2cd443e57bcbe63fe9538a4608a5bc1a49deea9b068","result_json":"{\"engine\":\"knapsack-01-v1\",\"capacity\":3,\"value\":5,\"ids\":[\"greedy\"],\"feasibilityOnly\":true}","refs_json":"[{\"kind\":\"page\",\"sourceId\":\"01M6Y75FP047BGF767ZWW3J7MB\",\"revisionId\":\"01M6Y75FP0ARQ5HGNQ5PAVWVQT\"}]","created_at":"2026-11-08T18:36:39.144Z"}
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7054761Z 
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7055799Z [90mstdout[2m | tests/flagship/release-clauses/inquiry/bounded-allocation.test.ts[2m > [22m[2mINQ-003 — persisted allocations expose exhaustive optimum, capacity sensitivity and invalid input atomicity
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7059877Z [22m[39mU5_NATIVE_INQ003 {"id":"01M6Y75FXW5CRA9PS7CZCF9CEV","inquiry_id":"01M6Y75FV3VRCJD0WTDAYVXF0K","kind":"allocate","engine_version":"knapsack-01-v1","inputs_json":"{\"kind\":\"allocate\",\"items\":[{\"id\":\"greedy\",\"cost\":3,\"value\":5},{\"id\":\"pair-a\",\"cost\":2,\"value\":3},{\"id\":\"pair-b\",\"cost\":2,\"value\":3}],\"capacity\":4}","input_hash":"a4edd04bde0bb5f48b567d5b9a4642791b8c50c6406cdb016301993362785ed3","result_json":"{\"engine\":\"knapsack-01-v1\",\"capacity\":4,\"value\":6,\"ids\":[\"pair-a\",\"pair-b\"],\"feasibilityOnly\":true}","refs_json":"[{\"kind\":\"page\",\"sourceId\":\"01M6Y75FP047BGF767ZWW3J7MB\",\"revisionId\":\"01M6Y75FP0ARQ5HGNQ5PAVWVQT\"}]","created_at":"2026-11-08T18:36:39.190Z"}
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7062577Z 
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7063213Z  [32m✓[39m tests/flagship/release-clauses/inquiry/bounded-allocation.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 384[2mms[22m[39m
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7064395Z    [33m[2m✓[22m[39m INQ-003 — persisted allocations expose exhaustive optimum, capacity sensitivity and invalid input atomicity [33m 383[2mms[22m[39m
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7065409Z  [32m✓[39m tests/flagship/core/erasure.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 171[2mms[22m[39m
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7066199Z  [32m✓[39m tests/e2e/scim/contract.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 3164[2mms[22m[39m
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7067169Z    [33m[2m✓[22m[39m SCIM RFC7643/7644 HTTP sequence uses native invitations, Members, groups and revocation authority [33m 3162[2mms[22m[39m
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7067695Z 
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7068115Z [2m Test Files [22m [1m[32m17 passed[39m[22m[2m | [22m[33m1 skipped[39m[90m (18)[39m
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7068844Z [2m      Tests [22m [1m[32m22 passed[39m[22m[2m | [22m[33m1 skipped[39m[90m (23)[39m
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7069335Z [2m   Start at [22m 18:34:11
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7070020Z [2m   Duration [22m 161.30s[2m (transform 11.28s, setup 10.85s, import 80.89s, tests 58.60s, environment 5ms)[22m
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7070437Z 
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7070784Z JSON report written to /home/runner/work/run-slate/run-slate/.artifacts/contract-1.json
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7071391Z 
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7071682Z > slate@0.4.0 test:base-proof /home/runner/work/run-slate/run-slate
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7072211Z > node --test --test-concurrency=1 tests/base-proof/*.test.mjs
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7072483Z 
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7072583Z TAP version 13
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7073128Z # Subtest: native Base provenance authenticates exact copies and refuses every forged or missing origin
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7073939Z ok 1 - native Base provenance authenticates exact copies and refuses every forged or missing origin
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7074413Z   ---
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7074632Z   duration_ms: 5625.083175
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7074874Z   type: 'test'
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7075082Z   ...
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7075268Z 1..1
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7075459Z # tests 1
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7075648Z # suites 0
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7075837Z # pass 1
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7076267Z # fail 0
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7076461Z # cancelled 0
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7076666Z # skipped 0
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7076857Z # todo 0
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7077068Z # duration_ms 5755.20825
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7077221Z 
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7077456Z > slate@0.4.0 test:docs /home/runner/work/run-slate/run-slate
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7078016Z > node --test tests/docs/docs-site.test.mjs tests/docs/docs-dev-sync.test.mjs
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7078346Z 
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7078436Z TAP version 13
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7078925Z # Subtest: the docs plugin follows edits to Markdown and docs/site.json in a running dev server
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7079639Z ok 1 - the docs plugin follows edits to Markdown and docs/site.json in a running dev server
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7080068Z   ---
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7080278Z   duration_ms: 5706.71076
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7080512Z   type: 'test'
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7080714Z   ...
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7081323Z # Subtest: docs build renders declared pages and refuses invalid manifests, markup, links and images
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7082089Z ok 2 - docs build renders declared pages and refuses invalid manifests, markup, links and images
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7082533Z   ---
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7082736Z   duration_ms: 193.455652
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7082968Z   type: 'test'
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7083163Z   ...
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7083352Z 1..2
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7083534Z # tests 2
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7083726Z # suites 0
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7083918Z # pass 2
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7084103Z # fail 0
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7084296Z # cancelled 0
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7084631Z # skipped 0
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7084834Z # todo 0
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7085045Z # duration_ms 6459.26122
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7085197Z 
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7085450Z > slate@0.4.0 test:typegen /home/runner/work/run-slate/run-slate
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7085938Z > node --test --test-concurrency=2 tests/typegen*.test.mjs
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7086195Z 
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7086286Z TAP version 13
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7086733Z # Subtest: local deployment validation names missing mail provider and selected key
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7087386Z ok 1 - local deployment validation names missing mail provider and selected key
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7087791Z   ---
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7087991Z   duration_ms: 4.93514
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7088221Z   type: 'test'
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7088417Z   ...
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7088854Z # Subtest: operation checker rejects missing scripts for pnpm run and pnpm shorthand
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7089489Z ok 2 - operation checker rejects missing scripts for pnpm run and pnpm shorthand
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7089897Z   ---
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7090092Z   duration_ms: 18.958288
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7090327Z   type: 'test'
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7090525Z   ...
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7090916Z # Subtest: binding check rejects stale declarations without overwriting them
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7091625Z ok 3 - binding check rejects stale declarations without overwriting them
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7091993Z   ---
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7092192Z   duration_ms: 456.169986
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7092430Z   type: 'test'
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7092629Z   ...
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7092807Z 1..3
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7092994Z # tests 3
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7093183Z # suites 0
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7093373Z # pass 3
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7093567Z # fail 0
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7093758Z # cancelled 0
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7093965Z # skipped 0
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7094156Z # todo 0
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7094369Z # duration_ms 528.645674
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7094511Z 
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7094775Z > slate@0.4.0 test:portability /home/runner/work/run-slate/run-slate
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7095295Z > node --test --test-concurrency=2 tests/portability/*.test.mjs
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7095570Z 
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7095662Z TAP version 13
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7096165Z # (node:4564) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7096825Z # (Use `node --trace-warnings ...` to show where the warning was created)
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7097567Z # Subtest: restore admission accepts pristine bootstrap targets and preserves every retained identity and record
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7098584Z ok 1 - restore admission accepts pristine bootstrap targets and preserves every retained identity and record
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7099092Z   ---
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7099303Z   duration_ms: 18135.214696
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7099546Z   type: 'test'
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7099750Z   ...
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7100788Z # Subtest: BASE-DATA-001 PORT-001 PORT-002 PORT-003 PORT-005 — native ZIP backup, failed restore, retry and backup preserve populated D1 and original R2 bytes in a separate empty deployment
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7102502Z ok 2 - BASE-DATA-001 PORT-001 PORT-002 PORT-003 PORT-005 — native ZIP backup, failed restore, retry and backup preserve populated D1 and original R2 bytes in a separate empty deployment
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7103252Z   ---
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7103454Z   duration_ms: 153907.53298
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7103689Z   type: 'test'
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7103887Z   ...
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7104164Z # {"tables":195,"records":58,"attachments":2}
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7104449Z 1..2
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7104636Z # tests 2
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7104820Z # suites 0
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7105019Z # pass 2
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7105207Z # fail 0
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7105405Z # cancelled 0
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7105609Z # skipped 0
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7105800Z # todo 0
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7106021Z # duration_ms 154169.763103
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7106190Z 
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7106470Z > slate@0.4.0 test:release-source /home/runner/work/run-slate/run-slate
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7107053Z > node --test tests/release/*.test.mjs
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7107249Z 
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7107337Z TAP version 13
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7107716Z # Subtest: public fixture policy preserves every reviewed archive
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7108217Z ok 1 - public fixture policy preserves every reviewed archive
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7108559Z   ---
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7108764Z   duration_ms: 689.537832
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7108997Z   type: 'test'
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7109209Z   ...
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7109627Z # Subtest: operations inspect input readiness without claiming provider readiness
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7110260Z ok 2 - operations inspect input readiness without claiming provider readiness
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7110650Z   ---
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7110854Z   duration_ms: 82.644646
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7111206Z   type: 'test'
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7111425Z   ...
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7111611Z 1..2
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7111797Z # tests 2
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7111998Z # suites 0
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7112189Z # pass 2
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7112389Z # fail 0
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7112584Z # cancelled 0
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7112795Z # skipped 0
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7112988Z # todo 0
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7113286Z # duration_ms 759.20145
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7113439Z 
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7113698Z > slate@0.4.0 test:rer-editor /home/runner/work/run-slate/run-slate
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7114203Z > node --test --test-concurrency=1 tests/rer/editor.test.mjs
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7114469Z 
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7114562Z TAP version 13
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7114927Z # Subtest: native owner editor mount, CSP and revocation at 1440
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7115425Z ok 1 - native owner editor mount, CSP and revocation at 1440
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7115751Z   ---
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7115965Z   duration_ms: 6882.032662
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7116203Z   type: 'test'
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7116409Z   ...
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7116746Z # Subtest: native owner editor mount, CSP and revocation at 390
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7117224Z ok 2 - native owner editor mount, CSP and revocation at 390
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7117554Z   ---
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7117761Z   duration_ms: 6688.325447
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7117994Z   type: 'test'
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7118186Z   ...
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7118372Z 1..2
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7118617Z # tests 2
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7118934Z # suites 0
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7130164Z # pass 2
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7130400Z # fail 0
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7130608Z # cancelled 0
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7130831Z # skipped 0
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7131412Z # todo 0
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7131643Z # duration_ms 34869.898969
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7132004Z Shard lane results: journeys=1 worker-suite=0
+verify (tooling)	Workers, public-door journeys and suite	2026-11-08T18:45:15.7141699Z ##[error]Process completed with exit code 1.

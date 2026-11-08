@@ -1,0 +1,57 @@
+{
+  "head": "f5de9971acc1a96db9f5cb7493b3edbc9d9a607b",
+  "checks": [
+    {
+      "name": "typecheck",
+      "head": "f5de9971acc1a96db9f5cb7493b3edbc9d9a607b",
+      "command": [
+        "pnpm",
+        "typecheck"
+      ],
+      "started_at": "2026-11-08T18:27:55.866919+00:00",
+      "seconds": 29.172,
+      "exit": 0,
+      "log": "typecheck.log"
+    },
+    {
+      "name": "first-party",
+      "head": "f5de9971acc1a96db9f5cb7493b3edbc9d9a607b",
+      "command": [
+        "pnpm",
+        "exec",
+        "rer",
+        "check",
+        "--profile",
+        "first-party"
+      ],
+      "started_at": "2026-11-08T18:28:25.038950+00:00",
+      "seconds": 1.237,
+      "exit": 0,
+      "log": "first-party.log"
+    },
+    {
+      "name": "lock",
+      "head": "f5de9971acc1a96db9f5cb7493b3edbc9d9a607b",
+      "command": [
+        "pnpm",
+        "source:check"
+      ],
+      "started_at": "2026-11-08T18:28:26.276306+00:00",
+      "seconds": 0.897,
+      "exit": 0,
+      "log": "lock.log"
+    },
+    {
+      "name": "contract-structure",
+      "head": "f5de9971acc1a96db9f5cb7493b3edbc9d9a607b",
+      "command": [
+        "pnpm",
+        "check:contract"
+      ],
+      "started_at": "2026-11-08T18:28:27.172976+00:00",
+      "seconds": 0.903,
+      "exit": 0,
+      "log": "contract-structure.log"
+    }
+  ]
+}

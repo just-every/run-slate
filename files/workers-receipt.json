@@ -1,0 +1,42 @@
+{
+  "head": "f5de9971acc1a96db9f5cb7493b3edbc9d9a607b",
+  "checks": [
+    {
+      "name": "profile",
+      "head": "f5de9971acc1a96db9f5cb7493b3edbc9d9a607b",
+      "command": [
+        "pnpm",
+        "exec",
+        "vitest",
+        "run",
+        "--config",
+        "tests/profile/vitest.config.ts",
+        "tests/profile/profile.worker.test.ts",
+        "--silent=false"
+      ],
+      "started_at": "2026-11-08T18:27:55.885293+00:00",
+      "seconds": 38.768,
+      "exit": 0,
+      "log": "profile.log"
+    },
+    {
+      "name": "structured",
+      "head": "f5de9971acc1a96db9f5cb7493b3edbc9d9a607b",
+      "command": [
+        "pnpm",
+        "exec",
+        "vitest",
+        "run",
+        "--config",
+        "tests/flagship/structured/vitest.config.ts",
+        "tests/flagship/structured/automation-repairs.test.ts",
+        "tests/flagship/structured/structured.test.ts",
+        "--silent=false"
+      ],
+      "started_at": "2026-11-08T18:28:34.653607+00:00",
+      "seconds": 53.483,
+      "exit": 0,
+      "log": "structured.log"
+    }
+  ]
+}

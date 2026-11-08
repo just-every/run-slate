@@ -1,0 +1,7 @@
+{
+  "basis": "native journey in an unpublished working tree based on main 6a6232f31641de9e5935ed1899a080aee6bb23ec",
+  "defects": [
+    {"door": "PUT a native page body, then scheduledAutomation", "failure": "success for blocks: expected undefined to be truthy", "cause": "Body replacement commits structure and text editing commits block; automation forwarded both names instead of the served blocks trigger.", "repair": "Map both committed body event kinds to blocks; test both actual write doors."},
+    {"door": "Native member rule with notify, then production automation and discovery drains", "failure": "expected [] to have a length of 1 but got +0", "observed": "The committed maintenance outbox had recipients_json equal to an empty array although the named owner could read the source.", "cause": "The agent creation-eligibility resolver rejected native notices without a governed agent record; the existing exemption applied only in local development.", "repair": "Use current page access for ungoverned native maintenance notices in every deployment; retain governed-agent audience resolution, removed-recipient refusal and self suppression."}
+  ]
+}
