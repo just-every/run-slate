@@ -2082,7 +2082,7 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 #### DEC-005 — Review dates
 
-**Requirement.** A review date that passes labels the decision overdue and notifies its owner (`NOTIF-001`) until a member records a completed review — a note, an actor, a time and the next review date — or supersedes the decision.
+**Requirement.** A review date that passes labels the decision overdue and notifies its owner (`NOTIF-001`) until a member records a completed review — a note, an actor, a time and the next review date — or supersedes the decision. The native scheduler creates one in-app notice per overdue review period in every launch profile, only while the owner can read the page. A completed review retains its attribution and next review date without changing the accepted snapshot, and clears the current Today reminder; supersession also clears that reminder.
 
 **Acceptance.**
 1. An overdue decision stays Accepted.

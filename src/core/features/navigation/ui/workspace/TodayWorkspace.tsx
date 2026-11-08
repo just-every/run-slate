@@ -24,7 +24,46 @@ interface Today {
   unreadCount: number;
 }
 export function TodayWorkspace() {
-  return useFlagshipEnabled() ? <FlagshipToday /> : <><TopBar trail={[{ label: "Today" }]} /><section className="main"><PageTitle>Your workspace</PageTitle><PersonalHome /></section></>;
+  return useFlagshipEnabled() ? <FlagshipToday /> : <><TopBar trail={[{ label: "Today" }]} /><section className="main"><PageTitle>Your workspace</PageTitle><CoreDecisionNotices /><PersonalHome /></section></>;
+}
+function CoreDecisionNotices() {
+  const resource = useResource<Today>('/api/notifications/today');
+  const decisions = resource.data?.decisions.filter(item => item.event === 'decision-required') ?? [];
+  return <RequestState loading={resource.loading} error={resource.error} retry={resource.reload}>
+    {decisions.length ? <section className="today-section"><SectionLabel>Ready for your decision</SectionLabel><NoticeRows items={decisions} /></section> : null}
+  </RequestState>;
+}
+function NoticeRows({items}: {items: Notice[]}) {
+  return (
+    <ul className="outcome-list">
+      {items.map((item) => (
+        <li key={item.id}>
+          <a
+            href={item.href}
+            onClick={() => {
+              void mutate("/api/notifications/actions", {
+                operationKey: operationKey(),
+                action: "read",
+                id: item.id,
+              }).catch(() => {});
+            }}
+          >
+            <span className="outcome-kind">
+              {item.event.replaceAll("-", " ")}
+            </span>
+            <h3>{item.title ?? "Workspace update"}</h3>
+            {item.detail?.outcome ? <p>{item.detail.outcome}</p> : null}
+            <time dateTime={item.createdAt}>
+              {displayDate(item.createdAt, true)}
+            </time>
+            <span className="outcome-arrow" aria-hidden="true">
+              ↗
+            </span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  );
 }
 function FlagshipToday() {
   const resource = useResource<Today>("/api/notifications/today");
@@ -35,38 +74,7 @@ function FlagshipToday() {
     !data.contradictions.length &&
     !data.notices.length &&
     !data.outcomes.length;
-  function rows(items: Notice[]) {
-    return (
-      <ul className="outcome-list">
-        {items.map((item) => (
-          <li key={item.id}>
-            <a
-              href={item.href}
-              onClick={() => {
-                void mutate("/api/notifications/actions", {
-                  operationKey: operationKey(),
-                  action: "read",
-                  id: item.id,
-                }).catch(() => {});
-              }}
-            >
-              <span className="outcome-kind">
-                {item.event.replaceAll("-", " ")}
-              </span>
-              <h3>{item.title ?? "Workspace update"}</h3>
-              {item.detail?.outcome ? <p>{item.detail.outcome}</p> : null}
-              <time dateTime={item.createdAt}>
-                {displayDate(item.createdAt, true)}
-              </time>
-              <span className="outcome-arrow" aria-hidden="true">
-                ↗
-              </span>
-            </a>
-          </li>
-        ))}
-      </ul>
-    );
-  }
+
   return (
     <>
       <TopBar trail={[{ label: "Today" }]}>
@@ -95,25 +103,25 @@ function FlagshipToday() {
           {data?.decisions.length ? (
             <section className="today-section">
               <SectionLabel>Ready for your decision</SectionLabel>
-              {rows(data.decisions)}
+              <NoticeRows items={data.decisions} />
             </section>
           ) : null}
           {data?.contradictions.length ? (
             <section className="today-section">
               <SectionLabel>Something needs a closer look</SectionLabel>
-              {rows(data.contradictions)}
+              <NoticeRows items={data.contradictions} />
             </section>
           ) : null}
           {data?.outcomes.map((group) => (
             <details className="today-section" key={group.items[0]?.id ?? group.day}>
               <summary>Completed work · {group.count} {group.count === 1 ? "outcome" : "outcomes"} · {group.day}</summary>
-              {rows(group.items)}
+              <NoticeRows items={group.items} />
             </details>
           ))}
           {data?.notices.length ? (
             <section className="today-section">
               <SectionLabel>For you</SectionLabel>
-              {rows(data.notices)}
+              <NoticeRows items={data.notices} />
             </section>
           ) : null}
         </RequestState>
