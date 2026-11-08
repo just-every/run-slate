@@ -479,23 +479,11 @@
       "id": "BLOCK-008",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Native media delivery and editor upload and link proof is loaded in the existing default-profile and responsive core journeys. Configured stock insertion remains unproved because the owner stock provider key is not held; complete clause acceptance and release are not claimed.",
+      "unmetReason": "This root Workers inventory records the supporting flagship registration only. The default-profile media case and both responsive browser journeys execute under their existing separate Verify commands; their complete native media scope is specified in tests/requirements/cli-journey.md. Configured stock insertion remains unproved because the owner stock provider key is not held; complete clause acceptance and release are not claimed.",
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
           "testName": "content durable HTTP publication, human verification and media enforce current reader authority"
-        },
-        {
-          "file": "tests/profile/profile.worker.test.ts",
-          "testName": "FLAG-001 — core wiki public doors retain native content while flagship routes and queued work require opt-in"
-        },
-        {
-          "file": "tests/qualification/ui-convergence/journeys.test.mjs",
-          "testName": "real core-wiki and touch-member journeys at 390px"
-        },
-        {
-          "file": "tests/qualification/ui-convergence/journeys.test.mjs",
-          "testName": "real core-wiki and touch-member journeys at 1440px"
         }
       ]
     },

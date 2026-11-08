@@ -12484,11 +12484,11 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "224bbc99304ab24d7cd054692711921be38df82e9cc714242895f1eaf977b54a",
+      "sha256": "3137e93ecc2fbba03bdba0368de16fa221d45f1a726eca35708928ac9bcaa6da",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
-      "sha256": "7f730d5f429b5fa9982abba06af81e05c47f80d19c0a8095b283a8ee2495bcbe",
+      "sha256": "864ec04b2a0099f398f71f28d0efac7fddc5e654701e5e62c1603d1fc5b71cc4",
       "executable": false
     },
     "tests/requirements/count-registrations.mjs": {
@@ -12500,7 +12500,7 @@
       "executable": false
     },
     "tests/requirements/test-evidence.json": {
-      "sha256": "ebbacd15f950d6fdc6879fe8cec64a3bb5926fbed5c21b3a45e1c39ca82ad803",
+      "sha256": "1ee71543f0df92b8cd8ece9911aedea66e1556eb659f63d38dd0946a078a9817",
       "executable": false
     },
     "tests/rer/editor.test.mjs": {

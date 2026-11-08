@@ -1059,33 +1059,6 @@
         "ACT-002"
       ],
       "reason": "Exercises the SCIM HTTP protocol through native invitation, Member identity, group and removal services, including credential custody and current authority. Real directory-provider acceptance and native invitation capacity outside SCIM remain unproven."
-    },
-    {
-      "file": "tests/profile/profile.worker.test.ts",
-      "testName": "FLAG-001 — core wiki public doors retain native content while flagship routes and queued work require opt-in",
-      "kind": "supporting-regression",
-      "clauses": [
-        "BLOCK-008"
-      ],
-      "reason": "The native mediaBlocksJourney case runs in the default profile through real sessions, uploads, page mutations and public addresses. It checks declared type, disposition and nosniff for direct and scoped image, video, audio, attachment, icon and cover requests as editor, view reader and anonymous visitor; sanitized SVG bytes, refused entities without file insertion, inaccessible and unshown files, foreign-page files, trashed pages and revoked public addresses. The mediaBlocksJourney browser helper is loaded by both existing responsive core registrations: an ordinary editor inserts all four kinds by upload and link, enters captions and alt text, reloads, and reads member and public appearance. Stock insertion remains unproved because no owner stock provider key is held; no previews, versions, external provider acceptance or clause release is claimed."
-    },
-    {
-      "file": "tests/qualification/ui-convergence/journeys.test.mjs",
-      "testName": "real core-wiki and touch-member journeys at 390px",
-      "kind": "supporting-regression",
-      "clauses": [
-        "BLOCK-008"
-      ],
-      "reason": "The loaded mediaBlocksJourney helper drives native insertion, upload and link dialogs, caption and alt fields for image, video, audio and attachments, then reloads actual stored content. Functional assertions use desktop, with changed-screen browser proof also captured on the phone. Stored icon and cover images load through member and anonymous public routes. Remote media bytes are a labelled network-edge fixture. Configured stock insertion remains held and unproved."
-    },
-    {
-      "file": "tests/qualification/ui-convergence/journeys.test.mjs",
-      "testName": "real core-wiki and touch-member journeys at 1440px",
-      "kind": "supporting-regression",
-      "clauses": [
-        "BLOCK-008"
-      ],
-      "reason": "The loaded mediaBlocksJourney helper drives native insertion, upload and link dialogs, caption and alt fields for image, video, audio and attachments, then reloads actual stored content. Functional assertions use desktop, with changed-screen browser proof also captured on the phone. Stored icon and cover images load through member and anonymous public routes. Remote media bytes are a labelled network-edge fixture. Configured stock insertion remains held and unproved."
     }
   ]
 }
