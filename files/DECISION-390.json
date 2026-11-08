@@ -1,0 +1,860 @@
+{
+  "width": 390,
+  "profile": "core-wiki",
+  "artifact": {
+    "schema": 1,
+    "commit": "e52be2b6c6d5586f94d7105969851b1d9fedca04",
+    "tree": "22ac5094d01527c962be0cae24d664f4a7c06f5c",
+    "sourceSha256": "7e36734944629bc5b07dd674c482dd4503679a842ef75076ebf702291cf372c9",
+    "lockSha256": "39f415d51b336f92c40acb5a9b6f3de492df6a108f771746c7d720675b5c4e31",
+    "outputSha256": "9e2d67bd27d8d1c38ecfa4ee7760355592ae9a6c9a0e743027ba7281b4fc97fe"
+  },
+  "receipts": [
+    {
+      "actor": "owner",
+      "path": "/api/containers",
+      "response": {
+        "value": {
+          "id": "01M6XVGV08E1DF2A6PVSFYAP93",
+          "name": "Decision engineering",
+          "revisionId": "01M6XVGV08QZPTTG5EZQFNVXCD",
+          "homePageId": "01M6XVGV08J0B55GCTCFB3GEMN"
+        },
+        "receipt": {
+          "operationKey": "9a19eda4-5a47-4692-80c1-b570c727ab62",
+          "entity": {
+            "id": "01M6XVGV08E1DF2A6PVSFYAP93",
+            "kind": "container",
+            "revisionId": "01M6XVGV08QZPTTG5EZQFNVXCD"
+          },
+          "revisionId": "01M6XVGV08QZPTTG5EZQFNVXCD",
+          "activityId": "01M6XVGV08TPTSZ9Y6TJCHKNBP",
+          "committedAt": "2026-11-08T15:13:08.102Z"
+        }
+      }
+    },
+    {
+      "actor": "owner",
+      "path": "/api/sharing",
+      "response": {
+        "value": {
+          "id": "01M6XVGV3Y49DSBYCNZQW8R94V",
+          "revoked": false
+        },
+        "receipt": {
+          "operationKey": "641cbe9c-aee4-457c-8cd8-cc377b89b43a",
+          "entity": {
+            "id": "01M6XVGV08E1DF2A6PVSFYAP93",
+            "kind": "container",
+            "revisionId": "01M6XVGV3V5JADM832Q2V886NK"
+          },
+          "revisionId": "01M6XVGV3V5JADM832Q2V886NK",
+          "activityId": "01M6XVGV3VP3NFC4A4X2BPA1T0",
+          "committedAt": "2026-11-08T15:13:08.216Z"
+        }
+      }
+    },
+    {
+      "actor": "owner",
+      "path": "/api/containers",
+      "response": {
+        "value": {
+          "id": "01M6XVGV70K4ESBRHMKWHTEAR1",
+          "name": "Decision operations",
+          "revisionId": "01M6XVGV70AND2HX2SQDECV70E",
+          "homePageId": "01M6XVGV70G1BG0AQHSG68073B"
+        },
+        "receipt": {
+          "operationKey": "4a8fac8a-ee81-4ff2-a5f2-b4162b4432e8",
+          "entity": {
+            "id": "01M6XVGV70K4ESBRHMKWHTEAR1",
+            "kind": "container",
+            "revisionId": "01M6XVGV70AND2HX2SQDECV70E"
+          },
+          "revisionId": "01M6XVGV70AND2HX2SQDECV70E",
+          "activityId": "01M6XVGV70BZQ7JG16R2WZ6GTR",
+          "committedAt": "2026-11-08T15:13:08.317Z"
+        }
+      }
+    },
+    {
+      "actor": "owner",
+      "path": "/api/sharing",
+      "response": {
+        "value": {
+          "id": "01M6XVGV9QE65V1HWKPZTNW7MJ",
+          "revoked": false
+        },
+        "receipt": {
+          "operationKey": "379d94a2-eb36-4065-8961-6157a5cda422",
+          "entity": {
+            "id": "01M6XVGV70K4ESBRHMKWHTEAR1",
+            "kind": "container",
+            "revisionId": "01M6XVGV9P81EYAEYJ5X5PJ7V7"
+          },
+          "revisionId": "01M6XVGV9P81EYAEYJ5X5PJ7V7",
+          "activityId": "01M6XVGV9PGA0EJ5W9ZE9RA6SH",
+          "committedAt": "2026-11-08T15:13:08.403Z"
+        }
+      }
+    },
+    {
+      "actor": "owner",
+      "path": "/api/pages",
+      "response": {
+        "value": {
+          "pageId": "01M6XVGVCEVQZ5WBYGEGNX9QY9",
+          "revisionId": "01M6XVGVCEG1W873G9RM35JVTG"
+        },
+        "receipt": {
+          "operationKey": "65ca3729-2c83-4ecd-acfd-157749e63206",
+          "entity": {
+            "id": "01M6XVGVCEVQZ5WBYGEGNX9QY9",
+            "kind": "page",
+            "revisionId": "01M6XVGVCEG1W873G9RM35JVTG"
+          },
+          "revisionId": "01M6XVGVCEG1W873G9RM35JVTG",
+          "activityId": "01M6XVGVCECXZ361M2DDB0XXQM",
+          "committedAt": "2026-11-08T15:13:08.493Z"
+        }
+      }
+    },
+    {
+      "actor": "owner",
+      "path": "/api/pages",
+      "response": {
+        "value": {
+          "pageId": "01M6XVGVHEJ5494F4W06Y3B99F",
+          "revisionId": "01M6XVGVHEES3CBM85X911H6GV"
+        },
+        "receipt": {
+          "operationKey": "ec728aef-3792-49e9-9c6c-987c7f29de91",
+          "entity": {
+            "id": "01M6XVGVHEJ5494F4W06Y3B99F",
+            "kind": "page",
+            "revisionId": "01M6XVGVHEES3CBM85X911H6GV"
+          },
+          "revisionId": "01M6XVGVHEES3CBM85X911H6GV",
+          "activityId": "01M6XVGVHEH8RPPK8VCQX89Y81",
+          "committedAt": "2026-11-08T15:13:08.653Z"
+        }
+      }
+    },
+    {
+      "actor": "owner",
+      "path": "/api/pages",
+      "response": {
+        "value": {
+          "pageId": "01M6XVGVPHPYNR82N2DEN3NVJ8",
+          "revisionId": "01M6XVGVPHSRPK53RE36Q6C977"
+        },
+        "receipt": {
+          "operationKey": "ee7b8c39-33df-4de7-9f06-48b9b82d866b",
+          "entity": {
+            "id": "01M6XVGVPHPYNR82N2DEN3NVJ8",
+            "kind": "page",
+            "revisionId": "01M6XVGVPHSRPK53RE36Q6C977"
+          },
+          "revisionId": "01M6XVGVPHSRPK53RE36Q6C977",
+          "activityId": "01M6XVGVPHWX1AHWQKCWFCC2AH",
+          "committedAt": "2026-11-08T15:13:08.815Z"
+        }
+      }
+    },
+    {
+      "actor": "owner",
+      "path": "/api/decisions",
+      "response": {
+        "value": {
+          "id": "01M6XVGVWP5580Y3DZJ42AA58E",
+          "revisionId": "01M6XVGVWPVF47YJZC11A2RZG4",
+          "state": "proposed"
+        },
+        "receipt": {
+          "operationKey": "74086499-c88f-44c5-b0ac-5b78b29d4ed3",
+          "entity": {
+            "id": "01M6XVGVWP5580Y3DZJ42AA58E",
+            "kind": "decision",
+            "revisionId": "01M6XVGVWPVF47YJZC11A2RZG4"
+          },
+          "revisionId": "01M6XVGVWPVF47YJZC11A2RZG4",
+          "activityId": "01M6XVGVWP8N8432A70D32PKNZ",
+          "committedAt": "2026-11-08T15:13:08.991Z"
+        }
+      }
+    },
+    {
+      "actor": "owner",
+      "path": "/api/decisions/01M6XVGVWP5580Y3DZJ42AA58E/accept",
+      "response": {
+        "value": {
+          "id": "01M6XVGVWP5580Y3DZJ42AA58E",
+          "state": "accepted",
+          "revisionId": "01M6XVGW0A4MRT82H96YPBY4F8"
+        },
+        "receipt": {
+          "operationKey": "820580ec-9ea0-4e69-983f-72f4e379f7d3",
+          "entity": {
+            "id": "01M6XVGVWP5580Y3DZJ42AA58E",
+            "kind": "decision",
+            "revisionId": "01M6XVGW0A4MRT82H96YPBY4F8"
+          },
+          "revisionId": "01M6XVGW0A4MRT82H96YPBY4F8",
+          "activityId": "01M6XVGW0AXJ6MBMJEKZZGN7J3",
+          "committedAt": "2026-11-08T15:13:09.090Z"
+        }
+      }
+    },
+    {
+      "actor": "owner",
+      "path": "/api/pages",
+      "response": {
+        "value": {
+          "pageId": "01M6XVGW564XYN24VP1BAQ4YCK",
+          "revisionId": "01M6XVGW56BQ12RTF1WXRPGBK5"
+        },
+        "receipt": {
+          "operationKey": "97de3ed1-2c9c-4f12-a76d-d0931a15fad1",
+          "entity": {
+            "id": "01M6XVGW564XYN24VP1BAQ4YCK",
+            "kind": "page",
+            "revisionId": "01M6XVGW56BQ12RTF1WXRPGBK5"
+          },
+          "revisionId": "01M6XVGW56BQ12RTF1WXRPGBK5",
+          "activityId": "01M6XVGW56FZYA4HNJG02TJ5QR",
+          "committedAt": "2026-11-08T15:13:09.285Z"
+        }
+      }
+    },
+    {
+      "actor": "owner",
+      "path": "/api/decisions",
+      "response": {
+        "value": {
+          "id": "01M6XVGWB4J40JAS2R2WNZQFJJ",
+          "revisionId": "01M6XVGWB4XNMN2523AV9NEXA2",
+          "state": "proposed"
+        },
+        "receipt": {
+          "operationKey": "74d6d86f-9ed5-4276-bfec-a7da231945c6",
+          "entity": {
+            "id": "01M6XVGWB4J40JAS2R2WNZQFJJ",
+            "kind": "decision",
+            "revisionId": "01M6XVGWB4XNMN2523AV9NEXA2"
+          },
+          "revisionId": "01M6XVGWB4XNMN2523AV9NEXA2",
+          "activityId": "01M6XVGWB43N41FWE8VB479EX1",
+          "committedAt": "2026-11-08T15:13:09.446Z"
+        }
+      }
+    },
+    {
+      "actor": "owner",
+      "path": "/api/decisions/01M6XVGWB4J40JAS2R2WNZQFJJ/accept",
+      "response": {
+        "value": {
+          "id": "01M6XVGWB4J40JAS2R2WNZQFJJ",
+          "state": "accepted",
+          "revisionId": "01M6XVGWH91VR41T04G5R94PWW"
+        },
+        "receipt": {
+          "operationKey": "49f9dbf0-95bc-41d0-8d81-9d5641a4b4c5",
+          "entity": {
+            "id": "01M6XVGWB4J40JAS2R2WNZQFJJ",
+            "kind": "decision",
+            "revisionId": "01M6XVGWH91VR41T04G5R94PWW"
+          },
+          "revisionId": "01M6XVGWH91VR41T04G5R94PWW",
+          "activityId": "01M6XVGWH9CC5GN5SQF99MRT1K",
+          "committedAt": "2026-11-08T15:13:09.636Z"
+        }
+      }
+    },
+    {
+      "actor": "owner",
+      "path": "/api/pages",
+      "response": {
+        "value": {
+          "pageId": "01M6XVGWQHQJ66XHHPAZWW8G58",
+          "revisionId": "01M6XVGWQH88S9JPC5YYNQ89D8"
+        },
+        "receipt": {
+          "operationKey": "e17ff600-41c1-4dc2-853f-1aca26562197",
+          "entity": {
+            "id": "01M6XVGWQHQJ66XHHPAZWW8G58",
+            "kind": "page",
+            "revisionId": "01M6XVGWQH88S9JPC5YYNQ89D8"
+          },
+          "revisionId": "01M6XVGWQH88S9JPC5YYNQ89D8",
+          "activityId": "01M6XVGWQH64BFZQTCY802DVQP",
+          "committedAt": "2026-11-08T15:13:09.872Z"
+        }
+      }
+    },
+    {
+      "actor": "reader",
+      "path": "/api/decisions",
+      "response": {
+        "value": {
+          "id": "01M6XVGWVHRXAKA7ZRXVY02H3X",
+          "revisionId": "01M6XVGWVHRP8SWWYN7AW9KM87",
+          "state": "proposed"
+        },
+        "receipt": {
+          "operationKey": "413afb3b-14d1-4e4a-8a81-922526f9554f",
+          "entity": {
+            "id": "01M6XVGWVHRXAKA7ZRXVY02H3X",
+            "kind": "decision",
+            "revisionId": "01M6XVGWVHRP8SWWYN7AW9KM87"
+          },
+          "revisionId": "01M6XVGWVHRP8SWWYN7AW9KM87",
+          "activityId": "01M6XVGWVHCJDW11PAA0QGZA07",
+          "committedAt": "2026-11-08T15:13:09.975Z"
+        }
+      }
+    },
+    {
+      "actor": "reader",
+      "path": "/api/decisions/01M6XVGWVHRXAKA7ZRXVY02H3X/accept",
+      "response": {
+        "value": {
+          "id": "01M6XVGWVHRXAKA7ZRXVY02H3X",
+          "state": "accepted",
+          "revisionId": "01M6XVGWX8CV6K5G2KP3DWS796"
+        },
+        "receipt": {
+          "operationKey": "0beff0db-3c90-42ed-a93f-c3dac332e8bd",
+          "entity": {
+            "id": "01M6XVGWVHRXAKA7ZRXVY02H3X",
+            "kind": "decision",
+            "revisionId": "01M6XVGWX8CV6K5G2KP3DWS796"
+          },
+          "revisionId": "01M6XVGWX8CV6K5G2KP3DWS796",
+          "activityId": "01M6XVGWX8ETQFGP3CWTBX6NVV",
+          "committedAt": "2026-11-08T15:13:10.015Z"
+        }
+      }
+    },
+    {
+      "actor": "owner",
+      "path": "/api/pages",
+      "response": {
+        "value": {
+          "pageId": "01M6XVGX2H8G3JXFMBZVFMJW4K",
+          "revisionId": "01M6XVGX2HXA1V8H9Y3TWQAPRW"
+        },
+        "receipt": {
+          "operationKey": "f0a46d9a-b960-40a2-b946-6b195f3d0aeb",
+          "entity": {
+            "id": "01M6XVGX2H8G3JXFMBZVFMJW4K",
+            "kind": "page",
+            "revisionId": "01M6XVGX2HXA1V8H9Y3TWQAPRW"
+          },
+          "revisionId": "01M6XVGX2HXA1V8H9Y3TWQAPRW",
+          "activityId": "01M6XVGX2H5H32ZPWGEVDF6X7Q",
+          "committedAt": "2026-11-08T15:13:10.223Z"
+        }
+      }
+    },
+    {
+      "actor": "reader",
+      "path": "/api/decisions",
+      "response": {
+        "value": {
+          "id": "01M6XVGX6JR78ES8TY7GB7C5F1",
+          "revisionId": "01M6XVGX6J61VX16Y6MJZE01SB",
+          "state": "proposed"
+        },
+        "receipt": {
+          "operationKey": "306f0668-0173-4b4b-9b96-33c355ce3146",
+          "entity": {
+            "id": "01M6XVGX6JR78ES8TY7GB7C5F1",
+            "kind": "decision",
+            "revisionId": "01M6XVGX6J61VX16Y6MJZE01SB"
+          },
+          "revisionId": "01M6XVGX6J61VX16Y6MJZE01SB",
+          "activityId": "01M6XVGX6JNBS75ACSKV1Q51NH",
+          "committedAt": "2026-11-08T15:13:10.322Z"
+        }
+      }
+    },
+    {
+      "actor": "reader",
+      "path": "/api/decisions/01M6XVGX6JR78ES8TY7GB7C5F1/accept",
+      "response": {
+        "value": {
+          "id": "01M6XVGX6JR78ES8TY7GB7C5F1",
+          "state": "accepted",
+          "revisionId": "01M6XVGX8G0S1VGA7XXXSAMWBM"
+        },
+        "receipt": {
+          "operationKey": "12a1f86b-f359-468f-b47a-9a6d96d63411",
+          "entity": {
+            "id": "01M6XVGX6JR78ES8TY7GB7C5F1",
+            "kind": "decision",
+            "revisionId": "01M6XVGX8G0S1VGA7XXXSAMWBM"
+          },
+          "revisionId": "01M6XVGX8G0S1VGA7XXXSAMWBM",
+          "activityId": "01M6XVGX8GSPB9Y0KG2SK35QSA",
+          "committedAt": "2026-11-08T15:13:10.371Z"
+        }
+      }
+    },
+    {
+      "actor": "owner",
+      "path": "/api/pages",
+      "response": {
+        "value": {
+          "pageId": "01M6XVGXDJA61M2VZ52Y9X1SKX",
+          "revisionId": "01M6XVGXDJ26YC1Q6HQPJG488D"
+        },
+        "receipt": {
+          "operationKey": "8d40f512-dd79-4a96-b110-fd8a6e8f3371",
+          "entity": {
+            "id": "01M6XVGXDJA61M2VZ52Y9X1SKX",
+            "kind": "page",
+            "revisionId": "01M6XVGXDJ26YC1Q6HQPJG488D"
+          },
+          "revisionId": "01M6XVGXDJ26YC1Q6HQPJG488D",
+          "activityId": "01M6XVGXDJ2S5T5B61CD36MVQM",
+          "committedAt": "2026-11-08T15:13:10.577Z"
+        }
+      }
+    },
+    {
+      "actor": "owner",
+      "path": "/api/decisions",
+      "response": {
+        "value": {
+          "id": "01M6XVGXKB25EGQFZXZHYCRDEK",
+          "revisionId": "01M6XVGXKB3EHPN0JQF5Z2JRFK",
+          "state": "proposed"
+        },
+        "receipt": {
+          "operationKey": "161283c0-0350-4851-8da2-a9938cd3080c",
+          "entity": {
+            "id": "01M6XVGXKB25EGQFZXZHYCRDEK",
+            "kind": "decision",
+            "revisionId": "01M6XVGXKB3EHPN0JQF5Z2JRFK"
+          },
+          "revisionId": "01M6XVGXKB3EHPN0JQF5Z2JRFK",
+          "activityId": "01M6XVGXKBNNYT24NWVPXDWXWP",
+          "committedAt": "2026-11-08T15:13:10.735Z"
+        }
+      }
+    },
+    {
+      "actor": "owner",
+      "path": "/api/decisions",
+      "response": {
+        "value": {
+          "id": "01M6XVGXKB25EGQFZXZHYCRDEK",
+          "revisionId": "01M6XVGXPSFNZ81SVTMTMQR2EB",
+          "state": "proposed"
+        },
+        "receipt": {
+          "operationKey": "fd22274a-14fc-41d7-be61-c71f1d124019",
+          "entity": {
+            "id": "01M6XVGXKB25EGQFZXZHYCRDEK",
+            "kind": "decision",
+            "revisionId": "01M6XVGXPSFNZ81SVTMTMQR2EB"
+          },
+          "revisionId": "01M6XVGXPSFNZ81SVTMTMQR2EB",
+          "activityId": "01M6XVGXPSBC2ZRMKXFPEW12F0",
+          "committedAt": "2026-11-08T15:13:10.835Z"
+        }
+      }
+    },
+    {
+      "actor": "owner",
+      "path": "/api/pages",
+      "response": {
+        "value": {
+          "pageId": "01M6XVGXYW0XT023WAQ67B8VN5",
+          "revisionId": "01M6XVGXYWYZJ3E0B2PC4YJERG"
+        },
+        "receipt": {
+          "operationKey": "a1474c66-f83a-4c6f-84cc-069cf02a9e95",
+          "entity": {
+            "id": "01M6XVGXYW0XT023WAQ67B8VN5",
+            "kind": "page",
+            "revisionId": "01M6XVGXYWYZJ3E0B2PC4YJERG"
+          },
+          "revisionId": "01M6XVGXYWYZJ3E0B2PC4YJERG",
+          "activityId": "01M6XVGXYWMXWCHZQ6NT0M0FHP",
+          "committedAt": "2026-11-08T15:13:11.131Z"
+        }
+      }
+    },
+    {
+      "actor": "reader",
+      "path": "/api/decisions",
+      "response": {
+        "value": {
+          "id": "01M6XVGY2P4R4XCBHP6RE7FWPJ",
+          "revisionId": "01M6XVGY2PYP2D57XAM3JST28G",
+          "state": "proposed"
+        },
+        "receipt": {
+          "operationKey": "b3a81af9-911b-4e5f-b86d-b7940564dc7b",
+          "entity": {
+            "id": "01M6XVGY2P4R4XCBHP6RE7FWPJ",
+            "kind": "decision",
+            "revisionId": "01M6XVGY2PYP2D57XAM3JST28G"
+          },
+          "revisionId": "01M6XVGY2PYP2D57XAM3JST28G",
+          "activityId": "01M6XVGY2P0EZSEJJN9Z9D0YF0",
+          "committedAt": "2026-11-08T15:13:11.222Z"
+        }
+      }
+    },
+    {
+      "actor": "owner",
+      "path": "/api/pages",
+      "response": {
+        "value": {
+          "pageId": "01M6XVGY7X04VXTJVA2KGJ0C24",
+          "revisionId": "01M6XVGY7X5140Q5E2DVW0JW3D"
+        },
+        "receipt": {
+          "operationKey": "e71977a5-a9d7-4136-b168-0641de240489",
+          "entity": {
+            "id": "01M6XVGY7X04VXTJVA2KGJ0C24",
+            "kind": "page",
+            "revisionId": "01M6XVGY7X5140Q5E2DVW0JW3D"
+          },
+          "revisionId": "01M6XVGY7X5140Q5E2DVW0JW3D",
+          "activityId": "01M6XVGY7X1YH311GQFVB03M3A",
+          "committedAt": "2026-11-08T15:13:11.420Z"
+        }
+      }
+    },
+    {
+      "actor": "owner",
+      "path": "/api/decisions",
+      "response": {
+        "value": {
+          "id": "01M6XVGYFSTJX850TSA112BB1E",
+          "revisionId": "01M6XVGYFS14KK6ZDAKT24TB8J",
+          "state": "proposed"
+        },
+        "receipt": {
+          "operationKey": "04160fad-809c-4008-a3b4-673702526324",
+          "entity": {
+            "id": "01M6XVGYFSTJX850TSA112BB1E",
+            "kind": "decision",
+            "revisionId": "01M6XVGYFS14KK6ZDAKT24TB8J"
+          },
+          "revisionId": "01M6XVGYFS14KK6ZDAKT24TB8J",
+          "activityId": "01M6XVGYFSEATYJ3FRQ5V938KS",
+          "committedAt": "2026-11-08T15:13:11.643Z"
+        }
+      }
+    },
+    {
+      "actor": "owner",
+      "path": "/api/decisions/01M6XVGYFSTJX850TSA112BB1E/accept",
+      "response": {
+        "value": {
+          "id": "01M6XVGYFSTJX850TSA112BB1E",
+          "state": "accepted",
+          "revisionId": "01M6XVGYKQNC86Z3RQ7QWTB0NR"
+        },
+        "receipt": {
+          "operationKey": "722df010-892b-4881-accb-0fd48f378187",
+          "entity": {
+            "id": "01M6XVGYFSTJX850TSA112BB1E",
+            "kind": "decision",
+            "revisionId": "01M6XVGYKQNC86Z3RQ7QWTB0NR"
+          },
+          "revisionId": "01M6XVGYKQNC86Z3RQ7QWTB0NR",
+          "activityId": "01M6XVGYKQSNQRMPBSN5993HA8",
+          "committedAt": "2026-11-08T15:13:11.750Z"
+        }
+      }
+    },
+    {
+      "actor": "owner",
+      "path": "/api/pages",
+      "response": {
+        "value": {
+          "pageId": "01M6XVGYRP1KGF2RDRJKE2VPVQ",
+          "revisionId": "01M6XVGYRPVRV6CE3PHV34AJ7D"
+        },
+        "receipt": {
+          "operationKey": "970b767d-7f8f-4c4f-9af2-acbf6c6a213a",
+          "entity": {
+            "id": "01M6XVGYRP1KGF2RDRJKE2VPVQ",
+            "kind": "page",
+            "revisionId": "01M6XVGYRPVRV6CE3PHV34AJ7D"
+          },
+          "revisionId": "01M6XVGYRPVRV6CE3PHV34AJ7D",
+          "activityId": "01M6XVGYRPM34DJN4VJE71Z60W",
+          "committedAt": "2026-11-08T15:13:11.957Z"
+        }
+      }
+    },
+    {
+      "actor": "reader",
+      "path": "/api/decisions",
+      "response": {
+        "value": {
+          "id": "01M6XVGYWVX6J0XE7DY5TF74ME",
+          "revisionId": "01M6XVGYWV6YYBYS16TK72ZJJM",
+          "state": "proposed"
+        },
+        "receipt": {
+          "operationKey": "edf8ca6b-44fb-49bb-8d6e-e7febc42c201",
+          "entity": {
+            "id": "01M6XVGYWVX6J0XE7DY5TF74ME",
+            "kind": "decision",
+            "revisionId": "01M6XVGYWV6YYBYS16TK72ZJJM"
+          },
+          "revisionId": "01M6XVGYWV6YYBYS16TK72ZJJM",
+          "activityId": "01M6XVGYWVD52SW3TY4MNQBYP8",
+          "committedAt": "2026-11-08T15:13:12.049Z"
+        }
+      }
+    },
+    {
+      "actor": "reader",
+      "path": "/api/decisions/01M6XVGYWVX6J0XE7DY5TF74ME/accept",
+      "response": {
+        "value": {
+          "id": "01M6XVGYWVX6J0XE7DY5TF74ME",
+          "state": "accepted",
+          "revisionId": "01M6XVGYYW784CDH4XDNF92MKC"
+        },
+        "receipt": {
+          "operationKey": "e848eb7e-13a7-404f-ad96-108ed4501239",
+          "entity": {
+            "id": "01M6XVGYWVX6J0XE7DY5TF74ME",
+            "kind": "decision",
+            "revisionId": "01M6XVGYYW784CDH4XDNF92MKC"
+          },
+          "revisionId": "01M6XVGYYW784CDH4XDNF92MKC",
+          "activityId": "01M6XVGYYWMQ6JQJENTN0MGR9E",
+          "committedAt": "2026-11-08T15:13:12.110Z"
+        }
+      }
+    },
+    {
+      "actor": "reader",
+      "path": "/api/decisions/01M6XVGWVHRXAKA7ZRXVY02H3X/review",
+      "response": {
+        "value": {
+          "id": "01M6XVGWVHRXAKA7ZRXVY02H3X",
+          "revisionId": "01M6XVGZ2J30FTHM45YARR1CYP"
+        },
+        "receipt": {
+          "operationKey": "6762ed02-6fb7-4c63-8a6b-e3b8abc1672d",
+          "entity": {
+            "id": "01M6XVGWVHRXAKA7ZRXVY02H3X",
+            "kind": "decision",
+            "revisionId": "01M6XVGZ2J30FTHM45YARR1CYP"
+          },
+          "revisionId": "01M6XVGZ2J30FTHM45YARR1CYP",
+          "activityId": "01M6XVGZ2J2SJ4DH2GJE8PSKFK",
+          "committedAt": "2026-11-08T15:13:12.260Z"
+        }
+      }
+    },
+    {
+      "actor": "owner",
+      "path": "/api/pages/01M6XVGVHEJ5494F4W06Y3B99F",
+      "response": {
+        "value": {
+          "pageId": "01M6XVGVHEJ5494F4W06Y3B99F",
+          "revisionId": "01M6XVGZ57T05YJM95ZHRND4AY"
+        },
+        "receipt": {
+          "operationKey": "0c9e53e6-f843-448b-9146-7396af1d690c",
+          "entity": {
+            "id": "01M6XVGVHEJ5494F4W06Y3B99F",
+            "kind": "page",
+            "revisionId": "01M6XVGZ57T05YJM95ZHRND4AY"
+          },
+          "revisionId": "01M6XVGZ57T05YJM95ZHRND4AY",
+          "activityId": "01M6XVGZ57VYFKHH81CK56QW6M",
+          "committedAt": "2026-11-08T15:13:12.355Z"
+        },
+        "document": {
+          "lock": null,
+          "authorDisplayName": "Alex Owner",
+          "ownerDisplayName": "Alex Owner",
+          "contributors": [],
+          "schedule": null,
+          "mentions": {},
+          "page": {
+            "id": "01M6XVGVHEJ5494F4W06Y3B99F",
+            "containerId": "01M6XVGV70K4ESBRHMKWHTEAR1",
+            "title": "synthetic-slate-3 evidence edited after acceptance",
+            "revisionId": "01M6XVGZ57T05YJM95ZHRND4AY",
+            "lifecycle": "live"
+          },
+          "blocks": [],
+          "properties": {
+            "title": "synthetic-slate-3 evidence edited after acceptance",
+            "icon": null,
+            "coverFileId": null,
+            "ownerMemberId": "browser-owner",
+            "statusKey": null,
+            "labels": [],
+            "typeface": "default",
+            "smallText": false,
+            "fullWidth": false
+          },
+          "parentPageId": null,
+          "createdAt": "2026-11-08T15:13:08.653Z",
+          "updatedAt": "2026-11-08T15:13:12.355Z",
+          "authorMemberId": "browser-owner",
+          "workingRevisionId": "01M6XVGZ57T05YJM95ZHRND4AY",
+          "publishedRevisionId": "01M6XVGZ57T05YJM95ZHRND4AY",
+          "permissions": {
+            "level": "full",
+            "canEdit": true,
+            "canUnlock": true,
+            "canShare": true
+          },
+          "policyProfile": {
+            "page.lifecycle.v1": "always-live",
+            "page.access.v1": "workspace-general",
+            "page.public-access.v1": "site",
+            "page.version.v1": "autosnapshot",
+            "page.status.v1": "verification-only",
+            "record.page-parity.v1": "record-is-page",
+            "automation.scope.v1": "source",
+            "container.access.v1": "class-led"
+          }
+        }
+      }
+    },
+    {
+      "actor": "owner",
+      "path": "/api/sharing",
+      "response": {
+        "value": {
+          "id": "01M6XVGZ9JSWAPET4N3JNEAG8D",
+          "revoked": false
+        },
+        "receipt": {
+          "operationKey": "a5031ab0-3852-400e-af98-53cac4e377fe",
+          "entity": {
+            "id": "01M6XVGY7X04VXTJVA2KGJ0C24",
+            "kind": "page",
+            "revisionId": "01M6XVGZ9HCTF1D9BFVERF95RP"
+          },
+          "revisionId": "01M6XVGZ9HCTF1D9BFVERF95RP",
+          "activityId": "01M6XVGZ9H9YGRHNE82828D92E",
+          "committedAt": "2026-11-08T15:13:12.494Z"
+        }
+      }
+    },
+    {
+      "actor": "owner",
+      "path": "/api/sharing/pages/01M6XVGY7X04VXTJVA2KGJ0C24/inheritance",
+      "response": {
+        "value": {
+          "pageId": "01M6XVGY7X04VXTJVA2KGJ0C24",
+          "revisionId": "01M6XVGZCF6HRR75103V8DP9FJ",
+          "restricted": true
+        },
+        "receipt": {
+          "operationKey": "55923f8f-34ec-4eb3-ba76-f6c209835ebc",
+          "entity": {
+            "id": "01M6XVGY7X04VXTJVA2KGJ0C24",
+            "kind": "page",
+            "revisionId": "01M6XVGZCF6HRR75103V8DP9FJ"
+          },
+          "revisionId": "01M6XVGZCF6HRR75103V8DP9FJ",
+          "activityId": "01M6XVGZCFEMTARRN5M6CZXZ0Q",
+          "committedAt": "2026-11-08T15:13:12.588Z"
+        }
+      }
+    },
+    {
+      "actor": "reader",
+      "path": "/api/decisions/01M6XVGYWVX6J0XE7DY5TF74ME/remove",
+      "response": {
+        "value": {
+          "id": "01M6XVGYWVX6J0XE7DY5TF74ME",
+          "revisionId": "01M6XVGZD95B5MP2E3ZCHT6QCC",
+          "removed": true
+        },
+        "receipt": {
+          "operationKey": "a5ed6b10-dddf-4f37-bd97-9a7d3d67c9ba",
+          "entity": {
+            "id": "01M6XVGYWVX6J0XE7DY5TF74ME",
+            "kind": "decision",
+            "revisionId": "01M6XVGZD95B5MP2E3ZCHT6QCC"
+          },
+          "revisionId": "01M6XVGZD95B5MP2E3ZCHT6QCC",
+          "activityId": "01M6XVGZD9ZFS58684ACM3Q0X8",
+          "committedAt": "2026-11-08T15:13:12.612Z"
+        }
+      }
+    }
+  ],
+  "observations": [
+    {
+      "name": "combined changed",
+      "filter": {
+        "state": "accepted",
+        "ownerId": "browser-reader",
+        "containerId": "01M6XVGV70K4ESBRHMKWHTEAR1",
+        "decidedFrom": "2026-09-30",
+        "decidedTo": "2026-09-30",
+        "reviewFrom": "2100-01-10",
+        "reviewTo": "2100-01-10",
+        "citationsCurrent": "false"
+      },
+      "expected": [
+        "01M6XVGX6JR78ES8TY7GB7C5F1"
+      ],
+      "actual": [
+        "01M6XVGX6JR78ES8TY7GB7C5F1"
+      ]
+    },
+    {
+      "key": "old",
+      "href": "/app/decisions/01M6XVGVWP5580Y3DZJ42AA58E?revision=01M6XVGW0A4MRT82H96YPBY4F8",
+      "viewedRevisionId": "01M6XVGW0A4MRT82H96YPBY4F8",
+      "acceptedRevisionId": "01M6XVGW0A4MRT82H96YPBY4F8"
+    },
+    {
+      "key": "replacement",
+      "href": "/app/decisions/01M6XVGWB4J40JAS2R2WNZQFJJ?revision=01M6XVGWH91VR41T04G5R94PWW",
+      "viewedRevisionId": "01M6XVGWH91VR41T04G5R94PWW",
+      "acceptedRevisionId": "01M6XVGWH91VR41T04G5R94PWW"
+    },
+    {
+      "key": "reviewed",
+      "href": "/app/decisions/01M6XVGWVHRXAKA7ZRXVY02H3X?revision=01M6XVGWX8CV6K5G2KP3DWS796",
+      "viewedRevisionId": "01M6XVGWX8CV6K5G2KP3DWS796",
+      "acceptedRevisionId": "01M6XVGWX8CV6K5G2KP3DWS796"
+    },
+    {
+      "key": "changed",
+      "href": "/app/decisions/01M6XVGX6JR78ES8TY7GB7C5F1?revision=01M6XVGX8G0S1VGA7XXXSAMWBM",
+      "viewedRevisionId": "01M6XVGX8G0S1VGA7XXXSAMWBM",
+      "acceptedRevisionId": "01M6XVGX8G0S1VGA7XXXSAMWBM"
+    },
+    {
+      "key": "draft",
+      "href": "/app/decisions/01M6XVGXKB25EGQFZXZHYCRDEK",
+      "viewedRevisionId": "01M6XVGXPSFNZ81SVTMTMQR2EB",
+      "acceptedRevisionId": null
+    },
+    {
+      "key": "later",
+      "href": "/app/decisions/01M6XVGY2P4R4XCBHP6RE7FWPJ",
+      "viewedRevisionId": "01M6XVGY2PYP2D57XAM3JST28G",
+      "acceptedRevisionId": null
+    }
+  ],
+  "excluded": {
+    "private": "01M6XVGYFSTJX850TSA112BB1E",
+    "removed": "01M6XVGYWVX6J0XE7DY5TF74ME",
+    "revoked": "01M6XVGWVHRXAKA7ZRXVY02H3X"
+  }
+}

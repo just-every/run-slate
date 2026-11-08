@@ -1,0 +1,150 @@
+{
+  "schema": 1,
+  "tag": "sd-slate-c-f208",
+  "repository": "just-every/run-slate",
+  "branch": "cloud/sd-slate-c-f208",
+  "head": "e52be2b6c6d5586f94d7105969851b1d9fedca04",
+  "main": "67b706484e5430012d9c154c1e14090ea1e49bc2",
+  "work": "Validated and republished the unchanged pinned predecessor. No new product commit or source edit was needed.",
+  "runtime": {
+    "node": "22.20.0",
+    "browser": "/usr/bin/chromium",
+    "profile": "core-wiki"
+  },
+  "checks": [
+    {
+      "command": "npx -y @runeditrun/rer setup --owner-email fleet@runeditrun.com --non-interactive",
+      "exit": 0
+    },
+    {
+      "command": "pnpm exec vitest run --config tests/profile/vitest.config.ts tests/profile/profile.worker.test.ts -t FLAG-001",
+      "exit": 0,
+      "passed": 1,
+      "skipped": 3,
+      "note": "The skip is the CLI test-name selection, not a committed condition. FLAG-001 contains the complete native decision case."
+    },
+    {
+      "command": "pnpm typecheck",
+      "exit": 0
+    },
+    {
+      "command": "pnpm exec rer check --profile first-party",
+      "exit": 0
+    },
+    {
+      "command": "node /tmp/slate-decision-proof.mjs",
+      "exit": 0,
+      "widths": [
+        1440,
+        390
+      ],
+      "note": "Uncommitted external runner invokes the same decisionLogJourney loaded by both existing Verify core registrations, with real setupWorkspace and withWorkspace."
+    },
+    {
+      "command": "node src/base/runtime/contract-docs.mjs write; node src/base/runtime/contract-docs.mjs check",
+      "exit": 0,
+      "note": "Generated views restored from main; none committed."
+    },
+    {
+      "command": "pnpm integration:sync",
+      "exit": 0
+    },
+    {
+      "command": "pnpm source:lock; pnpm source:check",
+      "exit": 0
+    },
+    {
+      "command": "migration ledger",
+      "status": "not applicable",
+      "note": "No migration added or changed."
+    },
+    {
+      "command": "identity, trailers, clean tree and unchanged Status table",
+      "exit": 0
+    },
+    {
+      "command": "python3 $HOME/rer-consolidation/.tools/cloud-push.py origin cloud/sd-slate-c-f208",
+      "exit": 0,
+      "attempts": 1
+    }
+  ],
+  "browser": {
+    "1440": {
+      "nativeMutationReceipts": 34,
+      "independentFilterScenarios": 18,
+      "unfilteredExactMembers": 6,
+      "openedAndReloadedResults": 6,
+      "privateAndRemovedExcluded": true,
+      "revokedPreviouslyReadableExcluded": true
+    },
+    "390": {
+      "nativeMutationReceipts": 34,
+      "independentFilterScenarios": 1,
+      "unfilteredExactMembers": 6,
+      "openedAndReloadedResults": 6,
+      "privateAndRemovedExcluded": true,
+      "revokedPreviouslyReadableExcluded": true
+    }
+  },
+  "ci": [
+    {
+      "conclusion": null,
+      "event": "push",
+      "head_branch": "cloud/sd-slate-c-f208",
+      "head_sha": "e52be2b6c6d5586f94d7105969851b1d9fedca04",
+      "html_url": "https://github.com/just-every/run-slate/actions/runs/42493764208",
+      "id": 42493764208,
+      "name": "Verify Slate",
+      "status": "in_progress"
+    },
+    {
+      "conclusion": "failure",
+      "event": "push",
+      "head_branch": "cloud/sd-slate-c-f202",
+      "head_sha": "e52be2b6c6d5586f94d7105969851b1d9fedca04",
+      "html_url": "https://github.com/just-every/run-slate/actions/runs/42487325188",
+      "id": 42487325188,
+      "name": "Verify Slate",
+      "status": "completed"
+    }
+  ],
+  "priorFailure": {
+    "run": 42487325188,
+    "appJob": 128751961968,
+    "failingCommand": "node src/base/runtime/contract-docs.mjs check",
+    "source": "REST jobs step conclusion",
+    "note": "Expected generated-view freshness failure only. Dependent suites skipped. The one permitted gh run view archive invocation returned exit 0 with no text; no speculative repair or duplicate dispatch."
+  },
+  "counts": {
+    "before": {
+      "done": 57,
+      "partial": 240,
+      "missing": 41
+    },
+    "after": {
+      "done": 57,
+      "partial": 240,
+      "missing": 41
+    },
+    "proposedAfterGate": {
+      "done": 58,
+      "partial": 239,
+      "missing": 41
+    },
+    "registrationsBefore": 211,
+    "registrationsAfter": 211
+  },
+  "publicationScan": {
+    "commit": "e52be2b6c6d5586f94d7105969851b1d9fedca04",
+    "complete": null,
+    "historyScanned": null,
+    "findings": null,
+    "status": "Not run in cloud; guarded lander owns exact-SHA full-history scan."
+  },
+  "landing": {
+    "mainEqualsCandidate": false,
+    "verify": "New branch run in progress at discovery; prior same-SHA run has expected generated-view-only failure.",
+    "runSite": "Pending guarded landing.",
+    "productReady": "Local proofs complete. Conditional DONE claim, no landing or released count asserted."
+  }
+}
