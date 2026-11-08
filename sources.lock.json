@@ -11492,7 +11492,7 @@
       "executable": false
     },
     "tests/profile/media-blocks-journey.ts": {
-      "sha256": "7d401a7e78cbeb6a343079f8ffa01cf2ba5c5450d81caea01208b441945a7f29",
+      "sha256": "a6f2e0e8644f91db410447cfc7235ef728e8eb06713160c13dccde486d996208",
       "executable": false
     },
     "tests/profile/page-lock-journey.ts": {
@@ -12488,7 +12488,7 @@
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
-      "sha256": "864ec04b2a0099f398f71f28d0efac7fddc5e654701e5e62c1603d1fc5b71cc4",
+      "sha256": "02ef9b88ebdff6b2d75ce6fd3500d849a922fa41d0b67a841ca66365758af64d",
       "executable": false
     },
     "tests/requirements/count-registrations.mjs": {
