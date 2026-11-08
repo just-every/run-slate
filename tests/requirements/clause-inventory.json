@@ -2008,7 +2008,7 @@
       "id": "DEC-003",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of DEC-003 — An accepted decision is immutable. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Native core-wiki accepted snapshots, stale warnings, unchanged edit refusal, owner replacement preparation, current-citation acceptance and restricted replacement reads are exercised by the existing profile registration. The existing responsive core callers load decisionImmutabilityJourney for card and log warnings, full retained fields, native supersession and exact two-way links. CONTRACT.md retains main judgment pending independent candidate validation and guarded landing.",
       "supportingTests": [
         {
           "file": "tests/flagship/intelligence/authority.test.ts",

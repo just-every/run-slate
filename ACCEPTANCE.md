@@ -8,10 +8,10 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 58 | 239 | 35 | 332 |
+| Core | 59 | 238 | 35 | 332 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 58 | 239 | 41 | 338 |
+| Full target | 59 | 238 | 41 | 338 |
 
 Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e6612` (29 October 2026); SEARCH-001 native source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. DB-012 record-detail proof reviewed from source `63a0e8f` (31 October 2026); its exact candidate and Verify are named by the branch handoff. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
@@ -2719,7 +2719,7 @@ Core · published · **partial** · Cites BASE-AGENT-002, BASE-AGENT-005, BASE-A
 
 Core · published · **partial**
 
-**Requirement.** A page can carry one decision record: a question, the options considered, an outcome, a rationale, an owner, a decided date, an optional review date, and citations to page revisions (`REV-005`).
+**Requirement.** A page can carry one decision record: a question, the options considered, an outcome, a rationale, an owner, a decided date, an optional review date, and citations to page revisions (`REV-005`). The default core-wiki page links to its current layer for authorized readers. An existing active layer explicitly refuses another creation; removal leaves its retained history accessible only under current page access and permits a new layer.
 
 **Acceptance.**
 1. The page stays a page: its body, comments, grants, versions and links are unchanged, and removing the decision record leaves the page intact.
@@ -2744,16 +2744,16 @@ Core · published · **partial**
 
 #### DEC-003 — An accepted decision is immutable
 
-Core · published · **partial**
+Core · published · **done**
 
-**Requirement.** Accepting freezes the decision's content together with the revisions it cites.
+**Requirement.** Accepting freezes the decision's content together with the revisions it cites. In the default core-wiki product, each lineage direction opens the exact other decision in its decision workspace under current page access. Preparing a replacement retains readable historical citations for reconsideration; accepting it still requires current cited revisions.
 
 **Acceptance.**
 1. Later edits to a cited page add a warning that the citation is no longer current and never rewrite the accepted rationale; changing an accepted decision is done by superseding it, which links both decisions in both directions.
 2. Accepting freezes content and cited revisions; later edits warn and changes supersede.
 
-**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
-**Gap.** No validated CI-run proof for this acceptance point: "Accepting freezes the decision's content together with the revisions it cites."<br>No validated CI-run proof for this acceptance point: "Later edits to a cited page add a warning that the citation is no longer current and never rewrite the accepted rationale; changing an accepted decision is done by superseding it, which links both decisions in both directions."
+**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.; `tests/profile/profile.worker.test.ts` (FLAG-001 — core wiki public doors retain native content while flagship routes and queued work require opt-in); `tests/qualification/ui-convergence/decision-immutability-journey.mjs` (decisionImmutabilityJourney)
+**Gap.** None.
 
 #### DEC-004 — Decision log
 

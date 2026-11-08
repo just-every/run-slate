@@ -1,4 +1,5 @@
 import {decisionLayerJourney} from './decision-layer-journey.mjs';
+import {decisionImmutabilityJourney} from './decision-immutability-journey.mjs';
 import {decisionLogJourney} from './decision-log-journey.mjs';
 import {automationRunLogJourney} from "./automation-run-log-journey.mjs";
 import {contentQueryJourney} from './content-query-journey.mjs';
@@ -130,6 +131,8 @@ for (const width of [390, 1440]) {
           }
         }
         await step('DEC-004 — populated native decision filters, current access and exact accepted navigation', () => decisionLogJourney(state, width));
+        // Keep the exact log corpus before DEC-003 leaves retained lineage visible.
+        await step('DEC-003 — immutable accepted snapshots, stale evidence and two-way lineage', () => withSecondPerson(state, width, people => decisionImmutabilityJourney(state, people)));
       } finally {await touch?.close();}
     }, {}, { scheduled: true, slack: true });
   });
