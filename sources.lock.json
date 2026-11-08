@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "dcf06022fc98f9c9eddb1bb95a911f619d94bf3feca7ce7a0cebd67d593d51c1",
+      "sha256": "1cd1755f4e732aa7bc3883b00a868476cb2bf95a9abc02d4480d0bd890da549d",
       "executable": false
     },
     "DEMO.md": {
@@ -5824,7 +5824,7 @@
       "executable": false
     },
     "src/core/features/archive/erasure-member.ts": {
-      "sha256": "119cc917a797e9a4408f610beb7d72d37e2a557d3af28cccc6368cb3c6527a84",
+      "sha256": "7bdf524c164683863152569173b38f6ff820a929f1f17c5efa8015648e7b1ca6",
       "executable": false
     },
     "src/core/features/archive/erasure-references.ts": {
@@ -8020,7 +8020,7 @@
       "executable": false
     },
     "src/core/features/notifications/change-summary.ts": {
-      "sha256": "1c49de22ec41b7aebc6d1a609dcbd3b4f957273b0f28b0841e91ae8544545fb8",
+      "sha256": "4e93029144469c4651323e055818b266bb361728969e67ccc202adfcd1bfed21",
       "executable": false
     },
     "src/core/features/notifications/chat-authority.ts": {
@@ -8080,7 +8080,7 @@
       "executable": false
     },
     "src/core/features/notifications/email.ts": {
-      "sha256": "8eacf4fb6e8aead8c081d190f79fb1fcf0a405ffcaef4dd13ba861ef5f333393",
+      "sha256": "db107e80aae8d67ae305daee595a585132b73bb775baf4d9e30fea2bc551f4af",
       "executable": false
     },
     "src/core/features/notifications/events.ts": {
@@ -11476,11 +11476,11 @@
       "executable": false
     },
     "tests/portability/equivalence.mjs": {
-      "sha256": "1c95984c1fb5241987e3f9eaaeed534542cb3f74cf4f3b71bd013e3b356d7abe",
+      "sha256": "6c6d8466962f5a0fb0d06e1438b1911d25e68f648443e5200fd513a98ac356f0",
       "executable": false
     },
     "tests/portability/fixture.mjs": {
-      "sha256": "62a7c267d58992696ab3d6249eb6d191868643c4e0784d8cf4e4c05a551b4a48",
+      "sha256": "23b248b9122e8399897b46339c15362b92a8f9e2fcfb3940f1589f36d10d6a51",
       "executable": false
     },
     "tests/portability/restore-database.mjs": {
@@ -11492,7 +11492,7 @@
       "executable": false
     },
     "tests/portability/roundtrip.test.mjs": {
-      "sha256": "949dff78bc790333cd550dd4fdb182feee68274c2a56aa381bf3d648c10f51b8",
+      "sha256": "4346065e7142fa932e35d7e88469e7829e5ebff73d012ee8382d0f3c76b34f71",
       "executable": false
     },
     "tests/portability/runtime.mjs": {
@@ -11511,6 +11511,10 @@
       "sha256": "b91f14d9b8ea3cc1dcff536157ced2d2ab38a8d0072838364829bde51a37d0a0",
       "executable": false
     },
+    "tests/profile/notification-email-journey.ts": {
+      "sha256": "c56aa211329bd2c703c01b7eb801a2479c6e0042eeecbd93821606b1a1d16ff4",
+      "executable": false
+    },
     "tests/profile/page-lock-journey.ts": {
       "sha256": "0d7c81c613d8b67b72729c1981afec4f9fa6f635bf23e0dc6257654f9ea18522",
       "executable": false
@@ -11520,7 +11524,7 @@
       "executable": false
     },
     "tests/profile/profile.worker.test.ts": {
-      "sha256": "4fa4ea20b7891b65cfdf7f17ba025bfcc0a6f54cdfe5511fd73663388763a828",
+      "sha256": "4f1dc20101de240f17e83f08e5809694a22bbf6e5506f35bc3250a338b0a6da3",
       "executable": false
     },
     "tests/profile/vitest.config.ts": {
@@ -12207,6 +12211,10 @@
       "sha256": "315aa9d1af14a4f340b49ad99a96ad94ddab14697240483998f67f215b271ceb",
       "executable": false
     },
+    "tests/qualification/ui-convergence/notification-preferences-journey.mjs": {
+      "sha256": "e8bde6dfad148dee6a9a8d4c234dabc75a83d23a538188b608c00f44414ee19b",
+      "executable": false
+    },
     "tests/qualification/ui-convergence/outline-journey.mjs": {
       "sha256": "c3275767430cd9cb239ea3d3215c3a9e525b273adf723720bdb795010de64632",
       "executable": false
@@ -12264,7 +12272,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/reading-journeys.mjs": {
-      "sha256": "951548c7815ef36bc83ca46694bbbf69daf848753ae20e437c910368a869862a",
+      "sha256": "149290007a1869deb319c62ce7116d6dd115cd4a2101e2c59b5fb46942341130",
       "executable": false
     },
     "tests/qualification/ui-convergence/record-detail-journey.mjs": {
@@ -12496,7 +12504,7 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "b66fa73283895f25f41a6da771f2684e018ac969adeccfd8c9869ae20742d20a",
+      "sha256": "fb3bbb30f07ceca3cd7772cc131109fb63ebf6024ab63fc753d95f4a52ddacb7",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
@@ -12512,7 +12520,7 @@
       "executable": false
     },
     "tests/requirements/test-evidence.json": {
-      "sha256": "1ee71543f0df92b8cd8ece9911aedea66e1556eb659f63d38dd0946a078a9817",
+      "sha256": "ea3ac3b7097a8be440e92637a63ab5c40d37a65c04eece542a212c740822d6eb",
       "executable": false
     },
     "tests/rer/editor.test.mjs": {

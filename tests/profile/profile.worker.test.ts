@@ -1,3 +1,4 @@
+import {notificationEmailJourney,taskAssignmentEmailJourney,reminderEmailJourney} from './notification-email-journey';
 import {decisionLogJourney} from './decision-log-journey';
 import {pageLockJourney} from './page-lock-journey';
 import {bodyBlocksJourney} from './body-blocks-journey';
@@ -84,6 +85,10 @@ it("FLAG-001 — core wiki public doors retain native content while flagship rou
   await bodyBlocksJourney(api,containerId,cookie);
   await pageLockJourney(api,containerId,workspaceId,cookie);
 } },
+    { name: 'NOTIF-005 — member choices deliver metadata-only digest and watched changes with unsigned unsubscribe', run: async () => {
+      const {workspaceId,memberId,cookie,containerId}=await workspace();
+      await notificationEmailJourney(await workItems(createApi(),containerId,memberId,workspaceId,cookie));
+    } },
     { name: 'DEC-004 — populated native decision log filters exact memberships and retains accepted revisions under current access', run: async () => {
       const {workspaceId,memberId,cookie} = await workspace();
       await decisionLogJourney(createApi(),workspaceId,memberId,cookie);
@@ -110,11 +115,14 @@ it("FLAG-001 — core wiki public doors retain native content while flagship rou
 
 it('BLOCK-015 — a task assigned to a member without access prompts a share, notifies its assignee once, reassigns without notifying the previous assignee and records completion', async () => {
   const {cookie,containerId,memberId,workspaceId} = await workspace();
-  await tasksJourney(await workItems(createApi(),containerId,memberId,workspaceId,cookie));
+  const items=await workItems(createApi(),containerId,memberId,workspaceId,cookie);
+  await tasksJourney(items);
+  await taskAssignmentEmailJourney(items);
 });
 it('NOTIF-004 — page, task and date-mention reminders arrive once at local time in three time zones and not after access is revoked', async () => {
   const {cookie,containerId,memberId,workspaceId} = await workspace(), items = await workItems(createApi(),containerId,memberId,workspaceId,cookie);
   await remindersJourney(items, await tasksJourney(items));
+  await reminderEmailJourney(items);
 });
 it('BLOCK-016 — a task report shows each reader only the tasks they can read and completes a task on its page', async () => {
   const {cookie,containerId,memberId,workspaceId} = await workspace();

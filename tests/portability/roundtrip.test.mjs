@@ -32,6 +32,9 @@ test('BASE-DATA-001 PORT-001 PORT-002 PORT-003 PORT-005 — native ZIP backup, f
     const first=path.join(scratch,'source.zip'),second=path.join(scratch,'restored.zip');
     const exportReceipt=await source.cli('export',first,sourceCookie);const before=unpack(await readFile(first));
     assert.equal(exportReceipt.counts.pages,3);assert.equal(before.manifest.tables.containers.length,2);assert.equal(before.manifest.tables.page_revisions.length,6);assert.equal(before.manifest.tables.comments.length,2);assert.equal(before.manifest.tables.files.length,2);assert.equal(before.manifest.tables.groups.length,1);assert.equal(before.manifest.tables.members.length,3);assert.equal(before.manifest.tables.public_exposures.length,1);assert.equal(before.manifest.tables.public_exposures[0].revoked_at,null);
+    assert.equal(before.manifest.tables.notification_delivery_preferences.find(row=>row.member_id===owner.id).mode,'weekly');
+    assert.equal(before.manifest.tables.notification_email_settings[0].section_names,1);
+    assert.equal(before.manifest.tables.notification_unsubscribe_tokens,undefined);
     await source.close();
     target=await runtime(path.join(scratch,'target'));
     assert.notEqual(target.persist,source.persist);

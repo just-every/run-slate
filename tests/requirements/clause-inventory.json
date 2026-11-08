@@ -3213,8 +3213,21 @@
       "id": "NOTIF-005",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "not implemented",
-      "supportingTests": []
+      "unmetReason": "Native email and digest acceptance 1 to 6 are exercised in the existing default-profile Workers registrations and responsive Settings journeys. Push under MOBILE-004, chat direct messages under CHAT-004 and NOTIF-006 workspace defaults remain separate held work; no downstream release is claimed.",
+      "supportingTests": [
+        {
+          "file": "tests/profile/profile.worker.test.ts",
+          "testName": "FLAG-001 — core wiki public doors retain native content while flagship routes and queued work require opt-in"
+        },
+        {
+          "file": "tests/profile/profile.worker.test.ts",
+          "testName": "NOTIF-004 — page, task and date-mention reminders arrive once at local time in three time zones and not after access is revoked"
+        },
+        {
+          "file": "tests/profile/profile.worker.test.ts",
+          "testName": "BLOCK-015 — a task assigned to a member without access prompts a share, notifies its assignee once, reassigns without notifying the previous assignee and records completion"
+        }
+      ]
     },
     {
       "id": "NOTIF-006",
