@@ -920,7 +920,7 @@
       "executable": false
     },
     ".github/scripts/journey-shards.json": {
-      "sha256": "8df2d2701ecf2bb2a7387d89473782ff85e7a57f186d78aff0e4997076ce5f3e",
+      "sha256": "70b7e33e48792a80dd4f8e28f1752b7ba671949e13ed99e4da16e7c66943a036",
       "executable": false
     },
     ".github/scripts/run-shard.sh": {
@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "c57fc1007b3c71dfc1d163f45d74a7e3a1593fc035f231a2e836787d3d325515",
+      "sha256": "9119a8ef6aff5693072158d24cfe8e84b87334d3ab2ab9643fca1970d1d5a181",
       "executable": false
     },
     "DEMO.md": {
@@ -10376,7 +10376,7 @@
       "executable": false
     },
     "test-budget.json": {
-      "sha256": "b5545b56d8b505980188d264d584618237e8212b6028c31b717b86161ecf94fb",
+      "sha256": "19fb59e96b56b61c58682d1fb20054c0d294b91153e27cf2d3fce26dba060a39",
       "executable": false
     },
     "tests/base-proof/provenance.test.mjs": {
@@ -11940,7 +11940,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/container-grants-journey.mjs": {
-      "sha256": "0641ae2b335aa196fdeac89119f75ab024136ce9d1709b43c77696104be75df7",
+      "sha256": "67c89571f9348c4804f528c681429bf75fc3a9061a7870c864d7c6b3bd4f69e6",
       "executable": false
     },
     "tests/qualification/ui-convergence/container-identity-journey.mjs": {
@@ -12144,7 +12144,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
-      "sha256": "1c7178f445267d83fc1f615d295dfb253e74cf9b95a2f6744cabba025fea3d17",
+      "sha256": "2eb11e19adab7d329ea24b8f037a2139da1ac0513b8a7f056a3e1e41f3b72d6b",
       "executable": false
     },
     "tests/qualification/ui-convergence/link-access-journey.mjs": {
@@ -12268,7 +12268,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/sharing-journey.mjs": {
-      "sha256": "d29c4a93c10e3d9634cc97f95c87963acc1aee3f53b8e0b8b4755d0d057e8fd8",
+      "sha256": "caf76a5c37b86bd344fb96402c92843eb292b737c18c958d5cf201ef7f73b0b3",
       "executable": false
     },
     "tests/qualification/ui-convergence/sharing-lifecycle-matrix.mjs": {
@@ -12460,7 +12460,7 @@
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
-      "sha256": "1c5354824258d787c2a65e4fc10f9be60b73a1d9b9901d8959ee14adc52a9c5f",
+      "sha256": "bb81e300e64abd14fa99aca42eab16f79dffc29722d75919c2891ad3efa8fe22",
       "executable": false
     },
     "tests/requirements/count-registrations.mjs": {
