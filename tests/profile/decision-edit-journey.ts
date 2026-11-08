@@ -26,7 +26,7 @@ export async function decisionEditJourney(api: ReturnType<typeof createApi>, con
   const source = await command('/api/pages', {containerId, title: 'Proposal evidence'}, ownerCookie);
   const pageId = host.value.pageId;
   const sourceDocument = await read('/api/pages/' + source.value.pageId);
-  const original = {pageId, question: 'Which procedure?', options: ['First', 'Second'], outcome: 'First', rationale: 'Original reasoning', ownerId, decidedAt: null, reviewAt: null, citations: []};
+  const original = {pageId, question: 'Which procedure?', options: ['First', 'Second'], outcome: '', rationale: '', ownerId, decidedAt: null, reviewAt: null, citations: []};
   const created = await command('/api/decisions', original, ownerCookie);
   const id = created.value.id, route = '/api/decisions/' + id;
   const raw = async () => ({
@@ -36,6 +36,14 @@ export async function decisionEditJourney(api: ReturnType<typeof createApi>, con
   });
   const initial = await read(route);
   expect(initial.permissions.canEdit).toBe(true);
+  const pendingBefore = await raw();
+  const premature = await request(route+'/accept','POST',{operationKey:crypto.randomUUID(),expectedRevisionId:created.receipt.revisionId},ownerCookie);
+  expect(premature.status).toBe(409);
+  expect(await premature.json()).toMatchObject({code:'DECISION_OUTCOME_REQUIRED'});
+  expect(await raw()).toEqual(pendingBefore);
+  const pendingUnchanged = await command('/api/decisions', {...original,id,expectedRevisionId:created.receipt.revisionId});
+  expect(pendingUnchanged.receipt).toMatchObject({unchanged:true,activityId:null,revisionId:created.receipt.revisionId});
+  expect(await raw()).toEqual(pendingBefore);
   const snapshots = [{id: created.receipt.revisionId, content: initial.content, actor: ownerId, time: created.receipt.committedAt}];
   const changes: [string, unknown][] = [
     ['question', 'Which revised procedure?'], ['options', ['Second', 'Third']], ['outcome', 'Third'],
@@ -58,7 +66,10 @@ export async function decisionEditJourney(api: ReturnType<typeof createApi>, con
     expect(after.revisions).toHaveLength(before.revisions.length + 1);
     expect(after.activity).toHaveLength(before.activity.length + 1);
     const revision = after.revisions.find(row => row.id === receipt.revisionId)!;
-    expect(revision).toMatchObject({entity_kind: 'decision', actor_id: editor.memberId, created_at: receipt.committedAt});
+    const durableReceipt = await env.DB.prepare('SELECT actor_member_id,created_at,response_json FROM operation_receipts WHERE workspace_id=? AND actor_member_id=? AND operation_key=?').bind(workspaceId,editor.memberId,receipt.operationKey).first<{actor_member_id:string;created_at:string;response_json:string}>();
+    expect(durableReceipt).toMatchObject({actor_member_id:editor.memberId,created_at:receipt.committedAt});
+    expect(JSON.parse(durableReceipt!.response_json)).toEqual(saved);
+    expect(revision).toMatchObject({entity_kind: 'decision', actor_id: durableReceipt!.actor_member_id, created_at: durableReceipt!.created_at});
     expect(JSON.parse(revision.content_json as string)).toEqual(submitted);
     expect(after.activity.find(row => row.id === receipt.activityId)).toMatchObject({actor_member_id: editor.memberId, occurred_at: receipt.committedAt, operation_key: submitted.operationKey, action: 'decisions.save'});
     const reloaded = await read(route);

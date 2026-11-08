@@ -21,7 +21,7 @@ export async function decisionEditJourney(state, width) {
     const hostBefore = await read('/api/pages/' + host.pageId);
     const created = await ok(context, origin, 'POST', '/api/decisions', {
       operationKey: crypto.randomUUID(), pageId: host.pageId, question: 'Which procedure?', options: ['First', 'Second'],
-      outcome: 'First', rationale: 'Original reasoning', ownerId: owner, decidedAt: null, reviewAt: null, citations: [],
+      outcome: '', rationale: '', ownerId: owner, decidedAt: null, reviewAt: null, citations: [],
     });
     const id = created.value.id, route = '/api/decisions/' + id;
     const view = bob.page, article = view.locator('#decision-' + id);
@@ -50,6 +50,15 @@ export async function decisionEditJourney(state, width) {
     };
     await open();
     const initial = await read(route);
+    const pendingBefore = await stored();
+    await expect(article.getByRole('button', {name:'Accept decision',exact:true})).toHaveCount(0);
+    assert.equal(await (await proposal()).locator('form').evaluate(form => form.checkValidity()), true, 'A pending outcome and rationale are valid Proposed drafts.');
+    const pendingUnchanged = await submit(await proposal());
+    assert.equal(pendingUnchanged.status, 200);
+    assert.equal(pendingUnchanged.body.receipt.unchanged, true);
+    assert.equal(pendingUnchanged.body.receipt.activityId, null);
+    assert.deepEqual(await stored(), pendingBefore, 'A pending outcome does not prevent an identical resubmit.');
+    receipts.push(pendingUnchanged);
     snapshots.push({revisionId: initial.revision_id, content: initial.content, actorId: owner, committedAt: created.receipt.committedAt});
     const changes = [
       ['question', async form => form.getByLabel('Question', {exact: true}).fill('Which revised procedure?'), 'Which revised procedure?'],
@@ -109,6 +118,8 @@ export async function decisionEditJourney(state, width) {
     // Hand acceptance back to the appointed owner using the same native edit door.
     await commit('ownerId', form => form.getByLabel('Decision owner').selectOption(owner), owner);
     const beforeNoop = await stored();
+    await proposal();
+    await accessible(view, 'decision proposal native edit controls');
     const unchanged = await submit(await proposal());
     assert.equal(unchanged.status, 200);
     assert.equal(unchanged.body.receipt.unchanged, true);
@@ -148,7 +159,10 @@ export async function decisionEditJourney(state, width) {
       assert.equal(selected.revision.actorId, snapshot.actorId);
       assert.equal(selected.revision.createdAt, snapshot.committedAt);
       await expect(article.getByRole('heading', {name: snapshot.content.question, exact: true})).toBeVisible();
-      for (const text of [snapshot.content.outcome, snapshot.content.rationale]) await expect(article.locator('p').filter({hasText: new RegExp('^' + text + '$')})).toBeVisible();
+      await expect(article.locator(':scope > p').nth(1)).toHaveText(snapshot.content.outcome);
+      await expect(article.locator(':scope > p').nth(2)).toHaveText(snapshot.content.rationale);
+      if (snapshot.content.outcome) await expect(article.locator(':scope > p').nth(1)).toBeVisible();
+      if (snapshot.content.rationale) await expect(article.locator(':scope > p').nth(2)).toBeVisible();
       await expect(article.getByRole('button', {name: 'Save proposed decision', exact: true})).toHaveCount(0);
       const metadata = article.getByRole('definition');
       await expect(metadata).toHaveText([snapshot.content.ownerId === owner ? 'Alex Owner' : 'Morgan Reader', snapshot.content.decidedAt?.slice(0, 10) ?? 'Not set', snapshot.content.reviewAt?.slice(0, 10) ?? 'Not set']);
