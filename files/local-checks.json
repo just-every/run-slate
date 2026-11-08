@@ -1,0 +1,41 @@
+{
+  "head": "5bfd0e7a56e50d6198cf0b3e496942aab4ef6d0e",
+  "branch": "cloud/sd-slate-c-f207",
+  "checks": [
+    {
+      "command": "pnpm exec vitest run --config tests/profile/vitest.config.ts tests/profile/profile.worker.test.ts -t FLAG-001",
+      "exit": 0,
+      "result": "1 passed; 3 unrelated registrations excluded by the name filter",
+      "log": "native-final.log"
+    },
+    {
+      "command": "pnpm typecheck",
+      "exit": 0,
+      "result": "TypeScript bytes identical between checked source and final candidate",
+      "log": "typecheck.log"
+    },
+    {
+      "command": "pnpm exec rer check --profile first-party",
+      "exit": 0,
+      "log": "first-party.log"
+    },
+    {
+      "command": "cloud_run npx -y @runeditrun/rer build",
+      "exit": 0,
+      "log": "build.log"
+    },
+    {
+      "command": "SLATE_CHROMIUM_PATH=/usr/bin/chromium cloud_run perl -e alarm-1200 -- node /tmp/slate-decision-proof.mjs",
+      "exit": 0,
+      "result": "decisionImmutabilityJourney passed at 1440 and 390, same helper and default core-wiki fixture as existing Verify callers",
+      "log": "browser-final.log"
+    }
+  ],
+  "registrations": 211,
+  "counts": {
+    "done": 57,
+    "partial": 240,
+    "missing": 41
+  },
+  "main": "67b706484e5430012d9c154c1e14090ea1e49bc2"
+}

@@ -1,0 +1,9 @@
+# DEC-003 completion plan
+
+1. Retain the predecessor at e7bda0b09948bf60c6caa3140080a0a9253ab610, integrate current main, and inspect DEC-003's requirement, acceptance and unchanged Status judgment. No campaign reordering or other clause is authorized.
+2. Map the two acceptance sentences to the existing native profile registration and the focused decisionImmutabilityJourney through the existing two responsive core-wiki callers. Retain the lineage route and historical-citation preparation fixes already saved by f206.
+3. Verify native acceptance of two exact source revisions, another member's source edit, the unchanged accepted content and snapshot, direct immutable-edit refusal, replacement preparation and acceptance, receipt replay without changes, and current-access denial of the replacement.
+4. Run the focused browser flow on the built default product at 1440 and 390. Inspect the stale card, stale log, earlier record, replacement record and content-free unavailable lineage. Capture the changed screens, check accessibility, retain actual native receipts and compare snapshots.
+5. Run touched checks, typecheck and first-party checks. Generate and check the contract views, restore main's generated views, synchronize integration, and regenerate and check the edition lock last. Keep all Status, Gap and Evidence cells identical to main. Keep the existing test registrations.
+6. Push only cloud/sd-slate-c-f207 with the fleet guard after identity and trailer inspection. Discover the exact-SHA Verify via REST within the ten-call budget. Generated-view-only failure is expected; the guarded lander regenerates views, runs final gates and scans publication before landing.
+7. Publish this complete non-secret packet on evidence/sd-slate-c-f207. Report per-point proof and each DONE rider honestly. No main push, manual landing, release count or fabricated CI/scan receipt.

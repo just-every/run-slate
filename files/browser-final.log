@@ -1,0 +1,8 @@
+DECISION_PROOF start width=1440
+PROBE DEC-003 1: core-wiki at 1440px -> stale card and log warnings, unchanged accepted content, immutable edit refusal, current replacement acceptance, both exact lineage links and restricted replacement without a question
+PROBE DEC-003 2: native acceptance at 1440px -> two exact cited revisions frozen; another member's edit leaves the complete accepted snapshot unchanged through API, UI and reload
+DECISION_PROOF success width=1440
+DECISION_PROOF start width=390
+PROBE DEC-003 1: core-wiki at 390px -> stale card and log warnings, unchanged accepted content, immutable edit refusal, current replacement acceptance, both exact lineage links and restricted replacement without a question
+PROBE DEC-003 2: native acceptance at 390px -> two exact cited revisions frozen; another member's edit leaves the complete accepted snapshot unchanged through API, UI and reload
+DECISION_PROOF success width=390

@@ -1,0 +1,6 @@
+All candidate authors and committers are fleet identities. No trailers. Every Status row and generated view equals origin/main.
+5bfd0e7a56e50d6198cf0b3e496942aab4ef6d0e Complete default decision immutability proof with visible stale log evidence
+556e948ffb415ab698c54af6160a0e276c5c3720 Retain immutable decision snapshots under supersession receipt replay [skip ci]
+e7bda0b09948bf60c6caa3140080a0a9253ab610 Align decision proof metadata with existing Verify reports and bind receipts to builds
+1e54a11f6e9c7e2a07760ef49fa1fd405cee9ffe Prove immutable decisions and restricted two-way lineage through native controls
+ee9fcb49309f23e76ec72f0c4b9c869eb175d8b0 Fix default decision lineage and stale-evidence replacement preparation [skip ci]

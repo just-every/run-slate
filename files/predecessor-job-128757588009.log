@@ -1,0 +1,27 @@
+verify	Require the plan and every expected job	﻿2026-11-08T14:18:53.2519964Z ##[group]Run set -euo pipefail
+verify	Require the plan and every expected job	2026-11-08T14:18:53.2520995Z [36;1mset -euo pipefail[0m
+verify	Require the plan and every expected job	2026-11-08T14:18:53.2521777Z [36;1mtest "$PLAN" = success[0m
+verify	Require the plan and every expected job	2026-11-08T14:18:53.2522867Z [36;1mif [ "$SKIP" = true ]; then exit 0; fi[0m
+verify	Require the plan and every expected job	2026-11-08T14:18:53.2524046Z [36;1m# Dispatch has always been the installer/local-only entry point.[0m
+verify	Require the plan and every expected job	2026-11-08T14:18:53.2525271Z [36;1mif [ "$EVENT" != workflow_dispatch ]; then[0m
+verify	Require the plan and every expected job	2026-11-08T14:18:53.2526456Z [36;1m  for result in "$APP" "$SHARDS" "$CONTRACT"; do test "$result" = success; done[0m
+verify	Require the plan and every expected job	2026-11-08T14:18:53.2527521Z [36;1mfi[0m
+verify	Require the plan and every expected job	2026-11-08T14:18:53.2528828Z [36;1mif [ "$EVENT" = schedule ] || [ "$EVENT" = workflow_dispatch ] || [[ "$REF" == refs/tags/* ]]; then[0m
+verify	Require the plan and every expected job	2026-11-08T14:18:53.2530140Z [36;1m  test "$LOCAL" = success[0m
+verify	Require the plan and every expected job	2026-11-08T14:18:53.2530966Z [36;1mfi[0m
+verify	Require the plan and every expected job	2026-11-08T14:18:53.2531785Z [36;1mif [ "$EVENT" = schedule ] || [[ "$REF" == refs/tags/* ]]; then[0m
+verify	Require the plan and every expected job	2026-11-08T14:18:53.2532807Z [36;1m  test "$SCALE" = success[0m
+verify	Require the plan and every expected job	2026-11-08T14:18:53.2533787Z [36;1mfi[0m
+verify	Require the plan and every expected job	2026-11-08T14:18:53.3067581Z shell: /usr/bin/bash -e {0}
+verify	Require the plan and every expected job	2026-11-08T14:18:53.3069265Z env:
+verify	Require the plan and every expected job	2026-11-08T14:18:53.3069971Z   PLAN: success
+verify	Require the plan and every expected job	2026-11-08T14:18:53.3070699Z   SKIP: false
+verify	Require the plan and every expected job	2026-11-08T14:18:53.3071419Z   APP: failure
+verify	Require the plan and every expected job	2026-11-08T14:18:53.3072071Z   SHARDS: skipped
+verify	Require the plan and every expected job	2026-11-08T14:18:53.3072727Z   CONTRACT: skipped
+verify	Require the plan and every expected job	2026-11-08T14:18:53.3073559Z   LOCAL: skipped
+verify	Require the plan and every expected job	2026-11-08T14:18:53.3074250Z   SCALE: skipped
+verify	Require the plan and every expected job	2026-11-08T14:18:53.3074958Z   EVENT: push
+verify	Require the plan and every expected job	2026-11-08T14:18:53.3075651Z   REF: refs/heads/cloud/sd-slate-c-f206
+verify	Require the plan and every expected job	2026-11-08T14:18:53.3076503Z ##[endgroup]
+verify	Require the plan and every expected job	2026-11-08T14:18:53.3250626Z ##[error]Process completed with exit code 1.

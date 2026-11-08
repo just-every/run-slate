@@ -1,0 +1,27 @@
+[
+  {
+    "name": "integration-sync",
+    "command": "pnpm integration:sync",
+    "exit": 0
+  },
+  {
+    "name": "views-write",
+    "command": "node src/base/runtime/contract-docs.mjs write",
+    "exit": 0
+  },
+  {
+    "name": "views-check",
+    "command": "node src/base/runtime/contract-docs.mjs check",
+    "exit": 0
+  },
+  {
+    "name": "lock",
+    "command": "pnpm source:lock",
+    "exit": 0
+  },
+  {
+    "name": "source-check",
+    "command": "pnpm source:check",
+    "exit": 0
+  }
+]
