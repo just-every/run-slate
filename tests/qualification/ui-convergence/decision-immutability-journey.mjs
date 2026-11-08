@@ -110,6 +110,7 @@ export async function decisionImmutabilityJourney(state, people) {
   await alice.page.goto(`${origin}/app/decisions`, { waitUntil: 'networkidle' });
   const logEntry = alice.page.locator('.settings-list li').filter({ hasText: draft.question });
   await expect(logEntry).toContainText('Evidence changed');
+  await accessible(alice.page, 'decision log with changed evidence');
   await logEntry.getByRole('link', { name: new RegExp(draft.question.replace('?', '\\?')) }).click();
   await alice.page.waitForURL(url => url.pathname === `/app/decisions/${id}` && url.searchParams.get('revision') === accepted.acceptedRevisionId);
   await visibleSnapshot(alice.page, accepted, { stale: true });

@@ -11964,7 +11964,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/decision-immutability-journey.mjs": {
-      "sha256": "cbc555ac3ec4d9fdb4ae18152cfa0c756b195a07a7bced3218bd27ed4253eec8",
+      "sha256": "1560d90ef3d85eb0d218d503fea7a32cc2d839565117ecb9b4e194f572c0241b",
       "executable": false
     },
     "tests/qualification/ui-convergence/developer-access-journey.mjs": {
