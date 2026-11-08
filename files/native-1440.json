@@ -1,0 +1,4900 @@
+{
+  "head": "5efdd4720d4e92680ef4c8d39cf8f120dfdecbee",
+  "queryReceipts": [
+    {
+      "person": "editor",
+      "route": "/api/databases/01M6YNKX669W6V1S26C59E6QZX/views/afc64122-1195-4e60-a0c0-fd1734d7f4a2/query",
+      "status": 200,
+      "input": {
+        "pageId": "01M6YNKY0FYDN02NGS3DRTZWG0",
+        "filters": []
+      },
+      "body": {
+        "database": {
+          "id": "01M6YNKX669W6V1S26C59E6QZX",
+          "page_id": "01M6YNKX66M6MYYZF0CHNJZMWJ",
+          "workspace_id": "browser-workspace",
+          "structure_locked_at": null,
+          "structure_locked_by_member_id": null,
+          "created_at": "2026-11-08T22:49:11.619Z",
+          "updated_at": "2026-11-08T22:49:11.743Z",
+          "revision_id": "01M6YNKXA35RBBJXC46RS4X606",
+          "structure_locked_by_name": null
+        },
+        "view": {
+          "id": "afc64122-1195-4e60-a0c0-fd1734d7f4a2",
+          "name": "Release work",
+          "layout": "table",
+          "filters": [],
+          "sorts": [
+            {
+              "field": "$title",
+              "direction": "asc"
+            }
+          ],
+          "groups": [],
+          "calculations": {},
+          "display": {},
+          "position": 0,
+          "revisionId": "01M6YNKXA35RBBJXC46RS4X606"
+        },
+        "fields": [
+          {
+            "id": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "name": "Priority",
+            "type": "number",
+            "config": {},
+            "position": 0,
+            "readOnly": false
+          }
+        ],
+        "records": [
+          {
+            "pageId": "01M6YNKXF0J8V9W7WFGSKSX5MR",
+            "revisionId": "01M6YNKXHA38ZNKV1B53HK0259",
+            "title": "Alpha release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 1
+            }
+          },
+          {
+            "pageId": "01M6YNKXPKAY9QMPZW7CBJJVHQ",
+            "revisionId": "01M6YNKXVPT0N1Y4B69MD9W74G",
+            "title": "Delta release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 4
+            }
+          }
+        ],
+        "groups": [],
+        "calculations": {}
+      }
+    },
+    {
+      "person": "editor",
+      "route": "/api/databases/01M6YNKX669W6V1S26C59E6QZX/views/afc64122-1195-4e60-a0c0-fd1734d7f4a2/query",
+      "status": 200,
+      "input": {
+        "pageId": "01M6YNKY0FYDN02NGS3DRTZWG0",
+        "filters": []
+      },
+      "body": {
+        "database": {
+          "id": "01M6YNKX669W6V1S26C59E6QZX",
+          "page_id": "01M6YNKX66M6MYYZF0CHNJZMWJ",
+          "workspace_id": "browser-workspace",
+          "structure_locked_at": null,
+          "structure_locked_by_member_id": null,
+          "created_at": "2026-11-08T22:49:11.619Z",
+          "updated_at": "2026-11-08T22:49:11.743Z",
+          "revision_id": "01M6YNKXA35RBBJXC46RS4X606",
+          "structure_locked_by_name": null
+        },
+        "view": {
+          "id": "afc64122-1195-4e60-a0c0-fd1734d7f4a2",
+          "name": "Release work",
+          "layout": "table",
+          "filters": [],
+          "sorts": [
+            {
+              "field": "$title",
+              "direction": "asc"
+            }
+          ],
+          "groups": [],
+          "calculations": {},
+          "display": {},
+          "position": 0,
+          "revisionId": "01M6YNKXA35RBBJXC46RS4X606"
+        },
+        "fields": [
+          {
+            "id": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "name": "Priority",
+            "type": "number",
+            "config": {},
+            "position": 0,
+            "readOnly": false
+          }
+        ],
+        "records": [
+          {
+            "pageId": "01M6YNKXF0J8V9W7WFGSKSX5MR",
+            "revisionId": "01M6YNKXHA38ZNKV1B53HK0259",
+            "title": "Alpha release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 1
+            }
+          },
+          {
+            "pageId": "01M6YNKXPKAY9QMPZW7CBJJVHQ",
+            "revisionId": "01M6YNKXVPT0N1Y4B69MD9W74G",
+            "title": "Delta release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 4
+            }
+          }
+        ],
+        "groups": [],
+        "calculations": {}
+      }
+    },
+    {
+      "person": "editor",
+      "route": "/api/databases/01M6YNKX669W6V1S26C59E6QZX/views/afc64122-1195-4e60-a0c0-fd1734d7f4a2/query",
+      "status": 200,
+      "input": {
+        "pageId": "01M6YNKY0FYDN02NGS3DRTZWG0",
+        "filters": []
+      },
+      "body": {
+        "database": {
+          "id": "01M6YNKX669W6V1S26C59E6QZX",
+          "page_id": "01M6YNKX66M6MYYZF0CHNJZMWJ",
+          "workspace_id": "browser-workspace",
+          "structure_locked_at": null,
+          "structure_locked_by_member_id": null,
+          "created_at": "2026-11-08T22:49:11.619Z",
+          "updated_at": "2026-11-08T22:49:11.743Z",
+          "revision_id": "01M6YNKXA35RBBJXC46RS4X606",
+          "structure_locked_by_name": null
+        },
+        "view": {
+          "id": "afc64122-1195-4e60-a0c0-fd1734d7f4a2",
+          "name": "Release work",
+          "layout": "table",
+          "filters": [],
+          "sorts": [
+            {
+              "field": "$title",
+              "direction": "asc"
+            }
+          ],
+          "groups": [],
+          "calculations": {},
+          "display": {},
+          "position": 0,
+          "revisionId": "01M6YNKXA35RBBJXC46RS4X606"
+        },
+        "fields": [
+          {
+            "id": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "name": "Priority",
+            "type": "number",
+            "config": {},
+            "position": 0,
+            "readOnly": false
+          }
+        ],
+        "records": [
+          {
+            "pageId": "01M6YNKXF0J8V9W7WFGSKSX5MR",
+            "revisionId": "01M6YNKXHA38ZNKV1B53HK0259",
+            "title": "Alpha release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 1
+            }
+          },
+          {
+            "pageId": "01M6YNKXPKAY9QMPZW7CBJJVHQ",
+            "revisionId": "01M6YNKXVPT0N1Y4B69MD9W74G",
+            "title": "Delta release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 4
+            }
+          }
+        ],
+        "groups": [],
+        "calculations": {}
+      }
+    },
+    {
+      "person": "editor",
+      "route": "/api/databases/01M6YNKX669W6V1S26C59E6QZX/views/afc64122-1195-4e60-a0c0-fd1734d7f4a2/query",
+      "status": 200,
+      "input": {
+        "pageId": "01M6YNKY0FYDN02NGS3DRTZWG0",
+        "filters": []
+      },
+      "body": {
+        "database": {
+          "id": "01M6YNKX669W6V1S26C59E6QZX",
+          "page_id": "01M6YNKX66M6MYYZF0CHNJZMWJ",
+          "workspace_id": "browser-workspace",
+          "structure_locked_at": null,
+          "structure_locked_by_member_id": null,
+          "created_at": "2026-11-08T22:49:11.619Z",
+          "updated_at": "2026-11-08T22:49:11.743Z",
+          "revision_id": "01M6YNKXA35RBBJXC46RS4X606",
+          "structure_locked_by_name": null
+        },
+        "view": {
+          "id": "afc64122-1195-4e60-a0c0-fd1734d7f4a2",
+          "name": "Release work",
+          "layout": "table",
+          "filters": [],
+          "sorts": [
+            {
+              "field": "$title",
+              "direction": "asc"
+            }
+          ],
+          "groups": [],
+          "calculations": {},
+          "display": {},
+          "position": 0,
+          "revisionId": "01M6YNKXA35RBBJXC46RS4X606"
+        },
+        "fields": [
+          {
+            "id": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "name": "Priority",
+            "type": "number",
+            "config": {},
+            "position": 0,
+            "readOnly": false
+          }
+        ],
+        "records": [
+          {
+            "pageId": "01M6YNKXF0J8V9W7WFGSKSX5MR",
+            "revisionId": "01M6YNKXHA38ZNKV1B53HK0259",
+            "title": "Alpha release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 1
+            }
+          },
+          {
+            "pageId": "01M6YNKXPKAY9QMPZW7CBJJVHQ",
+            "revisionId": "01M6YNKXVPT0N1Y4B69MD9W74G",
+            "title": "Delta release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 4
+            }
+          }
+        ],
+        "groups": [],
+        "calculations": {}
+      }
+    },
+    {
+      "person": "owner",
+      "route": "/api/databases/01M6YNKX669W6V1S26C59E6QZX/views/afc64122-1195-4e60-a0c0-fd1734d7f4a2/query",
+      "status": 200,
+      "input": {
+        "pageId": "01M6YNKY0FYDN02NGS3DRTZWG0",
+        "filters": []
+      },
+      "body": {
+        "database": {
+          "id": "01M6YNKX669W6V1S26C59E6QZX",
+          "page_id": "01M6YNKX66M6MYYZF0CHNJZMWJ",
+          "workspace_id": "browser-workspace",
+          "structure_locked_at": null,
+          "structure_locked_by_member_id": null,
+          "created_at": "2026-11-08T22:49:11.619Z",
+          "updated_at": "2026-11-08T22:49:11.743Z",
+          "revision_id": "01M6YNKXA35RBBJXC46RS4X606",
+          "structure_locked_by_name": null
+        },
+        "view": {
+          "id": "afc64122-1195-4e60-a0c0-fd1734d7f4a2",
+          "name": "Release work",
+          "layout": "table",
+          "filters": [],
+          "sorts": [
+            {
+              "field": "$title",
+              "direction": "asc"
+            }
+          ],
+          "groups": [],
+          "calculations": {},
+          "display": {},
+          "position": 0,
+          "revisionId": "01M6YNKXA35RBBJXC46RS4X606"
+        },
+        "fields": [
+          {
+            "id": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "name": "Priority",
+            "type": "number",
+            "config": {},
+            "position": 0,
+            "readOnly": false
+          }
+        ],
+        "records": [
+          {
+            "pageId": "01M6YNKXF0J8V9W7WFGSKSX5MR",
+            "revisionId": "01M6YNKXHA38ZNKV1B53HK0259",
+            "title": "Alpha release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 1
+            }
+          },
+          {
+            "pageId": "01M6YNKXKMAZT19CQSBNVKVX0T",
+            "revisionId": "01M6YNKXNJGQJQQ0VQH68ESTFD",
+            "title": "Bravo confidential",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 2
+            }
+          },
+          {
+            "pageId": "01M6YNKXPKAY9QMPZW7CBJJVHQ",
+            "revisionId": "01M6YNKXVPT0N1Y4B69MD9W74G",
+            "title": "Delta release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 4
+            }
+          },
+          {
+            "pageId": "01M6YNKXXNT1M1A08GAR5RAGP7",
+            "revisionId": "01M6YNKXZKADF6C6QPJ7PKMGPX",
+            "title": "Zulu confidential",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 3
+            }
+          }
+        ],
+        "groups": [],
+        "calculations": {}
+      }
+    },
+    {
+      "person": "editor",
+      "route": "/api/databases/01M6YNKX669W6V1S26C59E6QZX/views/afc64122-1195-4e60-a0c0-fd1734d7f4a2/query",
+      "status": 200,
+      "input": {
+        "pageId": "01M6YNKY0FYDN02NGS3DRTZWG0",
+        "filters": []
+      },
+      "body": {
+        "database": {
+          "id": "01M6YNKX669W6V1S26C59E6QZX",
+          "page_id": "01M6YNKX66M6MYYZF0CHNJZMWJ",
+          "workspace_id": "browser-workspace",
+          "structure_locked_at": null,
+          "structure_locked_by_member_id": null,
+          "created_at": "2026-11-08T22:49:11.619Z",
+          "updated_at": "2026-11-08T22:49:11.743Z",
+          "revision_id": "01M6YNKXA35RBBJXC46RS4X606",
+          "structure_locked_by_name": null
+        },
+        "view": {
+          "id": "afc64122-1195-4e60-a0c0-fd1734d7f4a2",
+          "name": "Release work",
+          "layout": "table",
+          "filters": [],
+          "sorts": [
+            {
+              "field": "$title",
+              "direction": "asc"
+            }
+          ],
+          "groups": [],
+          "calculations": {},
+          "display": {},
+          "position": 0,
+          "revisionId": "01M6YNKXA35RBBJXC46RS4X606"
+        },
+        "fields": [
+          {
+            "id": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "name": "Priority",
+            "type": "number",
+            "config": {},
+            "position": 0,
+            "readOnly": false
+          }
+        ],
+        "records": [
+          {
+            "pageId": "01M6YNKXF0J8V9W7WFGSKSX5MR",
+            "revisionId": "01M6YNKXHA38ZNKV1B53HK0259",
+            "title": "Alpha release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 1
+            }
+          },
+          {
+            "pageId": "01M6YNKXPKAY9QMPZW7CBJJVHQ",
+            "revisionId": "01M6YNKXVPT0N1Y4B69MD9W74G",
+            "title": "Delta release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 4
+            }
+          }
+        ],
+        "groups": [],
+        "calculations": {}
+      }
+    },
+    {
+      "person": "owner",
+      "route": "/api/databases/01M6YNKX669W6V1S26C59E6QZX/views/afc64122-1195-4e60-a0c0-fd1734d7f4a2/query",
+      "status": 200,
+      "input": {
+        "pageId": "01M6YNKY0FYDN02NGS3DRTZWG0",
+        "filters": []
+      },
+      "body": {
+        "database": {
+          "id": "01M6YNKX669W6V1S26C59E6QZX",
+          "page_id": "01M6YNKX66M6MYYZF0CHNJZMWJ",
+          "workspace_id": "browser-workspace",
+          "structure_locked_at": null,
+          "structure_locked_by_member_id": null,
+          "created_at": "2026-11-08T22:49:11.619Z",
+          "updated_at": "2026-11-08T22:49:11.743Z",
+          "revision_id": "01M6YNKXA35RBBJXC46RS4X606",
+          "structure_locked_by_name": null
+        },
+        "view": {
+          "id": "afc64122-1195-4e60-a0c0-fd1734d7f4a2",
+          "name": "Release work",
+          "layout": "table",
+          "filters": [],
+          "sorts": [
+            {
+              "field": "$title",
+              "direction": "asc"
+            }
+          ],
+          "groups": [],
+          "calculations": {},
+          "display": {},
+          "position": 0,
+          "revisionId": "01M6YNKXA35RBBJXC46RS4X606"
+        },
+        "fields": [
+          {
+            "id": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "name": "Priority",
+            "type": "number",
+            "config": {},
+            "position": 0,
+            "readOnly": false
+          }
+        ],
+        "records": [
+          {
+            "pageId": "01M6YNKXF0J8V9W7WFGSKSX5MR",
+            "revisionId": "01M6YNKXHA38ZNKV1B53HK0259",
+            "title": "Alpha release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 1
+            }
+          },
+          {
+            "pageId": "01M6YNKXKMAZT19CQSBNVKVX0T",
+            "revisionId": "01M6YNKXNJGQJQQ0VQH68ESTFD",
+            "title": "Bravo confidential",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 2
+            }
+          },
+          {
+            "pageId": "01M6YNKXPKAY9QMPZW7CBJJVHQ",
+            "revisionId": "01M6YNKXVPT0N1Y4B69MD9W74G",
+            "title": "Delta release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 4
+            }
+          },
+          {
+            "pageId": "01M6YNKXXNT1M1A08GAR5RAGP7",
+            "revisionId": "01M6YNKXZKADF6C6QPJ7PKMGPX",
+            "title": "Zulu confidential",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 3
+            }
+          }
+        ],
+        "groups": [],
+        "calculations": {}
+      }
+    },
+    {
+      "person": "editor",
+      "route": "/api/databases/01M6YNKX669W6V1S26C59E6QZX/views/afc64122-1195-4e60-a0c0-fd1734d7f4a2/query",
+      "status": 200,
+      "input": {
+        "pageId": "01M6YNKY0FYDN02NGS3DRTZWG0",
+        "filters": []
+      },
+      "body": {
+        "database": {
+          "id": "01M6YNKX669W6V1S26C59E6QZX",
+          "page_id": "01M6YNKX66M6MYYZF0CHNJZMWJ",
+          "workspace_id": "browser-workspace",
+          "structure_locked_at": null,
+          "structure_locked_by_member_id": null,
+          "created_at": "2026-11-08T22:49:11.619Z",
+          "updated_at": "2026-11-08T22:49:11.743Z",
+          "revision_id": "01M6YNKXA35RBBJXC46RS4X606",
+          "structure_locked_by_name": null
+        },
+        "view": {
+          "id": "afc64122-1195-4e60-a0c0-fd1734d7f4a2",
+          "name": "Release work",
+          "layout": "table",
+          "filters": [],
+          "sorts": [
+            {
+              "field": "$title",
+              "direction": "asc"
+            }
+          ],
+          "groups": [],
+          "calculations": {},
+          "display": {},
+          "position": 0,
+          "revisionId": "01M6YNKXA35RBBJXC46RS4X606"
+        },
+        "fields": [
+          {
+            "id": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "name": "Priority",
+            "type": "number",
+            "config": {},
+            "position": 0,
+            "readOnly": false
+          }
+        ],
+        "records": [
+          {
+            "pageId": "01M6YNKXF0J8V9W7WFGSKSX5MR",
+            "revisionId": "01M6YNKXHA38ZNKV1B53HK0259",
+            "title": "Alpha release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 1
+            }
+          },
+          {
+            "pageId": "01M6YNKXPKAY9QMPZW7CBJJVHQ",
+            "revisionId": "01M6YNKXVPT0N1Y4B69MD9W74G",
+            "title": "Delta release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 4
+            }
+          }
+        ],
+        "groups": [],
+        "calculations": {}
+      }
+    },
+    {
+      "person": "owner",
+      "route": "/api/databases/01M6YNKX669W6V1S26C59E6QZX/views/afc64122-1195-4e60-a0c0-fd1734d7f4a2/query",
+      "status": 200,
+      "input": {
+        "pageId": "01M6YNKY0FYDN02NGS3DRTZWG0",
+        "filters": []
+      },
+      "body": {
+        "database": {
+          "id": "01M6YNKX669W6V1S26C59E6QZX",
+          "page_id": "01M6YNKX66M6MYYZF0CHNJZMWJ",
+          "workspace_id": "browser-workspace",
+          "structure_locked_at": null,
+          "structure_locked_by_member_id": null,
+          "created_at": "2026-11-08T22:49:11.619Z",
+          "updated_at": "2026-11-08T22:49:11.743Z",
+          "revision_id": "01M6YNKXA35RBBJXC46RS4X606",
+          "structure_locked_by_name": null
+        },
+        "view": {
+          "id": "afc64122-1195-4e60-a0c0-fd1734d7f4a2",
+          "name": "Release work",
+          "layout": "table",
+          "filters": [],
+          "sorts": [
+            {
+              "field": "$title",
+              "direction": "asc"
+            }
+          ],
+          "groups": [],
+          "calculations": {},
+          "display": {},
+          "position": 0,
+          "revisionId": "01M6YNKXA35RBBJXC46RS4X606"
+        },
+        "fields": [
+          {
+            "id": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "name": "Priority",
+            "type": "number",
+            "config": {},
+            "position": 0,
+            "readOnly": false
+          }
+        ],
+        "records": [
+          {
+            "pageId": "01M6YNKXF0J8V9W7WFGSKSX5MR",
+            "revisionId": "01M6YNKXHA38ZNKV1B53HK0259",
+            "title": "Alpha release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 1
+            }
+          },
+          {
+            "pageId": "01M6YNKXKMAZT19CQSBNVKVX0T",
+            "revisionId": "01M6YNKXNJGQJQQ0VQH68ESTFD",
+            "title": "Bravo confidential",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 2
+            }
+          },
+          {
+            "pageId": "01M6YNKXPKAY9QMPZW7CBJJVHQ",
+            "revisionId": "01M6YNKXVPT0N1Y4B69MD9W74G",
+            "title": "Delta release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 4
+            }
+          },
+          {
+            "pageId": "01M6YNKXXNT1M1A08GAR5RAGP7",
+            "revisionId": "01M6YNKXZKADF6C6QPJ7PKMGPX",
+            "title": "Zulu confidential",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 3
+            }
+          }
+        ],
+        "groups": [],
+        "calculations": {}
+      }
+    },
+    {
+      "person": "owner",
+      "route": "/api/databases/01M6YNKX669W6V1S26C59E6QZX/views/afc64122-1195-4e60-a0c0-fd1734d7f4a2/query",
+      "status": 200,
+      "input": {
+        "pageId": "01M6YNKY0FYDN02NGS3DRTZWG0",
+        "filters": []
+      },
+      "body": {
+        "database": {
+          "id": "01M6YNKX669W6V1S26C59E6QZX",
+          "page_id": "01M6YNKX66M6MYYZF0CHNJZMWJ",
+          "workspace_id": "browser-workspace",
+          "structure_locked_at": null,
+          "structure_locked_by_member_id": null,
+          "created_at": "2026-11-08T22:49:11.619Z",
+          "updated_at": "2026-11-08T22:49:11.743Z",
+          "revision_id": "01M6YNKXA35RBBJXC46RS4X606",
+          "structure_locked_by_name": null
+        },
+        "view": {
+          "id": "afc64122-1195-4e60-a0c0-fd1734d7f4a2",
+          "name": "Release work",
+          "layout": "table",
+          "filters": [],
+          "sorts": [
+            {
+              "field": "$title",
+              "direction": "asc"
+            }
+          ],
+          "groups": [],
+          "calculations": {},
+          "display": {},
+          "position": 0,
+          "revisionId": "01M6YNKXA35RBBJXC46RS4X606"
+        },
+        "fields": [
+          {
+            "id": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "name": "Priority",
+            "type": "number",
+            "config": {},
+            "position": 0,
+            "readOnly": false
+          }
+        ],
+        "records": [
+          {
+            "pageId": "01M6YNKXF0J8V9W7WFGSKSX5MR",
+            "revisionId": "01M6YNKXHA38ZNKV1B53HK0259",
+            "title": "Alpha release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 1
+            }
+          },
+          {
+            "pageId": "01M6YNKXKMAZT19CQSBNVKVX0T",
+            "revisionId": "01M6YNKXNJGQJQQ0VQH68ESTFD",
+            "title": "Bravo confidential",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 2
+            }
+          },
+          {
+            "pageId": "01M6YNKXPKAY9QMPZW7CBJJVHQ",
+            "revisionId": "01M6YNKXVPT0N1Y4B69MD9W74G",
+            "title": "Delta release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 4
+            }
+          },
+          {
+            "pageId": "01M6YNKXXNT1M1A08GAR5RAGP7",
+            "revisionId": "01M6YNKXZKADF6C6QPJ7PKMGPX",
+            "title": "Zulu confidential",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 3
+            }
+          }
+        ],
+        "groups": [],
+        "calculations": {}
+      }
+    },
+    {
+      "person": "editor",
+      "route": "/api/databases/01M6YNKX669W6V1S26C59E6QZX/views/afc64122-1195-4e60-a0c0-fd1734d7f4a2/query",
+      "status": 200,
+      "input": {
+        "pageId": "01M6YNKY0FYDN02NGS3DRTZWG0",
+        "filters": []
+      },
+      "body": {
+        "database": {
+          "id": "01M6YNKX669W6V1S26C59E6QZX",
+          "page_id": "01M6YNKX66M6MYYZF0CHNJZMWJ",
+          "workspace_id": "browser-workspace",
+          "structure_locked_at": null,
+          "structure_locked_by_member_id": null,
+          "created_at": "2026-11-08T22:49:11.619Z",
+          "updated_at": "2026-11-08T22:49:11.743Z",
+          "revision_id": "01M6YNKXA35RBBJXC46RS4X606",
+          "structure_locked_by_name": null
+        },
+        "view": {
+          "id": "afc64122-1195-4e60-a0c0-fd1734d7f4a2",
+          "name": "Release work",
+          "layout": "table",
+          "filters": [],
+          "sorts": [
+            {
+              "field": "$title",
+              "direction": "asc"
+            }
+          ],
+          "groups": [],
+          "calculations": {},
+          "display": {},
+          "position": 0,
+          "revisionId": "01M6YNKXA35RBBJXC46RS4X606"
+        },
+        "fields": [
+          {
+            "id": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "name": "Priority",
+            "type": "number",
+            "config": {},
+            "position": 0,
+            "readOnly": false
+          }
+        ],
+        "records": [
+          {
+            "pageId": "01M6YNKXF0J8V9W7WFGSKSX5MR",
+            "revisionId": "01M6YNKXHA38ZNKV1B53HK0259",
+            "title": "Alpha release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 1
+            }
+          },
+          {
+            "pageId": "01M6YNKXPKAY9QMPZW7CBJJVHQ",
+            "revisionId": "01M6YNKXVPT0N1Y4B69MD9W74G",
+            "title": "Delta release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 4
+            }
+          }
+        ],
+        "groups": [],
+        "calculations": {}
+      }
+    },
+    {
+      "person": "owner",
+      "route": "/api/databases/01M6YNKX669W6V1S26C59E6QZX/views/afc64122-1195-4e60-a0c0-fd1734d7f4a2/query",
+      "status": 200,
+      "input": {
+        "pageId": "01M6YNKY0FYDN02NGS3DRTZWG0",
+        "filters": []
+      },
+      "body": {
+        "database": {
+          "id": "01M6YNKX669W6V1S26C59E6QZX",
+          "page_id": "01M6YNKX66M6MYYZF0CHNJZMWJ",
+          "workspace_id": "browser-workspace",
+          "structure_locked_at": null,
+          "structure_locked_by_member_id": null,
+          "created_at": "2026-11-08T22:49:11.619Z",
+          "updated_at": "2026-11-08T22:49:11.743Z",
+          "revision_id": "01M6YNKXA35RBBJXC46RS4X606",
+          "structure_locked_by_name": null
+        },
+        "view": {
+          "id": "afc64122-1195-4e60-a0c0-fd1734d7f4a2",
+          "name": "Release work",
+          "layout": "table",
+          "filters": [],
+          "sorts": [
+            {
+              "field": "$title",
+              "direction": "asc"
+            }
+          ],
+          "groups": [],
+          "calculations": {},
+          "display": {},
+          "position": 0,
+          "revisionId": "01M6YNKXA35RBBJXC46RS4X606"
+        },
+        "fields": [
+          {
+            "id": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "name": "Priority",
+            "type": "number",
+            "config": {},
+            "position": 0,
+            "readOnly": false
+          }
+        ],
+        "records": [
+          {
+            "pageId": "01M6YNKXF0J8V9W7WFGSKSX5MR",
+            "revisionId": "01M6YNKXHA38ZNKV1B53HK0259",
+            "title": "Alpha release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 1
+            }
+          },
+          {
+            "pageId": "01M6YNKXKMAZT19CQSBNVKVX0T",
+            "revisionId": "01M6YNKXNJGQJQQ0VQH68ESTFD",
+            "title": "Bravo confidential",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 2
+            }
+          },
+          {
+            "pageId": "01M6YNKXPKAY9QMPZW7CBJJVHQ",
+            "revisionId": "01M6YNKXVPT0N1Y4B69MD9W74G",
+            "title": "Delta release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 4
+            }
+          },
+          {
+            "pageId": "01M6YNKXXNT1M1A08GAR5RAGP7",
+            "revisionId": "01M6YNKXZKADF6C6QPJ7PKMGPX",
+            "title": "Zulu confidential",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 3
+            }
+          }
+        ],
+        "groups": [],
+        "calculations": {}
+      }
+    },
+    {
+      "person": "editor",
+      "route": "/api/databases/01M6YNKX669W6V1S26C59E6QZX/views/afc64122-1195-4e60-a0c0-fd1734d7f4a2/query",
+      "status": 200,
+      "input": {
+        "pageId": "01M6YNKY0FYDN02NGS3DRTZWG0",
+        "filters": []
+      },
+      "body": {
+        "database": {
+          "id": "01M6YNKX669W6V1S26C59E6QZX",
+          "page_id": "01M6YNKX66M6MYYZF0CHNJZMWJ",
+          "workspace_id": "browser-workspace",
+          "structure_locked_at": null,
+          "structure_locked_by_member_id": null,
+          "created_at": "2026-11-08T22:49:11.619Z",
+          "updated_at": "2026-11-08T22:49:11.743Z",
+          "revision_id": "01M6YNKXA35RBBJXC46RS4X606",
+          "structure_locked_by_name": null
+        },
+        "view": {
+          "id": "afc64122-1195-4e60-a0c0-fd1734d7f4a2",
+          "name": "Release work",
+          "layout": "table",
+          "filters": [],
+          "sorts": [
+            {
+              "field": "$title",
+              "direction": "asc"
+            }
+          ],
+          "groups": [],
+          "calculations": {},
+          "display": {},
+          "position": 0,
+          "revisionId": "01M6YNKXA35RBBJXC46RS4X606"
+        },
+        "fields": [
+          {
+            "id": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "name": "Priority",
+            "type": "number",
+            "config": {},
+            "position": 0,
+            "readOnly": false
+          }
+        ],
+        "records": [
+          {
+            "pageId": "01M6YNKXF0J8V9W7WFGSKSX5MR",
+            "revisionId": "01M6YNKXHA38ZNKV1B53HK0259",
+            "title": "Alpha release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 1
+            }
+          },
+          {
+            "pageId": "01M6YNKXPKAY9QMPZW7CBJJVHQ",
+            "revisionId": "01M6YNKXVPT0N1Y4B69MD9W74G",
+            "title": "Delta release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 4
+            }
+          }
+        ],
+        "groups": [],
+        "calculations": {}
+      }
+    },
+    {
+      "person": "owner",
+      "route": "/api/databases/01M6YNKX669W6V1S26C59E6QZX/views/afc64122-1195-4e60-a0c0-fd1734d7f4a2/query",
+      "status": 200,
+      "input": {
+        "pageId": "01M6YNKY0FYDN02NGS3DRTZWG0",
+        "filters": []
+      },
+      "body": {
+        "database": {
+          "id": "01M6YNKX669W6V1S26C59E6QZX",
+          "page_id": "01M6YNKX66M6MYYZF0CHNJZMWJ",
+          "workspace_id": "browser-workspace",
+          "structure_locked_at": null,
+          "structure_locked_by_member_id": null,
+          "created_at": "2026-11-08T22:49:11.619Z",
+          "updated_at": "2026-11-08T22:49:11.743Z",
+          "revision_id": "01M6YNKXA35RBBJXC46RS4X606",
+          "structure_locked_by_name": null
+        },
+        "view": {
+          "id": "afc64122-1195-4e60-a0c0-fd1734d7f4a2",
+          "name": "Release work",
+          "layout": "table",
+          "filters": [],
+          "sorts": [
+            {
+              "field": "$title",
+              "direction": "asc"
+            }
+          ],
+          "groups": [],
+          "calculations": {},
+          "display": {},
+          "position": 0,
+          "revisionId": "01M6YNKXA35RBBJXC46RS4X606"
+        },
+        "fields": [
+          {
+            "id": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "name": "Priority",
+            "type": "number",
+            "config": {},
+            "position": 0,
+            "readOnly": false
+          }
+        ],
+        "records": [
+          {
+            "pageId": "01M6YNKXF0J8V9W7WFGSKSX5MR",
+            "revisionId": "01M6YNKXHA38ZNKV1B53HK0259",
+            "title": "Alpha release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 1
+            }
+          },
+          {
+            "pageId": "01M6YNKXKMAZT19CQSBNVKVX0T",
+            "revisionId": "01M6YNKXNJGQJQQ0VQH68ESTFD",
+            "title": "Bravo confidential",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 2
+            }
+          },
+          {
+            "pageId": "01M6YNKXPKAY9QMPZW7CBJJVHQ",
+            "revisionId": "01M6YNKXVPT0N1Y4B69MD9W74G",
+            "title": "Delta release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 4
+            }
+          },
+          {
+            "pageId": "01M6YNKXXNT1M1A08GAR5RAGP7",
+            "revisionId": "01M6YNKXZKADF6C6QPJ7PKMGPX",
+            "title": "Zulu confidential",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 3
+            }
+          }
+        ],
+        "groups": [],
+        "calculations": {}
+      }
+    },
+    {
+      "person": "editor",
+      "route": "/api/databases/01M6YNKX669W6V1S26C59E6QZX/views/afc64122-1195-4e60-a0c0-fd1734d7f4a2/query",
+      "status": 200,
+      "input": {
+        "pageId": "01M6YNKY0FYDN02NGS3DRTZWG0",
+        "filters": []
+      },
+      "body": {
+        "database": {
+          "id": "01M6YNKX669W6V1S26C59E6QZX",
+          "page_id": "01M6YNKX66M6MYYZF0CHNJZMWJ",
+          "workspace_id": "browser-workspace",
+          "structure_locked_at": null,
+          "structure_locked_by_member_id": null,
+          "created_at": "2026-11-08T22:49:11.619Z",
+          "updated_at": "2026-11-08T22:49:11.743Z",
+          "revision_id": "01M6YNKXA35RBBJXC46RS4X606",
+          "structure_locked_by_name": null
+        },
+        "view": {
+          "id": "afc64122-1195-4e60-a0c0-fd1734d7f4a2",
+          "name": "Release work",
+          "layout": "table",
+          "filters": [],
+          "sorts": [
+            {
+              "field": "$title",
+              "direction": "asc"
+            }
+          ],
+          "groups": [],
+          "calculations": {},
+          "display": {},
+          "position": 0,
+          "revisionId": "01M6YNKXA35RBBJXC46RS4X606"
+        },
+        "fields": [
+          {
+            "id": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "name": "Priority",
+            "type": "number",
+            "config": {},
+            "position": 0,
+            "readOnly": false
+          }
+        ],
+        "records": [
+          {
+            "pageId": "01M6YNKXF0J8V9W7WFGSKSX5MR",
+            "revisionId": "01M6YNKXHA38ZNKV1B53HK0259",
+            "title": "Alpha release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 1
+            }
+          },
+          {
+            "pageId": "01M6YNKXPKAY9QMPZW7CBJJVHQ",
+            "revisionId": "01M6YNKXVPT0N1Y4B69MD9W74G",
+            "title": "Delta release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 4
+            }
+          }
+        ],
+        "groups": [],
+        "calculations": {}
+      }
+    },
+    {
+      "person": "editor",
+      "route": "/api/databases/01M6YNKX669W6V1S26C59E6QZX/views/afc64122-1195-4e60-a0c0-fd1734d7f4a2/query",
+      "status": 200,
+      "input": {
+        "pageId": "01M6YNKY0FYDN02NGS3DRTZWG0",
+        "filters": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "op": "gt",
+            "value": 1
+          }
+        ],
+        "sorts": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "direction": "desc"
+          },
+          {
+            "field": "$title",
+            "direction": "desc"
+          }
+        ]
+      },
+      "body": {
+        "database": {
+          "id": "01M6YNKX669W6V1S26C59E6QZX",
+          "page_id": "01M6YNKX66M6MYYZF0CHNJZMWJ",
+          "workspace_id": "browser-workspace",
+          "structure_locked_at": null,
+          "structure_locked_by_member_id": null,
+          "created_at": "2026-11-08T22:49:11.619Z",
+          "updated_at": "2026-11-08T22:49:11.743Z",
+          "revision_id": "01M6YNKXA35RBBJXC46RS4X606",
+          "structure_locked_by_name": null
+        },
+        "view": {
+          "id": "afc64122-1195-4e60-a0c0-fd1734d7f4a2",
+          "name": "Release work",
+          "layout": "table",
+          "filters": [],
+          "sorts": [
+            {
+              "field": "$title",
+              "direction": "asc"
+            }
+          ],
+          "groups": [],
+          "calculations": {},
+          "display": {},
+          "position": 0,
+          "revisionId": "01M6YNKXA35RBBJXC46RS4X606"
+        },
+        "fields": [
+          {
+            "id": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "name": "Priority",
+            "type": "number",
+            "config": {},
+            "position": 0,
+            "readOnly": false
+          }
+        ],
+        "records": [
+          {
+            "pageId": "01M6YNKXPKAY9QMPZW7CBJJVHQ",
+            "revisionId": "01M6YNKXVPT0N1Y4B69MD9W74G",
+            "title": "Delta release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 4
+            }
+          }
+        ],
+        "groups": [],
+        "calculations": {}
+      }
+    },
+    {
+      "person": "owner",
+      "route": "/api/databases/01M6YNKX669W6V1S26C59E6QZX/views/afc64122-1195-4e60-a0c0-fd1734d7f4a2/query",
+      "status": 200,
+      "input": {
+        "pageId": "01M6YNKY0FYDN02NGS3DRTZWG0",
+        "filters": []
+      },
+      "body": {
+        "database": {
+          "id": "01M6YNKX669W6V1S26C59E6QZX",
+          "page_id": "01M6YNKX66M6MYYZF0CHNJZMWJ",
+          "workspace_id": "browser-workspace",
+          "structure_locked_at": null,
+          "structure_locked_by_member_id": null,
+          "created_at": "2026-11-08T22:49:11.619Z",
+          "updated_at": "2026-11-08T22:49:11.743Z",
+          "revision_id": "01M6YNKXA35RBBJXC46RS4X606",
+          "structure_locked_by_name": null
+        },
+        "view": {
+          "id": "afc64122-1195-4e60-a0c0-fd1734d7f4a2",
+          "name": "Release work",
+          "layout": "table",
+          "filters": [],
+          "sorts": [
+            {
+              "field": "$title",
+              "direction": "asc"
+            }
+          ],
+          "groups": [],
+          "calculations": {},
+          "display": {},
+          "position": 0,
+          "revisionId": "01M6YNKXA35RBBJXC46RS4X606"
+        },
+        "fields": [
+          {
+            "id": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "name": "Priority",
+            "type": "number",
+            "config": {},
+            "position": 0,
+            "readOnly": false
+          }
+        ],
+        "records": [
+          {
+            "pageId": "01M6YNKXF0J8V9W7WFGSKSX5MR",
+            "revisionId": "01M6YNKXHA38ZNKV1B53HK0259",
+            "title": "Alpha release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 1
+            }
+          },
+          {
+            "pageId": "01M6YNKXKMAZT19CQSBNVKVX0T",
+            "revisionId": "01M6YNKXNJGQJQQ0VQH68ESTFD",
+            "title": "Bravo confidential",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 2
+            }
+          },
+          {
+            "pageId": "01M6YNKXPKAY9QMPZW7CBJJVHQ",
+            "revisionId": "01M6YNKXVPT0N1Y4B69MD9W74G",
+            "title": "Delta release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 4
+            }
+          },
+          {
+            "pageId": "01M6YNKXXNT1M1A08GAR5RAGP7",
+            "revisionId": "01M6YNKXZKADF6C6QPJ7PKMGPX",
+            "title": "Zulu confidential",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 3
+            }
+          }
+        ],
+        "groups": [],
+        "calculations": {}
+      }
+    },
+    {
+      "person": "editor",
+      "route": "/api/databases/01M6YNKX669W6V1S26C59E6QZX/views/afc64122-1195-4e60-a0c0-fd1734d7f4a2/query",
+      "status": 200,
+      "input": {
+        "pageId": "01M6YNKY0FYDN02NGS3DRTZWG0",
+        "filters": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "op": "gt",
+            "value": 1
+          }
+        ],
+        "sorts": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "direction": "desc"
+          },
+          {
+            "field": "$title",
+            "direction": "desc"
+          }
+        ]
+      },
+      "body": {
+        "database": {
+          "id": "01M6YNKX669W6V1S26C59E6QZX",
+          "page_id": "01M6YNKX66M6MYYZF0CHNJZMWJ",
+          "workspace_id": "browser-workspace",
+          "structure_locked_at": null,
+          "structure_locked_by_member_id": null,
+          "created_at": "2026-11-08T22:49:11.619Z",
+          "updated_at": "2026-11-08T22:49:11.743Z",
+          "revision_id": "01M6YNKXA35RBBJXC46RS4X606",
+          "structure_locked_by_name": null
+        },
+        "view": {
+          "id": "afc64122-1195-4e60-a0c0-fd1734d7f4a2",
+          "name": "Release work",
+          "layout": "table",
+          "filters": [],
+          "sorts": [
+            {
+              "field": "$title",
+              "direction": "asc"
+            }
+          ],
+          "groups": [],
+          "calculations": {},
+          "display": {},
+          "position": 0,
+          "revisionId": "01M6YNKXA35RBBJXC46RS4X606"
+        },
+        "fields": [
+          {
+            "id": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "name": "Priority",
+            "type": "number",
+            "config": {},
+            "position": 0,
+            "readOnly": false
+          }
+        ],
+        "records": [
+          {
+            "pageId": "01M6YNKXPKAY9QMPZW7CBJJVHQ",
+            "revisionId": "01M6YNKXVPT0N1Y4B69MD9W74G",
+            "title": "Delta release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 4
+            }
+          }
+        ],
+        "groups": [],
+        "calculations": {}
+      }
+    },
+    {
+      "person": "editor",
+      "route": "/api/databases/01M6YNKX669W6V1S26C59E6QZX/views/afc64122-1195-4e60-a0c0-fd1734d7f4a2/query",
+      "status": 200,
+      "input": {
+        "pageId": "01M6YNKY0FYDN02NGS3DRTZWG0",
+        "filters": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "op": "gt",
+            "value": 1
+          }
+        ],
+        "sorts": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "direction": "desc"
+          },
+          {
+            "field": "$title",
+            "direction": "desc"
+          }
+        ]
+      },
+      "body": {
+        "database": {
+          "id": "01M6YNKX669W6V1S26C59E6QZX",
+          "page_id": "01M6YNKX66M6MYYZF0CHNJZMWJ",
+          "workspace_id": "browser-workspace",
+          "structure_locked_at": null,
+          "structure_locked_by_member_id": null,
+          "created_at": "2026-11-08T22:49:11.619Z",
+          "updated_at": "2026-11-08T22:49:11.743Z",
+          "revision_id": "01M6YNKXA35RBBJXC46RS4X606",
+          "structure_locked_by_name": null
+        },
+        "view": {
+          "id": "afc64122-1195-4e60-a0c0-fd1734d7f4a2",
+          "name": "Release work",
+          "layout": "table",
+          "filters": [],
+          "sorts": [
+            {
+              "field": "$title",
+              "direction": "asc"
+            }
+          ],
+          "groups": [],
+          "calculations": {},
+          "display": {},
+          "position": 0,
+          "revisionId": "01M6YNKXA35RBBJXC46RS4X606"
+        },
+        "fields": [
+          {
+            "id": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "name": "Priority",
+            "type": "number",
+            "config": {},
+            "position": 0,
+            "readOnly": false
+          }
+        ],
+        "records": [
+          {
+            "pageId": "01M6YNKXPKAY9QMPZW7CBJJVHQ",
+            "revisionId": "01M6YNKXVPT0N1Y4B69MD9W74G",
+            "title": "Delta release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 4
+            }
+          }
+        ],
+        "groups": [],
+        "calculations": {}
+      }
+    },
+    {
+      "person": "owner",
+      "route": "/api/databases/01M6YNKX669W6V1S26C59E6QZX/views/afc64122-1195-4e60-a0c0-fd1734d7f4a2/query",
+      "status": 200,
+      "input": {
+        "pageId": "01M6YNKY0FYDN02NGS3DRTZWG0",
+        "filters": []
+      },
+      "body": {
+        "database": {
+          "id": "01M6YNKX669W6V1S26C59E6QZX",
+          "page_id": "01M6YNKX66M6MYYZF0CHNJZMWJ",
+          "workspace_id": "browser-workspace",
+          "structure_locked_at": null,
+          "structure_locked_by_member_id": null,
+          "created_at": "2026-11-08T22:49:11.619Z",
+          "updated_at": "2026-11-08T22:49:11.743Z",
+          "revision_id": "01M6YNKXA35RBBJXC46RS4X606",
+          "structure_locked_by_name": null
+        },
+        "view": {
+          "id": "afc64122-1195-4e60-a0c0-fd1734d7f4a2",
+          "name": "Release work",
+          "layout": "table",
+          "filters": [],
+          "sorts": [
+            {
+              "field": "$title",
+              "direction": "asc"
+            }
+          ],
+          "groups": [],
+          "calculations": {},
+          "display": {},
+          "position": 0,
+          "revisionId": "01M6YNKXA35RBBJXC46RS4X606"
+        },
+        "fields": [
+          {
+            "id": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "name": "Priority",
+            "type": "number",
+            "config": {},
+            "position": 0,
+            "readOnly": false
+          }
+        ],
+        "records": [
+          {
+            "pageId": "01M6YNKXF0J8V9W7WFGSKSX5MR",
+            "revisionId": "01M6YNKXHA38ZNKV1B53HK0259",
+            "title": "Alpha release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 1
+            }
+          },
+          {
+            "pageId": "01M6YNKXKMAZT19CQSBNVKVX0T",
+            "revisionId": "01M6YNKXNJGQJQQ0VQH68ESTFD",
+            "title": "Bravo confidential",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 2
+            }
+          },
+          {
+            "pageId": "01M6YNKXPKAY9QMPZW7CBJJVHQ",
+            "revisionId": "01M6YNKXVPT0N1Y4B69MD9W74G",
+            "title": "Delta release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 4
+            }
+          },
+          {
+            "pageId": "01M6YNKXXNT1M1A08GAR5RAGP7",
+            "revisionId": "01M6YNKXZKADF6C6QPJ7PKMGPX",
+            "title": "Zulu confidential",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 3
+            }
+          }
+        ],
+        "groups": [],
+        "calculations": {}
+      }
+    },
+    {
+      "person": "editor",
+      "route": "/api/databases/01M6YNKX669W6V1S26C59E6QZX/views/afc64122-1195-4e60-a0c0-fd1734d7f4a2/query",
+      "status": 200,
+      "input": {
+        "pageId": "01M6YNKY0FYDN02NGS3DRTZWG0",
+        "filters": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "op": "gt",
+            "value": 1
+          }
+        ],
+        "sorts": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "direction": "desc"
+          },
+          {
+            "field": "$title",
+            "direction": "desc"
+          }
+        ]
+      },
+      "body": {
+        "database": {
+          "id": "01M6YNKX669W6V1S26C59E6QZX",
+          "page_id": "01M6YNKX66M6MYYZF0CHNJZMWJ",
+          "workspace_id": "browser-workspace",
+          "structure_locked_at": null,
+          "structure_locked_by_member_id": null,
+          "created_at": "2026-11-08T22:49:11.619Z",
+          "updated_at": "2026-11-08T22:49:11.743Z",
+          "revision_id": "01M6YNKXA35RBBJXC46RS4X606",
+          "structure_locked_by_name": null
+        },
+        "view": {
+          "id": "afc64122-1195-4e60-a0c0-fd1734d7f4a2",
+          "name": "Release work",
+          "layout": "table",
+          "filters": [],
+          "sorts": [
+            {
+              "field": "$title",
+              "direction": "asc"
+            }
+          ],
+          "groups": [],
+          "calculations": {},
+          "display": {},
+          "position": 0,
+          "revisionId": "01M6YNKXA35RBBJXC46RS4X606"
+        },
+        "fields": [
+          {
+            "id": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "name": "Priority",
+            "type": "number",
+            "config": {},
+            "position": 0,
+            "readOnly": false
+          }
+        ],
+        "records": [
+          {
+            "pageId": "01M6YNKXPKAY9QMPZW7CBJJVHQ",
+            "revisionId": "01M6YNKXVPT0N1Y4B69MD9W74G",
+            "title": "Delta release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 4
+            }
+          }
+        ],
+        "groups": [],
+        "calculations": {}
+      }
+    },
+    {
+      "person": "owner",
+      "route": "/api/databases/01M6YNKX669W6V1S26C59E6QZX/views/afc64122-1195-4e60-a0c0-fd1734d7f4a2/query",
+      "status": 200,
+      "input": {
+        "pageId": "01M6YNKY0FYDN02NGS3DRTZWG0",
+        "filters": []
+      },
+      "body": {
+        "database": {
+          "id": "01M6YNKX669W6V1S26C59E6QZX",
+          "page_id": "01M6YNKX66M6MYYZF0CHNJZMWJ",
+          "workspace_id": "browser-workspace",
+          "structure_locked_at": null,
+          "structure_locked_by_member_id": null,
+          "created_at": "2026-11-08T22:49:11.619Z",
+          "updated_at": "2026-11-08T22:49:11.743Z",
+          "revision_id": "01M6YNKXA35RBBJXC46RS4X606",
+          "structure_locked_by_name": null
+        },
+        "view": {
+          "id": "afc64122-1195-4e60-a0c0-fd1734d7f4a2",
+          "name": "Release work",
+          "layout": "table",
+          "filters": [],
+          "sorts": [
+            {
+              "field": "$title",
+              "direction": "asc"
+            }
+          ],
+          "groups": [],
+          "calculations": {},
+          "display": {},
+          "position": 0,
+          "revisionId": "01M6YNKXA35RBBJXC46RS4X606"
+        },
+        "fields": [
+          {
+            "id": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "name": "Priority",
+            "type": "number",
+            "config": {},
+            "position": 0,
+            "readOnly": false
+          }
+        ],
+        "records": [
+          {
+            "pageId": "01M6YNKXF0J8V9W7WFGSKSX5MR",
+            "revisionId": "01M6YNKXHA38ZNKV1B53HK0259",
+            "title": "Alpha release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 1
+            }
+          },
+          {
+            "pageId": "01M6YNKXKMAZT19CQSBNVKVX0T",
+            "revisionId": "01M6YNKXNJGQJQQ0VQH68ESTFD",
+            "title": "Bravo confidential",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 2
+            }
+          },
+          {
+            "pageId": "01M6YNKXPKAY9QMPZW7CBJJVHQ",
+            "revisionId": "01M6YNKXVPT0N1Y4B69MD9W74G",
+            "title": "Delta release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 4
+            }
+          },
+          {
+            "pageId": "01M6YNKXXNT1M1A08GAR5RAGP7",
+            "revisionId": "01M6YNKXZKADF6C6QPJ7PKMGPX",
+            "title": "Zulu confidential",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 3
+            }
+          }
+        ],
+        "groups": [],
+        "calculations": {}
+      }
+    },
+    {
+      "person": "owner",
+      "route": "/api/databases/01M6YNKX669W6V1S26C59E6QZX/views/afc64122-1195-4e60-a0c0-fd1734d7f4a2/query",
+      "status": 200,
+      "input": {
+        "pageId": "01M6YNKY0FYDN02NGS3DRTZWG0",
+        "filters": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "op": "gt",
+            "value": 1
+          }
+        ],
+        "sorts": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "direction": "desc"
+          },
+          {
+            "field": "$title",
+            "direction": "desc"
+          }
+        ]
+      },
+      "body": {
+        "database": {
+          "id": "01M6YNKX669W6V1S26C59E6QZX",
+          "page_id": "01M6YNKX66M6MYYZF0CHNJZMWJ",
+          "workspace_id": "browser-workspace",
+          "structure_locked_at": null,
+          "structure_locked_by_member_id": null,
+          "created_at": "2026-11-08T22:49:11.619Z",
+          "updated_at": "2026-11-08T22:49:11.743Z",
+          "revision_id": "01M6YNKXA35RBBJXC46RS4X606",
+          "structure_locked_by_name": null
+        },
+        "view": {
+          "id": "afc64122-1195-4e60-a0c0-fd1734d7f4a2",
+          "name": "Release work",
+          "layout": "table",
+          "filters": [],
+          "sorts": [
+            {
+              "field": "$title",
+              "direction": "asc"
+            }
+          ],
+          "groups": [],
+          "calculations": {},
+          "display": {},
+          "position": 0,
+          "revisionId": "01M6YNKXA35RBBJXC46RS4X606"
+        },
+        "fields": [
+          {
+            "id": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "name": "Priority",
+            "type": "number",
+            "config": {},
+            "position": 0,
+            "readOnly": false
+          }
+        ],
+        "records": [
+          {
+            "pageId": "01M6YNKXPKAY9QMPZW7CBJJVHQ",
+            "revisionId": "01M6YNKXVPT0N1Y4B69MD9W74G",
+            "title": "Delta release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 4
+            }
+          },
+          {
+            "pageId": "01M6YNKXXNT1M1A08GAR5RAGP7",
+            "revisionId": "01M6YNKXZKADF6C6QPJ7PKMGPX",
+            "title": "Zulu confidential",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 3
+            }
+          },
+          {
+            "pageId": "01M6YNKXKMAZT19CQSBNVKVX0T",
+            "revisionId": "01M6YNKXNJGQJQQ0VQH68ESTFD",
+            "title": "Bravo confidential",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 2
+            }
+          }
+        ],
+        "groups": [],
+        "calculations": {}
+      }
+    },
+    {
+      "person": "owner",
+      "route": "/api/databases/01M6YNKX669W6V1S26C59E6QZX/views/afc64122-1195-4e60-a0c0-fd1734d7f4a2/query",
+      "status": 200,
+      "input": {
+        "pageId": "01M6YNKY0FYDN02NGS3DRTZWG0",
+        "filters": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "op": "gt",
+            "value": 1
+          }
+        ],
+        "sorts": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "direction": "desc"
+          },
+          {
+            "field": "$title",
+            "direction": "desc"
+          }
+        ]
+      },
+      "body": {
+        "database": {
+          "id": "01M6YNKX669W6V1S26C59E6QZX",
+          "page_id": "01M6YNKX66M6MYYZF0CHNJZMWJ",
+          "workspace_id": "browser-workspace",
+          "structure_locked_at": null,
+          "structure_locked_by_member_id": null,
+          "created_at": "2026-11-08T22:49:11.619Z",
+          "updated_at": "2026-11-08T22:49:11.743Z",
+          "revision_id": "01M6YNKXA35RBBJXC46RS4X606",
+          "structure_locked_by_name": null
+        },
+        "view": {
+          "id": "afc64122-1195-4e60-a0c0-fd1734d7f4a2",
+          "name": "Release work",
+          "layout": "table",
+          "filters": [],
+          "sorts": [
+            {
+              "field": "$title",
+              "direction": "asc"
+            }
+          ],
+          "groups": [],
+          "calculations": {},
+          "display": {},
+          "position": 0,
+          "revisionId": "01M6YNKXA35RBBJXC46RS4X606"
+        },
+        "fields": [
+          {
+            "id": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "name": "Priority",
+            "type": "number",
+            "config": {},
+            "position": 0,
+            "readOnly": false
+          }
+        ],
+        "records": [
+          {
+            "pageId": "01M6YNKXPKAY9QMPZW7CBJJVHQ",
+            "revisionId": "01M6YNKXVPT0N1Y4B69MD9W74G",
+            "title": "Delta release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 4
+            }
+          },
+          {
+            "pageId": "01M6YNKXXNT1M1A08GAR5RAGP7",
+            "revisionId": "01M6YNKXZKADF6C6QPJ7PKMGPX",
+            "title": "Zulu confidential",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 3
+            }
+          },
+          {
+            "pageId": "01M6YNKXKMAZT19CQSBNVKVX0T",
+            "revisionId": "01M6YNKXNJGQJQQ0VQH68ESTFD",
+            "title": "Bravo confidential",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 2
+            }
+          }
+        ],
+        "groups": [],
+        "calculations": {}
+      }
+    },
+    {
+      "person": "editor",
+      "route": "/api/databases/01M6YNKX669W6V1S26C59E6QZX/views/afc64122-1195-4e60-a0c0-fd1734d7f4a2/query",
+      "status": 200,
+      "input": {
+        "pageId": "01M6YNKY0FYDN02NGS3DRTZWG0",
+        "filters": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "op": "gt",
+            "value": 1
+          }
+        ],
+        "sorts": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "direction": "desc"
+          },
+          {
+            "field": "$title",
+            "direction": "desc"
+          }
+        ]
+      },
+      "body": {
+        "database": {
+          "id": "01M6YNKX669W6V1S26C59E6QZX",
+          "page_id": "01M6YNKX66M6MYYZF0CHNJZMWJ",
+          "workspace_id": "browser-workspace",
+          "structure_locked_at": null,
+          "structure_locked_by_member_id": null,
+          "created_at": "2026-11-08T22:49:11.619Z",
+          "updated_at": "2026-11-08T22:49:11.743Z",
+          "revision_id": "01M6YNKXA35RBBJXC46RS4X606",
+          "structure_locked_by_name": null
+        },
+        "view": {
+          "id": "afc64122-1195-4e60-a0c0-fd1734d7f4a2",
+          "name": "Release work",
+          "layout": "table",
+          "filters": [],
+          "sorts": [
+            {
+              "field": "$title",
+              "direction": "asc"
+            }
+          ],
+          "groups": [],
+          "calculations": {},
+          "display": {},
+          "position": 0,
+          "revisionId": "01M6YNKXA35RBBJXC46RS4X606"
+        },
+        "fields": [
+          {
+            "id": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "name": "Priority",
+            "type": "number",
+            "config": {},
+            "position": 0,
+            "readOnly": false
+          }
+        ],
+        "records": [
+          {
+            "pageId": "01M6YNKXPKAY9QMPZW7CBJJVHQ",
+            "revisionId": "01M6YNKXVPT0N1Y4B69MD9W74G",
+            "title": "Delta release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 4
+            }
+          }
+        ],
+        "groups": [],
+        "calculations": {}
+      }
+    },
+    {
+      "person": "owner",
+      "route": "/api/databases/01M6YNKX669W6V1S26C59E6QZX/views/afc64122-1195-4e60-a0c0-fd1734d7f4a2/query",
+      "status": 200,
+      "input": {
+        "pageId": "01M6YNKY0FYDN02NGS3DRTZWG0",
+        "filters": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "op": "gt",
+            "value": 1
+          }
+        ],
+        "sorts": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "direction": "desc"
+          },
+          {
+            "field": "$title",
+            "direction": "desc"
+          }
+        ]
+      },
+      "body": {
+        "database": {
+          "id": "01M6YNKX669W6V1S26C59E6QZX",
+          "page_id": "01M6YNKX66M6MYYZF0CHNJZMWJ",
+          "workspace_id": "browser-workspace",
+          "structure_locked_at": null,
+          "structure_locked_by_member_id": null,
+          "created_at": "2026-11-08T22:49:11.619Z",
+          "updated_at": "2026-11-08T22:49:11.743Z",
+          "revision_id": "01M6YNKXA35RBBJXC46RS4X606",
+          "structure_locked_by_name": null
+        },
+        "view": {
+          "id": "afc64122-1195-4e60-a0c0-fd1734d7f4a2",
+          "name": "Release work",
+          "layout": "table",
+          "filters": [],
+          "sorts": [
+            {
+              "field": "$title",
+              "direction": "asc"
+            }
+          ],
+          "groups": [],
+          "calculations": {},
+          "display": {},
+          "position": 0,
+          "revisionId": "01M6YNKXA35RBBJXC46RS4X606"
+        },
+        "fields": [
+          {
+            "id": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "name": "Priority",
+            "type": "number",
+            "config": {},
+            "position": 0,
+            "readOnly": false
+          }
+        ],
+        "records": [
+          {
+            "pageId": "01M6YNKXPKAY9QMPZW7CBJJVHQ",
+            "revisionId": "01M6YNKXVPT0N1Y4B69MD9W74G",
+            "title": "Delta release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 4
+            }
+          },
+          {
+            "pageId": "01M6YNKXXNT1M1A08GAR5RAGP7",
+            "revisionId": "01M6YNKXZKADF6C6QPJ7PKMGPX",
+            "title": "Zulu confidential",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 3
+            }
+          },
+          {
+            "pageId": "01M6YNKXKMAZT19CQSBNVKVX0T",
+            "revisionId": "01M6YNKXNJGQJQQ0VQH68ESTFD",
+            "title": "Bravo confidential",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 2
+            }
+          }
+        ],
+        "groups": [],
+        "calculations": {}
+      }
+    },
+    {
+      "person": "editor",
+      "route": "/api/databases/01M6YNKX669W6V1S26C59E6QZX/views/afc64122-1195-4e60-a0c0-fd1734d7f4a2/query",
+      "status": 200,
+      "input": {
+        "pageId": "01M6YNKY0FYDN02NGS3DRTZWG0",
+        "filters": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "op": "gt",
+            "value": 1
+          }
+        ],
+        "sorts": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "direction": "desc"
+          },
+          {
+            "field": "$title",
+            "direction": "desc"
+          }
+        ]
+      },
+      "body": {
+        "database": {
+          "id": "01M6YNKX669W6V1S26C59E6QZX",
+          "page_id": "01M6YNKX66M6MYYZF0CHNJZMWJ",
+          "workspace_id": "browser-workspace",
+          "structure_locked_at": null,
+          "structure_locked_by_member_id": null,
+          "created_at": "2026-11-08T22:49:11.619Z",
+          "updated_at": "2026-11-08T22:49:11.743Z",
+          "revision_id": "01M6YNKXA35RBBJXC46RS4X606",
+          "structure_locked_by_name": null
+        },
+        "view": {
+          "id": "afc64122-1195-4e60-a0c0-fd1734d7f4a2",
+          "name": "Release work",
+          "layout": "table",
+          "filters": [],
+          "sorts": [
+            {
+              "field": "$title",
+              "direction": "asc"
+            }
+          ],
+          "groups": [],
+          "calculations": {},
+          "display": {},
+          "position": 0,
+          "revisionId": "01M6YNKXA35RBBJXC46RS4X606"
+        },
+        "fields": [
+          {
+            "id": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "name": "Priority",
+            "type": "number",
+            "config": {},
+            "position": 0,
+            "readOnly": false
+          }
+        ],
+        "records": [
+          {
+            "pageId": "01M6YNKXPKAY9QMPZW7CBJJVHQ",
+            "revisionId": "01M6YNKXVPT0N1Y4B69MD9W74G",
+            "title": "Delta release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 4
+            }
+          }
+        ],
+        "groups": [],
+        "calculations": {}
+      }
+    },
+    {
+      "person": "owner",
+      "route": "/api/databases/01M6YNKX669W6V1S26C59E6QZX/views/afc64122-1195-4e60-a0c0-fd1734d7f4a2/query",
+      "status": 200,
+      "input": {
+        "pageId": "01M6YNKY0FYDN02NGS3DRTZWG0",
+        "filters": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "op": "gt",
+            "value": 1
+          }
+        ],
+        "sorts": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "direction": "desc"
+          },
+          {
+            "field": "$title",
+            "direction": "desc"
+          }
+        ]
+      },
+      "body": {
+        "database": {
+          "id": "01M6YNKX669W6V1S26C59E6QZX",
+          "page_id": "01M6YNKX66M6MYYZF0CHNJZMWJ",
+          "workspace_id": "browser-workspace",
+          "structure_locked_at": null,
+          "structure_locked_by_member_id": null,
+          "created_at": "2026-11-08T22:49:11.619Z",
+          "updated_at": "2026-11-08T22:49:11.743Z",
+          "revision_id": "01M6YNKXA35RBBJXC46RS4X606",
+          "structure_locked_by_name": null
+        },
+        "view": {
+          "id": "afc64122-1195-4e60-a0c0-fd1734d7f4a2",
+          "name": "Release work",
+          "layout": "table",
+          "filters": [],
+          "sorts": [
+            {
+              "field": "$title",
+              "direction": "asc"
+            }
+          ],
+          "groups": [],
+          "calculations": {},
+          "display": {},
+          "position": 0,
+          "revisionId": "01M6YNKXA35RBBJXC46RS4X606"
+        },
+        "fields": [
+          {
+            "id": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "name": "Priority",
+            "type": "number",
+            "config": {},
+            "position": 0,
+            "readOnly": false
+          }
+        ],
+        "records": [
+          {
+            "pageId": "01M6YNKXPKAY9QMPZW7CBJJVHQ",
+            "revisionId": "01M6YNKXVPT0N1Y4B69MD9W74G",
+            "title": "Delta release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 4
+            }
+          },
+          {
+            "pageId": "01M6YNKXXNT1M1A08GAR5RAGP7",
+            "revisionId": "01M6YNKXZKADF6C6QPJ7PKMGPX",
+            "title": "Zulu confidential",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 3
+            }
+          },
+          {
+            "pageId": "01M6YNKXKMAZT19CQSBNVKVX0T",
+            "revisionId": "01M6YNKXNJGQJQQ0VQH68ESTFD",
+            "title": "Bravo confidential",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 2
+            }
+          }
+        ],
+        "groups": [],
+        "calculations": {}
+      }
+    },
+    {
+      "person": "editor",
+      "route": "/api/databases/01M6YNKX669W6V1S26C59E6QZX/views/afc64122-1195-4e60-a0c0-fd1734d7f4a2/query",
+      "status": 200,
+      "input": {
+        "pageId": "01M6YNKY0FYDN02NGS3DRTZWG0",
+        "filters": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "op": "gt",
+            "value": 1
+          }
+        ],
+        "sorts": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "direction": "desc"
+          },
+          {
+            "field": "$title",
+            "direction": "desc"
+          }
+        ]
+      },
+      "body": {
+        "database": {
+          "id": "01M6YNKX669W6V1S26C59E6QZX",
+          "page_id": "01M6YNKX66M6MYYZF0CHNJZMWJ",
+          "workspace_id": "browser-workspace",
+          "structure_locked_at": null,
+          "structure_locked_by_member_id": null,
+          "created_at": "2026-11-08T22:49:11.619Z",
+          "updated_at": "2026-11-08T22:49:11.743Z",
+          "revision_id": "01M6YNKXA35RBBJXC46RS4X606",
+          "structure_locked_by_name": null
+        },
+        "view": {
+          "id": "afc64122-1195-4e60-a0c0-fd1734d7f4a2",
+          "name": "Release work",
+          "layout": "table",
+          "filters": [],
+          "sorts": [
+            {
+              "field": "$title",
+              "direction": "asc"
+            }
+          ],
+          "groups": [],
+          "calculations": {},
+          "display": {},
+          "position": 0,
+          "revisionId": "01M6YNKXA35RBBJXC46RS4X606"
+        },
+        "fields": [
+          {
+            "id": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "name": "Priority",
+            "type": "number",
+            "config": {},
+            "position": 0,
+            "readOnly": false
+          }
+        ],
+        "records": [
+          {
+            "pageId": "01M6YNKXPKAY9QMPZW7CBJJVHQ",
+            "revisionId": "01M6YNKXVPT0N1Y4B69MD9W74G",
+            "title": "Delta release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 4
+            }
+          }
+        ],
+        "groups": [],
+        "calculations": {}
+      }
+    },
+    {
+      "person": "owner",
+      "route": "/api/databases/01M6YNKX669W6V1S26C59E6QZX/views/afc64122-1195-4e60-a0c0-fd1734d7f4a2/query",
+      "status": 200,
+      "input": {
+        "pageId": "01M6YNKY0FYDN02NGS3DRTZWG0",
+        "filters": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "op": "gt",
+            "value": 1
+          }
+        ],
+        "sorts": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "direction": "desc"
+          },
+          {
+            "field": "$title",
+            "direction": "desc"
+          }
+        ]
+      },
+      "body": {
+        "database": {
+          "id": "01M6YNKX669W6V1S26C59E6QZX",
+          "page_id": "01M6YNKX66M6MYYZF0CHNJZMWJ",
+          "workspace_id": "browser-workspace",
+          "structure_locked_at": null,
+          "structure_locked_by_member_id": null,
+          "created_at": "2026-11-08T22:49:11.619Z",
+          "updated_at": "2026-11-08T22:49:11.743Z",
+          "revision_id": "01M6YNKXA35RBBJXC46RS4X606",
+          "structure_locked_by_name": null
+        },
+        "view": {
+          "id": "afc64122-1195-4e60-a0c0-fd1734d7f4a2",
+          "name": "Release work",
+          "layout": "table",
+          "filters": [],
+          "sorts": [
+            {
+              "field": "$title",
+              "direction": "asc"
+            }
+          ],
+          "groups": [],
+          "calculations": {},
+          "display": {},
+          "position": 0,
+          "revisionId": "01M6YNKXA35RBBJXC46RS4X606"
+        },
+        "fields": [
+          {
+            "id": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "name": "Priority",
+            "type": "number",
+            "config": {},
+            "position": 0,
+            "readOnly": false
+          }
+        ],
+        "records": [
+          {
+            "pageId": "01M6YNKXPKAY9QMPZW7CBJJVHQ",
+            "revisionId": "01M6YNKXVPT0N1Y4B69MD9W74G",
+            "title": "Delta release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 4
+            }
+          },
+          {
+            "pageId": "01M6YNKXXNT1M1A08GAR5RAGP7",
+            "revisionId": "01M6YNKXZKADF6C6QPJ7PKMGPX",
+            "title": "Zulu confidential",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 3
+            }
+          },
+          {
+            "pageId": "01M6YNKXKMAZT19CQSBNVKVX0T",
+            "revisionId": "01M6YNKXNJGQJQQ0VQH68ESTFD",
+            "title": "Bravo confidential",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 2
+            }
+          }
+        ],
+        "groups": [],
+        "calculations": {}
+      }
+    },
+    {
+      "person": "editor",
+      "route": "/api/databases/01M6YNKX669W6V1S26C59E6QZX/views/afc64122-1195-4e60-a0c0-fd1734d7f4a2/query",
+      "status": 200,
+      "input": {
+        "pageId": "01M6YNKY0FYDN02NGS3DRTZWG0",
+        "filters": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "op": "gt",
+            "value": 1
+          }
+        ],
+        "sorts": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "direction": "desc"
+          },
+          {
+            "field": "$title",
+            "direction": "desc"
+          }
+        ]
+      },
+      "body": {
+        "database": {
+          "id": "01M6YNKX669W6V1S26C59E6QZX",
+          "page_id": "01M6YNKX66M6MYYZF0CHNJZMWJ",
+          "workspace_id": "browser-workspace",
+          "structure_locked_at": null,
+          "structure_locked_by_member_id": null,
+          "created_at": "2026-11-08T22:49:11.619Z",
+          "updated_at": "2026-11-08T22:49:11.743Z",
+          "revision_id": "01M6YNKXA35RBBJXC46RS4X606",
+          "structure_locked_by_name": null
+        },
+        "view": {
+          "id": "afc64122-1195-4e60-a0c0-fd1734d7f4a2",
+          "name": "Release work",
+          "layout": "table",
+          "filters": [],
+          "sorts": [
+            {
+              "field": "$title",
+              "direction": "asc"
+            }
+          ],
+          "groups": [],
+          "calculations": {},
+          "display": {},
+          "position": 0,
+          "revisionId": "01M6YNKXA35RBBJXC46RS4X606"
+        },
+        "fields": [
+          {
+            "id": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "name": "Priority",
+            "type": "number",
+            "config": {},
+            "position": 0,
+            "readOnly": false
+          }
+        ],
+        "records": [
+          {
+            "pageId": "01M6YNKXPKAY9QMPZW7CBJJVHQ",
+            "revisionId": "01M6YNKXVPT0N1Y4B69MD9W74G",
+            "title": "Delta release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 4
+            }
+          }
+        ],
+        "groups": [],
+        "calculations": {}
+      }
+    },
+    {
+      "person": "owner",
+      "route": "/api/databases/01M6YNKX669W6V1S26C59E6QZX/views/afc64122-1195-4e60-a0c0-fd1734d7f4a2/query",
+      "status": 200,
+      "input": {
+        "pageId": "01M6YNKY0FYDN02NGS3DRTZWG0",
+        "filters": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "op": "gt",
+            "value": 1
+          }
+        ],
+        "sorts": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "direction": "desc"
+          },
+          {
+            "field": "$title",
+            "direction": "desc"
+          }
+        ]
+      },
+      "body": {
+        "database": {
+          "id": "01M6YNKX669W6V1S26C59E6QZX",
+          "page_id": "01M6YNKX66M6MYYZF0CHNJZMWJ",
+          "workspace_id": "browser-workspace",
+          "structure_locked_at": null,
+          "structure_locked_by_member_id": null,
+          "created_at": "2026-11-08T22:49:11.619Z",
+          "updated_at": "2026-11-08T22:49:11.743Z",
+          "revision_id": "01M6YNKXA35RBBJXC46RS4X606",
+          "structure_locked_by_name": null
+        },
+        "view": {
+          "id": "afc64122-1195-4e60-a0c0-fd1734d7f4a2",
+          "name": "Release work",
+          "layout": "table",
+          "filters": [],
+          "sorts": [
+            {
+              "field": "$title",
+              "direction": "asc"
+            }
+          ],
+          "groups": [],
+          "calculations": {},
+          "display": {},
+          "position": 0,
+          "revisionId": "01M6YNKXA35RBBJXC46RS4X606"
+        },
+        "fields": [
+          {
+            "id": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "name": "Priority",
+            "type": "number",
+            "config": {},
+            "position": 0,
+            "readOnly": false
+          }
+        ],
+        "records": [
+          {
+            "pageId": "01M6YNKXF0J8V9W7WFGSKSX5MR",
+            "revisionId": "01M6YNMGQMRSH0XZQ66HR5VX7Y",
+            "title": "Alpha release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 5
+            }
+          },
+          {
+            "pageId": "01M6YNKXPKAY9QMPZW7CBJJVHQ",
+            "revisionId": "01M6YNKXVPT0N1Y4B69MD9W74G",
+            "title": "Delta release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 4
+            }
+          },
+          {
+            "pageId": "01M6YNKXXNT1M1A08GAR5RAGP7",
+            "revisionId": "01M6YNKXZKADF6C6QPJ7PKMGPX",
+            "title": "Zulu confidential",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 3
+            }
+          },
+          {
+            "pageId": "01M6YNKXKMAZT19CQSBNVKVX0T",
+            "revisionId": "01M6YNKXNJGQJQQ0VQH68ESTFD",
+            "title": "Bravo confidential",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 2
+            }
+          }
+        ],
+        "groups": [],
+        "calculations": {}
+      }
+    },
+    {
+      "person": "editor",
+      "route": "/api/databases/01M6YNKX669W6V1S26C59E6QZX/views/afc64122-1195-4e60-a0c0-fd1734d7f4a2/query",
+      "status": 200,
+      "input": {
+        "pageId": "01M6YNKY0FYDN02NGS3DRTZWG0",
+        "filters": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "op": "gt",
+            "value": 1
+          }
+        ],
+        "sorts": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "direction": "desc"
+          },
+          {
+            "field": "$title",
+            "direction": "desc"
+          }
+        ]
+      },
+      "body": {
+        "database": {
+          "id": "01M6YNKX669W6V1S26C59E6QZX",
+          "page_id": "01M6YNKX66M6MYYZF0CHNJZMWJ",
+          "workspace_id": "browser-workspace",
+          "structure_locked_at": null,
+          "structure_locked_by_member_id": null,
+          "created_at": "2026-11-08T22:49:11.619Z",
+          "updated_at": "2026-11-08T22:49:11.743Z",
+          "revision_id": "01M6YNKXA35RBBJXC46RS4X606",
+          "structure_locked_by_name": null
+        },
+        "view": {
+          "id": "afc64122-1195-4e60-a0c0-fd1734d7f4a2",
+          "name": "Release work",
+          "layout": "table",
+          "filters": [],
+          "sorts": [
+            {
+              "field": "$title",
+              "direction": "asc"
+            }
+          ],
+          "groups": [],
+          "calculations": {},
+          "display": {},
+          "position": 0,
+          "revisionId": "01M6YNKXA35RBBJXC46RS4X606"
+        },
+        "fields": [
+          {
+            "id": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "name": "Priority",
+            "type": "number",
+            "config": {},
+            "position": 0,
+            "readOnly": false
+          }
+        ],
+        "records": [
+          {
+            "pageId": "01M6YNKXF0J8V9W7WFGSKSX5MR",
+            "revisionId": "01M6YNMGQMRSH0XZQ66HR5VX7Y",
+            "title": "Alpha release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 5
+            }
+          },
+          {
+            "pageId": "01M6YNKXPKAY9QMPZW7CBJJVHQ",
+            "revisionId": "01M6YNKXVPT0N1Y4B69MD9W74G",
+            "title": "Delta release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 4
+            }
+          }
+        ],
+        "groups": [],
+        "calculations": {}
+      }
+    },
+    {
+      "person": "owner",
+      "route": "/api/databases/01M6YNKX669W6V1S26C59E6QZX/views/afc64122-1195-4e60-a0c0-fd1734d7f4a2/query",
+      "status": 200,
+      "input": {
+        "pageId": "01M6YNKY0FYDN02NGS3DRTZWG0",
+        "filters": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "op": "gt",
+            "value": 1
+          }
+        ],
+        "sorts": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "direction": "desc"
+          },
+          {
+            "field": "$title",
+            "direction": "desc"
+          }
+        ]
+      },
+      "body": {
+        "database": {
+          "id": "01M6YNKX669W6V1S26C59E6QZX",
+          "page_id": "01M6YNKX66M6MYYZF0CHNJZMWJ",
+          "workspace_id": "browser-workspace",
+          "structure_locked_at": null,
+          "structure_locked_by_member_id": null,
+          "created_at": "2026-11-08T22:49:11.619Z",
+          "updated_at": "2026-11-08T22:49:11.743Z",
+          "revision_id": "01M6YNKXA35RBBJXC46RS4X606",
+          "structure_locked_by_name": null
+        },
+        "view": {
+          "id": "afc64122-1195-4e60-a0c0-fd1734d7f4a2",
+          "name": "Release work",
+          "layout": "table",
+          "filters": [],
+          "sorts": [
+            {
+              "field": "$title",
+              "direction": "asc"
+            }
+          ],
+          "groups": [],
+          "calculations": {},
+          "display": {},
+          "position": 0,
+          "revisionId": "01M6YNKXA35RBBJXC46RS4X606"
+        },
+        "fields": [
+          {
+            "id": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "name": "Priority",
+            "type": "number",
+            "config": {},
+            "position": 0,
+            "readOnly": false
+          }
+        ],
+        "records": [
+          {
+            "pageId": "01M6YNKXF0J8V9W7WFGSKSX5MR",
+            "revisionId": "01M6YNMGQMRSH0XZQ66HR5VX7Y",
+            "title": "Alpha release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 5
+            }
+          },
+          {
+            "pageId": "01M6YNKXPKAY9QMPZW7CBJJVHQ",
+            "revisionId": "01M6YNKXVPT0N1Y4B69MD9W74G",
+            "title": "Delta release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 4
+            }
+          },
+          {
+            "pageId": "01M6YNKXXNT1M1A08GAR5RAGP7",
+            "revisionId": "01M6YNKXZKADF6C6QPJ7PKMGPX",
+            "title": "Zulu confidential",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 3
+            }
+          },
+          {
+            "pageId": "01M6YNKXKMAZT19CQSBNVKVX0T",
+            "revisionId": "01M6YNKXNJGQJQQ0VQH68ESTFD",
+            "title": "Bravo confidential",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 2
+            }
+          }
+        ],
+        "groups": [],
+        "calculations": {}
+      }
+    },
+    {
+      "person": "editor",
+      "route": "/api/databases/01M6YNKX669W6V1S26C59E6QZX/views/afc64122-1195-4e60-a0c0-fd1734d7f4a2/query",
+      "status": 200,
+      "input": {
+        "pageId": "01M6YNKY0FYDN02NGS3DRTZWG0",
+        "filters": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "op": "gt",
+            "value": 1
+          }
+        ],
+        "sorts": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "direction": "desc"
+          },
+          {
+            "field": "$title",
+            "direction": "desc"
+          }
+        ]
+      },
+      "body": {
+        "database": {
+          "id": "01M6YNKX669W6V1S26C59E6QZX",
+          "page_id": "01M6YNKX66M6MYYZF0CHNJZMWJ",
+          "workspace_id": "browser-workspace",
+          "structure_locked_at": null,
+          "structure_locked_by_member_id": null,
+          "created_at": "2026-11-08T22:49:11.619Z",
+          "updated_at": "2026-11-08T22:49:11.743Z",
+          "revision_id": "01M6YNKXA35RBBJXC46RS4X606",
+          "structure_locked_by_name": null
+        },
+        "view": {
+          "id": "afc64122-1195-4e60-a0c0-fd1734d7f4a2",
+          "name": "Release work",
+          "layout": "table",
+          "filters": [],
+          "sorts": [
+            {
+              "field": "$title",
+              "direction": "asc"
+            }
+          ],
+          "groups": [],
+          "calculations": {},
+          "display": {},
+          "position": 0,
+          "revisionId": "01M6YNKXA35RBBJXC46RS4X606"
+        },
+        "fields": [
+          {
+            "id": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "name": "Priority",
+            "type": "number",
+            "config": {},
+            "position": 0,
+            "readOnly": false
+          }
+        ],
+        "records": [
+          {
+            "pageId": "01M6YNKXF0J8V9W7WFGSKSX5MR",
+            "revisionId": "01M6YNMGQMRSH0XZQ66HR5VX7Y",
+            "title": "Alpha release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 5
+            }
+          },
+          {
+            "pageId": "01M6YNKXPKAY9QMPZW7CBJJVHQ",
+            "revisionId": "01M6YNKXVPT0N1Y4B69MD9W74G",
+            "title": "Delta release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 4
+            }
+          }
+        ],
+        "groups": [],
+        "calculations": {}
+      }
+    },
+    {
+      "person": "owner",
+      "route": "/api/databases/01M6YNKX669W6V1S26C59E6QZX/views/afc64122-1195-4e60-a0c0-fd1734d7f4a2/query",
+      "status": 200,
+      "input": {
+        "pageId": "01M6YNKY0FYDN02NGS3DRTZWG0",
+        "filters": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "op": "gt",
+            "value": 1
+          }
+        ],
+        "sorts": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "direction": "desc"
+          },
+          {
+            "field": "$title",
+            "direction": "desc"
+          }
+        ]
+      },
+      "body": {
+        "database": {
+          "id": "01M6YNKX669W6V1S26C59E6QZX",
+          "page_id": "01M6YNKX66M6MYYZF0CHNJZMWJ",
+          "workspace_id": "browser-workspace",
+          "structure_locked_at": null,
+          "structure_locked_by_member_id": null,
+          "created_at": "2026-11-08T22:49:11.619Z",
+          "updated_at": "2026-11-08T22:49:11.743Z",
+          "revision_id": "01M6YNKXA35RBBJXC46RS4X606",
+          "structure_locked_by_name": null
+        },
+        "view": {
+          "id": "afc64122-1195-4e60-a0c0-fd1734d7f4a2",
+          "name": "Release work",
+          "layout": "table",
+          "filters": [],
+          "sorts": [
+            {
+              "field": "$title",
+              "direction": "asc"
+            }
+          ],
+          "groups": [],
+          "calculations": {},
+          "display": {},
+          "position": 0,
+          "revisionId": "01M6YNKXA35RBBJXC46RS4X606"
+        },
+        "fields": [
+          {
+            "id": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "name": "Priority",
+            "type": "number",
+            "config": {},
+            "position": 0,
+            "readOnly": false
+          }
+        ],
+        "records": [
+          {
+            "pageId": "01M6YNKXF0J8V9W7WFGSKSX5MR",
+            "revisionId": "01M6YNMGQMRSH0XZQ66HR5VX7Y",
+            "title": "Alpha release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 5
+            }
+          },
+          {
+            "pageId": "01M6YNKXPKAY9QMPZW7CBJJVHQ",
+            "revisionId": "01M6YNKXVPT0N1Y4B69MD9W74G",
+            "title": "Delta release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 4
+            }
+          },
+          {
+            "pageId": "01M6YNKXXNT1M1A08GAR5RAGP7",
+            "revisionId": "01M6YNKXZKADF6C6QPJ7PKMGPX",
+            "title": "Zulu confidential",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 3
+            }
+          },
+          {
+            "pageId": "01M6YNKXKMAZT19CQSBNVKVX0T",
+            "revisionId": "01M6YNKXNJGQJQQ0VQH68ESTFD",
+            "title": "Bravo confidential",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 2
+            }
+          }
+        ],
+        "groups": [],
+        "calculations": {}
+      }
+    },
+    {
+      "person": "editor",
+      "route": "/api/databases/01M6YNKX669W6V1S26C59E6QZX/views/afc64122-1195-4e60-a0c0-fd1734d7f4a2/query",
+      "status": 200,
+      "input": {
+        "pageId": "01M6YNKY0FYDN02NGS3DRTZWG0",
+        "filters": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "op": "gt",
+            "value": 1
+          }
+        ],
+        "sorts": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "direction": "desc"
+          },
+          {
+            "field": "$title",
+            "direction": "desc"
+          }
+        ]
+      },
+      "body": {
+        "database": {
+          "id": "01M6YNKX669W6V1S26C59E6QZX",
+          "page_id": "01M6YNKX66M6MYYZF0CHNJZMWJ",
+          "workspace_id": "browser-workspace",
+          "structure_locked_at": null,
+          "structure_locked_by_member_id": null,
+          "created_at": "2026-11-08T22:49:11.619Z",
+          "updated_at": "2026-11-08T22:49:11.743Z",
+          "revision_id": "01M6YNKXA35RBBJXC46RS4X606",
+          "structure_locked_by_name": null
+        },
+        "view": {
+          "id": "afc64122-1195-4e60-a0c0-fd1734d7f4a2",
+          "name": "Release work",
+          "layout": "table",
+          "filters": [],
+          "sorts": [
+            {
+              "field": "$title",
+              "direction": "asc"
+            }
+          ],
+          "groups": [],
+          "calculations": {},
+          "display": {},
+          "position": 0,
+          "revisionId": "01M6YNKXA35RBBJXC46RS4X606"
+        },
+        "fields": [
+          {
+            "id": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "name": "Priority",
+            "type": "number",
+            "config": {},
+            "position": 0,
+            "readOnly": false
+          }
+        ],
+        "records": [
+          {
+            "pageId": "01M6YNKXF0J8V9W7WFGSKSX5MR",
+            "revisionId": "01M6YNMGQMRSH0XZQ66HR5VX7Y",
+            "title": "Alpha release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 5
+            }
+          },
+          {
+            "pageId": "01M6YNKXPKAY9QMPZW7CBJJVHQ",
+            "revisionId": "01M6YNKXVPT0N1Y4B69MD9W74G",
+            "title": "Delta release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 4
+            }
+          }
+        ],
+        "groups": [],
+        "calculations": {}
+      }
+    },
+    {
+      "person": "owner",
+      "route": "/api/databases/01M6YNKX669W6V1S26C59E6QZX/views/afc64122-1195-4e60-a0c0-fd1734d7f4a2/query",
+      "status": 200,
+      "input": {
+        "pageId": "01M6YNKY0FYDN02NGS3DRTZWG0",
+        "filters": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "op": "gt",
+            "value": 1
+          }
+        ],
+        "sorts": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "direction": "desc"
+          },
+          {
+            "field": "$title",
+            "direction": "desc"
+          }
+        ]
+      },
+      "body": {
+        "database": {
+          "id": "01M6YNKX669W6V1S26C59E6QZX",
+          "page_id": "01M6YNKX66M6MYYZF0CHNJZMWJ",
+          "workspace_id": "browser-workspace",
+          "structure_locked_at": null,
+          "structure_locked_by_member_id": null,
+          "created_at": "2026-11-08T22:49:11.619Z",
+          "updated_at": "2026-11-08T22:49:11.743Z",
+          "revision_id": "01M6YNKXA35RBBJXC46RS4X606",
+          "structure_locked_by_name": null
+        },
+        "view": {
+          "id": "afc64122-1195-4e60-a0c0-fd1734d7f4a2",
+          "name": "Release work",
+          "layout": "table",
+          "filters": [],
+          "sorts": [
+            {
+              "field": "$title",
+              "direction": "asc"
+            }
+          ],
+          "groups": [],
+          "calculations": {},
+          "display": {},
+          "position": 0,
+          "revisionId": "01M6YNKXA35RBBJXC46RS4X606"
+        },
+        "fields": [
+          {
+            "id": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "name": "Priority",
+            "type": "number",
+            "config": {},
+            "position": 0,
+            "readOnly": false
+          }
+        ],
+        "records": [
+          {
+            "pageId": "01M6YNKXF0J8V9W7WFGSKSX5MR",
+            "revisionId": "01M6YNMGQMRSH0XZQ66HR5VX7Y",
+            "title": "Alpha release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 5
+            }
+          },
+          {
+            "pageId": "01M6YNKXPKAY9QMPZW7CBJJVHQ",
+            "revisionId": "01M6YNKXVPT0N1Y4B69MD9W74G",
+            "title": "Delta release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 4
+            }
+          },
+          {
+            "pageId": "01M6YNKXXNT1M1A08GAR5RAGP7",
+            "revisionId": "01M6YNKXZKADF6C6QPJ7PKMGPX",
+            "title": "Zulu confidential",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 3
+            }
+          },
+          {
+            "pageId": "01M6YNKXKMAZT19CQSBNVKVX0T",
+            "revisionId": "01M6YNKXNJGQJQQ0VQH68ESTFD",
+            "title": "Bravo confidential",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 2
+            }
+          }
+        ],
+        "groups": [],
+        "calculations": {}
+      }
+    },
+    {
+      "person": "editor",
+      "route": "/api/databases/01M6YNKX669W6V1S26C59E6QZX/views/afc64122-1195-4e60-a0c0-fd1734d7f4a2/query",
+      "status": 200,
+      "input": {
+        "pageId": "01M6YNKY0FYDN02NGS3DRTZWG0",
+        "filters": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "op": "gt",
+            "value": 1
+          }
+        ],
+        "sorts": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "direction": "desc"
+          },
+          {
+            "field": "$title",
+            "direction": "desc"
+          }
+        ]
+      },
+      "body": {
+        "database": {
+          "id": "01M6YNKX669W6V1S26C59E6QZX",
+          "page_id": "01M6YNKX66M6MYYZF0CHNJZMWJ",
+          "workspace_id": "browser-workspace",
+          "structure_locked_at": null,
+          "structure_locked_by_member_id": null,
+          "created_at": "2026-11-08T22:49:11.619Z",
+          "updated_at": "2026-11-08T22:49:11.743Z",
+          "revision_id": "01M6YNKXA35RBBJXC46RS4X606",
+          "structure_locked_by_name": null
+        },
+        "view": {
+          "id": "afc64122-1195-4e60-a0c0-fd1734d7f4a2",
+          "name": "Release work",
+          "layout": "table",
+          "filters": [],
+          "sorts": [
+            {
+              "field": "$title",
+              "direction": "asc"
+            }
+          ],
+          "groups": [],
+          "calculations": {},
+          "display": {},
+          "position": 0,
+          "revisionId": "01M6YNKXA35RBBJXC46RS4X606"
+        },
+        "fields": [
+          {
+            "id": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "name": "Priority",
+            "type": "number",
+            "config": {},
+            "position": 0,
+            "readOnly": false
+          }
+        ],
+        "records": [
+          {
+            "pageId": "01M6YNKXF0J8V9W7WFGSKSX5MR",
+            "revisionId": "01M6YNMGQMRSH0XZQ66HR5VX7Y",
+            "title": "Alpha release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 5
+            }
+          }
+        ],
+        "groups": [],
+        "calculations": {}
+      }
+    },
+    {
+      "person": "owner",
+      "route": "/api/databases/01M6YNKX669W6V1S26C59E6QZX/views/afc64122-1195-4e60-a0c0-fd1734d7f4a2/query",
+      "status": 200,
+      "input": {
+        "pageId": "01M6YNKY0FYDN02NGS3DRTZWG0",
+        "filters": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "op": "gt",
+            "value": 1
+          }
+        ],
+        "sorts": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "direction": "desc"
+          },
+          {
+            "field": "$title",
+            "direction": "desc"
+          }
+        ]
+      },
+      "body": {
+        "database": {
+          "id": "01M6YNKX669W6V1S26C59E6QZX",
+          "page_id": "01M6YNKX66M6MYYZF0CHNJZMWJ",
+          "workspace_id": "browser-workspace",
+          "structure_locked_at": null,
+          "structure_locked_by_member_id": null,
+          "created_at": "2026-11-08T22:49:11.619Z",
+          "updated_at": "2026-11-08T22:49:11.743Z",
+          "revision_id": "01M6YNKXA35RBBJXC46RS4X606",
+          "structure_locked_by_name": null
+        },
+        "view": {
+          "id": "afc64122-1195-4e60-a0c0-fd1734d7f4a2",
+          "name": "Release work",
+          "layout": "table",
+          "filters": [],
+          "sorts": [
+            {
+              "field": "$title",
+              "direction": "asc"
+            }
+          ],
+          "groups": [],
+          "calculations": {},
+          "display": {},
+          "position": 0,
+          "revisionId": "01M6YNKXA35RBBJXC46RS4X606"
+        },
+        "fields": [
+          {
+            "id": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "name": "Priority",
+            "type": "number",
+            "config": {},
+            "position": 0,
+            "readOnly": false
+          }
+        ],
+        "records": [
+          {
+            "pageId": "01M6YNKXF0J8V9W7WFGSKSX5MR",
+            "revisionId": "01M6YNMGQMRSH0XZQ66HR5VX7Y",
+            "title": "Alpha release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 5
+            }
+          },
+          {
+            "pageId": "01M6YNKXPKAY9QMPZW7CBJJVHQ",
+            "revisionId": "01M6YNKXVPT0N1Y4B69MD9W74G",
+            "title": "Delta release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 4
+            }
+          },
+          {
+            "pageId": "01M6YNKXXNT1M1A08GAR5RAGP7",
+            "revisionId": "01M6YNKXZKADF6C6QPJ7PKMGPX",
+            "title": "Zulu confidential",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 3
+            }
+          },
+          {
+            "pageId": "01M6YNKXKMAZT19CQSBNVKVX0T",
+            "revisionId": "01M6YNKXNJGQJQQ0VQH68ESTFD",
+            "title": "Bravo confidential",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 2
+            }
+          }
+        ],
+        "groups": [],
+        "calculations": {}
+      }
+    },
+    {
+      "person": "editor",
+      "route": "/api/databases/01M6YNKX669W6V1S26C59E6QZX/views/afc64122-1195-4e60-a0c0-fd1734d7f4a2/query",
+      "status": 404,
+      "input": {
+        "pageId": "01M6YNKY0FYDN02NGS3DRTZWG0",
+        "filters": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "op": "gt",
+            "value": 1
+          }
+        ],
+        "sorts": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "direction": "desc"
+          },
+          {
+            "field": "$title",
+            "direction": "desc"
+          }
+        ]
+      },
+      "body": {
+        "code": "NOT_FOUND",
+        "message": "Not found."
+      }
+    },
+    {
+      "person": "owner",
+      "route": "/api/databases/01M6YNKX669W6V1S26C59E6QZX/views/afc64122-1195-4e60-a0c0-fd1734d7f4a2/query",
+      "status": 200,
+      "input": {
+        "pageId": "01M6YNKY0FYDN02NGS3DRTZWG0",
+        "filters": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "op": "gt",
+            "value": 1
+          }
+        ],
+        "sorts": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "direction": "desc"
+          },
+          {
+            "field": "$title",
+            "direction": "desc"
+          }
+        ]
+      },
+      "body": {
+        "database": {
+          "id": "01M6YNKX669W6V1S26C59E6QZX",
+          "page_id": "01M6YNKX66M6MYYZF0CHNJZMWJ",
+          "workspace_id": "browser-workspace",
+          "structure_locked_at": null,
+          "structure_locked_by_member_id": null,
+          "created_at": "2026-11-08T22:49:11.619Z",
+          "updated_at": "2026-11-08T22:49:11.743Z",
+          "revision_id": "01M6YNKXA35RBBJXC46RS4X606",
+          "structure_locked_by_name": null
+        },
+        "view": {
+          "id": "afc64122-1195-4e60-a0c0-fd1734d7f4a2",
+          "name": "Release work",
+          "layout": "table",
+          "filters": [],
+          "sorts": [
+            {
+              "field": "$title",
+              "direction": "asc"
+            }
+          ],
+          "groups": [],
+          "calculations": {},
+          "display": {},
+          "position": 0,
+          "revisionId": "01M6YNKXA35RBBJXC46RS4X606"
+        },
+        "fields": [
+          {
+            "id": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "name": "Priority",
+            "type": "number",
+            "config": {},
+            "position": 0,
+            "readOnly": false
+          }
+        ],
+        "records": [
+          {
+            "pageId": "01M6YNKXF0J8V9W7WFGSKSX5MR",
+            "revisionId": "01M6YNMGQMRSH0XZQ66HR5VX7Y",
+            "title": "Alpha release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 5
+            }
+          },
+          {
+            "pageId": "01M6YNKXPKAY9QMPZW7CBJJVHQ",
+            "revisionId": "01M6YNKXVPT0N1Y4B69MD9W74G",
+            "title": "Delta release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 4
+            }
+          },
+          {
+            "pageId": "01M6YNKXXNT1M1A08GAR5RAGP7",
+            "revisionId": "01M6YNKXZKADF6C6QPJ7PKMGPX",
+            "title": "Zulu confidential",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 3
+            }
+          },
+          {
+            "pageId": "01M6YNKXKMAZT19CQSBNVKVX0T",
+            "revisionId": "01M6YNKXNJGQJQQ0VQH68ESTFD",
+            "title": "Bravo confidential",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 2
+            }
+          }
+        ],
+        "groups": [],
+        "calculations": {}
+      }
+    },
+    {
+      "person": "editor",
+      "route": "/api/databases/01M6YNKX669W6V1S26C59E6QZX/views/afc64122-1195-4e60-a0c0-fd1734d7f4a2/query",
+      "status": 404,
+      "input": {
+        "pageId": "01M6YNKY0FYDN02NGS3DRTZWG0",
+        "filters": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "op": "gt",
+            "value": 1
+          }
+        ],
+        "sorts": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "direction": "desc"
+          },
+          {
+            "field": "$title",
+            "direction": "desc"
+          }
+        ]
+      },
+      "body": {
+        "code": "NOT_FOUND",
+        "message": "Not found."
+      }
+    },
+    {
+      "person": "owner",
+      "route": "/api/databases/01M6YNKX669W6V1S26C59E6QZX/views/afc64122-1195-4e60-a0c0-fd1734d7f4a2/query",
+      "status": 200,
+      "input": {
+        "pageId": "01M6YNKY0FYDN02NGS3DRTZWG0",
+        "filters": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "op": "gt",
+            "value": 1
+          }
+        ],
+        "sorts": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "direction": "desc"
+          },
+          {
+            "field": "$title",
+            "direction": "desc"
+          }
+        ]
+      },
+      "body": {
+        "database": {
+          "id": "01M6YNKX669W6V1S26C59E6QZX",
+          "page_id": "01M6YNKX66M6MYYZF0CHNJZMWJ",
+          "workspace_id": "browser-workspace",
+          "structure_locked_at": null,
+          "structure_locked_by_member_id": null,
+          "created_at": "2026-11-08T22:49:11.619Z",
+          "updated_at": "2026-11-08T22:49:11.743Z",
+          "revision_id": "01M6YNKXA35RBBJXC46RS4X606",
+          "structure_locked_by_name": null
+        },
+        "view": {
+          "id": "afc64122-1195-4e60-a0c0-fd1734d7f4a2",
+          "name": "Release work",
+          "layout": "table",
+          "filters": [],
+          "sorts": [
+            {
+              "field": "$title",
+              "direction": "asc"
+            }
+          ],
+          "groups": [],
+          "calculations": {},
+          "display": {},
+          "position": 0,
+          "revisionId": "01M6YNKXA35RBBJXC46RS4X606"
+        },
+        "fields": [
+          {
+            "id": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "name": "Priority",
+            "type": "number",
+            "config": {},
+            "position": 0,
+            "readOnly": false
+          }
+        ],
+        "records": [
+          {
+            "pageId": "01M6YNKXF0J8V9W7WFGSKSX5MR",
+            "revisionId": "01M6YNMGQMRSH0XZQ66HR5VX7Y",
+            "title": "Alpha release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 5
+            }
+          },
+          {
+            "pageId": "01M6YNKXPKAY9QMPZW7CBJJVHQ",
+            "revisionId": "01M6YNKXVPT0N1Y4B69MD9W74G",
+            "title": "Delta release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 4
+            }
+          },
+          {
+            "pageId": "01M6YNKXXNT1M1A08GAR5RAGP7",
+            "revisionId": "01M6YNKXZKADF6C6QPJ7PKMGPX",
+            "title": "Zulu confidential",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 3
+            }
+          },
+          {
+            "pageId": "01M6YNKXKMAZT19CQSBNVKVX0T",
+            "revisionId": "01M6YNKXNJGQJQQ0VQH68ESTFD",
+            "title": "Bravo confidential",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 2
+            }
+          }
+        ],
+        "groups": [],
+        "calculations": {}
+      }
+    },
+    {
+      "person": "editor",
+      "route": "/api/databases/01M6YNKX669W6V1S26C59E6QZX/views/afc64122-1195-4e60-a0c0-fd1734d7f4a2/query",
+      "status": 200,
+      "input": {
+        "pageId": "01M6YNKY0FYDN02NGS3DRTZWG0",
+        "filters": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "op": "gt",
+            "value": 1
+          }
+        ],
+        "sorts": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "direction": "desc"
+          },
+          {
+            "field": "$title",
+            "direction": "desc"
+          }
+        ]
+      },
+      "body": {
+        "database": {
+          "id": "01M6YNKX669W6V1S26C59E6QZX",
+          "page_id": "01M6YNKX66M6MYYZF0CHNJZMWJ",
+          "workspace_id": "browser-workspace",
+          "structure_locked_at": null,
+          "structure_locked_by_member_id": null,
+          "created_at": "2026-11-08T22:49:11.619Z",
+          "updated_at": "2026-11-08T22:49:11.743Z",
+          "revision_id": "01M6YNKXA35RBBJXC46RS4X606",
+          "structure_locked_by_name": null
+        },
+        "view": {
+          "id": "afc64122-1195-4e60-a0c0-fd1734d7f4a2",
+          "name": "Release work",
+          "layout": "table",
+          "filters": [],
+          "sorts": [
+            {
+              "field": "$title",
+              "direction": "asc"
+            }
+          ],
+          "groups": [],
+          "calculations": {},
+          "display": {},
+          "position": 0,
+          "revisionId": "01M6YNKXA35RBBJXC46RS4X606"
+        },
+        "fields": [
+          {
+            "id": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "name": "Priority",
+            "type": "number",
+            "config": {},
+            "position": 0,
+            "readOnly": false
+          }
+        ],
+        "records": [
+          {
+            "pageId": "01M6YNKXF0J8V9W7WFGSKSX5MR",
+            "revisionId": "01M6YNMGQMRSH0XZQ66HR5VX7Y",
+            "title": "Alpha release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 5
+            }
+          }
+        ],
+        "groups": [],
+        "calculations": {}
+      }
+    },
+    {
+      "person": "owner",
+      "route": "/api/databases/01M6YNKX669W6V1S26C59E6QZX/views/afc64122-1195-4e60-a0c0-fd1734d7f4a2/query",
+      "status": 404,
+      "input": {
+        "pageId": "01M6YNKY0FYDN02NGS3DRTZWG0",
+        "filters": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "op": "gt",
+            "value": 1
+          }
+        ],
+        "sorts": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "direction": "desc"
+          },
+          {
+            "field": "$title",
+            "direction": "desc"
+          }
+        ]
+      },
+      "body": {
+        "code": "NOT_FOUND",
+        "message": "Not found."
+      }
+    },
+    {
+      "person": "editor",
+      "route": "/api/databases/01M6YNKX669W6V1S26C59E6QZX/views/afc64122-1195-4e60-a0c0-fd1734d7f4a2/query",
+      "status": 404,
+      "input": {
+        "pageId": "01M6YNKY0FYDN02NGS3DRTZWG0",
+        "filters": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "op": "gt",
+            "value": 1
+          }
+        ],
+        "sorts": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "direction": "desc"
+          },
+          {
+            "field": "$title",
+            "direction": "desc"
+          }
+        ]
+      },
+      "body": {
+        "code": "NOT_FOUND",
+        "message": "Not found."
+      }
+    },
+    {
+      "person": "owner",
+      "route": "/api/databases/01M6YNKX669W6V1S26C59E6QZX/views/afc64122-1195-4e60-a0c0-fd1734d7f4a2/query",
+      "status": 200,
+      "input": {
+        "pageId": "01M6YNKY0FYDN02NGS3DRTZWG0",
+        "filters": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "op": "gt",
+            "value": 1
+          }
+        ],
+        "sorts": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "direction": "desc"
+          },
+          {
+            "field": "$title",
+            "direction": "desc"
+          }
+        ]
+      },
+      "body": {
+        "database": {
+          "id": "01M6YNKX669W6V1S26C59E6QZX",
+          "page_id": "01M6YNKX66M6MYYZF0CHNJZMWJ",
+          "workspace_id": "browser-workspace",
+          "structure_locked_at": null,
+          "structure_locked_by_member_id": null,
+          "created_at": "2026-11-08T22:49:11.619Z",
+          "updated_at": "2026-11-08T22:49:40.116Z",
+          "revision_id": "01M6YNMS0QEKKATVSVNDAZH82X",
+          "structure_locked_by_name": null
+        },
+        "view": {
+          "id": "afc64122-1195-4e60-a0c0-fd1734d7f4a2",
+          "name": "Release work",
+          "layout": "table",
+          "filters": [],
+          "sorts": [
+            {
+              "field": "$title",
+              "direction": "asc"
+            }
+          ],
+          "groups": [],
+          "calculations": {},
+          "display": {},
+          "position": 0,
+          "revisionId": "01M6YNMS0QEKKATVSVNDAZH82X"
+        },
+        "fields": [
+          {
+            "id": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "name": "Priority",
+            "type": "number",
+            "config": {},
+            "position": 0,
+            "readOnly": false
+          }
+        ],
+        "records": [
+          {
+            "pageId": "01M6YNKXF0J8V9W7WFGSKSX5MR",
+            "revisionId": "01M6YNMGQMRSH0XZQ66HR5VX7Y",
+            "title": "Alpha release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 5
+            }
+          },
+          {
+            "pageId": "01M6YNKXPKAY9QMPZW7CBJJVHQ",
+            "revisionId": "01M6YNKXVPT0N1Y4B69MD9W74G",
+            "title": "Delta release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 4
+            }
+          },
+          {
+            "pageId": "01M6YNKXXNT1M1A08GAR5RAGP7",
+            "revisionId": "01M6YNKXZKADF6C6QPJ7PKMGPX",
+            "title": "Zulu confidential",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 3
+            }
+          },
+          {
+            "pageId": "01M6YNKXKMAZT19CQSBNVKVX0T",
+            "revisionId": "01M6YNKXNJGQJQQ0VQH68ESTFD",
+            "title": "Bravo confidential",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 2
+            }
+          }
+        ],
+        "groups": [],
+        "calculations": {}
+      }
+    },
+    {
+      "person": "editor",
+      "route": "/api/databases/01M6YNKX669W6V1S26C59E6QZX/views/afc64122-1195-4e60-a0c0-fd1734d7f4a2/query",
+      "status": 200,
+      "input": {
+        "pageId": "01M6YNKY0FYDN02NGS3DRTZWG0",
+        "filters": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "op": "gt",
+            "value": 1
+          }
+        ],
+        "sorts": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "direction": "desc"
+          },
+          {
+            "field": "$title",
+            "direction": "desc"
+          }
+        ]
+      },
+      "body": {
+        "database": {
+          "id": "01M6YNKX669W6V1S26C59E6QZX",
+          "page_id": "01M6YNKX66M6MYYZF0CHNJZMWJ",
+          "workspace_id": "browser-workspace",
+          "structure_locked_at": null,
+          "structure_locked_by_member_id": null,
+          "created_at": "2026-11-08T22:49:11.619Z",
+          "updated_at": "2026-11-08T22:49:40.116Z",
+          "revision_id": "01M6YNMS0QEKKATVSVNDAZH82X",
+          "structure_locked_by_name": null
+        },
+        "view": {
+          "id": "afc64122-1195-4e60-a0c0-fd1734d7f4a2",
+          "name": "Release work",
+          "layout": "table",
+          "filters": [],
+          "sorts": [
+            {
+              "field": "$title",
+              "direction": "asc"
+            }
+          ],
+          "groups": [],
+          "calculations": {},
+          "display": {},
+          "position": 0,
+          "revisionId": "01M6YNMS0QEKKATVSVNDAZH82X"
+        },
+        "fields": [
+          {
+            "id": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "name": "Priority",
+            "type": "number",
+            "config": {},
+            "position": 0,
+            "readOnly": false
+          }
+        ],
+        "records": [
+          {
+            "pageId": "01M6YNKXF0J8V9W7WFGSKSX5MR",
+            "revisionId": "01M6YNMGQMRSH0XZQ66HR5VX7Y",
+            "title": "Alpha release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 5
+            }
+          }
+        ],
+        "groups": [],
+        "calculations": {}
+      }
+    },
+    {
+      "person": "owner",
+      "route": "/api/databases/01M6YNKX669W6V1S26C59E6QZX/views/afc64122-1195-4e60-a0c0-fd1734d7f4a2/query",
+      "status": 200,
+      "input": {
+        "pageId": "01M6YNKY0FYDN02NGS3DRTZWG0",
+        "filters": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "op": "gt",
+            "value": 1
+          }
+        ],
+        "sorts": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "direction": "desc"
+          },
+          {
+            "field": "$title",
+            "direction": "desc"
+          }
+        ]
+      },
+      "body": {
+        "database": {
+          "id": "01M6YNKX669W6V1S26C59E6QZX",
+          "page_id": "01M6YNKX66M6MYYZF0CHNJZMWJ",
+          "workspace_id": "browser-workspace",
+          "structure_locked_at": null,
+          "structure_locked_by_member_id": null,
+          "created_at": "2026-11-08T22:49:11.619Z",
+          "updated_at": "2026-11-08T22:49:40.116Z",
+          "revision_id": "01M6YNMS0QEKKATVSVNDAZH82X",
+          "structure_locked_by_name": null
+        },
+        "view": {
+          "id": "afc64122-1195-4e60-a0c0-fd1734d7f4a2",
+          "name": "Release work",
+          "layout": "table",
+          "filters": [],
+          "sorts": [
+            {
+              "field": "$title",
+              "direction": "asc"
+            }
+          ],
+          "groups": [],
+          "calculations": {},
+          "display": {},
+          "position": 0,
+          "revisionId": "01M6YNMS0QEKKATVSVNDAZH82X"
+        },
+        "fields": [
+          {
+            "id": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "name": "Priority",
+            "type": "number",
+            "config": {},
+            "position": 0,
+            "readOnly": false
+          }
+        ],
+        "records": [
+          {
+            "pageId": "01M6YNKXF0J8V9W7WFGSKSX5MR",
+            "revisionId": "01M6YNMGQMRSH0XZQ66HR5VX7Y",
+            "title": "Alpha release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 5
+            }
+          },
+          {
+            "pageId": "01M6YNKXPKAY9QMPZW7CBJJVHQ",
+            "revisionId": "01M6YNKXVPT0N1Y4B69MD9W74G",
+            "title": "Delta release",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 4
+            }
+          },
+          {
+            "pageId": "01M6YNKXXNT1M1A08GAR5RAGP7",
+            "revisionId": "01M6YNKXZKADF6C6QPJ7PKMGPX",
+            "title": "Zulu confidential",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 3
+            }
+          },
+          {
+            "pageId": "01M6YNKXKMAZT19CQSBNVKVX0T",
+            "revisionId": "01M6YNKXNJGQJQQ0VQH68ESTFD",
+            "title": "Bravo confidential",
+            "values": {
+              "f955e43e-c0fb-492c-b939-4ea533d631e8": 2
+            }
+          }
+        ],
+        "groups": [],
+        "calculations": {}
+      }
+    },
+    {
+      "person": "editor",
+      "route": "/api/databases/01M6YNKX669W6V1S26C59E6QZX/views/afc64122-1195-4e60-a0c0-fd1734d7f4a2/query",
+      "status": 404,
+      "input": {
+        "pageId": "01M6YNKY0FYDN02NGS3DRTZWG0",
+        "filters": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "op": "gt",
+            "value": 1
+          }
+        ],
+        "sorts": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "direction": "desc"
+          },
+          {
+            "field": "$title",
+            "direction": "desc"
+          }
+        ]
+      },
+      "body": {
+        "code": "NOT_FOUND",
+        "message": "Not found."
+      }
+    },
+    {
+      "person": "owner",
+      "route": "/api/databases/01M6YNKX669W6V1S26C59E6QZX/views/afc64122-1195-4e60-a0c0-fd1734d7f4a2/query",
+      "status": 404,
+      "input": {
+        "pageId": "01M6YNKY0FYDN02NGS3DRTZWG0",
+        "filters": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "op": "gt",
+            "value": 1
+          }
+        ],
+        "sorts": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "direction": "desc"
+          },
+          {
+            "field": "$title",
+            "direction": "desc"
+          }
+        ]
+      },
+      "body": {
+        "code": "NOT_FOUND",
+        "message": "Not found."
+      }
+    },
+    {
+      "person": "editor",
+      "route": "/api/databases/01M6YNKX669W6V1S26C59E6QZX/views/afc64122-1195-4e60-a0c0-fd1734d7f4a2/query",
+      "status": 404,
+      "input": {
+        "pageId": "01M6YNKY0FYDN02NGS3DRTZWG0",
+        "filters": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "op": "gt",
+            "value": 1
+          }
+        ],
+        "sorts": [
+          {
+            "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+            "direction": "desc"
+          },
+          {
+            "field": "$title",
+            "direction": "desc"
+          }
+        ]
+      },
+      "body": {
+        "code": "NOT_FOUND",
+        "message": "Not found."
+      }
+    }
+  ],
+  "blockReceipts": [
+    {
+      "person": "editor",
+      "route": "/api/pages/01M6YNKY0FYDN02NGS3DRTZWG0/blocks",
+      "status": 200,
+      "input": {
+        "operationKey": "20a48127-3597-4a13-8381-f6433b1238f3",
+        "expectedRevisionId": "01M6YNKY39T4NG4SEA02SEZST6",
+        "blocks": [
+          {
+            "id": "c0c955b4-13fd-4de0-a50c-830a06d9fd5d",
+            "blockType": "paragraph",
+            "content": {
+              "text": [
+                {
+                  "text": "Report notes"
+                }
+              ]
+            },
+            "parentBlockId": null,
+            "treePosition": "00000000"
+          },
+          {
+            "id": "5843fcea-2cd1-4b1b-904e-fee1d4117aa6",
+            "blockType": "database-view",
+            "content": {
+              "definition": {
+                "filters": []
+              }
+            },
+            "parentBlockId": null,
+            "treePosition": "00000001"
+          }
+        ],
+        "blockRevisions": {
+          "c0c955b4-13fd-4de0-a50c-830a06d9fd5d": "01M6YNKY0G3DPY5B8THYNKM7NF"
+        }
+      },
+      "body": {
+        "value": {
+          "pageId": "01M6YNKY0FYDN02NGS3DRTZWG0",
+          "revisionId": "01M6YNKZ395T49E33G1569R7QZ",
+          "blocks": [
+            {
+              "id": "c0c955b4-13fd-4de0-a50c-830a06d9fd5d",
+              "blockType": "paragraph",
+              "content": {
+                "text": [
+                  {
+                    "text": "Report notes"
+                  }
+                ]
+              },
+              "parentBlockId": null,
+              "treePosition": "00000000",
+              "pageId": "01M6YNKY0FYDN02NGS3DRTZWG0",
+              "revisionId": "01M6YNKY0G3DPY5B8THYNKM7NF"
+            },
+            {
+              "id": "5843fcea-2cd1-4b1b-904e-fee1d4117aa6",
+              "blockType": "database-view",
+              "content": {
+                "definition": {
+                  "filters": []
+                }
+              },
+              "parentBlockId": null,
+              "treePosition": "00000001",
+              "pageId": "01M6YNKY0FYDN02NGS3DRTZWG0",
+              "revisionId": "01M6YNKZ3K18M2KDYTGSEKWHMH"
+            }
+          ]
+        },
+        "receipt": {
+          "operationKey": "20a48127-3597-4a13-8381-f6433b1238f3",
+          "entity": {
+            "id": "01M6YNKY0FYDN02NGS3DRTZWG0",
+            "kind": "page",
+            "revisionId": "01M6YNKZ395T49E33G1569R7QZ"
+          },
+          "revisionId": "01M6YNKZ395T49E33G1569R7QZ",
+          "activityId": "01M6YNKZ39X0WHN4XNZXBWP2SY",
+          "committedAt": "2026-11-08T22:49:13.572Z"
+        }
+      }
+    },
+    {
+      "person": "editor",
+      "route": "/api/pages/01M6YNKY0FYDN02NGS3DRTZWG0/blocks/5843fcea-2cd1-4b1b-904e-fee1d4117aa6",
+      "status": 200,
+      "input": {
+        "operationKey": "d3bff78d-ff31-4a4c-9ed0-6170596d7b6b",
+        "expectedRevisionId": "01M6YNKZ3K18M2KDYTGSEKWHMH",
+        "content": {
+          "definition": {
+            "filters": [],
+            "databaseId": "01M6YNKX669W6V1S26C59E6QZX",
+            "viewId": "afc64122-1195-4e60-a0c0-fd1734d7f4a2"
+          }
+        }
+      },
+      "body": {
+        "value": {
+          "pageId": "01M6YNKY0FYDN02NGS3DRTZWG0",
+          "revisionId": "01M6YNM0QJPNJ3429Y2N8W9RWX",
+          "blockRevisionId": "01M6YNM0QTNPWSKVAKKC0EGNVD",
+          "previousRevisionId": "01M6YNKZ395T49E33G1569R7QZ"
+        },
+        "receipt": {
+          "operationKey": "d3bff78d-ff31-4a4c-9ed0-6170596d7b6b",
+          "entity": {
+            "id": "01M6YNKY0FYDN02NGS3DRTZWG0",
+            "kind": "page",
+            "revisionId": "01M6YNM0QJPNJ3429Y2N8W9RWX"
+          },
+          "revisionId": "01M6YNM0QJPNJ3429Y2N8W9RWX",
+          "activityId": "01M6YNM0QJ0QW3XNA3VR718SKG",
+          "committedAt": "2026-11-08T22:49:15.241Z"
+        }
+      }
+    },
+    {
+      "person": "editor",
+      "route": "/api/pages/01M6YNKY0FYDN02NGS3DRTZWG0/blocks/5843fcea-2cd1-4b1b-904e-fee1d4117aa6",
+      "status": 200,
+      "input": {
+        "operationKey": "2e3d1ed6-7bad-462f-a673-efd14e5caec4",
+        "expectedRevisionId": "01M6YNM0QTNPWSKVAKKC0EGNVD",
+        "content": {
+          "definition": {
+            "filters": [
+              {
+                "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+                "op": "gt",
+                "value": 1
+              }
+            ],
+            "sorts": [
+              {
+                "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+                "direction": "desc"
+              },
+              {
+                "field": "$title",
+                "direction": "desc"
+              }
+            ],
+            "databaseId": "01M6YNKX669W6V1S26C59E6QZX",
+            "viewId": "afc64122-1195-4e60-a0c0-fd1734d7f4a2"
+          }
+        }
+      },
+      "body": {
+        "value": {
+          "pageId": "01M6YNKY0FYDN02NGS3DRTZWG0",
+          "revisionId": "01M6YNMA6105TFSV1V8GN08S8W",
+          "blockRevisionId": "01M6YNMA69TJ1BZ0HM7N4840V5",
+          "previousRevisionId": "01M6YNM0QJPNJ3429Y2N8W9RWX"
+        },
+        "receipt": {
+          "operationKey": "2e3d1ed6-7bad-462f-a673-efd14e5caec4",
+          "entity": {
+            "id": "01M6YNKY0FYDN02NGS3DRTZWG0",
+            "kind": "page",
+            "revisionId": "01M6YNMA6105TFSV1V8GN08S8W"
+          },
+          "revisionId": "01M6YNMA6105TFSV1V8GN08S8W",
+          "activityId": "01M6YNMA61N8VWJ682KNYAGQQ1",
+          "committedAt": "2026-11-08T22:49:24.918Z"
+        }
+      }
+    },
+    {
+      "person": "editor",
+      "route": "/api/pages/01M6YNKY0FYDN02NGS3DRTZWG0/blocks/c0c955b4-13fd-4de0-a50c-830a06d9fd5d",
+      "status": 200,
+      "input": {
+        "operationKey": "08f910d1-276f-4f26-a02f-c76540b52c85",
+        "expectedRevisionId": "01M6YNKY0G3DPY5B8THYNKM7NF",
+        "content": {
+          "text": [
+            {
+              "text": "Unsaved release notes remain here"
+            }
+          ]
+        }
+      },
+      "body": {
+        "value": {
+          "pageId": "01M6YNKY0FYDN02NGS3DRTZWG0",
+          "revisionId": "01M6YNMHQJYDAJWZYJAYR813Z7",
+          "blockRevisionId": "01M6YNMHQM6EF7MVW5R9RQV727",
+          "previousRevisionId": "01M6YNMA6105TFSV1V8GN08S8W"
+        },
+        "receipt": {
+          "operationKey": "08f910d1-276f-4f26-a02f-c76540b52c85",
+          "entity": {
+            "id": "01M6YNKY0FYDN02NGS3DRTZWG0",
+            "kind": "page",
+            "revisionId": "01M6YNMHQJYDAJWZYJAYR813Z7"
+          },
+          "revisionId": "01M6YNMHQJYDAJWZYJAYR813Z7",
+          "activityId": "01M6YNMHQJM23HC849XFJQVV49",
+          "committedAt": "2026-11-08T22:49:32.655Z"
+        }
+      }
+    }
+  ],
+  "width": 1440,
+  "databaseId": "01M6YNKX669W6V1S26C59E6QZX",
+  "pageId": "01M6YNKY0FYDN02NGS3DRTZWG0",
+  "sourceBefore": [
+    {
+      "id": "afc64122-1195-4e60-a0c0-fd1734d7f4a2",
+      "name": "Release work",
+      "layout": "table",
+      "filters": [],
+      "sorts": [
+        {
+          "field": "$title",
+          "direction": "asc"
+        }
+      ],
+      "groups": [],
+      "calculations": {},
+      "display": {},
+      "position": 0,
+      "revisionId": "01M6YNKXA35RBBJXC46RS4X606"
+    }
+  ],
+  "storedDefinition": {
+    "filters": [
+      {
+        "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+        "op": "gt",
+        "value": 1
+      }
+    ],
+    "sorts": [
+      {
+        "field": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+        "direction": "desc"
+      },
+      {
+        "field": "$title",
+        "direction": "desc"
+      }
+    ],
+    "databaseId": "01M6YNKX669W6V1S26C59E6QZX",
+    "viewId": "afc64122-1195-4e60-a0c0-fd1734d7f4a2"
+  },
+  "expectedOwner": [
+    "01M6YNKXF0J8V9W7WFGSKSX5MR",
+    "01M6YNKXKMAZT19CQSBNVKVX0T",
+    "01M6YNKXPKAY9QMPZW7CBJJVHQ",
+    "01M6YNKXXNT1M1A08GAR5RAGP7"
+  ],
+  "expectedMember": [
+    "01M6YNKXF0J8V9W7WFGSKSX5MR",
+    "01M6YNKXPKAY9QMPZW7CBJJVHQ"
+  ],
+  "sourceChangeVisibleMs": 981,
+  "receipts": [
+    {
+      "method": "POST",
+      "route": "/api/containers",
+      "response": {
+        "value": {
+          "id": "01M6YNKX4R2F5348HY2E6202Q7",
+          "name": "Embedded database sources",
+          "revisionId": "01M6YNKX4RDYN457KDS28M04HQ",
+          "homePageId": "01M6YNKX4RJP9Y6HZNN050H3EW"
+        },
+        "receipt": {
+          "operationKey": "25590b0e-091f-43ce-8bd9-e90bc76c8e95",
+          "entity": {
+            "id": "01M6YNKX4R2F5348HY2E6202Q7",
+            "kind": "container",
+            "revisionId": "01M6YNKX4RDYN457KDS28M04HQ"
+          },
+          "revisionId": "01M6YNKX4RDYN457KDS28M04HQ",
+          "activityId": "01M6YNKX4RRA3NXZXCNVCK8HCZ",
+          "committedAt": "2026-11-08T22:49:11.570Z"
+        }
+      }
+    },
+    {
+      "method": "POST",
+      "route": "/api/databases",
+      "response": {
+        "value": {
+          "id": "01M6YNKX669W6V1S26C59E6QZX",
+          "pageId": "01M6YNKX66M6MYYZF0CHNJZMWJ",
+          "revisionId": "01M6YNKX661AAHZV4TNF8TP5SN"
+        },
+        "receipt": {
+          "operationKey": "8b377766-c5a2-41c5-b30f-c41859758848",
+          "entity": {
+            "id": "01M6YNKX669W6V1S26C59E6QZX",
+            "kind": "database",
+            "revisionId": "01M6YNKX661AAHZV4TNF8TP5SN"
+          },
+          "revisionId": "01M6YNKX661AAHZV4TNF8TP5SN",
+          "activityId": "01M6YNKX66K96YT1QJEA2ZR9PG",
+          "committedAt": "2026-11-08T22:49:11.619Z"
+        }
+      }
+    },
+    {
+      "method": "POST",
+      "route": "/api/databases/01M6YNKX669W6V1S26C59E6QZX/fields",
+      "response": {
+        "value": {
+          "id": "01M6YNKX669W6V1S26C59E6QZX",
+          "revisionId": "01M6YNKX8GN6RTBP8P9CSWQTF5",
+          "fields": [
+            {
+              "id": "f955e43e-c0fb-492c-b939-4ea533d631e8",
+              "name": "Priority",
+              "type": "number",
+              "config": {},
+              "position": 0
+            }
+          ]
+        },
+        "receipt": {
+          "operationKey": "c4fb917a-e460-41ac-928c-a9781bdb3fd1",
+          "entity": {
+            "id": "01M6YNKX669W6V1S26C59E6QZX",
+            "kind": "database",
+            "revisionId": "01M6YNKX8GN6RTBP8P9CSWQTF5"
+          },
+          "revisionId": "01M6YNKX8GN6RTBP8P9CSWQTF5",
+          "activityId": "01M6YNKX8GTFP84JH33GHEYYFJ",
+          "committedAt": "2026-11-08T22:49:11.692Z"
+        }
+      }
+    },
+    {
+      "method": "POST",
+      "route": "/api/databases/01M6YNKX669W6V1S26C59E6QZX/views",
+      "response": {
+        "value": {
+          "id": "01M6YNKX669W6V1S26C59E6QZX",
+          "revisionId": "01M6YNKXA35RBBJXC46RS4X606",
+          "view": {
+            "id": "afc64122-1195-4e60-a0c0-fd1734d7f4a2",
+            "name": "Release work",
+            "layout": "table",
+            "filters": [],
+            "sorts": [
+              {
+                "field": "$title",
+                "direction": "asc"
+              }
+            ],
+            "groups": [],
+            "calculations": {},
+            "display": {},
+            "position": 0
+          }
+        },
+        "receipt": {
+          "operationKey": "c1b66267-e9b8-471e-9820-9c24bbcb2e27",
+          "entity": {
+            "id": "01M6YNKX669W6V1S26C59E6QZX",
+            "kind": "database",
+            "revisionId": "01M6YNKXA35RBBJXC46RS4X606"
+          },
+          "revisionId": "01M6YNKXA35RBBJXC46RS4X606",
+          "activityId": "01M6YNKXA39SXEFF9HVX6JFQFS",
+          "committedAt": "2026-11-08T22:49:11.743Z"
+        }
+      }
+    },
+    {
+      "method": "PUT",
+      "route": "/api/sharing/pages/01M6YNKX66M6MYYZF0CHNJZMWJ/inheritance",
+      "response": {
+        "value": {
+          "pageId": "01M6YNKX66M6MYYZF0CHNJZMWJ",
+          "revisionId": "01M6YNKXDY57DZQY2CEA2VB3ZN",
+          "restricted": true
+        },
+        "receipt": {
+          "operationKey": "cd96869b-80c8-45dc-95c5-71ffdcf27590",
+          "entity": {
+            "id": "01M6YNKX66M6MYYZF0CHNJZMWJ",
+            "kind": "page",
+            "revisionId": "01M6YNKXDY57DZQY2CEA2VB3ZN"
+          },
+          "revisionId": "01M6YNKXDY57DZQY2CEA2VB3ZN",
+          "activityId": "01M6YNKXDY0Y48TW72BH22HYEJ",
+          "committedAt": "2026-11-08T22:49:11.868Z"
+        }
+      }
+    },
+    {
+      "method": "POST",
+      "route": "/api/databases/01M6YNKX669W6V1S26C59E6QZX/records",
+      "response": {
+        "value": {
+          "pageId": "01M6YNKXF0J8V9W7WFGSKSX5MR",
+          "revisionId": "01M6YNKXENBMAXVGJZ5PBPPW6T",
+          "values": {
+            "f955e43e-c0fb-492c-b939-4ea533d631e8": 1
+          }
+        },
+        "receipt": {
+          "operationKey": "f41528c6-d5f0-4c8d-90bb-4f4102c00b2b",
+          "entity": {
+            "id": "01M6YNKXF0J8V9W7WFGSKSX5MR",
+            "kind": "page",
+            "revisionId": "01M6YNKXENBMAXVGJZ5PBPPW6T"
+          },
+          "revisionId": "01M6YNKXENBMAXVGJZ5PBPPW6T",
+          "activityId": "01M6YNKXENRXHV95G4Q22NG09M",
+          "committedAt": "2026-11-08T22:49:11.890Z"
+        }
+      }
+    },
+    {
+      "method": "PUT",
+      "route": "/api/sharing/pages/01M6YNKXF0J8V9W7WFGSKSX5MR/inheritance",
+      "response": {
+        "value": {
+          "pageId": "01M6YNKXF0J8V9W7WFGSKSX5MR",
+          "revisionId": "01M6YNKXHA38ZNKV1B53HK0259",
+          "restricted": true
+        },
+        "receipt": {
+          "operationKey": "2f76abed-1a6f-44cb-b350-b77e7a7dccee",
+          "entity": {
+            "id": "01M6YNKXF0J8V9W7WFGSKSX5MR",
+            "kind": "page",
+            "revisionId": "01M6YNKXHA38ZNKV1B53HK0259"
+          },
+          "revisionId": "01M6YNKXHA38ZNKV1B53HK0259",
+          "activityId": "01M6YNKXHAT5E2976125DQVKAX",
+          "committedAt": "2026-11-08T22:49:11.976Z"
+        }
+      }
+    },
+    {
+      "method": "POST",
+      "route": "/api/databases/01M6YNKX669W6V1S26C59E6QZX/records",
+      "response": {
+        "value": {
+          "pageId": "01M6YNKXKMAZT19CQSBNVKVX0T",
+          "revisionId": "01M6YNKXKAHEVYR1S2MA0EK8E1",
+          "values": {
+            "f955e43e-c0fb-492c-b939-4ea533d631e8": 2
+          }
+        },
+        "receipt": {
+          "operationKey": "31457a84-9994-48cd-bfd3-975ba32b2954",
+          "entity": {
+            "id": "01M6YNKXKMAZT19CQSBNVKVX0T",
+            "kind": "page",
+            "revisionId": "01M6YNKXKAHEVYR1S2MA0EK8E1"
+          },
+          "revisionId": "01M6YNKXKAHEVYR1S2MA0EK8E1",
+          "activityId": "01M6YNKXKAHM044NW0XGF162BM",
+          "committedAt": "2026-11-08T22:49:12.040Z"
+        }
+      }
+    },
+    {
+      "method": "PUT",
+      "route": "/api/sharing/pages/01M6YNKXKMAZT19CQSBNVKVX0T/inheritance",
+      "response": {
+        "value": {
+          "pageId": "01M6YNKXKMAZT19CQSBNVKVX0T",
+          "revisionId": "01M6YNKXNJGQJQQ0VQH68ESTFD",
+          "restricted": true
+        },
+        "receipt": {
+          "operationKey": "d6ac9f06-721f-4d85-a43a-999bbf0a97b0",
+          "entity": {
+            "id": "01M6YNKXKMAZT19CQSBNVKVX0T",
+            "kind": "page",
+            "revisionId": "01M6YNKXNJGQJQQ0VQH68ESTFD"
+          },
+          "revisionId": "01M6YNKXNJGQJQQ0VQH68ESTFD",
+          "activityId": "01M6YNKXNJV3HVCT50J40SV7RZ",
+          "committedAt": "2026-11-08T22:49:12.112Z"
+        }
+      }
+    },
+    {
+      "method": "POST",
+      "route": "/api/databases/01M6YNKX669W6V1S26C59E6QZX/records",
+      "response": {
+        "value": {
+          "pageId": "01M6YNKXPKAY9QMPZW7CBJJVHQ",
+          "revisionId": "01M6YNKXP9RFXDMG28PC3ZHC0J",
+          "values": {
+            "f955e43e-c0fb-492c-b939-4ea533d631e8": 4
+          }
+        },
+        "receipt": {
+          "operationKey": "10e689d9-ec4f-4799-97e6-f341673a8261",
+          "entity": {
+            "id": "01M6YNKXPKAY9QMPZW7CBJJVHQ",
+            "kind": "page",
+            "revisionId": "01M6YNKXP9RFXDMG28PC3ZHC0J"
+          },
+          "revisionId": "01M6YNKXP9RFXDMG28PC3ZHC0J",
+          "activityId": "01M6YNKXP9J3EP028WR8NJRJ21",
+          "committedAt": "2026-11-08T22:49:12.135Z"
+        }
+      }
+    },
+    {
+      "method": "PUT",
+      "route": "/api/sharing/pages/01M6YNKXPKAY9QMPZW7CBJJVHQ/inheritance",
+      "response": {
+        "value": {
+          "pageId": "01M6YNKXPKAY9QMPZW7CBJJVHQ",
+          "revisionId": "01M6YNKXVPT0N1Y4B69MD9W74G",
+          "restricted": true
+        },
+        "receipt": {
+          "operationKey": "0c477e4f-3302-4716-a415-541f5cbde71d",
+          "entity": {
+            "id": "01M6YNKXPKAY9QMPZW7CBJJVHQ",
+            "kind": "page",
+            "revisionId": "01M6YNKXVPT0N1Y4B69MD9W74G"
+          },
+          "revisionId": "01M6YNKXVPT0N1Y4B69MD9W74G",
+          "activityId": "01M6YNKXVPB8XFT0E0BNDG6RW9",
+          "committedAt": "2026-11-08T22:49:12.308Z"
+        }
+      }
+    },
+    {
+      "method": "POST",
+      "route": "/api/databases/01M6YNKX669W6V1S26C59E6QZX/records",
+      "response": {
+        "value": {
+          "pageId": "01M6YNKXXNT1M1A08GAR5RAGP7",
+          "revisionId": "01M6YNKXXB50ZZF7PTRSAJV7PM",
+          "values": {
+            "f955e43e-c0fb-492c-b939-4ea533d631e8": 3
+          }
+        },
+        "receipt": {
+          "operationKey": "78a16fe0-7877-4f6a-a5c5-d5a2d2aed236",
+          "entity": {
+            "id": "01M6YNKXXNT1M1A08GAR5RAGP7",
+            "kind": "page",
+            "revisionId": "01M6YNKXXB50ZZF7PTRSAJV7PM"
+          },
+          "revisionId": "01M6YNKXXB50ZZF7PTRSAJV7PM",
+          "activityId": "01M6YNKXXBP4WAMBJW4EHMC61F",
+          "committedAt": "2026-11-08T22:49:12.360Z"
+        }
+      }
+    },
+    {
+      "method": "PUT",
+      "route": "/api/sharing/pages/01M6YNKXXNT1M1A08GAR5RAGP7/inheritance",
+      "response": {
+        "value": {
+          "pageId": "01M6YNKXXNT1M1A08GAR5RAGP7",
+          "revisionId": "01M6YNKXZKADF6C6QPJ7PKMGPX",
+          "restricted": true
+        },
+        "receipt": {
+          "operationKey": "89a9d3ae-5859-4d83-8172-ba003d11cb78",
+          "entity": {
+            "id": "01M6YNKXXNT1M1A08GAR5RAGP7",
+            "kind": "page",
+            "revisionId": "01M6YNKXZKADF6C6QPJ7PKMGPX"
+          },
+          "revisionId": "01M6YNKXZKADF6C6QPJ7PKMGPX",
+          "activityId": "01M6YNKXZKKB8SFJ2GZVD69AJR",
+          "committedAt": "2026-11-08T22:49:12.433Z"
+        }
+      }
+    },
+    {
+      "method": "POST",
+      "route": "/api/pages",
+      "response": {
+        "value": {
+          "pageId": "01M6YNKY0FYDN02NGS3DRTZWG0",
+          "revisionId": "01M6YNKY0F0C3942SEZ69QA894"
+        },
+        "receipt": {
+          "operationKey": "b9883a37-2186-47ec-935e-387f7cc6b390",
+          "entity": {
+            "id": "01M6YNKY0FYDN02NGS3DRTZWG0",
+            "kind": "page",
+            "revisionId": "01M6YNKY0F0C3942SEZ69QA894"
+          },
+          "revisionId": "01M6YNKY0F0C3942SEZ69QA894",
+          "activityId": "01M6YNKY0FEJE4P8DWTYWTP90E",
+          "committedAt": "2026-11-08T22:49:12.462Z"
+        }
+      }
+    },
+    {
+      "method": "PUT",
+      "route": "/api/sharing/pages/01M6YNKY0FYDN02NGS3DRTZWG0/inheritance",
+      "response": {
+        "value": {
+          "pageId": "01M6YNKY0FYDN02NGS3DRTZWG0",
+          "revisionId": "01M6YNKY39T4NG4SEA02SEZST6",
+          "restricted": true
+        },
+        "receipt": {
+          "operationKey": "07c53bee-131c-4d3d-a0d1-a92b7eeae840",
+          "entity": {
+            "id": "01M6YNKY0FYDN02NGS3DRTZWG0",
+            "kind": "page",
+            "revisionId": "01M6YNKY39T4NG4SEA02SEZST6"
+          },
+          "revisionId": "01M6YNKY39T4NG4SEA02SEZST6",
+          "activityId": "01M6YNKY39CJSK64Y1SK92ZQ4T",
+          "committedAt": "2026-11-08T22:49:12.551Z"
+        }
+      }
+    },
+    {
+      "method": "PATCH",
+      "route": "/api/databases/01M6YNKX669W6V1S26C59E6QZX/records/01M6YNKXF0J8V9W7WFGSKSX5MR",
+      "response": {
+        "value": {
+          "pageId": "01M6YNKXF0J8V9W7WFGSKSX5MR",
+          "revisionId": "01M6YNMGQMRSH0XZQ66HR5VX7Y",
+          "values": {
+            "f955e43e-c0fb-492c-b939-4ea533d631e8": 5
+          }
+        },
+        "receipt": {
+          "operationKey": "06f9df47-8070-4084-b0b2-2c4d219bd155",
+          "entity": {
+            "id": "01M6YNKXF0J8V9W7WFGSKSX5MR",
+            "kind": "page",
+            "revisionId": "01M6YNMGQMRSH0XZQ66HR5VX7Y"
+          },
+          "revisionId": "01M6YNMGQMRSH0XZQ66HR5VX7Y",
+          "activityId": "01M6YNMGQMSEYPR1ZPRPXS67P1",
+          "committedAt": "2026-11-08T22:49:31.632Z"
+        }
+      }
+    },
+    {
+      "method": "POST",
+      "route": "/api/publishing/01M6YNKY0FYDN02NGS3DRTZWG0",
+      "response": {
+        "value": {
+          "pageId": "01M6YNKY0FYDN02NGS3DRTZWG0",
+          "url": "https://127.0.0.1:45555/p/live-database-view",
+          "revoked": false
+        },
+        "receipt": {
+          "operationKey": "700f8778-0deb-4469-a356-a5ebabaa9bf7",
+          "entity": {
+            "id": "01M6YNKY0FYDN02NGS3DRTZWG0",
+            "kind": "page",
+            "revisionId": "01M6YNMHQJYDAJWZYJAYR813Z7"
+          },
+          "revisionId": "01M6YNMHQJYDAJWZYJAYR813Z7",
+          "activityId": "01M6YNMJ5FGC0WQG7DFBD82YC5",
+          "committedAt": "2026-11-08T22:49:33.100Z"
+        }
+      }
+    },
+    {
+      "method": "POST",
+      "route": "/api/sharing",
+      "response": {
+        "value": {
+          "id": "01M6YNKY20ZFWMD0SJWHZRC92K",
+          "revoked": false
+        },
+        "receipt": {
+          "operationKey": "0ae599ae-4997-4c57-b751-0082c515c738",
+          "entity": {
+            "id": "01M6YNKY0FYDN02NGS3DRTZWG0",
+            "kind": "page",
+            "revisionId": "01M6YNMKFP92PZGHR1RY7827PF"
+          },
+          "revisionId": "01M6YNMKFP92PZGHR1RY7827PF",
+          "activityId": "01M6YNMKFPB285XHP7RH86BKGB",
+          "committedAt": "2026-11-08T22:49:34.451Z"
+        }
+      }
+    },
+    {
+      "method": "POST",
+      "route": "/api/sharing",
+      "response": {
+        "value": {
+          "id": "01M6YNKXWF9N5CGXF4RZWWMWK9",
+          "revoked": true
+        },
+        "receipt": {
+          "operationKey": "9b5e003d-42a5-4b17-a05c-fa71f7b98dbe",
+          "entity": {
+            "id": "01M6YNKXPKAY9QMPZW7CBJJVHQ",
+            "kind": "page",
+            "revisionId": "01M6YNMMFZTT0XAFR4C3EMHJTM"
+          },
+          "revisionId": "01M6YNMMFZTT0XAFR4C3EMHJTM",
+          "activityId": "01M6YNMMFZR57FPJXBRNGT54VA",
+          "committedAt": "2026-11-08T22:49:35.485Z"
+        }
+      }
+    },
+    {
+      "method": "POST",
+      "route": "/api/sharing",
+      "response": {
+        "value": {
+          "id": "01M6YNKXCPQG7Z3S05TGMQZ6DJ",
+          "revoked": true
+        },
+        "receipt": {
+          "operationKey": "96125aeb-fe2c-49c1-bf1d-9658ff064f55",
+          "entity": {
+            "id": "01M6YNKX66M6MYYZF0CHNJZMWJ",
+            "kind": "page",
+            "revisionId": "01M6YNMND9TNGRZYK8G1CWBY1K"
+          },
+          "revisionId": "01M6YNMND9TNGRZYK8G1CWBY1K",
+          "activityId": "01M6YNMND9XJEGEY5E9NM327ED",
+          "committedAt": "2026-11-08T22:49:36.422Z"
+        }
+      }
+    },
+    {
+      "method": "POST",
+      "route": "/api/databases/01M6YNKX669W6V1S26C59E6QZX/views",
+      "response": {
+        "value": {
+          "id": "01M6YNKX669W6V1S26C59E6QZX",
+          "revisionId": "01M6YNMR53BG1373F00PE00A7B",
+          "view": {
+            "id": "afc64122-1195-4e60-a0c0-fd1734d7f4a2",
+            "name": "Release work",
+            "layout": "table",
+            "filters": [],
+            "sorts": [
+              {
+                "field": "$title",
+                "direction": "asc"
+              }
+            ],
+            "groups": [],
+            "calculations": {},
+            "display": {},
+            "position": 0
+          }
+        },
+        "receipt": {
+          "operationKey": "26f3dce4-a359-41f0-b539-c17ac9c81949",
+          "entity": {
+            "id": "01M6YNKX669W6V1S26C59E6QZX",
+            "kind": "database",
+            "revisionId": "01M6YNMR53BG1373F00PE00A7B"
+          },
+          "revisionId": "01M6YNMR53BG1373F00PE00A7B",
+          "activityId": "01M6YNMR53Z61741K5AHSRXCXR",
+          "committedAt": "2026-11-08T22:49:39.231Z"
+        }
+      }
+    },
+    {
+      "method": "POST",
+      "route": "/api/databases/01M6YNKX669W6V1S26C59E6QZX/views",
+      "response": {
+        "value": {
+          "id": "01M6YNKX669W6V1S26C59E6QZX",
+          "revisionId": "01M6YNMS0QEKKATVSVNDAZH82X",
+          "view": {
+            "id": "afc64122-1195-4e60-a0c0-fd1734d7f4a2",
+            "name": "Release work",
+            "layout": "table",
+            "filters": [],
+            "sorts": [
+              {
+                "field": "$title",
+                "direction": "asc"
+              }
+            ],
+            "groups": [],
+            "calculations": {},
+            "display": {},
+            "position": 0
+          }
+        },
+        "receipt": {
+          "operationKey": "dcf01c9e-917d-46d6-8442-fc5ccf763615",
+          "entity": {
+            "id": "01M6YNKX669W6V1S26C59E6QZX",
+            "kind": "database",
+            "revisionId": "01M6YNMS0QEKKATVSVNDAZH82X"
+          },
+          "revisionId": "01M6YNMS0QEKKATVSVNDAZH82X",
+          "activityId": "01M6YNMS0QX0SNY4GY0Q2REBHV",
+          "committedAt": "2026-11-08T22:49:40.116Z"
+        }
+      }
+    },
+    {
+      "method": "POST",
+      "route": "/api/archive/01M6YNKX66M6MYYZF0CHNJZMWJ",
+      "response": {
+        "value": {
+          "pageId": "01M6YNKX66M6MYYZF0CHNJZMWJ",
+          "revisionId": "01M6YNKXDY57DZQY2CEA2VB3ZN",
+          "action": "trash"
+        },
+        "receipt": {
+          "operationKey": "80998858-09d1-4ce3-a375-c8aea2548542",
+          "entity": {
+            "id": "01M6YNKX66M6MYYZF0CHNJZMWJ",
+            "kind": "page",
+            "revisionId": "01M6YNKXDY57DZQY2CEA2VB3ZN"
+          },
+          "revisionId": "01M6YNKXDY57DZQY2CEA2VB3ZN",
+          "activityId": "01M6YNMTXAPVDDR79JZW05R6SR",
+          "committedAt": "2026-11-08T22:49:42.056Z"
+        }
+      }
+    }
+  ]
+}

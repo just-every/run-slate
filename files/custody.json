@@ -1,0 +1,19 @@
+{
+  "head": "5efdd4720d4e92680ef4c8d39cf8f120dfdecbee",
+  "branch": "cloud/sd-slate-c-f224",
+  "refs": {
+    "refs/heads/cloud/sd-slate-c-f224": "5efdd4720d4e92680ef4c8d39cf8f120dfdecbee",
+    "refs/heads/main": "70a1ca379440899480c93f715fb7f7be094bdfc6"
+  },
+  "base": "70a1ca379440899480c93f715fb7f7be094bdfc6",
+  "statusSectionMatchesBase": true,
+  "clean": true,
+  "artifact": {
+    "schema": 1,
+    "commit": "5efdd4720d4e92680ef4c8d39cf8f120dfdecbee",
+    "tree": "8feef50862e4ad58c6a8135c1921f4dc79d75480",
+    "sourceSha256": "1c3f0a6ecad01a140224252691bde2e049e2f64ee5e397873a14b80af2563faf",
+    "lockSha256": "b7feac2c09a2b08bfdd58275ccd83dda71e3a84f0581d4b41bdbdee9f0e1c8f6",
+    "outputSha256": "ed2957a601799aa8158b87e37af9f13dc3e075519cbad0d6f4ac895c1fd7ca9d"
+  }
+}

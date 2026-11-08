@@ -1,0 +1,47 @@
+{
+  "head": "5efdd4720d4e92680ef4c8d39cf8f120dfdecbee",
+  "checked": "2026-11-08T22:49:44.916861+00:00",
+  "checks": [
+    {
+      "command": [
+        "pnpm",
+        "source:check"
+      ],
+      "exit": 0,
+      "outputSha256": "a17d505b273e1be89840cc402ae03dee12d15aa234a831a0744af64e895afaa3"
+    },
+    {
+      "command": [
+        "pnpm",
+        "typecheck"
+      ],
+      "exit": 0,
+      "outputSha256": "6478a3b5c18c1dfbf212cd453d22246ddb18d1a4ae19d8ce9d65ac458ad588f7"
+    },
+    {
+      "command": [
+        "pnpm",
+        "exec",
+        "rer",
+        "check",
+        "--profile",
+        "first-party"
+      ],
+      "exit": 0,
+      "outputSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "views": {
+    "write": "node src/base/runtime/contract-docs.mjs write",
+    "check": "node src/base/runtime/contract-docs.mjs check",
+    "exit": 0,
+    "generatedFilesRestoredFrom": "70a1ca379440899480c93f715fb7f7be094bdfc6",
+    "committedViews": false
+  },
+  "ledger": {
+    "command": null,
+    "exit": 0,
+    "reason": "No migration changed"
+  },
+  "clean": true
+}

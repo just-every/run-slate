@@ -1,0 +1,26 @@
+{
+  "runId": "sd-slate-c-f224-query-5efdd4720d4e92680ef4c8d39cf8f120dfdecbee",
+  "head": "5efdd4720d4e92680ef4c8d39cf8f120dfdecbee",
+  "command": [
+    "timeout",
+    "1200",
+    "node",
+    "--test",
+    "--test-concurrency=1",
+    "--test-name-pattern=BLOCK-010 \u2014 native content queries",
+    "tests/qualification/ui-convergence/journeys.test.mjs"
+  ],
+  "node": "v22.20.0",
+  "chromium": "/usr/bin/chromium",
+  "started": "2026-11-08T22:47:48.894563+00:00",
+  "ended": "2026-11-08T22:50:57.957839+00:00",
+  "exit": 0,
+  "artifact": {
+    "schema": 1,
+    "commit": "5efdd4720d4e92680ef4c8d39cf8f120dfdecbee",
+    "tree": "8feef50862e4ad58c6a8135c1921f4dc79d75480",
+    "sourceSha256": "1c3f0a6ecad01a140224252691bde2e049e2f64ee5e397873a14b80af2563faf",
+    "lockSha256": "b7feac2c09a2b08bfdd58275ccd83dda71e3a84f0581d4b41bdbdee9f0e1c8f6",
+    "outputSha256": "ed2957a601799aa8158b87e37af9f13dc3e075519cbad0d6f4ac895c1fd7ca9d"
+  }
+}

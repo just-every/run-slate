@@ -1,0 +1,36 @@
+[
+  {
+    "run": 42531918813,
+    "job": 128887803838,
+    "command": [
+      "gh",
+      "run",
+      "view",
+      "42531918813",
+      "--repo",
+      "just-every/run-slate",
+      "--job",
+      "128887803838",
+      "--log-failed"
+    ],
+    "exit": 0,
+    "output": "verify (app)\tRun node src/base/runtime/contract-docs.mjs check\t2026-11-08T22:47:32.4200399Z ACCEPTANCE.md: generated content differs; run contract-docs write."
+  },
+  {
+    "run": 42531918813,
+    "job": 128887978320,
+    "command": [
+      "gh",
+      "run",
+      "view",
+      "42531918813",
+      "--repo",
+      "just-every/run-slate",
+      "--job",
+      "128887978320",
+      "--log-failed"
+    ],
+    "exit": 0,
+    "output": "verify\tRequire the plan and every expected job\t2026-11-08T22:47:39.6530487Z   APP: failure\nverify\tRequire the plan and every expected job\t2026-11-08T22:47:39.6531350Z   SHARDS: skipped\nverify\tRequire the plan and every expected job\t2026-11-08T22:47:39.6532148Z   CONTRACT: skipped\nverify\tRequire the plan and every expected job\t2026-11-08T22:47:39.6533472Z   LOCAL: skipped\nverify\tRequire the plan and every expected job\t2026-11-08T22:47:39.6534273Z   SCALE: skipped"
+  }
+]
