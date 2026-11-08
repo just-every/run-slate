@@ -9,6 +9,7 @@ import { call, grant, ok, restrictedPage, savedAfterCommit } from './two-people-
 /** Native decisions in the default product: retained content, current warnings and exact lineage. */
 export async function decisionImmutabilityJourney(state, people) {
   const { alice, bob } = people, { origin } = state;
+  const returnUrl = alice.page.url();
   const width = alice.page.viewportSize().width;
   const directory = path.join(root, '.artifacts/ui-convergence/decisions', String(width));
   await mkdir(directory, { recursive: true });
@@ -60,7 +61,7 @@ export async function decisionImmutabilityJourney(state, people) {
     await expect(card.getByRole('button', { name: 'Save proposed decision', exact: true })).toHaveCount(0);
     if (stale) await expect(card.getByRole('alert')).toContainText('Supporting evidence has changed.');
     await card.getByText('Options & supporting sources', { exact: true }).click();
-    for (const option of record.content.options) await expect(card.getByText(option, { exact: true })).toBeVisible();
+    for (const option of record.content.options) await expect(card.locator('ul').first().getByText(option, { exact: true })).toBeVisible();
     for (const [index, ref] of record.content.citations.entries()) {
       const source = card.locator(`#decision-${record.id}-source-${index + 1}`);
       await source.locator(':scope > summary').click();
@@ -86,7 +87,17 @@ export async function decisionImmutabilityJourney(state, people) {
   await visibleSnapshot(alice.page, accepted, { stale: true });
   await accessible(alice.page, 'accepted decision with changed evidence');
 
-  const inventory = async () => ({ decision: await read(`/api/decisions/${id}`), history: await read(`/api/decisions/${id}/history`), activity: await read('/api/activity') });
+  const activityEntries = async () => {
+    const items = [];
+    let cursor;
+    do {
+      const result = await read(`/api/activity?limit=100${cursor ? `&cursor=${encodeURIComponent(cursor)}` : ''}`);
+      items.push(...result.items);
+      cursor = result.nextCursor;
+    } while (cursor);
+    return items;
+  };
+  const inventory = async () => ({ decision: await read(`/api/decisions/${id}`), history: await read(`/api/decisions/${id}/history`), activity: await activityEntries() });
   const beforeRefusal = await inventory();
   const refused = await call(alice.context, origin, 'POST', '/api/decisions', {
     operationKey: crypto.randomUUID(), id, pageId: accepted.page_id, expectedRevisionId: stale.revision_id,
@@ -104,15 +115,29 @@ export async function decisionImmutabilityJourney(state, people) {
   await visibleSnapshot(alice.page, accepted, { stale: true });
   await alice.page.goto(`${origin}/app/decisions/${id}`, { waitUntil: 'networkidle' });
 
-  const preparation = receiptOn(alice.page, `/api/decisions/${id}/propose-successor`);
-  await alice.page.getByRole('button', { name: 'Prepare a replacement decision', exact: true }).click();
-  const preparationResponse = await preparation;
-  assert.equal(preparationResponse.status(), 200, await preparationResponse.text());
-  const preparedReceipt = await preparationResponse.json();
+  // Read the genuine receipt before the control navigates away and Chromium
+  // discards its body buffer. The Worker and delivered response are unchanged.
+  const preparationPath = `/api/decisions/${id}/propose-successor`;
+  const matchesPreparation = url => url.pathname === preparationPath;
+  let preparedReceipt;
+  const capturePreparation = async route => {
+    if (route.request().method() !== 'POST') return route.continue();
+    const response = await route.fetch({ maxRetries: 0 });
+    assert.equal(response.status(), 200, await response.text());
+    preparedReceipt = await response.json();
+    await route.fulfill({ response });
+  };
+  await alice.page.route(matchesPreparation, capturePreparation);
+  try {
+    await alice.page.getByRole('button', { name: 'Prepare a replacement decision', exact: true }).click();
+    await expect.poll(() => !!preparedReceipt).toBe(true);
+  } finally {
+    await alice.page.unroute(matchesPreparation, capturePreparation);
+  }
   const nextId = preparedReceipt.value.id;
   await alice.page.waitForURL(url => url.pathname === `/app/decisions/${nextId}`);
   await alice.page.getByLabel('Decision', { exact: true }).fill('Fallback');
-  await alice.page.getByLabel('Why this choice?', { exact: true }).fill('Current evidence changes the choice.');
+  await alice.page.getByLabel('Why this choice?').fill('Current evidence changes the choice.');
   await alice.page.getByText('Question, owner, dates & evidence', { exact: true }).click();
   await alice.page.getByLabel('Question', { exact: true }).fill('Which revised support plan should ship?');
   for (let remaining = sources.length; remaining > 0; remaining--) await alice.page.getByRole('button', { name: 'Remove reference 1', exact: true }).click();
@@ -168,5 +193,8 @@ export async function decisionImmutabilityJourney(state, people) {
   await expect(bob.page.getByText('The linked decision is unavailable with current access.', { exact: true })).toBeVisible();
   await expect(bob.page.getByText(later.question, { exact: true })).toHaveCount(0);
   assert.deepEqual((await read(`/api/decisions/${id}?revision=${accepted.acceptedRevisionId}`)).content, accepted.content);
+  console.log(`PROBE DEC-003 1: core-wiki at ${width}px -> stale card and log warnings, unchanged accepted content, immutable edit refusal, current replacement acceptance, both exact lineage links and restricted replacement without a question`);
+  console.log(`PROBE DEC-003 2: native acceptance at ${width}px -> two exact cited revisions frozen; another member's edit leaves the complete accepted snapshot unchanged through API, UI and reload`);
   await writeFile(path.join(directory, 'receipts.json'), JSON.stringify({ width, acceptedReceipt, editReceipt, preparedReceipt, supersessionReceipt, accepted, stale, earlier, later, refused, denied }, null, 2));
+  await alice.page.goto(returnUrl, { waitUntil: 'networkidle' });
 }
