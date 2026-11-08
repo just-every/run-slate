@@ -104,7 +104,6 @@ for (const width of [390, 1440]) {
         await step('PAGE-007 populated Details and full-member ownership preserve grants under replay and edit-only refusal', async () => {await withSecondPerson(state,width,people=>pageDetailsJourney(state,people));});
         await step('query, highlighted results and opening exact page; touch Search, Inbox, My tasks and review queues', async () => {await searchJourney(state, pageId);await touchOperatorJourney(state,touch);});
         await step('published readers, editor indication, republish and lossless discard', () => withSecondPerson(state, width, people => unpublishedChangesJourney(state, people)));
-        await step('DEC-004 — populated native decision filters, current access and exact accepted navigation', () => decisionLogJourney(state, width));
         await step('STAT-002 — member status changes retain one status, activity and exact search/query membership', () => pageStatusJourney(state));
         // Finish earlier page notifications before connecting the chat journey destinations.
         await state.runScheduled();
@@ -129,6 +128,7 @@ for (const width of [390, 1440]) {
             await accessible(state.page, `phone smoke ${route}`);
           }
         }
+        await step('DEC-004 — populated native decision filters, current access and exact accepted navigation', () => decisionLogJourney(state, width));
       } finally {await touch?.close();}
     }, {}, { scheduled: true, slack: true });
   });

@@ -78,8 +78,8 @@ export async function decisionLogJourney(state, width) {
       await view.reload({waitUntil: 'networkidle'});
       const article = view.locator('#decision-' + record.id);
       await expect(article.getByRole('heading', {name: 'Decision ' + key, exact: true})).toBeVisible();
-      await expect(article.getByText(key === 'draft' ? 'Second draft' : 'First ' + key, {exact: true})).toBeVisible();
-      await expect(article.getByText('Retained reasoning ' + key, {exact: true})).toBeVisible();
+      await expect(article.locator('p').filter({hasText: new RegExp('^' + (key === 'draft' ? 'Second draft' : 'First ' + key) + '$')})).toBeVisible();
+      await expect(article.locator('p').filter({hasText: new RegExp('^Retained reasoning ' + key + '$')})).toBeVisible();
       const selected = await request('reader', 'GET', '/api/decisions/' + record.id + (record.acceptedRevisionId ? '?revision=' + record.acceptedRevisionId : ''));
       assert.equal(selected.viewedRevisionId, record.acceptedRevisionId ?? record.revision_id);
       assert.equal(new URL(view.url()).searchParams.get('revision'), record.acceptedRevisionId);

@@ -2021,12 +2021,7 @@
       "document": "CONTRACT.md",
       "status": "unproven",
       "unmetReason": "The default-profile FLAG-001 registration invokes decisionLogJourney against a populated native corpus with exact independent memberships, UTC day bounds, current-access exclusions and retained acceptance revisions. Responsive UI proof is decisionLogJourney in the existing core-wiki callers in tests/qualification/ui-convergence/journeys.test.mjs. CONTRACT.md remains the status source; exact-candidate Verify and guarded landing are separate.",
-      "supportingTests": [
-        {
-          "file": "tests/profile/profile.worker.test.ts",
-          "testName": "FLAG-001 — core wiki public doors retain native content while flagship routes and queued work require opt-in"
-        }
-      ]
+      "supportingTests": []
     },
     {
       "id": "DEC-005",
