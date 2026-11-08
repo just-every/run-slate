@@ -1,3 +1,4 @@
+import {decisionLogJourney} from './decision-log-journey.mjs';
 import {automationRunLogJourney} from "./automation-run-log-journey.mjs";
 import {contentQueryJourney} from './content-query-journey.mjs';
 import {publicProfileJourney} from './public-profile-journey.mjs';
@@ -127,6 +128,7 @@ for (const width of [390, 1440]) {
             await accessible(state.page, `phone smoke ${route}`);
           }
         }
+        await step('DEC-004 — populated native decision filters, current access and exact accepted navigation', () => decisionLogJourney(state, width));
       } finally {await touch?.close();}
     }, {}, { scheduled: true, slack: true });
   });
