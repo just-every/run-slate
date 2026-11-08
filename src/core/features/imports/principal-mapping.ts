@@ -14,7 +14,7 @@ export function sourcePrincipals(parsed:NormalizedImport) {
   return [...people.values(),...groups.values()];
 }
 export async function mappingCandidates(ctx:FeatureContext) {
-  const members=(await ctx.db.prepare("SELECT id,display_name AS label FROM members WHERE workspace_id=? AND status='active' ORDER BY display_name,id").bind(ctx.actor.workspaceId).all<{id:string;label:string}>()).results;
+  const members=(await ctx.db.prepare("SELECT id,display_name AS label FROM members WHERE workspace_id=? AND status='active' AND (member_kind!='guest' OR guest_expires_at IS NULL OR guest_expires_at>?) ORDER BY display_name,id").bind(ctx.actor.workspaceId,ctx.now).all<{id:string;label:string}>()).results;
   const groups=(await ctx.db.prepare('SELECT id,name AS label FROM groups WHERE workspace_id=? ORDER BY name,id').bind(ctx.actor.workspaceId).all<{id:string;label:string}>()).results;
   return {members,groups};
 }
@@ -22,6 +22,6 @@ export async function validatePrincipalMappings(ctx:FeatureContext,mappings:Prin
   const sources=parsed?new Set(sourcePrincipals(parsed).map(source=>`${source.kind}:${source.sourceId}`)):undefined;
   const seen=new Set<string>();
   for(const mapping of mappings){const key=`${mapping.kind}:${mapping.sourceId}`;if(seen.has(key)||sources&&!sources.has(key))throw new ApiProblem(400,'IMPORT_MAPPING_INVALID','Choose each source principal once.');seen.add(key);}
-  const invalid=await ctx.db.prepare("SELECT EXISTS(SELECT 1 FROM json_each(?) x WHERE (json_extract(x.value,'$.kind')='member' AND NOT EXISTS(SELECT 1 FROM members m WHERE m.id=json_extract(x.value,'$.targetId') AND m.workspace_id=? AND m.status='active')) OR (json_extract(x.value,'$.kind')='group' AND NOT EXISTS(SELECT 1 FROM groups g WHERE g.id=json_extract(x.value,'$.targetId') AND g.workspace_id=?))) AS invalid").bind(JSON.stringify(mappings),ctx.actor.workspaceId,ctx.actor.workspaceId).first<number>('invalid');
+  const invalid=await ctx.db.prepare("SELECT EXISTS(SELECT 1 FROM json_each(?) x WHERE (json_extract(x.value,'$.kind')='member' AND NOT EXISTS(SELECT 1 FROM members m WHERE m.id=json_extract(x.value,'$.targetId') AND m.workspace_id=? AND m.status='active' AND (m.member_kind!='guest' OR m.guest_expires_at IS NULL OR m.guest_expires_at>?))) OR (json_extract(x.value,'$.kind')='group' AND NOT EXISTS(SELECT 1 FROM groups g WHERE g.id=json_extract(x.value,'$.targetId') AND g.workspace_id=?))) AS invalid").bind(JSON.stringify(mappings),ctx.actor.workspaceId,ctx.now,ctx.actor.workspaceId).first<number>('invalid');
   if(invalid)throw new ApiProblem(409,'IMPORT_MAPPING_UNAVAILABLE','A mapped principal is no longer available in this workspace.');
 }

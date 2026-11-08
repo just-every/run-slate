@@ -45,7 +45,8 @@ export function WorkspacePublicationDialog({document,onClose,onSaved}:{document:
  {sharing.data?<section aria-label="Current publication access"><h3>Current access</h3><p>{sharing.data.restricted?'Inherited access is restricted.':'Access inherits from the parent and space.'}</p><ul>{sharing.data.items.map(grant=><li key={grant.id}>{grant.principalLabel??grant.principalKind} · {grant.level} · {grant.status}</li>)}{sharing.data.inheritedItems.map(grant=><li key={grant.id}>{grant.principalLabel??'Inherited grant'} · {grant.level} · {grant.status} · From {grant.origin?.name}</li>)}</ul></section>:null}
  <p>The author keeps full access; existing named grants are retained. Scheduling an already-live page makes it private until publication and retains the scheduler’s full access. A scheduled publication applies the selected destination and general access only when it becomes due.</p>
  <label>Publish as<select name="attribution"><option value="">Myself</option>{members.data?.items.map(person=><option key={person.id} value={person.id}>{person.displayName}</option>)}</select></label>
- <label>Schedule (optional)<input type="datetime-local" name="publishAt"/></label>
+ <label>Schedule (optional)<input type="datetime-local" name="publishAt" disabled={!current.permissions.canShare&&!['draft','scheduled'].includes(current.page.lifecycle)}/></label>
+ {!current.permissions.canShare&&!['draft','scheduled'].includes(current.page.lifecycle)?<p>Scheduling a live page changes its audience and requires full access.</p>:null}
  </>:null}</RequestState></div>
  {review?<PublicationReviewPanel review={review.response} onChange={()=>{void preview.reload().then(()=>setReview(null));}}/>:null}
  </ActionDialog>;
