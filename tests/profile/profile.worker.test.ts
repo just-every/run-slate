@@ -93,8 +93,8 @@ it("FLAG-001 — core wiki public doors retain native content while flagship rou
   const space=(await command('/api/containers',{name:'Decision records',visibility:'private'})).value;
   const create=async(title:string,blocks:unknown[]=[]) => (await command('/api/pages',{containerId:space.id,title,blocks})).value.pageId as string;
   const target=await create('Linked procedure'),blockId=crypto.randomUUID();
-  const pageId=await create('Decision source',[{id:blockId,blockType:'paragraph',treePosition:'a',content:{text:[{text:'Retained operational body. '},{text:'Linked procedure',link:{href:`https://slate.example/app/pages/${target}`}}]}}]);
-  const inbound=await create('Inbound reference',[{id:crypto.randomUUID(),blockType:'paragraph',treePosition:'a',content:{text:[{text:'Decision source',link:{href:`https://slate.example/app/pages/${pageId}`}}]}}]);
+  const pageId=await create('Decision source',[{id:blockId,blockType:'paragraph',treePosition:'a',content:{text:[{text:'Retained operational body. '},{text:'Linked procedure',link:{href:`https://slate.test/app/pages/${target}`}}]}}]);
+  const inbound=await create('Inbound reference',[{id:crypto.randomUUID(),blockType:'paragraph',treePosition:'a',content:{text:[{text:'Decision source',link:{href:`https://slate.test/app/pages/${pageId}`}}]}}]);
   await command(`/api/pages/${pageId}` ,{expectedRevisionId:(await read(`/api/pages/${pageId}`)).page.revisionId,properties:{title:'Decision source revised'}},cookie,'PATCH');
   const grant=(await command('/api/sharing',{targetKind:'page',targetId:pageId,principalKind:'member',principalId:editor.memberId,level:'edit'})).value;
   await command('/api/sharing',{targetKind:'page',targetId:target,principalKind:'member',principalId:editor.memberId,level:'view'});
@@ -123,6 +123,7 @@ it("FLAG-001 — core wiki public doors retain native content while flagship rou
   expect((await request('/api/decisions','POST',{operationKey:key,...input},editorCookie)).status).toBe(404);
   expect((await read(`/api/decisions/${replacement.value.id}`)).content.question).toBe('Which procedure next?');
   expect(receipts.every(Boolean)).toBe(true);
+  console.log('DECISION_NATIVE_RECEIPT '+JSON.stringify({receipts,before,history,created,edited,accepted,removed,replacement}));
 } },
     { name: 'FLAG-001 — old queued flagship work records failure and retries without dispatch or acknowledgement', run: async () => {
   for(const kind of ['intelligence.run','intelligence.finalize','federation.refresh']) {

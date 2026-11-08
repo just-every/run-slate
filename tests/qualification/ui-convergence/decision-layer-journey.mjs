@@ -63,7 +63,7 @@ export async function decisionLayerJourney(state,people) {
     await dialog.getByLabel('Options considered').fill('First procedure\nSecond procedure');
     await dialog.getByLabel('Proposed outcome').fill('First procedure');
     await dialog.getByLabel('Rationale',{exact:true}).fill('Keep the documented recovery path.');
-    await dialog.getByLabel('Decision owner',{exact:true}).selectOption(editor.id);
+    await dialog.getByRole('combobox',{name:'Decision owner',exact:true}).selectOption(editor.id);
     await dialog.getByLabel('Decided date').fill('2026-10-18');
     await dialog.getByLabel('Next review',{exact:true}).fill('2099-01-01');
     await dialog.getByLabel('Add a page as evidence').selectOption(pageId);
@@ -74,7 +74,26 @@ export async function decisionLayerJourney(state,people) {
       await action();const response=await pending;assert.equal(response.status(),200,await response.text());
       const result=await response.json();receipts.push(result.receipt);return {result,input:response.request().postDataJSON()};
     };
+    const close=dialog.getByRole('button',{name:'Close dialog',exact:true});
+    await close.focus();
+    await expect.poll(()=>close.evaluate(element=>getComputedStyle(element,'::after').opacity)).toBe('1');
+    await expect(close).toHaveAttribute('data-tooltip',/\S+\s+\S+/);
+    await accessible(view,'decision creation keyboard tooltip');
+    // Hold a second genuine dialog open before the first layer commits.
+    const staleView=await editor.context.newPage();
+    await staleView.goto(`${origin}/app/pages/${pageId}`,{waitUntil:'networkidle'});
+    await staleView.getByRole('button',{name:'More',exact:true}).click();await staleView.getByRole('menuitem',{name:'Add decision record',exact:true}).click();
+    const staleDialog=staleView.getByRole('dialog');
+    await staleDialog.getByLabel('Question',{exact:true}).fill('An accidental second decision');await staleDialog.getByLabel('Options considered').fill('Keep one');
     const created=await capture('/api/decisions',()=>dialog.getByRole('button',{name:'Create proposed decision',exact:true}).click());
+    try {
+      const rejected=staleView.waitForResponse(response=>new URL(response.url()).pathname==='/api/decisions'&&response.request().method()==='POST');
+      await staleDialog.getByRole('button',{name:'Create proposed decision',exact:true}).click();
+      const response=await rejected;assert.equal(response.status(),409);
+      const body=await response.json();assert.equal(body.code,'PAGE_DECISION_EXISTS');refusals.push({door:'stale creation dialog',status:response.status(),body});
+      await expect(staleDialog.getByRole('alert')).toContainText('This page already has a decision record.');
+      await accessible(staleView,'second decision creation explicitly refused');
+    } finally {await staleView.close();}
     await view.waitForURL(/\/app\/decisions\//);
     const decisionId=created.result.value.id,original=await ok(editor.context,origin,'GET',`/api/decisions/${decisionId}`);
     assert.deepEqual(original.content,{...created.input});
@@ -179,5 +198,8 @@ export async function decisionLayerJourney(state,people) {
     const evidence=path.join(root,'.artifacts/ui-convergence/decision-layer');await mkdir(evidence,{recursive:true});
     await writeFile(path.join(evidence,`${width}.json`),JSON.stringify({width,pageId,decisionId,receipts,snapshots,refusals,history,original,accepted,edited:edited.result,replacement:replacement.result},null,2));
     console.log(`DEC-001 decisionLayerJourney complete at ${width}px: populated page unchanged across create, duplicate refusal, edit, accept, review, removal and replacement; revoked member denied after reload.`);
+  } catch(cause) {
+    await view.screenshot({path:path.join(people.evidence,'decision-layer-failure.png'),fullPage:true});
+    throw cause;
   } finally {await reader.close();}
 }

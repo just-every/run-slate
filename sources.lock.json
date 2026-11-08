@@ -11484,7 +11484,7 @@
       "executable": false
     },
     "tests/profile/profile.worker.test.ts": {
-      "sha256": "d740804938a624588fbdf826b999c3944675a0baffb336f2907efefadf515b98",
+      "sha256": "8d2c459efeba6bfd92af4ca5ea4c835b0ec12077af7c07072cceb21dd14ac8e0",
       "executable": false
     },
     "tests/profile/vitest.config.ts": {
@@ -11964,7 +11964,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/decision-layer-journey.mjs": {
-      "sha256": "c096713d4f9159cbe428906cad8d415ad2d97b0a8801a13e25702dcdaac8dbd9",
+      "sha256": "d8f28b997a92f9c6cbcb2e7127381de1bed05e7aaff03312e265b59078742bab",
       "executable": false
     },
     "tests/qualification/ui-convergence/developer-access-journey.mjs": {
@@ -12460,7 +12460,7 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "eba6efcd3952ca216c3bfd60d2312bfaf4321c84d7e27b8a03bc4336edcc095d",
+      "sha256": "5fe79308bde0266876275ef864ee83b885517d19bd79d7666c278a3ffddace73",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
