@@ -1,0 +1,681 @@
+Theme route 390px light: /app
+Theme route 390px light: /app/search
+Theme route 390px light: /app/inbox
+Theme route 390px light: /app/tasks
+Theme route 390px light: /app/review
+Theme route 390px light: /app/containers
+Theme route 390px light: /app/templates
+Theme route 390px light: /app/archive
+Theme route 390px light: /app/settings
+Theme route 390px light: /app/settings/workspace
+Theme route 390px light: /app/settings/members
+Theme route 390px light: /app/settings/saml
+Theme route 390px light: /app/settings/developer
+Theme route 390px light: /app/settings/appearance
+Theme route 390px light: /app/settings/preferences
+Theme route 390px light: /app/settings/activity
+Theme route 390px light: /app/settings/automation
+Theme route 390px light: /app/settings/statuses
+Theme route 390px light: /app/settings/spaces
+Theme route 390px light: /app/settings/chat
+Theme route 390px light: /app/settings/portability
+Theme route 390px light: /app/pages/01M6XGC8SZTJEQNHWE8KN5K5MS
+Theme route 390px light: /app/databases/01M6XGC8WGD9XE52RGKWQN4PHC
+Theme route 390px light: /app/databases/01M6XGC8WGD9XE52RGKWQN4PHC/records/01M6XGC9309JJN1ZK2EPZQPQSS
+Theme route 390px dark: /app
+Theme route 390px dark: /app/search
+Theme route 390px dark: /app/inbox
+Theme route 390px dark: /app/tasks
+Theme route 390px dark: /app/review
+Theme route 390px dark: /app/containers
+Theme route 390px dark: /app/templates
+Theme route 390px dark: /app/archive
+Theme route 390px dark: /app/settings
+Theme route 390px dark: /app/settings/workspace
+Theme route 390px dark: /app/settings/members
+Theme route 390px dark: /app/settings/saml
+Theme route 390px dark: /app/settings/developer
+Theme route 390px dark: /app/settings/appearance
+Theme route 390px dark: /app/settings/preferences
+Theme route 390px dark: /app/settings/activity
+Theme route 390px dark: /app/settings/automation
+Theme route 390px dark: /app/settings/statuses
+Theme route 390px dark: /app/settings/spaces
+Theme route 390px dark: /app/settings/chat
+Theme route 390px dark: /app/settings/portability
+Theme route 390px dark: /app/pages/01M6XGC8SZTJEQNHWE8KN5K5MS
+Theme route 390px dark: /app/databases/01M6XGC8WGD9XE52RGKWQN4PHC
+Theme route 390px dark: /app/databases/01M6XGC8WGD9XE52RGKWQN4PHC/records/01M6XGC9309JJN1ZK2EPZQPQSS
+Theme route 390px system: /app
+Theme route 390px system: /app/search
+Theme route 390px system: /app/inbox
+Theme route 390px system: /app/tasks
+Theme route 390px system: /app/review
+Theme route 390px system: /app/containers
+Theme route 390px system: /app/templates
+Theme route 390px system: /app/archive
+Theme route 390px system: /app/settings
+Theme route 390px system: /app/settings/workspace
+Theme route 390px system: /app/settings/members
+Theme route 390px system: /app/settings/saml
+Theme route 390px system: /app/settings/developer
+Theme route 390px system: /app/settings/appearance
+Theme route 390px system: /app/settings/preferences
+Theme route 390px system: /app/settings/activity
+Theme route 390px system: /app/settings/automation
+Theme route 390px system: /app/settings/statuses
+Theme route 390px system: /app/settings/spaces
+Theme route 390px system: /app/settings/chat
+Theme route 390px system: /app/settings/portability
+Theme route 390px system: /app/pages/01M6XGC8SZTJEQNHWE8KN5K5MS
+Theme route 390px system: /app/databases/01M6XGC8WGD9XE52RGKWQN4PHC
+Theme route 390px system: /app/databases/01M6XGC8WGD9XE52RGKWQN4PHC/records/01M6XGC9309JJN1ZK2EPZQPQSS
+WORK-012 native themes, new sessions, independent members and anonymous exposures passed at 390px
+IMPORT_BROWSER_RECEIPT {"width":390,"jobId":"01M6XGFEH6TE3BNNNV31JSJPYB","state":"completed","mappings":[{"sourceId":"confluence-member:100001:d9d99555-7c2d-5fc9-9d5f-444042ec9317","kind":"member","targetId":"browser-reader"}],"access":{"restrictedPages":3,"sourceNamedGrants":3,"mappedLiveGrants":3,"unresolvedRestrictedPages":0,"recoveryGrants":3,"historicalMembers":34,"historicalGroups":0},"pages":[{"id":"2ba67ad60f320f45:page:54","title":"Overview","anonymousNative":401,"anonymousPublished":404},{"id":"2ba67ad60f320f45:page:36","title":"Getting started in Confluence","anonymousNative":401,"anonymousPublished":404},{"id":"2ba67ad60f320f45:page:299","title":"Pizza Restaurant Launch Plan","anonymousNative":401,"anonymousPublished":404}],"unavailableTargetShown":true,"retainedMappingUnchanged":true}
+PROBE IMP-016 Settings 390: genuine archive upload, explicit mapping, Apply and reload -> completed; reviewed member and historical people displayed; conversion retained; 3 restricted reader pages and no anonymous page
+PROBE CONT-009 native controls 390: owner and non-owner administrator grant changes=6; replay and inherited snapshots pass; deadlines={}
+PROBE CONT-007 container guestAccess 390: native settings persisted; independent veto, retained address and authority reconciled
+PROBE CONT-007 container publicLinkAccess 390: native settings persisted; independent veto, retained address and authority reconciled
+PROBE CONT-007 container anonymousAccess 390: native settings persisted; independent veto, retained address and authority reconciled
+PROBE CONT-007 workspace guestAccess 390: native settings persisted; independent veto, retained address and authority reconciled
+PROBE CONT-007 workspace publicLinkAccess 390: native settings persisted; independent veto, retained address and authority reconciled
+PROBE CONT-007 workspace anonymousAccess 390: native settings persisted; independent veto, retained address and authority reconciled
+✔ space tree title filtering preserves ancestors, access and expansion at 390px (353071.738642ms)
+SHARING_PHASE full page edits 1440: 36809 ms
+SHARING_PHASE full lifecycle 1440: 48769 ms
+SHARING_PHASE full archive 1440: 32604 ms
+PROBE SHARE-002 erasure full: non-owner confirmed deletion and old-capture refusal
+SHARING_PHASE full erasure 1440: 18989 ms
+✖ native ordinary page full authority retains inventories and refuses revoked captures at 1440px (240001.363664ms)
+ℹ Sharing full setup: 35900 ms
+SHARING_PHASE full discussion 1440: 52539 ms
+Journey failure context {
+  "rejected": [],
+  "consoleErrors": []
+}
+Journey failure context REQUEST TIMELINE {
+  "primary": {
+    "requestsAtDump": [
+      {
+        "method": "GET",
+        "path": "/api/sharing/pages/01M6XG…7YG2",
+        "startMs": 0,
+        "durationMs": 517,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/revisions/01M6XG…7YG2",
+        "startMs": 19,
+        "durationMs": 483,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/comments/<id>/01M6XG…7YG2",
+        "startMs": 127,
+        "durationMs": 374,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/activity",
+        "startMs": 656,
+        "durationMs": 120,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/revisions/01M6XG…7YG2",
+        "startMs": 1073,
+        "durationMs": 34,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/activity",
+        "startMs": 1090,
+        "durationMs": 642,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/pages/01M6XG…7YG2",
+        "startMs": 1153,
+        "durationMs": 622,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/comments/<id>/01M6XG…7YG2",
+        "startMs": 1392,
+        "durationMs": 379,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/sharing/pages/01M6XG…7YG2",
+        "startMs": 1466,
+        "durationMs": 328,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/activity",
+        "startMs": 1942,
+        "durationMs": 104,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/pages/01M6XG…7YG2",
+        "startMs": 2225,
+        "durationMs": 27,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/activity",
+        "startMs": 2237,
+        "durationMs": 598,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/comments/<id>/01M6XG…7YG2",
+        "startMs": 2448,
+        "durationMs": 429,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/revisions/01M6XG…7YG2",
+        "startMs": 2474,
+        "durationMs": 422,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/sharing/pages/01M6XG…7YG2",
+        "startMs": 2717,
+        "durationMs": 187,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/activity",
+        "startMs": 3025,
+        "durationMs": 167,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/revisions/01M6XG…7YG2",
+        "startMs": 3496,
+        "durationMs": 48,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/activity",
+        "startMs": 3531,
+        "durationMs": 680,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/comments/<id>/01M6XG…7YG2",
+        "startMs": 3574,
+        "durationMs": 677,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/pages/01M6XG…7YG2",
+        "startMs": 3585,
+        "durationMs": 669,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/sharing/pages/01M6XG…7YG2",
+        "startMs": 3877,
+        "durationMs": 394,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/activity",
+        "startMs": 4349,
+        "durationMs": 92,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/pages/01M6XG…7YG2",
+        "startMs": 4596,
+        "durationMs": 43,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/activity",
+        "startMs": 4626,
+        "durationMs": 507,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/comments/<id>/01M6XG…7YG2",
+        "startMs": 4828,
+        "durationMs": 352,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/revisions/01M6XG…7YG2",
+        "startMs": 4842,
+        "durationMs": 343,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/sharing/pages/01M6XG…7YG2",
+        "startMs": 5077,
+        "durationMs": 112,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/activity",
+        "startMs": 5297,
+        "durationMs": 76,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/revisions/01M6XG…7YG2",
+        "startMs": 5658,
+        "durationMs": 30,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/activity",
+        "startMs": 5688,
+        "durationMs": 703,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/pages/01M6XG…7YG2",
+        "startMs": 5742,
+        "durationMs": 745,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/comments/<id>/01M6XG…7YG2",
+        "startMs": 5931,
+        "durationMs": 543,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/sharing/pages/01M6XG…7YG2",
+        "startMs": 5972,
+        "durationMs": 545,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/activity",
+        "startMs": 6633,
+        "durationMs": 122,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/pages/01M6XG…7YG2",
+        "startMs": 6936,
+        "durationMs": 30,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/activity",
+        "startMs": 6955,
+        "durationMs": 649,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/revisions/01M6XG…7YG2",
+        "startMs": 7221,
+        "durationMs": 422,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/sharing/pages/01M6XG…7YG2",
+        "startMs": 7273,
+        "durationMs": 393,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/comments/<id>/01M6XG…7YG2",
+        "startMs": 7282,
+        "durationMs": 358,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/activity",
+        "startMs": 7857,
+        "durationMs": 109,
+        "status": 200
+      }
+    ]
+  },
+  "others": [
+    {
+      "requestsAtDump": [
+        {
+          "method": "PATCH",
+          "path": "/api/pages/01M6XG…7YG2",
+          "startMs": 0,
+          "durationMs": 17,
+          "status": 404
+        },
+        {
+          "method": "PATCH",
+          "path": "/api/pages/01M6XG…7YG2",
+          "startMs": 1338,
+          "durationMs": 18,
+          "status": 404
+        },
+        {
+          "method": "PATCH",
+          "path": "/api/pages/01M6XG…7YG2",
+          "startMs": 2671,
+          "durationMs": 11,
+          "status": 404
+        },
+        {
+          "method": "PUT",
+          "path": "/api/pages/01M6XG…7YG2/blocks",
+          "startMs": 3989,
+          "durationMs": 18,
+          "status": 404
+        },
+        {
+          "method": "PUT",
+          "path": "/api/pages/01M6XG…7YG2/blocks",
+          "startMs": 5338,
+          "durationMs": 24,
+          "status": 404
+        },
+        {
+          "method": "POST",
+          "path": "/api/pages/01M6XG…7YG2/<id>",
+          "startMs": 6719,
+          "durationMs": 28,
+          "status": 404
+        },
+        {
+          "method": "POST",
+          "path": "/api/pages/01M6XG…7YG2/<id>",
+          "startMs": 7940,
+          "durationMs": 55,
+          "status": 404
+        },
+        {
+          "method": "POST",
+          "path": "/api/revisions/01M6XG…7YG2/01M6XG…R14M/<id>",
+          "startMs": 9638,
+          "durationMs": 33,
+          "status": 404
+        },
+        {
+          "method": "POST",
+          "path": "/api/pages/01M6XG…7YG2/publish",
+          "startMs": 10748,
+          "durationMs": 34,
+          "status": 404
+        },
+        {
+          "method": "POST",
+          "path": "/api/pages/01M6XG…7YG2/<id>",
+          "startMs": 11952,
+          "durationMs": 22,
+          "status": 404
+        },
+        {
+          "method": "POST",
+          "path": "/api/pages/01M6XG…7YG2/publish",
+          "startMs": 13485,
+          "durationMs": 20,
+          "status": 404
+        },
+        {
+          "method": "POST",
+          "path": "/api/pages/01M6XG…7YG2/<id>",
+          "startMs": 14538,
+          "durationMs": 38,
+          "status": 404
+        },
+        {
+          "method": "POST",
+          "path": "/api/pages/01M6XG…7YG2/publish",
+          "startMs": 15629,
+          "durationMs": 14,
+          "status": 404
+        },
+        {
+          "method": "POST",
+          "path": "/api/archive/01M6XG…7YG2",
+          "startMs": 16729,
+          "durationMs": 22,
+          "status": 404
+        },
+        {
+          "method": "POST",
+          "path": "/api/archive/01M6XG…7YG2",
+          "startMs": 18113,
+          "durationMs": 28,
+          "status": 404
+        },
+        {
+          "method": "POST",
+          "path": "/api/archive/01M6XG…7YG2",
+          "startMs": 19469,
+          "durationMs": 22,
+          "status": 404
+        },
+        {
+          "method": "POST",
+          "path": "/api/archive/01M6XG…7YG2",
+          "startMs": 20728,
+          "durationMs": 19,
+          "status": 404
+        },
+        {
+          "method": "POST",
+          "path": "/api/comments/<id>/01M6XG…7YG2",
+          "startMs": 21907,
+          "durationMs": 15,
+          "status": 404
+        },
+        {
+          "method": "POST",
+          "path": "/api/comments/<id>/01M6XG…7YG2",
+          "startMs": 23133,
+          "durationMs": 98,
+          "status": 404
+        },
+        {
+          "method": "PATCH",
+          "path": "/api/comments/01M6XG…0349",
+          "startMs": 24359,
+          "durationMs": 16,
+          "status": 404
+        },
+        {
+          "method": "POST",
+          "path": "/api/comments/<id>/01M6XG…G8M2/<id>",
+          "startMs": 25598,
+          "durationMs": 17,
+          "status": 404
+        },
+        {
+          "method": "POST",
+          "path": "/api/comments/<id>/01M6XG…G8M2/<id>",
+          "startMs": 26626,
+          "durationMs": 20,
+          "status": 404
+        },
+        {
+          "method": "POST",
+          "path": "/api/comments/<id>/01M6XG…7YG2/<id>",
+          "startMs": 27823,
+          "durationMs": 12,
+          "status": 404
+        },
+        {
+          "method": "PATCH",
+          "path": "/api/comments/01M6XG…0349",
+          "startMs": 28926,
+          "durationMs": 20,
+          "status": 404
+        },
+        {
+          "method": "POST",
+          "path": "/api/comments/<id>/01M6XG…7YG2/<id>",
+          "startMs": 30184,
+          "durationMs": 17,
+          "status": 404
+        },
+        {
+          "method": "POST",
+          "path": "/api/comments/<id>/01M6XG…7YG2/<id>",
+          "startMs": 31643,
+          "durationMs": 17,
+          "status": 404
+        },
+        {
+          "method": "POST",
+          "path": "/api/comments/<id>/01M6XG…7YG2/<id>",
+          "startMs": 32901,
+          "durationMs": 18,
+          "status": 404
+        },
+        {
+          "method": "POST",
+          "path": "/api/comments/<id>/01M6XG…7YG2/<id>",
+          "startMs": 34170,
+          "durationMs": 27,
+          "status": 404
+        },
+        {
+          "method": "POST",
+          "path": "/api/sharing",
+          "startMs": 35540,
+          "durationMs": 37,
+          "status": 404
+        },
+        {
+          "method": "POST",
+          "path": "/api/sharing",
+          "startMs": 36802,
+          "durationMs": 21,
+          "status": 404
+        },
+        {
+          "method": "POST",
+          "path": "/api/sharing",
+          "startMs": 37959,
+          "durationMs": 13,
+          "status": 404
+        },
+        {
+          "method": "POST",
+          "path": "/api/sharing",
+          "startMs": 39201,
+          "durationMs": 18,
+          "status": 404
+        },
+        {
+          "method": "POST",
+          "path": "/api/sharing",
+          "startMs": 40133,
+          "durationMs": 37,
+          "status": 404
+        },
+        {
+          "method": "POST",
+          "path": "/api/sharing",
+          "startMs": 41511,
+          "durationMs": 19,
+          "status": 404
+        },
+        {
+          "method": "GET",
+          "path": "/app/pages/01M6XG…7YG2",
+          "startMs": 42746,
+          "durationMs": 183,
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/assets/<id>",
+          "startMs": 42916,
+          "durationMs": 0,
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/assets/<id>",
+          "startMs": 42916,
+          "durationMs": 0,
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/assets/<id>",
+          "startMs": 42917,
+          "durationMs": 0,
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/assets/<id>",
+          "startMs": 42917,
+          "durationMs": 0,
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/pages/01M6XG…7YG2",
+          "startMs": 43011,
+          "durationMs": 33,
+          "status": 404
+        }
+      ]
+    }
+  ]
+}
+ℹ tests 2
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 1
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 759522.183459
+
+✖ failing tests:
+
+test at tests/qualification/ui-convergence/journey-shard.mjs:23:97
+✖ native ordinary page full authority retains inventories and refuses revoked captures at 1440px (240001.363664ms)
+  'test timed out after 240000ms'

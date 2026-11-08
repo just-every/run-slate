@@ -1,0 +1,532 @@
+diff --git a/CONTRACT.md b/CONTRACT.md
+index d524edd0..24d63bd5 100644
+--- a/CONTRACT.md
++++ b/CONTRACT.md
+@@ -4123,7 +4123,7 @@ AUTO-003 is judged from the code and tests at commit `1c76d8836ddffd43d0ea70e168
+ | `CONT-008` | Container access profile | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "`class-led` leads with the visibility values in `CONT-001`, each stating who may see and join, and folds the member, group and guest lists behind one manage-access view."<br>No validated CI-run proof for this acceptance point: "`grant-led` leads with tabbed lists of members, groups and guests and an external-access card, and hides the visibility dropdown."<br>No validated CI-run proof for this acceptance point: "Neither value hides the switches in `CONT-007`."<br>No validated CI-run proof for this acceptance point: "Both store visibility and the grant list, so switching relabels the surface and rewrites no grant." |
+ | `CONT-009` | Container grants | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof.; `tests/flagship/content/repair.test.ts` — "content structure, task attribution, privacy and activity retain exact revisions", calling `tests/flagship/content/container-grant-principals.case.ts` — "containerGrantPrincipalsCase" (scoped labels and unchanged authority refusals); `tests/qualification/ui-convergence/journeys.test.mjs` — "page outline follows headings and navigates long pages at 1440px" and "space tree title filtering preserves ancestors, access and expansion at 390px", calling `tests/qualification/ui-convergence/workspace-authority-journey.mjs` — "workspaceAuthorityJourney" and `tests/qualification/ui-convergence/container-grants-journey.mjs` — "containerGrantsJourney" (native owner and administrator controls, configured principals and levels, inherited descendants, restrictions, personal privacy, one activity under replay, next-write refusal, unsaved text and measured current page, tree, search and inbox access). | No validated CI-run proof for this acceptance point: "A container's grants use the principals and levels of `SHARE-001` and `SHARE-002`, are the source of every page's inherited access, and are editable only by a container administrator or a workspace owner."<br>No validated CI-run proof for this acceptance point: "Every change is recorded in activity and takes effect under `SHARE-007`." |
+ | `DB-001` | A database | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "A database is a node in the page tree with a name, an icon, typed fields and records."<br>No validated CI-run proof for this acceptance point: "It is created, moved, archived and trashed like a page, and its access follows `SHARE-001`." |
+-| `DB-002` | Field types and evaluation | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "Fields support text, number, checkbox, date, select, multi-select, status, person, file, URL, email, phone, place, relation, rollup, formula, created/updated metadata and identifier."<br>No validated CI-run proof for this acceptance point: "Each defines empty value, sort order and import/export representation."<br>No validated CI-run proof for this acceptance point: "Type changes convert every value or reject with the loss named."<br>No validated CI-run proof for this acceptance point: "Relations resolve actual records."<br>No validated CI-run proof for this acceptance point: "Bounded formulas and rollups evaluate typed expressions with explicit null/error semantics, dependency tracking, cycle rejection and resource limits; no arbitrary code or network execution."<br>No validated CI-run proof for this acceptance point: "Recompute affected dependencies after changes."<br>No validated CI-run proof for this acceptance point: "Evaluation and aggregation use current reader-authorized records and never leak restricted values or counts."<br>No validated CI-run proof for this acceptance point: "Preserve imported configuration and unsupported expressions with visible not-recomputed state, never fabricated current values; export and restore retain definitions and dependencies." |
++| `DB-002` | Field types and evaluation | published | partial | `tests/flagship/structured/http.test.ts` — "Worker HTTP rejects missing expired revoked and denied sessions and persists authorized input"; `tests/qualification/ui-convergence/record-detail-journey.mjs` — "relationRecordsJourney", called by "recordDetailJourney" in the existing desktop database and phone core journeys. Acceptance 3: native relation configuration, empty and multiple actual records, retained target identity after rename, canonical linked-record navigation, search-preserved selections, actual-record-only reference hydration, unchanged-state creation and update refusals, current-reader results after revocation, and erased-target replay without resurrection. | Acceptance 1 and the requirement-wide field catalog, empty values, sorting and import and export representations remain unproven; acceptance 2 conversions and named losses remain unproven. Acceptance 4–8 full formula and rollup semantics, dependency tracking and recomputation, cycles, limits, evaluation and aggregation confidentiality, imported definitions, unsupported expressions, export and restore remain unproven beyond the selected relation case. ADMIN-007 and shared company-policy prerequisites remain authoritative. Exact-candidate Verify and guarded landing proof are pending. |
+ | `DB-003` | Views | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "A database has several named views over one set of records."<br>No validated CI-run proof for this acceptance point: "A view is saved for everyone who can see the database, is renamed, duplicated and deleted by anyone with edit access, and never changes the records it shows." |
+ | `DB-004` | Layouts | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "A view is a table, a board, a list, a gallery, a calendar or a timeline."<br>No validated CI-run proof for this acceptance point: "A board or calendar requires the field it groups or dates by, and offers to create it rather than failing when it is missing." |
+ | `DB-005` | Filter and sort | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "A view carries filter rules over any field, combined with and or or, and an ordered list of sorts."<br>No validated CI-run proof for this acceptance point: "Both are stored on the view, are shown in force above the records, and are cleared in one action." |
+diff --git a/sources.lock.json b/sources.lock.json
+index a0d02464..7c7afd24 100644
+--- a/sources.lock.json
++++ b/sources.lock.json
+@@ -988,7 +988,7 @@
+       "executable": false
+     },
+     "CONTRACT.md": {
+-      "sha256": "c57fc1007b3c71dfc1d163f45d74a7e3a1593fc035f231a2e836787d3d325515",
++      "sha256": "86fa130c01f4b6581b353450d515c4a91c957628a7cc9251bdcdff2e5284c80c",
+       "executable": false
+     },
+     "DEMO.md": {
+@@ -6236,7 +6236,7 @@
+       "executable": false
+     },
+     "src/core/features/databases/discovery.ts": {
+-      "sha256": "2f487a3d61c0499f901ac3d1004e9c2677c49a9db940c2131f5a8b69b60a6fb3",
++      "sha256": "6a711c379bdd6c75a009dfc1862b54798a3b6c8d4c4c46a2b1e57291a48d6c50",
+       "executable": false
+     },
+     "src/core/features/databases/evaluation.ts": {
+@@ -6284,7 +6284,7 @@
+       "executable": false
+     },
+     "src/core/features/databases/service.ts": {
+-      "sha256": "a11da981de13312e6c18b3e54ebced09a54677e18332bceec4a88909f151fb14",
++      "sha256": "d44781a6dc58ad7cf29b1d79f31cb22b415019b75bb678fb328806ddb9ea8f52",
+       "executable": false
+     },
+     "src/core/features/databases/STRUCTURED-HANDOVER.md": {
+@@ -6308,7 +6308,7 @@
+       "executable": false
+     },
+     "src/core/features/databases/ui/fields/FieldCell.tsx": {
+-      "sha256": "3871888e647d6fd96e6dfb44b9f3ec447d1d04d2f4cdb199955ad230c652d48d",
++      "sha256": "b920e3b74d0f43093751d7401c9b4e4c0820fd4b5f13205b2b3c0b7a53a6c439",
+       "executable": false
+     },
+     "src/core/features/databases/ui/fields/FieldDisplay.tsx": {
+@@ -11304,7 +11304,7 @@
+       "executable": false
+     },
+     "tests/flagship/structured/http.test.ts": {
+-      "sha256": "00d081511aa7707897fefeb27259f692f68925b852f3b3c37d3ccc9da4d6a354",
++      "sha256": "f375a5c111f079eeb8b3ac889ec4938febb43b95684995890fcade850e645a9f",
+       "executable": false
+     },
+     "tests/flagship/structured/migration.py": {
+@@ -12228,7 +12228,7 @@
+       "executable": false
+     },
+     "tests/qualification/ui-convergence/record-detail-journey.mjs": {
+-      "sha256": "ce481528c42c89c0e5f87f90b133e11b7d20f4a367d856ce8b6a27f6461458b1",
++      "sha256": "72a142ff019377ed6581f31e172d6b1ab4db6a74c897bdaa0ae2f15778ca2fcc",
+       "executable": false
+     },
+     "tests/qualification/ui-convergence/record-templates-journey.mjs": {
+@@ -12456,11 +12456,11 @@
+       "executable": false
+     },
+     "tests/requirements/clause-inventory.json": {
+-      "sha256": "e0c3e2355ca049ea3d48e9c55b22d421f2b10a91ac6e7da3c5ef2a37b97ea180",
++      "sha256": "ec0decef2497430ff311bbcacf0ab82275159bc5a75bfebcd0f1ca3649420e42",
+       "executable": false
+     },
+     "tests/requirements/cli-journey.md": {
+-      "sha256": "1c5354824258d787c2a65e4fc10f9be60b73a1d9b9901d8959ee14adc52a9c5f",
++      "sha256": "a55793d87f03c833f1e52dd4853771769eee46cc87c96af100eea313045c35e2",
+       "executable": false
+     },
+     "tests/requirements/count-registrations.mjs": {
+@@ -12472,7 +12472,7 @@
+       "executable": false
+     },
+     "tests/requirements/test-evidence.json": {
+-      "sha256": "1ee71543f0df92b8cd8ece9911aedea66e1556eb659f63d38dd0946a078a9817",
++      "sha256": "8e2a38166e546bd109dcaae097f76032c26d3ac2f9dd0ff07e960a086a304a5e",
+       "executable": false
+     },
+     "tests/rer/editor.test.mjs": {
+diff --git a/src/core/features/databases/discovery.ts b/src/core/features/databases/discovery.ts
+index 83f5c165..53742611 100644
+--- a/src/core/features/databases/discovery.ts
++++ b/src/core/features/databases/discovery.ts
+@@ -78,6 +78,13 @@ export async function resolveReferences(
+   }
+   const records: ReferenceLabel[] = [];
+   for (const id of new Set(input.pageIds ?? [])) {
++    const record = await ctx.db
++      .prepare(
++        "SELECT r.page_id FROM database_records r JOIN databases d ON d.id=r.database_id WHERE r.page_id=? AND d.workspace_id=?",
++      )
++      .bind(id, ctx.actor.workspaceId)
++      .first();
++    if (!record) continue;
+     try {
+       const p = await readPage(ctx, id);
+       records.push({ id, label: p.page.title, kind: "record" });
+diff --git a/src/core/features/databases/service.ts b/src/core/features/databases/service.ts
+index 233ded94..cab6d5ec 100644
+--- a/src/core/features/databases/service.ts
++++ b/src/core/features/databases/service.ts
+@@ -193,6 +193,25 @@ export async function saveField(
+             );
+           }
+         }
++        // A new relation destination cannot invalidate already-retained record identities.
++        if (
++          !input.delete &&
++          f.type === "relation" &&
++          (same?.type !== "relation" || same.config.databaseId !== f.config.databaseId)
++        ) {
++          for (const target of (validateValue(f, v[f.id] ?? null) ?? []) as string[]) {
++            const record = await ctx.db
++              .prepare("SELECT database_id FROM database_records WHERE page_id=?")
++              .bind(target)
++              .first<{ database_id: string }>();
++            if (!record || record.database_id !== f.config.databaseId)
++              throw new ApiProblem(
++                409,
++                "FIELD_DATA_LOSS",
++                "Clear relation values before changing their target database.",
++              );
++          }
++        }
+       }
+       const write = input.delete
+         ? ctx.db
+diff --git a/src/core/features/databases/ui/fields/FieldCell.tsx b/src/core/features/databases/ui/fields/FieldCell.tsx
+index df47fb4e..a7605d8c 100644
+--- a/src/core/features/databases/ui/fields/FieldCell.tsx
++++ b/src/core/features/databases/ui/fields/FieldCell.tsx
+@@ -114,6 +114,7 @@ export function FieldCell({
+         {canEdit ? (
+           <button
+             aria-label={`Edit ${field.name}`}
++            data-tooltip={`Edit ${field.name}`}
+             className="inline-flex size-5 shrink-0 items-center justify-center rounded-control text-ink-faint hover:bg-sidebar-hover hover:text-ink"
+             onClick={() => onEdit?.(field.id)}
+             type="button"
+diff --git a/tests/flagship/structured/http.test.ts b/tests/flagship/structured/http.test.ts
+index 681fdfd3..2dee70ee 100644
+--- a/tests/flagship/structured/http.test.ts
++++ b/tests/flagship/structured/http.test.ts
+@@ -115,8 +115,9 @@ test("Worker HTTP rejects missing expired revoked and denied sessions and persis
+   // Follow the same native session into a populated record, including the
+   // allowed edit, computed-field refusal and subsequent viewer downgrade.
+   const call = async (method: string, path: string, actor = cookie, data?: unknown) => {
+-    const response = await SELF.fetch(`http://localhost/api${path}`, {
+-      method, headers: {cookie: actor, origin: "http://localhost", "content-type": "application/json"},
++    const origin = new URL(String(env.APP_URL)).origin;
++    const response = await SELF.fetch(`${origin}/api${path}`, {
++      method, headers: {cookie: actor, origin, "content-type": "application/json"},
+       ...(data ? {body: JSON.stringify(data)} : {}),
+     });
+     return {status: response.status, body: await response.json() as any};
+@@ -188,8 +189,120 @@ test("Worker HTTP rejects missing expired revoked and denied sessions and persis
+     expect(retained.page.blocks).toEqual(edited.page.blocks);
+     expect(retained.values).toEqual(edited.values);
+   }
++  await mutate("POST", "/sharing", {id: memberGrant.id, targetKind: "page", targetId: dbPage, principalKind: "member", principalId: reader.actor.id, level: "edit"});
++  // A relation is a retained target identity, selected under each native reader's grants.
++  const target = await mutate("POST", "/databases", {containerId, title: "Relation targets"});
++  const targetBase = `/databases/${target.id}`;
++  const first = await mutate("POST", targetBase + "/records", {title: "First actual target", values: {}});
++  const second = await mutate("POST", targetBase + "/records", {title: "Second actual target", values: {}});
++  const ordinary = await mutate("POST", "/pages", {containerId, title: "An ordinary page"});
++  await mutate("POST", "/sharing", {targetKind: "page", targetId: target.pageId, principalKind: "member", principalId: reader.actor.id, level: "view"});
++  await mutate("POST", "/sharing", {targetKind: "page", targetId: ordinary.pageId, principalKind: "member", principalId: reader.actor.id, level: "view"});
++  const relation = {id: "related", name: "Related records", type: "relation", position: 6, config: {databaseId: target.id}};
++  await mutate("POST", base + "/fields", {expectedRevisionId: (await call("GET", base)).body.database.revision_id, field: relation});
++  const optionsPath = base + "/references/related";
++  const choices = (await call("GET", optionsPath, memberCookie)).body.items;
++  expect(choices).toEqual([
++    {id: first.pageId, label: "First actual target", kind: "record", url: `/app/databases/${target.id}/records/${first.pageId}`},
++    {id: second.pageId, label: "Second actual target", kind: "record", url: `/app/databases/${target.id}/records/${second.pageId}`},
++  ].sort((a, b) => a.id.localeCompare(b.id)));
++  const writeRelation = async (ids: string[]) => {
++    const current = (await call("GET", recordPath, memberCookie)).body;
++    return mutate("PATCH", recordPath, {expectedRevisionId: current.revisionId, values: {related: ids}}, memberCookie);
++  };
++  await writeRelation([]);
++  expect((await call("GET", recordPath, memberCookie)).body.values.related).toEqual([]);
++  const selected = [first.pageId, second.pageId];
++  const selectionInput = {operationKey: "case:retained-relation", expectedRevisionId: (await call("GET", recordPath, memberCookie)).body.revisionId, values: {related: selected}};
++  expect((await call("PATCH", recordPath, memberCookie, selectionInput)).status).toBe(200);
++  expect((await call("GET", recordPath, memberCookie)).body.values.related).toEqual(selected);
++  const firstPage = (await call("GET", `/pages/${first.pageId}`)).body;
++  await mutate("PATCH", `/pages/${first.pageId}`, {expectedRevisionId: firstPage.page.revisionId, properties: {title: "Renamed actual target"}});
++  const hydrated = (await call("POST", "/databases/references", memberCookie, {pageIds: [...selected, ordinary.pageId, dbPage, "missing-record"]})).body.items;
++  expect(hydrated.map((item: any) => item.id)).toEqual(selected);
++  expect(hydrated.find((item: any) => item.id === first.pageId)).toEqual({id: first.pageId, label: "Renamed actual target", kind: "record", url: `/app/databases/${target.id}/records/${first.pageId}`});
++  expect((await call("GET", `${targetBase}/records/${first.pageId}`, memberCookie)).body.page.page.title).toBe("Renamed actual target");
++  expect((await call("GET", recordPath, memberCookie)).body.values.related).toEqual(selected);
++  const inventory = {id: "relation-inventory", name: "Relation inventory", layout: "table", filters: [], sorts: [], groups: [], calculations: {}, display: {}, position: 0};
++  await mutate("POST", base + "/views", {expectedRevisionId: (await call("GET", base)).body.database.revision_id, view: inventory});
++  const snapshot = async () => ({
++    record: (await call("GET", recordPath)).body,
++    page: (await call("GET", `/pages/${record.pageId}`)).body,
++    history: (await call("GET", `/revisions/${record.pageId}`)).body,
++    structure: (await call("GET", base)).body,
++    activity: (await call("GET", "/activity?limit=100")).body,
++    records: (await call("GET", base + "/views/" + inventory.id)).body,
++  });
++  for (const [bad, status, code] of [["missing-record", 404, "NOT_FOUND"], [ordinary.pageId, 400, "INVALID_RELATION"], [record.pageId, 400, "INVALID_RELATION"]] as const) {
++    const before = await snapshot();
++    const refused = await call("PATCH", recordPath, memberCookie, {operationKey: `case:bad-relation-${++operation}`, expectedRevisionId: before.record.revisionId, values: {related: [first.pageId, bad]}});
++    expect(refused.status, JSON.stringify(refused.body)).toBe(status);
++    expect(refused.body.code).toBe(code);
++    expect(await snapshot()).toEqual(before);
++    const refusedCreate = await call("POST", base + "/records", memberCookie, {operationKey: `case:bad-relation-create-${++operation}`, title: "Refused relation record", values: {related: [first.pageId, bad]}});
++    expect(refusedCreate.status, JSON.stringify(refusedCreate.body)).toBe(status);
++    expect(refusedCreate.body.code).toBe(code);
++    expect(await snapshot()).toEqual(before);
++  }
++  // Restrict one real target, then revoke the independently signed-in reader.
++  await mutate("POST", "/sharing", {targetKind: "page", targetId: second.pageId, principalKind: "member", principalId: ctx.actor.id, level: "full"});
++  const targetGrant = await mutate("POST", "/sharing", {targetKind: "page", targetId: second.pageId, principalKind: "member", principalId: reader.actor.id, level: "view"});
++  await mutate("PUT", `/sharing/pages/${second.pageId}/inheritance`, {expectedRevisionId: (await call("GET", `/pages/${second.pageId}`)).body.page.revisionId, restricted: true});
++  expect((await call("GET", recordPath, memberCookie)).body.values.related).toEqual(selected);
++  await mutate("POST", "/sharing", {id: targetGrant.id, targetKind: "page", targetId: second.pageId, principalKind: "member", principalId: reader.actor.id, level: "view", revoke: true});
++  const retainedAfterRevocation = await snapshot();
++  const safeReader = (await call("GET", recordPath, memberCookie)).body;
++  expect(safeReader.values.related).toEqual([first.pageId]);
++  expect(JSON.stringify(safeReader)).not.toContain(second.pageId);
++  expect(JSON.stringify(safeReader)).not.toContain("Second actual target");
++  expect((await call("GET", optionsPath, memberCookie)).body.items).toEqual([{id: first.pageId, label: "Renamed actual target", kind: "record", url: `/app/databases/${target.id}/records/${first.pageId}`}]);
++  expect((await call("POST", "/databases/references", memberCookie, {pageIds: selected})).body.items.map((item: any) => item.id)).toEqual([first.pageId]);
++  expect((await call("GET", `${targetBase}/records/${second.pageId}`, memberCookie)).status).toBe(404);
++  const refused = await call("PATCH", recordPath, memberCookie, {operationKey: "case:revoked-relation", expectedRevisionId: retainedAfterRevocation.record.revisionId, values: {related: selected}});
++  expect(refused.status).toBe(404);
++  expect(refused.body.code).toBe("NOT_FOUND");
++  const revokedCreate = await call("POST", base + "/records", memberCookie, {operationKey: "case:revoked-relation-create", title: "Refused revoked target", values: {related: selected}});
++  expect(revokedCreate.status).toBe(404);
++  expect(revokedCreate.body.code).toBe("NOT_FOUND");
++  const replay = await call("PATCH", recordPath, memberCookie, selectionInput);
++  expect(replay.status).toBe(200);
++  expect(replay.body.value.values.related).toEqual([first.pageId]);
++  expect(JSON.stringify(replay.body)).not.toContain(second.pageId);
++  expect(await snapshot()).toEqual(retainedAfterRevocation);
++  expect(retainedAfterRevocation.record.values.related).toEqual(selected);
++  // Erasure removes a retained destination from reads and replayed receipts without recreating it.
++  const freshOwner = await sessionFor(ctx.actor.id, {freshProof: true});
++  const targetBeforeTrash = (await call("GET", `/pages/${second.pageId}`)).body;
++  await mutate("POST", `/archive/${second.pageId}`, {expectedRevisionId: targetBeforeTrash.page.revisionId, action: "trash"});
++  const erased = await call("POST", `/archive/${second.pageId}/permanent-delete`, freshOwner, {operationKey: "case:erase-relation-target", confirmedPageIds: [second.pageId]});
++  expect(erased.status, JSON.stringify(erased.body)).toBe(200);
++  expect((await call("GET", `${targetBase}/records/${second.pageId}`)).status).toBe(404);
++  const afterErasure = await snapshot();
++  expect(afterErasure.record.values.related).toEqual([first.pageId]);
++  expect((await call("POST", "/databases/references", cookie, {pageIds: selected})).body.items.map((item: any) => item.id)).toEqual([first.pageId]);
++  const erasedReplay = await call("PATCH", recordPath, memberCookie, selectionInput);
++  expect(erasedReplay.status).toBe(200);
++  expect(erasedReplay.body.value.values.related).toEqual([first.pageId]);
++  expect(JSON.stringify(erasedReplay.body)).not.toContain(second.pageId);
++  const erasedWrite = await call("PATCH", recordPath, memberCookie, {operationKey: "case:erased-relation-write", expectedRevisionId: afterErasure.record.revisionId, values: {related: selected}});
++  expect(erasedWrite.status).toBe(404);
++  expect(await snapshot()).toEqual(afterErasure);
++  // Repointing a populated relation must not turn retained identities into wrong-database links.
++  const beforeRetarget = await snapshot();
++  const retarget = await call("POST", base + "/fields", cookie, {operationKey: "case:retarget-relation", expectedRevisionId: beforeRetarget.structure.database.revision_id, field: {...relation, config: {databaseId: body.value.id}}});
++  expect(retarget.status).toBe(409);
++  expect(retarget.body.code).toBe("FIELD_DATA_LOSS");
++  expect(await snapshot()).toEqual(beforeRetarget);
++  await writeRelation([]);
++  const cleared = (await call("GET", recordPath)).body;
++  await mutate("POST", base + "/fields", {expectedRevisionId: (await call("GET", base)).body.database.revision_id, field: {...relation, config: {databaseId: body.value.id}}});
++  expect((await call("GET", base)).body.fields.find((field: any) => field.id === relation.id).config.databaseId).toBe(body.value.id);
++  expect((await call("GET", recordPath)).body).toEqual({...cleared, fields: cleared.fields.map((field: any) => field.id === relation.id ? {...field, config: {databaseId: body.value.id}} : field)});
++
++
++
+   await chartHttpJourney({call, mutate, cookie, memberCookie, readerId: reader.actor.id, ownerId: ctx.actor.id, containerId});
+-});
++}, 90_000);
+ 
+ test("database file references list only attachments the reader could open", async () => {
+   const { SELF } = await import("cloudflare:test");
+diff --git a/tests/qualification/ui-convergence/record-detail-journey.mjs b/tests/qualification/ui-convergence/record-detail-journey.mjs
+index c4e1542d..3a14be33 100644
+--- a/tests/qualification/ui-convergence/record-detail-journey.mjs
++++ b/tests/qualification/ui-convergence/record-detail-journey.mjs
+@@ -129,4 +129,178 @@ export async function recordDetailJourney(state, width) {
+       console.log('PROBE DB-012 read-only: all six fields readable; native viewer PATCH -> 404 and unchanged record and history');
+     });
+   } finally { await policies(workspace.policies['record.page-parity.v1'] ?? 'record-is-page'); }
++  await relationRecordsJourney(state, width);
++}
++
++/** Native relation settings, persisted target identities and two readers' current grants. */
++export async function relationRecordsJourney(state, width) {
++  const {page, context, origin, api} = state;
++  const mutate = async (method, route, data) => (await ok(context, origin, method, route, {operationKey: randomUUID(), ...data})).value;
++  const container = (await api('/api/containers')).items.find(item => item.name === 'Handbook');
++  const source = await mutate('POST', '/api/databases', {containerId: container.id, title: 'Relation source'});
++  const target = await mutate('POST', '/api/databases', {containerId: container.id, title: 'Relation destinations'});
++  const base = `/api/databases/${source.id}`;
++  const targetBase = `/api/databases/${target.id}`;
++  const first = await mutate('POST', targetBase + '/records', {title: 'First linked target', values: {}});
++  const second = await mutate('POST', targetBase + '/records', {title: 'Second linked target', values: {}});
++  const record = await mutate('POST', base + '/records', {title: 'Source relation record', values: {}});
++  await grant(context, origin, source.pageId, 'browser-reader', 'edit');
++  await grant(context, origin, target.pageId, 'browser-reader', 'view');
++  await grant(context, origin, second.pageId, 'browser-owner', 'full');
++  const targetGrant = (await grant(context, origin, second.pageId, 'browser-reader', 'view')).value;
++  await mutate('PUT', `/api/sharing/pages/${second.pageId}/inheritance`, {expectedRevisionId: (await api(`/api/pages/${second.pageId}`)).page.revisionId, restricted: true});
++
++  // The relation's database is chosen through the real field configuration door.
++  await page.goto(`${origin}/app/databases/${source.id}`, {waitUntil: 'networkidle'});
++  await page.getByRole('button', {name: 'Fields', exact: true}).click();
++  await page.getByRole('menuitem', {name: 'Add field', exact: true}).click();
++  let settings = page.getByRole('dialog', {name: 'Field settings', exact: true});
++  await settings.getByRole('textbox', {name: 'Name', exact: true}).fill('Linked records');
++  await settings.getByRole('combobox', {name: 'Type', exact: true}).selectOption('relation');
++  await settings.getByRole('combobox', {name: 'Related database', exact: true}).selectOption(target.id);
++  await settings.getByRole('button', {name: 'Save field', exact: true}).click();
++  await expect(settings).not.toBeVisible();
++  const field = (await api(base)).fields.find(item => item.name === 'Linked records');
++  assert.equal(field.type, 'relation');
++  assert.equal(field.config.databaseId, target.id);
++  await page.reload({waitUntil: 'networkidle'});
++  await page.getByRole('button', {name: 'Fields', exact: true}).click();
++  await page.getByRole('menuitem', {name: field.name, exact: true}).click();
++  settings = page.getByRole('dialog', {name: 'Field settings', exact: true});
++  await expect(settings.getByRole('combobox', {name: 'Related database', exact: true})).toHaveValue(target.id);
++  await accessible(page, 'relation configured database');
++  await settings.getByRole('button', {name: 'Cancel', exact: true}).click();
++
++  await mutate('POST', base + '/views', {expectedRevisionId: (await api(base)).database.revision_id,
++    view: {id: randomUUID(), name: 'Relation table', layout: 'table', filters: [], sorts: [], groups: [],
++      calculations: {}, display: {visibleFieldIds: [field.id]}, position: 0}});
++  await page.reload({waitUntil: 'networkidle'});
++  const pencil = page.getByRole('button', {name: `Edit ${field.name}`, exact: true});
++  await pencil.focus();
++  await expect.poll(() => pencil.evaluate(element => getComputedStyle(element, '::after').opacity)).toBe('1');
++  await accessible(page, 'relation field keyboard tooltip');
++
++  const recordPath = base + '/records/' + record.pageId;
++  const recordUrl = origin + `/app/databases/${source.id}/records/${record.pageId}`;
++  const row = view => view.locator('.record-field').filter({has: view.locator('dt').getByText(field.name, {exact: true})});
++  const selected = [first.pageId, second.pageId];
++  await withSecondPerson(state, width, async ({bob}) => {
++    const openPicker = async () => {
++      await row(bob.page).getByRole('button', {name: 'Edit', exact: true}).click();
++      const picker = bob.page.getByRole('dialog', {name: 'Choose Linked records', exact: true});
++      await expect(picker.getByRole('checkbox')).toHaveCount(2);
++      await expect(picker.getByRole('checkbox', {name: 'First linked target', exact: true})).toBeVisible();
++      await expect(picker.getByRole('checkbox', {name: 'Second linked target', exact: true})).toBeVisible();
++      await expect(picker).not.toContainText('Source relation record');
++      return picker;
++    };
++    const save = async picker => {
++      await picker.getByRole('button', {name: 'Save selection', exact: true}).click();
++      await expect(picker).not.toBeVisible();
++      await bob.page.reload({waitUntil: 'networkidle'});
++    };
++    await bob.page.goto(recordUrl, {waitUntil: 'networkidle'});
++    let picker = await openPicker();
++    await expect(picker).toContainText('0 selected');
++    await picker.getByRole('checkbox', {name: 'First linked target', exact: true}).check();
++    await save(picker);
++    assert.deepEqual((await ok(bob.context, origin, 'GET', recordPath)).values[field.id], [first.pageId]);
++    await expect(row(bob.page).getByRole('button', {name: 'First linked target', exact: true})).toBeVisible();
++    picker = await openPicker();
++    await expect(picker.getByRole('checkbox', {name: 'First linked target', exact: true})).toBeChecked();
++    await picker.getByRole('button', {name: 'Clear selection', exact: true}).click();
++    await save(picker);
++    assert.deepEqual((await api(recordPath)).values[field.id], []);
++    await expect(row(bob.page).getByRole('button', {name: 'First linked target', exact: true})).toHaveCount(0);
++    picker = await openPicker();
++    await picker.getByRole('checkbox', {name: 'First linked target', exact: true}).check();
++    if (width === 1440) {
++      await picker.getByRole('searchbox', {name: 'Find', exact: true}).fill('Second');
++      await expect(picker.getByRole('checkbox')).toHaveCount(1);
++      await expect(picker.getByRole('checkbox', {name: 'First linked target', exact: true})).toHaveCount(0);
++      await expect(picker).toContainText('1 selected');
++    }
++    await picker.getByRole('checkbox', {name: 'Second linked target', exact: true}).check();
++    if (width === 1440) {
++      await expect(picker).toContainText('2 selected');
++      await picker.getByRole('searchbox', {name: 'Find', exact: true}).fill('No matching target');
++      await expect(picker.getByRole('checkbox')).toHaveCount(0);
++      await expect(picker).toContainText('No accessible matches.');
++      await expect(picker).toContainText('2 selected');
++      await picker.getByRole('searchbox', {name: 'Find', exact: true}).fill('');
++      await expect(picker.getByRole('checkbox')).toHaveCount(2);
++      await expect(picker.getByRole('checkbox', {name: 'First linked target', exact: true})).toBeChecked();
++      await expect(picker.getByRole('checkbox', {name: 'Second linked target', exact: true})).toBeChecked();
++    }
++    await accessible(bob.page, 'relation multiple target picker');
++    await save(picker);
++    assert.deepEqual((await api(recordPath)).values[field.id], selected);
++    await expect(row(bob.page).getByRole('button', {name: 'First linked target', exact: true})).toBeVisible();
++    await expect(row(bob.page).getByRole('button', {name: 'Second linked target', exact: true})).toBeVisible();
++    await accessible(bob.page, 'relation retained multiple records');
++    const prior = await api(`/api/pages/${first.pageId}`);
++    await mutate('PATCH', `/api/pages/${first.pageId}`, {expectedRevisionId: prior.page.revisionId, properties: {title: 'Renamed linked target'}});
++    await bob.page.reload({waitUntil: 'networkidle'});
++    await expect(row(bob.page).getByRole('button', {name: 'First linked target', exact: true})).toHaveCount(0);
++    if (width === 1440) {
++      await row(bob.page).getByRole('button', {name: 'Edit', exact: true}).click();
++      picker = bob.page.getByRole('dialog', {name: 'Choose Linked records', exact: true});
++      await picker.getByRole('searchbox', {name: 'Find', exact: true}).fill('First linked target');
++      await expect(picker).toContainText('No accessible matches.');
++      await picker.getByRole('searchbox', {name: 'Find', exact: true}).fill('Renamed');
++      await expect(picker.getByRole('checkbox')).toHaveCount(1);
++      await expect(picker.getByRole('checkbox', {name: 'Renamed linked target', exact: true})).toBeChecked();
++      await expect(picker).toContainText('2 selected');
++      await picker.getByRole('button', {name: 'Cancel', exact: true}).click();
++    }
++    await row(bob.page).getByRole('button', {name: 'Renamed linked target', exact: true}).click();
++    await expect(bob.page).toHaveURL(origin + `/app/databases/${target.id}/records/${first.pageId}`);
++    await expect(bob.page.getByRole('heading', {name: 'Renamed linked target', exact: true})).toBeVisible();
++    assert.deepEqual((await api(recordPath)).values[field.id], selected);
++    await accessible(bob.page, 'relation follows retained renamed record');
++    console.log(`PROBE DB-002 3 ${width}: native relation configuration, empty and multiple selections, reload, rename and canonical target address passed`);
++
++    await page.goto(`${origin}/app/databases/${source.id}`, {waitUntil: 'networkidle'});
++    await page.getByRole('button', {name: 'Fields', exact: true}).click();
++    await page.getByRole('menuitem', {name: field.name, exact: true}).click();
++    settings = page.getByRole('dialog', {name: 'Field settings', exact: true});
++    await settings.getByRole('combobox', {name: 'Related database', exact: true}).selectOption(source.id);
++    const refusedSettings = page.waitForResponse(response => new URL(response.url()).pathname === base + '/fields' && response.request().method() === 'POST');
++    await settings.getByRole('button', {name: 'Save field', exact: true}).click();
++    assert.equal((await refusedSettings).status(), 409);
++    await expect(settings.getByRole('alert')).toContainText('Clear relation values');
++    assert.equal((await api(base)).fields.find(item => item.id === field.id).config.databaseId, target.id);
++    assert.deepEqual((await api(recordPath)).values[field.id], selected);
++    await settings.getByRole('button', {name: 'Cancel', exact: true}).click();
++
++    await grant(context, origin, second.pageId, bob.id, 'view', {id: targetGrant.id, revoke: true});
++    const retained = await api(recordPath), history = await api(`/api/revisions/${record.pageId}`);
++    assert.deepEqual(retained.values[field.id], selected);
++    const reader = await ok(bob.context, origin, 'GET', recordPath);
++    assert.deepEqual(reader.values[field.id], [first.pageId]);
++    assert.ok(!JSON.stringify(reader).includes(second.pageId), "The complete reader document omits the revoked target identity.");
++    const options = await ok(bob.context, origin, 'GET', `${base}/references/${field.id}`);
++    assert.deepEqual(options.items.map(item => item.id), [first.pageId]);
++    await bob.page.goto(recordUrl, {waitUntil: 'networkidle'});
++    await expect(row(bob.page).getByRole('button', {name: 'Renamed linked target', exact: true})).toBeVisible();
++    await expect(row(bob.page)).not.toContainText('Second linked target');
++    await accessible(bob.page, 'relation current reader after revocation');
++    await row(bob.page).getByRole('button', {name: 'Edit', exact: true}).click();
++    picker = bob.page.getByRole('dialog', {name: 'Choose Linked records', exact: true});
++    await expect(picker.getByRole('checkbox')).toHaveCount(1);
++    await expect(picker.getByRole('checkbox', {name: 'Renamed linked target', exact: true})).toBeChecked();
++    await expect(picker).toContainText('1 selected');
++    await expect(picker).not.toContainText('Second linked target');
++    await accessible(bob.page, 'relation reader safe picker after revocation');
++    await picker.getByRole('button', {name: 'Cancel', exact: true}).click();
++    const denied = await call(bob.context, origin, 'PATCH', recordPath, {operationKey: randomUUID(), expectedRevisionId: reader.revisionId, values: {[field.id]: selected}});
++    assert.equal(denied.status, 404);
++    assert.deepEqual(await api(recordPath), retained);
++    assert.deepEqual(await api(`/api/revisions/${record.pageId}`), history);
++    const inaccessible = origin + `/app/databases/${target.id}/records/${second.pageId}`;
++    await bob.page.goto(inaccessible, {waitUntil: 'networkidle'});
++    await expect(bob.page.getByRole('heading', {name: 'Access needed', exact: true})).toBeVisible();
++    await expect(bob.page.locator('main')).not.toContainText('Second linked target');
++    console.log(`PROBE DB-002 3 ${width}: revoked target removed from native values, labels and picker; retained owner identities unchanged; forbidden write and follow refused`);
++  });
+ }
+diff --git a/tests/requirements/clause-inventory.json b/tests/requirements/clause-inventory.json
+index 9945c3de..075f5d6b 100644
+--- a/tests/requirements/clause-inventory.json
++++ b/tests/requirements/clause-inventory.json
+@@ -1070,7 +1070,7 @@
+       "id": "DB-002",
+       "document": "CONTRACT.md",
+       "status": "unproven",
+-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of DB-002 — Field types and evaluation. Full requirement-level UI, profile and runtime evidence remains unproven.",
++      "unmetReason": "Acceptance 3 has supporting native HTTP and responsive relationRecordsJourney proof through existing Verify registrations. The complete field catalog, representations, conversions, formulas, rollups, dependency recomputation, cycles, limits, aggregation confidentiality and imported-definition restoration remain unproven; ADMIN-007 and shared company-policy prerequisites remain authoritative.",
+       "supportingTests": [
+         {
+           "file": "tests/flagship/structured/structured.test.ts",
+@@ -1087,6 +1087,10 @@
+         {
+           "file": "tests/flagship/structured/values.test.ts",
+           "testName": "typed values, summaries, filters and formula validation preserve their boundaries"
++        },
++        {
++          "file": "tests/flagship/structured/http.test.ts",
++          "testName": "Worker HTTP rejects missing expired revoked and denied sessions and persists authorized input"
+         }
+       ]
+     },
+diff --git a/tests/requirements/cli-journey.md b/tests/requirements/cli-journey.md
+index 4ba0358f..2161adbf 100644
+--- a/tests/requirements/cli-journey.md
++++ b/tests/requirements/cli-journey.md
+@@ -219,6 +219,11 @@ AUTO-003 run history uses `automationRunLogCase` in `tests/flagship/structured/a
+ `automationRunLogJourney` in `tests/qualification/ui-convergence/automation-run-log-journey.mjs` runs through the existing desktop database-tools caller and phone core caller. It reads the real emitted Worker, checks trigger, actor, record link, recorded time and action receipt, then induces native storage failures and advances only the durable retry clock. Error and failure appear beside the rule before opening its log; repeated failures persist the disabled reason across navigation and a later event. Browser captures use the existing evidence helper at 1440 and 390. No run row or successful application response is fabricated, and no test registration is added.
+ 
+ 
++## Actual relation records (DB-002 acceptance 3)
++
++`relationRecordsJourney` in `tests/qualification/ui-convergence/record-detail-journey.mjs` is called by `recordDetailJourney` through the existing desktop database and phone core registrations. Native field settings select and retain the exact target database. An independently signed-in member selects real records, clears values, saves multiple targets, reloads and follows the renamed target at its canonical record address. At 1440px, filtering to one target or no matches preserves selected identities outside the search; the renamed target is found under its current label. The existing 390px assertions and browser captures remain in place. Revoking a real target grant removes its identity and label from native reads and the picker; forbidden writes and linked-record navigation refuse without changing the owner's retained values or history.
++
++The existing native HTTP journey in `tests/flagship/structured/http.test.ts` covers actual-record-only hydration and exact target addresses. Missing identities, ordinary pages, records in another database and unreadable targets cannot create a record or update an existing selection. Populated view inventory, record, page, history, structure and activity snapshots stay unchanged. A fresh native owner then permanently erases a related target: lookup and replayed receipts omit it, a new write refuses, and no record or activity is resurrected. Native proof requests use the deployment's configured HTTPS origin. This covers the selected relation case only; the complete field catalog, conversions, formulas, rollups and portable definitions remain explicitly unproven in CONTRACT.md.
+ The existing responsive Settings callers in `tests/qualification/ui-convergence/journeys.test.mjs` run `importReviewJourney` through `settingsJourney`. The unchanged genuine Confluence archive enters the native Settings upload form, starts unmapped, requires explicit source-ID review before Apply, and completes through the native resumed batches. A reloaded Settings document displays the selected existing member, every remaining inactive historical person, the retained restriction counts and edit-restriction inheritance conversion. Native page and sharing reads reconcile the named edit grants and restricted inheritance; anonymous native and published routes disclose no imported page. Both established responsive callers retain this screen proof, without another registration.
+ 
+ The matching Workers registration in `tests/e2e/imports/preview-undo.test.ts` runs `reviewedPrincipalsJourney`. It changes destination identity and authority fixtures between Preview, Apply, Preparing and committed native checkpoints, compares the complete selected canonical state on refusal, then restores authority and resumes the same review. Exact active identities remain unchanged; source names and email shortcuts never select accounts; unmapped identities stay historical without sessions. The fixture has named user edit restrictions and no named group restrictions: missing genuine content, restriction, general-grant and personal-space matrices remain in the IMP-016 Gap. These local journeys do not establish ADMIN-007, shared company policy, the ambiguous IMP-001 remainder, full PORT-004 or imported-record SEARCH-001 through SEARCH-006 acceptance.
+diff --git a/tests/requirements/test-evidence.json b/tests/requirements/test-evidence.json
+index 9bbc9c27..abca3d2e 100644
+--- a/tests/requirements/test-evidence.json
++++ b/tests/requirements/test-evidence.json
+@@ -320,9 +320,10 @@
+       "clauses": [
+         "BASE-ACCESS-002",
+         "DB-012",
+-        "DB-008"
++        "DB-008",
++        "DB-002"
+       ],
+-      "reason": "Asserts Worker HTTP rejects missing expired revoked and denied sessions and persists authorized input. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Populated native record reads retain defined field order, body, comments and exact earlier revisions; an editor changes an ordinary field, computed and metadata assignments refuse unchanged, and a downgraded viewer retains readable fields while fresh and replayed writes refuse. Both parity values retain stored content. Complete browser record-detail proof is loaded through the existing responsive journeys. DB-008 native saved-view and chart responses are reconciled over populated filtered records for owner and member, with record count and four numeric calculations, null groups, renamed sources, grant and session revocation and unchanged source data. Standalone browser controls and source attribution are exercised by standaloneChartJourney in the existing database registration; page embedding and DB-011 remain unproven."
++      "reason": "Asserts Worker HTTP rejects missing expired revoked and denied sessions and persists authorized input. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Populated native record reads retain defined field order, body, comments and exact earlier revisions; an editor changes an ordinary field, computed and metadata assignments refuse unchanged, and a downgraded viewer retains readable fields while fresh and replayed writes refuse. Both parity values retain stored content. Complete browser record-detail proof is loaded through the existing responsive journeys. DB-008 native saved-view and chart responses are reconciled over populated filtered records for owner and member, with record count and four numeric calculations, null groups, renamed sources, grant and session revocation and unchanged source data. Standalone browser controls and source attribution are exercised by standaloneChartJourney in the existing database registration; page embedding and DB-011 remain unproven. DB-002 acceptance 3: native sessions configure the exact target database, retain empty and multiple actual record identities, hydrate a renamed target at its canonical record address, and refuse missing, ordinary-page, wrong-database and revoked targets without changing record, page, history, structure or activity snapshots. Current-reader projections and mutation replay omit revoked identities while owner values remain retained. A populated relation cannot be repointed to an incompatible database; clearing its values permits retargeting. Reference hydration omits ordinary pages, database pages and missing identities. Invalid creation and update attempts preserve the populated view inventory, record, page, history, structure and activity. A fresh native owner erases a real related record through the configured HTTPS door; subsequent owner reads and replayed member receipts omit its identity, fresh writes refuse, and the retained populated snapshots remain unchanged. Other DB-002 outcomes remain unproven."
+     },
+     {
+       "file": "tests/flagship/structured/template-permissions.test.ts",

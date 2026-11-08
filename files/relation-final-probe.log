@@ -1,0 +1,6 @@
+PROBE DB-002 3 1440: native relation configuration, empty and multiple selections, reload, rename and canonical target address passed
+PROBE DB-002 3 1440: revoked target removed from native values, labels and picker; retained owner identities unchanged; forbidden write and follow refused
+PROBE final: relationRecordsJourney at 1440px -> PASS (67454 ms)
+PROBE DB-002 3 390: native relation configuration, empty and multiple selections, reload, rename and canonical target address passed
+PROBE DB-002 3 390: revoked target removed from native values, labels and picker; retained owner identities unchanged; forbidden write and follow refused
+PROBE final: relationRecordsJourney at 390px -> PASS (52526 ms)

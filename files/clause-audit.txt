@@ -1,0 +1,3 @@
+Main/replay: all 338 statuses identical; ID-MAP unchanged.
+Counts before/after: done 57/57, partial 240/240, missing 41/41, total 338/338.
+DB-002 PARTIAL -> PARTIAL; supporting relation evidence/gap only.

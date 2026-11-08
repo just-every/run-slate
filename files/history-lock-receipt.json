@@ -1,0 +1,33 @@
+[
+  {
+    "commit": "b2a2af33881cf330e64991b69dd1c4df4d5f184f",
+    "tracked_files": 2932,
+    "lock_file_hashes_match_commit": true
+  },
+  {
+    "commit": "ed92d9ecc1b0def9d2b94bb3f746623a1bef66f8",
+    "tracked_files": 2932,
+    "lock_file_hashes_match_commit": true
+  },
+  {
+    "commit": "df54b595d42770e71f9d5e7cf25fddec4b1a5602",
+    "tracked_files": 2932,
+    "lock_file_hashes_match_commit": true
+  },
+  {
+    "commit": "332dc9e34eb64193fcbe225fc211f79c924a4481",
+    "tracked_files": 2932,
+    "lock_file_hashes_match_commit": true
+  },
+  {
+    "commit": "1cdf1136e9c96585ff79237cc00f24c3fe0f396d",
+    "tracked_files": 2932,
+    "lock_file_hashes_match_commit": true
+  },
+  {
+    "commit": "4ea9e00db5dd4980edc6f9e306850181dcf489aa",
+    "source_check_command": "pnpm source:check",
+    "exit": 0,
+    "tracked_files": 2946
+  }
+]

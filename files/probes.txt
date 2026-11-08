@@ -1,0 +1,9 @@
+PROBE replay: native Worker HTTP relation configuration, invalid creation/update snapshots, actual-record-only hydration, current-reader revocation, HTTPS erased-target replay -> 2/2 tests PASS, 22.56s.
+PROBE replay: recordDetailJourney existing native editor/viewer/parity and added relationRecordsJourney at 1440px -> PASS, 121581ms.
+PROBE replay: recordDetailJourney existing native editor/viewer/parity and added relationRecordsJourney at 390px -> PASS, 87492ms.
+PROBE replay: pnpm typecheck -> exit 0.
+MECHANICAL lock=pnpm source:lock; pnpm source:check exit=0; views=node src/base/runtime/contract-docs.mjs write; node src/base/runtime/contract-docs.mjs check exit=0.
+Generated ACCEPTANCE.md and docs/CLAIMS.md restored whole from origin/main after generator check; neither included in the candidate diff.
+PROBE ui-focus-mobile: space tree title filtering preserves ancestors, access and expansion at 390px -> PASS 353071.738642ms on replay / PASS 348475.747652ms on main 67b706484e5430012d9c154c1e14090ea1e49bc2.
+PROBE ui-focus-mobile: native ordinary page full authority retains inventories and refuses revoked captures at 1440px -> FAIL timeout 240001.363664ms on replay / FAIL timeout 240001.363291ms on main 67b706484e5430012d9c154c1e14090ea1e49bc2.
+Default applied: the desktop failure also reproduces on fresh main, so push the candidate unchanged. The phone failure does not reproduce on either tree. Every assertion and deadline is retained.

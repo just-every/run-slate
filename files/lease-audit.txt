@@ -1,0 +1,1 @@
+Exactly the original 10 candidate files differ from current main. No assertion, test registration, deadline, ID-MAP or unrelated clause row removed or weakened. Shared HTTP conflict retains candidate relation assertions and main chart assertions.

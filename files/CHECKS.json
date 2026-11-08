@@ -1,0 +1,163 @@
+{
+  "tag": "sd-slate-c-f174-fix2",
+  "repository": "just-every/run-slate",
+  "branch": "cloud/sd-slate-c-f174-fix2",
+  "original_candidate": "1cdf1136e9c96585ff79237cc00f24c3fe0f396d",
+  "main": "67b706484e5430012d9c154c1e14090ea1e49bc2",
+  "head": "4ea9e00db5dd4980edc6f9e306850181dcf489aa",
+  "parents": [
+    "1cdf1136e9c96585ff79237cc00f24c3fe0f396d",
+    "67b706484e5430012d9c154c1e14090ea1e49bc2"
+  ],
+  "product_push": {
+    "status": "success",
+    "attempt": 1,
+    "ref": "refs/heads/cloud/sd-slate-c-f174-fix2"
+  },
+  "pr": null,
+  "contract": {
+    "DB-002": {
+      "before": "partial",
+      "after": "partial",
+      "change": "supporting evidence and remaining gaps only"
+    }
+  },
+  "counts_before": {
+    "done": 57,
+    "partial": 240,
+    "missing": 41,
+    "total": 338
+  },
+  "counts_after": {
+    "done": 57,
+    "partial": 240,
+    "missing": 41,
+    "total": 338
+  },
+  "local_checks": [
+    {
+      "command": "pnpm typecheck",
+      "exit": 0
+    },
+    {
+      "command": "pnpm exec vitest run tests/flagship/structured/http.test.ts",
+      "exit": 0,
+      "tests_passed": 2,
+      "seconds": 22.56
+    },
+    {
+      "command": "recordDetailJourney existing body at 1440px",
+      "exit": 0,
+      "milliseconds": 121581
+    },
+    {
+      "command": "recordDetailJourney existing body at 390px",
+      "exit": 0,
+      "milliseconds": 87492
+    },
+    {
+      "command": "node src/base/runtime/contract-docs.mjs write",
+      "exit": 0
+    },
+    {
+      "command": "node src/base/runtime/contract-docs.mjs check (before restoring views)",
+      "exit": 0
+    },
+    {
+      "command": "pnpm integration:sync",
+      "exit": 0
+    },
+    {
+      "command": "pnpm check:contract",
+      "exit": 0
+    },
+    {
+      "command": "pnpm source:lock",
+      "exit": 0
+    },
+    {
+      "command": "pnpm source:check",
+      "exit": 0
+    },
+    {
+      "command": "node scripts/publish-check.mjs",
+      "exit": 0
+    },
+    {
+      "command": "npx -y @runeditrun/rer build (committed candidate)",
+      "exit": 0
+    },
+    {
+      "command": "existing relationRecordsJourney on committed candidate at 1440px and 390px",
+      "exit": 0
+    }
+  ],
+  "ui_comparison": [
+    {
+      "test": "space tree title filtering preserves ancestors, access and expansion at 390px",
+      "replay": {
+        "status": "passed",
+        "milliseconds": 353071.738642
+      },
+      "main": {
+        "status": "passed",
+        "milliseconds": 348475.747652
+      },
+      "deadline_ms": 420000
+    },
+    {
+      "test": "native ordinary page full authority retains inventories and refuses revoked captures at 1440px",
+      "replay": {
+        "status": "failed",
+        "reason": "testTimeoutFailure",
+        "milliseconds": 240001.363664
+      },
+      "main": {
+        "status": "failed",
+        "reason": "testTimeoutFailure",
+        "milliseconds": 240001.363291
+      },
+      "deadline_ms": 240000
+    }
+  ],
+  "default_applied": "The desktop failure also occurs on fresh main; publish the unchanged candidate under the brief explicit default. The phone assertion passes on both trees.",
+  "assertions_preserved": true,
+  "new_registrations": 0,
+  "main_statuses_preserved": 338,
+  "ID_MAP_unchanged": true,
+  "views_restored": [
+    "ACCEPTANCE.md",
+    "docs/CLAIMS.md"
+  ],
+  "views_in_product_diff": false,
+  "github": {
+    "conclusion": "failure",
+    "head_sha": "4ea9e00db5dd4980edc6f9e306850181dcf489aa",
+    "html_url": "https://github.com/just-every/run-slate/actions/runs/42478755613",
+    "status": "completed",
+    "run_id": 42478755613,
+    "api_calls_used": 5,
+    "failed_jobs": [
+      {
+        "id": 128725884929,
+        "name": "verify (app)"
+      },
+      {
+        "id": 128726027654,
+        "name": "verify"
+      }
+    ],
+    "underlying_failure": "ACCEPTANCE.md generated view differs; exact-SHA app job stopped at contract-docs check",
+    "ready_exception": "Explicit generated-view-only READY contract; aggregate failure and dependent skips follow app check"
+  },
+  "landing_claim": false,
+  "hold_release": false,
+  "ui_probe_commands_exit": {
+    "replay": 1,
+    "main": 1
+  },
+  "final_browser_receipt": "browser-receipt.json",
+  "custody_status": "READY under generated-view-only exception",
+  "blockers": [],
+  "baseline_limitation": "Both replay and fresh main exceed the unchanged full-authority 240-second local deadline; not claimed passing."
+}

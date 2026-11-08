@@ -1,0 +1,282 @@
+[
+  {
+    "file": "1440-relation-configured-database.png",
+    "sha256": "befea219449d1e91478ba792cc6f7ad146cb1ac4109a06776bf3205f2bc652cd",
+    "state": "relation configured database",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "url": "http://127.0.0.1:39487/app/databases/01M6XH26JCWD5TVWYRR0JQZ9ZD",
+    "artifact": {
+      "schema": 1,
+      "commit": "4ea9e00db5dd4980edc6f9e306850181dcf489aa",
+      "tree": "a02f289a463c585691cc13f6352729efd65a89d0",
+      "sourceSha256": "1fc0d242664afc78818d45e51263048b66dddbb7496740f62f4efedd33bf38e1",
+      "lockSha256": "4f7c2763b229c676217b6617c65be6a321db2bc6c7c432ebedef7aac84a0653b",
+      "outputSha256": "342cf50838fd9248797bf0144bca524c7161d3d8d54952373ce2ba5fc252db66"
+    },
+    "horizontal_overflow": false,
+    "serious_or_critical_violations": []
+  },
+  {
+    "file": "1440-relation-field-keyboard-tooltip.png",
+    "sha256": "e95a030c508e89ffaf587bc0b9bd942d0b3d05733f96e225e626e5446f3b71c4",
+    "state": "relation field keyboard tooltip",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "url": "http://127.0.0.1:39487/app/databases/01M6XH26JCWD5TVWYRR0JQZ9ZD",
+    "artifact": {
+      "schema": 1,
+      "commit": "4ea9e00db5dd4980edc6f9e306850181dcf489aa",
+      "tree": "a02f289a463c585691cc13f6352729efd65a89d0",
+      "sourceSha256": "1fc0d242664afc78818d45e51263048b66dddbb7496740f62f4efedd33bf38e1",
+      "lockSha256": "4f7c2763b229c676217b6617c65be6a321db2bc6c7c432ebedef7aac84a0653b",
+      "outputSha256": "342cf50838fd9248797bf0144bca524c7161d3d8d54952373ce2ba5fc252db66"
+    },
+    "horizontal_overflow": false,
+    "serious_or_critical_violations": []
+  },
+  {
+    "file": "1440-relation-multiple-target-picker.png",
+    "sha256": "e4e83e2dba6b1968f6596083e072d97a04a71f58afb4ebbd89d8ba9558c761e8",
+    "state": "relation multiple target picker",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "url": "http://127.0.0.1:39487/app/databases/01M6XH26JCWD5TVWYRR0JQZ9ZD/records/01M6XH26SAZM9YYDKKMVC8DE6N",
+    "artifact": {
+      "schema": 1,
+      "commit": "4ea9e00db5dd4980edc6f9e306850181dcf489aa",
+      "tree": "a02f289a463c585691cc13f6352729efd65a89d0",
+      "sourceSha256": "1fc0d242664afc78818d45e51263048b66dddbb7496740f62f4efedd33bf38e1",
+      "lockSha256": "4f7c2763b229c676217b6617c65be6a321db2bc6c7c432ebedef7aac84a0653b",
+      "outputSha256": "342cf50838fd9248797bf0144bca524c7161d3d8d54952373ce2ba5fc252db66"
+    },
+    "horizontal_overflow": false,
+    "serious_or_critical_violations": []
+  },
+  {
+    "file": "1440-relation-retained-multiple-records.png",
+    "sha256": "b4ac06424997cbb740864b57a470d4b9c50f96f393399f4fd7d880e1a5f20414",
+    "state": "relation retained multiple records",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "url": "http://127.0.0.1:39487/app/databases/01M6XH26JCWD5TVWYRR0JQZ9ZD/records/01M6XH26SAZM9YYDKKMVC8DE6N",
+    "artifact": {
+      "schema": 1,
+      "commit": "4ea9e00db5dd4980edc6f9e306850181dcf489aa",
+      "tree": "a02f289a463c585691cc13f6352729efd65a89d0",
+      "sourceSha256": "1fc0d242664afc78818d45e51263048b66dddbb7496740f62f4efedd33bf38e1",
+      "lockSha256": "4f7c2763b229c676217b6617c65be6a321db2bc6c7c432ebedef7aac84a0653b",
+      "outputSha256": "342cf50838fd9248797bf0144bca524c7161d3d8d54952373ce2ba5fc252db66"
+    },
+    "horizontal_overflow": false,
+    "serious_or_critical_violations": []
+  },
+  {
+    "file": "1440-relation-follows-retained-renamed-record.png",
+    "sha256": "99f59d76baecb214b71f1a8bb92a2680b90aa29ca34ad51cea278eb5b7cafdce",
+    "state": "relation follows retained renamed record",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "url": "http://127.0.0.1:39487/app/databases/01M6XH26M5EVGVEBQNPNP0JV2S/records/01M6XH26P6969473MBCBXJXHXD",
+    "artifact": {
+      "schema": 1,
+      "commit": "4ea9e00db5dd4980edc6f9e306850181dcf489aa",
+      "tree": "a02f289a463c585691cc13f6352729efd65a89d0",
+      "sourceSha256": "1fc0d242664afc78818d45e51263048b66dddbb7496740f62f4efedd33bf38e1",
+      "lockSha256": "4f7c2763b229c676217b6617c65be6a321db2bc6c7c432ebedef7aac84a0653b",
+      "outputSha256": "342cf50838fd9248797bf0144bca524c7161d3d8d54952373ce2ba5fc252db66"
+    },
+    "horizontal_overflow": false,
+    "serious_or_critical_violations": []
+  },
+  {
+    "file": "1440-relation-current-reader-after-revocation.png",
+    "sha256": "eee37bea1a45a78c247d69c909e96e8131d9f3d40b7f3f33b8417ffae0db2dbc",
+    "state": "relation current reader after revocation",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "url": "http://127.0.0.1:39487/app/databases/01M6XH26JCWD5TVWYRR0JQZ9ZD/records/01M6XH26SAZM9YYDKKMVC8DE6N",
+    "artifact": {
+      "schema": 1,
+      "commit": "4ea9e00db5dd4980edc6f9e306850181dcf489aa",
+      "tree": "a02f289a463c585691cc13f6352729efd65a89d0",
+      "sourceSha256": "1fc0d242664afc78818d45e51263048b66dddbb7496740f62f4efedd33bf38e1",
+      "lockSha256": "4f7c2763b229c676217b6617c65be6a321db2bc6c7c432ebedef7aac84a0653b",
+      "outputSha256": "342cf50838fd9248797bf0144bca524c7161d3d8d54952373ce2ba5fc252db66"
+    },
+    "horizontal_overflow": false,
+    "serious_or_critical_violations": []
+  },
+  {
+    "file": "1440-relation-reader-safe-picker-after-revocation.png",
+    "sha256": "4a109d1dc2d54ac32efbcca9abded7610d54ace48786533ce7d73f18e4cbbafa",
+    "state": "relation reader safe picker after revocation",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "url": "http://127.0.0.1:39487/app/databases/01M6XH26JCWD5TVWYRR0JQZ9ZD/records/01M6XH26SAZM9YYDKKMVC8DE6N",
+    "artifact": {
+      "schema": 1,
+      "commit": "4ea9e00db5dd4980edc6f9e306850181dcf489aa",
+      "tree": "a02f289a463c585691cc13f6352729efd65a89d0",
+      "sourceSha256": "1fc0d242664afc78818d45e51263048b66dddbb7496740f62f4efedd33bf38e1",
+      "lockSha256": "4f7c2763b229c676217b6617c65be6a321db2bc6c7c432ebedef7aac84a0653b",
+      "outputSha256": "342cf50838fd9248797bf0144bca524c7161d3d8d54952373ce2ba5fc252db66"
+    },
+    "horizontal_overflow": false,
+    "serious_or_critical_violations": []
+  },
+  {
+    "file": "390-relation-configured-database.png",
+    "sha256": "9648ee04bf770beacb7111ec941c539264e1613dad1fe559d0cd5ae7377a9758",
+    "state": "relation configured database",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "url": "http://127.0.0.1:35303/app/databases/01M6XH46V8N7C1THFJ6B2JP3ES",
+    "artifact": {
+      "schema": 1,
+      "commit": "4ea9e00db5dd4980edc6f9e306850181dcf489aa",
+      "tree": "a02f289a463c585691cc13f6352729efd65a89d0",
+      "sourceSha256": "1fc0d242664afc78818d45e51263048b66dddbb7496740f62f4efedd33bf38e1",
+      "lockSha256": "4f7c2763b229c676217b6617c65be6a321db2bc6c7c432ebedef7aac84a0653b",
+      "outputSha256": "342cf50838fd9248797bf0144bca524c7161d3d8d54952373ce2ba5fc252db66"
+    },
+    "horizontal_overflow": false,
+    "serious_or_critical_violations": []
+  },
+  {
+    "file": "390-relation-field-keyboard-tooltip.png",
+    "sha256": "09e1b684b76122d7030de5006f1de1a1c17cfc7ab8fe4a4755f8cba0a83cdcb9",
+    "state": "relation field keyboard tooltip",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "url": "http://127.0.0.1:35303/app/databases/01M6XH46V8N7C1THFJ6B2JP3ES",
+    "artifact": {
+      "schema": 1,
+      "commit": "4ea9e00db5dd4980edc6f9e306850181dcf489aa",
+      "tree": "a02f289a463c585691cc13f6352729efd65a89d0",
+      "sourceSha256": "1fc0d242664afc78818d45e51263048b66dddbb7496740f62f4efedd33bf38e1",
+      "lockSha256": "4f7c2763b229c676217b6617c65be6a321db2bc6c7c432ebedef7aac84a0653b",
+      "outputSha256": "342cf50838fd9248797bf0144bca524c7161d3d8d54952373ce2ba5fc252db66"
+    },
+    "horizontal_overflow": false,
+    "serious_or_critical_violations": []
+  },
+  {
+    "file": "390-relation-multiple-target-picker.png",
+    "sha256": "f5ccbc1cef5924975f7b52e9a7cddf1c930390b13f86e3e662d944ec312f8fb3",
+    "state": "relation multiple target picker",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "url": "http://127.0.0.1:35303/app/databases/01M6XH46V8N7C1THFJ6B2JP3ES/records/01M6XH471HJ12ZSCVTK6HH0QT6",
+    "artifact": {
+      "schema": 1,
+      "commit": "4ea9e00db5dd4980edc6f9e306850181dcf489aa",
+      "tree": "a02f289a463c585691cc13f6352729efd65a89d0",
+      "sourceSha256": "1fc0d242664afc78818d45e51263048b66dddbb7496740f62f4efedd33bf38e1",
+      "lockSha256": "4f7c2763b229c676217b6617c65be6a321db2bc6c7c432ebedef7aac84a0653b",
+      "outputSha256": "342cf50838fd9248797bf0144bca524c7161d3d8d54952373ce2ba5fc252db66"
+    },
+    "horizontal_overflow": false,
+    "serious_or_critical_violations": []
+  },
+  {
+    "file": "390-relation-retained-multiple-records.png",
+    "sha256": "682538252ded569ed17bb6dd4b27ea4933e4df59a6067ed7c51170b7c73340a7",
+    "state": "relation retained multiple records",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "url": "http://127.0.0.1:35303/app/databases/01M6XH46V8N7C1THFJ6B2JP3ES/records/01M6XH471HJ12ZSCVTK6HH0QT6",
+    "artifact": {
+      "schema": 1,
+      "commit": "4ea9e00db5dd4980edc6f9e306850181dcf489aa",
+      "tree": "a02f289a463c585691cc13f6352729efd65a89d0",
+      "sourceSha256": "1fc0d242664afc78818d45e51263048b66dddbb7496740f62f4efedd33bf38e1",
+      "lockSha256": "4f7c2763b229c676217b6617c65be6a321db2bc6c7c432ebedef7aac84a0653b",
+      "outputSha256": "342cf50838fd9248797bf0144bca524c7161d3d8d54952373ce2ba5fc252db66"
+    },
+    "horizontal_overflow": false,
+    "serious_or_critical_violations": []
+  },
+  {
+    "file": "390-relation-follows-retained-renamed-record.png",
+    "sha256": "c1a317475958bda6a3f9352df4746d8c2069b96eac2c8eb1cecc547eada21cb5",
+    "state": "relation follows retained renamed record",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "url": "http://127.0.0.1:35303/app/databases/01M6XH46WS0EV95ANY33Y9PYBV/records/01M6XH46YJ4RXTR0MD06E0EYHV",
+    "artifact": {
+      "schema": 1,
+      "commit": "4ea9e00db5dd4980edc6f9e306850181dcf489aa",
+      "tree": "a02f289a463c585691cc13f6352729efd65a89d0",
+      "sourceSha256": "1fc0d242664afc78818d45e51263048b66dddbb7496740f62f4efedd33bf38e1",
+      "lockSha256": "4f7c2763b229c676217b6617c65be6a321db2bc6c7c432ebedef7aac84a0653b",
+      "outputSha256": "342cf50838fd9248797bf0144bca524c7161d3d8d54952373ce2ba5fc252db66"
+    },
+    "horizontal_overflow": false,
+    "serious_or_critical_violations": []
+  },
+  {
+    "file": "390-relation-current-reader-after-revocation.png",
+    "sha256": "a39785ae369a4a15ade7ea80c08ac279751fbea93e6ade511225543329db6cd4",
+    "state": "relation current reader after revocation",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "url": "http://127.0.0.1:35303/app/databases/01M6XH46V8N7C1THFJ6B2JP3ES/records/01M6XH471HJ12ZSCVTK6HH0QT6",
+    "artifact": {
+      "schema": 1,
+      "commit": "4ea9e00db5dd4980edc6f9e306850181dcf489aa",
+      "tree": "a02f289a463c585691cc13f6352729efd65a89d0",
+      "sourceSha256": "1fc0d242664afc78818d45e51263048b66dddbb7496740f62f4efedd33bf38e1",
+      "lockSha256": "4f7c2763b229c676217b6617c65be6a321db2bc6c7c432ebedef7aac84a0653b",
+      "outputSha256": "342cf50838fd9248797bf0144bca524c7161d3d8d54952373ce2ba5fc252db66"
+    },
+    "horizontal_overflow": false,
+    "serious_or_critical_violations": []
+  },
+  {
+    "file": "390-relation-reader-safe-picker-after-revocation.png",
+    "sha256": "947817a75de4778db025b29b7d4fc7c54d1246e5fec251e8733922b683323659",
+    "state": "relation reader safe picker after revocation",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "url": "http://127.0.0.1:35303/app/databases/01M6XH46V8N7C1THFJ6B2JP3ES/records/01M6XH471HJ12ZSCVTK6HH0QT6",
+    "artifact": {
+      "schema": 1,
+      "commit": "4ea9e00db5dd4980edc6f9e306850181dcf489aa",
+      "tree": "a02f289a463c585691cc13f6352729efd65a89d0",
+      "sourceSha256": "1fc0d242664afc78818d45e51263048b66dddbb7496740f62f4efedd33bf38e1",
+      "lockSha256": "4f7c2763b229c676217b6617c65be6a321db2bc6c7c432ebedef7aac84a0653b",
+      "outputSha256": "342cf50838fd9248797bf0144bca524c7161d3d8d54952373ce2ba5fc252db66"
+    },
+    "horizontal_overflow": false,
+    "serious_or_critical_violations": []
+  }
+]
