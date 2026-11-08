@@ -1,0 +1,1402 @@
+{
+  "redactedPageIds": [
+    "01M6Y6S0NJKZ8C4D02JD4RM0P9",
+    "01M6Y6RWCRSJYSKG55X9Q93VRT",
+    "01M6Y6RZN537XA8JH3Q43FPJ55"
+  ],
+  "receipts": [
+    {
+      "family": "container member grant",
+      "action": "sharing.grant",
+      "actorId": "01M6Y6RW18VDCKQS7MZCDG8WPC",
+      "target": {
+        "kind": "container",
+        "id": "01M6Y6RW2KZ23XKJZ7P2NESPH0"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6RW39RG2MF3N45B2YW3P4",
+        "entity": {
+          "id": "01M6Y6RW2KZ23XKJZ7P2NESPH0",
+          "kind": "container",
+          "revisionId": "01M6Y6RW3FR31X55RSPD28KQXX"
+        },
+        "revisionId": "01M6Y6RW3FR31X55RSPD28KQXX",
+        "activityId": "01M6Y6RW3F23V7A3KXGXD0NFMN",
+        "committedAt": "2026-11-08T18:29:45.708Z"
+      }
+    },
+    {
+      "family": "container grant change",
+      "action": "sharing.grant",
+      "actorId": "01M6Y6RW18VDCKQS7MZCDG8WPC",
+      "target": {
+        "kind": "container",
+        "id": "01M6Y6RW2KZ23XKJZ7P2NESPH0"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6RW4M0N5YTXTTFXSNH6F0",
+        "entity": {
+          "id": "01M6Y6RW2KZ23XKJZ7P2NESPH0",
+          "kind": "container",
+          "revisionId": "01M6Y6RW4RB747QNDAETQJ4GXB"
+        },
+        "revisionId": "01M6Y6RW4RB747QNDAETQJ4GXB",
+        "activityId": "01M6Y6RW4RYB60A71RKBX5M3J4",
+        "committedAt": "2026-11-08T18:29:45.750Z"
+      }
+    },
+    {
+      "family": "container grant change",
+      "action": "sharing.grant",
+      "actorId": "01M6Y6RW18VDCKQS7MZCDG8WPC",
+      "target": {
+        "kind": "container",
+        "id": "01M6Y6RW2KZ23XKJZ7P2NESPH0"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6RW5SBCYFHZG0C1PHDBDJ",
+        "entity": {
+          "id": "01M6Y6RW2KZ23XKJZ7P2NESPH0",
+          "kind": "container",
+          "revisionId": "01M6Y6RW5XZAHB6ZAP8D2CZHGT"
+        },
+        "revisionId": "01M6Y6RW5XZAHB6ZAP8D2CZHGT",
+        "activityId": "01M6Y6RW5X1SM15Z459TPAXERC",
+        "committedAt": "2026-11-08T18:29:45.788Z"
+      }
+    },
+    {
+      "family": "page creation",
+      "action": "pages.create",
+      "actorId": "01M6Y6RW19WF8TJFYN7G0Z8V88",
+      "target": {
+        "kind": "page",
+        "id": "01M6Y6RW75HGPCTNDQ0682M38K"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6RW72E5F4YWB4VB65GSKN",
+        "entity": {
+          "id": "01M6Y6RW75HGPCTNDQ0682M38K",
+          "kind": "page",
+          "revisionId": "01M6Y6RW75C515QPAM5HBH8CX3"
+        },
+        "revisionId": "01M6Y6RW75C515QPAM5HBH8CX3",
+        "activityId": "01M6Y6RW757H1QBY2K0CAXJ56T",
+        "committedAt": "2026-11-08T18:29:45.828Z"
+      }
+    },
+    {
+      "family": "member body change",
+      "action": "pages.blocks.replace",
+      "actorId": "01M6Y6RW19WF8TJFYN7G0Z8V88",
+      "target": {
+        "kind": "page",
+        "id": "01M6Y6RW75HGPCTNDQ0682M38K"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6RW856SKBWJD18949C0VY",
+        "entity": {
+          "id": "01M6Y6RW75HGPCTNDQ0682M38K",
+          "kind": "page",
+          "revisionId": "01M6Y6RW88M0CNR5MS17P6G1BM"
+        },
+        "revisionId": "01M6Y6RW88M0CNR5MS17P6G1BM",
+        "activityId": "01M6Y6RW88510SRK2PH9TXSGEM",
+        "committedAt": "2026-11-08T18:29:45.863Z"
+      }
+    },
+    {
+      "family": "owner property change",
+      "action": "pages.update",
+      "actorId": "01M6Y6RW18VDCKQS7MZCDG8WPC",
+      "target": {
+        "kind": "page",
+        "id": "01M6Y6RW75HGPCTNDQ0682M38K"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6RW9MQ05A5CA2SZCX5THF",
+        "entity": {
+          "id": "01M6Y6RW75HGPCTNDQ0682M38K",
+          "kind": "page",
+          "revisionId": "01M6Y6RW9T1EHCK8ZHN7BK9DG7"
+        },
+        "revisionId": "01M6Y6RW9T1EHCK8ZHN7BK9DG7",
+        "activityId": "01M6Y6RW9TQ42MV6FJ5FPS36M5",
+        "committedAt": "2026-11-08T18:29:45.911Z"
+      }
+    },
+    {
+      "family": "container creation",
+      "action": "containers.create",
+      "actorId": "01M6Y6RW18VDCKQS7MZCDG8WPC",
+      "target": {
+        "kind": "container",
+        "id": "01M6Y6RWCRN9N3S6V36FTQTNE6"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6RWCN077EKSRPVVY6MDTR",
+        "entity": {
+          "id": "01M6Y6RWCRN9N3S6V36FTQTNE6",
+          "kind": "container",
+          "revisionId": "01M6Y6RWCRPWQDZ42TKGW6F539"
+        },
+        "revisionId": "01M6Y6RWCRPWQDZ42TKGW6F539",
+        "activityId": "01M6Y6RWCRGR47HCV15147RFEK",
+        "committedAt": "2026-11-08T18:29:46.007Z"
+      }
+    },
+    {
+      "family": "container change",
+      "action": "containers.update",
+      "actorId": "01M6Y6RW18VDCKQS7MZCDG8WPC",
+      "target": {
+        "kind": "container",
+        "id": "01M6Y6RWCRN9N3S6V36FTQTNE6"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6RWDVY17XR7RAM6WGFP2G",
+        "entity": {
+          "id": "01M6Y6RWCRN9N3S6V36FTQTNE6",
+          "kind": "container",
+          "revisionId": "01M6Y6RWDZWX8E8SCQMPFFNT7A"
+        },
+        "revisionId": "01M6Y6RWDZWX8E8SCQMPFFNT7A",
+        "activityId": "01M6Y6RWDZ353RD9M4Z0XARR9Q",
+        "committedAt": "2026-11-08T18:29:46.045Z"
+      }
+    },
+    {
+      "family": "page move",
+      "action": "pages.move",
+      "actorId": "01M6Y6RW18VDCKQS7MZCDG8WPC",
+      "target": {
+        "kind": "page",
+        "id": "01M6Y6RW75HGPCTNDQ0682M38K"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6RWFEXYBH1YD6NH5BJW2E",
+        "entity": {
+          "id": "01M6Y6RW75HGPCTNDQ0682M38K",
+          "kind": "page",
+          "revisionId": "01M6Y6RWFPNK12G6WFB4VJP4YP"
+        },
+        "revisionId": "01M6Y6RWFPNK12G6WFB4VJP4YP",
+        "activityId": "01M6Y6RWFPXYWGMQT0NJFNDPBJ",
+        "committedAt": "2026-11-08T18:29:46.097Z"
+      }
+    },
+    {
+      "family": "page move back",
+      "action": "pages.move",
+      "actorId": "01M6Y6RW18VDCKQS7MZCDG8WPC",
+      "target": {
+        "kind": "page",
+        "id": "01M6Y6RW75HGPCTNDQ0682M38K"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6RWJ2RHJAWRV29DVB9180",
+        "entity": {
+          "id": "01M6Y6RW75HGPCTNDQ0682M38K",
+          "kind": "page",
+          "revisionId": "01M6Y6RWJ987KRM21VC3Q0K0VN"
+        },
+        "revisionId": "01M6Y6RWJ987KRM21VC3Q0K0VN",
+        "activityId": "01M6Y6RWJ9TCZ352J6F2WB3F29",
+        "committedAt": "2026-11-08T18:29:46.180Z"
+      }
+    },
+    {
+      "family": "coverage policies",
+      "action": "workspace.update",
+      "actorId": "01M6Y6RW18VDCKQS7MZCDG8WPC",
+      "target": {
+        "kind": "workspace",
+        "id": "01M6Y6RW0YTS91D9SY1KA2GH9Y"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6RWKZBQWXRHWADC9NH4N5",
+        "entity": {
+          "id": "01M6Y6RW0YTS91D9SY1KA2GH9Y",
+          "kind": "workspace",
+          "revisionId": "01M6Y6RWM3YSRF42WW4HM4EJ4T"
+        },
+        "revisionId": "01M6Y6RWM3YSRF42WW4HM4EJ4T",
+        "activityId": "01M6Y6RWM3M04XPZ4F7PWGGPQE",
+        "committedAt": "2026-11-08T18:29:46.241Z"
+      }
+    },
+    {
+      "family": "page publication",
+      "action": "pages.publish",
+      "actorId": "01M6Y6RW19WF8TJFYN7G0Z8V88",
+      "target": {
+        "kind": "page",
+        "id": "01M6Y6RW75HGPCTNDQ0682M38K"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6RWN1K9K7685YCZD53NS3",
+        "entity": {
+          "id": "01M6Y6RW75HGPCTNDQ0682M38K",
+          "kind": "page",
+          "revisionId": "01M6Y6RWN88FSAMHDAK3NKADPK"
+        },
+        "revisionId": "01M6Y6RWN88FSAMHDAK3NKADPK",
+        "activityId": "01M6Y6RWN8SEY2NCP79WCFN7RS",
+        "committedAt": "2026-11-08T18:29:46.275Z"
+      }
+    },
+    {
+      "family": "page external access",
+      "action": "publishing.publish",
+      "actorId": "01M6Y6RW19WF8TJFYN7G0Z8V88",
+      "target": {
+        "kind": "page",
+        "id": "01M6Y6RW75HGPCTNDQ0682M38K"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6RWPKX6N741P1V4QFT2GF",
+        "entity": {
+          "id": "01M6Y6RW75HGPCTNDQ0682M38K",
+          "kind": "page",
+          "revisionId": "01M6Y6RWN88FSAMHDAK3NKADPK"
+        },
+        "revisionId": "01M6Y6RWN88FSAMHDAK3NKADPK",
+        "activityId": "01M6Y6RWPPXTF8K4R1P7BK82YK",
+        "committedAt": "2026-11-08T18:29:46.324Z"
+      }
+    },
+    {
+      "family": "page unpublish external access",
+      "action": "publishing.revoke",
+      "actorId": "01M6Y6RW19WF8TJFYN7G0Z8V88",
+      "target": {
+        "kind": "page",
+        "id": "01M6Y6RW75HGPCTNDQ0682M38K"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6RWQFK4NVN7ZNQA8XK64A",
+        "entity": {
+          "id": "01M6Y6RW75HGPCTNDQ0682M38K",
+          "kind": "page",
+          "revisionId": "01M6Y6RWN88FSAMHDAK3NKADPK"
+        },
+        "revisionId": "01M6Y6RWN88FSAMHDAK3NKADPK",
+        "activityId": "01M6Y6RWQJBD475Y27CZNY11N1",
+        "committedAt": "2026-11-08T18:29:46.353Z"
+      }
+    },
+    {
+      "family": "page unpublication",
+      "action": "pages.unpublish",
+      "actorId": "01M6Y6RW19WF8TJFYN7G0Z8V88",
+      "target": {
+        "kind": "page",
+        "id": "01M6Y6RW75HGPCTNDQ0682M38K"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6RWRRA7ZC21GPAKQ6K3HG",
+        "entity": {
+          "id": "01M6Y6RW75HGPCTNDQ0682M38K",
+          "kind": "page",
+          "revisionId": "01M6Y6RWRW79R1QPMHG4HX84HA"
+        },
+        "revisionId": "01M6Y6RWRW79R1QPMHG4HX84HA",
+        "activityId": "01M6Y6RWRWFWMQ4PKJ4XK9NS1R",
+        "committedAt": "2026-11-08T18:29:46.394Z"
+      }
+    },
+    {
+      "family": "page republication",
+      "action": "pages.publish",
+      "actorId": "01M6Y6RW19WF8TJFYN7G0Z8V88",
+      "target": {
+        "kind": "page",
+        "id": "01M6Y6RW75HGPCTNDQ0682M38K"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6RWT5RF6M3XVDX570Z351",
+        "entity": {
+          "id": "01M6Y6RW75HGPCTNDQ0682M38K",
+          "kind": "page",
+          "revisionId": "01M6Y6RWTAZEGHQ40HSDH4CY41"
+        },
+        "revisionId": "01M6Y6RWTAZEGHQ40HSDH4CY41",
+        "activityId": "01M6Y6RWTB450RP31HNX31BGER",
+        "committedAt": "2026-11-08T18:29:46.439Z"
+      }
+    },
+    {
+      "family": "container external access",
+      "action": "container.access-settings",
+      "actorId": "01M6Y6RW18VDCKQS7MZCDG8WPC",
+      "target": {
+        "kind": "container",
+        "id": "01M6Y6RW2KZ23XKJZ7P2NESPH0"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6RWW5BYC5DR7FC8BJ1Z51",
+        "entity": {
+          "id": "01M6Y6RW2KZ23XKJZ7P2NESPH0",
+          "kind": "container",
+          "revisionId": "01M6Y6RWW9NXFR64HH59410DED"
+        },
+        "revisionId": "01M6Y6RWW9NXFR64HH59410DED",
+        "activityId": "01M6Y6RWW92EM7Q756A1KF590N",
+        "committedAt": "2026-11-08T18:29:46.503Z"
+      }
+    },
+    {
+      "family": "page status change",
+      "action": "pages.status",
+      "actorId": "01M6Y6RW19WF8TJFYN7G0Z8V88",
+      "target": {
+        "kind": "page",
+        "id": "01M6Y6RW75HGPCTNDQ0682M38K"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6RWXH92ES5716MES6N430",
+        "entity": {
+          "id": "01M6Y6RW75HGPCTNDQ0682M38K",
+          "kind": "page",
+          "revisionId": "01M6Y6RWY426RYA96TX9VXZVYT"
+        },
+        "revisionId": "01M6Y6RWY426RYA96TX9VXZVYT",
+        "activityId": "01M6Y6RWY481N9FERB67CRWD9G",
+        "committedAt": "2026-11-08T18:29:46.549Z"
+      }
+    },
+    {
+      "family": "page verification change",
+      "action": "pages.status",
+      "actorId": "01M6Y6RW19WF8TJFYN7G0Z8V88",
+      "target": {
+        "kind": "page",
+        "id": "01M6Y6RW75HGPCTNDQ0682M38K"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6RWZXWTMRT3JY77133EK8",
+        "entity": {
+          "id": "01M6Y6RW75HGPCTNDQ0682M38K",
+          "kind": "page",
+          "revisionId": "01M6Y6RX00991DZ607X2KK67N0"
+        },
+        "revisionId": "01M6Y6RX00991DZ607X2KK67N0",
+        "activityId": "01M6Y6RX00718BR08W5JC9669G",
+        "committedAt": "2026-11-08T18:29:46.623Z"
+      }
+    },
+    {
+      "family": "page grant",
+      "action": "sharing.grant",
+      "actorId": "01M6Y6RW18VDCKQS7MZCDG8WPC",
+      "target": {
+        "kind": "page",
+        "id": "01M6Y6RW75HGPCTNDQ0682M38K"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6RX134QNH5P15788C0S74",
+        "entity": {
+          "id": "01M6Y6RW75HGPCTNDQ0682M38K",
+          "kind": "page",
+          "revisionId": "01M6Y6RX17EB34HFAP4E0PMYHE"
+        },
+        "revisionId": "01M6Y6RX17EB34HFAP4E0PMYHE",
+        "activityId": "01M6Y6RX1711HM2401HQD3X75J",
+        "committedAt": "2026-11-08T18:29:46.661Z"
+      }
+    },
+    {
+      "family": "page grant revoke",
+      "action": "sharing.grant",
+      "actorId": "01M6Y6RW18VDCKQS7MZCDG8WPC",
+      "target": {
+        "kind": "page",
+        "id": "01M6Y6RW75HGPCTNDQ0682M38K"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6RX2CQQYGFKMPNTVK1SVD",
+        "entity": {
+          "id": "01M6Y6RW75HGPCTNDQ0682M38K",
+          "kind": "page",
+          "revisionId": "01M6Y6RX30KBT88FFEMTHJ0J97"
+        },
+        "revisionId": "01M6Y6RX30KBT88FFEMTHJ0J97",
+        "activityId": "01M6Y6RX30T5MA6T97YRRN8HJR",
+        "committedAt": "2026-11-08T18:29:46.702Z"
+      }
+    },
+    {
+      "family": "comment creation",
+      "action": "comments.create",
+      "actorId": "01M6Y6RW19WF8TJFYN7G0Z8V88",
+      "target": {
+        "kind": "comment-thread",
+        "id": "01M6Y6RX405EGV0MG7PRZBKCNX"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6RX3RBHJ9P6G95M60V1QP",
+        "entity": {
+          "id": "01M6Y6RX405EGV0MG7PRZBKCNX",
+          "kind": "comment-thread",
+          "revisionId": "01M6Y6RX3VXDNBJKVM2DEBKH89"
+        },
+        "revisionId": "01M6Y6RX3VXDNBJKVM2DEBKH89",
+        "activityId": "01M6Y6RX3V31JREMBYF5NWGPPJ",
+        "committedAt": "2026-11-08T18:29:46.746Z"
+      }
+    },
+    {
+      "family": "comment editing",
+      "action": "comments.edit",
+      "actorId": "01M6Y6RW19WF8TJFYN7G0Z8V88",
+      "target": {
+        "kind": "comment-thread",
+        "id": "01M6Y6RX405EGV0MG7PRZBKCNX"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6RX4XEXCPZFFNV49AEBMD",
+        "entity": {
+          "id": "01M6Y6RX405EGV0MG7PRZBKCNX",
+          "kind": "comment-thread",
+          "revisionId": "01M6Y6RX51SQ1YFEBYY27A0X5W"
+        },
+        "revisionId": "01M6Y6RX51SQ1YFEBYY27A0X5W",
+        "activityId": "01M6Y6RX51BV7ZYPCND4MM5CZJ",
+        "committedAt": "2026-11-08T18:29:46.783Z"
+      }
+    },
+    {
+      "family": "comment resolution",
+      "action": "comments.resolve",
+      "actorId": "01M6Y6RW18VDCKQS7MZCDG8WPC",
+      "target": {
+        "kind": "comment-thread",
+        "id": "01M6Y6RX405EGV0MG7PRZBKCNX"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6RX5TMEJ4DBTVF4CQM7KD",
+        "entity": {
+          "id": "01M6Y6RX405EGV0MG7PRZBKCNX",
+          "kind": "comment-thread",
+          "revisionId": "01M6Y6RX5YNP9WQVW3HQD2BWZB"
+        },
+        "revisionId": "01M6Y6RX5YNP9WQVW3HQD2BWZB",
+        "activityId": "01M6Y6RX5YAXAJ1XBGSTBFT62D",
+        "committedAt": "2026-11-08T18:29:46.812Z"
+      }
+    },
+    {
+      "family": "comment reaction",
+      "action": "comments.reaction",
+      "actorId": "01M6Y6RW19WF8TJFYN7G0Z8V88",
+      "target": {
+        "kind": "page",
+        "id": "01M6Y6RW75HGPCTNDQ0682M38K"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6RX6RCVB1ACXNYK7SNPKS",
+        "entity": {
+          "id": "01M6Y6RW75HGPCTNDQ0682M38K",
+          "kind": "page",
+          "revisionId": "01M6Y6RX6WYA4DZE1S9S2182AF"
+        },
+        "revisionId": "01M6Y6RX6WYA4DZE1S9S2182AF",
+        "activityId": "01M6Y6RX6WK18ZPT0C2Z1FM3H1",
+        "committedAt": "2026-11-08T18:29:46.842Z"
+      }
+    },
+    {
+      "family": "comment deletion",
+      "action": "comments.delete",
+      "actorId": "01M6Y6RW19WF8TJFYN7G0Z8V88",
+      "target": {
+        "kind": "comment-thread",
+        "id": "01M6Y6RX405EGV0MG7PRZBKCNX"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6RX7DNVZ8MC9G3MGPBB57",
+        "entity": {
+          "id": "01M6Y6RX405EGV0MG7PRZBKCNX",
+          "kind": "comment-thread",
+          "revisionId": "01M6Y6RX7GKWPFDN4MQC0J0SXS"
+        },
+        "revisionId": "01M6Y6RX7GKWPFDN4MQC0J0SXS",
+        "activityId": "01M6Y6RX7G85DE4XCWNMQ2GFDJ",
+        "committedAt": "2026-11-08T18:29:46.863Z"
+      }
+    },
+    {
+      "family": "group creation",
+      "action": "group.save",
+      "actorId": "01M6Y6RW18VDCKQS7MZCDG8WPC",
+      "target": {
+        "kind": "group",
+        "id": "01M6Y6RX8E1KS2XQRWH732BQ1Z"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6RX86WXXAWSB0NCZ5T70S",
+        "entity": {
+          "id": "01M6Y6RX8E1KS2XQRWH732BQ1Z",
+          "kind": "group",
+          "revisionId": "01M6Y6RX8E7992FV8ND2KY61JX"
+        },
+        "revisionId": "01M6Y6RX8E7992FV8ND2KY61JX",
+        "activityId": "01M6Y6RX8EFC5N6EJD36P6H6Z5",
+        "committedAt": "2026-11-08T18:29:46.891Z"
+      }
+    },
+    {
+      "family": "group change",
+      "action": "group.save",
+      "actorId": "01M6Y6RW18VDCKQS7MZCDG8WPC",
+      "target": {
+        "kind": "group",
+        "id": "01M6Y6RX8E1KS2XQRWH732BQ1Z"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6RX9379MJDXWDM44BFH22",
+        "entity": {
+          "id": "01M6Y6RX8E1KS2XQRWH732BQ1Z",
+          "kind": "group",
+          "revisionId": "01M6Y6RX97SJHGC6QB1M8Z640P"
+        },
+        "revisionId": "01M6Y6RX97SJHGC6QB1M8Z640P",
+        "activityId": "01M6Y6RX97C70BNQYDQ2KJ5S4W",
+        "committedAt": "2026-11-08T18:29:46.917Z"
+      }
+    },
+    {
+      "family": "group deletion",
+      "action": "group.delete",
+      "actorId": "01M6Y6RW18VDCKQS7MZCDG8WPC",
+      "target": {
+        "kind": "group",
+        "id": "01M6Y6RX8E1KS2XQRWH732BQ1Z"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6RXAGH73V6D3C2T1X4ZRV",
+        "entity": {
+          "id": "01M6Y6RX8E1KS2XQRWH732BQ1Z",
+          "kind": "group",
+          "revisionId": "01M6Y6RXAM8XCXQEC01E4B07GY"
+        },
+        "revisionId": "01M6Y6RXAM8XCXQEC01E4B07GY",
+        "activityId": "01M6Y6RXAMDEC02B2XKYF51929",
+        "committedAt": "2026-11-08T18:29:46.962Z"
+      }
+    },
+    {
+      "family": "database creation",
+      "action": "databases.create",
+      "actorId": "01M6Y6RW19WF8TJFYN7G0Z8V88",
+      "target": {
+        "kind": "database",
+        "id": "01M6Y6RXBDD2FX69JZJT2JXPYW"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6RXB9ESQ3TDY7MZ7D1KM9",
+        "entity": {
+          "id": "01M6Y6RXBDD2FX69JZJT2JXPYW",
+          "kind": "database",
+          "revisionId": "01M6Y6RXBDK7XYSBWFKQVR8V69"
+        },
+        "revisionId": "01M6Y6RXBDK7XYSBWFKQVR8V69",
+        "activityId": "01M6Y6RXBDTT11G088H9RJ2SK7",
+        "committedAt": "2026-11-08T18:29:46.987Z"
+      }
+    },
+    {
+      "family": "database page publication",
+      "action": "pages.publish",
+      "actorId": "01M6Y6RW19WF8TJFYN7G0Z8V88",
+      "target": {
+        "kind": "page",
+        "id": "01M6Y6RXBDZ1NES5RTXBBB1KX2"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6RXC9S1DN0XSVHJWVTXJ8",
+        "entity": {
+          "id": "01M6Y6RXBDZ1NES5RTXBBB1KX2",
+          "kind": "page",
+          "revisionId": "01M6Y6RXCG00JBGAZ9QWRECW69"
+        },
+        "revisionId": "01M6Y6RXCG00JBGAZ9QWRECW69",
+        "activityId": "01M6Y6RXCGCFMM8ZM2RYNF4MPR",
+        "committedAt": "2026-11-08T18:29:47.019Z"
+      }
+    },
+    {
+      "family": "database field creation",
+      "action": "databases.field",
+      "actorId": "01M6Y6RW19WF8TJFYN7G0Z8V88",
+      "target": {
+        "kind": "database",
+        "id": "01M6Y6RXBDD2FX69JZJT2JXPYW"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6RXE589Y2GJJ9E7VXW0GD",
+        "entity": {
+          "id": "01M6Y6RXBDD2FX69JZJT2JXPYW",
+          "kind": "database",
+          "revisionId": "01M6Y6RXEBDHB143DBB374E61G"
+        },
+        "revisionId": "01M6Y6RXEBDHB143DBB374E61G",
+        "activityId": "01M6Y6RXEB1PFXYZ5PAK3T4T74",
+        "committedAt": "2026-11-08T18:29:47.080Z"
+      }
+    },
+    {
+      "family": "database field change",
+      "action": "databases.field",
+      "actorId": "01M6Y6RW19WF8TJFYN7G0Z8V88",
+      "target": {
+        "kind": "database",
+        "id": "01M6Y6RXBDD2FX69JZJT2JXPYW"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6RXF23C5FJ65DN2MVTRGD",
+        "entity": {
+          "id": "01M6Y6RXBDD2FX69JZJT2JXPYW",
+          "kind": "database",
+          "revisionId": "01M6Y6RXF6BQG0C3HXWYS3BZGG"
+        },
+        "revisionId": "01M6Y6RXF6BQG0C3HXWYS3BZGG",
+        "activityId": "01M6Y6RXF6Y03F7XT6AD0PKEKB",
+        "committedAt": "2026-11-08T18:29:47.108Z"
+      }
+    },
+    {
+      "family": "database field deletion",
+      "action": "databases.field",
+      "actorId": "01M6Y6RW19WF8TJFYN7G0Z8V88",
+      "target": {
+        "kind": "database",
+        "id": "01M6Y6RXBDD2FX69JZJT2JXPYW"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6RXG1BP51J0RMVGTWS6XV",
+        "entity": {
+          "id": "01M6Y6RXBDD2FX69JZJT2JXPYW",
+          "kind": "database",
+          "revisionId": "01M6Y6RXG47JX9E2PYJDNXC1QC"
+        },
+        "revisionId": "01M6Y6RXG47JX9E2PYJDNXC1QC",
+        "activityId": "01M6Y6RXG4900B673SZG0QN103",
+        "committedAt": "2026-11-08T18:29:47.138Z"
+      }
+    },
+    {
+      "family": "database view creation",
+      "action": "databases.view",
+      "actorId": "01M6Y6RW19WF8TJFYN7G0Z8V88",
+      "target": {
+        "kind": "database",
+        "id": "01M6Y6RXBDD2FX69JZJT2JXPYW"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6RXGYME4AYFX1920CFHW0",
+        "entity": {
+          "id": "01M6Y6RXBDD2FX69JZJT2JXPYW",
+          "kind": "database",
+          "revisionId": "01M6Y6RXH2EEFSFPB2Z6ZWD33B"
+        },
+        "revisionId": "01M6Y6RXH2EEFSFPB2Z6ZWD33B",
+        "activityId": "01M6Y6RXH26PAADNEJ59TJ4P7M",
+        "committedAt": "2026-11-08T18:29:47.168Z"
+      }
+    },
+    {
+      "family": "database view change",
+      "action": "databases.view",
+      "actorId": "01M6Y6RW19WF8TJFYN7G0Z8V88",
+      "target": {
+        "kind": "database",
+        "id": "01M6Y6RXBDD2FX69JZJT2JXPYW"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6RXHNQ67PB7WBA9NQRTQA",
+        "entity": {
+          "id": "01M6Y6RXBDD2FX69JZJT2JXPYW",
+          "kind": "database",
+          "revisionId": "01M6Y6RXHR9YAX6FCH79T0TH99"
+        },
+        "revisionId": "01M6Y6RXHR9YAX6FCH79T0TH99",
+        "activityId": "01M6Y6RXHR2K1AHFWPZ271YJH0",
+        "committedAt": "2026-11-08T18:29:47.191Z"
+      }
+    },
+    {
+      "family": "database view deletion",
+      "action": "databases.view",
+      "actorId": "01M6Y6RW19WF8TJFYN7G0Z8V88",
+      "target": {
+        "kind": "database",
+        "id": "01M6Y6RXBDD2FX69JZJT2JXPYW"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6RXJED9NFW16QP60QG3RF",
+        "entity": {
+          "id": "01M6Y6RXBDD2FX69JZJT2JXPYW",
+          "kind": "database",
+          "revisionId": "01M6Y6RXJJX1QR5CCATMRWM3CT"
+        },
+        "revisionId": "01M6Y6RXJJX1QR5CCATMRWM3CT",
+        "activityId": "01M6Y6RXJJPQ33X1WVFJR3D9R8",
+        "committedAt": "2026-11-08T18:29:47.216Z"
+      }
+    },
+    {
+      "family": "database structure lock",
+      "action": "databases.lock",
+      "actorId": "01M6Y6RW19WF8TJFYN7G0Z8V88",
+      "target": {
+        "kind": "database",
+        "id": "01M6Y6RXBDD2FX69JZJT2JXPYW"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6RXKBW8JR2A6ZJMT277J5",
+        "entity": {
+          "id": "01M6Y6RXBDD2FX69JZJT2JXPYW",
+          "kind": "database",
+          "revisionId": "01M6Y6RXKFRDR1NRCPPRHJTS38"
+        },
+        "revisionId": "01M6Y6RXKFRDR1NRCPPRHJTS38",
+        "activityId": "01M6Y6RXKFHZKDSTBQNMH6XMGF",
+        "committedAt": "2026-11-08T18:29:47.245Z"
+      }
+    },
+    {
+      "family": "database structure unlock",
+      "action": "databases.lock",
+      "actorId": "01M6Y6RW19WF8TJFYN7G0Z8V88",
+      "target": {
+        "kind": "database",
+        "id": "01M6Y6RXBDD2FX69JZJT2JXPYW"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6RXM53P3344YPW2PSPHXY",
+        "entity": {
+          "id": "01M6Y6RXBDD2FX69JZJT2JXPYW",
+          "kind": "database",
+          "revisionId": "01M6Y6RXM83YSRC3MJWWNJFGKN"
+        },
+        "revisionId": "01M6Y6RXM83YSRC3MJWWNJFGKN",
+        "activityId": "01M6Y6RXM8TWHJ47Y94S2K3ZK9",
+        "committedAt": "2026-11-08T18:29:47.271Z"
+      }
+    },
+    {
+      "family": "automation configuration",
+      "action": "automation.configure",
+      "actorId": "01M6Y6RW19WF8TJFYN7G0Z8V88",
+      "target": {
+        "kind": "automation-rule",
+        "id": "01M6Y6RXN1X45NH8DN5W67ZFHK"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6RXMXADFTJ26QPWHRX2Y1",
+        "entity": {
+          "id": "01M6Y6RXN1X45NH8DN5W67ZFHK",
+          "kind": "automation-rule",
+          "revisionId": "01M6Y6RXN1ER546CCHK501M3VW"
+        },
+        "revisionId": "01M6Y6RXN1ER546CCHK501M3VW",
+        "activityId": "01M6Y6RXN149FFY1FAXFMS89RH",
+        "committedAt": "2026-11-08T18:29:47.294Z"
+      }
+    },
+    {
+      "family": "automation trigger",
+      "action": "databases.record.create",
+      "actorId": "01M6Y6RW19WF8TJFYN7G0Z8V88",
+      "target": {
+        "kind": "page",
+        "id": "01M6Y6RXP377GEPR7W15AMN9F5"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6RXNRAD47C72ZMD6AH7CM",
+        "entity": {
+          "id": "01M6Y6RXP377GEPR7W15AMN9F5",
+          "kind": "page",
+          "revisionId": "01M6Y6RXNWWRWTA1SG93DQZA2F"
+        },
+        "revisionId": "01M6Y6RXNWWRWTA1SG93DQZA2F",
+        "activityId": "01M6Y6RXNWGQRZCSRSKJ3ABRJY",
+        "committedAt": "2026-11-08T18:29:47.322Z"
+      }
+    },
+    {
+      "family": "record page publication",
+      "action": "pages.publish",
+      "actorId": "01M6Y6RW19WF8TJFYN7G0Z8V88",
+      "target": {
+        "kind": "page",
+        "id": "01M6Y6RXP377GEPR7W15AMN9F5"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6RXQ6K1NWH8M8Y2XMYFE9",
+        "entity": {
+          "id": "01M6Y6RXP377GEPR7W15AMN9F5",
+          "kind": "page",
+          "revisionId": "01M6Y6RXQD3A51YR6F0DMKEVDC"
+        },
+        "revisionId": "01M6Y6RXQD3A51YR6F0DMKEVDC",
+        "activityId": "01M6Y6RXQDY4789HS5R4736MEA",
+        "committedAt": "2026-11-08T18:29:47.368Z"
+      }
+    },
+    {
+      "family": "member invitation",
+      "action": "member.invite",
+      "actorId": "01M6Y6RW18VDCKQS7MZCDG8WPC",
+      "target": {
+        "kind": "invitation",
+        "id": "01M6Y6RW0YTS91D9SY1KA2GH9Y"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6RY0JWE676J36DF3M5Y1K",
+        "entity": {
+          "id": "01M6Y6RW0YTS91D9SY1KA2GH9Y",
+          "kind": "invitation",
+          "revisionId": "01M6Y6RY0QD0YCMC3TR7S4BSHM"
+        },
+        "revisionId": "01M6Y6RY0QD0YCMC3TR7S4BSHM",
+        "activityId": "01M6Y6RY0Q4T6B8XMTPAYNH1AZ",
+        "committedAt": "2026-11-08T18:29:47.669Z"
+      }
+    },
+    {
+      "family": "readable page export",
+      "action": "exports.readable",
+      "actorId": "01M6Y6RW19WF8TJFYN7G0Z8V88",
+      "target": {
+        "kind": "page",
+        "id": "01M6Y6RW75HGPCTNDQ0682M38K"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6RZGC0TEY3ZRHHCRNWCSX",
+        "entity": {
+          "kind": "page",
+          "id": "01M6Y6RW75HGPCTNDQ0682M38K",
+          "revisionId": "01M6Y6RZH04W9BKRARZ8RAAB9Y"
+        },
+        "revisionId": "01M6Y6RZH04W9BKRARZ8RAAB9Y",
+        "activityId": "01M6Y6RZH0MX7XPW1QPF7FTN15",
+        "committedAt": "2026-11-08T18:29:49.199Z"
+      }
+    },
+    {
+      "family": "readable container export",
+      "action": "exports.readable",
+      "actorId": "01M6Y6RW18VDCKQS7MZCDG8WPC",
+      "target": {
+        "kind": "container",
+        "id": "01M6Y6RW2KZ23XKJZ7P2NESPH0"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6RZJ1H5W38J0Y0MA52X5R",
+        "entity": {
+          "kind": "container",
+          "id": "01M6Y6RW2KZ23XKJZ7P2NESPH0",
+          "revisionId": "01M6Y6RZKAG5R13XNBB9D5AF9D"
+        },
+        "revisionId": "01M6Y6RZKAG5R13XNBB9D5AF9D",
+        "activityId": "01M6Y6RZKAVJ6CPN9VPTYW6FHT",
+        "committedAt": "2026-11-08T18:29:49.251Z"
+      }
+    },
+    {
+      "family": "export revocation target",
+      "action": "pages.create",
+      "actorId": "01M6Y6RW18VDCKQS7MZCDG8WPC",
+      "target": {
+        "kind": "page",
+        "id": "01M6Y6RZN537XA8JH3Q43FPJ55"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6RZN3QR1HWYVTZD7E68RH",
+        "entity": {
+          "id": "01M6Y6RZN537XA8JH3Q43FPJ55",
+          "kind": "page",
+          "revisionId": "01M6Y6RZN5W6WH969ZNEZH2Z3E"
+        },
+        "revisionId": "01M6Y6RZN5W6WH969ZNEZH2Z3E",
+        "activityId": "01M6Y6RZN5WN42H2J81VRXBMPK",
+        "committedAt": "2026-11-08T18:29:49.349Z"
+      }
+    },
+    {
+      "family": "export target publication",
+      "action": "pages.publish",
+      "actorId": "01M6Y6RW18VDCKQS7MZCDG8WPC",
+      "target": {
+        "kind": "page",
+        "id": "01M6Y6RZN537XA8JH3Q43FPJ55"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6RZP5M4VKD49DMR77NM73",
+        "entity": {
+          "id": "01M6Y6RZN537XA8JH3Q43FPJ55",
+          "kind": "page",
+          "revisionId": "01M6Y6RZPB7MJG963MHNQWK67H"
+        },
+        "revisionId": "01M6Y6RZPB7MJG963MHNQWK67H",
+        "activityId": "01M6Y6RZPBZAGW9X7QPBBP12BA",
+        "committedAt": "2026-11-08T18:29:49.382Z"
+      }
+    },
+    {
+      "family": "export reader grant",
+      "action": "sharing.grant",
+      "actorId": "01M6Y6RW18VDCKQS7MZCDG8WPC",
+      "target": {
+        "kind": "page",
+        "id": "01M6Y6RZN537XA8JH3Q43FPJ55"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6RZQEBZV6YW0BM8VY71Y0",
+        "entity": {
+          "id": "01M6Y6RZN537XA8JH3Q43FPJ55",
+          "kind": "page",
+          "revisionId": "01M6Y6RZQKX8QZ9Q0CK18QGTRC"
+        },
+        "revisionId": "01M6Y6RZQKX8QZ9Q0CK18QGTRC",
+        "activityId": "01M6Y6RZQKT30ANSNEGT6ZAYBZ",
+        "committedAt": "2026-11-08T18:29:49.425Z"
+      }
+    },
+    {
+      "family": "readable export before revocation",
+      "action": "exports.readable",
+      "actorId": "01M6Y6RW19WF8TJFYN7G0Z8V88",
+      "target": {
+        "kind": "page",
+        "id": "01M6Y6RZN537XA8JH3Q43FPJ55"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6RZRSEG4X89Q1Q3SJMW2F",
+        "entity": {
+          "kind": "page",
+          "id": "01M6Y6RZN537XA8JH3Q43FPJ55",
+          "revisionId": "01M6Y6RZS5SQYD3MF1S26XRSBP"
+        },
+        "revisionId": "01M6Y6RZS5SQYD3MF1S26XRSBP",
+        "activityId": "01M6Y6RZS5Y8N78PRRW8F8YCGV",
+        "committedAt": "2026-11-08T18:29:49.467Z"
+      }
+    },
+    {
+      "family": "revoke export reader",
+      "action": "sharing.grant",
+      "actorId": "01M6Y6RW18VDCKQS7MZCDG8WPC",
+      "target": {
+        "kind": "page",
+        "id": "01M6Y6RZN537XA8JH3Q43FPJ55"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6RZSE7XSRPV6Z8RNHY0ME",
+        "entity": {
+          "id": "01M6Y6RZN537XA8JH3Q43FPJ55",
+          "kind": "page",
+          "revisionId": "01M6Y6RZSJRXBRCYFE3SG28SC7"
+        },
+        "revisionId": "01M6Y6RZSJRXBRCYFE3SG28SC7",
+        "activityId": "01M6Y6RZSJS3SVF43JB0AXBTHD",
+        "committedAt": "2026-11-08T18:29:49.488Z"
+      }
+    },
+    {
+      "family": "revoked export target trash",
+      "action": "archive.trash",
+      "actorId": "01M6Y6RW18VDCKQS7MZCDG8WPC",
+      "target": {
+        "kind": "page",
+        "id": "01M6Y6RZN537XA8JH3Q43FPJ55"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6RZVEGCTA1ZCYK66R4281",
+        "entity": {
+          "id": "01M6Y6RZN537XA8JH3Q43FPJ55",
+          "kind": "page",
+          "revisionId": "01M6Y6RZPB7MJG963MHNQWK67H"
+        },
+        "revisionId": "01M6Y6RZPB7MJG963MHNQWK67H",
+        "activityId": "01M6Y6RZVHWEAAYY1VAG3HAC3J",
+        "committedAt": "2026-11-08T18:29:49.552Z"
+      }
+    },
+    {
+      "family": "revoked export target erasure",
+      "action": "archive.permanent-delete",
+      "actorId": "01M6Y6RW18VDCKQS7MZCDG8WPC",
+      "target": {
+        "kind": "page",
+        "id": "01M6Y6RZN537XA8JH3Q43FPJ55"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6RZWKRYEB06DWV86EG24E",
+        "entity": {
+          "id": "01M6Y6RZN537XA8JH3Q43FPJ55",
+          "kind": "page",
+          "revisionId": "01M6Y6RZX2RN8HRB86NMA8QKDT"
+        },
+        "revisionId": "01M6Y6RZX2RN8HRB86NMA8QKDT",
+        "activityId": "01M6Y6RZX2WTCQRESZ658TW6A6",
+        "committedAt": "2026-11-08T18:29:49.598Z"
+      }
+    },
+    {
+      "family": "version restore",
+      "action": "pages.restore",
+      "actorId": "01M6Y6RW19WF8TJFYN7G0Z8V88",
+      "target": {
+        "kind": "page",
+        "id": "01M6Y6RW75HGPCTNDQ0682M38K"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6S0FRW7E62ZBBX6KCA9DE",
+        "entity": {
+          "id": "01M6Y6RW75HGPCTNDQ0682M38K",
+          "kind": "page",
+          "revisionId": "01M6Y6S0FWHZYM9P3HEQ64R3J4"
+        },
+        "revisionId": "01M6Y6S0FWHZYM9P3HEQ64R3J4",
+        "activityId": "01M6Y6S0FW7GP9VYK3KDZXS9SQ",
+        "committedAt": "2026-11-08T18:29:50.201Z"
+      }
+    },
+    {
+      "family": "version deletion",
+      "action": "versions.delete",
+      "actorId": "01M6Y6RW18VDCKQS7MZCDG8WPC",
+      "target": {
+        "kind": "page",
+        "id": "01M6Y6RW75HGPCTNDQ0682M38K"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6S0GQTR8400DGFM7R5MVT",
+        "entity": {
+          "id": "01M6Y6RW75HGPCTNDQ0682M38K",
+          "kind": "page",
+          "revisionId": "01M6Y6S0FWHZYM9P3HEQ64R3J4"
+        },
+        "revisionId": "01M6Y6S0FWHZYM9P3HEQ64R3J4",
+        "activityId": "01M6Y6S0GTZ8W6Y333QPP2H2FH",
+        "committedAt": "2026-11-08T18:29:50.233Z"
+      }
+    },
+    {
+      "family": "page archive",
+      "action": "archive.archive",
+      "actorId": "01M6Y6RW19WF8TJFYN7G0Z8V88",
+      "target": {
+        "kind": "page",
+        "id": "01M6Y6RW75HGPCTNDQ0682M38K"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6S0HM604HFXWS39BQN6EX",
+        "entity": {
+          "id": "01M6Y6RW75HGPCTNDQ0682M38K",
+          "kind": "page",
+          "revisionId": "01M6Y6S0FWHZYM9P3HEQ64R3J4"
+        },
+        "revisionId": "01M6Y6S0FWHZYM9P3HEQ64R3J4",
+        "activityId": "01M6Y6S0HQ83F8FB3EY2KRFYP0",
+        "committedAt": "2026-11-08T18:29:50.262Z"
+      }
+    },
+    {
+      "family": "page restore",
+      "action": "archive.restore",
+      "actorId": "01M6Y6RW19WF8TJFYN7G0Z8V88",
+      "target": {
+        "kind": "page",
+        "id": "01M6Y6RW75HGPCTNDQ0682M38K"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6S0JFBBQ2HXQ9WBDMXB6Z",
+        "entity": {
+          "id": "01M6Y6RW75HGPCTNDQ0682M38K",
+          "kind": "page",
+          "revisionId": "01M6Y6S0FWHZYM9P3HEQ64R3J4"
+        },
+        "revisionId": "01M6Y6S0FWHZYM9P3HEQ64R3J4",
+        "activityId": "01M6Y6S0JJSF3HQC2W4BD2WDEB",
+        "committedAt": "2026-11-08T18:29:50.289Z"
+      }
+    },
+    {
+      "family": "page trash",
+      "action": "archive.trash",
+      "actorId": "01M6Y6RW19WF8TJFYN7G0Z8V88",
+      "target": {
+        "kind": "page",
+        "id": "01M6Y6RW75HGPCTNDQ0682M38K"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6S0KDFK07SE2JG4PXV1NM",
+        "entity": {
+          "id": "01M6Y6RW75HGPCTNDQ0682M38K",
+          "kind": "page",
+          "revisionId": "01M6Y6S0FWHZYM9P3HEQ64R3J4"
+        },
+        "revisionId": "01M6Y6S0FWHZYM9P3HEQ64R3J4",
+        "activityId": "01M6Y6S0KG997YD2CSNKMXGWQ0",
+        "committedAt": "2026-11-08T18:29:50.319Z"
+      }
+    },
+    {
+      "family": "page restore",
+      "action": "archive.restore",
+      "actorId": "01M6Y6RW19WF8TJFYN7G0Z8V88",
+      "target": {
+        "kind": "page",
+        "id": "01M6Y6RW75HGPCTNDQ0682M38K"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6S0MCEY1VFMVE2RKN0EQV",
+        "entity": {
+          "id": "01M6Y6RW75HGPCTNDQ0682M38K",
+          "kind": "page",
+          "revisionId": "01M6Y6S0FWHZYM9P3HEQ64R3J4"
+        },
+        "revisionId": "01M6Y6S0FWHZYM9P3HEQ64R3J4",
+        "activityId": "01M6Y6S0MFWQDDETJABR86279Z",
+        "committedAt": "2026-11-08T18:29:50.350Z"
+      }
+    },
+    {
+      "family": "page creation",
+      "action": "pages.create",
+      "actorId": "01M6Y6RW18VDCKQS7MZCDG8WPC",
+      "target": {
+        "kind": "page",
+        "id": "01M6Y6S0NJKZ8C4D02JD4RM0P9"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6S0NF15ZQKNTD5VM6Q8BJ",
+        "entity": {
+          "id": "01M6Y6S0NJKZ8C4D02JD4RM0P9",
+          "kind": "page",
+          "revisionId": "01M6Y6S0NJP1V8V5ERHDCASCHJ"
+        },
+        "revisionId": "01M6Y6S0NJP1V8V5ERHDCASCHJ",
+        "activityId": "01M6Y6S0NJPDR84J2XMC3MC55F",
+        "committedAt": "2026-11-08T18:29:50.385Z"
+      }
+    },
+    {
+      "family": "erase admission",
+      "action": "archive.trash",
+      "actorId": "01M6Y6RW18VDCKQS7MZCDG8WPC",
+      "target": {
+        "kind": "page",
+        "id": "01M6Y6S0NJKZ8C4D02JD4RM0P9"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6S0P9BQ7MT0Y0ZTD9EDDN",
+        "entity": {
+          "id": "01M6Y6S0NJKZ8C4D02JD4RM0P9",
+          "kind": "page",
+          "revisionId": "01M6Y6S0NJP1V8V5ERHDCASCHJ"
+        },
+        "revisionId": "01M6Y6S0NJP1V8V5ERHDCASCHJ",
+        "activityId": "01M6Y6S0PCXGVVCCXBYYY0Z0MX",
+        "committedAt": "2026-11-08T18:29:50.411Z"
+      }
+    },
+    {
+      "family": "permanent deletion",
+      "action": "archive.permanent-delete",
+      "actorId": "01M6Y6RW18VDCKQS7MZCDG8WPC",
+      "target": {
+        "kind": "page",
+        "id": "01M6Y6S0NJKZ8C4D02JD4RM0P9"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6S0Q1GBCQKG4VFP8A6K0V",
+        "entity": {
+          "id": "01M6Y6S0NJKZ8C4D02JD4RM0P9",
+          "kind": "page",
+          "revisionId": "01M6Y6S0Q6BRQXYZ2WNAK1AGY1"
+        },
+        "revisionId": "01M6Y6S0Q6BRQXYZ2WNAK1AGY1",
+        "activityId": "01M6Y6S0Q6QW0Y5ZCD8JCJA8FE",
+        "committedAt": "2026-11-08T18:29:50.436Z"
+      }
+    },
+    {
+      "family": "empty space home trash",
+      "action": "archive.trash",
+      "actorId": "01M6Y6RW18VDCKQS7MZCDG8WPC",
+      "target": {
+        "kind": "page",
+        "id": "01M6Y6RWCRSJYSKG55X9Q93VRT"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6S0T2D0J3HMX8C0BKM1M3",
+        "entity": {
+          "id": "01M6Y6RWCRSJYSKG55X9Q93VRT",
+          "kind": "page",
+          "revisionId": "01M6Y6RWCRE1DVXBTFTNG05XC1"
+        },
+        "revisionId": "01M6Y6RWCRE1DVXBTFTNG05XC1",
+        "activityId": "01M6Y6S0T5F365AK1238CRDPET",
+        "committedAt": "2026-11-08T18:29:50.532Z"
+      }
+    },
+    {
+      "family": "empty space home erasure",
+      "action": "archive.permanent-delete",
+      "actorId": "01M6Y6RW18VDCKQS7MZCDG8WPC",
+      "target": {
+        "kind": "page",
+        "id": "01M6Y6RWCRSJYSKG55X9Q93VRT"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6S0TWGD46XCWV32X20CZ1",
+        "entity": {
+          "id": "01M6Y6RWCRSJYSKG55X9Q93VRT",
+          "kind": "page",
+          "revisionId": "01M6Y6S0V1198QPRC685KQ2SGX"
+        },
+        "revisionId": "01M6Y6S0V1198QPRC685KQ2SGX",
+        "activityId": "01M6Y6S0V160D447T0RPNF4BA8",
+        "committedAt": "2026-11-08T18:29:50.559Z"
+      }
+    },
+    {
+      "family": "container deletion",
+      "action": "containers.delete",
+      "actorId": "01M6Y6RW18VDCKQS7MZCDG8WPC",
+      "target": {
+        "kind": "container",
+        "id": "01M6Y6RWCRN9N3S6V36FTQTNE6"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6S0WV6X6NC594WSNFEB33",
+        "entity": {
+          "id": "01M6Y6RWCRN9N3S6V36FTQTNE6",
+          "kind": "container",
+          "revisionId": "01M6Y6S0X10FE2N2YPKK9AM85S"
+        },
+        "revisionId": "01M6Y6S0X10FE2N2YPKK9AM85S",
+        "activityId": "01M6Y6S0X1SRRKV2CA2VH1R8J7",
+        "committedAt": "2026-11-08T18:29:50.623Z"
+      }
+    },
+    {
+      "family": "member removal",
+      "action": "member.remove",
+      "actorId": "01M6Y6RW18VDCKQS7MZCDG8WPC",
+      "target": {
+        "kind": "member",
+        "id": "01M6Y6RW373ZMA8HW9V6145AMB"
+      },
+      "receipt": {
+        "operationKey": "01M6Y6S0Y4EF5AS2KPZXT8P85R",
+        "entity": {
+          "id": "01M6Y6RW373ZMA8HW9V6145AMB",
+          "kind": "member",
+          "revisionId": "01M6Y6S0Y8YAP69N87G2XZTKWS"
+        },
+        "revisionId": "01M6Y6S0Y8YAP69N87G2XZTKWS",
+        "activityId": "01M6Y6S0Y8MJ6N5DZ2NJE4XD4T",
+        "committedAt": "2026-11-08T18:29:50.662Z"
+      }
+    }
+  ],
+  "automation": [
+    {
+      "id": "01M6Y6RXX19J0AQW951K5MARG5",
+      "actor": {
+        "id": "01M6Y6RW19WF8TJFYN7G0Z8V88",
+        "displayName": "Core reader"
+      },
+      "feature": "automation",
+      "action": "automation.queued",
+      "target": {
+        "kind": "automation-run",
+        "id": "01M6Y6RXX0NBDYM3KM6TKD8CQV"
+      },
+      "occurredAt": "2026-11-08T18:29:47.487Z",
+      "operationKey": null,
+      "automationRunId": "01M6Y6RXX0NBDYM3KM6TKD8CQV",
+      "aiRunId": null,
+      "deleted": false,
+      "context": {}
+    },
+    {
+      "id": "01M6Y6RXZGADSQRX3Q72KZDWCM",
+      "actor": {
+        "id": "01M6Y6RW19WF8TJFYN7G0Z8V88",
+        "displayName": "Core reader"
+      },
+      "feature": "automation",
+      "action": "automation.success",
+      "target": {
+        "kind": "automation-run",
+        "id": "01M6Y6RXX0NBDYM3KM6TKD8CQV"
+      },
+      "occurredAt": "2026-11-08T18:29:47.632Z",
+      "operationKey": null,
+      "automationRunId": "01M6Y6RXX0NBDYM3KM6TKD8CQV",
+      "aiRunId": null,
+      "deleted": false,
+      "context": {}
+    }
+  ],
+  "import": {
+    "id": "01M6Y6RY2G6K400EE0K0AF3JDR",
+    "actor": {
+      "id": "01M6Y6RW18VDCKQS7MZCDG8WPC",
+      "displayName": "Core owner"
+    },
+    "feature": "imports",
+    "action": "imports.stage",
+    "target": {
+      "kind": "import",
+      "id": "01M6Y6RY26ZQ9W25E01X9ZDDNJ"
+    },
+    "occurredAt": "2026-11-08T18:29:47.717Z",
+    "operationKey": "01M6Y6RY1W8WQQV84G0NXTTA8G",
+    "automationRunId": null,
+    "aiRunId": null,
+    "deleted": false,
+    "context": {}
+  },
+  "workspaceExport": {
+    "id": "01M6Y6S000C077B41GS2N5N70K",
+    "actor": {
+      "id": "01M6Y6RW18VDCKQS7MZCDG8WPC",
+      "displayName": "Core owner"
+    },
+    "feature": "exports",
+    "action": "exports.workspace",
+    "target": {
+      "kind": "export",
+      "id": "01M6Y6RZZZXVBBE40165QW0W9D"
+    },
+    "occurredAt": "2026-11-08T18:29:49.695Z",
+    "operationKey": "01M6Y6RZZ9KN62TT1RDW3HHD8P",
+    "automationRunId": null,
+    "aiRunId": null,
+    "deleted": false,
+    "context": {}
+  },
+  "refusals": [
+    "01M6Y6RWC05ZEGQCEAM3891JVC",
+    "01M6Y6RWVT2C87VVXVAJVRZDMH",
+    "01M6Y6RZTJ9ND22W3APR0VZ2CC",
+    "01M6Y6S0FAHS0T7860G5X28B9E",
+    "01M6Y6S0SM7TJNSWAX8FWA97MF",
+    "01M6Y6S0SWQS9QEQ5VBZMKJ767"
+  ],
+  "unchanged": [
+    "01M6Y6RWBDB56KM8B03EYQ8KC5",
+    "01M6Y6RWSYHEH5WEC39XEQT31P",
+    "01M6Y6S0XTCTAKMD45Q7EA4602"
+  ],
+  "pageId": "01M6Y6RW75HGPCTNDQ0682M38K",
+  "memberContainerGrant": "01M6Y6RW3HN7ZK623TEYKAD46N"
+}

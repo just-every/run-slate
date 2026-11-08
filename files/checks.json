@@ -1,0 +1,93 @@
+{
+  "head": "8745e18e3c4b20fb0d1a372c053816889bc2617e",
+  "observedAt": "2026-11-08T18:32:09.437450+00:00",
+  "checks": [
+    {
+      "command": "pnpm exec vitest run tests/qualification/core/audit-content.test.ts tests/e2e/imports/readable-comments.test.ts tests/e2e/imports/word-export.test.ts tests/e2e/pages/display-options.test.ts --reporter=default --reporter=json --outputFile=/tmp/slate-touched-results.json",
+      "exit": 0,
+      "files": 4,
+      "testsPassed": 4,
+      "testsFailed": 0,
+      "durationSeconds": 58.5
+    },
+    {
+      "command": "pnpm typecheck",
+      "exit": 0
+    },
+    {
+      "command": "npx -y @runeditrun/rer build",
+      "exit": 0
+    },
+    {
+      "command": "npx -y @runeditrun/rer check --profile first-party",
+      "exit": 0
+    },
+    {
+      "command": "node src/base/runtime/contract-docs.mjs write && node src/base/runtime/contract-docs.mjs check",
+      "exit": 0,
+      "generatedViewsRestoredFromOriginMain": true
+    },
+    {
+      "command": "pnpm integration:sync && pnpm source:lock && pnpm source:check",
+      "exit": 0
+    },
+    {
+      "command": "git fetch origin main && git merge --no-edit origin/main",
+      "exit": 0,
+      "result": "Already up to date",
+      "main": "6a6232f31641de9e5935ed1899a080aee6bb23ec"
+    },
+    {
+      "command": "git log origin/main..HEAD --format=%an <%ae>%n%cn <%ce>%n%(trailers:only,unfold)",
+      "exit": 0,
+      "candidateCommits": 2,
+      "authorsAndCommitters": "Run Edit Run fleet",
+      "trailers": []
+    },
+    {
+      "command": "SLATE_CHROMIUM_PATH=/usr/bin/chromium timeout 1200 node --test --test-concurrency=1 --test-name-pattern='^(space tree title filtering preserves ancestors, access and expansion at 390px|page outline follows headings and navigates long pages at 1440px)$' tests/qualification/ui-convergence/journeys.test.mjs",
+      "exit": 0,
+      "testsPassed": 2,
+      "testsFailed": 0,
+      "durationMs": 716209.124713
+    }
+  ],
+  "mechanical": {
+    "lock": {
+      "command": "pnpm source:lock && pnpm source:check",
+      "exit": 0
+    },
+    "views": {
+      "command": "node src/base/runtime/contract-docs.mjs write && node src/base/runtime/contract-docs.mjs check",
+      "exit": 0,
+      "restored": true
+    },
+    "ledger": {
+      "command": "none; no migration added or edited",
+      "exit": 0
+    }
+  },
+  "countsBefore": {
+    "done": 58,
+    "partial": 239,
+    "missing": 41,
+    "total": 338
+  },
+  "countsAfter": {
+    "done": 58,
+    "partial": 239,
+    "missing": 41,
+    "total": 338
+  },
+  "registrationsBefore": 211,
+  "registrationsAfter": 211,
+  "publicationScan": {
+    "performed": false,
+    "reason": "Cloud adaptation assigns the exact-head full-history publication scan to the maintained lander"
+  },
+  "ciClassification": "expected generated-view freshness only",
+  "verifyRunId": 42510389022,
+  "verifyHead": "8745e18e3c4b20fb0d1a372c053816889bc2617e",
+  "verifyConclusion": "failure",
+  "permittedGeneratedViewException": true
+}

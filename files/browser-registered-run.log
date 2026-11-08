@@ -1,0 +1,226 @@
+Theme route 390px light: /app
+Theme route 390px light: /app/search
+Theme route 390px light: /app/inbox
+Theme route 390px light: /app/tasks
+Theme route 390px light: /app/review
+Theme route 390px light: /app/containers
+Theme route 390px light: /app/templates
+Theme route 390px light: /app/archive
+Theme route 390px light: /app/settings
+Theme route 390px light: /app/settings/workspace
+Theme route 390px light: /app/settings/members
+Theme route 390px light: /app/settings/saml
+Theme route 390px light: /app/settings/developer
+Theme route 390px light: /app/settings/appearance
+Theme route 390px light: /app/settings/preferences
+Theme route 390px light: /app/settings/activity
+Theme route 390px light: /app/settings/automation
+Theme route 390px light: /app/settings/statuses
+Theme route 390px light: /app/settings/spaces
+Theme route 390px light: /app/settings/chat
+Theme route 390px light: /app/settings/portability
+Theme route 390px light: /app/pages/01M6Y6WGMG9ZZE67DZK12CYRHD
+Theme route 390px light: /app/databases/01M6Y6WGNASCAH09FG4K17AXGK
+Theme route 390px light: /app/databases/01M6Y6WGNASCAH09FG4K17AXGK/records/01M6Y6WGQS64Y9ZKHHDFQPZ8BM
+Theme route 390px dark: /app
+Theme route 390px dark: /app/search
+Theme route 390px dark: /app/inbox
+Theme route 390px dark: /app/tasks
+Theme route 390px dark: /app/review
+Theme route 390px dark: /app/containers
+Theme route 390px dark: /app/templates
+Theme route 390px dark: /app/archive
+Theme route 390px dark: /app/settings
+Theme route 390px dark: /app/settings/workspace
+Theme route 390px dark: /app/settings/members
+Theme route 390px dark: /app/settings/saml
+Theme route 390px dark: /app/settings/developer
+Theme route 390px dark: /app/settings/appearance
+Theme route 390px dark: /app/settings/preferences
+Theme route 390px dark: /app/settings/activity
+Theme route 390px dark: /app/settings/automation
+Theme route 390px dark: /app/settings/statuses
+Theme route 390px dark: /app/settings/spaces
+Theme route 390px dark: /app/settings/chat
+Theme route 390px dark: /app/settings/portability
+Theme route 390px dark: /app/pages/01M6Y6WGMG9ZZE67DZK12CYRHD
+Theme route 390px dark: /app/databases/01M6Y6WGNASCAH09FG4K17AXGK
+Theme route 390px dark: /app/databases/01M6Y6WGNASCAH09FG4K17AXGK/records/01M6Y6WGQS64Y9ZKHHDFQPZ8BM
+Theme route 390px system: /app
+Theme route 390px system: /app/search
+Theme route 390px system: /app/inbox
+Theme route 390px system: /app/tasks
+Theme route 390px system: /app/review
+Theme route 390px system: /app/containers
+Theme route 390px system: /app/templates
+Theme route 390px system: /app/archive
+Theme route 390px system: /app/settings
+Theme route 390px system: /app/settings/workspace
+Theme route 390px system: /app/settings/members
+Theme route 390px system: /app/settings/saml
+Theme route 390px system: /app/settings/developer
+Theme route 390px system: /app/settings/appearance
+Theme route 390px system: /app/settings/preferences
+Theme route 390px system: /app/settings/activity
+Theme route 390px system: /app/settings/automation
+Theme route 390px system: /app/settings/statuses
+Theme route 390px system: /app/settings/spaces
+Theme route 390px system: /app/settings/chat
+Theme route 390px system: /app/settings/portability
+Theme route 390px system: /app/pages/01M6Y6WGMG9ZZE67DZK12CYRHD
+Theme route 390px system: /app/databases/01M6Y6WGNASCAH09FG4K17AXGK
+Theme route 390px system: /app/databases/01M6Y6WGNASCAH09FG4K17AXGK/records/01M6Y6WGQS64Y9ZKHHDFQPZ8BM
+WORK-012 native themes, new sessions, independent members and anonymous exposures passed at 390px
+IMPORT_BROWSER_RECEIPT {"width":390,"jobId":"01M6Y6YQBW1NGCV8ZE0C3VADCS","state":"completed","mappings":[{"sourceId":"confluence-member:100001:d9d99555-7c2d-5fc9-9d5f-444042ec9317","kind":"member","targetId":"browser-reader"}],"access":{"restrictedPages":3,"sourceNamedGrants":3,"mappedLiveGrants":3,"unresolvedRestrictedPages":0,"recoveryGrants":3,"historicalMembers":34,"historicalGroups":0},"pages":[{"id":"913e942ea453b89f:page:54","title":"Overview","anonymousNative":401,"anonymousPublished":404},{"id":"913e942ea453b89f:page:36","title":"Getting started in Confluence","anonymousNative":401,"anonymousPublished":404},{"id":"913e942ea453b89f:page:299","title":"Pizza Restaurant Launch Plan","anonymousNative":401,"anonymousPublished":404}],"unavailableTargetShown":true,"retainedMappingUnchanged":true}
+PROBE IMP-016 Settings 390: genuine archive upload, explicit mapping, Apply and reload -> completed; reviewed member and historical people displayed; conversion retained; 3 restricted reader pages and no anonymous page
+PROBE CONT-009 native controls 390: owner and non-owner administrator grant changes=6; replay and inherited snapshots pass; deadlines={}
+PROBE CONT-007 container guestAccess 390: native settings persisted; independent veto, retained address and authority reconciled
+PROBE CONT-007 container publicLinkAccess 390: native settings persisted; independent veto, retained address and authority reconciled
+PROBE CONT-007 container anonymousAccess 390: native settings persisted; independent veto, retained address and authority reconciled
+PROBE CONT-007 workspace guestAccess 390: native settings persisted; independent veto, retained address and authority reconciled
+PROBE CONT-007 workspace publicLinkAccess 390: native settings persisted; independent veto, retained address and authority reconciled
+PROBE CONT-007 workspace anonymousAccess 390: native settings persisted; independent veto, retained address and authority reconciled
+✔ space tree title filtering preserves ancestors, access and expansion at 390px (243867.327916ms)
+STATUS_PROFILE width=1440 value=verification-only
+PROBE STAT-001 profile=verification-only: native owner controls, retained pages, non-owner refusals and explicit bulk receipts passed at 1440px
+STATUS_PROFILE width=1440 value=open-vocabulary
+PROBE STAT-001 profile=open-vocabulary: native owner controls, retained pages, non-owner refusals and explicit bulk receipts passed at 1440px
+PROBE WORK-001 acceptance-1: Settings name/mark -> persisted Field operations 🌿, owner reload and fresh member headers at 1440px; member write refused unchanged
+Theme route 1440px light: /app
+Theme route 1440px light: /app/search
+Theme route 1440px light: /app/inbox
+Theme route 1440px light: /app/tasks
+Theme route 1440px light: /app/review
+Theme route 1440px light: /app/containers
+Theme route 1440px light: /app/templates
+Theme route 1440px light: /app/archive
+Theme route 1440px light: /app/settings
+Theme route 1440px light: /app/settings/workspace
+Theme route 1440px light: /app/settings/members
+Theme route 1440px light: /app/settings/saml
+Theme route 1440px light: /app/settings/developer
+Theme route 1440px light: /app/settings/appearance
+Theme route 1440px light: /app/settings/preferences
+Theme route 1440px light: /app/settings/activity
+Theme route 1440px light: /app/settings/automation
+Theme route 1440px light: /app/settings/statuses
+Theme route 1440px light: /app/settings/spaces
+Theme route 1440px light: /app/settings/chat
+Theme route 1440px light: /app/settings/portability
+Theme route 1440px light: /app/pages/01M6Y75SX2JEHJN3D25T48J181
+Theme route 1440px light: /app/databases/01M6Y75SXVC8MS6TKCHWMS5BHR
+Theme route 1440px light: /app/databases/01M6Y75SXVC8MS6TKCHWMS5BHR/records/01M6Y75T05EH0Q33E25EV0E6B0
+Theme route 1440px dark: /app
+Theme route 1440px dark: /app/search
+Theme route 1440px dark: /app/inbox
+Theme route 1440px dark: /app/tasks
+Theme route 1440px dark: /app/review
+Theme route 1440px dark: /app/containers
+Theme route 1440px dark: /app/templates
+Theme route 1440px dark: /app/archive
+Theme route 1440px dark: /app/settings
+Theme route 1440px dark: /app/settings/workspace
+Theme route 1440px dark: /app/settings/members
+Theme route 1440px dark: /app/settings/saml
+Theme route 1440px dark: /app/settings/developer
+Theme route 1440px dark: /app/settings/appearance
+Theme route 1440px dark: /app/settings/preferences
+Theme route 1440px dark: /app/settings/activity
+Theme route 1440px dark: /app/settings/automation
+Theme route 1440px dark: /app/settings/statuses
+Theme route 1440px dark: /app/settings/spaces
+Theme route 1440px dark: /app/settings/chat
+Theme route 1440px dark: /app/settings/portability
+Theme route 1440px dark: /app/pages/01M6Y75SX2JEHJN3D25T48J181
+Theme route 1440px dark: /app/databases/01M6Y75SXVC8MS6TKCHWMS5BHR
+Theme route 1440px dark: /app/databases/01M6Y75SXVC8MS6TKCHWMS5BHR/records/01M6Y75T05EH0Q33E25EV0E6B0
+Theme route 1440px system: /app
+Theme route 1440px system: /app/search
+Theme route 1440px system: /app/inbox
+Theme route 1440px system: /app/tasks
+Theme route 1440px system: /app/review
+Theme route 1440px system: /app/containers
+Theme route 1440px system: /app/templates
+Theme route 1440px system: /app/archive
+Theme route 1440px system: /app/settings
+Theme route 1440px system: /app/settings/workspace
+Theme route 1440px system: /app/settings/members
+Theme route 1440px system: /app/settings/saml
+Theme route 1440px system: /app/settings/developer
+Theme route 1440px system: /app/settings/appearance
+Theme route 1440px system: /app/settings/preferences
+Theme route 1440px system: /app/settings/activity
+Theme route 1440px system: /app/settings/automation
+Theme route 1440px system: /app/settings/statuses
+Theme route 1440px system: /app/settings/spaces
+Theme route 1440px system: /app/settings/chat
+Theme route 1440px system: /app/settings/portability
+Theme route 1440px system: /app/pages/01M6Y75SX2JEHJN3D25T48J181
+Theme route 1440px system: /app/databases/01M6Y75SXVC8MS6TKCHWMS5BHR
+Theme route 1440px system: /app/databases/01M6Y75SXVC8MS6TKCHWMS5BHR/records/01M6Y75T05EH0Q33E25EV0E6B0
+WORK-012 native themes, new sessions, independent members and anonymous exposures passed at 1440px
+ACTIVITY_TIMELINE browser-owner sharing.grant
+ACTIVITY_TIMELINE browser-owner pages.update
+ACTIVITY_TIMELINE browser-owner containers.create
+ACTIVITY_TIMELINE browser-owner containers.update
+ACTIVITY_TIMELINE browser-owner pages.move
+ACTIVITY_TIMELINE browser-owner workspace.update
+ACTIVITY_TIMELINE browser-owner container.access-settings
+ACTIVITY_TIMELINE browser-owner comments.resolve
+ACTIVITY_TIMELINE browser-owner group.save
+ACTIVITY_TIMELINE browser-owner group.delete
+ACTIVITY_TIMELINE browser-owner member.invite
+ACTIVITY_TIMELINE browser-owner exports.readable
+ACTIVITY_TIMELINE browser-owner pages.create
+ACTIVITY_TIMELINE browser-owner pages.publish
+ACTIVITY_TIMELINE browser-owner archive.trash
+ACTIVITY_TIMELINE browser-owner archive.permanent-delete
+ACTIVITY_TIMELINE browser-owner versions.delete
+ACTIVITY_TIMELINE browser-owner containers.delete
+ACTIVITY_TIMELINE browser-owner member.remove
+ACTIVITY_TIMELINE browser-owner imports.stage
+ACTIVITY_TIMELINE browser-owner exports.workspace
+ACTIVITY_TIMELINE browser-reader pages.create
+ACTIVITY_TIMELINE browser-reader pages.blocks.replace
+ACTIVITY_TIMELINE browser-reader pages.publish
+ACTIVITY_TIMELINE browser-reader publishing.publish
+ACTIVITY_TIMELINE browser-reader publishing.revoke
+ACTIVITY_TIMELINE browser-reader pages.unpublish
+ACTIVITY_TIMELINE browser-reader pages.status
+ACTIVITY_TIMELINE browser-reader comments.create
+ACTIVITY_TIMELINE browser-reader comments.edit
+ACTIVITY_TIMELINE browser-reader comments.reaction
+ACTIVITY_TIMELINE browser-reader comments.delete
+ACTIVITY_TIMELINE browser-reader databases.create
+ACTIVITY_TIMELINE browser-reader databases.field
+ACTIVITY_TIMELINE browser-reader databases.view
+ACTIVITY_TIMELINE browser-reader databases.lock
+ACTIVITY_TIMELINE browser-reader automation.configure
+ACTIVITY_TIMELINE browser-reader databases.record.create
+ACTIVITY_TIMELINE browser-reader exports.readable
+ACTIVITY_TIMELINE browser-reader pages.restore
+ACTIVITY_TIMELINE browser-reader archive.archive
+ACTIVITY_TIMELINE browser-reader archive.restore
+ACTIVITY_TIMELINE browser-reader archive.trash
+ACTIVITY_TIMELINE browser-reader automation.queued
+ACTIVITY_TIMELINE browser-reader automation.success
+PROBE ACT-002 1: owner and member native action corpus -> exact attributed activity inventory; committed reviewed import and opened readable and workspace archives; refused and unchanged keys absent
+PROBE ACT-002 2: operation keys and run identifiers -> one row per committed native action, replay deduplicated, every action visible after timeline reload
+IMPORT_BROWSER_RECEIPT {"width":1440,"jobId":"01M6Y79DJ64M1PNRGNRENJFB4K","state":"completed","mappings":[{"sourceId":"confluence-member:100001:d9d99555-7c2d-5fc9-9d5f-444042ec9317","kind":"member","targetId":"browser-reader"}],"access":{"restrictedPages":3,"sourceNamedGrants":3,"mappedLiveGrants":3,"unresolvedRestrictedPages":0,"recoveryGrants":3,"historicalMembers":34,"historicalGroups":0},"pages":[{"id":"5ba793f3461f5e7b:page:54","title":"Overview","anonymousNative":401,"anonymousPublished":404},{"id":"5ba793f3461f5e7b:page:36","title":"Getting started in Confluence","anonymousNative":401,"anonymousPublished":404},{"id":"5ba793f3461f5e7b:page:299","title":"Pizza Restaurant Launch Plan","anonymousNative":401,"anonymousPublished":404}],"unavailableTargetShown":true,"retainedMappingUnchanged":true}
+PROBE IMP-016 Settings 1440: genuine archive upload, explicit mapping, Apply and reload -> completed; reviewed member and historical people displayed; conversion retained; 3 restricted reader pages and no anonymous page
+PROBE CONT-009 native controls 1440: owner and non-owner administrator grant changes=46; replay and inherited snapshots pass; deadlines={"narrowed":{"writeStatus":404,"editorMs":556,"projectionsMs":838},"revoked":{"writeStatus":404,"editorMs":515,"projectionsMs":723}}
+PROBE CONT-007 container guestAccess 1440: native settings persisted; independent veto, retained address and authority reconciled
+PROBE CONT-007 container publicLinkAccess 1440: native settings persisted; independent veto, retained address and authority reconciled
+PROBE CONT-007 container anonymousAccess 1440: native settings persisted; independent veto, retained address and authority reconciled
+PROBE CONT-007 workspace guestAccess 1440: native settings persisted; independent veto, retained address and authority reconciled
+PROBE CONT-007 workspace publicLinkAccess 1440: native settings persisted; independent veto, retained address and authority reconciled
+PROBE CONT-007 workspace anonymousAccess 1440: native settings persisted; independent veto, retained address and authority reconciled
+✔ page outline follows headings and navigates long pages at 1440px (452287.26183ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 716209.124713

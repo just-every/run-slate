@@ -1,0 +1,15 @@
+{
+  "repository": "just-every/run-slate",
+  "productBranch": "cloud/sd-slate-c-f215",
+  "productHead": "8745e18e3c4b20fb0d1a372c053816889bc2617e",
+  "remoteHead": "8745e18e3c4b20fb0d1a372c053816889bc2617e",
+  "clean": true,
+  "fullHistory": true,
+  "verifyRunId": 42510389022,
+  "verifyConclusion": "failure",
+  "allowedException": "generated ACCEPTANCE.md freshness only; dependent aggregate failed with skipped jobs",
+  "mainLanding": false,
+  "publicationScan": "not run in cloud; required by maintained lander",
+  "readyIsAcceptance": false,
+  "observedAt": "2026-11-08T18:41:33.637063+00:00"
+}
