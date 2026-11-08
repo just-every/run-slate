@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "c57fc1007b3c71dfc1d163f45d74a7e3a1593fc035f231a2e836787d3d325515",
+      "sha256": "86fa130c01f4b6581b353450d515c4a91c957628a7cc9251bdcdff2e5284c80c",
       "executable": false
     },
     "DEMO.md": {
@@ -6236,7 +6236,7 @@
       "executable": false
     },
     "src/core/features/databases/discovery.ts": {
-      "sha256": "2f487a3d61c0499f901ac3d1004e9c2677c49a9db940c2131f5a8b69b60a6fb3",
+      "sha256": "6a711c379bdd6c75a009dfc1862b54798a3b6c8d4c4c46a2b1e57291a48d6c50",
       "executable": false
     },
     "src/core/features/databases/evaluation.ts": {
@@ -6284,7 +6284,7 @@
       "executable": false
     },
     "src/core/features/databases/service.ts": {
-      "sha256": "a11da981de13312e6c18b3e54ebced09a54677e18332bceec4a88909f151fb14",
+      "sha256": "d44781a6dc58ad7cf29b1d79f31cb22b415019b75bb678fb328806ddb9ea8f52",
       "executable": false
     },
     "src/core/features/databases/STRUCTURED-HANDOVER.md": {
@@ -6308,7 +6308,7 @@
       "executable": false
     },
     "src/core/features/databases/ui/fields/FieldCell.tsx": {
-      "sha256": "3871888e647d6fd96e6dfb44b9f3ec447d1d04d2f4cdb199955ad230c652d48d",
+      "sha256": "b920e3b74d0f43093751d7401c9b4e4c0820fd4b5f13205b2b3c0b7a53a6c439",
       "executable": false
     },
     "src/core/features/databases/ui/fields/FieldDisplay.tsx": {
@@ -11304,7 +11304,7 @@
       "executable": false
     },
     "tests/flagship/structured/http.test.ts": {
-      "sha256": "00d081511aa7707897fefeb27259f692f68925b852f3b3c37d3ccc9da4d6a354",
+      "sha256": "0952b20cb22143a55c56514553ec626bab7ebfb09df5e337d8a01da4e5a66f5b",
       "executable": false
     },
     "tests/flagship/structured/migration.py": {
@@ -12228,7 +12228,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/record-detail-journey.mjs": {
-      "sha256": "ce481528c42c89c0e5f87f90b133e11b7d20f4a367d856ce8b6a27f6461458b1",
+      "sha256": "72a142ff019377ed6581f31e172d6b1ab4db6a74c897bdaa0ae2f15778ca2fcc",
       "executable": false
     },
     "tests/qualification/ui-convergence/record-templates-journey.mjs": {
@@ -12456,11 +12456,11 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "e0c3e2355ca049ea3d48e9c55b22d421f2b10a91ac6e7da3c5ef2a37b97ea180",
+      "sha256": "ec0decef2497430ff311bbcacf0ab82275159bc5a75bfebcd0f1ca3649420e42",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
-      "sha256": "1c5354824258d787c2a65e4fc10f9be60b73a1d9b9901d8959ee14adc52a9c5f",
+      "sha256": "043914d38ba270c51eb786c3b8b166012aaf07c0c8036d24e050e55ce1eedef2",
       "executable": false
     },
     "tests/requirements/count-registrations.mjs": {
@@ -12472,7 +12472,7 @@
       "executable": false
     },
     "tests/requirements/test-evidence.json": {
-      "sha256": "1ee71543f0df92b8cd8ece9911aedea66e1556eb659f63d38dd0946a078a9817",
+      "sha256": "8e2a38166e546bd109dcaae097f76032c26d3ac2f9dd0ff07e960a086a304a5e",
       "executable": false
     },
     "tests/rer/editor.test.mjs": {
