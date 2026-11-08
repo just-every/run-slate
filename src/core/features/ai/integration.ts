@@ -45,7 +45,7 @@ export function registerIntelligenceVisibility(){
  }
  registerTodayResolver('run-review',async(ctx,notice)=>!!(notice.detail as NotificationDetail).runId&&(await requireRun(ctx,(notice.detail as NotificationDetail).runId!)).status==='needs-review');
  registerTodayResolver('run-failed',async(ctx,notice)=>!!(notice.detail as NotificationDetail).runId&&(await requireRun(ctx,(notice.detail as NotificationDetail).runId!)).status==='failed');
- registerTodayResolver('decision-required',async(ctx,notice)=>{const id=(notice.detail as NotificationDetail).decisionId;if(!id)return false;try{const decision=await activeDecision(ctx,id);return decision.state==='proposed'||decision.overdue;}catch{return false;}});
+ registerTodayResolver('decision-required',async(ctx,notice)=>{const id=(notice.detail as NotificationDetail).decisionId;if(!id)return false;try{const decision=await activeDecision(ctx,id);return decision.state==='proposed'||decision.overdue&&notice.createdAt===decision.overdue_notified_at;}catch{return false;}});
 }
 
 const intelligenceEligibility:CreationEligibility=(member,fact)=>{

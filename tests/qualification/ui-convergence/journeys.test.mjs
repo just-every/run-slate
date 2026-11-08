@@ -94,6 +94,8 @@ for (const width of [390, 1440]) {
       await state.page.getByRole('button', { name: 'More', exact: true }).click();
       await expect(state.page.getByRole('menu').getByRole('menuitem', { name: 'Ask', exact: true })).toHaveCount(0);
       await state.page.keyboard.press('Escape');
+      // Inspect this flow before the writing journey deliberately takes its browser offline.
+      await step('DEC-005 — overdue decision review and supersession', () => withSecondPerson(state,width,people => decisionReviewJourney(state,people,width)));
       let pageId,touch;
       try {
         await step('BLOCK-001 — a new page body takes real keystrokes, including before it finishes loading, and keeps them through committed save, failed save, explicit retry and leaving; touch member creates, inserts and drags blocks', async () => { pageId = await writeJourney(state, width); touch=await beginTouchJourney(state,width);await columnsJourney(state,width,touch); });
@@ -105,8 +107,7 @@ for (const width of [390, 1440]) {
         await step('query, highlighted results and opening exact page; touch Search, Inbox, My tasks and review queues', async () => {await searchJourney(state, pageId);await touchOperatorJourney(state,touch);});
         await step('published readers, editor indication, republish and lossless discard', () => withSecondPerson(state, width, people => unpublishedChangesJourney(state, people)));
         await step('STAT-002 — member status changes retain one status, activity and exact search/query membership', () => pageStatusJourney(state));
-          await step('DEC-005 — overdue decision review and supersession', () => withSecondPerson(state,width,people => decisionReviewJourney(state,people,width)));
-        // Finish earlier page notifications before connecting the chat journey destinations.
+          // Finish earlier page notifications before connecting the chat journey destinations.
         await state.runScheduled();
         await chatJourney(state, width);
         await step('STAT-005 — status profiles preserve vocabulary and page revisions', () => statusProfileJourney(state, width));

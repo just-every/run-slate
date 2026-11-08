@@ -134,7 +134,7 @@ it("FLAG-001 — core wiki public doors retain native content while flagship rou
   vi.setSystemTime(new Date('2026-10-22T12:00:00.000Z'));
   await scheduledJobs(env);await scheduledJobs(env);
   expect(await count(decisionId,memberId)).toBe(before+2);
-  expect((await today()).length).toBeGreaterThan(0);
+  expect(await today()).toHaveLength(1);
   const replacementPage=(await request('/api/pages','POST',{operationKey:crypto.randomUUID(),containerId,title:'Replacement decision'})).value.pageId;
   const replacement=await request('/api/decisions','POST',{operationKey:crypto.randomUUID(),pageId:replacementPage,question:'Replacement rota',options:['New rota'],outcome:'New rota',rationale:'Superseded after review',ownerId:memberId,decidedAt:null,reviewAt:null,citations:[]});
   await request('/api/decisions/'+replacement.value.id+'/accept','POST',{operationKey:crypto.randomUUID(),expectedRevisionId:replacement.value.revisionId,supersedesId:decisionId});

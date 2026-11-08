@@ -104,7 +104,7 @@ export async function decisionReviewJourney(state,people,width) {
   await verify(async()=>{
     assert.equal((await notices(alice,draft.id)).length,baseline+2,'A passed next review date delivers one further notice.');
     assert.equal((await notices(bob,denied.id)).length,deniedBefore);
-    assert.ok((await today(draft.id)).length>0);
+    assert.equal((await today(draft.id)).length,1,'Only the current overdue period remains on Today.');
   });
   await open();
   await card.getByText('accepted · Review due',{exact:true}).waitFor();
