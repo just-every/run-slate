@@ -1,3 +1,4 @@
+import {historyInventoryJourney} from './history-inventory-journey.mjs';
 import assert from 'node:assert/strict';
 import { randomBytes, randomUUID } from 'node:crypto';
 import { expect } from '@playwright/test';
@@ -8,6 +9,7 @@ const order = async (context, origin, pageId) => (await ok(context, origin, 'GET
 
 /** REV-003 and REV-005: restore writes a new revision and citations resolve to theirs. */
 export async function historyJourney(state, people) {
+  await historyInventoryJourney(state, people);
   const { alice, bob, record, shot } = people, { origin } = state;
   const tag = randomBytes(4).toString('hex');
   const { pageId, spaceId, blockIds: [first, second, third] } = await restrictedPage({ context: alice.context, origin }, `Runbook ${tag}`, ['Check the pager rota.', 'Call the vendor.', 'Close the incident.']);

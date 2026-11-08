@@ -62,7 +62,10 @@ export async function listArchive(ctx: FeatureContext) {
             if (!siblings.has(location)) siblings.set(location, visibleSiblings(ctx, item));
             const ordered = (await siblings.get(location)!).map(row => row.id === item.id ? {...row,treePosition:item.priorPosition} : row).sort(compareTreePages);
             const index = ordered.findIndex(row => row.id === item.id);
-            out.push({ ...item, priorOrder: index < 0 ? null : index + 1, ...await priorLocation(ctx, item) });
+            out.push({ ...item, priorOrder: index < 0 ? null : index + 1, ...await priorLocation(ctx, item), permissions: {
+                canRestore: access.decision.level === 'edit' || access.decision.level === 'full',
+                canDelete: access.decision.level === 'full',
+            } });
         } catch (error) {
             if (!(error instanceof ApiProblem) || error.status !== 404) throw error;
         }
