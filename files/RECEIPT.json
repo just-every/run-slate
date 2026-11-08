@@ -1,0 +1,163 @@
+{
+  "schema": 1,
+  "repository": "just-every/run-slate",
+  "branch": "cloud/sd-slate-c-f213-pc1",
+  "head": "946d8e0c2ae6058d99a04303f042738aa2473d9a",
+  "product_changes": false,
+  "new_product_commits": [],
+  "reproductions": [
+    {
+      "job": "verify (ui-focus-mobile)",
+      "os": "Debian 13",
+      "node": "22.20.0",
+      "command": "bash .github/scripts/run-shard.sh",
+      "shard": "6/8",
+      "worker_shard": 0,
+      "serial_suite": true,
+      "exit": 0,
+      "journeys": {
+        "passed": 4,
+        "failed": 0
+      },
+      "focus_suite_exit": 0,
+      "log": "reproduce-mobile-shard.log"
+    },
+    {
+      "job": "verify (ui-focus-mobile)",
+      "os": "Ubuntu 24.04.4 LTS",
+      "node": "22.20.0",
+      "browser_build": 1243,
+      "command": "bash .github/scripts/run-shard.sh",
+      "shard": "6/8",
+      "worker_shard": 0,
+      "serial_suite": true,
+      "exit": 0,
+      "journeys": {
+        "passed": 4,
+        "failed": 0
+      },
+      "focus_suite_exit": 0,
+      "log": "reproduce-ubuntu-mobile-shard.log"
+    },
+    {
+      "job": "verify (core)",
+      "os": "Ubuntu 24.04.4 LTS",
+      "node": "22.20.0",
+      "browser_build": 1243,
+      "command": "bash .github/scripts/run-shard.sh",
+      "shard": "1/8",
+      "worker_shard": 4,
+      "serial_suite": false,
+      "status": "completed",
+      "observed_PAGE_007": "passed",
+      "log": "reproduce-ubuntu-core-shard.log",
+      "exit": 1,
+      "journeys": {
+        "passed": 5,
+        "failed": 0
+      },
+      "worker_suite_exit": 1,
+      "local_failure": "foundation runtime: 404 at line 41 and 403 at line 166; different from CI RATE_LIMITED"
+    }
+  ],
+  "ci": {
+    "previous_run": 42513420265,
+    "latest_exact_head_run": 42526147334,
+    "latest_conclusion": "failure",
+    "latest_event": "push",
+    "failed_jobs": [
+      128870518068,
+      128870518086,
+      128870518052,
+      128874555550
+    ],
+    "known_core_failure": "PAGE-007 details journey: RATE_LIMITED, 429 !== 200",
+    "unread_jobs": [
+      128870518086,
+      128870518052
+    ],
+    "github_diagnostic_invocations": 10,
+    "budget_exhausted": true,
+    "reruns_dispatched": 0,
+    "web_desktop_case": {
+      "job": 128870518068,
+      "test": "page outline follows headings and navigates long pages at 1440px",
+      "result": "passed inside failed core job"
+    }
+  },
+  "counts": {
+    "before": {
+      "done": 58,
+      "partial": 239,
+      "missing": 41
+    },
+    "after": {
+      "done": 58,
+      "partial": 239,
+      "missing": 41
+    }
+  },
+  "clause": {
+    "id": "WEB-001",
+    "before": "partial",
+    "after": "partial",
+    "native_points": [
+      1,
+      2,
+      3,
+      4,
+      7
+    ],
+    "held": [
+      "acceptance 5 AI actions",
+      "acceptance 6 delegated publication"
+    ]
+  },
+  "publication_scan": {
+    "run_in_cloud": false,
+    "reason": "Guarded lander owns exact-head full-history scanning."
+  },
+  "mobile_focus_note": "The workflow suite command exits 0 while matching no 390px focus registration; no focus execution is claimed.",
+  "environment_correction": {
+    "change": "Removed ignored saved root settings from test checkout; private file remains outside packet.",
+    "source_edit": false,
+    "command": "pnpm test:foundation",
+    "exit": 0,
+    "tests": 4,
+    "log": "foundation-without-local-setup.log"
+  },
+  "browser_receipts": [
+    "external-switches-390-predecessor.json",
+    "external-switches-390-ubuntu.json",
+    "external-switches-1440-ubuntu.json"
+  ],
+  "main_comparison_setup": {
+    "first_exit": 1,
+    "failure": "Missing shared Git metadata mount for linked worktree; failed before PAGE-007.",
+    "correction": "Read-only mount of shared Git directory at its original path.",
+    "source_edit": false,
+    "log": "main-comparison-missing-git-mount.log"
+  },
+  "main_comparison": {
+    "head": "95a0372f6692b95607cedc7d1f9a0440dc9d3c38",
+    "os": "Ubuntu 24.04.4 LTS",
+    "node": "22.20.0",
+    "browser_build": 1243,
+    "command": "node --test --test-concurrency=1 --test-name-pattern=\"^real core-wiki and touch-member journeys at 390px$\" tests/qualification/ui-convergence/journeys.test.mjs",
+    "SLATE_UI_SHARD": "1/8",
+    "SLATE_UI_ASSIGNMENTS": ".github/scripts/journey-shards.json",
+    "exit": 0,
+    "PAGE_007": "passed",
+    "log": "main-core-390-comparison.log"
+  },
+  "outcome": {
+    "status": "BLOCKED",
+    "reason": "CI failure not reproduced; current exact-head Verify remains red and two failed jobs have no diagnostic budget left.",
+    "repair_rounds": 0,
+    "source_edits": false,
+    "new_product_commits": [],
+    "ready_claimed": false,
+    "product_head_unchanged": true,
+    "evidence_ref": "refs/heads/evidence/sd-slate-c-f213-pc1"
+  }
+}

@@ -1,0 +1,1093 @@
+verify (core)	Workers, public-door journeys and suite	﻿2026-11-08T21:39:52.9307881Z ##[group]Run bash .github/scripts/run-shard.sh
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:39:52.9308106Z [36;1mbash .github/scripts/run-shard.sh[0m
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:39:52.9323745Z shell: /usr/bin/bash -e {0}
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:39:52.9323882Z env:
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:39:52.9324022Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:39:52.9324197Z   SLATE_UI_SHARD: 1/8
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:39:52.9324533Z   SLATE_UI_ASSIGNMENTS: .github/scripts/journey-shards.json
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:39:52.9324755Z   SERIAL_SUITE: false
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:39:52.9324877Z   WORKER_SHARD: 4
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:39:52.9325399Z   SUITE_COMMAND: node src/base/runtime/contract-docs.mjs check && node --test .github/scripts/journey-shard.test.mjs && pnpm test:foundation && pnpm test:platform && pnpm test:profile && pnpm test:local-outbox && pnpm exec tsx --test --test-concurrency=1 tests/flagship/core/mail.node.test.mts
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:39:52.9325942Z ##[endgroup]
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:39:52.9641023Z TAP version 13
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:40:54.9953082Z # PROBE PORT-001 1: native authored subtree -> Settings workspace ZIP retains 4 ordered pages, bodies, properties, thirteen revisions, changed, revoked and regranted member and group grants, edited and resolved anchored thread and reply with retained histories
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:40:54.9957494Z # PROBE PORT-001 2: native original downloads -> Settings ZIP has both exact original byte sequences and SHA-256 hashes; independent source snapshots unchanged
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:41:28.6359126Z # PROBE PORT-003 1: failed native export and restore replay and reload -> failed, no download or successful restore action
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:41:28.6360498Z # PROBE PORT-003 2: Settings export and empty-deployment restore -> queued, running, completed and failed persisted; counts equal native archive; safe reports identify commit failures
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:42:59.2875811Z # NAV-006 touch create, type, insert and drag persisted
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:43:05.9663122Z # BLOCK-012 columns insert, desktop drag and touch layout passed at 390px
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:43:22.7578729Z # PROBE COMM-002 acceptance 1–2: native comment controls and HTTP at 390px -> two authors edit/delete; cross-author and owner override 403; edited times, two in-place tombstones and six activities survive replay/reload
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:43:24.7124495Z # NAV-006 touch comment and resolve persisted
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:43:42.9052988Z # WEB-006 native unpublish response {"width":390,"elapsedMs":876}
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:27.4730299Z # PROBE SHARE-002 full: selected reads, title, body, comment and direct grants; 0 refused requests preserve inventories at 390px
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:34.9409570Z # PROBE SHARE-002 edit: selected reads, title, body, comment and direct grants; 2 refused requests preserve inventories at 390px
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:39.0693936Z # PROBE SHARE-002 comment: selected reads, title, body, comment and direct grants; 4 refused requests preserve inventories at 390px
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:42.3977431Z # PROBE SHARE-002 view: selected reads, title, body, comment and direct grants; 5 refused requests preserve inventories at 390px
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:47.2370152Z # NAV-006 touch workspace publication and sharing persisted
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.6998259Z # Journey failure context {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.6998801Z #   "rejected": [],
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.6999106Z #   "consoleErrors": [
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.6999367Z #     {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.6999820Z #       "url": "http://127.0.0.1:45707/app/pages/01M6YHR5VENK3RCAAGTAFA5RWV",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7000476Z #       "message": "Failed to load resource: net::ERR_INTERNET_DISCONNECTED"
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7000846Z #     },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7001026Z #     {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7001476Z #       "url": "http://127.0.0.1:45707/app/pages/01M6YHWHATD6ZB0ADV0H43RJMY?detail=share",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7002154Z #       "message": "Failed to load resource: the server responded with a status of 429 (Too Many Requests)"
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7002593Z #     }
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7002774Z #   ]
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7002931Z # }
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7012795Z # Journey failure context REQUEST TIMELINE {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7013266Z #   "primary": {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7014047Z #     "requestsAtDump": [
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7014469Z #       {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7014722Z #         "method": "GET",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7017594Z #         "path": "/api/sharing/pages/01M6YH…YJWE",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7017961Z #         "startMs": 0,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7020497Z #         "durationMs": 41,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7021857Z #         "status": 200
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7022107Z #       },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7022279Z #       {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7025736Z #         "method": "GET",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7026266Z #         "path": "/api/activity",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7026823Z #         "startMs": 43,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7027288Z #         "durationMs": 26,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7027751Z #         "status": 200
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7028226Z #       },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7028671Z #       {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7029170Z #         "method": "GET",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7029875Z #         "path": "/api/pages/01M6YH…YJWE",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7030171Z #         "startMs": 45,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7035705Z #         "durationMs": 39,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7035997Z #         "status": 200
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7036203Z #       },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7036459Z #       {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7036652Z #         "method": "GET",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7037061Z #         "path": "/api/revisions/01M6YH…YJWE",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7037385Z #         "startMs": 45,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7037664Z #         "durationMs": 38,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7037935Z #         "status": 200
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7038141Z #       },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7038317Z #       {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7038511Z #         "method": "GET",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7038868Z #         "path": "/api/comments/<id>/01M6YH…YJWE",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7039189Z #         "startMs": 45,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7039418Z #         "durationMs": 36,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7039638Z #         "status": 200
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7039865Z #       },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7040036Z #       {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7040229Z #         "method": "GET",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7040606Z #         "path": "/api/sharing/pages/01M6YH…YJWE",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7040985Z #         "startMs": 46,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7041221Z #         "durationMs": 41,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7041476Z #         "status": 200
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7041679Z #       },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7041896Z #       {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7042092Z #         "method": "GET",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7042710Z #         "path": "/api/activity",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7042992Z #         "startMs": 98,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7043215Z #         "durationMs": 22,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7043474Z #         "status": 200
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7043673Z #       },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7044061Z #       {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7044284Z #         "method": "GET",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7044756Z #         "path": "/api/pages/01M6YH…YJWE",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7045028Z #         "startMs": 99,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7045386Z #         "durationMs": 33,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7045728Z #         "status": 200
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7046022Z #       },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7046347Z #       {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7046691Z #         "method": "GET",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7047112Z #         "path": "/api/revisions/01M6YH…YJWE",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7047395Z #         "startMs": 100,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7047735Z #         "durationMs": 32,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7050003Z #         "status": 200
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7050583Z #       },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7050822Z #       {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7051038Z #         "method": "GET",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7051476Z #         "path": "/api/comments/<id>/01M6YH…YJWE",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7051772Z #         "startMs": 100,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7052005Z #         "durationMs": 30,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7052235Z #         "status": 200
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7052433Z #       },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7052601Z #       {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7052789Z #         "method": "GET",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7053137Z #         "path": "/api/sharing/pages/01M6YH…YJWE",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7053417Z #         "startMs": 101,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7053648Z #         "durationMs": 36,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7054142Z #         "status": 200
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7054613Z #       },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7055130Z #       {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7055614Z #         "method": "POST",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7056206Z #         "path": "/api/<id>/01M6YH…RJMY/presence",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7056531Z #         "startMs": 119,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7057001Z #         "durationMs": 25,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7057436Z #         "status": 200
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7057912Z #       },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7058315Z #       {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7058803Z #         "method": "GET",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7067229Z #         "path": "/api/<id>/01M6YH…RJMY",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7097121Z #         "startMs": 144,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7097593Z #         "durationMs": 9,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7098250Z #         "status": 200
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7098497Z #       },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7098671Z #       {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7098868Z #         "method": "GET",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7099133Z #         "path": "/api/activity",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7099389Z #         "startMs": 527,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7099641Z #         "durationMs": 22,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7099868Z #         "status": 200
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7100063Z #       },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7100227Z #       {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7100416Z #         "method": "GET",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7100806Z #         "path": "/api/pages/01M6YH…YJWE",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7101100Z #         "startMs": 528,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7101326Z #         "durationMs": 35,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7101552Z #         "status": 200
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7101745Z #       },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7101912Z #       {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7102100Z #         "method": "GET",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7102427Z #         "path": "/api/revisions/01M6YH…YJWE",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7129702Z #         "startMs": 529,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7130188Z #         "durationMs": 34,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7130631Z #         "status": 200
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7131003Z #       },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7131265Z #       {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7131586Z #         "method": "GET",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7132183Z #         "path": "/api/comments/<id>/01M6YH…YJWE",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7132637Z #         "startMs": 530,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7132984Z #         "durationMs": 32,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7133314Z #         "status": 200
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7133647Z #       },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7148389Z #       {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7148632Z #         "method": "GET",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7149473Z #         "path": "/api/sharing/pages/01M6YH…YJWE",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7149760Z #         "startMs": 530,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7149986Z #         "durationMs": 38,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7150206Z #         "status": 200
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7150402Z #       },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7150569Z #       {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7150757Z #         "method": "GET",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7151066Z #         "path": "/api/<id>/01M6YH…RJMY",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7151321Z #         "startMs": 3656,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7151542Z #         "durationMs": 0,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7151755Z #         "status": 200
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7151949Z #       },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7152127Z #       {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7152314Z #         "method": "POST",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7152576Z #         "path": "/api/containers",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7152824Z #         "startMs": 5437,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7153048Z #         "durationMs": 17,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7153263Z #         "status": 200
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7153466Z #       },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7153632Z #       {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7153816Z #         "method": "POST",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7154063Z #         "path": "/api/pages",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7154289Z #         "startMs": 5459,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7158053Z #         "durationMs": 15,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7158271Z #         "status": 200
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7158462Z #       },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7158623Z #       {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7158806Z #         "method": "POST",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7159041Z #         "path": "/api/sharing",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7159272Z #         "startMs": 5476,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7159488Z #         "durationMs": 19,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7160064Z #         "status": 200
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7160257Z #       },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7160419Z #       {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7160607Z #         "method": "POST",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7160845Z #         "path": "/api/sharing",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7161076Z #         "startMs": 5497,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7161293Z #         "durationMs": 17,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7161510Z #         "status": 200
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7161697Z #       },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7161858Z #       {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7162044Z #         "method": "POST",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7162278Z #         "path": "/api/pages",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7162503Z #         "startMs": 5516,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7162719Z #         "durationMs": 16,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7162915Z #         "status": 200
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7163097Z #       },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7163253Z #       {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7163441Z #         "method": "POST",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7163695Z #         "path": "/api/sharing",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7163936Z #         "startMs": 5535,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7164169Z #         "durationMs": 18,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7164513Z #         "status": 200
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7164704Z #       },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7164872Z #       {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7165059Z #         "method": "GET",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7165464Z #         "path": "/api/pages/01M6YH…0T9B",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7165737Z #         "startMs": 5556,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7165966Z #         "durationMs": 8,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7166183Z #         "status": 200
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7166377Z #       },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7166544Z #       {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7166764Z #         "method": "PATCH",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7171122Z #         "path": "/api/pages/01M6YH…0T9B/blocks/cbb81d…d1ac",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7203573Z #         "startMs": 5566,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7207086Z #         "durationMs": 19,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7207516Z #         "status": 200
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7207850Z #       },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7208138Z #       {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7208445Z #         "method": "POST",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7208860Z #         "path": "/api/status",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7209228Z #         "startMs": 5618,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7209574Z #         "durationMs": 194,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7209916Z #         "status": 200
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7210222Z #       },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7210504Z #       {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7210798Z #         "method": "GET",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7211689Z #         "path": "/api/pages/01M6YH…0T9B",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7212093Z #         "startMs": 5814,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7212436Z #         "durationMs": 7,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7212770Z #         "status": 200
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7213079Z #       },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7213355Z #       {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7213656Z #         "method": "POST",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7214112Z #         "path": "/api/status/<id>/01M6YH…0T9B",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7214656Z #         "startMs": 5823,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7214996Z #         "durationMs": 30,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7215331Z #         "status": 200
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7215633Z #       },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7215926Z #       {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7216225Z #         "method": "POST",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7216584Z #         "path": "/api/pages",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7216934Z #         "startMs": 5856,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7217268Z #         "durationMs": 15,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7217600Z #         "status": 200
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7217904Z #       },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7218189Z #       {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7218484Z #         "method": "GET",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7218849Z #         "path": "/api/containers",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7219213Z #         "startMs": 5873,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7219547Z #         "durationMs": 7,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7219854Z #         "status": 200
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7220142Z #       },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7220407Z #       {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7220832Z #         "method": "POST",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7221170Z #         "path": "/api/pages",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7221413Z #         "startMs": 5882,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7221637Z #         "durationMs": 14,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7221851Z #         "status": 200
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7222308Z #       },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7222474Z #       {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7222659Z #         "method": "POST",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7222912Z #         "path": "/api/sharing",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7223150Z #         "startMs": 5898,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7223375Z #         "durationMs": 16,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7223576Z #         "status": 200
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7223752Z #       },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7223936Z #       {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7224106Z #         "method": "GET",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7227910Z #         "path": "/api/pages/01M6YH…Y519",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7228120Z #         "startMs": 5916,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7228260Z #         "durationMs": 9,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7228398Z #         "status": 200
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7228517Z #       },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7228623Z #       {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7228741Z #         "method": "PUT",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7229028Z #         "path": "/api/sharing/pages/01M6YH…Y519/inheritance",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7229226Z #         "startMs": 5927,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7229376Z #         "durationMs": 15,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7229533Z #         "status": 200
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7229651Z #       },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7229755Z #       {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7229866Z #         "method": "GET",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7230057Z #         "path": "/api/pages/01M6YH…Y519",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7230229Z #         "startMs": 5944,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7230363Z #         "durationMs": 9,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7230497Z #         "status": 200
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7230612Z #       },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7230717Z #       {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7230829Z #         "method": "PUT",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7231033Z #         "path": "/api/pages/01M6YH…Y519/blocks",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7231203Z #         "startMs": 5955,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7231340Z #         "durationMs": 18,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7231477Z #         "status": 200
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7231592Z #       },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7231696Z #       {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7231810Z #         "method": "GET",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7231999Z #         "path": "/api/<id>/01M6YH…RJMY",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7232156Z #         "startMs": 6117,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7232290Z #         "durationMs": 7,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7232424Z #         "status": 429
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7232539Z #       },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7232644Z #       {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7232757Z #         "method": "GET",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7233252Z #         "path": "/api/pages/01M6YH…0T9B",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7233410Z #         "startMs": 7464,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7233547Z #         "durationMs": 22,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7233681Z #         "status": 429
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7233801Z #       }
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7233907Z #     ]
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7234008Z #   },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7234117Z #   "others": [
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7234230Z #     {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7234504Z #       "requestsAtDump": [
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7234707Z #         {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7234891Z #           "method": "GET",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7235204Z #           "path": "/api/pages/01M6YH…0T9B",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7235467Z #           "startMs": 0,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7235683Z #           "durationMs": 7,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7235902Z #           "status": 200
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7236094Z #         },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7236257Z #         {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7236457Z #           "method": "PATCH",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7236829Z #           "path": "/api/pages/01M6YH…0T9B/blocks/cbb81d…d1ac",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7237125Z #           "startMs": 9,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7237342Z #           "durationMs": 20,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7237560Z #           "status": 200
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7237748Z #         },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7237912Z #         {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7238091Z #           "method": "GET",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7238390Z #           "path": "/app/pages/01M6YH…0T9B",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7238645Z #           "startMs": 394,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7238859Z #           "durationMs": 57,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7239077Z #           "status": 200
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7239263Z #         },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7239427Z #         {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7239743Z #           "method": "GET",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7239987Z #           "path": "/assets/<id>",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7240212Z #           "startMs": 441,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7240415Z #           "durationMs": 8,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7240628Z #           "status": 200
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7240804Z #         },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7240970Z #         {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7241143Z #           "method": "GET",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7241378Z #           "path": "/assets/<id>",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7241615Z #           "startMs": 441,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7241825Z #           "durationMs": 10,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7242039Z #           "status": 200
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7242223Z #         },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7242393Z #         {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7242566Z #           "method": "GET",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7242806Z #           "path": "/assets/<id>",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7243038Z #           "startMs": 441,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7243252Z #           "durationMs": 14,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7243476Z #           "status": 200
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7243663Z #         },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7243827Z #         {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7244001Z #           "method": "GET",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7244239Z #           "path": "/assets/<id>",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7249200Z #           "startMs": 441,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7249432Z #           "durationMs": 48,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7249657Z #           "status": 200
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7249844Z #         },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7250006Z #         {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7250182Z #           "method": "GET",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7250543Z #           "path": "/api/pages/01M6YH…5VC1/<id>",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7250809Z #           "startMs": 579,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7251031Z #           "durationMs": 2,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7251248Z #           "status": 200
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7251439Z #         },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7251603Z #         {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7251781Z #           "method": "GET",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7252136Z #           "path": "/api/pages/01M6YH…6K34/<id>",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7252399Z #           "startMs": 579,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7252613Z #           "durationMs": 10,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7252818Z #           "status": 200
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7253007Z #         },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7253172Z #         {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7253352Z #           "method": "GET",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7253669Z #           "path": "/api/pages/01M6YH…0VVC/<id>",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7265340Z #           "startMs": 579,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7265577Z #           "durationMs": 10,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7265808Z #           "status": 200
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7266011Z #         },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7266181Z #         {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7266369Z #           "method": "GET",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7266767Z #           "path": "/api/tasks/01M6YH…0T9B/assignees",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7267056Z #           "startMs": 579,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7267286Z #           "durationMs": 18,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7267513Z #           "status": 200
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7267713Z #         },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7267888Z #         {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7268078Z #           "method": "GET",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7268398Z #           "path": "/app/pages/01M6YH…0T9B",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7268661Z #           "startMs": 1103,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7268888Z #           "durationMs": 61,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7269112Z #           "status": 200
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7269317Z #         },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7269482Z #         {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7269670Z #           "method": "GET",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7269919Z #           "path": "/assets/<id>",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7270165Z #           "startMs": 1156,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7270394Z #           "durationMs": 0,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7270617Z #           "status": 200
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7270816Z #         },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7270981Z #         {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7271168Z #           "method": "GET",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7271417Z #           "path": "/assets/<id>",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7271656Z #           "startMs": 1156,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7271884Z #           "durationMs": 0,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7305017Z #           "status": 200
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7305222Z #         },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7305386Z #         {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7305571Z #           "method": "GET",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7305854Z #           "path": "/assets/<id>",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7306099Z #           "startMs": 1157,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7306298Z #           "durationMs": 0,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7306498Z #           "status": 200
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7306696Z #         },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7306868Z #         {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7307049Z #           "method": "GET",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7307311Z #           "path": "/assets/<id>",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7307577Z #           "startMs": 1157,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7307832Z #           "durationMs": 0,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7308075Z #           "status": 200
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7308293Z #         },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7308499Z #         {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7308749Z #           "method": "GET",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7309235Z #           "path": "/api/pages/01M6YH…5VC1/<id>",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7309601Z #           "startMs": 1214,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7309912Z #           "durationMs": 1,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7310173Z #           "status": 200
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7310477Z #         },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7310689Z #         {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7310913Z #           "method": "GET",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7311306Z #           "path": "/api/pages/01M6YH…6K34/<id>",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7311566Z #           "startMs": 1214,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7311800Z #           "durationMs": 10,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7312007Z #           "status": 200
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7312216Z #         },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7312397Z #         {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7312593Z #           "method": "GET",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7312914Z #           "path": "/api/pages/01M6YH…0VVC/<id>",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7313166Z #           "startMs": 1214,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7313371Z #           "durationMs": 10,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7313576Z #           "status": 200
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7313756Z #         },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7313929Z #         {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7314135Z #           "method": "GET",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7323438Z #           "path": "/api/tasks/01M6YH…0T9B/assignees",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7323749Z #           "startMs": 1214,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7323973Z #           "durationMs": 20,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7324182Z #           "status": 200
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7324706Z #         },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7324869Z #         {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7325049Z #           "method": "GET",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7325308Z #           "path": "/api/navigation",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7325550Z #           "startMs": 1805,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7325762Z #           "durationMs": 3,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7325969Z #           "status": 200
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7326113Z #         },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7326221Z #         {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7326441Z #           "method": "GET",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7326833Z #           "path": "/api/status/requests/<id>/01M6YH…0T9B",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7327126Z #           "startMs": 1869,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7327370Z #           "durationMs": 16,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7327594Z #           "status": 200
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7327789Z #         },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7327952Z #         {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7328133Z #           "method": "GET",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7328388Z #           "path": "/api/status",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7328631Z #           "startMs": 1869,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7328870Z #           "durationMs": 32,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7329124Z #           "status": "pending"
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7329335Z #         },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7329499Z #         {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7329679Z #           "method": "GET",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7330013Z #           "path": "/api/status/<id>/01M6YH…0T9B",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7330285Z #           "startMs": 1869,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7330507Z #           "durationMs": 32,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7330757Z #           "status": "pending"
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7330971Z #         },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7331138Z #         {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7331324Z #           "method": "GET",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7331719Z #           "path": "/api/<id>",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7331954Z #           "startMs": 1870,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7332184Z #           "durationMs": 31,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7332426Z #           "status": "pending"
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7332635Z #         },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7332800Z #         {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7332986Z #           "method": "GET",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7333324Z #           "path": "/api/pages/01M6YH…0T9B/<id>",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7333596Z #           "startMs": 1870,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7333826Z #           "durationMs": 31,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7334070Z #           "status": "pending"
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7334281Z #         },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7334555Z #         {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7334739Z #           "method": "GET",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7334987Z #           "path": "/api/members",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7335227Z #           "startMs": 1872,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7335449Z #           "durationMs": 30,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7335698Z #           "status": "pending"
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7335916Z #         },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7336082Z #         {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7336270Z #           "method": "GET",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7336519Z #           "path": "/api/status",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7336760Z #           "startMs": 1872,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7336985Z #           "durationMs": 30,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7337228Z #           "status": "pending"
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7337445Z #         },
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7337611Z #         {
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7337799Z #           "method": "GET",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7338043Z #           "path": "/<id>/<id>",
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7338280Z #           "startMs": 1874,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7338507Z #           "durationMs": 27,
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7338752Z #           "status": "pending"
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7338961Z #         }
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7339123Z #       ]
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7339287Z #     }
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7339445Z #   ]
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7339607Z # }
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7970577Z # Subtest: real core-wiki and touch-member journeys at 390px
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7977090Z not ok 1 - real core-wiki and touch-member journeys at 390px
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7977672Z   ---
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7978123Z   duration_ms: 280314.003092
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7978403Z   type: 'test'
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7978928Z   location: '/home/runner/work/run-slate/run-slate/tests/qualification/ui-convergence/journey-shard.mjs:23:97'
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7979819Z   failureType: 'testCodeFailure'
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7980062Z   error: |-
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7980775Z     Step PAGE-007 populated Details and full-member ownership preserve grants under replay and edit-only refusal failed: {"code":"RATE_LIMITED","message":"Too many requests. Try again later."}
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7981466Z     
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7981637Z     429 !== 200
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7981821Z     
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7981996Z   code: 'ERR_ASSERTION'
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7982220Z   name: 'AssertionError'
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7982429Z   expected: 200
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7982619Z   actual: 429
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7982828Z   operator: 'strictEqual'
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7983046Z   stack: |-
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7983516Z     api (file:///home/runner/work/run-slate/run-slate/tests/qualification/ui-convergence/browser-support.mjs:128:16)
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7984540Z     async pageDetailsJourney (file:///home/runner/work/run-slate/run-slate/tests/qualification/ui-convergence/page-details-journey.mjs:43:18)
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7985464Z     async withSecondPerson (file:///home/runner/work/run-slate/run-slate/tests/qualification/ui-convergence/two-people-support.mjs:48:5)
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7986270Z     async file:///home/runner/work/run-slate/run-slate/tests/qualification/ui-convergence/journeys.test.mjs:104:140
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7986992Z     async step (file:///home/runner/work/run-slate/run-slate/tests/qualification/ui-convergence/journeys.test.mjs:42:9)
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7987848Z     async withWorkspace.scheduled (file:///home/runner/work/run-slate/run-slate/tests/qualification/ui-convergence/journeys.test.mjs:104:9)
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7988945Z     async withWorkspace (file:///home/runner/work/run-slate/run-slate/tests/qualification/ui-convergence/browser-support.mjs:197:7)
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7989852Z     async TestContext.<anonymous> (file:///home/runner/work/run-slate/run-slate/tests/qualification/ui-convergence/journeys.test.mjs:87:5)
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7990476Z     async Test.run (node:internal/test_runner/test:1054:7)
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7990942Z     async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:44:49.7991309Z   ...
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:45:35.2178954Z # Subtest: BLOCK-016 — task reports, My tasks and typed assignments preserve reader access and completion at 1440px
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:45:35.2180464Z ok 2 - BLOCK-016 — task reports, My tasks and typed assignments preserve reader access and completion at 1440px
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:45:35.2180800Z   ---
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:45:35.2180942Z   duration_ms: 45421.793046
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:45:35.2181177Z   type: 'test'
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:45:35.2181348Z   ...
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:46:08.1808407Z # Subtest: editable space home and curated company hub for a new member at 1440px
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:46:08.1809180Z ok 3 - editable space home and curated company hub for a new member at 1440px
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:46:08.1809589Z   ---
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:46:08.1809789Z   duration_ms: 32962.78812
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:46:08.1810006Z   type: 'test'
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:47:07.7778492Z   ...
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:47:07.7778823Z # STATUS_PROFILE width=1440 value=verification-only
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:47:21.4700669Z # PROBE STAT-001 profile=verification-only: native owner controls, retained pages, non-owner refusals and explicit bulk receipts passed at 1440px
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:47:22.2113099Z # STATUS_PROFILE width=1440 value=open-vocabulary
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:47:35.7710769Z # PROBE STAT-001 profile=open-vocabulary: native owner controls, retained pages, non-owner refusals and explicit bulk receipts passed at 1440px
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:47:45.0015578Z # PROBE WORK-001 acceptance-1: Settings name/mark -> persisted Field operations 🌿, owner reload and fresh member headers at 1440px; member write refused unchanged
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:03.1365832Z # Theme route 1440px light: /app
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:03.2257670Z # Theme route 1440px light: /app/search
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:03.3696662Z # Theme route 1440px light: /app/inbox
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:03.4976385Z # Theme route 1440px light: /app/tasks
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:03.5915552Z # Theme route 1440px light: /app/review
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:03.7277499Z # Theme route 1440px light: /app/containers
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:03.8785913Z # Theme route 1440px light: /app/templates
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:04.0262418Z # Theme route 1440px light: /app/archive
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:04.1292930Z # Theme route 1440px light: /app/settings
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:04.2740735Z # Theme route 1440px light: /app/settings/workspace
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:05.0042627Z # Theme route 1440px light: /app/settings/members
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:05.1137420Z # Theme route 1440px light: /app/settings/saml
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:05.3160895Z # Theme route 1440px light: /app/settings/developer
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:05.4616709Z # Theme route 1440px light: /app/settings/appearance
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:05.5932104Z # Theme route 1440px light: /app/settings/preferences
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:05.6921873Z # Theme route 1440px light: /app/settings/activity
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:05.8107708Z # Theme route 1440px light: /app/settings/automation
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:05.9625742Z # Theme route 1440px light: /app/settings/statuses
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:06.1536250Z # Theme route 1440px light: /app/settings/spaces
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:06.2755176Z # Theme route 1440px light: /app/settings/chat
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:06.3755263Z # Theme route 1440px light: /app/settings/portability
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:06.5425868Z # Theme route 1440px light: /app/pages/01M6YJ3VJDP6VHAARFZYVXTAZE
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:07.2874763Z # Theme route 1440px light: /app/databases/01M6YJ3VKYXEPWDH45N91PPJ7D
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:07.9692908Z # Theme route 1440px light: /app/databases/01M6YJ3VKYXEPWDH45N91PPJ7D/records/01M6YJ3VPD4TK8MR6RH29N896G
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:17.4205027Z # Theme route 1440px dark: /app
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:17.6892315Z # Theme route 1440px dark: /app/search
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:17.9741260Z # Theme route 1440px dark: /app/inbox
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:18.2076481Z # Theme route 1440px dark: /app/tasks
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:18.4790182Z # Theme route 1440px dark: /app/review
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:18.7288919Z # Theme route 1440px dark: /app/containers
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:18.9550719Z # Theme route 1440px dark: /app/templates
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:19.2137144Z # Theme route 1440px dark: /app/archive
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:19.4664280Z # Theme route 1440px dark: /app/settings
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:19.7606030Z # Theme route 1440px dark: /app/settings/workspace
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:19.9432371Z # Theme route 1440px dark: /app/settings/members
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:20.2174292Z # Theme route 1440px dark: /app/settings/saml
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:20.4933064Z # Theme route 1440px dark: /app/settings/developer
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:20.7801630Z # Theme route 1440px dark: /app/settings/appearance
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:21.0213950Z # Theme route 1440px dark: /app/settings/preferences
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:21.2593604Z # Theme route 1440px dark: /app/settings/activity
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:21.5510551Z # Theme route 1440px dark: /app/settings/automation
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:21.7854315Z # Theme route 1440px dark: /app/settings/statuses
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:22.0198194Z # Theme route 1440px dark: /app/settings/spaces
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:22.2590590Z # Theme route 1440px dark: /app/settings/chat
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:22.5031864Z # Theme route 1440px dark: /app/settings/portability
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:22.7678700Z # Theme route 1440px dark: /app/pages/01M6YJ3VJDP6VHAARFZYVXTAZE
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:23.5652889Z # Theme route 1440px dark: /app/databases/01M6YJ3VKYXEPWDH45N91PPJ7D
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:24.2920245Z # Theme route 1440px dark: /app/databases/01M6YJ3VKYXEPWDH45N91PPJ7D/records/01M6YJ3VPD4TK8MR6RH29N896G
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:34.7047768Z # Theme route 1440px system: /app
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:35.0054583Z # Theme route 1440px system: /app/search
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:35.2230928Z # Theme route 1440px system: /app/inbox
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:35.4984608Z # Theme route 1440px system: /app/tasks
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:35.9436352Z # Theme route 1440px system: /app/review
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:36.1745488Z # Theme route 1440px system: /app/containers
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:36.3576573Z # Theme route 1440px system: /app/templates
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:36.6399354Z # Theme route 1440px system: /app/archive
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:36.8237729Z # Theme route 1440px system: /app/settings
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:37.0551813Z # Theme route 1440px system: /app/settings/workspace
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:37.2807249Z # Theme route 1440px system: /app/settings/members
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:37.5146984Z # Theme route 1440px system: /app/settings/saml
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:37.8968538Z # Theme route 1440px system: /app/settings/developer
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:38.4400153Z # Theme route 1440px system: /app/settings/appearance
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:38.6807212Z # Theme route 1440px system: /app/settings/preferences
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:39.0275758Z # Theme route 1440px system: /app/settings/activity
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:39.3895828Z # Theme route 1440px system: /app/settings/automation
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:39.6625827Z # Theme route 1440px system: /app/settings/statuses
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:40.0625140Z # Theme route 1440px system: /app/settings/spaces
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:40.3193436Z # Theme route 1440px system: /app/settings/chat
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:40.5429058Z # Theme route 1440px system: /app/settings/portability
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:40.9062399Z # Theme route 1440px system: /app/pages/01M6YJ3VJDP6VHAARFZYVXTAZE
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:41.7706193Z # Theme route 1440px system: /app/databases/01M6YJ3VKYXEPWDH45N91PPJ7D
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:42.5346220Z # Theme route 1440px system: /app/databases/01M6YJ3VKYXEPWDH45N91PPJ7D/records/01M6YJ3VPD4TK8MR6RH29N896G
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:48:53.7668517Z # WORK-012 native themes, new sessions, independent members and anonymous exposures passed at 1440px
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:49:24.1429597Z # IMPORT_BROWSER_RECEIPT {"width":1440,"jobId":"01M6YJ633QW1SQQ3VMGWSYXR8D","state":"completed","mappings":[{"sourceId":"confluence-member:100001:d9d99555-7c2d-5fc9-9d5f-444042ec9317","kind":"member","targetId":"browser-reader"}],"access":{"restrictedPages":3,"sourceNamedGrants":3,"mappedLiveGrants":3,"unresolvedRestrictedPages":0,"recoveryGrants":3,"historicalMembers":34,"historicalGroups":0},"pages":[{"id":"a5c6909976a40407:page:54","title":"Overview","anonymousNative":401,"anonymousPublished":404},{"id":"a5c6909976a40407:page:36","title":"Getting started in Confluence","anonymousNative":401,"anonymousPublished":404},{"id":"a5c6909976a40407:page:299","title":"Pizza Restaurant Launch Plan","anonymousNative":401,"anonymousPublished":404}],"unavailableTargetShown":true,"retainedMappingUnchanged":true}
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:49:24.1433256Z # PROBE IMP-016 Settings 1440: genuine archive upload, explicit mapping, Apply and reload -> completed; reviewed member and historical people displayed; conversion retained; 3 restricted reader pages and no anonymous page
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:50:58.9033795Z # PROBE CONT-009 native controls 1440: owner and non-owner administrator grant changes=46; replay and inherited snapshots pass; deadlines={"narrowed":{"writeStatus":404,"editorMs":235,"projectionsMs":349},"revoked":{"writeStatus":404,"editorMs":239,"projectionsMs":325}}
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:51:56.4258213Z # PROBE CONT-007 container guestAccess 1440: native settings persisted; independent veto, retained address and authority reconciled
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:52:23.7487305Z # PROBE CONT-007 container publicLinkAccess 1440: native settings persisted; independent veto, retained address and authority reconciled
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:52:44.5545059Z # PROBE CONT-007 container anonymousAccess 1440: native settings persisted; independent veto, retained address and authority reconciled
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:53:13.3613798Z # PROBE CONT-007 workspace guestAccess 1440: native settings persisted; independent veto, retained address and authority reconciled
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:53:40.6531154Z # PROBE CONT-007 workspace publicLinkAccess 1440: native settings persisted; independent veto, retained address and authority reconciled
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:54:03.1669530Z # PROBE CONT-007 workspace anonymousAccess 1440: native settings persisted; independent veto, retained address and authority reconciled
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:54:36.8902596Z # Subtest: page outline follows headings and navigates long pages at 1440px
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:54:36.8903194Z ok 4 - page outline follows headings and navigates long pages at 1440px
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:54:36.8903448Z   ---
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:54:36.8903991Z   duration_ms: 508709.180215
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:54:36.8904148Z   type: 'test'
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:54:36.8904275Z   ...
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.0690068Z # Subtest: BLOCK-010 — native content queries retain criteria and current-reader results at 390px
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.0694174Z ok 5 - BLOCK-010 — native content queries retain criteria and current-reader results at 390px
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.0694943Z   ---
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.0695352Z   duration_ms: 44178.604867
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.0695621Z   type: 'test'
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.0695819Z   ...
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1148543Z 1..5
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1148885Z # tests 5
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1149082Z # suites 0
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1149318Z # pass 4
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1149492Z # fail 1
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1149675Z # cancelled 0
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1149876Z # skipped 0
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1150054Z # todo 0
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1150265Z # duration_ms 928159.766271
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1211874Z [33m(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1212718Z   - import "./source-fixtures" without a file extension (scripts/import-scale/generate-server-dc.ts:2:91). Add the file extension
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1213226Z   - import "./types" without a file extension (scripts/import-scale/generate-server-dc.ts:3:82). Add the file extension
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1213714Z   - import "./source-fixtures" without a file extension (scripts/import-scale/generate-server-dc.ts:4:22). Add the file extension
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1214188Z   - import "./csv" without a file extension (scripts/import-scale/source-fixtures.ts:4:46). Add the file extension
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1215507Z Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.[39m
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1215690Z 
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1215951Z [1m[30m[46m RUN [49m[39m[22m [36mv4.1.11 [39m[90m/home/runner/work/run-slate/run-slate[39m
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1216145Z 
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1216486Z  [32m✓[39m tests/flagship/structured/structured.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 10608[2mms[22m[39m
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1217109Z    [33m[2m✓[22m[39m structured records, computation, readers, templates, automation, policies and views retain durable semantics [33m 10607[2mms[22m[39m
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1217691Z  [32m✓[39m tests/e2e/databases/record-templates.test.ts [2m([22m[2m2 tests[22m[2m)[22m[33m 5909[2mms[22m[39m
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1218939Z    [33m[2m✓[22m[39m DB-015 — record templates fill fields and a body; a weekly schedule in its last saver's time zone creates exactly one record per occurrence across restarts, runs as its last saver and pauses with its reason when that saver loses access [33m 897[2mms[22m[39m
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1221561Z    [33m[2m✓[22m[39m record templates show each database viewer only the page mention titles they can open [33m 5010[2mms[22m[39m
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1222150Z  [32m✓[39m tests/flagship/release-clauses/value/comparison-integrity.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 2395[2mms[22m[39m
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1222755Z    [33m[2m✓[22m[39m FLAG-003 — comparison arms preserve equal inputs, current grants and attributable costs [33m 2395[2mms[22m[39m
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1223229Z  [32m✓[39m tests/e2e/landing.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 543[2mms[22m[39m
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1223734Z      [33m[2m✓[22m[39m installed lobby and public landing preserve owner configuration, navigation and privacy [33m 542[2mms[22m[39m
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1224501Z  [32m✓[39m tests/qualification/authority/learned-provenance.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 3170[2mms[22m[39m
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1225095Z    [33m[2m✓[22m[39m INQ-005 — learned provenance and published inquiry references preserve exact disclosed sources [33m 3169[2mms[22m[39m
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1225621Z  [32m✓[39m tests/flagship/content/repair.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 2698[2mms[22m[39m
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1226325Z    [33m[2m✓[22m[39m content structure, task attribution, privacy and activity retain exact revisions [33m 2698[2mms[22m[39m
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1226833Z  [32m✓[39m tests/e2e/pages/starter-templates.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 1053[2mms[22m[39m
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1227615Z    [33m[2m✓[22m[39m TMPL-007 — every starter template ships from the first sign-in, is found by category, previews, creates working pages and duplicates into an editable copy while the shipped one never changes [33m 1052[2mms[22m[39m
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1228329Z  [32m✓[39m tests/e2e/pages/display-options.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 2785[2mms[22m[39m
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1228907Z    [33m[2m✓[22m[39m PAGE-012 — page display is shared, content preserving and retained by readable and complete workspace archives [33m 2785[2mms[22m[39m
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1229681Z [90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1230915Z [22m[39mAUDIT_RECEIPT {"family":"atomic page creation","id":"01M6YHQ2WXB6ABD50HZTW5ENGQ","action":"pages.create","actor_member_id":"01M6YHQ2V0MK7ZZMTPRC16GCSV","feature":"pages","target_kind":"page","target_id":"01M6YHQ2WXA8FM1KCRRZZNYB1J","occurred_at":"2026-11-08T21:41:01.467Z","operation_key":"01M6YHQ2WRYM1PJVKSVP5M27VY"}
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1231508Z 
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1231978Z [90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1233268Z [22m[39mAUDIT_RECEIPT {"family":"atomic page creation","id":"01M6YHQ2WXB6ABD50HZTW5ENGQ","action":"pages.create","actor_member_id":"01M6YHQ2V0MK7ZZMTPRC16GCSV","feature":"pages","target_kind":"page","target_id":"01M6YHQ2WXA8FM1KCRRZZNYB1J","occurred_at":"2026-11-08T21:41:01.467Z","operation_key":"01M6YHQ2WRYM1PJVKSVP5M27VY"}
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1233852Z 
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1234312Z [90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1235636Z [22m[39mAUDIT_RECEIPT {"family":"atomic native body","id":"01M6YHQ2YM32Q2E2163GQ60AM9","action":"pages.blocks.replace","actor_member_id":"01M6YHQ2V0MK7ZZMTPRC16GCSV","feature":"pages","target_kind":"page","target_id":"01M6YHQ2WXA8FM1KCRRZZNYB1J","occurred_at":"2026-11-08T21:41:01.522Z","operation_key":"01M6YHQ2YFX38BFVK23Y8KTNRZ"}
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1236231Z 
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1236691Z [90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1237872Z [22m[39mAUDIT_RECEIPT {"family":"atomic native body","id":"01M6YHQ2YM32Q2E2163GQ60AM9","action":"pages.blocks.replace","actor_member_id":"01M6YHQ2V0MK7ZZMTPRC16GCSV","feature":"pages","target_kind":"page","target_id":"01M6YHQ2WXA8FM1KCRRZZNYB1J","occurred_at":"2026-11-08T21:41:01.522Z","operation_key":"01M6YHQ2YFX38BFVK23Y8KTNRZ"}
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1238463Z 
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1238923Z [90mstderr[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1239415Z [22m[39mSlate request failed with an internal error.
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1239550Z 
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1240013Z [90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1240894Z [22m[39mPROBE REV-002 autosnapshot page: native list and snapshots -> 7 exact newest-first rows; receipts, actors, times, origins, labels, immutable writes, published-only reads and revoked refusal passed
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1241434Z 
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1241887Z [90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1242757Z [22m[39mPROBE REV-002 autosnapshot database: native list and snapshots -> 7 exact newest-first rows; receipts, actors, times, origins, labels, immutable writes, published-only reads and revoked refusal passed
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1243156Z 
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1243609Z [90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1244714Z [22m[39mPROBE REV-002 autosnapshot record: native list and snapshots -> 8 exact newest-first rows; receipts, actors, times, origins, labels, immutable writes, published-only reads and revoked refusal passed
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1245278Z 
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1245740Z [90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1246593Z [22m[39mPROBE REV-002 labelled page: native list and snapshots -> 7 exact newest-first rows; receipts, actors, times, origins, labels, immutable writes, published-only reads and revoked refusal passed
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1246976Z 
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1247430Z [90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1248400Z [22m[39mPROBE REV-002 labelled database: native list and snapshots -> 7 exact newest-first rows; receipts, actors, times, origins, labels, immutable writes, published-only reads and revoked refusal passed
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1248789Z 
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1249244Z [90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1250102Z [22m[39mPROBE REV-002 labelled record: native list and snapshots -> 8 exact newest-first rows; receipts, actors, times, origins, labels, immutable writes, published-only reads and revoked refusal passed
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1250489Z 
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1250949Z [90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1252188Z [22m[39mAUDIT_RECEIPT {"family":"exact comment context","id":"01M6YHQ662QYXP6YCKYRCCXW0K","action":"comments.create","actor_member_id":"01M6YHQ2V0MK7ZZMTPRC16GCSV","feature":"comments","target_kind":"comment-thread","target_id":"01M6YHQ664A4EPCZ6GFH445ERR","occurred_at":"2026-11-08T21:41:04.832Z","operation_key":"01M6YHQ65XEWGBMGKX2E2MRXA1"}
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1252811Z 
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1253273Z [90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1254635Z [22m[39mAUDIT_RECEIPT {"family":"exact comment context","id":"01M6YHQ662QYXP6YCKYRCCXW0K","action":"comments.create","actor_member_id":"01M6YHQ2V0MK7ZZMTPRC16GCSV","feature":"comments","target_kind":"comment-thread","target_id":"01M6YHQ664A4EPCZ6GFH445ERR","occurred_at":"2026-11-08T21:41:04.832Z","operation_key":"01M6YHQ65XEWGBMGKX2E2MRXA1"}
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1255242Z 
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1255698Z [90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1256865Z [22m[39mAUDIT_RECEIPT {"family":"exact grant context","id":"01M6YHQ66XZJMD7G5A4NDKNDEN","action":"sharing.grant","actor_member_id":"01M6YHQ2V0MK7ZZMTPRC16GCSV","feature":"sharing","target_kind":"page","target_id":"01M6YHQ65N45QWMQZQKQ6AW4JH","occurred_at":"2026-11-08T21:41:04.858Z","operation_key":"01M6YHQ66QNDVBTHG5MBVYRYE2"}
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1257553Z 
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1258011Z [90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1259187Z [22m[39mAUDIT_RECEIPT {"family":"exact grant context","id":"01M6YHQ66XZJMD7G5A4NDKNDEN","action":"sharing.grant","actor_member_id":"01M6YHQ2V0MK7ZZMTPRC16GCSV","feature":"sharing","target_kind":"page","target_id":"01M6YHQ65N45QWMQZQKQ6AW4JH","occurred_at":"2026-11-08T21:41:04.858Z","operation_key":"01M6YHQ66QNDVBTHG5MBVYRYE2"}
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1259766Z 
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1260222Z [90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1261401Z [22m[39mAUDIT_RECEIPT {"family":"revoke context access","id":"01M6YHQ6DRS6TN0R2MESZEPS6X","action":"sharing.grant","actor_member_id":"01M6YHQ2V0MK7ZZMTPRC16GCSV","feature":"sharing","target_kind":"page","target_id":"01M6YHQ65N45QWMQZQKQ6AW4JH","occurred_at":"2026-11-08T21:41:05.078Z","operation_key":"01M6YHQ6DKQNQKHPXMP25GGA5B"}
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1261994Z 
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1262445Z [90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1263620Z [22m[39mAUDIT_RECEIPT {"family":"revoke context access","id":"01M6YHQ6DRS6TN0R2MESZEPS6X","action":"sharing.grant","actor_member_id":"01M6YHQ2V0MK7ZZMTPRC16GCSV","feature":"sharing","target_kind":"page","target_id":"01M6YHQ65N45QWMQZQKQ6AW4JH","occurred_at":"2026-11-08T21:41:05.078Z","operation_key":"01M6YHQ6DKQNQKHPXMP25GGA5B"}
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1264291Z 
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1264866Z [90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1266025Z [22m[39mAUDIT_RECEIPT {"family":"page creation","id":"01M6YHQ6H1BVP542CGQ2GVFMGG","action":"pages.create","actor_member_id":"01M6YHQ2V0MK7ZZMTPRC16GCSV","feature":"pages","target_kind":"page","target_id":"01M6YHQ6H19N1DS7SW2N95RS25","occurred_at":"2026-11-08T21:41:05.183Z","operation_key":"01M6YHQ6GRYRQ5MFFDF0TDXP1D"}
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1266593Z 
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1267049Z [90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1268197Z [22m[39mAUDIT_RECEIPT {"family":"page creation","id":"01M6YHQ6H1BVP542CGQ2GVFMGG","action":"pages.create","actor_member_id":"01M6YHQ2V0MK7ZZMTPRC16GCSV","feature":"pages","target_kind":"page","target_id":"01M6YHQ6H19N1DS7SW2N95RS25","occurred_at":"2026-11-08T21:41:05.183Z","operation_key":"01M6YHQ6GRYRQ5MFFDF0TDXP1D"}
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1268760Z 
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1269214Z [90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1270386Z [22m[39mAUDIT_RECEIPT {"family":"body changes","id":"01M6YHQ6HN39SPX86J2K7X48X2","action":"pages.blocks.replace","actor_member_id":"01M6YHQ2V0MK7ZZMTPRC16GCSV","feature":"pages","target_kind":"page","target_id":"01M6YHQ6H19N1DS7SW2N95RS25","occurred_at":"2026-11-08T21:41:05.203Z","operation_key":"01M6YHQ6HHVWSD85D16HT9Z0Y6"}
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1270967Z 
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1271420Z [90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1272587Z [22m[39mAUDIT_RECEIPT {"family":"body changes","id":"01M6YHQ6HN39SPX86J2K7X48X2","action":"pages.blocks.replace","actor_member_id":"01M6YHQ2V0MK7ZZMTPRC16GCSV","feature":"pages","target_kind":"page","target_id":"01M6YHQ6H19N1DS7SW2N95RS25","occurred_at":"2026-11-08T21:41:05.203Z","operation_key":"01M6YHQ6HHVWSD85D16HT9Z0Y6"}
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1273255Z 
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1273712Z [90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1275075Z [22m[39mAUDIT_RECEIPT {"family":"property changes","id":"01M6YHQ6JG91KQF3WRBH8P56H4","action":"pages.update","actor_member_id":"01M6YHQ2V0MK7ZZMTPRC16GCSV","feature":"pages","target_kind":"page","target_id":"01M6YHQ6H19N1DS7SW2N95RS25","occurred_at":"2026-11-08T21:41:05.230Z","operation_key":"01M6YHQ6JC8C3M0YZFEYGGXNZ9"}
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1275646Z 
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1276103Z [90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1277256Z [22m[39mAUDIT_RECEIPT {"family":"property changes","id":"01M6YHQ6JG91KQF3WRBH8P56H4","action":"pages.update","actor_member_id":"01M6YHQ2V0MK7ZZMTPRC16GCSV","feature":"pages","target_kind":"page","target_id":"01M6YHQ6H19N1DS7SW2N95RS25","occurred_at":"2026-11-08T21:41:05.230Z","operation_key":"01M6YHQ6JC8C3M0YZFEYGGXNZ9"}
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1277826Z 
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1278278Z [90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1279511Z [22m[39mAUDIT_RECEIPT {"family":"page moves","id":"01M6YHQ6MS3NPCF7VGYWTXZ9SC","action":"pages.move","actor_member_id":"01M6YHQ2V0MK7ZZMTPRC16GCSV","feature":"pages","target_kind":"page","target_id":"01M6YHQ6H19N1DS7SW2N95RS25","occurred_at":"2026-11-08T21:41:05.298Z","operation_key":"01M6YHQ6MB04J9F44FS2MV4XZ4"}
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1280064Z 
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1280528Z [90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1281663Z [22m[39mAUDIT_RECEIPT {"family":"page moves","id":"01M6YHQ6MS3NPCF7VGYWTXZ9SC","action":"pages.move","actor_member_id":"01M6YHQ2V0MK7ZZMTPRC16GCSV","feature":"pages","target_kind":"page","target_id":"01M6YHQ6H19N1DS7SW2N95RS25","occurred_at":"2026-11-08T21:41:05.298Z","operation_key":"01M6YHQ6MB04J9F44FS2MV4XZ4"}
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1282214Z 
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1282671Z [90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1283813Z [22m[39mAUDIT_RECEIPT {"family":"publish","id":"01M6YHQ6PSY3H7EZ1A31K5DRF2","action":"pages.publish","actor_member_id":"01M6YHQ2V0MK7ZZMTPRC16GCSV","feature":"pages","target_kind":"page","target_id":"01M6YHQ6PCND2H610X02JZRHJG","occurred_at":"2026-11-08T21:41:05.365Z","operation_key":"01M6YHQ6PJ7ARKA3GP473DGGEF"}
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1284493Z 
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1284949Z [90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1286079Z [22m[39mAUDIT_RECEIPT {"family":"publish","id":"01M6YHQ6PSY3H7EZ1A31K5DRF2","action":"pages.publish","actor_member_id":"01M6YHQ2V0MK7ZZMTPRC16GCSV","feature":"pages","target_kind":"page","target_id":"01M6YHQ6PCND2H610X02JZRHJG","occurred_at":"2026-11-08T21:41:05.365Z","operation_key":"01M6YHQ6PJ7ARKA3GP473DGGEF"}
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1286636Z 
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1287087Z [90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1288231Z [22m[39mAUDIT_RECEIPT {"family":"archive","id":"01M6YHQ6WFAP6JW3A6EX9KHVG0","action":"archive.archive","actor_member_id":"01M6YHQ2V0MK7ZZMTPRC16GCSV","feature":"archive","target_kind":"page","target_id":"01M6YHQ6W2GSYJ2A5ES7ZE7FVZ","occurred_at":"2026-11-08T21:41:05.549Z","operation_key":"01M6YHQ6WAW6AR9QCH9PYKDJ44"}
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1288954Z 
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1289409Z [90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1290547Z [22m[39mAUDIT_RECEIPT {"family":"archive","id":"01M6YHQ6WFAP6JW3A6EX9KHVG0","action":"archive.archive","actor_member_id":"01M6YHQ2V0MK7ZZMTPRC16GCSV","feature":"archive","target_kind":"page","target_id":"01M6YHQ6W2GSYJ2A5ES7ZE7FVZ","occurred_at":"2026-11-08T21:41:05.549Z","operation_key":"01M6YHQ6WAW6AR9QCH9PYKDJ44"}
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1291109Z 
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1291564Z [90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1292706Z [22m[39mAUDIT_RECEIPT {"family":"restore","id":"01M6YHQ6XEH1D0CC6DSAWVMQ2N","action":"archive.restore","actor_member_id":"01M6YHQ2V0MK7ZZMTPRC16GCSV","feature":"archive","target_kind":"page","target_id":"01M6YHQ6W2GSYJ2A5ES7ZE7FVZ","occurred_at":"2026-11-08T21:41:05.580Z","operation_key":"01M6YHQ6X9ADZ0AR8FYKE5T4PK"}
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1293272Z 
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1293729Z [90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1295149Z [22m[39mAUDIT_RECEIPT {"family":"restore","id":"01M6YHQ6XEH1D0CC6DSAWVMQ2N","action":"archive.restore","actor_member_id":"01M6YHQ2V0MK7ZZMTPRC16GCSV","feature":"archive","target_kind":"page","target_id":"01M6YHQ6W2GSYJ2A5ES7ZE7FVZ","occurred_at":"2026-11-08T21:41:05.580Z","operation_key":"01M6YHQ6X9ADZ0AR8FYKE5T4PK"}
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1295713Z 
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1296167Z [90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1297294Z [22m[39mAUDIT_RECEIPT {"family":"trash","id":"01M6YHQ6Y7JYWCCX9BG7XJ3103","action":"archive.trash","actor_member_id":"01M6YHQ2V0MK7ZZMTPRC16GCSV","feature":"archive","target_kind":"page","target_id":"01M6YHQ6W2GSYJ2A5ES7ZE7FVZ","occurred_at":"2026-11-08T21:41:05.605Z","operation_key":"01M6YHQ6Y2W4EGHESSQ6MME4TX"}
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1297850Z 
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1298305Z [90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1299430Z [22m[39mAUDIT_RECEIPT {"family":"trash","id":"01M6YHQ6Y7JYWCCX9BG7XJ3103","action":"archive.trash","actor_member_id":"01M6YHQ2V0MK7ZZMTPRC16GCSV","feature":"archive","target_kind":"page","target_id":"01M6YHQ6W2GSYJ2A5ES7ZE7FVZ","occurred_at":"2026-11-08T21:41:05.605Z","operation_key":"01M6YHQ6Y2W4EGHESSQ6MME4TX"}
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1299985Z 
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1300438Z [90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1301645Z [22m[39mAUDIT_RECEIPT {"family":"permanent deletion","id":"01M6YHQ6ZBKMH32EC37M8ZGYN1","action":"archive.permanent-delete","actor_member_id":"01M6YHQ2V0MK7ZZMTPRC16GCSV","feature":"archive","target_kind":"page","target_id":"01M6YHQ6W2GSYJ2A5ES7ZE7FVZ","occurred_at":"2026-11-08T21:41:05.639Z","operation_key":"01M6YHQ6YX66X1VQ6SSANVFZ8J"}
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1302257Z 
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1302715Z [90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1304009Z [22m[39mAUDIT_RECEIPT {"family":"permanent deletion","id":"01M6YHQ6ZBKMH32EC37M8ZGYN1","action":"archive.permanent-delete","actor_member_id":"01M6YHQ2V0MK7ZZMTPRC16GCSV","feature":"archive","target_kind":"page","target_id":"01M6YHQ6W2GSYJ2A5ES7ZE7FVZ","occurred_at":"2026-11-08T21:41:05.639Z","operation_key":"01M6YHQ6YX66X1VQ6SSANVFZ8J"}
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1304758Z 
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1305211Z [90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1306369Z [22m[39mAUDIT_RECEIPT {"family":"version restores","id":"01M6YHQ7310HJXM13X4GQMR4CB","action":"pages.restore","actor_member_id":"01M6YHQ2V0MK7ZZMTPRC16GCSV","feature":"pages","target_kind":"page","target_id":"01M6YHQ71XQEPX7Y7R55ZAX7XW","occurred_at":"2026-11-08T21:41:05.756Z","operation_key":"01M6YHQ72S98D8R13KGKXJPDPA"}
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1306946Z 
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1307400Z [90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1308545Z [22m[39mAUDIT_RECEIPT {"family":"version restores","id":"01M6YHQ7310HJXM13X4GQMR4CB","action":"pages.restore","actor_member_id":"01M6YHQ2V0MK7ZZMTPRC16GCSV","feature":"pages","target_kind":"page","target_id":"01M6YHQ71XQEPX7Y7R55ZAX7XW","occurred_at":"2026-11-08T21:41:05.756Z","operation_key":"01M6YHQ72S98D8R13KGKXJPDPA"}
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1309115Z 
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1309567Z [90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1310830Z [22m[39mAUDIT_RECEIPT {"family":"version deletions","id":"01M6YHQ73T1W6F3PZNK22VEGDH","action":"versions.delete","actor_member_id":"01M6YHQ2V0MK7ZZMTPRC16GCSV","feature":"versions","target_kind":"page","target_id":"01M6YHQ71XQEPX7Y7R55ZAX7XW","occurred_at":"2026-11-08T21:41:05.785Z","operation_key":"01M6YHQ73PT0AVBG8Q6Y3SAF3R"}
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1311414Z 
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1311871Z [90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1313037Z [22m[39mAUDIT_RECEIPT {"family":"version deletions","id":"01M6YHQ73T1W6F3PZNK22VEGDH","action":"versions.delete","actor_member_id":"01M6YHQ2V0MK7ZZMTPRC16GCSV","feature":"versions","target_kind":"page","target_id":"01M6YHQ71XQEPX7Y7R55ZAX7XW","occurred_at":"2026-11-08T21:41:05.785Z","operation_key":"01M6YHQ73PT0AVBG8Q6Y3SAF3R"}
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1313621Z 
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1314072Z [90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1314887Z [22m[39mPROBE ARCH-004 retention: native page tree archive and restore -> bodies, history, comments, grants, status, definitions, records and bytes unchanged
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1315198Z 
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1315653Z [90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1316385Z [22m[39mPROBE ARCH-004 retention: native database archive and restore -> bodies, history, comments, grants, status, definitions, records and bytes unchanged
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1316690Z 
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1317142Z [90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1317784Z [22m[39mPROBE ARCH-004 retention: native container archive and restore -> populated tree and uploaded bytes unchanged
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1318029Z 
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1318573Z [90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1319417Z [22m[39mPROBE ARCH-004 confirmation: native delete -> untrashed, archived, incomplete cascade and stale-proof requests refused unchanged; exact fresh-proof cascade erased, replay cannot resurrect
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1319800Z 
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1320082Z  [32m✓[39m tests/qualification/core/audit-content.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 7753[2mms[22m[39m
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1320663Z    [33m[2m✓[22m[39m ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time [33m 7752[2mms[22m[39m
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1321256Z  [32m✓[39m tests/flagship/release-clauses/trials/predeclaration.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 2501[2mms[22m[39m
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1321812Z    [33m[2m✓[22m[39m TRIAL-001 — immutable plans require exact approval and constrain treatment content [33m 2501[2mms[22m[39m
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1322326Z  [32m✓[39m tests/e2e/navigation/global-create.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 3646[2mms[22m[39m
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1322896Z    [33m[2m✓[22m[39m NAV-005 — creation names authorized destinations and creates pages, databases, spaces and template copies [33m 3645[2mms[22m[39m
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1323713Z [90mstdout[2m | tests/flagship/release-clauses/inquiry/replay-analysis.test.ts[2m > [22m[2mINQ-002 — durable numerical replay separates observation, assumption, deduction and refused business authority
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1329372Z [22m[39mU5_NATIVE_INQ002 {"analysis":{"id":"01M6YHQN0X8CJH522SX7CNEGEQ","inquiry_id":"01M6YHQMWHWACYENJNCP4VFGXA","kind":"compare-means","engine_version":"difference-means-conservative-t-v1","inputs_json":"{\"kind\":\"compare-means\",\"treatment\":[1,3,5],\"comparison\":[4,6,8]}","input_hash":"2bfc23348d73c76151fb17a081c0d2b23d94d5f6167e7c2a8d19c8778ca8f374","result_json":"{\"treatment\":{\"n\":3,\"mean\":3,\"variance\":4},\"comparison\":{\"n\":3,\"mean\":6,\"variance\":4},\"effect\":3,\"lower\":-4.0267695754640105,\"upper\":10.02676957546401,\"halfWidth\":7.0267695754640105,\"confidence\":0.95,\"engine\":\"difference-means-conservative-t-v1\"}","refs_json":"[{\"kind\":\"page\",\"sourceId\":\"01M6YHQMRHRN35CY5JNVQMBCVX\",\"revisionId\":\"01M6YHQMRHNGXS8FCMZRCJ1A3J\"}]","created_at":"2026-11-08T21:41:19.998Z"},"artifacts":[{"id":"01M6YHQMY1GJKW15R3TFETX8KY","inquiry_id":"01M6YHQMWHWACYENJNCP4VFGXA","kind":"observation","content_json":"{\"finding\":\"observation: scoped to supplied measured population\",\"hypothesisId\":\"01M6YHQMWHC2NWBKVAVH9Z9BRK\"}","refs_json":"[{\"kind\":\"page\",\"sourceId\":\"01M6YHQMRHRN35CY5JNVQMBCVX\",\"revisionId\":\"01M6YHQMRHNGXS8FCMZRCJ1A3J\"}]","created_at":"2026-11-08T21:41:19.912Z"},{"id":"01M6YHQMYXJGZ9CKG09JD970VT","inquiry_id":"01M6YHQMWHWACYENJNCP4VFGXA","kind":"assumption","content_json":"{\"finding\":\"assumption: scoped to supplied measured population\",\"hypothesisId\":\"01M6YHQMWHC2NWBKVAVH9Z9BRK\"}","refs_json":"[{\"kind\":\"page\",\"sourceId\":\"01M6YHQMRHRN35CY5JNVQMBCVX\",\"revisionId\":\"01M6YHQMRHNGXS8FCMZRCJ1A3J\"}]","created_at":"2026-11-08T21:41:19.940Z"},{"id":"01M6YHQMZRNHVPH928T3GR79T2","inquiry_id":"01M6YHQMWHWACYENJNCP4VFGXA","kind":"deduction","content_json":"{\"finding\":\"deduction: scoped to supplied measured population\",\"hypothesisId\":\"01M6YHQMWHC2NWBKVAVH9Z9BRK\"}","refs_json":"[{\"kind\":\"page\",\"sourceId\":\"01M6YHQMRHRN35CY5JNVQMBCVX\",\"revisionId\":\"01M6YHQMRHNGXS8FCMZRCJ1A3J\"}]","created_at":"2026-11-08T21:41:19.968Z"}]}
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1332872Z 
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1333184Z  [32m✓[39m tests/flagship/release-clauses/inquiry/replay-analysis.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 410[2mms[22m[39m
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1333802Z    [33m[2m✓[22m[39m INQ-002 — durable numerical replay separates observation, assumption, deduction and refused business authority [33m 409[2mms[22m[39m
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1334654Z  [32m✓[39m tests/e2e/imports/archive-safety.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 12[2mms[22m[39m
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1335156Z  [32m✓[39m tests/qualification/authority/native-boundaries.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 53[2mms[22m[39m
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1335733Z  [32m✓[39m tests/qualification/release-integration-repairs/branch-migration.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 497[2mms[22m[39m
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1336394Z    [33m[2m✓[22m[39m Forward branch admission migration preserves native prior inquiry findings and leaves unknown history unknown [33m 497[2mms[22m[39m
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1336946Z  [32m✓[39m tests/e2e/navigation/tree-filter.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 4234[2mms[22m[39m
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1337495Z    [33m[2m✓[22m[39m TREE-004 — tree inputs expose only readable titles and retain member expansion across filtered reads [33m 4233[2mms[22m[39m
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1338024Z  [32m✓[39m tests/e2e/saving/failed-writes.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 4297[2mms[22m[39m
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1338566Z    [33m[2m✓[22m[39m SAVE-002 — refused title and block writes preserve committed data and a corrected retry commits once [33m 4296[2mms[22m[39m
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1338865Z 
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1339042Z [2m Test Files [22m [1m[32m17 passed[39m[22m[90m (17)[39m
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1339344Z [2m      Tests [22m [1m[32m18 passed[39m[22m[90m (18)[39m
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1339587Z [2m   Start at [22m 21:39:55
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1339971Z [2m   Duration [22m 100.79s[2m (transform 7.24s, setup 6.68s, import 34.16s, tests 52.56s, environment 0ms)[22m
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1340293Z 
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1340488Z JSON report written to /home/runner/work/run-slate/run-slate/.artifacts/contract-4.json
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1340764Z Contract documents are current.
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1340918Z TAP version 13
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1341152Z # Subtest: named moves and new ordinal registrations each execute once
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1341456Z ok 1 - named moves and new ordinal registrations each execute once
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1341659Z   ---
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1341786Z   duration_ms: 0.943651
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1341928Z   type: 'test'
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1342048Z   ...
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1342295Z # Subtest: ordinary partitioning covers every registration across arbitrary widths
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1342652Z ok 2 - ordinary partitioning covers every registration across arbitrary widths
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1342873Z   ---
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1342993Z   duration_ms: 2.301054
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1343130Z   type: 'test'
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1343249Z   ...
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1343480Z # Subtest: malformed assignments fail closed instead of silently losing a journey
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1343819Z ok 3 - malformed assignments fail closed instead of silently losing a journey
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1344035Z   ---
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1344153Z   duration_ms: 0.602957
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1344285Z   type: 'test'
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1344491Z   ...
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1344601Z 1..3
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1344711Z # tests 3
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1344827Z # suites 0
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1344940Z # pass 3
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1345050Z # fail 0
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1345159Z # cancelled 0
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1345279Z # skipped 0
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1345392Z # todo 0
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1345511Z # duration_ms 61.216706
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1345595Z 
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1345741Z > slate@0.4.0 test:foundation /home/runner/work/run-slate/run-slate
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1346199Z > tsx --test --test-concurrency=1 tests/e2e/auth-paths.test.js tests/e2e/runtime-config.test.js tests/e2e/foundation-runtime.test.mjs
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1346483Z 
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1346537Z TAP version 13
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1346814Z # Subtest: local sign-in admits only loopback hosts and keeps next paths inside the operator app
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1347210Z ok 1 - local sign-in admits only loopback hosts and keeps next paths inside the operator app
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1347574Z   ---
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1347693Z   duration_ms: 0.668736
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1347825Z   type: 'test'
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1347942Z   ...
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1348176Z # Subtest: the development Worker serves the Start documents and the Hono families
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1348514Z ok 2 - the development Worker serves the Start documents and the Hono families
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1348731Z   ---
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1348848Z   duration_ms: 42147.617369
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1348989Z   type: 'test'
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1349105Z   ...
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1349334Z # Subtest: native outbox sign-in preserves custom and retained Aurora workspaces
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1349665Z ok 3 - native outbox sign-in preserves custom and retained Aurora workspaces
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1349876Z   ---
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1349991Z   duration_ms: 32628.30725
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1350128Z   type: 'test'
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1350245Z   ...
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1350540Z # Subtest: runtime configuration admits explicit local origins and providers and refuses unsafe deployments
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1350989Z ok 4 - runtime configuration admits explicit local origins and providers and refuses unsafe deployments
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1351250Z   ---
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1351368Z   duration_ms: 1.61671
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1351499Z   type: 'test'
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1351617Z   ...
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1351723Z 1..4
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1351830Z # tests 4
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1351947Z # suites 0
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1352058Z # pass 4
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1352171Z # fail 0
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1352281Z # cancelled 0
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1352400Z # skipped 0
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1352616Z # todo 0
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1352740Z # duration_ms 75220.139713
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1352833Z 
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1352973Z > slate@0.4.0 test:platform /home/runner/work/run-slate/run-slate
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1353485Z > tsx --test tests/e2e/landing-styles.test.mjs tests/e2e/platform-adapters.test.ts tests/e2e/knowledge-model.test.mjs tests/e2e/search/search-location.test.ts
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1353819Z 
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1353873Z TAP version 13
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1354161Z # Subtest: the eight policies default to Notion and accept every alternative without a model migration
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1354686Z ok 1 - the eight policies default to Notion and accept every alternative without a model migration
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1354940Z   ---
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1355058Z   duration_ms: 1.178745
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1355192Z   type: 'test'
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1355314Z   ...
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1355560Z # Subtest: current authority controls page grants, external access and operation replay
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1355930Z ok 2 - current authority controls page grants, external access and operation replay
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1356157Z   ---
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1356270Z   duration_ms: 1.597085
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1356406Z   type: 'test'
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1356525Z   ...
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1356740Z # Subtest: revision text normalizes Unicode and whitespace before SHA-256
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1357055Z ok 3 - revision text normalizes Unicode and whitespace before SHA-256
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1357259Z   ---
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1357371Z   duration_ms: 7.531342
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1357505Z   type: 'test'
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1357621Z   ...
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1358225Z # PROBE HOME-002 acceptance 1–6: built default at 1440 -> configured lockups, icons, all ten sections, six included capabilities, two Run actions, four docs actions, full link inventory and credit=true
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1359137Z # PROBE HOME-002 acceptance 1–6: built configured-credit at 1440 -> configured lockups, icons, all ten sections, six included capabilities, two Run actions, four docs actions, full link inventory and credit=true
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1360079Z # PROBE HOME-002 acceptance 1–6: built configured-no-credit at 1440 -> configured lockups, icons, all ten sections, six included capabilities, two Run actions, four docs actions, full link inventory and credit=false
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1360814Z # Subtest: landing styles preserve the light palette, same-origin resources and reduced-motion access
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1361238Z ok 4 - landing styles preserve the light palette, same-origin resources and reduced-motion access
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1361496Z   ---
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1361613Z   duration_ms: 32678.621848
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1361758Z   type: 'test'
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1361874Z   ...
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1362098Z # Subtest: R2 blob store keeps access-neutral metadata and rejects unsafe keys
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1362415Z ok 5 - R2 blob store keeps access-neutral metadata and rejects unsafe keys
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1362627Z   ---
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1362743Z   duration_ms: 1.489062
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1362878Z   type: 'test'
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1362994Z   ...
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1363237Z # Subtest: queue dispatcher reports only accepted jobs and validates message envelopes
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1363596Z ok 6 - queue dispatcher reports only accepted jobs and validates message envelopes
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1363823Z   ---
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1363939Z   duration_ms: 0.694385
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1364069Z   type: 'test'
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1364188Z   ...
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1364548Z # Subtest: dependency health probes observable dependencies and propagates an unreachable dependency
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1364968Z ok 7 - dependency health probes observable dependencies and propagates an unreachable dependency
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1365219Z   ---
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1365335Z   duration_ms: 0.451069
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1365465Z   type: 'test'
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1365581Z   ...
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1365840Z # Subtest: Resend adapter sends a real provider-shaped request and surfaces provider failures
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1366322Z ok 8 - Resend adapter sends a real provider-shaped request and surfaces provider failures
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1366562Z   ---
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1366679Z   duration_ms: 23.979209
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1366820Z   type: 'test'
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1366936Z   ...
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1367251Z # Subtest: submitted search locations round-trip refinements while keeping unsubmitted state and authority separate
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1367729Z ok 9 - submitted search locations round-trip refinements while keeping unsubmitted state and authority separate
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1368009Z   ---
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1368123Z   duration_ms: 1.689064
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1368255Z   type: 'test'
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1368372Z   ...
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1368477Z 1..9
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1368589Z # tests 9
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1368700Z # suites 0
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1368815Z # pass 9
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1368925Z # fail 0
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1369034Z # cancelled 0
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1369157Z # skipped 0
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1369267Z # todo 0
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1369395Z # duration_ms 33402.051133
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1369484Z 
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1369622Z > slate@0.4.0 test:profile /home/runner/work/run-slate/run-slate
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1370019Z > tsx --test tests/profile/*.node.tsx tests/profile/*.node.mjs && vitest run --config tests/profile/vitest.config.ts
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1370255Z 
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1370311Z TAP version 13
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1370667Z # Subtest: FLAG-001 — core wiki defaults, route boundaries and controls require explicit flagship opt-in
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1371133Z ok 1 - FLAG-001 — core wiki defaults, route boundaries and controls require explicit flagship opt-in
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1371388Z   ---
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1371508Z   duration_ms: 31.398834
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1371644Z   type: 'test'
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1371764Z   ...
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1371869Z 1..1
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1371980Z # tests 1
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1372090Z # suites 0
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1372207Z # pass 1
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1372315Z # fail 0
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1372425Z # cancelled 0
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1372546Z # skipped 0
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1372656Z # todo 0
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1372780Z # duration_ms 774.28549
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1372862Z 
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1373102Z [1m[30m[46m RUN [49m[39m[22m [36mv4.1.11 [39m[90m/home/runner/work/run-slate/run-slate[39m
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1373397Z 
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1373674Z  [32m✓[39m tests/profile/first-run-shell.worker.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 40[2mms[22m[39m
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1374489Z [90mstderr[2m | tests/profile/profile.worker.test.ts[2m > [22m[2mFLAG-001 — core wiki public doors retain native content while flagship routes and queued work require opt-in
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1375068Z [22m[39mImport operation failed: This page is locked. Unlock it before editing.
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1375249Z 
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1375492Z  [32m✓[39m tests/profile/profile.worker.test.ts [2m([22m[2m4 tests[22m[2m)[22m[33m 8215[2mms[22m[39m
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1376065Z    [33m[2m✓[22m[39m FLAG-001 — core wiki public doors retain native content while flagship routes and queued work require opt-in [33m 4865[2mms[22m[39m
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1376862Z    [33m[2m✓[22m[39m BLOCK-015 — a task assigned to a member without access prompts a share, notifies its assignee once, reassigns without notifying the previous assignee and records completion [33m 915[2mms[22m[39m
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1377657Z    [33m[2m✓[22m[39m NOTIF-004 — page, task and date-mention reminders arrive once at local time in three time zones and not after access is revoked [33m 988[2mms[22m[39m
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1378309Z    [33m[2m✓[22m[39m BLOCK-016 — a task report shows each reader only the tasks they can read and completes a task on its page [33m 1446[2mms[22m[39m
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1378589Z 
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1378754Z [2m Test Files [22m [1m[32m2 passed[39m[22m[90m (2)[39m
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1379145Z [2m      Tests [22m [1m[32m5 passed[39m[22m[90m (5)[39m
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1379380Z [2m   Start at [22m 21:43:28
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1379753Z [2m   Duration [22m 22.02s[2m (transform 7.96s, setup 1.21s, import 13.83s, tests 8.26s, environment 0ms)[22m
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1379972Z 
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1379976Z 
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1380125Z > slate@0.4.0 test:local-outbox /home/runner/work/run-slate/run-slate
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1380391Z > tsx --test tests/e2e/local-outbox.node.test.mts
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1380526Z 
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1380579Z TAP version 13
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1380866Z # (node:6624) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1381223Z # (Use `node --trace-warnings ...` to show where the warning was created)
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1381618Z # (node:6624) ExperimentalWarning: The MockTimers API is an experimental feature and might change at any time
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1382057Z # Subtest: native local mail sign-in and invitations preserve identity, delivery and scoped authority
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1382476Z ok 1 - native local mail sign-in and invitations preserve identity, delivery and scoped authority
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1382725Z   ---
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1382848Z   duration_ms: 1703.261403
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1382990Z   type: 'test'
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1383109Z   ...
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1383220Z 1..1
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1383329Z # tests 1
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1383443Z # suites 0
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1383555Z # pass 1
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1383669Z # fail 0
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1383779Z # cancelled 0
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1383897Z # skipped 0
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1384011Z # todo 0
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1384134Z # duration_ms 2948.043494
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1384274Z TAP version 13
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1384636Z # (node:6700) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1384990Z # (Use `node --trace-warnings ...` to show where the warning was created)
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1385336Z # Subtest: native mail and invitations retain migration, first-run and provider custody
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1385704Z ok 1 - native mail and invitations retain migration, first-run and provider custody
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1385929Z   ---
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1386046Z   duration_ms: 1372.734329
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1386189Z   type: 'test'
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1386414Z   ...
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1386764Z # Emitted Worker: sign-in reached MAIL_RELAY_URL; exact POST headers/body contract; redirect=manual; native confirmation succeeded.
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1387238Z # Emitted Worker: relay 302 refused, never followed; invitation rejected rather than held uncertain.
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1387680Z # Emitted Worker: relay 401 gives a plain owner-visible mail problem without provider response or credential.
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1388180Z # Emitted Worker: relay 429 queues with Retry-After, no early retry; scheduled retry sends identical payload and records acceptance.
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1388706Z # Subtest: MAIL-002 emitted Worker sends Managed sign-in and safely handles relay redirect, rate limit and credential refusal
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1389208Z ok 2 - MAIL-002 emitted Worker sends Managed sign-in and safely handles relay redirect, rate limit and credential refusal
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1389497Z   ---
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1389613Z   duration_ms: 5101.633883
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1389756Z   type: 'test'
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1389876Z   ...
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1389984Z 1..2
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1390092Z # tests 2
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1390203Z # suites 0
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1390316Z # pass 2
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1390424Z # fail 0
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1390538Z # cancelled 0
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1390660Z # skipped 0
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1390772Z # todo 0
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1390898Z # duration_ms 7276.590239
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1391083Z Shard lane results: journeys=1 worker-suite=0
+verify (core)	Workers, public-door journeys and suite	2026-11-08T21:55:21.1400046Z ##[error]Process completed with exit code 1.

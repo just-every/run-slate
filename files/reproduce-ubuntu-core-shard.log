@@ -1,0 +1,451 @@
+TAP version 13
+# PROBE PORT-001 1: native authored subtree -> Settings workspace ZIP retains 4 ordered pages, bodies, properties, thirteen revisions, changed, revoked and regranted member and group grants, edited and resolved anchored thread and reply with retained histories
+# PROBE PORT-001 2: native original downloads -> Settings ZIP has both exact original byte sequences and SHA-256 hashes; independent source snapshots unchanged
+# PROBE PORT-003 1: failed native export and restore replay and reload -> failed, no download or successful restore action
+# PROBE PORT-003 2: Settings export and empty-deployment restore -> queued, running, completed and failed persisted; counts equal native archive; safe reports identify commit failures
+# NAV-006 touch create, type, insert and drag persisted
+# BLOCK-012 columns insert, desktop drag and touch layout passed at 390px
+# PROBE COMM-002 acceptance 1–2: native comment controls and HTTP at 390px -> two authors edit/delete; cross-author and owner override 403; edited times, two in-place tombstones and six activities survive replay/reload
+# NAV-006 touch comment and resolve persisted
+# WEB-006 native unpublish response {"width":390,"elapsedMs":526}
+# PROBE SHARE-002 full: selected reads, title, body, comment and direct grants; 0 refused requests preserve inventories at 390px
+# PROBE SHARE-002 edit: selected reads, title, body, comment and direct grants; 2 refused requests preserve inventories at 390px
+# PROBE SHARE-002 comment: selected reads, title, body, comment and direct grants; 4 refused requests preserve inventories at 390px
+# PROBE SHARE-002 view: selected reads, title, body, comment and direct grants; 5 refused requests preserve inventories at 390px
+# NAV-006 touch workspace publication and sharing persisted
+# PAGE-007 Details, replay and edit-only refusal passed at 390px
+# NAV-006 touch Search, Inbox, My tasks, requested reviews and verification health passed
+# Chat docs dimensions { width: 390, height: 8088 }
+# PROBE REV-002 autosnapshot page: native commits -> 7 exact rows and snapshots; visible actor, time, origin and labels; reader reload and revoked refusal passed
+# PROBE REV-002 autosnapshot database: native commits -> 7 exact rows and snapshots; visible actor, time, origin and labels; reader reload and revoked refusal passed
+# PROBE REV-002 autosnapshot record: native commits -> 8 exact rows and snapshots; visible actor, time, origin and labels; reader reload and revoked refusal passed
+# PROBE REV-002 labelled page: native commits -> 7 exact rows and snapshots; visible actor, time, origin and labels; reader reload and revoked refusal passed
+# PROBE REV-002 labelled database: native commits -> 7 exact rows and snapshots; visible actor, time, origin and labels; reader reload and revoked refusal passed
+# PROBE REV-002 labelled record: native commits -> 8 exact rows and snapshots; visible actor, time, origin and labels; reader reload and revoked refusal passed
+# PROBE AUTO-003 browser 390: native database Automations -> trigger, actor, readable touched record and time; error retries, visible failure beside rule and persisted disable reason
+# PROBE DB-012 ordinary edit: native record Quantity 7 -> 11; computed value 22 and reload retained
+# PROBE DB-012 record-is-page: viewer fields, retained comments, exact historical body and unchanged stored current body passed
+# PROBE DB-012 record-is-row: viewer fields, retained comments, exact historical body and unchanged stored current body passed
+# PROBE DB-012 record-is-page: viewer fields, retained comments, exact historical body and unchanged stored current body passed
+# PROBE DB-012 read-only: all six fields readable; native viewer PATCH -> 404 and unchanged record and history
+# PROBE TMPL-005 children off: More > Save as template, preview and Use this template -> 1 exact copies, all seven source record families excluded at 390px
+# PROBE TMPL-005 children on: More > Save as template, preview and Use this template -> 4 exact copies, all seven source record families excluded at 390px
+# PROBE ARCH-004 native browser 390: archive and restore retain populated data; cancelled and incomplete confirmation preserve it; exact confirmed cascade deletes
+# PROBE REV-006 1: edit-only, current, published and autosnapshot DELETE requests -> refused without revision or activity changes
+# PROBE REV-006 2: full-member History confirmation -> version 2 content removed, attributed timed tombstone after reload; every other revision retained; replay has one activity
+# Subtest: real core-wiki and touch-member journeys at 390px
+ok 1 - real core-wiki and touch-member journeys at 390px
+  ---
+  duration_ms: 664985.871675
+  type: 'test'
+  ...
+# Subtest: BLOCK-016 — task reports, My tasks and typed assignments preserve reader access and completion at 1440px
+ok 2 - BLOCK-016 — task reports, My tasks and typed assignments preserve reader access and completion at 1440px
+  ---
+  duration_ms: 54097.452999
+  type: 'test'
+  ...
+# Subtest: editable space home and curated company hub for a new member at 1440px
+ok 3 - editable space home and curated company hub for a new member at 1440px
+  ---
+  duration_ms: 39666.47537
+  type: 'test'
+  ...
+# STATUS_PROFILE width=1440 value=verification-only
+# PROBE STAT-001 profile=verification-only: native owner controls, retained pages, non-owner refusals and explicit bulk receipts passed at 1440px
+# STATUS_PROFILE width=1440 value=open-vocabulary
+# PROBE STAT-001 profile=open-vocabulary: native owner controls, retained pages, non-owner refusals and explicit bulk receipts passed at 1440px
+# PROBE WORK-001 acceptance-1: Settings name/mark -> persisted Field operations 🌿, owner reload and fresh member headers at 1440px; member write refused unchanged
+# Theme route 1440px light: /app
+# Theme route 1440px light: /app/search
+# Theme route 1440px light: /app/inbox
+# Theme route 1440px light: /app/tasks
+# Theme route 1440px light: /app/review
+# Theme route 1440px light: /app/containers
+# Theme route 1440px light: /app/templates
+# Theme route 1440px light: /app/archive
+# Theme route 1440px light: /app/settings
+# Theme route 1440px light: /app/settings/workspace
+# Theme route 1440px light: /app/settings/members
+# Theme route 1440px light: /app/settings/saml
+# Theme route 1440px light: /app/settings/developer
+# Theme route 1440px light: /app/settings/appearance
+# Theme route 1440px light: /app/settings/preferences
+# Theme route 1440px light: /app/settings/activity
+# Theme route 1440px light: /app/settings/automation
+# Theme route 1440px light: /app/settings/statuses
+# Theme route 1440px light: /app/settings/spaces
+# Theme route 1440px light: /app/settings/chat
+# Theme route 1440px light: /app/settings/portability
+# Theme route 1440px light: /app/pages/01M6YNEX0JZFKS780CFVKNYGXY
+# Theme route 1440px light: /app/databases/01M6YNEX1AN83T620GY76QYG5Q
+# Theme route 1440px light: /app/databases/01M6YNEX1AN83T620GY76QYG5Q/records/01M6YNEX3W3PV6SY5G8BS7NRPS
+# Theme route 1440px dark: /app
+# Theme route 1440px dark: /app/search
+# Theme route 1440px dark: /app/inbox
+# Theme route 1440px dark: /app/tasks
+# Theme route 1440px dark: /app/review
+# Theme route 1440px dark: /app/containers
+# Theme route 1440px dark: /app/templates
+# Theme route 1440px dark: /app/archive
+# Theme route 1440px dark: /app/settings
+# Theme route 1440px dark: /app/settings/workspace
+# Theme route 1440px dark: /app/settings/members
+# Theme route 1440px dark: /app/settings/saml
+# Theme route 1440px dark: /app/settings/developer
+# Theme route 1440px dark: /app/settings/appearance
+# Theme route 1440px dark: /app/settings/preferences
+# Theme route 1440px dark: /app/settings/activity
+# Theme route 1440px dark: /app/settings/automation
+# Theme route 1440px dark: /app/settings/statuses
+# Theme route 1440px dark: /app/settings/spaces
+# Theme route 1440px dark: /app/settings/chat
+# Theme route 1440px dark: /app/settings/portability
+# Theme route 1440px dark: /app/pages/01M6YNEX0JZFKS780CFVKNYGXY
+# Theme route 1440px dark: /app/databases/01M6YNEX1AN83T620GY76QYG5Q
+# Theme route 1440px dark: /app/databases/01M6YNEX1AN83T620GY76QYG5Q/records/01M6YNEX3W3PV6SY5G8BS7NRPS
+# Theme route 1440px system: /app
+# Theme route 1440px system: /app/search
+# Theme route 1440px system: /app/inbox
+# Theme route 1440px system: /app/tasks
+# Theme route 1440px system: /app/review
+# Theme route 1440px system: /app/containers
+# Theme route 1440px system: /app/templates
+# Theme route 1440px system: /app/archive
+# Theme route 1440px system: /app/settings
+# Theme route 1440px system: /app/settings/workspace
+# Theme route 1440px system: /app/settings/members
+# Theme route 1440px system: /app/settings/saml
+# Theme route 1440px system: /app/settings/developer
+# Theme route 1440px system: /app/settings/appearance
+# Theme route 1440px system: /app/settings/preferences
+# Theme route 1440px system: /app/settings/activity
+# Theme route 1440px system: /app/settings/automation
+# Theme route 1440px system: /app/settings/statuses
+# Theme route 1440px system: /app/settings/spaces
+# Theme route 1440px system: /app/settings/chat
+# Theme route 1440px system: /app/settings/portability
+# Theme route 1440px system: /app/pages/01M6YNEX0JZFKS780CFVKNYGXY
+# Theme route 1440px system: /app/databases/01M6YNEX1AN83T620GY76QYG5Q
+# Theme route 1440px system: /app/databases/01M6YNEX1AN83T620GY76QYG5Q/records/01M6YNEX3W3PV6SY5G8BS7NRPS
+# WORK-012 native themes, new sessions, independent members and anonymous exposures passed at 1440px
+# IMPORT_BROWSER_RECEIPT {"width":1440,"jobId":"01M6YNHD4KE96VXVQN9V5TE33V","state":"completed","mappings":[{"sourceId":"confluence-member:100001:d9d99555-7c2d-5fc9-9d5f-444042ec9317","kind":"member","targetId":"browser-reader"}],"access":{"restrictedPages":3,"sourceNamedGrants":3,"mappedLiveGrants":3,"unresolvedRestrictedPages":0,"recoveryGrants":3,"historicalMembers":34,"historicalGroups":0},"pages":[{"id":"1fd31173f05e163f:page:54","title":"Overview","anonymousNative":401,"anonymousPublished":404},{"id":"1fd31173f05e163f:page:36","title":"Getting started in Confluence","anonymousNative":401,"anonymousPublished":404},{"id":"1fd31173f05e163f:page:299","title":"Pizza Restaurant Launch Plan","anonymousNative":401,"anonymousPublished":404}],"unavailableTargetShown":true,"retainedMappingUnchanged":true}
+# PROBE IMP-016 Settings 1440: genuine archive upload, explicit mapping, Apply and reload -> completed; reviewed member and historical people displayed; conversion retained; 3 restricted reader pages and no anonymous page
+# PROBE CONT-009 native controls 1440: owner and non-owner administrator grant changes=46; replay and inherited snapshots pass; deadlines={"narrowed":{"writeStatus":404,"editorMs":331,"projectionsMs":485},"revoked":{"writeStatus":404,"editorMs":320,"projectionsMs":431}}
+# PROBE CONT-007 container guestAccess 1440: native settings persisted; independent veto, retained address and authority reconciled
+# PROBE CONT-007 container publicLinkAccess 1440: native settings persisted; independent veto, retained address and authority reconciled
+# PROBE CONT-007 container anonymousAccess 1440: native settings persisted; independent veto, retained address and authority reconciled
+# PROBE CONT-007 workspace guestAccess 1440: native settings persisted; independent veto, retained address and authority reconciled
+# PROBE CONT-007 workspace publicLinkAccess 1440: native settings persisted; independent veto, retained address and authority reconciled
+# PROBE CONT-007 workspace anonymousAccess 1440: native settings persisted; independent veto, retained address and authority reconciled
+# Subtest: page outline follows headings and navigates long pages at 1440px
+ok 4 - page outline follows headings and navigates long pages at 1440px
+  ---
+  duration_ms: 575849.134027
+  type: 'test'
+  ...
+# Subtest: BLOCK-010 — native content queries retain criteria and current-reader results at 390px
+ok 5 - BLOCK-010 — native content queries retain criteria and current-reader results at 390px
+  ---
+  duration_ms: 53537.725637
+  type: 'test'
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 5
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1407928.273208
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mProxy environment variables detected. We'll use your proxy for fetch requests.[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mProxy environment variables detected. We'll use your proxy for fetch requests.[0m
+
+
+(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:
+  - import "./source-fixtures" without a file extension (scripts/import-scale/generate-server-dc.ts:2:91). Add the file extension
+  - import "./types" without a file extension (scripts/import-scale/generate-server-dc.ts:3:82). Add the file extension
+  - import "./source-fixtures" without a file extension (scripts/import-scale/generate-server-dc.ts:4:22). Add the file extension
+  - import "./csv" without a file extension (scripts/import-scale/source-fixtures.ts:4:46). Add the file extension
+Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.
+
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.11 [39m[90m/workspace/run-slate[39m
+
+ [32m✓[39m tests/flagship/structured/structured.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 11592[2mms[22m[39m
+   [33m[2m✓[22m[39m structured records, computation, readers, templates, automation, policies and views retain durable semantics [33m 11590[2mms[22m[39m
+ [32m✓[39m tests/e2e/databases/record-templates.test.ts [2m([22m[2m2 tests[22m[2m)[22m[33m 1197[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-015 — record templates fill fields and a body; a weekly schedule in its last saver's time zone creates exactly one record per occurrence across restarts, runs as its last saver and pauses with its reason when that saver loses access [33m 666[2mms[22m[39m
+   [33m[2m✓[22m[39m record templates show each database viewer only the page mention titles they can open [33m 528[2mms[22m[39m
+ [32m✓[39m tests/flagship/release-clauses/value/comparison-integrity.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 3044[2mms[22m[39m
+   [33m[2m✓[22m[39m FLAG-003 — comparison arms preserve equal inputs, current grants and attributable costs [33m 3044[2mms[22m[39m
+ [32m✓[39m tests/e2e/landing.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 835[2mms[22m[39m
+     [33m[2m✓[22m[39m installed lobby and public landing preserve owner configuration, navigation and privacy [33m 834[2mms[22m[39m
+ [32m✓[39m tests/qualification/authority/learned-provenance.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 5425[2mms[22m[39m
+   [33m[2m✓[22m[39m INQ-005 — learned provenance and published inquiry references preserve exact disclosed sources [33m 5423[2mms[22m[39m
+ [32m✓[39m tests/flagship/content/repair.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 3847[2mms[22m[39m
+   [33m[2m✓[22m[39m content structure, task attribution, privacy and activity retain exact revisions [33m 3844[2mms[22m[39m
+ [32m✓[39m tests/e2e/pages/starter-templates.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 1607[2mms[22m[39m
+   [33m[2m✓[22m[39m TMPL-007 — every starter template ships from the first sign-in, is found by category, previews, creates working pages and duplicates into an editable copy while the shipped one never changes [33m 1605[2mms[22m[39m
+ [32m✓[39m tests/e2e/pages/display-options.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 3018[2mms[22m[39m
+   [33m[2m✓[22m[39m PAGE-012 — page display is shared, content preserving and retained by readable and complete workspace archives [33m 3017[2mms[22m[39m
+[90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+[22m[39mAUDIT_RECEIPT {"family":"atomic page creation","id":"01M6YMP0P6SG7HNJEQ1SWV8Q49","action":"pages.create","actor_member_id":"01M6YMP0M6HCA2K81A0SHS9R6F","feature":"pages","target_kind":"page","target_id":"01M6YMP0P6YAHXSRBADR2T1Z1C","occurred_at":"2026-11-08T22:32:52.163Z","operation_key":"01M6YMP0NZM4EWGE9SD2SF5TE5"}
+
+[90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+[22m[39mAUDIT_RECEIPT {"family":"atomic page creation","id":"01M6YMP0P6SG7HNJEQ1SWV8Q49","action":"pages.create","actor_member_id":"01M6YMP0M6HCA2K81A0SHS9R6F","feature":"pages","target_kind":"page","target_id":"01M6YMP0P6YAHXSRBADR2T1Z1C","occurred_at":"2026-11-08T22:32:52.163Z","operation_key":"01M6YMP0NZM4EWGE9SD2SF5TE5"}
+
+[90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+[22m[39mAUDIT_RECEIPT {"family":"atomic native body","id":"01M6YMP0R7ZQSPBXBEJ6EK0777","action":"pages.blocks.replace","actor_member_id":"01M6YMP0M6HCA2K81A0SHS9R6F","feature":"pages","target_kind":"page","target_id":"01M6YMP0P6YAHXSRBADR2T1Z1C","occurred_at":"2026-11-08T22:32:52.228Z","operation_key":"01M6YMP0R1KFGN37BAAFWCYH8C"}
+
+[90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+[22m[39mAUDIT_RECEIPT {"family":"atomic native body","id":"01M6YMP0R7ZQSPBXBEJ6EK0777","action":"pages.blocks.replace","actor_member_id":"01M6YMP0M6HCA2K81A0SHS9R6F","feature":"pages","target_kind":"page","target_id":"01M6YMP0P6YAHXSRBADR2T1Z1C","occurred_at":"2026-11-08T22:32:52.228Z","operation_key":"01M6YMP0R1KFGN37BAAFWCYH8C"}
+
+[90mstderr[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+[22m[39mSlate request failed with an internal error.
+
+[90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+[22m[39mPROBE REV-002 autosnapshot page: native list and snapshots -> 7 exact newest-first rows; receipts, actors, times, origins, labels, immutable writes, published-only reads and revoked refusal passed
+
+[90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+[22m[39mPROBE REV-002 autosnapshot database: native list and snapshots -> 7 exact newest-first rows; receipts, actors, times, origins, labels, immutable writes, published-only reads and revoked refusal passed
+
+[90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+[22m[39mPROBE REV-002 autosnapshot record: native list and snapshots -> 8 exact newest-first rows; receipts, actors, times, origins, labels, immutable writes, published-only reads and revoked refusal passed
+
+[90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+[22m[39mPROBE REV-002 labelled page: native list and snapshots -> 7 exact newest-first rows; receipts, actors, times, origins, labels, immutable writes, published-only reads and revoked refusal passed
+
+[90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+[22m[39mPROBE REV-002 labelled database: native list and snapshots -> 7 exact newest-first rows; receipts, actors, times, origins, labels, immutable writes, published-only reads and revoked refusal passed
+
+[90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+[22m[39mPROBE REV-002 labelled record: native list and snapshots -> 8 exact newest-first rows; receipts, actors, times, origins, labels, immutable writes, published-only reads and revoked refusal passed
+
+[90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+[22m[39mAUDIT_RECEIPT {"family":"exact comment context","id":"01M6YMP43DCWN56CC7A9PA50SA","action":"comments.create","actor_member_id":"01M6YMP0M6HCA2K81A0SHS9R6F","feature":"comments","target_kind":"comment-thread","target_id":"01M6YMP43GNE5NBJFV9MZG0TPT","occurred_at":"2026-11-08T22:32:55.659Z","operation_key":"01M6YMP437Z95QRSVQBRZ8G4WQ"}
+
+[90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+[22m[39mAUDIT_RECEIPT {"family":"exact comment context","id":"01M6YMP43DCWN56CC7A9PA50SA","action":"comments.create","actor_member_id":"01M6YMP0M6HCA2K81A0SHS9R6F","feature":"comments","target_kind":"comment-thread","target_id":"01M6YMP43GNE5NBJFV9MZG0TPT","occurred_at":"2026-11-08T22:32:55.659Z","operation_key":"01M6YMP437Z95QRSVQBRZ8G4WQ"}
+
+[90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+[22m[39mAUDIT_RECEIPT {"family":"exact grant context","id":"01M6YMP44A78784HEF213AX2YT","action":"sharing.grant","actor_member_id":"01M6YMP0M6HCA2K81A0SHS9R6F","feature":"sharing","target_kind":"page","target_id":"01M6YMP42YN29DXPKPFJETJRGP","occurred_at":"2026-11-08T22:32:55.688Z","operation_key":"01M6YMP444FJ0SPQB1KS2ZP29P"}
+
+[90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+[22m[39mAUDIT_RECEIPT {"family":"exact grant context","id":"01M6YMP44A78784HEF213AX2YT","action":"sharing.grant","actor_member_id":"01M6YMP0M6HCA2K81A0SHS9R6F","feature":"sharing","target_kind":"page","target_id":"01M6YMP42YN29DXPKPFJETJRGP","occurred_at":"2026-11-08T22:32:55.688Z","operation_key":"01M6YMP444FJ0SPQB1KS2ZP29P"}
+
+[90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+[22m[39mAUDIT_RECEIPT {"family":"revoke context access","id":"01M6YMP4C3T1DCY96K79AAD9RM","action":"sharing.grant","actor_member_id":"01M6YMP0M6HCA2K81A0SHS9R6F","feature":"sharing","target_kind":"page","target_id":"01M6YMP42YN29DXPKPFJETJRGP","occurred_at":"2026-11-08T22:32:55.936Z","operation_key":"01M6YMP4BY9YWRRY6HSWEKWCJJ"}
+
+[90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+[22m[39mAUDIT_RECEIPT {"family":"revoke context access","id":"01M6YMP4C3T1DCY96K79AAD9RM","action":"sharing.grant","actor_member_id":"01M6YMP0M6HCA2K81A0SHS9R6F","feature":"sharing","target_kind":"page","target_id":"01M6YMP42YN29DXPKPFJETJRGP","occurred_at":"2026-11-08T22:32:55.936Z","operation_key":"01M6YMP4BY9YWRRY6HSWEKWCJJ"}
+
+[90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+[22m[39mAUDIT_RECEIPT {"family":"page creation","id":"01M6YMP4F91Z2791M1R124NTNS","action":"pages.create","actor_member_id":"01M6YMP0M6HCA2K81A0SHS9R6F","feature":"pages","target_kind":"page","target_id":"01M6YMP4F9JAJ4N8EJPKGB06K7","occurred_at":"2026-11-08T22:32:56.039Z","operation_key":"01M6YMP4F5722PT2WEZXCPPPS2"}
+
+[90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+[22m[39mAUDIT_RECEIPT {"family":"page creation","id":"01M6YMP4F91Z2791M1R124NTNS","action":"pages.create","actor_member_id":"01M6YMP0M6HCA2K81A0SHS9R6F","feature":"pages","target_kind":"page","target_id":"01M6YMP4F9JAJ4N8EJPKGB06K7","occurred_at":"2026-11-08T22:32:56.039Z","operation_key":"01M6YMP4F5722PT2WEZXCPPPS2"}
+
+[90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+[22m[39mAUDIT_RECEIPT {"family":"body changes","id":"01M6YMP4G3ES8WP6A7PHEMR2MR","action":"pages.blocks.replace","actor_member_id":"01M6YMP0M6HCA2K81A0SHS9R6F","feature":"pages","target_kind":"page","target_id":"01M6YMP4F9JAJ4N8EJPKGB06K7","occurred_at":"2026-11-08T22:32:56.065Z","operation_key":"01M6YMP4FZ0KGB83TWGEZ9TXPW"}
+
+[90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+[22m[39mAUDIT_RECEIPT {"family":"body changes","id":"01M6YMP4G3ES8WP6A7PHEMR2MR","action":"pages.blocks.replace","actor_member_id":"01M6YMP0M6HCA2K81A0SHS9R6F","feature":"pages","target_kind":"page","target_id":"01M6YMP4F9JAJ4N8EJPKGB06K7","occurred_at":"2026-11-08T22:32:56.065Z","operation_key":"01M6YMP4FZ0KGB83TWGEZ9TXPW"}
+
+[90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+[22m[39mAUDIT_RECEIPT {"family":"property changes","id":"01M6YMP4H59ZMAZWCYH8GRZA44","action":"pages.update","actor_member_id":"01M6YMP0M6HCA2K81A0SHS9R6F","feature":"pages","target_kind":"page","target_id":"01M6YMP4F9JAJ4N8EJPKGB06K7","occurred_at":"2026-11-08T22:32:56.098Z","operation_key":"01M6YMP4H0VCJHG5494RKDERNM"}
+
+[90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+[22m[39mAUDIT_RECEIPT {"family":"property changes","id":"01M6YMP4H59ZMAZWCYH8GRZA44","action":"pages.update","actor_member_id":"01M6YMP0M6HCA2K81A0SHS9R6F","feature":"pages","target_kind":"page","target_id":"01M6YMP4F9JAJ4N8EJPKGB06K7","occurred_at":"2026-11-08T22:32:56.098Z","operation_key":"01M6YMP4H0VCJHG5494RKDERNM"}
+
+[90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+[22m[39mAUDIT_RECEIPT {"family":"page moves","id":"01M6YMP4KNZXZVPZJ8ND1PWXK8","action":"pages.move","actor_member_id":"01M6YMP0M6HCA2K81A0SHS9R6F","feature":"pages","target_kind":"page","target_id":"01M6YMP4F9JAJ4N8EJPKGB06K7","occurred_at":"2026-11-08T22:32:56.176Z","operation_key":"01M6YMP4KDMTD9K2TPBTG9940W"}
+
+[90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+[22m[39mAUDIT_RECEIPT {"family":"page moves","id":"01M6YMP4KNZXZVPZJ8ND1PWXK8","action":"pages.move","actor_member_id":"01M6YMP0M6HCA2K81A0SHS9R6F","feature":"pages","target_kind":"page","target_id":"01M6YMP4F9JAJ4N8EJPKGB06K7","occurred_at":"2026-11-08T22:32:56.176Z","operation_key":"01M6YMP4KDMTD9K2TPBTG9940W"}
+
+[90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+[22m[39mAUDIT_RECEIPT {"family":"publish","id":"01M6YMP4P127BBDRND9TPRNX2V","action":"pages.publish","actor_member_id":"01M6YMP0M6HCA2K81A0SHS9R6F","feature":"pages","target_kind":"page","target_id":"01M6YMP4NFSMTJ5Z3HA07SNG4D","occurred_at":"2026-11-08T22:32:56.251Z","operation_key":"01M6YMP4NRGPRNHVYY8BAFEC4T"}
+
+[90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+[22m[39mAUDIT_RECEIPT {"family":"publish","id":"01M6YMP4P127BBDRND9TPRNX2V","action":"pages.publish","actor_member_id":"01M6YMP0M6HCA2K81A0SHS9R6F","feature":"pages","target_kind":"page","target_id":"01M6YMP4NFSMTJ5Z3HA07SNG4D","occurred_at":"2026-11-08T22:32:56.251Z","operation_key":"01M6YMP4NRGPRNHVYY8BAFEC4T"}
+
+[90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+[22m[39mAUDIT_RECEIPT {"family":"archive","id":"01M6YMP4WFK16R1TKBT8176X7X","action":"archive.archive","actor_member_id":"01M6YMP0M6HCA2K81A0SHS9R6F","feature":"archive","target_kind":"page","target_id":"01M6YMP4W000811TF37ZKSCKX7","occurred_at":"2026-11-08T22:32:56.461Z","operation_key":"01M6YMP4WAGM5MFH8BYYZMDGCD"}
+
+[90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+[22m[39mAUDIT_RECEIPT {"family":"archive","id":"01M6YMP4WFK16R1TKBT8176X7X","action":"archive.archive","actor_member_id":"01M6YMP0M6HCA2K81A0SHS9R6F","feature":"archive","target_kind":"page","target_id":"01M6YMP4W000811TF37ZKSCKX7","occurred_at":"2026-11-08T22:32:56.461Z","operation_key":"01M6YMP4WAGM5MFH8BYYZMDGCD"}
+
+[90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+[22m[39mAUDIT_RECEIPT {"family":"restore","id":"01M6YMP4X8A9CR6PANRVR2GMV9","action":"archive.restore","actor_member_id":"01M6YMP0M6HCA2K81A0SHS9R6F","feature":"archive","target_kind":"page","target_id":"01M6YMP4W000811TF37ZKSCKX7","occurred_at":"2026-11-08T22:32:56.486Z","operation_key":"01M6YMP4X4H51JBB3SK0PR7AMB"}
+
+[90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+[22m[39mAUDIT_RECEIPT {"family":"restore","id":"01M6YMP4X8A9CR6PANRVR2GMV9","action":"archive.restore","actor_member_id":"01M6YMP0M6HCA2K81A0SHS9R6F","feature":"archive","target_kind":"page","target_id":"01M6YMP4W000811TF37ZKSCKX7","occurred_at":"2026-11-08T22:32:56.486Z","operation_key":"01M6YMP4X4H51JBB3SK0PR7AMB"}
+
+[90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+[22m[39mAUDIT_RECEIPT {"family":"trash","id":"01M6YMP4Y5WF4K6Z6VMZ9CC8W7","action":"archive.trash","actor_member_id":"01M6YMP0M6HCA2K81A0SHS9R6F","feature":"archive","target_kind":"page","target_id":"01M6YMP4W000811TF37ZKSCKX7","occurred_at":"2026-11-08T22:32:56.516Z","operation_key":"01M6YMP4Y1S8899Q5HBA64F288"}
+
+[90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+[22m[39mAUDIT_RECEIPT {"family":"trash","id":"01M6YMP4Y5WF4K6Z6VMZ9CC8W7","action":"archive.trash","actor_member_id":"01M6YMP0M6HCA2K81A0SHS9R6F","feature":"archive","target_kind":"page","target_id":"01M6YMP4W000811TF37ZKSCKX7","occurred_at":"2026-11-08T22:32:56.516Z","operation_key":"01M6YMP4Y1S8899Q5HBA64F288"}
+
+[90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+[22m[39mAUDIT_RECEIPT {"family":"permanent deletion","id":"01M6YMP4ZB7M524PK3R9H9HPMW","action":"archive.permanent-delete","actor_member_id":"01M6YMP0M6HCA2K81A0SHS9R6F","feature":"archive","target_kind":"page","target_id":"01M6YMP4W000811TF37ZKSCKX7","occurred_at":"2026-11-08T22:32:56.551Z","operation_key":"01M6YMP4YX3AG5838B5CZQHZC6"}
+
+[90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+[22m[39mAUDIT_RECEIPT {"family":"permanent deletion","id":"01M6YMP4ZB7M524PK3R9H9HPMW","action":"archive.permanent-delete","actor_member_id":"01M6YMP0M6HCA2K81A0SHS9R6F","feature":"archive","target_kind":"page","target_id":"01M6YMP4W000811TF37ZKSCKX7","occurred_at":"2026-11-08T22:32:56.551Z","operation_key":"01M6YMP4YX3AG5838B5CZQHZC6"}
+
+[90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+[22m[39mAUDIT_RECEIPT {"family":"version restores","id":"01M6YMP54AXHZ3CJ648H6V27BS","action":"pages.restore","actor_member_id":"01M6YMP0M6HCA2K81A0SHS9R6F","feature":"pages","target_kind":"page","target_id":"01M6YMP530THPJZPMR7EFG58D9","occurred_at":"2026-11-08T22:32:56.709Z","operation_key":"01M6YMP542G2GZZJJZ828HP8WS"}
+
+[90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+[22m[39mAUDIT_RECEIPT {"family":"version restores","id":"01M6YMP54AXHZ3CJ648H6V27BS","action":"pages.restore","actor_member_id":"01M6YMP0M6HCA2K81A0SHS9R6F","feature":"pages","target_kind":"page","target_id":"01M6YMP530THPJZPMR7EFG58D9","occurred_at":"2026-11-08T22:32:56.709Z","operation_key":"01M6YMP542G2GZZJJZ828HP8WS"}
+
+[90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+[22m[39mAUDIT_RECEIPT {"family":"version deletions","id":"01M6YMP55PNYPKJNM0M7WMPGM3","action":"versions.delete","actor_member_id":"01M6YMP0M6HCA2K81A0SHS9R6F","feature":"versions","target_kind":"page","target_id":"01M6YMP530THPJZPMR7EFG58D9","occurred_at":"2026-11-08T22:32:56.755Z","operation_key":"01M6YMP55F7BNPX2916NB044G4"}
+
+[90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+[22m[39mAUDIT_RECEIPT {"family":"version deletions","id":"01M6YMP55PNYPKJNM0M7WMPGM3","action":"versions.delete","actor_member_id":"01M6YMP0M6HCA2K81A0SHS9R6F","feature":"versions","target_kind":"page","target_id":"01M6YMP530THPJZPMR7EFG58D9","occurred_at":"2026-11-08T22:32:56.755Z","operation_key":"01M6YMP55F7BNPX2916NB044G4"}
+
+[90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+[22m[39mPROBE ARCH-004 retention: native page tree archive and restore -> bodies, history, comments, grants, status, definitions, records and bytes unchanged
+
+[90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+[22m[39mPROBE ARCH-004 retention: native database archive and restore -> bodies, history, comments, grants, status, definitions, records and bytes unchanged
+
+[90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+[22m[39mPROBE ARCH-004 retention: native container archive and restore -> populated tree and uploaded bytes unchanged
+
+[90mstdout[2m | tests/qualification/core/audit-content.test.ts[2m > [22m[2mACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time
+[22m[39mPROBE ARCH-004 confirmation: native delete -> untrashed, archived, incomplete cascade and stale-proof requests refused unchanged; exact fresh-proof cascade erased, replay cannot resurrect
+
+ [32m✓[39m tests/qualification/core/audit-content.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 8553[2mms[22m[39m
+   [33m[2m✓[22m[39m ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time [33m 8552[2mms[22m[39m
+ [32m✓[39m tests/flagship/release-clauses/trials/predeclaration.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 3171[2mms[22m[39m
+   [33m[2m✓[22m[39m TRIAL-001 — immutable plans require exact approval and constrain treatment content [33m 3171[2mms[22m[39m
+ [32m✓[39m tests/e2e/navigation/global-create.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 5036[2mms[22m[39m
+   [33m[2m✓[22m[39m NAV-005 — creation names authorized destinations and creates pages, databases, spaces and template copies [33m 5035[2mms[22m[39m
+[90mstdout[2m | tests/flagship/release-clauses/inquiry/replay-analysis.test.ts[2m > [22m[2mINQ-002 — durable numerical replay separates observation, assumption, deduction and refused business authority
+[22m[39mU5_NATIVE_INQ002 {"analysis":{"id":"01M6YMPPVRQ6AJV38NQD5V95XE","inquiry_id":"01M6YMPPPT76Y0PXKXMEJ4CJCV","kind":"compare-means","engine_version":"difference-means-conservative-t-v1","inputs_json":"{\"kind\":\"compare-means\",\"treatment\":[1,3,5],\"comparison\":[4,6,8]}","input_hash":"2bfc23348d73c76151fb17a081c0d2b23d94d5f6167e7c2a8d19c8778ca8f374","result_json":"{\"treatment\":{\"n\":3,\"mean\":3,\"variance\":4},\"comparison\":{\"n\":3,\"mean\":6,\"variance\":4},\"effect\":3,\"lower\":-4.0267695754640105,\"upper\":10.02676957546401,\"halfWidth\":7.0267695754640105,\"confidence\":0.95,\"engine\":\"difference-means-conservative-t-v1\"}","refs_json":"[{\"kind\":\"page\",\"sourceId\":\"01M6YMPPJ8C8WJAV19V44G2CZC\",\"revisionId\":\"01M6YMPPJ8WQ8Z022SVMRHM1E0\"}]","created_at":"2026-11-08T22:33:14.841Z"},"artifacts":[{"id":"01M6YMPPRJNAHHWQ5EWFYYQ5FB","inquiry_id":"01M6YMPPPT76Y0PXKXMEJ4CJCV","kind":"observation","content_json":"{\"finding\":\"observation: scoped to supplied measured population\",\"hypothesisId\":\"01M6YMPPPT0N76H7SJJYH4G5XP\"}","refs_json":"[{\"kind\":\"page\",\"sourceId\":\"01M6YMPPJ8C8WJAV19V44G2CZC\",\"revisionId\":\"01M6YMPPJ8WQ8Z022SVMRHM1E0\"}]","created_at":"2026-11-08T22:33:14.739Z"},{"id":"01M6YMPPSHWSTWP52DBX3W4DXC","inquiry_id":"01M6YMPPPT76Y0PXKXMEJ4CJCV","kind":"assumption","content_json":"{\"finding\":\"assumption: scoped to supplied measured population\",\"hypothesisId\":\"01M6YMPPPT0N76H7SJJYH4G5XP\"}","refs_json":"[{\"kind\":\"page\",\"sourceId\":\"01M6YMPPJ8C8WJAV19V44G2CZC\",\"revisionId\":\"01M6YMPPJ8WQ8Z022SVMRHM1E0\"}]","created_at":"2026-11-08T22:33:14.774Z"},{"id":"01M6YMPPTJ8J972Q3M8D4H6XZ0","inquiry_id":"01M6YMPPPT76Y0PXKXMEJ4CJCV","kind":"deduction","content_json":"{\"finding\":\"deduction: scoped to supplied measured population\",\"hypothesisId\":\"01M6YMPPPT0N76H7SJJYH4G5XP\"}","refs_json":"[{\"kind\":\"page\",\"sourceId\":\"01M6YMPPJ8C8WJAV19V44G2CZC\",\"revisionId\":\"01M6YMPPJ8WQ8Z022SVMRHM1E0\"}]","created_at":"2026-11-08T22:33:14.805Z"}]}
+
+ [32m✓[39m tests/flagship/release-clauses/inquiry/replay-analysis.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 465[2mms[22m[39m
+   [33m[2m✓[22m[39m INQ-002 — durable numerical replay separates observation, assumption, deduction and refused business authority [33m 464[2mms[22m[39m
+ [32m✓[39m tests/e2e/imports/archive-safety.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 14[2mms[22m[39m
+ [32m✓[39m tests/qualification/authority/native-boundaries.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 66[2mms[22m[39m
+ [32m✓[39m tests/qualification/release-integration-repairs/branch-migration.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 641[2mms[22m[39m
+   [33m[2m✓[22m[39m Forward branch admission migration preserves native prior inquiry findings and leaves unknown history unknown [33m 640[2mms[22m[39m
+ [32m✓[39m tests/e2e/navigation/tree-filter.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 5221[2mms[22m[39m
+   [33m[2m✓[22m[39m TREE-004 — tree inputs expose only readable titles and retain member expansion across filtered reads [33m 5220[2mms[22m[39m
+ [32m✓[39m tests/e2e/saving/failed-writes.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 5109[2mms[22m[39m
+   [33m[2m✓[22m[39m SAVE-002 — refused title and block writes preserve committed data and a corrected retry commits once [33m 5108[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m17 passed[39m[22m[90m (17)[39m
+[2m      Tests [22m [1m[32m18 passed[39m[22m[90m (18)[39m
+[2m   Start at [22m 22:31:27
+[2m   Duration [22m 126.38s[2m (transform 10.24s, setup 8.60s, import 49.12s, tests 58.84s, environment 4ms)[22m
+
+JSON report written to /workspace/run-slate/.artifacts/contract-4.json
+Contract documents are current.
+TAP version 13
+# Subtest: named moves and new ordinal registrations each execute once
+ok 1 - named moves and new ordinal registrations each execute once
+  ---
+  duration_ms: 0.880665
+  type: 'test'
+  ...
+# Subtest: ordinary partitioning covers every registration across arbitrary widths
+ok 2 - ordinary partitioning covers every registration across arbitrary widths
+  ---
+  duration_ms: 1.496611
+  type: 'test'
+  ...
+# Subtest: malformed assignments fail closed instead of silently losing a journey
+ok 3 - malformed assignments fail closed instead of silently losing a journey
+  ---
+  duration_ms: 0.557589
+  type: 'test'
+  ...
+1..3
+# tests 3
+# suites 0
+# pass 3
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 46.00489
+
+> slate@0.4.0 test:foundation /workspace/run-slate
+> tsx --test --test-concurrency=1 tests/e2e/auth-paths.test.js tests/e2e/runtime-config.test.js tests/e2e/foundation-runtime.test.mjs
+
+TAP version 13
+# Subtest: local sign-in admits only loopback hosts and keeps next paths inside the operator app
+ok 1 - local sign-in admits only loopback hosts and keeps next paths inside the operator app
+  ---
+  duration_ms: 1.029209
+  type: 'test'
+  ...
+# Subtest: the development Worker serves the Start documents and the Hono families
+not ok 2 - the development Worker serves the Start documents and the Hono families
+  ---
+  duration_ms: 24302.075044
+  type: 'test'
+  location: '/workspace/run-slate/tests/e2e/foundation-runtime.test.mjs:19:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    404 !== 200
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 200
+  actual: 404
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///workspace/run-slate/tests/e2e/foundation-runtime.test.mjs:41:12)
+    process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+# Subtest: native outbox sign-in preserves custom and retained Aurora workspaces
+not ok 3 - native outbox sign-in preserves custom and retained Aurora workspaces
+  ---
+  duration_ms: 37605.935822
+  type: 'test'
+  location: '/workspace/run-slate/tests/e2e/foundation-runtime.test.mjs:153:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    403 !== 200
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 200
+  actual: 403
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///workspace/run-slate/tests/e2e/foundation-runtime.test.mjs:166:12)
+    process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: runtime configuration admits explicit local origins and providers and refuses unsafe deployments
+ok 4 - runtime configuration admits explicit local origins and providers and refuses unsafe deployments
+  ---
+  duration_ms: 2.104326
+  type: 'test'
+  ...
+1..4
+# tests 4
+# suites 0
+# pass 2
+# fail 2
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 62492.659903
+ ELIFECYCLE  Command failed with exit code 1.
+Shard lane results: journeys=0 worker-suite=1

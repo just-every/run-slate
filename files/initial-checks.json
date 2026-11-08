@@ -1,0 +1,44 @@
+{
+  "head": "946d8e0c2ae6058d99a04303f042738aa2473d9a",
+  "checks": [
+    {
+      "command": "pnpm typecheck",
+      "exit": 0
+    },
+    {
+      "command": "npx -y @runeditrun/rer check --profile first-party",
+      "exit": 0
+    },
+    {
+      "command": "pnpm source:check",
+      "exit": 0
+    },
+    {
+      "command": "npx -y @runeditrun/rer setup --owner-email [fleet identity] --non-interactive",
+      "exit": 0
+    },
+    {
+      "command": "npx -y @runeditrun/rer build",
+      "exit": 0
+    }
+  ],
+  "node": "22.20.0",
+  "browser": "/usr/bin/chromium",
+  "ci_log_read": [
+    {
+      "command": "gh run view 42513420265 --repo just-every/run-slate --job 128831729694 --log-failed",
+      "exit": 0,
+      "bytes": 0
+    },
+    {
+      "command": "gh run view 42513420265 --repo just-every/run-slate --job 128838185831 --log-failed",
+      "exit": 0,
+      "bytes": 0
+    }
+  ],
+  "artifact_read": {
+    "command": "gh run download 42513420265 --repo just-every/run-slate --name failures-ui-focus-mobile",
+    "result": "no artifact matches any of the names or patterns provided"
+  },
+  "github_invocations_used": 7
+}

@@ -1,0 +1,220 @@
+{
+  "files": [
+    {
+      "blob": "57b272c264bb5cb8bec6aa504e57fc5803c228df",
+      "bytes": 2126,
+      "path": "PLAN.md",
+      "sha256": "49ce3a500f99128b3abbd2fc1ebf7bd65cb30ce48d06d40bc183b9baa3c0385f"
+    },
+    {
+      "blob": "89e3f1c64e44686c88c2ee346753e73f1fe15379",
+      "bytes": 4737,
+      "path": "RECEIPT.json",
+      "sha256": "c2416cdf27e586881f039000abeeaf37d41b4a9980993692204e97d29caab12f"
+    },
+    {
+      "blob": "77fc2e0f61b4d2e54d6582f3ea4aac5d4db70868",
+      "bytes": 16853,
+      "path": "REPORT.md",
+      "sha256": "d80ea49e6e91de058d2b01b28dd79ba7097787dccf894d01d44c4176e3c8ee4a"
+    },
+    {
+      "blob": "d00491fd7e5bb6fa28c517a0bb32b8b506539d4d",
+      "bytes": 2,
+      "path": "core-container-exit.txt",
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    {
+      "blob": "acb6ddf6730cdb4c56a4bd2ae7735545b9d3cedd",
+      "bytes": 32163,
+      "path": "core-worker-suite.log",
+      "sha256": "62d0e4289081600b3e763f81d34ffbc40f2af47ec39e3367771b4bfe7b5a1c53"
+    },
+    {
+      "blob": "a8b7f62289f7010bf1503d82adcaa5053a9525a8",
+      "bytes": 152,
+      "path": "counts.json",
+      "sha256": "6a82710ca346f3eaccce4dfdca233e711e8ba043e26ddedeaadf782e5f362edc"
+    },
+    {
+      "blob": "688ebbdcd55ea3cf5fe7336cae8fe635574fb50e",
+      "bytes": 153402,
+      "path": "current-core-failed.log",
+      "sha256": "3593427c9f276f7544a684cc2386dde9b0adff39fbbd1b18f59e03d160bae25e"
+    },
+    {
+      "blob": "cde5efbbf24bafd2971c94e1e5222f1d94aeb8a1",
+      "bytes": 35020,
+      "path": "current-failed-jobs.json",
+      "sha256": "070dee5e6336ff64b405bcf92de94a3a0b7a4ecca2b98c0292f2b4ffcefceb3b"
+    },
+    {
+      "blob": "b5969fc66b87d678251f862c65d52ca28c537579",
+      "bytes": 578,
+      "path": "exact-head-runs.json",
+      "sha256": "ff07868c838326bb4f6830c4d07cef1f1c40737e89d3066ac2be49921c8df13f"
+    },
+    {
+      "blob": "d18af4c5216dd676b8688bac89aa9f8a97f80c56",
+      "bytes": 646116,
+      "path": "external-switches-1440-ubuntu.json",
+      "sha256": "be04dd687d1d7178b93cc0c2a7a2d28b4d8ce6f32ad996bac8a350cc3e5d6e91"
+    },
+    {
+      "blob": "6a3248f706371b788c3174669e73e338b1e1dfe5",
+      "bytes": 645946,
+      "path": "external-switches-390-predecessor.json",
+      "sha256": "41319aec6d2df0c029c42041b3748f58af0ee75f4698efd3d07585e46492bff4"
+    },
+    {
+      "blob": "3e4b062bc229597f536ea4f4137028f0113017d1",
+      "bytes": 645948,
+      "path": "external-switches-390-ubuntu.json",
+      "sha256": "0efcb9dd8486d684f783be812498ce7fee455fd9ef84972e9851b39830442e9a"
+    },
+    {
+      "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "bytes": 0,
+      "path": "failed-aggregate.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "blob": "f1966c77f21d386294f415939184388c613cc8e3",
+      "bytes": 34968,
+      "path": "failed-jobs.json",
+      "sha256": "42b8ffcc69725ccf75764e9a96a5404bb211dead46492de559428906d66989a5"
+    },
+    {
+      "blob": "753bbf0907bc86ded883c18298d8a2fe2cf48e3c",
+      "bytes": 494,
+      "path": "failed-mobile-annotations.json",
+      "sha256": "f0b7e6e2f045d5352188ed86bbc91621dc0a2eeb964f43efbc61ae462a694fc5"
+    },
+    {
+      "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "bytes": 0,
+      "path": "failed-mobile.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "blob": "65cfd34f9aa03206d83cd35c18f4b50bbc08f394",
+      "bytes": 1240,
+      "path": "foundation-without-local-setup.log",
+      "sha256": "815a2044e3478074000cf6a69114d0f17d65c44a4423e7d39cb0266f48d5ceaf"
+    },
+    {
+      "blob": "e7ebdd0a9ce620420203d7e25369dbebba8a37a5",
+      "bytes": 1362,
+      "path": "identity-audit.json",
+      "sha256": "6131448a846e69c7b0f25ca7b8876087fe589e7290db58cce4560add0bdd0ca5"
+    },
+    {
+      "blob": "05909a6ee393279298f1efeec8ebb3faecd4abbd",
+      "bytes": 1129,
+      "path": "initial-checks.json",
+      "sha256": "0a442a326c76e3f86df01704bc0cdfa367379c2b5e27afb3514c433601565175"
+    },
+    {
+      "blob": "2045b6b29062e7ff2735dfba921c3220765c8b30",
+      "bytes": 8457,
+      "path": "main-comparison-missing-git-mount.log",
+      "sha256": "1f0a729fe0ebc43e4d52fe40e60956a0881df9d519c582fbe3b09d855c9ac4fc"
+    },
+    {
+      "blob": "2cd3a09f7d353db3bc57ba130b63819e2e875add",
+      "bytes": 4820,
+      "path": "main-core-390-comparison.log",
+      "sha256": "f6f5a97cdfb79993590f81dc2663356179da4f2afc97ef28c546b1959ca15313"
+    },
+    {
+      "blob": "9b080dd4d87ad34ec20a713b37dd1e640e37fc7c",
+      "bytes": 29211,
+      "path": "main-probe-build.log",
+      "sha256": "1b5cf7385bd72c6a3e919a2e527feeb17200792e94d001fd6244b48f8b28cdb2"
+    },
+    {
+      "blob": "a23a63c532ecd73a97796ef54b556842670504d9",
+      "bytes": 110442,
+      "path": "native-container-switches-390.png",
+      "sha256": "0a8848b0f7ea27a474545540218f634c54dbc740e2db79d31ed3fec951336e48"
+    },
+    {
+      "blob": "7ff74ffc09fed836784ca4eb3cd74ba2cf067f78",
+      "bytes": 33152,
+      "path": "native-guest-veto-390.png",
+      "sha256": "ab27b0d1713cca8039aa2ebe95105a8e5d0dad018b52a68dae4b715a05733df5"
+    },
+    {
+      "blob": "67c08f3822d0995e1c375d0a29eaefa8f9583e7a",
+      "bytes": 7564,
+      "path": "reproduce-mobile-shard.log",
+      "sha256": "ff5658f71b7982271148f1a58ebc4f9b1081adf9fe54acc76d35712dc6c97c4e"
+    },
+    {
+      "blob": "6ce7f94d132d8f273c8dad35ebad5c5604abf24a",
+      "bytes": 44389,
+      "path": "reproduce-ubuntu-core-shard.log",
+      "sha256": "cb9097af6e23f31a962f2e4d10f64482d283a059c96be7ec1c113b399cf6b3bf"
+    },
+    {
+      "blob": "6055524c8773486b935d6e5e757ef0af41d78548",
+      "bytes": 7565,
+      "path": "reproduce-ubuntu-mobile-shard.log",
+      "sha256": "05c3540c3c94965143f039d7e952c45fdbbb1ab3c4e28f07362ab5fd03533e7f"
+    },
+    {
+      "blob": "4b219982468f650ba4717437e2526aeebcd21fdf",
+      "bytes": 115637,
+      "path": "ubuntu-034-390-native-container-external-switches-390.png",
+      "sha256": "e3cc745d247ba9184510ea5135995bee4beaa747e4600a9ae73840c2bbb3e1a4"
+    },
+    {
+      "blob": "b96fdc346deba353c2c2e9bd848828c81c1996b9",
+      "bytes": 36233,
+      "path": "ubuntu-035-390-native-container-guest-veto-preserves-unsaved-text-390.png",
+      "sha256": "a4422e0302d2375dd1d2632edd22e74fe226e4ee20e7b443e8360448bd65b0a4"
+    },
+    {
+      "blob": "204dc7fa2a92d047ef01e36f2ac2da7c404b3b1a",
+      "bytes": 56495,
+      "path": "ubuntu-036-390-native-workspace-external-switches-390.png",
+      "sha256": "15d6026ac1d4c536d4908da9e5e5307a057cd677be2844d81e7839f8237047ee"
+    },
+    {
+      "blob": "ec34aa40d2904359bfe93478b4254ceae4ae98e3",
+      "bytes": 36875,
+      "path": "ubuntu-037-390-native-workspace-guest-veto-preserves-unsaved-text-390.png",
+      "sha256": "95ffb38131203942bd77cc81e8ae7074a1b78af581d6872da1c89b41f7f250f9"
+    },
+    {
+      "blob": "4662757d39c96b9b9427a4b9aaba670f5d37cd65",
+      "bytes": 215218,
+      "path": "ubuntu-218-1440-native-container-external-switches-1440.png",
+      "sha256": "6dfb189068cae113a2a8786defb6f05cc3a6cfa5a03d30eab428b0bda6daed42"
+    },
+    {
+      "blob": "853f2fbeaa0e0e5a1e2794731c99ac166201aac3",
+      "bytes": 70376,
+      "path": "ubuntu-219-1440-native-container-guest-veto-preserves-unsaved-text-1440.png",
+      "sha256": "1f343c1118d9143b74ff1b857603b51b5b1c8f1068b44c3ccb1c0fd1482e7a55"
+    },
+    {
+      "blob": "38e40babc1596ba80232897fd087893ed2f1a31a",
+      "bytes": 164022,
+      "path": "ubuntu-220-1440-native-workspace-external-switches-1440.png",
+      "sha256": "3ff6ba457a5ef11cbfb46c1afac2685ae9c40fe1e36703dfa78a88ae4f6a8e10"
+    },
+    {
+      "blob": "ebb86b9972014c2c593082b6de6e023637bcfce0",
+      "bytes": 61590,
+      "path": "ubuntu-221-1440-native-workspace-guest-veto-preserves-unsaved-text-1440.png",
+      "sha256": "3cd5a0b9aa5e05aa8930f223d797fa316ab35ab2d2eecfd5286dcfff3b841abc"
+    }
+  ],
+  "product_branch": "cloud/sd-slate-c-f213-pc1",
+  "product_head": "946d8e0c2ae6058d99a04303f042738aa2473d9a",
+  "ref": "refs/heads/evidence/sd-slate-c-f213-pc1",
+  "repository": "just-every/run-slate",
+  "schema": 1,
+  "tag": "sd-slate-c-f213-pc1"
+}
