@@ -1,3 +1,4 @@
+import {NotificationPreferences} from './NotificationPreferences';
 import { DeveloperAccess } from './DeveloperAccess';
 import { useFlagshipEnabled } from "../../../../app/ui/LaunchProfile";
 import { ChatNotifications } from "./ChatNotifications";
@@ -64,7 +65,7 @@ export function SettingsWorkspace() {
         ) : section === "activity" ? (
           <ActivityWorkspace />
         ) : section === "preferences" ? (
-          <PersonalPreferences />
+          <><PersonalPreferences /><NotificationPreferences /></>
         ) : section === "members" ? (
           <MembersPanel />
         ) : section === "saml" ? (

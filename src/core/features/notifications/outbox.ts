@@ -1,3 +1,4 @@
+import {emailIntent} from './email';
 import type { FeatureContext } from '../../app/feature-context';
 import type { AuthenticatedMember } from '../../app/types';
 import { mutationGuard } from '../../app/operations';
@@ -23,6 +24,7 @@ export async function processNotificationOutbox(ctx:FeatureContext,limit=100):Pr
   const localSelfRecipient=ctx.localDevelopment===true&&row.event==='maintenance'&&(JSON.parse(row.recipients_json) as string[]).includes(row.actor_member_id??'');
   for(const [id,audience] of recipients){if(id===row.actor_member_id&&!localSelfRecipient)continue;const recipient=await recipientContext(ctx,id);if(!recipient||!await eventReadable(recipient,row))continue;
    statements.push(mutationGuard(ctx.db,'SELECT epoch=? FROM core_acl_epoch WHERE id=1',[recipient.authorizationEpoch!]),ctx.db.prepare('INSERT OR IGNORE INTO notifications(id,workspace_id,recipient_member_id,source_page_id,source_container_id,comment_id,event,detail_json,created_at,outbox_id,audience) VALUES(?,?,?,?,?,?,?,?,?,?,?)').bind(`${row.id}:${id}`,row.workspace_id,id,row.page_id,row.container_id,row.comment_id,row.event,row.detail_json,row.created_at,row.id,audience));
+   statements.push(...await emailIntent(ctx,row,id));
   }
   // Durable independent chat intent. Delivery performs the destination audience checks again.
   const connections=await ctx.db.prepare("SELECT id,events_json FROM chat_connections WHERE workspace_id=? AND state='connected' AND (container_id IS NULL OR container_id=COALESCE(?,(SELECT container_id FROM pages WHERE id=?)))").bind(row.workspace_id,row.container_id,row.page_id).all<{id:string;events_json:string}>();

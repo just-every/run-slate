@@ -19,7 +19,7 @@ export async function prepareEraseMemberStores(ctx:FeatureContext,memberId:strin
  add('DELETE FROM member_expertise_overrides WHERE member_id=?',memberId);
  add('DELETE FROM member_profiles WHERE member_id=?',memberId);
  add('UPDATE member_profiles SET manager_member_id=NULL,revision_id=?,updated_at=? WHERE manager_member_id=?',crypto.randomUUID(),now,memberId);
- for(const table of ['reminders','page_favourites','container_favourites','page_watches','container_watches','recent_pages','content_page_opens','content_tree_expansion','content_presence','reactions','discovery_preferences','discovery_revisions','saved_searches','discovery_snapshots','federation_oauth_states'])add(`DELETE FROM ${table} WHERE member_id=?`,memberId);
+ for(const table of ['notification_delivery_preferences','notification_unsubscribe_tokens','notification_email_items','notification_email_deliveries','reminders','page_favourites','container_favourites','page_watches','container_watches','recent_pages','content_page_opens','content_tree_expansion','content_presence','reactions','discovery_preferences','discovery_revisions','saved_searches','discovery_snapshots','federation_oauth_states'])add(`DELETE FROM ${table} WHERE member_id=?`,memberId);
  add("UPDATE backup_destinations SET created_by_member_id=NULL,name='Removed owner backup',endpoint='',bucket='',prefix='',credential_ciphertext=NULL,state='removed',drill_report_json=NULL WHERE created_by_member_id=?",memberId);
  add("DELETE FROM federation_import_mappings WHERE import_job_id IN (SELECT id FROM provider_folder_runs WHERE workspace_id=? AND actor_id=?)",w,memberId);
  add("DELETE FROM provider_folder_runs WHERE workspace_id=? AND actor_id=?",w,memberId);
@@ -28,6 +28,7 @@ export async function prepareEraseMemberStores(ctx:FeatureContext,memberId:strin
  add('UPDATE saml_provider_config SET updated_by_member_id=NULL WHERE updated_by_member_id=?',memberId);
  add("UPDATE saml_provider_config SET break_glass_owner_id=NULL WHERE break_glass_owner_id=? AND enforced=0",memberId);
  add("UPDATE saml_provider_config SET allowed_emails_json=COALESCE((SELECT json_group_array(value) FROM json_each(saml_provider_config.allowed_emails_json) WHERE lower(value)!=(SELECT lower(email) FROM members WHERE id=?)),'[]') WHERE workspace_id=?",memberId,w);
+ add('DELETE FROM notification_change_blocks WHERE outbox_id IN (SELECT id FROM notification_outbox WHERE actor_member_id=?)',memberId);
  add('DELETE FROM watch_edit_sessions WHERE actor_member_id=?',memberId);
  add('UPDATE task_origins SET member_id=NULL WHERE member_id=?',memberId);
  add('DELETE FROM intelligence_interruptions WHERE recipient_id=?',memberId);
