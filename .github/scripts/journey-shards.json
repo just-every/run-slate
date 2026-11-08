@@ -37,5 +37,7 @@
   "native ordinary page full authority retains inventories and refuses revoked captures for discussion and sharing at 1440px": 6,
   "native ordinary page edit authority retains inventories and refuses revoked captures at 1440px": 5,
   "native ordinary page comment authority retains inventories and refuses revoked captures at 1440px": 7,
-  "native ordinary page view authority retains inventories and refuses revoked captures at 1440px": 3
+  "native ordinary page view authority retains inventories and refuses revoked captures at 1440px": 3,
+  "BLOCK-016 — task reports, My tasks and typed assignments preserve reader access and completion at 1440px": 1,
+  "page creation destinations and editor locks preserve readable content at 1440px": 2
 }
