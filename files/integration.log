@@ -1,0 +1,23 @@
+ WARN  Unsupported engine: wanted: {"node":"22.20.0"} (current: {"node":"v24.19.0","pnpm":"10.12.4"})
+
+> slate@0.4.0 integration:sync /home/agent/rer-consolidation/work/fv-slate-timeout-4/run-slate
+> node scripts/sync-integration.mjs --write
+
+node:internal/fs/promises:1086
+  const result = await PromisePrototypeThen(
+                 ^
+
+Error: ENOENT: no such file or directory, lstat '/home/agent/rer-consolidation/work/fv-slate-timeout-4/run-slate/dist'
+    at async lstat (node:internal/fs/promises:1086:18)
+    at async sourcePath (file:///home/agent/rer-consolidation/work/fv-slate-timeout-4/run-slate/scripts/delivery/base/migrations.mjs:24:18)
+    at async deploymentSpec (file:///home/agent/rer-consolidation/work/fv-slate-timeout-4/run-slate/scripts/delivery/base/spec.mjs:129:16)
+    at async integrationRecipe (file:///home/agent/rer-consolidation/work/fv-slate-timeout-4/run-slate/scripts/sync-integration.mjs:7:32)
+    at async file:///home/agent/rer-consolidation/work/fv-slate-timeout-4/run-slate/scripts/sync-integration.mjs:19:3 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'lstat',
+  path: '/home/agent/rer-consolidation/work/fv-slate-timeout-4/run-slate/dist'
+}
+
+Node.js v24.19.0
+ ELIFECYCLE  Command failed with exit code 1.

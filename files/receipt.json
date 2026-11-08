@@ -1,0 +1,234 @@
+{
+  "tag": "fv-slate-timeout-4",
+  "repository": "just-every/run-slate",
+  "branch": "cloud/fv-slate-timeout-4",
+  "base": "67b706484e5430012d9c154c1e14090ea1e49bc2",
+  "checks": {
+    "rer install": {
+      "exit": 0
+    },
+    "rer setup --owner-email fleet@runeditrun.com --non-interactive": {
+      "exit": 0
+    },
+    "contract-docs write and check before restoring views": {
+      "exit": 0
+    },
+    "integration:sync": {
+      "exit": 0
+    },
+    "source:lock": {
+      "exit": 0
+    },
+    "source:check": {
+      "exit": 0
+    },
+    "node --test .github/scripts/journey-shard.test.mjs tests/release/source.test.mjs tests/release/fixture-policy.test.mjs": {
+      "exit": 0,
+      "tests": 5,
+      "passed": 5
+    },
+    "actionlint 1.7.7": {
+      "exit": 0
+    },
+    "rer check": {
+      "exit": 0
+    },
+    "contract-docs check after restoring main views": {
+      "exit": 1,
+      "expected": true,
+      "diagnostic": "ACCEPTANCE.md: generated content differs; run contract-docs write.",
+      "policy": "Main views must be retained; the fleet lander regenerates them from merged CONTRACT.md."
+    },
+    "product diff local-path scan": {
+      "exit": 0,
+      "matches": 0,
+      "patterns": [
+        "/Users",
+        "/home",
+        "/private",
+        "/tmp"
+      ]
+    },
+    "full-authority split native registrations at 1440px": {
+      "exit": 0,
+      "tests": 2,
+      "passed": 2,
+      "timeout_ms": 240000,
+      "cases": [
+        {
+          "section": "page",
+          "duration_ms": 156644.205142,
+          "refused_requests": 26
+        },
+        {
+          "section": "discussion",
+          "duration_ms": 122579.73917,
+          "refused_requests": 27
+        }
+      ]
+    },
+    "CONT-009 native container grants at 1440px": {
+      "exit": 0,
+      "tests": 1,
+      "passed": 1,
+      "duration_ms": 111107.561626,
+      "native_grant_changes": 46,
+      "narrowed": {
+        "writeStatus": 404,
+        "editorMs": 596,
+        "projectionsMs": 799
+      },
+      "revoked": {
+        "writeStatus": 404,
+        "editorMs": 504,
+        "projectionsMs": 747
+      }
+    },
+    "candidate identity and trailer audit": {
+      "exit": 0,
+      "candidate_commits": 1,
+      "all_authors_and_committers": "Run Edit Run fleet <fleet@runeditrun.com>",
+      "trailers": []
+    },
+    "AST inventory exact committed HEAD": {
+      "exit": 0,
+      "expanded": 212,
+      "unresolved": []
+    },
+    "full-authority split native registrations on Node 22.20.0 at 1440px": {
+      "exit": 0,
+      "tests": 2,
+      "passed": 2,
+      "timeout_ms": 240000,
+      "cases": [
+        {
+          "section": "page",
+          "duration_ms": 160590.418481,
+          "refused_requests": 26
+        },
+        {
+          "section": "discussion",
+          "duration_ms": 126058.076261,
+          "refused_requests": 27
+        }
+      ]
+    },
+    "CONT-009 native container grants on Node 22.20.0 at 1440px": {
+      "exit": 0,
+      "tests": 1,
+      "passed": 1,
+      "duration_ms": 112045.570481,
+      "native_grant_changes": 46,
+      "narrowed": {
+        "writeStatus": 404,
+        "editorMs": 582,
+        "projectionsMs": 697
+      },
+      "revoked": {
+        "writeStatus": 404,
+        "editorMs": 639,
+        "projectionsMs": 746
+      }
+    },
+    "published tracking ref matches committed HEAD": {
+      "exit": 0
+    }
+  },
+  "counts": {
+    "expanded": {
+      "before": 211,
+      "after": 212
+    },
+    "ordinary_conservative": {
+      "before": 191,
+      "after": 192
+    },
+    "cap": 200,
+    "full_target": {
+      "done": 57,
+      "partial": 240,
+      "missing": 41,
+      "total": 338
+    }
+  },
+  "clauses": {
+    "SHARE-002": "partial \u2192 partial; supporting registration names updated",
+    "CONT-009": "partial \u2192 partial; assertion waits for native loaded levels"
+  },
+  "ci_calls": [
+    {
+      "number": 1,
+      "time": 1794158273.6191509,
+      "command": "gh api repos/just-every/run-slate/actions/runs?head_sha=269edbac8d03d4957dd5854f6924e88a813e60e8&per_page=100 --jq [.workflow_runs[] | {id,name,status,conclusion,head_sha,html_url,event}]",
+      "exit": 0
+    },
+    {
+      "number": 2,
+      "time": 1794158574.1795852,
+      "command": "gh api repos/just-every/run-slate/actions/runs/42504230981 --jq {status,conclusion,head_sha,html_url,id,run_attempt}",
+      "exit": 0
+    },
+    {
+      "number": 3,
+      "time": 1794158874.7108967,
+      "command": "gh api repos/just-every/run-slate/actions/runs/42504230981/jobs --jq [.jobs[] | {id,name,status,conclusion,steps:[.steps[] | {name,status,conclusion}]}]",
+      "exit": 0
+    },
+    {
+      "number": 4,
+      "time": 1794159177.0538657,
+      "command": "gh run view 42504230981 --repo just-every/run-slate --job 128803321241 --log-failed",
+      "exit": 0
+    },
+    {
+      "number": 5,
+      "time": 1794159478.339048,
+      "command": "gh run view 42504230981 --repo just-every/run-slate --job 128803495993 --log-failed",
+      "exit": 0
+    }
+  ],
+  "product_head": "269edbac8d03d4957dd5854f6924e88a813e60e8",
+  "product_push": {
+    "exit": 0,
+    "attempts": 1,
+    "ref": "refs/heads/cloud/fv-slate-timeout-4",
+    "log": "product-push.log"
+  },
+  "product_worktree_clean": true,
+  "ci_observed": {
+    "conclusion": "failure",
+    "head_sha": "269edbac8d03d4957dd5854f6924e88a813e60e8",
+    "html_url": "https://github.com/just-every/run-slate/actions/runs/42504230981",
+    "id": 42504230981,
+    "run_attempt": 1,
+    "status": "completed"
+  },
+  "ci_app_failure": {
+    "job_id": 128803321241,
+    "failed_step": "node src/base/runtime/contract-docs.mjs check",
+    "diagnostic": "ACCEPTANCE.md: generated content differs; run contract-docs write.",
+    "exit": 1,
+    "matches_documented_generated_view_exception": true
+  },
+  "product_tree": "068f332ed48b0e28dd919e13594fcbbc3325b4f1",
+  "source_hashes": {
+    "CONTRACT.md": "9119a8ef6aff5693072158d24cfe8e84b87334d3ab2ab9643fca1970d1d5a181",
+    "sources.lock.json": "95e536bb4559ca203edefb670777894b2afa793e13bba8a5bc44b51c6ceae1cc"
+  },
+  "ci_gate": {
+    "eligible_under_supplied_generated_view_exception": true,
+    "actual_workflow_conclusion": "failure",
+    "independent_failure": "ACCEPTANCE.md generated-view check",
+    "aggregate_failure": "requires successful app job",
+    "downstream_hosted_assertions": "skipped; must execute after fleet lander regeneration",
+    "failed_job_archives_read_once": [
+      128803321241,
+      128803495993
+    ],
+    "github_calls_used": 5,
+    "github_call_budget": 10,
+    "reruns": 0
+  },
+  "custody": "READY under explicit generated-view exception; product pushed; fleet owns landing",
+  "blockers": []
+}

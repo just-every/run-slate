@@ -1,0 +1,13 @@
+✔ named moves and new ordinal registrations each execute once (1.02618ms)
+✔ ordinary partitioning covers every registration across arbitrary widths (3.140584ms)
+✔ malformed assignments fail closed instead of silently losing a journey (0.776923ms)
+✔ public fixture policy preserves every reviewed archive (545.9788ms)
+✔ operations inspect input readiness without claiming provider readiness (42.710944ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 657.785734

@@ -1,0 +1,18 @@
+Public assertion excerpt from the actual failed-job archive; workflow environment block omitted.
+verify	Require the plan and every expected job	﻿2026-11-08T17:18:34.0014664Z ##[group]Run set -euo pipefail
+verify	Require the plan and every expected job	2026-11-08T17:18:34.0015562Z [36;1mset -euo pipefail[0m
+verify	Require the plan and every expected job	2026-11-08T17:18:34.0016199Z [36;1mtest "$PLAN" = success[0m
+verify	Require the plan and every expected job	2026-11-08T17:18:34.0017379Z [36;1mif [ "$SKIP" = true ]; then exit 0; fi[0m
+verify	Require the plan and every expected job	2026-11-08T17:18:34.0018337Z [36;1m# Dispatch has always been the installer/local-only entry point.[0m
+verify	Require the plan and every expected job	2026-11-08T17:18:34.0019486Z [36;1mif [ "$EVENT" != workflow_dispatch ]; then[0m
+verify	Require the plan and every expected job	2026-11-08T17:18:34.0020437Z [36;1m  for result in "$APP" "$SHARDS" "$CONTRACT"; do test "$result" = success; done[0m
+verify	Require the plan and every expected job	2026-11-08T17:18:34.0021340Z [36;1mfi[0m
+verify	Require the plan and every expected job	2026-11-08T17:18:34.0022187Z [36;1mif [ "$EVENT" = schedule ] || [ "$EVENT" = workflow_dispatch ] || [[ "$REF" == refs/tags/* ]]; then[0m
+verify	Require the plan and every expected job	2026-11-08T17:18:34.0023184Z [36;1m  test "$LOCAL" = success[0m
+verify	Require the plan and every expected job	2026-11-08T17:18:34.0023855Z [36;1mfi[0m
+verify	Require the plan and every expected job	2026-11-08T17:18:34.0024514Z [36;1mif [ "$EVENT" = schedule ] || [[ "$REF" == refs/tags/* ]]; then[0m
+verify	Require the plan and every expected job	2026-11-08T17:18:34.0025404Z [36;1m  test "$SCALE" = success[0m
+verify	Require the plan and every expected job	2026-11-08T17:18:34.0026100Z [36;1mfi[0m
+verify	Require the plan and every expected job	2026-11-08T17:18:34.0525472Z shell: /usr/bin/bash -e {0}
+verify	Require the plan and every expected job	2026-11-08T17:18:34.0536121Z ##[endgroup]
+verify	Require the plan and every expected job	2026-11-08T17:18:34.0841506Z ##[error]Process completed with exit code 1.

@@ -1,0 +1,34 @@
+TAP version 13
+# SHARING_PHASE full page edits 1440: 28663 ms
+# SHARING_PHASE full lifecycle 1440: 31117 ms
+# SHARING_PHASE full archive 1440: 20107 ms
+# PROBE SHARE-002 erasure full: non-owner confirmed deletion and old-capture refusal
+# SHARING_PHASE full erasure 1440: 9257 ms
+# PROBE SHARE-002 full/page: native operation inventories, replays and revoked captures; 26 refused requests preserve inventories at 1440px
+# Subtest: native ordinary page full authority retains inventories and refuses revoked captures for page changes at 1440px
+ok 1 - native ordinary page full authority retains inventories and refuses revoked captures for page changes at 1440px
+  ---
+  duration_ms: 160590.418481
+  type: 'test'
+  ...
+# Sharing full/page setup: 27143 ms
+# Sharing full/page matrix: 129774 ms
+# SHARING_PHASE full discussion 1440: 33056 ms
+# PROBE SHARE-002 full/discussion: native operation inventories, replays and revoked captures; 27 refused requests preserve inventories at 1440px
+# Subtest: native ordinary page full authority retains inventories and refuses revoked captures for discussion and sharing at 1440px
+ok 2 - native ordinary page full authority retains inventories and refuses revoked captures for discussion and sharing at 1440px
+  ---
+  duration_ms: 126058.076261
+  type: 'test'
+  ...
+# Sharing full/discussion setup: 27230 ms
+# Sharing full/discussion matrix: 95253 ms
+1..2
+# tests 2
+# suites 0
+# pass 2
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 308043.583764

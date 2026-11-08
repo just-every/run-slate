@@ -1,0 +1,4 @@
+Public assertion excerpt from the actual failed-job archive; workflow environment block omitted.
+verify (app)	Run node src/base/runtime/contract-docs.mjs check	﻿2026-11-08T17:18:26.0411005Z ##[group]Run node src/base/runtime/contract-docs.mjs check
+verify (app)	Run node src/base/runtime/contract-docs.mjs check	2026-11-08T17:18:26.2015754Z ACCEPTANCE.md: generated content differs; run contract-docs write.
+verify (app)	Run node src/base/runtime/contract-docs.mjs check	2026-11-08T17:18:26.2110271Z ##[error]Process completed with exit code 1.

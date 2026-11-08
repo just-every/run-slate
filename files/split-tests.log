@@ -1,0 +1,22 @@
+SHARING_PHASE full page edits 1440: 28002 ms
+SHARING_PHASE full lifecycle 1440: 29436 ms
+SHARING_PHASE full archive 1440: 19712 ms
+PROBE SHARE-002 erasure full: non-owner confirmed deletion and old-capture refusal
+SHARING_PHASE full erasure 1440: 9514 ms
+PROBE SHARE-002 full/page: native operation inventories, replays and revoked captures; 26 refused requests preserve inventories at 1440px
+✔ native ordinary page full authority retains inventories and refuses revoked captures for page changes at 1440px (156644.205142ms)
+ℹ Sharing full/page setup: 25683 ms
+ℹ Sharing full/page matrix: 126638 ms
+SHARING_PHASE full discussion 1440: 32000 ms
+PROBE SHARE-002 full/discussion: native operation inventories, replays and revoked captures; 27 refused requests preserve inventories at 1440px
+✔ native ordinary page full authority retains inventories and refuses revoked captures for discussion and sharing at 1440px (122579.73917ms)
+ℹ Sharing full/discussion setup: 26460 ms
+ℹ Sharing full/discussion matrix: 92592 ms
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 297208.808323
