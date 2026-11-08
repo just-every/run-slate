@@ -1,0 +1,49 @@
+{
+  "artifact": {
+    "schema": 1,
+    "commit": "e52be2b6c6d5586f94d7105969851b1d9fedca04",
+    "tree": "22ac5094d01527c962be0cae24d664f4a7c06f5c",
+    "sourceSha256": "7e36734944629bc5b07dd674c482dd4503679a842ef75076ebf702291cf372c9",
+    "lockSha256": "39f415d51b336f92c40acb5a9b6f3de492df6a108f771746c7d720675b5c4e31",
+    "outputSha256": "a0b8c78b4f0ab12bb9f2c9d03f13a813c094163c071213fe4e040cd87f129603"
+  },
+  "width": 1440,
+  "profile": "core-wiki",
+  "entries": [
+    {
+      "url": "http://127.0.0.1:45125/api/decisions",
+      "method": "POST",
+      "requestBody": "{\"operationKey\":\"2f746c7a-1d94-4ef3-b841-bbefb65d0f31\",\"pageId\":\"01M6XPZDMDDKAJRY78QBXQN8GB\",\"question\":\"Which local option should we adopt?\",\"options\":[\"First\",\"Second\"],\"ownerId\":\"browser-owner\",\"decidedAt\":\"2026-09-30T00:00:00.000Z\",\"reviewAt\":\"2099-01-01T00:00:00.000Z\",\"citations\":[{\"kind\":\"page\",\"sourceId\":\"01M6XPZDMDDKAJRY78QBXQN8GB\",\"revisionId\":\"01M6XPZDMDMGHYW04502RF6T00\"}],\"outcome\":\"First\",\"rationale\":\"Recorded local reasoning\"}",
+      "status": 200,
+      "responseBodyUnavailable": "The page navigated after the response."
+    },
+    {
+      "url": "http://127.0.0.1:45125/api/decisions",
+      "method": "POST",
+      "requestBody": "{\"operationKey\":\"fed4fe39-6110-4680-ae26-afa41e0c1945\",\"id\":\"01M6XPZEQGPDZCST7MTPD5NYBE\",\"pageId\":\"01M6XPZDMDDKAJRY78QBXQN8GB\",\"expectedRevisionId\":\"01M6XPZEQGCPX7K9YGT5Y8C2MS\",\"question\":\"Which local option should we adopt?\",\"options\":[\"First\",\"Second\"],\"outcome\":\"Second\",\"rationale\":\"Recorded local reasoning\",\"ownerId\":\"browser-owner\",\"decidedAt\":\"2026-09-30T00:00:00.000Z\",\"reviewAt\":\"2099-01-01T00:00:00.000Z\",\"citations\":[{\"kind\":\"page\",\"sourceId\":\"01M6XPZDMDDKAJRY78QBXQN8GB\",\"revisionId\":\"01M6XPZDMDMGHYW04502RF6T00\"}]}",
+      "status": 200,
+      "responseBody": "{\"value\":{\"id\":\"01M6XPZEQGPDZCST7MTPD5NYBE\",\"revisionId\":\"01M6XPZFNGRM5WNAVSEXF153G2\",\"state\":\"proposed\"},\"receipt\":{\"operationKey\":\"fed4fe39-6110-4680-ae26-afa41e0c1945\",\"entity\":{\"id\":\"01M6XPZEQGPDZCST7MTPD5NYBE\",\"kind\":\"decision\",\"revisionId\":\"01M6XPZFNGRM5WNAVSEXF153G2\"},\"revisionId\":\"01M6XPZFNGRM5WNAVSEXF153G2\",\"activityId\":\"01M6XPZFNGDQCN5EBRTP8GH4GM\",\"committedAt\":\"2026-11-08T13:53:45.102Z\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:45125/api/decisions/01M6XPZEQGPDZCST7MTPD5NYBE/accept",
+      "method": "POST",
+      "requestBody": "{\"operationKey\":\"9aa7213d-c103-4bef-aabd-c20b2549054a\",\"expectedRevisionId\":\"01M6XPZFNGRM5WNAVSEXF153G2\"}",
+      "status": 200,
+      "responseBody": "{\"value\":{\"id\":\"01M6XPZEQGPDZCST7MTPD5NYBE\",\"state\":\"accepted\",\"revisionId\":\"01M6XPZGDYV85MYGQN4C5DCN9P\"},\"receipt\":{\"operationKey\":\"9aa7213d-c103-4bef-aabd-c20b2549054a\",\"entity\":{\"id\":\"01M6XPZEQGPDZCST7MTPD5NYBE\",\"kind\":\"decision\",\"revisionId\":\"01M6XPZGDYV85MYGQN4C5DCN9P\"},\"revisionId\":\"01M6XPZGDYV85MYGQN4C5DCN9P\",\"activityId\":\"01M6XPZGDY4CGMMYGKG54QC090\",\"committedAt\":\"2026-11-08T13:53:45.886Z\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:45125/api/decisions/01M6XPZEQGPDZCST7MTPD5NYBE/review",
+      "method": "POST",
+      "requestBody": "{\"operationKey\":\"77dd1dc1-c629-4674-afbf-a7c50bb96ca7\",\"expectedRevisionId\":\"01M6XPZGDYV85MYGQN4C5DCN9P\",\"note\":\"Completed local review\",\"nextReviewAt\":\"2099-02-01T00:00:00.000Z\"}",
+      "status": 200,
+      "responseBody": "{\"value\":{\"id\":\"01M6XPZEQGPDZCST7MTPD5NYBE\",\"revisionId\":\"01M6XPZGM9NSZNMEQDH3V2W1KM\"},\"receipt\":{\"operationKey\":\"77dd1dc1-c629-4674-afbf-a7c50bb96ca7\",\"entity\":{\"id\":\"01M6XPZEQGPDZCST7MTPD5NYBE\",\"kind\":\"decision\",\"revisionId\":\"01M6XPZGM9NSZNMEQDH3V2W1KM\"},\"revisionId\":\"01M6XPZGM9NSZNMEQDH3V2W1KM\",\"activityId\":\"01M6XPZGM9GHBX0C3826V6XJXG\",\"committedAt\":\"2026-11-08T13:53:46.103Z\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:45125/api/decisions/01M6XPZEQGPDZCST7MTPD5NYBE/remove",
+      "method": "POST",
+      "requestBody": "{\"operationKey\":\"18d100fc-6b06-4015-9e65-df9e086546f5\",\"expectedRevisionId\":\"01M6XPZGM9NSZNMEQDH3V2W1KM\"}",
+      "status": 200,
+      "responseBody": "{\"value\":{\"id\":\"01M6XPZEQGPDZCST7MTPD5NYBE\",\"revisionId\":\"01M6XPZJ6VX5HJB4YHKNV94FE0\",\"removed\":true},\"receipt\":{\"operationKey\":\"18d100fc-6b06-4015-9e65-df9e086546f5\",\"entity\":{\"id\":\"01M6XPZEQGPDZCST7MTPD5NYBE\",\"kind\":\"decision\",\"revisionId\":\"01M6XPZJ6VX5HJB4YHKNV94FE0\"},\"revisionId\":\"01M6XPZJ6VX5HJB4YHKNV94FE0\",\"activityId\":\"01M6XPZJ6VZHMFQ6W8HAM05ARQ\",\"committedAt\":\"2026-11-08T13:53:47.727Z\"}}"
+    }
+  ]
+}

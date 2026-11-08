@@ -1,0 +1,81 @@
+{
+  "head": "e52be2b6c6d5586f94d7105969851b1d9fedca04",
+  "branch": "cloud/sd-slate-c-f202",
+  "repository": "just-every/run-slate",
+  "recordedAt": "2026-11-08T13:56:28.497612+00:00",
+  "node": "22.20.0",
+  "pnpm": "10.12.4",
+  "checks": [
+    {
+      "command": "cloud_run npx -y @runeditrun/rer build",
+      "exit": 0,
+      "output": "build.log",
+      "sha256": "5396b4a2472ea623be4199aef46b0319c19e928d98e85611557ededb83a6e1d0"
+    },
+    {
+      "command": "cloud_run pnpm typecheck",
+      "exit": 0,
+      "output": "typecheck.log",
+      "sha256": "824e1d5e7bd9b813f0c61286a8df0b7225164441685cf38b0b6e6ffab9902d06"
+    },
+    {
+      "command": "cloud_run pnpm exec rer check --profile first-party",
+      "exit": 0,
+      "output": "first-party.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": "SLATE_CHROMIUM_PATH=/usr/bin/chromium cloud_run timeout 1800 node --test --test-concurrency=1 --test-name-pattern='^real core-wiki and touch-member journeys' tests/qualification/ui-convergence/journeys.test.mjs",
+      "exit": 0,
+      "output": "core-browser.log",
+      "sha256": "4354fb6588bd6a63939ec3905524e0553d4bd709eb4a468b547c8e05d4b7ed7a"
+    },
+    {
+      "command": "pnpm integration:sync",
+      "exit": 0,
+      "output": "integration.log",
+      "sha256": "7384af06bc8b5e7ac1335f38fd08860059c96f8a5713e2679a0b47d676a5519b"
+    },
+    {
+      "command": "node src/base/runtime/contract-docs.mjs write",
+      "exit": 0,
+      "output": "contract-write.log",
+      "sha256": "df91012bf66fb476e9cd1a30c002829398beb55f869e07cc7be477197fa5a276"
+    },
+    {
+      "command": "node src/base/runtime/contract-docs.mjs check",
+      "exit": 0,
+      "output": "contract-check.log",
+      "sha256": "c21aae40192141751d6d5c7a3a1d0eb701a6852f305d592d77b4dcab9c2536ab"
+    },
+    {
+      "command": "pnpm source:check",
+      "exit": 0,
+      "output": "source-check.log",
+      "sha256": "0f132f012a13b6c18d2e241682a3895c623a5eb8106cf62a4db32c18870237d2"
+    },
+    {
+      "command": "node tests/requirements/count-registrations.mjs origin/main",
+      "exit": 0,
+      "output": "registrations-main.json",
+      "sha256": "4455a21ceccf3beec3bffd7dbb5326cfba010120c337a9fd2f1b517fe05bdf0f"
+    },
+    {
+      "command": "node tests/requirements/count-registrations.mjs HEAD",
+      "exit": 0,
+      "output": "registrations-candidate.json",
+      "sha256": "c69b5d57a693b76dabb1f3acc4cd7b2b513a2227eaf4677bb88be9c23c180b81"
+    }
+  ],
+  "browser": {
+    "registrations": 2,
+    "passed": 2,
+    "failed": 0,
+    "widths": [
+      1440,
+      390
+    ]
+  },
+  "generatedViews": "write and check passed; restored from origin/main; not committed",
+  "migrations": "none"
+}

@@ -1,0 +1,45 @@
+[
+  {
+    "ordinal": 1,
+    "action": "main exact-SHA discovery",
+    "head": "67b706484e5430012d9c154c1e14090ea1e49bc2",
+    "recordedFrom": "main-ci.json",
+    "exit": 0
+  },
+  {
+    "ordinal": 2,
+    "at": "2026-11-08T13:56:21.986025+00:00",
+    "command": [
+      "gh",
+      "api",
+      "repos/just-every/run-slate/actions/runs?head_sha=e52be2b6c6d5586f94d7105969851b1d9fedca04&per_page=100",
+      "--jq",
+      ".workflow_runs | map({id,name,head_sha,event,status,conclusion,html_url})"
+    ],
+    "exit": 0
+  },
+  {
+    "ordinal": 3,
+    "at": "2026-11-08T14:01:22.014464+00:00",
+    "command": [
+      "gh",
+      "api",
+      "repos/just-every/run-slate/actions/runs?head_sha=e52be2b6c6d5586f94d7105969851b1d9fedca04&per_page=100",
+      "--jq",
+      ".workflow_runs | map({id,name,head_sha,event,status,conclusion,html_url})"
+    ],
+    "exit": 0
+  },
+  {
+    "ordinal": 4,
+    "at": "2026-11-08T14:06:22.047017+00:00",
+    "command": [
+      "gh",
+      "api",
+      "repos/just-every/run-slate/actions/runs/42487325188/jobs?per_page=100",
+      "--jq",
+      ".jobs | map({id,name,status,conclusion,steps:(.steps | map({number,name,status,conclusion}))})"
+    ],
+    "exit": 0
+  }
+]
