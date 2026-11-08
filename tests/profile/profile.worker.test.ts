@@ -1,3 +1,4 @@
+import {decisionEditJourney} from './decision-edit-journey';
 import {decisionLogJourney} from './decision-log-journey';
 import {pageLockJourney} from './page-lock-journey';
 import {bodyBlocksJourney} from './body-blocks-journey';
@@ -84,6 +85,10 @@ it("FLAG-001 — core wiki public doors retain native content while flagship rou
   await bodyBlocksJourney(api,containerId,cookie);
   await pageLockJourney(api,containerId,workspaceId,cookie);
 } },
+    { name: 'DEC-006 — native proposal edits retain snapshots and refuse unchanged, stale, view-only and accepted writes', run: async () => {
+      const {containerId,workspaceId,memberId,cookie} = await workspace();
+      await decisionEditJourney(createApi(),containerId,workspaceId,memberId,cookie);
+    } },
     { name: 'DEC-004 — populated native decision log filters exact memberships and retains accepted revisions under current access', run: async () => {
       const {workspaceId,memberId,cookie} = await workspace();
       await decisionLogJourney(createApi(),workspaceId,memberId,cookie);
