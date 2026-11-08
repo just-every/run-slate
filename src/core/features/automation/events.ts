@@ -92,7 +92,9 @@ export async function runAutomationMaintenance(
                 : e.page_kind === "record" &&
                     ["properties", "record-properties"].includes(e.kind)
                   ? "record-updated"
-                  : e.kind,
+                  : ["block", "structure"].includes(e.kind)
+                    ? "blocks"
+                    : e.kind,
             pageId: e.page_id,
             databaseId: e.database_id ?? undefined,
             containerId: e.container_id,
