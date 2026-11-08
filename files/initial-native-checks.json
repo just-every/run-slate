@@ -1,0 +1,26 @@
+{
+  "sourceCommit": "67487e714802ed7755ea1aac6beff9b769ebb9ee",
+  "checks": [
+    {
+      "command": "pnpm exec vitest run --config tests/profile/vitest.config.ts tests/profile/profile.worker.test.ts -t FLAG-001",
+      "exit": 0,
+      "testsPassed": 1,
+      "testsUnselected": 3,
+      "nativeCase": "DEC-002 \u2014 native decision transitions replay once and terminal refusals preserve all rows"
+    },
+    {
+      "command": "pnpm typecheck",
+      "exit": 0
+    },
+    {
+      "command": "node src/base/runtime/contract-docs.mjs write; node src/base/runtime/contract-docs.mjs check",
+      "exit": 0,
+      "changedViews": 0
+    },
+    {
+      "command": "pnpm source:lock; pnpm source:check",
+      "exit": 0
+    }
+  ],
+  "note": "Native test and typecheck ran immediately before this commit. Product and test bytes are identical to this commit. Browser build and final candidate validation are pending."
+}

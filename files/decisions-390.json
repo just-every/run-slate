@@ -1,0 +1,1606 @@
+{
+  "width": 390,
+  "artifact": {
+    "schema": 1,
+    "commit": "67487e714802ed7755ea1aac6beff9b769ebb9ee",
+    "tree": "c71a10323589f8c58d73ae993d398bbd9537515d",
+    "sourceSha256": "b47aafe41f27ecbb53b23ad2c8100abb34ecff0b02ec730fdc5a4a980536067b",
+    "lockSha256": "d63948ff8d41bfbef8edd79b27de798d8c46cb9aba11c01dbce0bc55607fe431",
+    "outputSha256": "08f1497261f96c230449313b3ca6a85a3d706ce72feab593cec0b0185b04b576"
+  },
+  "committed": [
+    {
+      "result": {
+        "value": {
+          "id": "01M6XXBB33EQP4N8CCS48RHQXR",
+          "revisionId": "01M6XXBB320BDE4EKDKFR6PMDV",
+          "state": "proposed"
+        },
+        "receipt": {
+          "operationKey": "49e9caed-49c4-4de2-8b80-5a37304eac20",
+          "entity": {
+            "id": "01M6XXBB33EQP4N8CCS48RHQXR",
+            "kind": "decision",
+            "revisionId": "01M6XXBB320BDE4EKDKFR6PMDV"
+          },
+          "revisionId": "01M6XXBB320BDE4EKDKFR6PMDV",
+          "activityId": "01M6XXBB3289TMRJNF7PG4Q695",
+          "committedAt": "2026-11-08T15:45:05.040Z"
+        }
+      },
+      "path": "/api/decisions",
+      "input": {
+        "operationKey": "49e9caed-49c4-4de2-8b80-5a37304eac20",
+        "pageId": "01M6XXB91P1Z3TVV3T3AMD6B8M",
+        "question": "Should the team proceed?",
+        "options": [
+          "Wait",
+          "Proceed"
+        ],
+        "ownerId": "browser-owner",
+        "decidedAt": null,
+        "reviewAt": null,
+        "citations": [
+          {
+            "kind": "page",
+            "sourceId": "01M6XXB90PZ5373HFSDY5RGB70",
+            "revisionId": "01M6XXB90PDCETQQPCQYV76GFC"
+          }
+        ],
+        "outcome": "Wait",
+        "rationale": "Current evidence supports waiting."
+      },
+      "actorId": "browser-reader"
+    },
+    {
+      "result": {
+        "value": {
+          "id": "01M6XXBB33EQP4N8CCS48RHQXR",
+          "state": "accepted",
+          "revisionId": "01M6XXBDCPS3TFG72XF506EF0W"
+        },
+        "receipt": {
+          "operationKey": "33287bed-c615-4797-8198-cc77aea9dbcb",
+          "entity": {
+            "id": "01M6XXBB33EQP4N8CCS48RHQXR",
+            "kind": "decision",
+            "revisionId": "01M6XXBDCPS3TFG72XF506EF0W"
+          },
+          "revisionId": "01M6XXBDCPS3TFG72XF506EF0W",
+          "activityId": "01M6XXBDCP6Q750MFVX7WSPG0M",
+          "committedAt": "2026-11-08T15:45:07.426Z"
+        }
+      },
+      "path": "/api/decisions/01M6XXBB33EQP4N8CCS48RHQXR/accept",
+      "input": {
+        "operationKey": "33287bed-c615-4797-8198-cc77aea9dbcb",
+        "expectedRevisionId": "01M6XXBB320BDE4EKDKFR6PMDV"
+      },
+      "actorId": "browser-owner"
+    },
+    {
+      "result": {
+        "value": {
+          "id": "01M6XXBB33EQP4N8CCS48RHQXR",
+          "revisionId": "01M6XXBDQ775ZGHQJ5JVN9M4SE"
+        },
+        "receipt": {
+          "operationKey": "f722068b-c5e2-4b44-b291-38ab0e9e691d",
+          "entity": {
+            "id": "01M6XXBB33EQP4N8CCS48RHQXR",
+            "kind": "decision",
+            "revisionId": "01M6XXBDQ775ZGHQJ5JVN9M4SE"
+          },
+          "revisionId": "01M6XXBDQ775ZGHQJ5JVN9M4SE",
+          "activityId": "01M6XXBDQ701JCS84NDGGT9M0H",
+          "committedAt": "2026-11-08T15:45:07.794Z"
+        }
+      },
+      "path": "/api/decisions/01M6XXBB33EQP4N8CCS48RHQXR/review",
+      "input": {
+        "operationKey": "f722068b-c5e2-4b44-b291-38ab0e9e691d",
+        "expectedRevisionId": "01M6XXBDCPS3TFG72XF506EF0W",
+        "note": "The current outcome still applies.",
+        "nextReviewAt": null
+      },
+      "actorId": "browser-owner"
+    },
+    {
+      "result": {
+        "value": {
+          "id": "01M6XXBDZP1D8R5SYR137BRT37",
+          "pageId": "01M6XXBDZP6H5MCEMXQGSKMCDG",
+          "revisionId": "01M6XXBDZP6BRG94C9W5YP4XKS",
+          "state": "proposed",
+          "supersedesId": "01M6XXBB33EQP4N8CCS48RHQXR"
+        },
+        "receipt": {
+          "operationKey": "f19ed613-2737-42b0-b978-1a88e5552685",
+          "entity": {
+            "id": "01M6XXBDZP1D8R5SYR137BRT37",
+            "kind": "decision",
+            "revisionId": "01M6XXBDZP6BRG94C9W5YP4XKS"
+          },
+          "revisionId": "01M6XXBDZP6BRG94C9W5YP4XKS",
+          "activityId": "01M6XXBDZPE95RCWQY4RJDDAND",
+          "committedAt": "2026-11-08T15:45:07.996Z"
+        }
+      },
+      "path": "/api/decisions/01M6XXBB33EQP4N8CCS48RHQXR/propose-successor",
+      "input": {
+        "operationKey": "f19ed613-2737-42b0-b978-1a88e5552685"
+      },
+      "actorId": "browser-owner"
+    },
+    {
+      "result": {
+        "value": {
+          "id": "01M6XXBDZP1D8R5SYR137BRT37",
+          "revisionId": "01M6XXBESYGCST74CYQM1DWERX",
+          "state": "proposed"
+        },
+        "receipt": {
+          "operationKey": "aed6c7ea-4e26-4374-bcd2-9f9f27f03902",
+          "entity": {
+            "id": "01M6XXBDZP1D8R5SYR137BRT37",
+            "kind": "decision",
+            "revisionId": "01M6XXBESYGCST74CYQM1DWERX"
+          },
+          "revisionId": "01M6XXBESYGCST74CYQM1DWERX",
+          "activityId": "01M6XXBESYCT3CD0WKY03A5WCB",
+          "committedAt": "2026-11-08T15:45:08.873Z"
+        }
+      },
+      "path": "/api/decisions",
+      "input": {
+        "operationKey": "aed6c7ea-4e26-4374-bcd2-9f9f27f03902",
+        "id": "01M6XXBDZP1D8R5SYR137BRT37",
+        "pageId": "01M6XXBDZP6H5MCEMXQGSKMCDG",
+        "expectedRevisionId": "01M6XXBDZP6BRG94C9W5YP4XKS",
+        "question": "Should the team proceed?",
+        "options": [
+          "Wait",
+          "Proceed"
+        ],
+        "outcome": "Proceed with a staged launch",
+        "rationale": "The replacement has current evidence.",
+        "ownerId": "browser-owner",
+        "decidedAt": null,
+        "reviewAt": null,
+        "citations": [
+          {
+            "kind": "page",
+            "sourceId": "01M6XXB90PZ5373HFSDY5RGB70",
+            "revisionId": "01M6XXB90PDCETQQPCQYV76GFC"
+          }
+        ]
+      },
+      "actorId": "browser-owner"
+    },
+    {
+      "result": {
+        "value": {
+          "id": "01M6XXBDZP1D8R5SYR137BRT37",
+          "state": "accepted",
+          "revisionId": "01M6XXBF1F6YFECNKJR1WQTA2P"
+        },
+        "receipt": {
+          "operationKey": "c4c98687-ddea-4f21-8a13-b2a5b76291fa",
+          "entity": {
+            "id": "01M6XXBDZP1D8R5SYR137BRT37",
+            "kind": "decision",
+            "revisionId": "01M6XXBF1F6YFECNKJR1WQTA2P"
+          },
+          "revisionId": "01M6XXBF1F6YFECNKJR1WQTA2P",
+          "activityId": "01M6XXBF1FPA262F1Y2XMY59HV",
+          "committedAt": "2026-11-08T15:45:09.111Z"
+        }
+      },
+      "path": "/api/decisions/01M6XXBDZP1D8R5SYR137BRT37/accept",
+      "input": {
+        "operationKey": "c4c98687-ddea-4f21-8a13-b2a5b76291fa",
+        "expectedRevisionId": "01M6XXBESYGCST74CYQM1DWERX",
+        "supersedesId": "01M6XXBB33EQP4N8CCS48RHQXR"
+      },
+      "actorId": "browser-owner"
+    },
+    {
+      "result": {
+        "value": {
+          "id": "01M6XXBHBBHSYNSY0HSN35ANVG",
+          "revisionId": "01M6XXBHBBDGN3R3Z6BF4RP7PD",
+          "state": "proposed"
+        },
+        "receipt": {
+          "operationKey": "27237f5f-921a-4bff-bce7-97dee27768f5",
+          "entity": {
+            "id": "01M6XXBHBBHSYNSY0HSN35ANVG",
+            "kind": "decision",
+            "revisionId": "01M6XXBHBBDGN3R3Z6BF4RP7PD"
+          },
+          "revisionId": "01M6XXBHBBDGN3R3Z6BF4RP7PD",
+          "activityId": "01M6XXBHBBHZGT6JJXXH1YVP7Z",
+          "committedAt": "2026-11-08T15:45:11.454Z"
+        }
+      },
+      "path": "/api/decisions",
+      "input": {
+        "operationKey": "27237f5f-921a-4bff-bce7-97dee27768f5",
+        "pageId": "01M6XXBF9W7TFXFC20TTRXY0W1",
+        "question": "Which launch follows the staged launch?",
+        "options": [
+          "Wait",
+          "Proceed"
+        ],
+        "ownerId": "browser-owner",
+        "decidedAt": null,
+        "reviewAt": null,
+        "citations": [
+          {
+            "kind": "page",
+            "sourceId": "01M6XXB90PZ5373HFSDY5RGB70",
+            "revisionId": "01M6XXB90PDCETQQPCQYV76GFC"
+          }
+        ],
+        "outcome": "Wait",
+        "rationale": "Current evidence supports waiting."
+      },
+      "actorId": "browser-reader"
+    },
+    {
+      "result": {
+        "value": {
+          "id": "01M6XXBHBBHSYNSY0HSN35ANVG",
+          "state": "accepted",
+          "revisionId": "01M6XXBKKNTCCYDRSYFHK2MFP9"
+        },
+        "receipt": {
+          "operationKey": "90c23f37-c581-42f5-b4b6-49869e6ce8ca",
+          "entity": {
+            "id": "01M6XXBHBBHSYNSY0HSN35ANVG",
+            "kind": "decision",
+            "revisionId": "01M6XXBKKNTCCYDRSYFHK2MFP9"
+          },
+          "revisionId": "01M6XXBKKNTCCYDRSYFHK2MFP9",
+          "activityId": "01M6XXBKKNFWAQSX7QEYE0ZWX5",
+          "committedAt": "2026-11-08T15:45:13.731Z"
+        }
+      },
+      "path": "/api/decisions/01M6XXBHBBHSYNSY0HSN35ANVG/accept",
+      "input": {
+        "operationKey": "90c23f37-c581-42f5-b4b6-49869e6ce8ca",
+        "expectedRevisionId": "01M6XXBHBBDGN3R3Z6BF4RP7PD",
+        "supersedesId": "01M6XXBDZP1D8R5SYR137BRT37"
+      },
+      "actorId": "browser-owner"
+    },
+    {
+      "result": {
+        "value": {
+          "id": "01M6XXBTWJZN26XENNW8M8GNYM",
+          "revisionId": "01M6XXBTWJBQ2NEN9SS450HANM",
+          "state": "proposed"
+        },
+        "receipt": {
+          "operationKey": "45cf7c41-9693-494d-bcfe-0273bb1bb16c",
+          "entity": {
+            "id": "01M6XXBTWJZN26XENNW8M8GNYM",
+            "kind": "decision",
+            "revisionId": "01M6XXBTWJBQ2NEN9SS450HANM"
+          },
+          "revisionId": "01M6XXBTWJBQ2NEN9SS450HANM",
+          "activityId": "01M6XXBTWJ79Q2QY1HGMP0F1ZC",
+          "committedAt": "2026-11-08T15:45:21.240Z"
+        }
+      },
+      "path": "/api/decisions",
+      "input": {
+        "operationKey": "45cf7c41-9693-494d-bcfe-0273bb1bb16c",
+        "pageId": "01M6XXBRWW40F0GNJ1JNM0W9E3",
+        "question": "Can a terminal decision be reopened?",
+        "options": [
+          "Wait",
+          "Proceed"
+        ],
+        "ownerId": "browser-owner",
+        "decidedAt": null,
+        "reviewAt": null,
+        "citations": [
+          {
+            "kind": "page",
+            "sourceId": "01M6XXB90PZ5373HFSDY5RGB70",
+            "revisionId": "01M6XXB90PDCETQQPCQYV76GFC"
+          }
+        ],
+        "outcome": "Wait",
+        "rationale": "Current evidence supports waiting."
+      },
+      "actorId": "browser-reader"
+    }
+  ],
+  "expected": [
+    {
+      "id": "01M6XXBB3289TMRJNF7PG4Q695",
+      "revisionId": "01M6XXBB320BDE4EKDKFR6PMDV",
+      "targetId": "01M6XXBB33EQP4N8CCS48RHQXR",
+      "actorId": "browser-reader",
+      "at": "2026-11-08T15:45:05.040Z"
+    },
+    {
+      "id": "01M6XXBDCP6Q750MFVX7WSPG0M",
+      "revisionId": "01M6XXBDCPS3TFG72XF506EF0W",
+      "targetId": "01M6XXBB33EQP4N8CCS48RHQXR",
+      "actorId": "browser-owner",
+      "at": "2026-11-08T15:45:07.426Z"
+    },
+    {
+      "id": "01M6XXBDQ701JCS84NDGGT9M0H",
+      "revisionId": "01M6XXBDQ775ZGHQJ5JVN9M4SE",
+      "targetId": "01M6XXBB33EQP4N8CCS48RHQXR",
+      "actorId": "browser-owner",
+      "at": "2026-11-08T15:45:07.794Z"
+    },
+    {
+      "id": "01M6XXBDZPE95RCWQY4RJDDAND",
+      "revisionId": "01M6XXBDZP6BRG94C9W5YP4XKS",
+      "targetId": "01M6XXBDZP1D8R5SYR137BRT37",
+      "actorId": "browser-owner",
+      "at": "2026-11-08T15:45:07.996Z"
+    },
+    {
+      "id": "01M6XXBESYCT3CD0WKY03A5WCB",
+      "revisionId": "01M6XXBESYGCST74CYQM1DWERX",
+      "targetId": "01M6XXBDZP1D8R5SYR137BRT37",
+      "actorId": "browser-owner",
+      "at": "2026-11-08T15:45:08.873Z"
+    },
+    {
+      "id": "01M6XXBF1FPA262F1Y2XMY59HV",
+      "revisionId": "01M6XXBF1F6YFECNKJR1WQTA2P",
+      "targetId": "01M6XXBDZP1D8R5SYR137BRT37",
+      "actorId": "browser-owner",
+      "at": "2026-11-08T15:45:09.111Z"
+    },
+    {
+      "id": "01M6XXBF1YNKEG9SQ2PBS1QJEY",
+      "revisionId": "01M6XXBF1YA66EHVSBKYDEPXPA",
+      "targetId": "01M6XXBB33EQP4N8CCS48RHQXR",
+      "actorId": "browser-owner",
+      "at": "2026-11-08T15:45:09.111Z"
+    },
+    {
+      "id": "01M6XXBHBBHZGT6JJXXH1YVP7Z",
+      "revisionId": "01M6XXBHBBDGN3R3Z6BF4RP7PD",
+      "targetId": "01M6XXBHBBHSYNSY0HSN35ANVG",
+      "actorId": "browser-reader",
+      "at": "2026-11-08T15:45:11.454Z"
+    },
+    {
+      "id": "01M6XXBKKNFWAQSX7QEYE0ZWX5",
+      "revisionId": "01M6XXBKKNTCCYDRSYFHK2MFP9",
+      "targetId": "01M6XXBHBBHSYNSY0HSN35ANVG",
+      "actorId": "browser-owner",
+      "at": "2026-11-08T15:45:13.731Z"
+    },
+    {
+      "id": "01M6XXBKMWRRGNDCX3M79DWTG5",
+      "revisionId": "01M6XXBKMWXMQH35Q0HAW09E83",
+      "targetId": "01M6XXBDZP1D8R5SYR137BRT37",
+      "actorId": "browser-owner",
+      "at": "2026-11-08T15:45:13.731Z"
+    },
+    {
+      "id": "01M6XXBTWJ79Q2QY1HGMP0F1ZC",
+      "revisionId": "01M6XXBTWJBQ2NEN9SS450HANM",
+      "targetId": "01M6XXBTWJZN26XENNW8M8GNYM",
+      "actorId": "browser-reader",
+      "at": "2026-11-08T15:45:21.240Z"
+    }
+  ],
+  "activity": [
+    {
+      "id": "01M6XXBTWJ79Q2QY1HGMP0F1ZC",
+      "actor": {
+        "id": "browser-reader",
+        "displayName": "Morgan Reader"
+      },
+      "feature": "decisions",
+      "action": "decisions.save",
+      "target": {
+        "kind": "decision",
+        "id": "01M6XXBTWJZN26XENNW8M8GNYM"
+      },
+      "occurredAt": "2026-11-08T15:45:21.240Z",
+      "operationKey": "45cf7c41-9693-494d-bcfe-0273bb1bb16c",
+      "automationRunId": null,
+      "aiRunId": null,
+      "deleted": false,
+      "context": {}
+    },
+    {
+      "id": "01M6XXBKMWRRGNDCX3M79DWTG5",
+      "actor": {
+        "id": "browser-owner",
+        "displayName": "Alex Owner"
+      },
+      "feature": "decisions",
+      "action": "decisions.supersede",
+      "target": {
+        "kind": "decision",
+        "id": "01M6XXBDZP1D8R5SYR137BRT37"
+      },
+      "occurredAt": "2026-11-08T15:45:13.731Z",
+      "operationKey": null,
+      "automationRunId": null,
+      "aiRunId": null,
+      "deleted": false,
+      "context": {}
+    },
+    {
+      "id": "01M6XXBKKNFWAQSX7QEYE0ZWX5",
+      "actor": {
+        "id": "browser-owner",
+        "displayName": "Alex Owner"
+      },
+      "feature": "decisions",
+      "action": "decisions.accept",
+      "target": {
+        "kind": "decision",
+        "id": "01M6XXBHBBHSYNSY0HSN35ANVG"
+      },
+      "occurredAt": "2026-11-08T15:45:13.731Z",
+      "operationKey": "90c23f37-c581-42f5-b4b6-49869e6ce8ca",
+      "automationRunId": null,
+      "aiRunId": null,
+      "deleted": false,
+      "context": {}
+    },
+    {
+      "id": "01M6XXBHBBHZGT6JJXXH1YVP7Z",
+      "actor": {
+        "id": "browser-reader",
+        "displayName": "Morgan Reader"
+      },
+      "feature": "decisions",
+      "action": "decisions.save",
+      "target": {
+        "kind": "decision",
+        "id": "01M6XXBHBBHSYNSY0HSN35ANVG"
+      },
+      "occurredAt": "2026-11-08T15:45:11.454Z",
+      "operationKey": "27237f5f-921a-4bff-bce7-97dee27768f5",
+      "automationRunId": null,
+      "aiRunId": null,
+      "deleted": false,
+      "context": {}
+    },
+    {
+      "id": "01M6XXBF1YNKEG9SQ2PBS1QJEY",
+      "actor": {
+        "id": "browser-owner",
+        "displayName": "Alex Owner"
+      },
+      "feature": "decisions",
+      "action": "decisions.supersede",
+      "target": {
+        "kind": "decision",
+        "id": "01M6XXBB33EQP4N8CCS48RHQXR"
+      },
+      "occurredAt": "2026-11-08T15:45:09.111Z",
+      "operationKey": null,
+      "automationRunId": null,
+      "aiRunId": null,
+      "deleted": false,
+      "context": {}
+    },
+    {
+      "id": "01M6XXBF1FPA262F1Y2XMY59HV",
+      "actor": {
+        "id": "browser-owner",
+        "displayName": "Alex Owner"
+      },
+      "feature": "decisions",
+      "action": "decisions.accept",
+      "target": {
+        "kind": "decision",
+        "id": "01M6XXBDZP1D8R5SYR137BRT37"
+      },
+      "occurredAt": "2026-11-08T15:45:09.111Z",
+      "operationKey": "c4c98687-ddea-4f21-8a13-b2a5b76291fa",
+      "automationRunId": null,
+      "aiRunId": null,
+      "deleted": false,
+      "context": {}
+    },
+    {
+      "id": "01M6XXBESYCT3CD0WKY03A5WCB",
+      "actor": {
+        "id": "browser-owner",
+        "displayName": "Alex Owner"
+      },
+      "feature": "decisions",
+      "action": "decisions.save",
+      "target": {
+        "kind": "decision",
+        "id": "01M6XXBDZP1D8R5SYR137BRT37"
+      },
+      "occurredAt": "2026-11-08T15:45:08.873Z",
+      "operationKey": "aed6c7ea-4e26-4374-bcd2-9f9f27f03902",
+      "automationRunId": null,
+      "aiRunId": null,
+      "deleted": false,
+      "context": {}
+    },
+    {
+      "id": "01M6XXBDZPE95RCWQY4RJDDAND",
+      "actor": {
+        "id": "browser-owner",
+        "displayName": "Alex Owner"
+      },
+      "feature": "decisions",
+      "action": "decisions.propose-successor",
+      "target": {
+        "kind": "decision",
+        "id": "01M6XXBDZP1D8R5SYR137BRT37"
+      },
+      "occurredAt": "2026-11-08T15:45:07.996Z",
+      "operationKey": "f19ed613-2737-42b0-b978-1a88e5552685",
+      "automationRunId": null,
+      "aiRunId": null,
+      "deleted": false,
+      "context": {}
+    },
+    {
+      "id": "01M6XXBDQ701JCS84NDGGT9M0H",
+      "actor": {
+        "id": "browser-owner",
+        "displayName": "Alex Owner"
+      },
+      "feature": "decisions",
+      "action": "decisions.review",
+      "target": {
+        "kind": "decision",
+        "id": "01M6XXBB33EQP4N8CCS48RHQXR"
+      },
+      "occurredAt": "2026-11-08T15:45:07.794Z",
+      "operationKey": "f722068b-c5e2-4b44-b291-38ab0e9e691d",
+      "automationRunId": null,
+      "aiRunId": null,
+      "deleted": false,
+      "context": {}
+    },
+    {
+      "id": "01M6XXBDCP6Q750MFVX7WSPG0M",
+      "actor": {
+        "id": "browser-owner",
+        "displayName": "Alex Owner"
+      },
+      "feature": "decisions",
+      "action": "decisions.accept",
+      "target": {
+        "kind": "decision",
+        "id": "01M6XXBB33EQP4N8CCS48RHQXR"
+      },
+      "occurredAt": "2026-11-08T15:45:07.426Z",
+      "operationKey": "33287bed-c615-4797-8198-cc77aea9dbcb",
+      "automationRunId": null,
+      "aiRunId": null,
+      "deleted": false,
+      "context": {}
+    },
+    {
+      "id": "01M6XXBB3289TMRJNF7PG4Q695",
+      "actor": {
+        "id": "browser-reader",
+        "displayName": "Morgan Reader"
+      },
+      "feature": "decisions",
+      "action": "decisions.save",
+      "target": {
+        "kind": "decision",
+        "id": "01M6XXBB33EQP4N8CCS48RHQXR"
+      },
+      "occurredAt": "2026-11-08T15:45:05.040Z",
+      "operationKey": "49e9caed-49c4-4de2-8b80-5a37304eac20",
+      "automationRunId": null,
+      "aiRunId": null,
+      "deleted": false,
+      "context": {}
+    }
+  ],
+  "refusals": [
+    {
+      "path": "/api/decisions/01M6XXBB33EQP4N8CCS48RHQXR/accept",
+      "status": 409,
+      "body": {
+        "code": "IMMUTABLE_DECISION",
+        "message": "Only proposed decisions can be accepted."
+      }
+    },
+    {
+      "path": "/api/decisions",
+      "status": 409,
+      "body": {
+        "code": "IMMUTABLE_DECISION",
+        "message": "Accepted and superseded decisions are immutable."
+      }
+    },
+    {
+      "path": "/api/decisions/01M6XXBB33EQP4N8CCS48RHQXR/review",
+      "status": 409,
+      "body": {
+        "code": "IMMUTABLE_DECISION",
+        "message": "Only an accepted decision can be reviewed."
+      }
+    },
+    {
+      "path": "/api/decisions/01M6XXBB33EQP4N8CCS48RHQXR/propose-successor",
+      "status": 403,
+      "body": {
+        "code": "DECISION_OWNER_REQUIRED",
+        "message": "The accepted decision owner prepares its replacement."
+      }
+    },
+    {
+      "path": "/api/decisions/01M6XXBTWJZN26XENNW8M8GNYM/accept",
+      "status": 403,
+      "body": {
+        "code": "SUPERSESSION_AUTHORITY",
+        "message": "The accepted decision owner must authorize supersession."
+      }
+    }
+  ],
+  "unchanged": {
+    "decisions": [
+      {
+        "id": "01M6XXBB33EQP4N8CCS48RHQXR",
+        "page_id": "01M6XXB91P1Z3TVV3T3AMD6B8M",
+        "workspace_id": "browser-workspace",
+        "question": "Should the team proceed?",
+        "options_json": "[\"Wait\",\"Proceed\"]",
+        "outcome": "Wait",
+        "rationale": "Current evidence supports waiting.",
+        "owner_member_id": "browser-owner",
+        "decided_at": "2026-11-08T15:45:07.426Z",
+        "review_at": null,
+        "overdue_notified_at": null,
+        "state": "superseded",
+        "accepted_snapshot_json": "{\"operationKey\":\"49e9caed-49c4-4de2-8b80-5a37304eac20\",\"pageId\":\"01M6XXB91P1Z3TVV3T3AMD6B8M\",\"question\":\"Should the team proceed?\",\"options\":[\"Wait\",\"Proceed\"],\"outcome\":\"Wait\",\"rationale\":\"Current evidence supports waiting.\",\"ownerId\":\"browser-owner\",\"decidedAt\":\"2026-11-08T15:45:07.426Z\",\"reviewAt\":null,\"citations\":[{\"kind\":\"page\",\"sourceId\":\"01M6XXB90PZ5373HFSDY5RGB70\",\"revisionId\":\"01M6XXB90PDCETQQPCQYV76GFC\"}],\"acceptedBy\":\"browser-owner\",\"acceptedAt\":\"2026-11-08T15:45:07.426Z\",\"supersedesId\":null}",
+        "superseded_by_decision_id": "01M6XXBDZP1D8R5SYR137BRT37",
+        "created_at": "2026-11-08T15:45:05.040Z",
+        "updated_at": "2026-11-08T15:45:09.111Z",
+        "revision_id": "01M6XXBF1YA66EHVSBKYDEPXPA",
+        "removed_at": null,
+        "removed_by_member_id": null,
+        "accepted_revision_id": "01M6XXBDCPS3TFG72XF506EF0W",
+        "content": {
+          "operationKey": "49e9caed-49c4-4de2-8b80-5a37304eac20",
+          "pageId": "01M6XXB91P1Z3TVV3T3AMD6B8M",
+          "question": "Should the team proceed?",
+          "options": [
+            "Wait",
+            "Proceed"
+          ],
+          "outcome": "Wait",
+          "rationale": "Current evidence supports waiting.",
+          "ownerId": "browser-owner",
+          "decidedAt": "2026-11-08T15:45:07.426Z",
+          "reviewAt": null,
+          "citations": [
+            {
+              "kind": "page",
+              "sourceId": "01M6XXB90PZ5373HFSDY5RGB70",
+              "revisionId": "01M6XXB90PDCETQQPCQYV76GFC"
+            }
+          ],
+          "acceptedBy": "browser-owner",
+          "acceptedAt": "2026-11-08T15:45:07.426Z",
+          "supersedesId": null
+        },
+        "viewedRevisionId": "01M6XXBDCPS3TFG72XF506EF0W",
+        "revision": {
+          "id": "01M6XXBDCPS3TFG72XF506EF0W",
+          "kind": "decision-acceptance",
+          "actorId": "browser-owner",
+          "createdAt": "2026-11-08T15:45:07.426Z"
+        },
+        "acceptedRevisionId": "01M6XXBDCPS3TFG72XF506EF0W",
+        "acceptedRevisionHref": "/app/decisions/01M6XXBB33EQP4N8CCS48RHQXR?revision=01M6XXBDCPS3TFG72XF506EF0W",
+        "citationsCurrent": true,
+        "overdue": false
+      },
+      {
+        "id": "01M6XXBDZP1D8R5SYR137BRT37",
+        "page_id": "01M6XXBDZP6H5MCEMXQGSKMCDG",
+        "workspace_id": "browser-workspace",
+        "question": "Should the team proceed?",
+        "options_json": "[\"Wait\",\"Proceed\"]",
+        "outcome": "Proceed with a staged launch",
+        "rationale": "The replacement has current evidence.",
+        "owner_member_id": "browser-owner",
+        "decided_at": "2026-11-08T15:45:09.111Z",
+        "review_at": null,
+        "overdue_notified_at": null,
+        "state": "superseded",
+        "accepted_snapshot_json": "{\"operationKey\":\"aed6c7ea-4e26-4374-bcd2-9f9f27f03902\",\"pageId\":\"01M6XXBDZP6H5MCEMXQGSKMCDG\",\"id\":\"01M6XXBDZP1D8R5SYR137BRT37\",\"expectedRevisionId\":\"01M6XXBDZP6BRG94C9W5YP4XKS\",\"question\":\"Should the team proceed?\",\"options\":[\"Wait\",\"Proceed\"],\"outcome\":\"Proceed with a staged launch\",\"rationale\":\"The replacement has current evidence.\",\"ownerId\":\"browser-owner\",\"decidedAt\":\"2026-11-08T15:45:09.111Z\",\"reviewAt\":null,\"citations\":[{\"kind\":\"page\",\"sourceId\":\"01M6XXB90PZ5373HFSDY5RGB70\",\"revisionId\":\"01M6XXB90PDCETQQPCQYV76GFC\"}],\"supersedesId\":\"01M6XXBB33EQP4N8CCS48RHQXR\",\"acceptedBy\":\"browser-owner\",\"acceptedAt\":\"2026-11-08T15:45:09.111Z\"}",
+        "superseded_by_decision_id": "01M6XXBHBBHSYNSY0HSN35ANVG",
+        "created_at": "2026-11-08T15:45:07.996Z",
+        "updated_at": "2026-11-08T15:45:13.731Z",
+        "revision_id": "01M6XXBKMWXMQH35Q0HAW09E83",
+        "removed_at": null,
+        "removed_by_member_id": null,
+        "accepted_revision_id": "01M6XXBF1F6YFECNKJR1WQTA2P",
+        "content": {
+          "operationKey": "aed6c7ea-4e26-4374-bcd2-9f9f27f03902",
+          "pageId": "01M6XXBDZP6H5MCEMXQGSKMCDG",
+          "id": "01M6XXBDZP1D8R5SYR137BRT37",
+          "expectedRevisionId": "01M6XXBDZP6BRG94C9W5YP4XKS",
+          "question": "Should the team proceed?",
+          "options": [
+            "Wait",
+            "Proceed"
+          ],
+          "outcome": "Proceed with a staged launch",
+          "rationale": "The replacement has current evidence.",
+          "ownerId": "browser-owner",
+          "decidedAt": "2026-11-08T15:45:09.111Z",
+          "reviewAt": null,
+          "citations": [
+            {
+              "kind": "page",
+              "sourceId": "01M6XXB90PZ5373HFSDY5RGB70",
+              "revisionId": "01M6XXB90PDCETQQPCQYV76GFC"
+            }
+          ],
+          "supersedesId": "01M6XXBB33EQP4N8CCS48RHQXR",
+          "acceptedBy": "browser-owner",
+          "acceptedAt": "2026-11-08T15:45:09.111Z"
+        },
+        "viewedRevisionId": "01M6XXBF1F6YFECNKJR1WQTA2P",
+        "revision": {
+          "id": "01M6XXBF1F6YFECNKJR1WQTA2P",
+          "kind": "decision-acceptance",
+          "actorId": "browser-owner",
+          "createdAt": "2026-11-08T15:45:09.111Z"
+        },
+        "acceptedRevisionId": "01M6XXBF1F6YFECNKJR1WQTA2P",
+        "acceptedRevisionHref": "/app/decisions/01M6XXBDZP1D8R5SYR137BRT37?revision=01M6XXBF1F6YFECNKJR1WQTA2P",
+        "citationsCurrent": true,
+        "overdue": false
+      },
+      {
+        "id": "01M6XXBHBBHSYNSY0HSN35ANVG",
+        "page_id": "01M6XXBF9W7TFXFC20TTRXY0W1",
+        "workspace_id": "browser-workspace",
+        "question": "Which launch follows the staged launch?",
+        "options_json": "[\"Wait\",\"Proceed\"]",
+        "outcome": "Wait",
+        "rationale": "Current evidence supports waiting.",
+        "owner_member_id": "browser-owner",
+        "decided_at": "2026-11-08T15:45:13.731Z",
+        "review_at": null,
+        "overdue_notified_at": null,
+        "state": "accepted",
+        "accepted_snapshot_json": "{\"operationKey\":\"27237f5f-921a-4bff-bce7-97dee27768f5\",\"pageId\":\"01M6XXBF9W7TFXFC20TTRXY0W1\",\"question\":\"Which launch follows the staged launch?\",\"options\":[\"Wait\",\"Proceed\"],\"outcome\":\"Wait\",\"rationale\":\"Current evidence supports waiting.\",\"ownerId\":\"browser-owner\",\"decidedAt\":\"2026-11-08T15:45:13.731Z\",\"reviewAt\":null,\"citations\":[{\"kind\":\"page\",\"sourceId\":\"01M6XXB90PZ5373HFSDY5RGB70\",\"revisionId\":\"01M6XXB90PDCETQQPCQYV76GFC\"}],\"acceptedBy\":\"browser-owner\",\"acceptedAt\":\"2026-11-08T15:45:13.731Z\",\"supersedesId\":\"01M6XXBDZP1D8R5SYR137BRT37\"}",
+        "superseded_by_decision_id": null,
+        "created_at": "2026-11-08T15:45:11.454Z",
+        "updated_at": "2026-11-08T15:45:13.731Z",
+        "revision_id": "01M6XXBKKNTCCYDRSYFHK2MFP9",
+        "removed_at": null,
+        "removed_by_member_id": null,
+        "accepted_revision_id": "01M6XXBKKNTCCYDRSYFHK2MFP9",
+        "content": {
+          "operationKey": "27237f5f-921a-4bff-bce7-97dee27768f5",
+          "pageId": "01M6XXBF9W7TFXFC20TTRXY0W1",
+          "question": "Which launch follows the staged launch?",
+          "options": [
+            "Wait",
+            "Proceed"
+          ],
+          "outcome": "Wait",
+          "rationale": "Current evidence supports waiting.",
+          "ownerId": "browser-owner",
+          "decidedAt": "2026-11-08T15:45:13.731Z",
+          "reviewAt": null,
+          "citations": [
+            {
+              "kind": "page",
+              "sourceId": "01M6XXB90PZ5373HFSDY5RGB70",
+              "revisionId": "01M6XXB90PDCETQQPCQYV76GFC"
+            }
+          ],
+          "acceptedBy": "browser-owner",
+          "acceptedAt": "2026-11-08T15:45:13.731Z",
+          "supersedesId": "01M6XXBDZP1D8R5SYR137BRT37"
+        },
+        "viewedRevisionId": "01M6XXBKKNTCCYDRSYFHK2MFP9",
+        "revision": {
+          "id": "01M6XXBKKNTCCYDRSYFHK2MFP9",
+          "kind": "decision-acceptance",
+          "actorId": "browser-owner",
+          "createdAt": "2026-11-08T15:45:13.731Z"
+        },
+        "acceptedRevisionId": "01M6XXBKKNTCCYDRSYFHK2MFP9",
+        "acceptedRevisionHref": "/app/decisions/01M6XXBHBBHSYNSY0HSN35ANVG?revision=01M6XXBKKNTCCYDRSYFHK2MFP9",
+        "citationsCurrent": true,
+        "overdue": false
+      },
+      {
+        "id": "01M6XXBTWJZN26XENNW8M8GNYM",
+        "page_id": "01M6XXBRWW40F0GNJ1JNM0W9E3",
+        "workspace_id": "browser-workspace",
+        "question": "Can a terminal decision be reopened?",
+        "options_json": "[\"Wait\",\"Proceed\"]",
+        "outcome": "Wait",
+        "rationale": "Current evidence supports waiting.",
+        "owner_member_id": "browser-owner",
+        "decided_at": null,
+        "review_at": null,
+        "overdue_notified_at": null,
+        "state": "proposed",
+        "accepted_snapshot_json": null,
+        "superseded_by_decision_id": null,
+        "created_at": "2026-11-08T15:45:21.240Z",
+        "updated_at": "2026-11-08T15:45:21.240Z",
+        "revision_id": "01M6XXBTWJBQ2NEN9SS450HANM",
+        "removed_at": null,
+        "removed_by_member_id": null,
+        "accepted_revision_id": null,
+        "content": {
+          "operationKey": "45cf7c41-9693-494d-bcfe-0273bb1bb16c",
+          "pageId": "01M6XXBRWW40F0GNJ1JNM0W9E3",
+          "question": "Can a terminal decision be reopened?",
+          "options": [
+            "Wait",
+            "Proceed"
+          ],
+          "outcome": "Wait",
+          "rationale": "Current evidence supports waiting.",
+          "ownerId": "browser-owner",
+          "decidedAt": null,
+          "reviewAt": null,
+          "citations": [
+            {
+              "kind": "page",
+              "sourceId": "01M6XXB90PZ5373HFSDY5RGB70",
+              "revisionId": "01M6XXB90PDCETQQPCQYV76GFC"
+            }
+          ]
+        },
+        "viewedRevisionId": "01M6XXBTWJBQ2NEN9SS450HANM",
+        "revision": {
+          "id": "01M6XXBTWJBQ2NEN9SS450HANM",
+          "kind": "decision",
+          "actorId": "browser-reader",
+          "createdAt": "2026-11-08T15:45:21.240Z"
+        },
+        "acceptedRevisionId": null,
+        "acceptedRevisionHref": null,
+        "citationsCurrent": true,
+        "overdue": false
+      }
+    ],
+    "histories": [
+      {
+        "items": [
+          {
+            "id": "01M6XXBF1YA66EHVSBKYDEPXPA",
+            "entity_kind": "decision-supersession",
+            "actor_id": "browser-owner",
+            "created_at": "2026-11-08T15:45:09.111Z",
+            "content": {
+              "operationKey": "49e9caed-49c4-4de2-8b80-5a37304eac20",
+              "pageId": "01M6XXB91P1Z3TVV3T3AMD6B8M",
+              "question": "Should the team proceed?",
+              "options": [
+                "Wait",
+                "Proceed"
+              ],
+              "outcome": "Wait",
+              "rationale": "Current evidence supports waiting.",
+              "ownerId": "browser-owner",
+              "decidedAt": "2026-11-08T15:45:07.426Z",
+              "reviewAt": null,
+              "citations": [
+                {
+                  "kind": "page",
+                  "sourceId": "01M6XXB90PZ5373HFSDY5RGB70",
+                  "revisionId": "01M6XXB90PDCETQQPCQYV76GFC"
+                }
+              ],
+              "acceptedBy": "browser-owner",
+              "acceptedAt": "2026-11-08T15:45:07.426Z",
+              "supersedesId": null,
+              "supersededBy": "01M6XXBDZP1D8R5SYR137BRT37",
+              "supersededAt": "2026-11-08T15:45:09.111Z",
+              "supersededByMemberId": "browser-owner"
+            }
+          },
+          {
+            "id": "01M6XXBDQ775ZGHQJ5JVN9M4SE",
+            "entity_kind": "decision-review",
+            "actor_id": "browser-owner",
+            "created_at": "2026-11-08T15:45:07.794Z",
+            "content": {
+              "operationKey": "49e9caed-49c4-4de2-8b80-5a37304eac20",
+              "pageId": "01M6XXB91P1Z3TVV3T3AMD6B8M",
+              "question": "Should the team proceed?",
+              "options": [
+                "Wait",
+                "Proceed"
+              ],
+              "outcome": "Wait",
+              "rationale": "Current evidence supports waiting.",
+              "ownerId": "browser-owner",
+              "decidedAt": "2026-11-08T15:45:07.426Z",
+              "reviewAt": null,
+              "citations": [
+                {
+                  "kind": "page",
+                  "sourceId": "01M6XXB90PZ5373HFSDY5RGB70",
+                  "revisionId": "01M6XXB90PDCETQQPCQYV76GFC"
+                }
+              ],
+              "acceptedBy": "browser-owner",
+              "acceptedAt": "2026-11-08T15:45:07.426Z",
+              "supersedesId": null,
+              "review": {
+                "note": "The current outcome still applies.",
+                "nextReviewAt": null,
+                "reviewedBy": "browser-owner",
+                "reviewedAt": "2026-11-08T15:45:07.794Z"
+              }
+            }
+          },
+          {
+            "id": "01M6XXBDCPS3TFG72XF506EF0W",
+            "entity_kind": "decision-acceptance",
+            "actor_id": "browser-owner",
+            "created_at": "2026-11-08T15:45:07.426Z",
+            "content": {
+              "operationKey": "49e9caed-49c4-4de2-8b80-5a37304eac20",
+              "pageId": "01M6XXB91P1Z3TVV3T3AMD6B8M",
+              "question": "Should the team proceed?",
+              "options": [
+                "Wait",
+                "Proceed"
+              ],
+              "outcome": "Wait",
+              "rationale": "Current evidence supports waiting.",
+              "ownerId": "browser-owner",
+              "decidedAt": "2026-11-08T15:45:07.426Z",
+              "reviewAt": null,
+              "citations": [
+                {
+                  "kind": "page",
+                  "sourceId": "01M6XXB90PZ5373HFSDY5RGB70",
+                  "revisionId": "01M6XXB90PDCETQQPCQYV76GFC"
+                }
+              ],
+              "acceptedBy": "browser-owner",
+              "acceptedAt": "2026-11-08T15:45:07.426Z",
+              "supersedesId": null
+            }
+          },
+          {
+            "id": "01M6XXBB320BDE4EKDKFR6PMDV",
+            "entity_kind": "decision",
+            "actor_id": "browser-reader",
+            "created_at": "2026-11-08T15:45:05.040Z",
+            "content": {
+              "operationKey": "49e9caed-49c4-4de2-8b80-5a37304eac20",
+              "pageId": "01M6XXB91P1Z3TVV3T3AMD6B8M",
+              "question": "Should the team proceed?",
+              "options": [
+                "Wait",
+                "Proceed"
+              ],
+              "outcome": "Wait",
+              "rationale": "Current evidence supports waiting.",
+              "ownerId": "browser-owner",
+              "decidedAt": null,
+              "reviewAt": null,
+              "citations": [
+                {
+                  "kind": "page",
+                  "sourceId": "01M6XXB90PZ5373HFSDY5RGB70",
+                  "revisionId": "01M6XXB90PDCETQQPCQYV76GFC"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "id": "01M6XXBKMWXMQH35Q0HAW09E83",
+            "entity_kind": "decision-supersession",
+            "actor_id": "browser-owner",
+            "created_at": "2026-11-08T15:45:13.731Z",
+            "content": {
+              "operationKey": "aed6c7ea-4e26-4374-bcd2-9f9f27f03902",
+              "pageId": "01M6XXBDZP6H5MCEMXQGSKMCDG",
+              "id": "01M6XXBDZP1D8R5SYR137BRT37",
+              "expectedRevisionId": "01M6XXBDZP6BRG94C9W5YP4XKS",
+              "question": "Should the team proceed?",
+              "options": [
+                "Wait",
+                "Proceed"
+              ],
+              "outcome": "Proceed with a staged launch",
+              "rationale": "The replacement has current evidence.",
+              "ownerId": "browser-owner",
+              "decidedAt": "2026-11-08T15:45:09.111Z",
+              "reviewAt": null,
+              "citations": [
+                {
+                  "kind": "page",
+                  "sourceId": "01M6XXB90PZ5373HFSDY5RGB70",
+                  "revisionId": "01M6XXB90PDCETQQPCQYV76GFC"
+                }
+              ],
+              "supersedesId": "01M6XXBB33EQP4N8CCS48RHQXR",
+              "acceptedBy": "browser-owner",
+              "acceptedAt": "2026-11-08T15:45:09.111Z",
+              "supersededBy": "01M6XXBHBBHSYNSY0HSN35ANVG",
+              "supersededAt": "2026-11-08T15:45:13.731Z",
+              "supersededByMemberId": "browser-owner"
+            }
+          },
+          {
+            "id": "01M6XXBF1F6YFECNKJR1WQTA2P",
+            "entity_kind": "decision-acceptance",
+            "actor_id": "browser-owner",
+            "created_at": "2026-11-08T15:45:09.111Z",
+            "content": {
+              "operationKey": "aed6c7ea-4e26-4374-bcd2-9f9f27f03902",
+              "pageId": "01M6XXBDZP6H5MCEMXQGSKMCDG",
+              "id": "01M6XXBDZP1D8R5SYR137BRT37",
+              "expectedRevisionId": "01M6XXBDZP6BRG94C9W5YP4XKS",
+              "question": "Should the team proceed?",
+              "options": [
+                "Wait",
+                "Proceed"
+              ],
+              "outcome": "Proceed with a staged launch",
+              "rationale": "The replacement has current evidence.",
+              "ownerId": "browser-owner",
+              "decidedAt": "2026-11-08T15:45:09.111Z",
+              "reviewAt": null,
+              "citations": [
+                {
+                  "kind": "page",
+                  "sourceId": "01M6XXB90PZ5373HFSDY5RGB70",
+                  "revisionId": "01M6XXB90PDCETQQPCQYV76GFC"
+                }
+              ],
+              "supersedesId": "01M6XXBB33EQP4N8CCS48RHQXR",
+              "acceptedBy": "browser-owner",
+              "acceptedAt": "2026-11-08T15:45:09.111Z"
+            }
+          },
+          {
+            "id": "01M6XXBESYGCST74CYQM1DWERX",
+            "entity_kind": "decision",
+            "actor_id": "browser-owner",
+            "created_at": "2026-11-08T15:45:08.873Z",
+            "content": {
+              "operationKey": "aed6c7ea-4e26-4374-bcd2-9f9f27f03902",
+              "pageId": "01M6XXBDZP6H5MCEMXQGSKMCDG",
+              "id": "01M6XXBDZP1D8R5SYR137BRT37",
+              "expectedRevisionId": "01M6XXBDZP6BRG94C9W5YP4XKS",
+              "question": "Should the team proceed?",
+              "options": [
+                "Wait",
+                "Proceed"
+              ],
+              "outcome": "Proceed with a staged launch",
+              "rationale": "The replacement has current evidence.",
+              "ownerId": "browser-owner",
+              "decidedAt": null,
+              "reviewAt": null,
+              "citations": [
+                {
+                  "kind": "page",
+                  "sourceId": "01M6XXB90PZ5373HFSDY5RGB70",
+                  "revisionId": "01M6XXB90PDCETQQPCQYV76GFC"
+                }
+              ],
+              "supersedesId": "01M6XXBB33EQP4N8CCS48RHQXR"
+            }
+          },
+          {
+            "id": "01M6XXBDZP6BRG94C9W5YP4XKS",
+            "entity_kind": "decision",
+            "actor_id": "browser-owner",
+            "created_at": "2026-11-08T15:45:07.996Z",
+            "content": {
+              "operationKey": "49e9caed-49c4-4de2-8b80-5a37304eac20",
+              "pageId": "01M6XXBDZP6H5MCEMXQGSKMCDG",
+              "question": "Should the team proceed?",
+              "options": [
+                "Wait",
+                "Proceed"
+              ],
+              "outcome": "",
+              "rationale": "Current evidence supports waiting.",
+              "ownerId": "browser-owner",
+              "decidedAt": null,
+              "reviewAt": null,
+              "citations": [
+                {
+                  "kind": "page",
+                  "sourceId": "01M6XXB90PZ5373HFSDY5RGB70",
+                  "revisionId": "01M6XXB90PDCETQQPCQYV76GFC"
+                }
+              ],
+              "acceptedBy": "browser-owner",
+              "acceptedAt": "2026-11-08T15:45:07.426Z",
+              "supersedesId": "01M6XXBB33EQP4N8CCS48RHQXR",
+              "id": "01M6XXBDZP1D8R5SYR137BRT37"
+            }
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "id": "01M6XXBKKNTCCYDRSYFHK2MFP9",
+            "entity_kind": "decision-acceptance",
+            "actor_id": "browser-owner",
+            "created_at": "2026-11-08T15:45:13.731Z",
+            "content": {
+              "operationKey": "27237f5f-921a-4bff-bce7-97dee27768f5",
+              "pageId": "01M6XXBF9W7TFXFC20TTRXY0W1",
+              "question": "Which launch follows the staged launch?",
+              "options": [
+                "Wait",
+                "Proceed"
+              ],
+              "outcome": "Wait",
+              "rationale": "Current evidence supports waiting.",
+              "ownerId": "browser-owner",
+              "decidedAt": "2026-11-08T15:45:13.731Z",
+              "reviewAt": null,
+              "citations": [
+                {
+                  "kind": "page",
+                  "sourceId": "01M6XXB90PZ5373HFSDY5RGB70",
+                  "revisionId": "01M6XXB90PDCETQQPCQYV76GFC"
+                }
+              ],
+              "acceptedBy": "browser-owner",
+              "acceptedAt": "2026-11-08T15:45:13.731Z",
+              "supersedesId": "01M6XXBDZP1D8R5SYR137BRT37"
+            }
+          },
+          {
+            "id": "01M6XXBHBBDGN3R3Z6BF4RP7PD",
+            "entity_kind": "decision",
+            "actor_id": "browser-reader",
+            "created_at": "2026-11-08T15:45:11.454Z",
+            "content": {
+              "operationKey": "27237f5f-921a-4bff-bce7-97dee27768f5",
+              "pageId": "01M6XXBF9W7TFXFC20TTRXY0W1",
+              "question": "Which launch follows the staged launch?",
+              "options": [
+                "Wait",
+                "Proceed"
+              ],
+              "outcome": "Wait",
+              "rationale": "Current evidence supports waiting.",
+              "ownerId": "browser-owner",
+              "decidedAt": null,
+              "reviewAt": null,
+              "citations": [
+                {
+                  "kind": "page",
+                  "sourceId": "01M6XXB90PZ5373HFSDY5RGB70",
+                  "revisionId": "01M6XXB90PDCETQQPCQYV76GFC"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "id": "01M6XXBTWJBQ2NEN9SS450HANM",
+            "entity_kind": "decision",
+            "actor_id": "browser-reader",
+            "created_at": "2026-11-08T15:45:21.240Z",
+            "content": {
+              "operationKey": "45cf7c41-9693-494d-bcfe-0273bb1bb16c",
+              "pageId": "01M6XXBRWW40F0GNJ1JNM0W9E3",
+              "question": "Can a terminal decision be reopened?",
+              "options": [
+                "Wait",
+                "Proceed"
+              ],
+              "outcome": "Wait",
+              "rationale": "Current evidence supports waiting.",
+              "ownerId": "browser-owner",
+              "decidedAt": null,
+              "reviewAt": null,
+              "citations": [
+                {
+                  "kind": "page",
+                  "sourceId": "01M6XXB90PZ5373HFSDY5RGB70",
+                  "revisionId": "01M6XXB90PDCETQQPCQYV76GFC"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "reviews": [
+      {
+        "items": [
+          {
+            "id": "01M6XXBDQ7Y3VTXQYPZBG58EVS",
+            "decision_id": "01M6XXBB33EQP4N8CCS48RHQXR",
+            "note": "The current outcome still applies.",
+            "reviewed_by_member_id": "browser-owner",
+            "next_review_at": null,
+            "created_at": "2026-11-08T15:45:07.794Z"
+          }
+        ]
+      },
+      {
+        "items": []
+      },
+      {
+        "items": []
+      },
+      {
+        "items": []
+      }
+    ],
+    "activity": {
+      "items": [
+        {
+          "id": "01M6XXBTWJ79Q2QY1HGMP0F1ZC",
+          "actor": {
+            "id": "browser-reader",
+            "displayName": "Morgan Reader"
+          },
+          "feature": "decisions",
+          "action": "decisions.save",
+          "target": {
+            "kind": "decision",
+            "id": "01M6XXBTWJZN26XENNW8M8GNYM"
+          },
+          "occurredAt": "2026-11-08T15:45:21.240Z",
+          "operationKey": "45cf7c41-9693-494d-bcfe-0273bb1bb16c",
+          "automationRunId": null,
+          "aiRunId": null,
+          "deleted": false,
+          "context": {}
+        },
+        {
+          "id": "01M6XXBKMWRRGNDCX3M79DWTG5",
+          "actor": {
+            "id": "browser-owner",
+            "displayName": "Alex Owner"
+          },
+          "feature": "decisions",
+          "action": "decisions.supersede",
+          "target": {
+            "kind": "decision",
+            "id": "01M6XXBDZP1D8R5SYR137BRT37"
+          },
+          "occurredAt": "2026-11-08T15:45:13.731Z",
+          "operationKey": null,
+          "automationRunId": null,
+          "aiRunId": null,
+          "deleted": false,
+          "context": {}
+        },
+        {
+          "id": "01M6XXBKKNFWAQSX7QEYE0ZWX5",
+          "actor": {
+            "id": "browser-owner",
+            "displayName": "Alex Owner"
+          },
+          "feature": "decisions",
+          "action": "decisions.accept",
+          "target": {
+            "kind": "decision",
+            "id": "01M6XXBHBBHSYNSY0HSN35ANVG"
+          },
+          "occurredAt": "2026-11-08T15:45:13.731Z",
+          "operationKey": "90c23f37-c581-42f5-b4b6-49869e6ce8ca",
+          "automationRunId": null,
+          "aiRunId": null,
+          "deleted": false,
+          "context": {}
+        },
+        {
+          "id": "01M6XXBHBBHZGT6JJXXH1YVP7Z",
+          "actor": {
+            "id": "browser-reader",
+            "displayName": "Morgan Reader"
+          },
+          "feature": "decisions",
+          "action": "decisions.save",
+          "target": {
+            "kind": "decision",
+            "id": "01M6XXBHBBHSYNSY0HSN35ANVG"
+          },
+          "occurredAt": "2026-11-08T15:45:11.454Z",
+          "operationKey": "27237f5f-921a-4bff-bce7-97dee27768f5",
+          "automationRunId": null,
+          "aiRunId": null,
+          "deleted": false,
+          "context": {}
+        },
+        {
+          "id": "01M6XXBF1YNKEG9SQ2PBS1QJEY",
+          "actor": {
+            "id": "browser-owner",
+            "displayName": "Alex Owner"
+          },
+          "feature": "decisions",
+          "action": "decisions.supersede",
+          "target": {
+            "kind": "decision",
+            "id": "01M6XXBB33EQP4N8CCS48RHQXR"
+          },
+          "occurredAt": "2026-11-08T15:45:09.111Z",
+          "operationKey": null,
+          "automationRunId": null,
+          "aiRunId": null,
+          "deleted": false,
+          "context": {}
+        },
+        {
+          "id": "01M6XXBF1FPA262F1Y2XMY59HV",
+          "actor": {
+            "id": "browser-owner",
+            "displayName": "Alex Owner"
+          },
+          "feature": "decisions",
+          "action": "decisions.accept",
+          "target": {
+            "kind": "decision",
+            "id": "01M6XXBDZP1D8R5SYR137BRT37"
+          },
+          "occurredAt": "2026-11-08T15:45:09.111Z",
+          "operationKey": "c4c98687-ddea-4f21-8a13-b2a5b76291fa",
+          "automationRunId": null,
+          "aiRunId": null,
+          "deleted": false,
+          "context": {}
+        },
+        {
+          "id": "01M6XXBESYCT3CD0WKY03A5WCB",
+          "actor": {
+            "id": "browser-owner",
+            "displayName": "Alex Owner"
+          },
+          "feature": "decisions",
+          "action": "decisions.save",
+          "target": {
+            "kind": "decision",
+            "id": "01M6XXBDZP1D8R5SYR137BRT37"
+          },
+          "occurredAt": "2026-11-08T15:45:08.873Z",
+          "operationKey": "aed6c7ea-4e26-4374-bcd2-9f9f27f03902",
+          "automationRunId": null,
+          "aiRunId": null,
+          "deleted": false,
+          "context": {}
+        },
+        {
+          "id": "01M6XXBDZPE95RCWQY4RJDDAND",
+          "actor": {
+            "id": "browser-owner",
+            "displayName": "Alex Owner"
+          },
+          "feature": "decisions",
+          "action": "decisions.propose-successor",
+          "target": {
+            "kind": "decision",
+            "id": "01M6XXBDZP1D8R5SYR137BRT37"
+          },
+          "occurredAt": "2026-11-08T15:45:07.996Z",
+          "operationKey": "f19ed613-2737-42b0-b978-1a88e5552685",
+          "automationRunId": null,
+          "aiRunId": null,
+          "deleted": false,
+          "context": {}
+        },
+        {
+          "id": "01M6XXBDQ701JCS84NDGGT9M0H",
+          "actor": {
+            "id": "browser-owner",
+            "displayName": "Alex Owner"
+          },
+          "feature": "decisions",
+          "action": "decisions.review",
+          "target": {
+            "kind": "decision",
+            "id": "01M6XXBB33EQP4N8CCS48RHQXR"
+          },
+          "occurredAt": "2026-11-08T15:45:07.794Z",
+          "operationKey": "f722068b-c5e2-4b44-b291-38ab0e9e691d",
+          "automationRunId": null,
+          "aiRunId": null,
+          "deleted": false,
+          "context": {}
+        },
+        {
+          "id": "01M6XXBDCP6Q750MFVX7WSPG0M",
+          "actor": {
+            "id": "browser-owner",
+            "displayName": "Alex Owner"
+          },
+          "feature": "decisions",
+          "action": "decisions.accept",
+          "target": {
+            "kind": "decision",
+            "id": "01M6XXBB33EQP4N8CCS48RHQXR"
+          },
+          "occurredAt": "2026-11-08T15:45:07.426Z",
+          "operationKey": "33287bed-c615-4797-8198-cc77aea9dbcb",
+          "automationRunId": null,
+          "aiRunId": null,
+          "deleted": false,
+          "context": {}
+        },
+        {
+          "id": "01M6XXBB3289TMRJNF7PG4Q695",
+          "actor": {
+            "id": "browser-reader",
+            "displayName": "Morgan Reader"
+          },
+          "feature": "decisions",
+          "action": "decisions.save",
+          "target": {
+            "kind": "decision",
+            "id": "01M6XXBB33EQP4N8CCS48RHQXR"
+          },
+          "occurredAt": "2026-11-08T15:45:05.040Z",
+          "operationKey": "49e9caed-49c4-4de2-8b80-5a37304eac20",
+          "automationRunId": null,
+          "aiRunId": null,
+          "deleted": false,
+          "context": {}
+        }
+      ]
+    },
+    "pages": {
+      "items": [
+        {
+          "id": "01M6XXB8VWC5JZKQ937E418JV5",
+          "containerId": "01M6XXB8VW5Z3DG9469PYQ8A0V",
+          "title": "Decision state desk home",
+          "revisionId": "01M6XXB8VW55KW1C428SWBEW0Z",
+          "lifecycle": "live",
+          "icon": null,
+          "statusKey": null,
+          "labels": [],
+          "parentPageId": null,
+          "treePosition": "2026-11-08T15:45:02.838Z:01M6XXB8VWC5JZKQ937E418JV5",
+          "pageKind": "page",
+          "containerLabel": "Decision state desk",
+          "sharedWithMe": false,
+          "permissions": {
+            "level": "full",
+            "canEdit": true,
+            "canUnlock": true
+          },
+          "href": "/app/pages/01M6XXB8VWC5JZKQ937E418JV5"
+        },
+        {
+          "id": "01M6XXB90PZ5373HFSDY5RGB70",
+          "containerId": "01M6XXB8VW5Z3DG9469PYQ8A0V",
+          "title": "Decision evidence",
+          "revisionId": "01M6XXB90PDCETQQPCQYV76GFC",
+          "lifecycle": "live",
+          "icon": null,
+          "statusKey": null,
+          "labels": [],
+          "parentPageId": null,
+          "treePosition": "2026-11-08T15:45:02.995Z:01M6XXB90PZ5373HFSDY5RGB70",
+          "pageKind": "page",
+          "containerLabel": "Decision state desk",
+          "sharedWithMe": false,
+          "permissions": {
+            "level": "full",
+            "canEdit": true,
+            "canUnlock": true
+          },
+          "href": "/app/pages/01M6XXB90PZ5373HFSDY5RGB70"
+        },
+        {
+          "id": "01M6XXB91P1Z3TVV3T3AMD6B8M",
+          "containerId": "01M6XXB8VW5Z3DG9469PYQ8A0V",
+          "title": "Decision state proposal",
+          "revisionId": "01M6XXB91PMK2J04FG1TAKHGR6",
+          "lifecycle": "live",
+          "icon": null,
+          "statusKey": null,
+          "labels": [],
+          "parentPageId": null,
+          "treePosition": "2026-11-08T15:45:03.028Z:01M6XXB91P1Z3TVV3T3AMD6B8M",
+          "pageKind": "page",
+          "containerLabel": "Decision state desk",
+          "sharedWithMe": false,
+          "permissions": {
+            "level": "full",
+            "canEdit": true,
+            "canUnlock": true
+          },
+          "href": "/app/pages/01M6XXB91P1Z3TVV3T3AMD6B8M"
+        },
+        {
+          "id": "01M6XXBDZP6H5MCEMXQGSKMCDG",
+          "containerId": "01M6XXB8VW5Z3DG9469PYQ8A0V",
+          "title": "Proposed replacement: Should the team proceed?",
+          "revisionId": "01M6XXBDZRZNM6Y9M0XKFRDX2P",
+          "lifecycle": "live",
+          "icon": null,
+          "statusKey": null,
+          "labels": [],
+          "parentPageId": "01M6XXB91P1Z3TVV3T3AMD6B8M",
+          "treePosition": "2026-11-08T15:45:07.996Z:01M6XXBDZP6H5MCEMXQGSKMCDG",
+          "pageKind": "page",
+          "containerLabel": "Decision state desk",
+          "sharedWithMe": false,
+          "permissions": {
+            "level": "full",
+            "canEdit": true,
+            "canUnlock": true
+          },
+          "href": "/app/pages/01M6XXBDZP6H5MCEMXQGSKMCDG"
+        },
+        {
+          "id": "01M6XXBF9W7TFXFC20TTRXY0W1",
+          "containerId": "01M6XXB8VW5Z3DG9469PYQ8A0V",
+          "title": "Decision selected replacement",
+          "revisionId": "01M6XXBF9WD6MB4RDT5Q8MP9HZ",
+          "lifecycle": "live",
+          "icon": null,
+          "statusKey": null,
+          "labels": [],
+          "parentPageId": null,
+          "treePosition": "2026-11-08T15:45:09.434Z:01M6XXBF9W7TFXFC20TTRXY0W1",
+          "pageKind": "page",
+          "containerLabel": "Decision state desk",
+          "sharedWithMe": false,
+          "permissions": {
+            "level": "full",
+            "canEdit": true,
+            "canUnlock": true
+          },
+          "href": "/app/pages/01M6XXBF9W7TFXFC20TTRXY0W1"
+        },
+        {
+          "id": "01M6XXBRWW40F0GNJ1JNM0W9E3",
+          "containerId": "01M6XXB8VW5Z3DG9469PYQ8A0V",
+          "title": "Terminal refusal probe",
+          "revisionId": "01M6XXBRWWQDMPCGMVKBCNTC7G",
+          "lifecycle": "live",
+          "icon": null,
+          "statusKey": null,
+          "labels": [],
+          "parentPageId": null,
+          "treePosition": "2026-11-08T15:45:19.256Z:01M6XXBRWW40F0GNJ1JNM0W9E3",
+          "pageKind": "page",
+          "containerLabel": "Decision state desk",
+          "sharedWithMe": false,
+          "permissions": {
+            "level": "full",
+            "canEdit": true,
+            "canUnlock": true
+          },
+          "href": "/app/pages/01M6XXBRWW40F0GNJ1JNM0W9E3"
+        }
+      ]
+    }
+  }
+}

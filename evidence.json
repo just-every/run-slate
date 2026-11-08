@@ -1,0 +1,208 @@
+{
+  "files": [
+    {
+      "blob": "1fdeee65879d9f14ccef71962315630e03d42146",
+      "bytes": 12536,
+      "path": "REPORT.md",
+      "sha256": "ea38b85aaeafa6c269faa8a5c78e48f6750dbf078bcd3395ed853cfde623afa5"
+    },
+    {
+      "blob": "799e213e990ca8e16f72ace8553b2db53098dac6",
+      "bytes": 229,
+      "path": "candidate-ci-discovery.jsonl",
+      "sha256": "b969772199a15e1ae3e75f0daa644224a40f0d991eeab9fb67819e5b9b69a046"
+    },
+    {
+      "blob": "dba55d49e1d7a615ea6ce297ca70dd56aed43957",
+      "bytes": 175,
+      "path": "candidate-ci-poll-1.json",
+      "sha256": "23672ff0f2f584ee3f22ec9e0143960ac003d885a65f469486a21449ad24d553"
+    },
+    {
+      "blob": "dba55d49e1d7a615ea6ce297ca70dd56aed43957",
+      "bytes": 175,
+      "path": "candidate-ci-poll-2.json",
+      "sha256": "23672ff0f2f584ee3f22ec9e0143960ac003d885a65f469486a21449ad24d553"
+    },
+    {
+      "blob": "dba55d49e1d7a615ea6ce297ca70dd56aed43957",
+      "bytes": 175,
+      "path": "candidate-ci-poll-3.json",
+      "sha256": "23672ff0f2f584ee3f22ec9e0143960ac003d885a65f469486a21449ad24d553"
+    },
+    {
+      "blob": "17fdd5b2adaf02b000b4d55632313c57517b4e95",
+      "bytes": 8384,
+      "path": "core-browser.log",
+      "sha256": "750a694e8468bb66387a5375dc2b93b945c4def455501e48b02e6bb53ad75024"
+    },
+    {
+      "blob": "840841c830cc9b7fbaf6dfe9df7ac3eefd54ab80",
+      "bytes": 2166,
+      "path": "decision-focused.log",
+      "sha256": "a3f361d67cbfbe459c9e278bf5d05684248965477be47fc71e54a2bc4a38b63f"
+    },
+    {
+      "blob": "01bf943a7883ae6d1d42f802cfded616138af094",
+      "bytes": 55401,
+      "path": "decisions-1440.json",
+      "sha256": "ab4d40cf4c440c67eb0fae219d624927d673417dc1c947f60709598cfee4839e"
+    },
+    {
+      "blob": "39a0ae65448d7a9f6fe3be01393ed81b7da62c51",
+      "bytes": 55400,
+      "path": "decisions-390.json",
+      "sha256": "a6d657c523c83804c0bd9fa6f72b736408d04a759e8159e4d8eaac47c7a22180"
+    },
+    {
+      "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "bytes": 0,
+      "path": "first-party.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "blob": "f2407782d46b7687ffb88272c1da3048e061bf8f",
+      "bytes": 653,
+      "path": "focused-probe.mjs",
+      "sha256": "455514227faac3febcba46a80506771e1f782f11bd0e371a6849f9b3c47f4c75"
+    },
+    {
+      "blob": "77bc6f3b14abc263e86875f358bf9fe14d2c4fa5",
+      "bytes": 914,
+      "path": "initial-native-checks.json",
+      "sha256": "fccb1241b8645d12a7e46b107442d7d470baac151854cc6d57e20c68eff3a55f"
+    },
+    {
+      "blob": "c110d69b3e189459ee3b812b2caba33d4e6e6aa6",
+      "bytes": 199,
+      "path": "integration-final.log",
+      "sha256": "08858a9861858c77fc6f39bc8e3dbf7283cd223f0d183042ee03d208d9b048e2"
+    },
+    {
+      "blob": "4797949132ea32e26c586f47ecb2e9d4ae70dc67",
+      "bytes": 543207,
+      "path": "lock-check-final.log",
+      "sha256": "e7b2091f5b5e0608d46efea71c2eb73dadf41b61f0e8c4912385248691607897"
+    },
+    {
+      "blob": "9710797dc5475071974b1632f6a0c7ac1c1c3418",
+      "bytes": 1618,
+      "path": "main-ci-discovery.jsonl",
+      "sha256": "3737bad9071ee746232e6ef91cc47ca454a2abff2bdf57c16b2210ff135eb1ec"
+    },
+    {
+      "blob": "32a22a191df5f62f52a00e6daabb071684801a2d",
+      "bytes": 74,
+      "path": "product-remote-ref.txt",
+      "sha256": "55700df21f3317f894261b04b459e4a9d98496550816fb6de672c1eee224d30a"
+    },
+    {
+      "blob": "22babad871e2d1727d374bb19731f24487610e28",
+      "bytes": 533,
+      "path": "profile-final.log",
+      "sha256": "57de8e45bb54f0bbc69410cbe9762bb3490dd324a3ad2293f3d58c7c2f8f81a0"
+    },
+    {
+      "blob": "19b58c3f9e8eb9437e64ecdd6effc9aff0dae58e",
+      "bytes": 87240,
+      "path": "screens/1440/01-bob-non-owner-proposed-decision.png",
+      "sha256": "12a577929693af737028667779e313cfa2930b66d3a856a02671def199227e68"
+    },
+    {
+      "blob": "b576f709ba500c4816bbe1df6125f2c067c82ac5",
+      "bytes": 89789,
+      "path": "screens/1440/02-alice-appointed-owner-accepted-decision.png",
+      "sha256": "a07149748c5c8e47c0da76cabf37bcb7d67d6f2c645b25dd8a035d77a46495e0"
+    },
+    {
+      "blob": "615cc496ee49ccdf701eba3d229ab979357812bc",
+      "bytes": 85213,
+      "path": "screens/1440/03-alice-superseded-prepared-replacement.png",
+      "sha256": "03949db1e71dd606384acea794fcf4d8dbfc258f19bd393dbec459e8b7c93c13"
+    },
+    {
+      "blob": "49d57c3fd1ec6667732a57d4872f4bef596ac18a",
+      "bytes": 89512,
+      "path": "screens/1440/04-alice-superseded-selected-replacement.png",
+      "sha256": "5ae92c9043e4a103d759b9430461d30564f1d9c45f6db524dee0a9173942bfa5"
+    },
+    {
+      "blob": "1810765758240ead5884d5ee3451f4ebfd451054",
+      "bytes": 99590,
+      "path": "screens/1440/05-alice-decision-history-actor-and-time-after-reload.png",
+      "sha256": "ff2ed5a67670b2f6a7b278dee57f8b5d3565106129f129b1d1d9b4a171685c54"
+    },
+    {
+      "blob": "6855a072708128da1241e9ec77d8e095984171a3",
+      "bytes": 161041,
+      "path": "screens/1440/06-alice-native-decision-activity-actor-and-time.png",
+      "sha256": "7fcffe63c5a67db3a7d6e48394cc2e9ff35db92bdfb75c979a330b7401e05a19"
+    },
+    {
+      "blob": "398ec56fd65b8447c13971e4f2fc3e0fc338b377",
+      "bytes": 40877,
+      "path": "screens/390/01-bob-non-owner-proposed-decision.png",
+      "sha256": "222adf0fbbb7b97827b2f5cd048571644fc16f5595ac99919b2494c7278598b9"
+    },
+    {
+      "blob": "5ea04a0f2cabdb7baf8a6c607bbaa5e2accea290",
+      "bytes": 43315,
+      "path": "screens/390/02-alice-appointed-owner-accepted-decision.png",
+      "sha256": "f0a4b9661dd68d601e5689fc6e895569a288bc6a42633bf46e3f2908227e4765"
+    },
+    {
+      "blob": "a3d737c7a895d84830d86672ca9b89f34ee31e46",
+      "bytes": 38318,
+      "path": "screens/390/03-alice-superseded-prepared-replacement.png",
+      "sha256": "a83f644c90afa20062dd384bdc4b12ddca5b0847f84cf5106e5491061a0a00fe"
+    },
+    {
+      "blob": "cbf0a796985fa19da71b688640af0d55c5dc533b",
+      "bytes": 42103,
+      "path": "screens/390/04-alice-superseded-selected-replacement.png",
+      "sha256": "a347727e8dd9f88c80af9a451a75ae19dc3671a3a872aa33aba6122ecaf13166"
+    },
+    {
+      "blob": "cfaa6a45a44059f8352dd5b49fecab5a9563c320",
+      "bytes": 50787,
+      "path": "screens/390/05-alice-decision-history-actor-and-time-after-reload.png",
+      "sha256": "9ab9721b7ee08a08c803621ef3fb1cd969b8bebec436d3ea176da145b14c7829"
+    },
+    {
+      "blob": "8d2936d2776c07e6c20b263e49862c3ef77e9ca8",
+      "bytes": 95113,
+      "path": "screens/390/06-alice-native-decision-activity-actor-and-time.png",
+      "sha256": "ae58e50cb0fd622084684d78fb464797a47f747a6d992d55d3f2ef20776f1428"
+    },
+    {
+      "blob": "eba453f0bd4b768c323e1251c7171813b98592d8",
+      "bytes": 102,
+      "path": "typecheck-final.log",
+      "sha256": "300e2e81ef917a14e2fa038c7546d2db7cf66962765fa4be70ce519830c30f59"
+    },
+    {
+      "blob": "01f6614be62e1c8f9a7d9b4e3a6d7b675e111002",
+      "bytes": 4919,
+      "path": "validation-receipt.json",
+      "sha256": "68541b0d3c833d0375682438cd1a4e578a72e49153725a2ba445f57bb6c49054"
+    },
+    {
+      "blob": "ae869b2fafd3acf46a2dc6ce35ec869497ae9cfb",
+      "bytes": 32,
+      "path": "views-check.log",
+      "sha256": "c21aae40192141751d6d5c7a3a1d0eb701a6852f305d592d77b4dcab9c2536ab"
+    },
+    {
+      "blob": "58dd21c218846e90dd798f1845377f7422e45cac",
+      "bytes": 28,
+      "path": "views-write.log",
+      "sha256": "14cee29b7bd19487e15f4013d4fb85016e022ef21d230676971a6490c88436d2"
+    }
+  ],
+  "product_branch": "cloud/sd-slate-c-f209",
+  "product_head": "7fae0de94a6dedd43b0a72edeb9c12ae92bc0e10",
+  "ref": "refs/heads/evidence/sd-slate-c-f209",
+  "repository": "just-every/run-slate",
+  "schema": 1,
+  "tag": "sd-slate-c-f209"
+}

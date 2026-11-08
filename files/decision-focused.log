@@ -1,0 +1,21 @@
+Native decision commit /api/decisions proposed 01M6XX8XM81PN2GMQAYP2HNJ9H
+Native decision commit /api/decisions/01M6XX8XM8EYH9R38J98TXHDJ8/accept accepted 01M6XX90KZCXNP67BZDH6DSRBR
+Native decision commit /api/decisions/01M6XX8XM8EYH9R38J98TXHDJ8/review review 01M6XX90ZBX813RCTCDA2WBRMH
+Native decision commit /api/decisions/01M6XX8XM8EYH9R38J98TXHDJ8/propose-successor proposed 01M6XX914XHD8MGTNTV4FPDN2T
+Native decision commit /api/decisions proposed 01M6XX922QG7J33VXHW36V26HD
+Native decision commit /api/decisions/01M6XX914XK208J6YAG7FADDRF/accept accepted 01M6XX92BFE1XBZ0K2HKQBH12H
+Native decision commit /api/decisions proposed 01M6XX96AJJ3P7QQHYC3BA4TCG
+Native decision commit /api/decisions/01M6XX96AJQD31A6MAH9CMEV2S/accept accepted 01M6XX98DWZ89FR110XC14G169
+Native decision commit /api/decisions proposed 01M6XX9GBEDH3TTM68QEKGB08S
+PROBE DEC-002 1-3: non-owner proposal and acceptance refusal; appointed-owner acceptance; both supersession doors; five terminal refusals; 11 exact history and activity rows after replay and reload at 1440px
+Native decision commit /api/decisions proposed 01M6XXBB320BDE4EKDKFR6PMDV
+Native decision commit /api/decisions/01M6XXBB33EQP4N8CCS48RHQXR/accept accepted 01M6XXBDCPS3TFG72XF506EF0W
+Native decision commit /api/decisions/01M6XXBB33EQP4N8CCS48RHQXR/review review 01M6XXBDQ775ZGHQJ5JVN9M4SE
+Native decision commit /api/decisions/01M6XXBB33EQP4N8CCS48RHQXR/propose-successor proposed 01M6XXBDZP6BRG94C9W5YP4XKS
+Native decision commit /api/decisions proposed 01M6XXBESYGCST74CYQM1DWERX
+Native decision commit /api/decisions/01M6XXBDZP1D8R5SYR137BRT37/accept accepted 01M6XXBF1F6YFECNKJR1WQTA2P
+Native decision commit /api/decisions proposed 01M6XXBHBBDGN3R3Z6BF4RP7PD
+Native decision commit /api/decisions/01M6XXBHBBHSYNSY0HSN35ANVG/accept accepted 01M6XXBKKNTCCYDRSYFHK2MFP9
+Native decision commit /api/decisions proposed 01M6XXBTWJBQ2NEN9SS450HANM
+PROBE DEC-002 1-3: non-owner proposal and acceptance refusal; appointed-owner acceptance; both supersession doors; five terminal refusals; 11 exact history and activity rows after replay and reload at 390px
+DEC-002 focused native browser probe passed at 1440 and 390.
