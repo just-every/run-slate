@@ -11484,7 +11484,7 @@
       "executable": false
     },
     "tests/profile/profile.worker.test.ts": {
-      "sha256": "d951c8d4b1fcc0e856c16e3b2508a2d2e0e7d8c35a08633b569e9f7e29a70f31",
+      "sha256": "d56556f8a8df9bbd353341d655fdca328a9a08c3beec8207e2658eec201bba7c",
       "executable": false
     },
     "tests/profile/vitest.config.ts": {
