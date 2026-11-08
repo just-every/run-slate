@@ -82,6 +82,12 @@ export async function archiveRetentionJourney(state,touch) {
     await expect(dialog).toBeVisible();
     for(const title of ['Retained child','Retained database','Retained record'])await tap(dialog.getByRole('checkbox',{name:title,exact:true}));
     await checkpoint(page,'confirmed cascade ready');
+    // Successful erasure needs fresh mailbox proof, independent of earlier journey duration.
+    const member=await touch.api('/api/members/current');
+    const signedIn=await signInWithOutbox(origin,member.email);
+    assert.equal(signedIn.body.member.id,'browser-reader');
+    assert.equal(signedIn.body.member.role,'member');
+    await context.addCookies([{name:'slate_session',value:signedIn.cookie.split('=')[1],url:origin}]);
     await tap(dialog.getByRole('button',{name:'Delete permanently',exact:true}));
     await expect(dialog).toBeHidden();
     assert.deepEqual([...attempts[0].confirmedPageIds].sort(),[...f.ids].sort());

@@ -13,6 +13,7 @@ interface Archived {
   archivedAt: string | null;
   trashedAt: string | null;
   reason: string | null;
+  permissions: { canRestore: boolean; canDelete: boolean };
 }
 /** `embedded` puts the list inside a space's Trash tab, which already has its own top bar and title. */
 export function WorkspaceArchive({containerId,embedded}:{containerId?:string;embedded?:boolean}={}) {
@@ -59,10 +60,10 @@ export function WorkspaceArchive({containerId,embedded}:{containerId?:string;emb
                     <h2>{item.title}</h2>
                     <p>{item.reason}</p>
                   </div>
-                  <button className="secondary-button" type="button" onClick={() => void restore(item)}>
+                  {item.permissions.canRestore ? <button className="secondary-button" type="button" onClick={() => void restore(item)}>
                     Restore
-                  </button>
-                  {item.trashedAt ? (
+                  </button> : null}
+                  {item.trashedAt && item.permissions.canDelete ? (
                     <button className="secondary-button" type="button" onClick={() => setSelected(item)}>
                       Delete permanently
                     </button>

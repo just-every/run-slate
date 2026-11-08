@@ -2,7 +2,16 @@ import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
 import { expect } from '@playwright/test';
 import { accessible } from './browser-evidence.mjs';
+import { requestTimeline } from './request-timeline.mjs';
 import { call, grant, ok, restrictedPage } from './two-people-support.mjs';
+
+// Hosted-only REV-006 publication bound, per fv's 2026-11-06 23:29Z option (a).
+// work/sd-slate-rev006-timeline-1/REPORT.md (Verify 42304069512, attempts 1/2)
+// records 5–7 s server/browser stalls versus 28–54 ms local handling at CPU6.
+// work/sd-slate-ci-shape-focus-1/REPORT.md (Verify 42314905202) records the
+// isolated journey's exact /open taking 6365 ms; another shard shape did not help.
+// Keep local failures strict and every non-publication bound unchanged.
+export const REV006_PUBLICATION_STEP_TIMEOUT_MS = process.env.CI ? 15000 : 5000;
 
 /** Native labelled history: a full member deletes one version, retaining the rest. */
 export async function versionDeletionJourney(state, people) {
@@ -41,10 +50,49 @@ export async function versionDeletionJourney(state, people) {
       await alice.page.getByRole('menuitem', { name: 'Publish workspace revision', exact: true }).click();
       const dialog = alice.page.getByRole('dialog');
       await dialog.getByLabel('Version label', { exact: true }).fill(label);
-      await dialog.getByRole('button', { name: 'Review publication', exact: true }).click();
-      await expect(dialog.getByRole('region', { name: 'Reviewed publication', exact: true })).toBeVisible();
-      await dialog.getByRole('button', { name: 'Publish workspace revision', exact: true }).click();
-      await expect(dialog).toBeHidden();
+      const previewObservation = requestTimeline(alice.context).publication(alice.page, `/api/pages/${pageId}/publish-preview`);
+      try {
+        await Promise.all([
+          alice.page.waitForResponse(item => item.request().method() === 'POST'
+            && new URL(item.url()).pathname === `/api/pages/${pageId}/publish-preview`,
+          { timeout: REV006_PUBLICATION_STEP_TIMEOUT_MS }),
+          dialog.getByRole('button', { name: 'Review publication', exact: true }).click(),
+        ]);
+        await expect(dialog.getByRole('region', { name: 'Reviewed publication', exact: true })).toBeVisible(
+          { timeout: REV006_PUBLICATION_STEP_TIMEOUT_MS },
+        );
+      } catch (cause) {
+        await previewObservation.failed();
+        throw cause;
+      }
+      // Publication's refresh starts an exact-revision open in a client effect.
+      // Settle that write before the journey's next block PATCH advances the ACL
+      // epoch. Dialog closure alone does not confirm that background response.
+      const publicationObservation = requestTimeline(alice.context).publication(alice.page, `/api/pages/${pageId}/publish`);
+      const publication = alice.page.waitForResponse(item => item.request().method() === 'POST'
+        && new URL(item.url()).pathname === `/api/pages/${pageId}/publish`
+        && item.request().postDataJSON().label === label, { timeout: REV006_PUBLICATION_STEP_TIMEOUT_MS });
+      const revision = publication.then(async response => {
+        assert.equal(response.status(), 200, await response.text());
+        return (await response.json()).value.revisionId;
+      });
+      const opened = alice.page.waitForResponse(async item => item.request().method() === 'POST'
+        && new URL(item.url()).pathname === `/api/pages/${pageId}/open`
+        && item.request().postDataJSON().revisionId === await revision, { timeout: REV006_PUBLICATION_STEP_TIMEOUT_MS });
+      await Promise.all([
+        revision,
+        opened.then(async response => {
+          assert.equal(response.status(), 200, await response.text());
+          await response.finished();
+        }),
+        (async () => {
+          await dialog.getByRole('button', { name: 'Publish workspace revision', exact: true }).click();
+          await expect(dialog).toBeHidden({ timeout: REV006_PUBLICATION_STEP_TIMEOUT_MS });
+        })(),
+      ]).catch(async cause => {
+        await publicationObservation.failed();
+        throw cause;
+      });
       return (await read()).publishedRevisionId;
     };
     const first = await publish('First publication');
