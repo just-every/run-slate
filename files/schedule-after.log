@@ -1,0 +1,24 @@
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mProxy environment variables detected. We'll use your proxy for fetch requests.[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mProxy environment variables detected. We'll use your proxy for fetch requests.[0m
+
+
+
+ RUN  v4.1.11 /workspace/run-slate-f204
+
+stderr | tests/profile/profile.worker.test.ts > FLAG-001 — core wiki public doors retain native content while flagship routes and queued work require opt-in
+Import operation failed: This page is locked. Unlock it before editing.
+
+ ✓ tests/profile/profile.worker.test.ts (4 tests) 9767ms
+   ✓ FLAG-001 — core wiki public doors retain native content while flagship routes and queued work require opt-in  5074ms
+   ✓ BLOCK-015 — a task assigned to a member without access prompts a share, notifies its assignee once, reassigns without notifying the previous assignee and records completion  1218ms
+   ✓ NOTIF-004 — page, task and date-mention reminders arrive once at local time in three time zones and not after access is revoked  1449ms
+   ✓ BLOCK-016 — a task report shows each reader only the tasks they can read and completes a task on its page  2025ms
+
+ Test Files  1 passed (1)
+      Tests  4 passed (4)
+   Start at  14:27:20
+   Duration  31.00s (transform 10.48s, setup 1.22s, import 18.89s, tests 9.77s, environment 0ms)
+
+JSON report written to /home/agent/rer-consolidation/work/sd-slate-c-f204/packet/profile-results.json

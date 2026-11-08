@@ -1,0 +1,12 @@
+{
+  "repository": "just-every/run-slate",
+  "branch": "cloud/sd-slate-c-f204",
+  "head": "80c88e050d29bf3ad1879bb83cc943fff8129c18",
+  "advertisedRef": "refs/heads/cloud/sd-slate-c-f204",
+  "advertisedHead": "80c88e050d29bf3ad1879bb83cc943fff8129c18",
+  "shallow": false,
+  "mainAtLastMerge": "67b706484e5430012d9c154c1e14090ea1e49bc2",
+  "productPush": "PUSH_OK",
+  "pr": null,
+  "historyRewritten": false
+}

@@ -1,0 +1,348 @@
+Journey failure context {
+  "rejected": [],
+  "consoleErrors": []
+}
+Journey failure context REQUEST TIMELINE {
+  "primary": {
+    "requestsAtDump": [
+      {
+        "method": "GET",
+        "path": "/assets/<id>",
+        "startMs": 0,
+        "durationMs": 0,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/tasks/01M6XQ…NT0V/assignees",
+        "startMs": 120,
+        "durationMs": 58,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/containers",
+        "startMs": 839,
+        "durationMs": 35,
+        "status": 200
+      },
+      {
+        "method": "POST",
+        "path": "/api/pages",
+        "startMs": 885,
+        "durationMs": 75,
+        "status": 200
+      },
+      {
+        "method": "POST",
+        "path": "/api/sharing",
+        "startMs": 972,
+        "durationMs": 80,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/pages/01M6XQ…Q4AD",
+        "startMs": 1063,
+        "durationMs": 50,
+        "status": 200
+      },
+      {
+        "method": "PUT",
+        "path": "/api/sharing/pages/01M6XQ…Q4AD/inheritance",
+        "startMs": 1120,
+        "durationMs": 59,
+        "status": 200
+      },
+      {
+        "method": "POST",
+        "path": "/api/sharing",
+        "startMs": 1195,
+        "durationMs": 64,
+        "status": 200
+      },
+      {
+        "method": "POST",
+        "path": "/api/<id>",
+        "startMs": 1267,
+        "durationMs": 62,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/app/<id>/01M6XQ…0MRG",
+        "startMs": 1348,
+        "durationMs": 189,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/assets/<id>",
+        "startMs": 1512,
+        "durationMs": 1,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/assets/<id>",
+        "startMs": 1514,
+        "durationMs": 1,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/assets/<id>",
+        "startMs": 1515,
+        "durationMs": 2,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/assets/<id>",
+        "startMs": 1517,
+        "durationMs": 0,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/assets/<id>",
+        "startMs": 1517,
+        "durationMs": 25,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/assets/<id>",
+        "startMs": 1517,
+        "durationMs": 25,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/<id>",
+        "startMs": 1666,
+        "durationMs": 136,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/<id>/01M6XQ…0MRG",
+        "startMs": 1666,
+        "durationMs": 136,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/members",
+        "startMs": 1666,
+        "durationMs": 97,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/<id>/01M6XQ…0MRG/history",
+        "startMs": 1821,
+        "durationMs": 114,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/members",
+        "startMs": 1822,
+        "durationMs": 86,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/<id>/01M6XQ…0MRG/<id>",
+        "startMs": 1823,
+        "durationMs": 113,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/<id>/01M6XQ…0MRG/history",
+        "startMs": 1823,
+        "durationMs": 144,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/<id>/01M6XQ…0MRG/<id>",
+        "startMs": 1824,
+        "durationMs": 185,
+        "status": 200
+      },
+      {
+        "method": "POST",
+        "path": "/api/<id>/01M6XQ…0MRG/accept",
+        "startMs": 2644,
+        "durationMs": 66,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/<id>/01M6XQ…0MRG",
+        "startMs": 2710,
+        "durationMs": 24,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/<id>/01M6XQ…0MRG/history",
+        "startMs": 2751,
+        "durationMs": 30,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/<id>/01M6XQ…0MRG/<id>",
+        "startMs": 2751,
+        "durationMs": 53,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/<id>/01M6XQ…0MRG",
+        "startMs": 2852,
+        "durationMs": 25,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/notifications",
+        "startMs": 2881,
+        "durationMs": 19,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/notifications",
+        "startMs": 3014,
+        "durationMs": 19,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/notifications/<id>",
+        "startMs": 3037,
+        "durationMs": 22,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/containers",
+        "startMs": 3065,
+        "durationMs": 59,
+        "status": 200
+      },
+      {
+        "method": "POST",
+        "path": "/api/pages",
+        "startMs": 3129,
+        "durationMs": 67,
+        "status": 200
+      },
+      {
+        "method": "POST",
+        "path": "/api/sharing",
+        "startMs": 3202,
+        "durationMs": 54,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/pages/01M6XQ…5DFF",
+        "startMs": 3267,
+        "durationMs": 33,
+        "status": 200
+      },
+      {
+        "method": "PUT",
+        "path": "/api/sharing/pages/01M6XQ…5DFF/inheritance",
+        "startMs": 3309,
+        "durationMs": 57,
+        "status": 200
+      },
+      {
+        "method": "POST",
+        "path": "/api/sharing",
+        "startMs": 3380,
+        "durationMs": 96,
+        "status": 200
+      },
+      {
+        "method": "POST",
+        "path": "/api/sharing",
+        "startMs": 3657,
+        "durationMs": 33,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/notifications",
+        "startMs": 11079,
+        "durationMs": 164,
+        "status": 200
+      }
+    ]
+  },
+  "others": [
+    {
+      "requestsAtDump": [
+        {
+          "method": "POST",
+          "path": "/api/<id>",
+          "startMs": 0,
+          "durationMs": 61,
+          "status": 200
+        },
+        {
+          "method": "POST",
+          "path": "/api/<id>/01M6XQ…CFKX/accept",
+          "startMs": 74,
+          "durationMs": 86,
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/notifications",
+          "startMs": 199,
+          "durationMs": 29,
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/<id>/01M6XQ…CFKX",
+          "startMs": 232,
+          "durationMs": 195,
+          "status": 404
+        }
+      ]
+    }
+  ]
+}
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Repeated default-profile processing delivers exactly one overdue notice.
+
+0 !== 1
+
+    at file:///workspace/run-slate-f204/tests/qualification/ui-convergence/decision-review-journey.mjs:51:12
+    at verify (file:///workspace/run-slate-f204/tests/qualification/ui-convergence/decision-review-journey.mjs:12:50)
+    at decisionReviewJourney (file:///workspace/run-slate-f204/tests/qualification/ui-convergence/decision-review-journey.mjs:50:9)
+    at async withSecondPerson (file:///workspace/run-slate-f204/tests/qualification/ui-convergence/two-people-support.mjs:48:5)
+    at async withWorkspace.scheduled (file:///tmp/f204-cold.mjs:7:5)
+    at async withWorkspace (file:///workspace/run-slate-f204/tests/qualification/ui-convergence/browser-support.mjs:197:7)
+    at async file:///tmp/f204-cold.mjs:5:3 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 0,
+  expected: 1,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v22.20.0

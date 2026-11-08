@@ -1,0 +1,154 @@
+{
+  "head": "80c88e050d29bf3ad1879bb83cc943fff8129c18",
+  "profile": {
+    "command": "pnpm exec vitest run --config tests/profile/vitest.config.ts tests/profile/profile.worker.test.ts",
+    "exit": 0,
+    "passed": 4,
+    "total": 4
+  },
+  "typecheck": {
+    "command": "pnpm typecheck",
+    "exit": 0
+  },
+  "firstParty": {
+    "command": "npx -y @runeditrun/rer check --profile first-party",
+    "exit": 0
+  },
+  "build": {
+    "command": "npx -y @runeditrun/rer build",
+    "exit": 0,
+    "provenance": {
+      "schema": 1,
+      "commit": "80c88e050d29bf3ad1879bb83cc943fff8129c18",
+      "tree": "2be26fb213bfb6a5241aaf51d214ed87ffeeab9d",
+      "sourceSha256": "9c240645ffd09dd4f707bbf139517e5be8101808566d5facfb115a6aa3341855",
+      "lockSha256": "e2b6efc280e1ff2b88ba30b5f00b1a263668dcf9fbc486590ed9bc90486f7285",
+      "outputSha256": "12a9edb7054d2515080f17d08472a74854c77a66c10a45827a9e43aef43377ed"
+    }
+  },
+  "focusedBrowser": {
+    "command": "timeout 1200 node /tmp/f204-browser.mjs",
+    "exit": 0,
+    "widths": [
+      1440,
+      390
+    ],
+    "coldScheduledBeforeApi": true
+  },
+  "registeredBrowser": {
+    "command": "timeout 1800 node --test --test-concurrency=1 --test-name-pattern='real core-wiki and touch-member journeys' tests/qualification/ui-convergence/journeys.test.mjs",
+    "status": "completed",
+    "exit": 0,
+    "results": [
+      {
+        "name": "real core-wiki and touch-member journeys at 390px",
+        "width": 390,
+        "passed": true,
+        "durationMs": 771943.524423
+      },
+      {
+        "name": "real core-wiki and touch-member journeys at 1440px",
+        "width": 1440,
+        "passed": true,
+        "durationMs": 613043.900536
+      }
+    ]
+  },
+  "publicationScan": {
+    "head": "80c88e050d29bf3ad1879bb83cc943fff8129c18",
+    "complete": null,
+    "historyScanned": null,
+    "findings": null,
+    "reason": "Guarded Mac lander duty under cloud adaptation."
+  },
+  "flagshipRegression": {
+    "command": "pnpm exec vitest run tests/flagship/intelligence/lifecycle.test.ts",
+    "exit": 0,
+    "passed": 1,
+    "total": 1
+  },
+  "ci": {
+    "head": "80c88e050d29bf3ad1879bb83cc943fff8129c18",
+    "run": {
+      "conclusion": "failure",
+      "event": "push",
+      "head_sha": "80c88e050d29bf3ad1879bb83cc943fff8129c18",
+      "html_url": "https://github.com/just-every/run-slate/actions/runs/42490432350",
+      "id": 42490432350,
+      "name": "Verify Slate",
+      "status": "completed"
+    },
+    "jobs": [
+      {
+        "conclusion": "success",
+        "id": 128761388260,
+        "name": "plan",
+        "status": "completed",
+        "steps": []
+      },
+      {
+        "conclusion": "failure",
+        "id": 128761430313,
+        "name": "verify (app)",
+        "status": "completed",
+        "steps": [
+          {
+            "name": "Run node src/base/runtime/contract-docs.mjs check",
+            "number": 7
+          }
+        ]
+      },
+      {
+        "conclusion": "skipped",
+        "id": 128761431821,
+        "name": "import-scale",
+        "status": "completed",
+        "steps": []
+      },
+      {
+        "conclusion": "failure",
+        "id": 128761584938,
+        "name": "verify",
+        "status": "completed",
+        "steps": [
+          {
+            "name": "Require the plan and every expected job",
+            "number": 2
+          }
+        ]
+      },
+      {
+        "conclusion": "skipped",
+        "id": 128761585383,
+        "name": "local-journeys",
+        "status": "completed",
+        "steps": []
+      },
+      {
+        "conclusion": "skipped",
+        "id": 128761585994,
+        "name": "verify (${{ matrix.suite }})",
+        "status": "completed",
+        "steps": []
+      },
+      {
+        "conclusion": "skipped",
+        "id": 128761586042,
+        "name": "contract",
+        "status": "completed",
+        "steps": []
+      }
+    ],
+    "failure": "ACCEPTANCE.md: generated content differs; run contract-docs write.",
+    "appJob": 128761430313,
+    "aggregateJob": 128761584938,
+    "handoffDisposition": "Permitted generated-view freshness exception; test shards skipped, not green test-shard evidence.",
+    "githubCalls": 10,
+    "reruns": 0,
+    "dispatches": 0
+  },
+  "registrations": {
+    "before": 211,
+    "after": 211
+  }
+}

@@ -1,0 +1,394 @@
+Journey failure context {
+  "rejected": [],
+  "consoleErrors": []
+}
+Journey failure context REQUEST TIMELINE {
+  "primary": {
+    "requestsAtDump": [
+      {
+        "method": "GET",
+        "path": "/api/<id>/01M6XN…RRX7/history",
+        "startMs": 0,
+        "durationMs": 23,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/<id>/01M6XN…RRX7/<id>",
+        "startMs": 1,
+        "durationMs": 59,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/<id>/01M6XN…RRX7",
+        "startMs": 8,
+        "durationMs": 50,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/notifications",
+        "startMs": 62,
+        "durationMs": 16,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/notifications",
+        "startMs": 178,
+        "durationMs": 12,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/notifications/<id>",
+        "startMs": 193,
+        "durationMs": 20,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/containers",
+        "startMs": 219,
+        "durationMs": 16,
+        "status": 200
+      },
+      {
+        "method": "POST",
+        "path": "/api/pages",
+        "startMs": 239,
+        "durationMs": 28,
+        "status": 200
+      },
+      {
+        "method": "POST",
+        "path": "/api/sharing",
+        "startMs": 270,
+        "durationMs": 48,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/pages/01M6XN…9RX6",
+        "startMs": 327,
+        "durationMs": 23,
+        "status": 200
+      },
+      {
+        "method": "PUT",
+        "path": "/api/sharing/pages/01M6XN…9RX6/inheritance",
+        "startMs": 365,
+        "durationMs": 35,
+        "status": 200
+      },
+      {
+        "method": "POST",
+        "path": "/api/sharing",
+        "startMs": 407,
+        "durationMs": 52,
+        "status": 200
+      },
+      {
+        "method": "POST",
+        "path": "/api/sharing",
+        "startMs": 555,
+        "durationMs": 31,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/notifications",
+        "startMs": 1211,
+        "durationMs": 30,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/notifications",
+        "startMs": 1306,
+        "durationMs": 37,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/notifications/<id>",
+        "startMs": 1346,
+        "durationMs": 48,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/<id>/01M6XN…RRX7",
+        "startMs": 1398,
+        "durationMs": 17,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/app/<id>/01M6XN…RRX7",
+        "startMs": 1427,
+        "durationMs": 122,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/assets/<id>",
+        "startMs": 1539,
+        "durationMs": 1,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/assets/<id>",
+        "startMs": 1540,
+        "durationMs": 2,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/assets/<id>",
+        "startMs": 1542,
+        "durationMs": 0,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/assets/<id>",
+        "startMs": 1543,
+        "durationMs": 0,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/assets/<id>",
+        "startMs": 1544,
+        "durationMs": 0,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/assets/<id>",
+        "startMs": 1545,
+        "durationMs": 0,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/<id>",
+        "startMs": 1614,
+        "durationMs": 64,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/<id>/01M6XN…RRX7",
+        "startMs": 1614,
+        "durationMs": 51,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/members",
+        "startMs": 1615,
+        "durationMs": 32,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/<id>/01M6XN…RRX7/history",
+        "startMs": 1674,
+        "durationMs": 50,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/members",
+        "startMs": 1675,
+        "durationMs": 33,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/<id>/01M6XN…RRX7/<id>",
+        "startMs": 1675,
+        "durationMs": 46,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/<id>/01M6XN…RRX7/history",
+        "startMs": 1675,
+        "durationMs": 94,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/<id>/01M6XN…RRX7/<id>",
+        "startMs": 1675,
+        "durationMs": 73,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/app",
+        "startMs": 3257,
+        "durationMs": 108,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/assets/<id>",
+        "startMs": 3354,
+        "durationMs": 9,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/assets/<id>",
+        "startMs": 3363,
+        "durationMs": 0,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/assets/<id>",
+        "startMs": 3363,
+        "durationMs": 0,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/assets/<id>",
+        "startMs": 3363,
+        "durationMs": 0,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/<id>",
+        "startMs": 3412,
+        "durationMs": 38,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/navigation/<id>",
+        "startMs": 3412,
+        "durationMs": 50,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/<id>",
+        "startMs": 3412,
+        "durationMs": 51,
+        "status": 200
+      }
+    ]
+  },
+  "others": [
+    {
+      "requestsAtDump": [
+        {
+          "method": "POST",
+          "path": "/api/<id>",
+          "startMs": 0,
+          "durationMs": 41,
+          "status": 200
+        },
+        {
+          "method": "POST",
+          "path": "/api/<id>/01M6XN…YMG1/accept",
+          "startMs": 43,
+          "durationMs": 47,
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/notifications",
+          "startMs": 126,
+          "durationMs": 23,
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/<id>/01M6XN…YMG1",
+          "startMs": 156,
+          "durationMs": 12,
+          "status": 404
+        },
+        {
+          "method": "GET",
+          "path": "/api/notifications",
+          "startMs": 782,
+          "durationMs": 29,
+          "status": 200
+        },
+        {
+          "method": "GET",
+          "path": "/api/notifications",
+          "startMs": 814,
+          "durationMs": 27,
+          "status": 200
+        }
+      ]
+    }
+  ]
+}
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+ExpectError: expect(locator).toHaveCount(expected) failed
+
+Locator:  getByRole('main').locator('.outcome-list li').filter({ hasText: 'Support rota decision' }).filter({ hasText: 'decision required' })
+Expected: 1
+Received: 0
+Timeout:  5000ms
+
+Call log:
+  - Expect "toHaveCount" getByRole('main').locator('.outcome-list li').filter({ hasText: 'Support rota decision' }).filter({ hasText: 'decision required' }) with timeout 5000ms
+  - waiting for getByRole('main').locator('.outcome-list li').filter({ hasText: 'Support rota decision' }).filter({ hasText: 'decision required' })
+    14 × locator resolved to 0 elements
+       - unexpected value "0"
+
+    at captureRawStack (/workspace/run-slate-f204/node_modules/.pnpm/playwright-core@1.63.0/node_modules/playwright-core/lib/coreBundle.js:8588:17)
+    at callMatcherAsStep (/workspace/run-slate-f204/node_modules/.pnpm/playwright@1.63.0/node_modules/playwright/lib/matchers/expect.js:13310:57)
+    at Object.toHaveCount (/workspace/run-slate-f204/node_modules/.pnpm/playwright@1.63.0/node_modules/playwright/lib/matchers/expect.js:13302:23)
+    at /workspace/run-slate-f204/tests/qualification/ui-convergence/decision-review-journey.mjs:61:46
+    at verify (/workspace/run-slate-f204/tests/qualification/ui-convergence/decision-review-journey.mjs:12:50)
+    at decisionReviewJourney (/workspace/run-slate-f204/tests/qualification/ui-convergence/decision-review-journey.mjs:61:9)
+    at async withSecondPerson (/workspace/run-slate-f204/tests/qualification/ui-convergence/two-people-support.mjs:48:5)
+    at async withWorkspace.scheduled (/tmp/f204-browser.mjs:7:5)
+    at async withWorkspace (/workspace/run-slate-f204/tests/qualification/ui-convergence/browser-support.mjs:197:7)
+    at async file:///tmp/f204-browser.mjs:5:3 {
+  matcherResult: {
+    actual: 0,
+    expected: 1,
+    message: 'expect(locator).toHaveCount(expected) failed\n' +
+      '\n' +
+      "Locator:  getByRole('main').locator('.outcome-list li').filter({ hasText: 'Support rota decision' }).filter({ hasText: 'decision required' })\n" +
+      'Expected: 1\n' +
+      'Received: 0\n' +
+      'Timeout:  5000ms\n' +
+      '\n' +
+      'Call log:\n' +
+      `  - Expect "toHaveCount" getByRole('main').locator('.outcome-list li').filter({ hasText: 'Support rota decision' }).filter({ hasText: 'decision required' }) with timeout 5000ms\n` +
+      "  - waiting for getByRole('main').locator('.outcome-list li').filter({ hasText: 'Support rota decision' }).filter({ hasText: 'decision required' })\n" +
+      '    14 × locator resolved to 0 elements\n' +
+      '       - unexpected value "0"\n',
+    name: 'toHaveCount',
+    pass: false,
+    log: [
+      `  - Expect "toHaveCount" getByRole('main').locator('.outcome-list li').filter({ hasText: 'Support rota decision' }).filter({ hasText: 'decision required' }) with timeout 5000ms`,
+      "  - waiting for getByRole('main').locator('.outcome-list li').filter({ hasText: 'Support rota decision' }).filter({ hasText: 'decision required' })",
+      '    14 × locator resolved to 0 elements',
+      '       - unexpected value "0"'
+    ],
+    timeout: 5000,
+    ariaSnapshot: undefined
+  }
+}
+
+Node.js v22.20.0

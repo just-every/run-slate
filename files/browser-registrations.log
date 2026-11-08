@@ -1,0 +1,71 @@
+TAP version 13
+# PROBE PORT-001 1: native authored subtree -> Settings workspace ZIP retains 4 ordered pages, bodies, properties, thirteen revisions, changed, revoked and regranted member and group grants, edited and resolved anchored thread and reply with retained histories
+# PROBE PORT-001 2: native original downloads -> Settings ZIP has both exact original byte sequences and SHA-256 hashes; independent source snapshots unchanged
+# PROBE PORT-003 1: failed native export and restore replay and reload -> failed, no download or successful restore action
+# PROBE PORT-003 2: Settings export and empty-deployment restore -> queued, running, completed and failed persisted; counts equal native archive; safe reports identify commit failures
+# DEC-005_BROWSER_RECEIPT {"width":390,"decisionId":"01M6XSE376M9XNKVKD6SZMXCY5","ownerNoticeCounts":[0,1,2],"otherMemberNotices":0,"revokedOwnerNewNotices":0,"decision":{"id":"01M6XSE376M9XNKVKD6SZMXCY5","page_id":"01M6XSE2WNJBAEGDHGX115V434","workspace_id":"browser-workspace","question":"Keep the support rota?","options_json":"[\\"Keep rota\\",\\"Replace rota\\"]","outcome":"Keep rota","rationale":"The current rota covers each shift.","owner_member_id":"browser-owner","decided_at":"2026-11-08T14:36:42.071Z","review_at":"2000-02-01T00:00:00.000Z","overdue_notified_at":"2026-11-08T14:36:55.462Z","state":"superseded","accepted_snapshot_json":"{\\"operationKey\\":\\"539d0e59-1d83-4f43-a22a-c6cdaf765d65\\",\\"pageId\\":\\"01M6XSE2WNJBAEGDHGX115V434\\",\\"question\\":\\"Keep the support rota?\\",\\"options\\":[\\"Keep rota\\",\\"Replace rota\\"],\\"outcome\\":\\"Keep rota\\",\\"rationale\\":\\"The current rota covers each shift.\\",\\"ownerId\\":\\"browser-owner\\",\\"decidedAt\\":\\"2026-11-08T14:36:42.071Z\\",\\"reviewAt\\":\\"2099-01-01T00:00:00.000Z\\",\\"citations\\":[],\\"acceptedBy\\":\\"browser-owner\\",\\"acceptedAt\\":\\"2026-11-08T14:36:42.071Z\\",\\"supersedesId\\":null}","superseded_by_decision_id":"01M6XSEJB74AQAWV6XJJ3HDKWM","created_at":"2026-11-08T14:36:41.011Z","updated_at":"2026-11-08T14:36:57.126Z","revision_id":"01M6XSEJYJRTQWXW8XJ893RJXC","removed_at":null,"removed_by_member_id":null,"accepted_revision_id":"01M6XSE487H87MN8Z3CJ88RC91","content":{"operationKey":"539d0e59-1d83-4f43-a22a-c6cdaf765d65","pageId":"01M6XSE2WNJBAEGDHGX115V434","question":"Keep the support rota?","options":["Keep rota","Replace rota"],"outcome":"Keep rota","rationale":"The current rota covers each shift.","ownerId":"browser-owner","decidedAt":"2026-11-08T14:36:42.071Z","reviewAt":"2099-01-01T00:00:00.000Z","citations":[],"acceptedBy":"browser-owner","acceptedAt":"2026-11-08T14:36:42.071Z","supersedesId":null},"viewedRevisionId":"01M6XSE487H87MN8Z3CJ88RC91","revision":{"id":"01M6XSE487H87MN8Z3CJ88RC91","kind":"decision-acceptance","actorId":"browser-owner","createdAt":"2026-11-08T14:36:42.071Z"},"acceptedRevisionId":"01M6XSE487H87MN8Z3CJ88RC91","acceptedRevisionHref":"/app/decisions/01M6XSE376M9XNKVKD6SZMXCY5?revision=01M6XSE487H87MN8Z3CJ88RC91","citationsCurrent":true,"overdue":false},"reviews":[{"id":"01M6XSEDS5N5Z2BESBR6R4NCRP","decision_id":"01M6XSE376M9XNKVKD6SZMXCY5","note":"Reviewed the rota with all shift leads; retain it until the next review.","reviewed_by_member_id":"browser-reader","next_review_at":"2099-02-01T00:00:00.000Z","created_at":"2026-11-08T14:36:51.861Z"}],"todayAfterSupersession":[]}
+# NAV-006 touch create, type, insert and drag persisted
+# BLOCK-012 columns insert, desktop drag and touch layout passed at 390px
+# PROBE COMM-002 acceptance 1–2: native comment controls and HTTP at 390px -> two authors edit/delete; cross-author and owner override 403; edited times, two in-place tombstones and six activities survive replay/reload
+# NAV-006 touch comment and resolve persisted
+# WEB-006 native unpublish response {"width":390,"elapsedMs":630}
+# PROBE SHARE-002 full: selected reads, title, body, comment and direct grants; 0 refused requests preserve inventories at 390px
+# PROBE SHARE-002 edit: selected reads, title, body, comment and direct grants; 2 refused requests preserve inventories at 390px
+# PROBE SHARE-002 comment: selected reads, title, body, comment and direct grants; 4 refused requests preserve inventories at 390px
+# PROBE SHARE-002 view: selected reads, title, body, comment and direct grants; 5 refused requests preserve inventories at 390px
+# NAV-006 touch workspace publication and sharing persisted
+# PAGE-007 Details, replay and edit-only refusal passed at 390px
+# NAV-006 touch Search, Inbox, My tasks, requested reviews and verification health passed
+# Chat docs dimensions { width: 390, height: 8088 }
+# PROBE REV-002 autosnapshot page: native commits -> 7 exact rows and snapshots; visible actor, time, origin and labels; reader reload and revoked refusal passed
+# PROBE REV-002 autosnapshot database: native commits -> 7 exact rows and snapshots; visible actor, time, origin and labels; reader reload and revoked refusal passed
+# PROBE REV-002 autosnapshot record: native commits -> 8 exact rows and snapshots; visible actor, time, origin and labels; reader reload and revoked refusal passed
+# PROBE REV-002 labelled page: native commits -> 7 exact rows and snapshots; visible actor, time, origin and labels; reader reload and revoked refusal passed
+# PROBE REV-002 labelled database: native commits -> 7 exact rows and snapshots; visible actor, time, origin and labels; reader reload and revoked refusal passed
+# PROBE REV-002 labelled record: native commits -> 8 exact rows and snapshots; visible actor, time, origin and labels; reader reload and revoked refusal passed
+# PROBE AUTO-003 browser 390: native database Automations -> trigger, actor, readable touched record and time; error retries, visible failure beside rule and persisted disable reason
+# PROBE DB-012 ordinary edit: native record Quantity 7 -> 11; computed value 22 and reload retained
+# PROBE DB-012 record-is-page: viewer fields, retained comments, exact historical body and unchanged stored current body passed
+# PROBE DB-012 record-is-row: viewer fields, retained comments, exact historical body and unchanged stored current body passed
+# PROBE DB-012 record-is-page: viewer fields, retained comments, exact historical body and unchanged stored current body passed
+# PROBE DB-012 read-only: all six fields readable; native viewer PATCH -> 404 and unchanged record and history
+# PROBE TMPL-005 children off: More > Save as template, preview and Use this template -> 1 exact copies, all seven source record families excluded at 390px
+# PROBE TMPL-005 children on: More > Save as template, preview and Use this template -> 4 exact copies, all seven source record families excluded at 390px
+# PROBE ARCH-004 native browser 390: archive and restore retain populated data; cancelled and incomplete confirmation preserve it; exact confirmed cascade deletes
+# PROBE REV-006 1: edit-only, current, published and autosnapshot DELETE requests -> refused without revision or activity changes
+# PROBE REV-006 2: full-member History confirmation -> version 2 content removed, attributed timed tombstone after reload; every other revision retained; replay has one activity
+# Subtest: real core-wiki and touch-member journeys at 390px
+ok 1 - real core-wiki and touch-member journeys at 390px
+  ---
+  duration_ms: 771943.524423
+  type: 'test'
+  ...
+# DEC-005_BROWSER_RECEIPT {"width":1440,"decisionId":"01M6XT29SRGV1BFP18Q7NMK6M8","ownerNoticeCounts":[0,1,2],"otherMemberNotices":0,"revokedOwnerNewNotices":0,"decision":{"id":"01M6XT29SRGV1BFP18Q7NMK6M8","page_id":"01M6XT29GKG8ZBM7Y47TF181C1","workspace_id":"browser-workspace","question":"Keep the support rota?","options_json":"[\\"Keep rota\\",\\"Replace rota\\"]","outcome":"Keep rota","rationale":"The current rota covers each shift.","owner_member_id":"browser-owner","decided_at":"2026-11-08T14:47:44.090Z","review_at":"2000-02-01T00:00:00.000Z","overdue_notified_at":"2026-11-08T14:47:59.241Z","state":"superseded","accepted_snapshot_json":"{\\"operationKey\\":\\"e0e3f593-80b0-4b20-b29c-b66f04d2589e\\",\\"pageId\\":\\"01M6XT29GKG8ZBM7Y47TF181C1\\",\\"question\\":\\"Keep the support rota?\\",\\"options\\":[\\"Keep rota\\",\\"Replace rota\\"],\\"outcome\\":\\"Keep rota\\",\\"rationale\\":\\"The current rota covers each shift.\\",\\"ownerId\\":\\"browser-owner\\",\\"decidedAt\\":\\"2026-11-08T14:47:44.090Z\\",\\"reviewAt\\":\\"2099-01-01T00:00:00.000Z\\",\\"citations\\":[],\\"acceptedBy\\":\\"browser-owner\\",\\"acceptedAt\\":\\"2026-11-08T14:47:44.090Z\\",\\"supersedesId\\":null}","superseded_by_decision_id":"01M6XT2TRAGV5KM5SV2Z11WD90","created_at":"2026-11-08T14:47:43.135Z","updated_at":"2026-11-08T14:48:01.117Z","revision_id":"01M6XT2VCEHKVJ481JP01FB70S","removed_at":null,"removed_by_member_id":null,"accepted_revision_id":"01M6XT2AQZFYMCCPZN08EEWKJ2","content":{"operationKey":"e0e3f593-80b0-4b20-b29c-b66f04d2589e","pageId":"01M6XT29GKG8ZBM7Y47TF181C1","question":"Keep the support rota?","options":["Keep rota","Replace rota"],"outcome":"Keep rota","rationale":"The current rota covers each shift.","ownerId":"browser-owner","decidedAt":"2026-11-08T14:47:44.090Z","reviewAt":"2099-01-01T00:00:00.000Z","citations":[],"acceptedBy":"browser-owner","acceptedAt":"2026-11-08T14:47:44.090Z","supersedesId":null},"viewedRevisionId":"01M6XT2AQZFYMCCPZN08EEWKJ2","revision":{"id":"01M6XT2AQZFYMCCPZN08EEWKJ2","kind":"decision-acceptance","actorId":"browser-owner","createdAt":"2026-11-08T14:47:44.090Z"},"acceptedRevisionId":"01M6XT2AQZFYMCCPZN08EEWKJ2","acceptedRevisionHref":"/app/decisions/01M6XT29SRGV1BFP18Q7NMK6M8?revision=01M6XT2AQZFYMCCPZN08EEWKJ2","citationsCurrent":true,"overdue":false},"reviews":[{"id":"01M6XT2NGA2D3WKQQVCHBK620N","decision_id":"01M6XT29SRGV1BFP18Q7NMK6M8","note":"Reviewed the rota with all shift leads; retain it until the next review.","reviewed_by_member_id":"browser-reader","next_review_at":"2099-02-01T00:00:00.000Z","created_at":"2026-11-08T14:47:55.124Z"}],"todayAfterSupersession":[]}
+# NAV-006 touch create, type, insert and drag persisted
+# BLOCK-012 columns insert, desktop drag and touch layout passed at 1440px
+# PROBE COMM-002 acceptance 1–2: native comment controls and HTTP at 1440px -> two authors edit/delete; cross-author and owner override 403; edited times, two in-place tombstones and six activities survive replay/reload
+# NAV-006 touch comment and resolve persisted
+# WEB-006 native unpublish response {"width":1440,"elapsedMs":737}
+# PROBE SHARE-002 full: selected reads, title, body, comment and direct grants; 0 refused requests preserve inventories at 1440px
+# PROBE SHARE-002 edit: selected reads, title, body, comment and direct grants; 2 refused requests preserve inventories at 1440px
+# PROBE SHARE-002 comment: selected reads, title, body, comment and direct grants; 4 refused requests preserve inventories at 1440px
+# PROBE SHARE-002 view: selected reads, title, body, comment and direct grants; 5 refused requests preserve inventories at 1440px
+# NAV-006 touch workspace publication and sharing persisted
+# PAGE-007 Details, replay and edit-only refusal passed at 1440px
+# NAV-006 touch Search, Inbox, My tasks, requested reviews and verification health passed
+# Chat docs dimensions { width: 1440, height: 5213 }
+# Subtest: real core-wiki and touch-member journeys at 1440px
+ok 2 - real core-wiki and touch-member journeys at 1440px
+  ---
+  duration_ms: 613043.900536
+  type: 'test'
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 2
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1407733.92918

@@ -1,0 +1,80 @@
+{
+  "head": "80c88e050d29bf3ad1879bb83cc943fff8129c18",
+  "run": {
+    "conclusion": "failure",
+    "event": "push",
+    "head_sha": "80c88e050d29bf3ad1879bb83cc943fff8129c18",
+    "html_url": "https://github.com/just-every/run-slate/actions/runs/42490432350",
+    "id": 42490432350,
+    "name": "Verify Slate",
+    "status": "completed"
+  },
+  "jobs": [
+    {
+      "conclusion": "success",
+      "id": 128761388260,
+      "name": "plan",
+      "status": "completed",
+      "steps": []
+    },
+    {
+      "conclusion": "failure",
+      "id": 128761430313,
+      "name": "verify (app)",
+      "status": "completed",
+      "steps": [
+        {
+          "name": "Run node src/base/runtime/contract-docs.mjs check",
+          "number": 7
+        }
+      ]
+    },
+    {
+      "conclusion": "skipped",
+      "id": 128761431821,
+      "name": "import-scale",
+      "status": "completed",
+      "steps": []
+    },
+    {
+      "conclusion": "failure",
+      "id": 128761584938,
+      "name": "verify",
+      "status": "completed",
+      "steps": [
+        {
+          "name": "Require the plan and every expected job",
+          "number": 2
+        }
+      ]
+    },
+    {
+      "conclusion": "skipped",
+      "id": 128761585383,
+      "name": "local-journeys",
+      "status": "completed",
+      "steps": []
+    },
+    {
+      "conclusion": "skipped",
+      "id": 128761585994,
+      "name": "verify (${{ matrix.suite }})",
+      "status": "completed",
+      "steps": []
+    },
+    {
+      "conclusion": "skipped",
+      "id": 128761586042,
+      "name": "contract",
+      "status": "completed",
+      "steps": []
+    }
+  ],
+  "failure": "ACCEPTANCE.md: generated content differs; run contract-docs write.",
+  "appJob": 128761430313,
+  "aggregateJob": 128761584938,
+  "handoffDisposition": "Permitted generated-view freshness exception; test shards skipped, not green test-shard evidence.",
+  "githubCalls": 10,
+  "reruns": 0,
+  "dispatches": 0
+}

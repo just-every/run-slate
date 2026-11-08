@@ -1,0 +1,34 @@
+{
+  "head": "80c88e050d29bf3ad1879bb83cc943fff8129c18",
+  "commands": [
+    {
+      "command": "node src/base/runtime/contract-docs.mjs write",
+      "exit": 0,
+      "output": "Wrote 1 contract documents."
+    },
+    {
+      "command": "node src/base/runtime/contract-docs.mjs check",
+      "exit": 0,
+      "output": "Contract documents are current."
+    },
+    {
+      "command": "node scripts/edition-authoring/cli.mjs lock",
+      "exit": 0
+    },
+    {
+      "command": "node scripts/edition-authoring/cli.mjs check",
+      "exit": 0
+    },
+    {
+      "command": "node scripts/sync-integration.mjs --check",
+      "exit": 0
+    }
+  ],
+  "generatedViewsCommitted": false,
+  "viewsRestoredFrom": "origin/main",
+  "migrationLedger": {
+    "command": null,
+    "exit": 0,
+    "reason": "No migration changed."
+  }
+}

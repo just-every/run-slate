@@ -1,0 +1,1155 @@
+TAP version 13
+# PROBE PORT-001 1: native authored subtree -> Settings workspace ZIP retains 4 ordered pages, bodies, properties, thirteen revisions, changed, revoked and regranted member and group grants, edited and resolved anchored thread and reply with retained histories
+# PROBE PORT-001 2: native original downloads -> Settings ZIP has both exact original byte sequences and SHA-256 hashes; independent source snapshots unchanged
+# PROBE PORT-003 1: failed native export and restore replay and reload -> failed, no download or successful restore action
+# PROBE PORT-003 2: Settings export and empty-deployment restore -> queued, running, completed and failed persisted; counts equal native archive; safe reports identify commit failures
+# NAV-006 touch create, type, insert and drag persisted
+# BLOCK-012 columns insert, desktop drag and touch layout passed at 390px
+# PROBE COMM-002 acceptance 1–2: native comment controls and HTTP at 390px -> two authors edit/delete; cross-author and owner override 403; edited times, two in-place tombstones and six activities survive replay/reload
+# NAV-006 touch comment and resolve persisted
+# WEB-006 native unpublish response {"width":390,"elapsedMs":666}
+# PROBE SHARE-002 full: selected reads, title, body, comment and direct grants; 0 refused requests preserve inventories at 390px
+# PROBE SHARE-002 edit: selected reads, title, body, comment and direct grants; 2 refused requests preserve inventories at 390px
+# PROBE SHARE-002 comment: selected reads, title, body, comment and direct grants; 4 refused requests preserve inventories at 390px
+# PROBE SHARE-002 view: selected reads, title, body, comment and direct grants; 5 refused requests preserve inventories at 390px
+# NAV-006 touch workspace publication and sharing persisted
+# PAGE-007 Details, replay and edit-only refusal passed at 390px
+# NAV-006 touch Search, Inbox, My tasks, requested reviews and verification health passed
+# DEC-005_BROWSER_RECEIPT {"width":390,"decisionId":"01M6XPJZS79R3XKF3BS3PVBVC6","ownerNoticeCounts":[0,1,2],"otherMemberNotices":0,"revokedOwnerNewNotices":0,"decision":{"id":"01M6XPJZS79R3XKF3BS3PVBVC6","page_id":"01M6XPJZGJ2N6HQGJMDW57WZCR","workspace_id":"browser-workspace","question":"Keep the support rota?","options_json":"[\\"Keep rota\\",\\"Replace rota\\"]","outcome":"Keep rota","rationale":"The current rota covers each shift.","owner_member_id":"browser-owner","decided_at":"2026-11-08T13:46:56.682Z","review_at":"2000-02-01T00:00:00.000Z","overdue_notified_at":"2026-11-08T13:47:09.185Z","state":"superseded","accepted_snapshot_json":"{\\"operationKey\\":\\"d4f396f9-6b90-4341-ab19-641b27c01104\\",\\"pageId\\":\\"01M6XPJZGJ2N6HQGJMDW57WZCR\\",\\"question\\":\\"Keep the support rota?\\",\\"options\\":[\\"Keep rota\\",\\"Replace rota\\"],\\"outcome\\":\\"Keep rota\\",\\"rationale\\":\\"The current rota covers each shift.\\",\\"ownerId\\":\\"browser-owner\\",\\"decidedAt\\":\\"2026-11-08T13:46:56.682Z\\",\\"reviewAt\\":\\"2099-01-01T00:00:00.000Z\\",\\"citations\\":[],\\"acceptedBy\\":\\"browser-owner\\",\\"acceptedAt\\":\\"2026-11-08T13:46:56.682Z\\",\\"supersedesId\\":null}","superseded_by_decision_id":"01M6XPKE4EDEW44342VNC0NEQ2","created_at":"2026-11-08T13:46:55.633Z","updated_at":"2026-11-08T13:47:10.962Z","revision_id":"01M6XPKERXWMF50G32YZ9FNAC0","removed_at":null,"removed_by_member_id":null,"accepted_revision_id":"01M6XPK0TBM28G58T44ZME2JBX","content":{"operationKey":"d4f396f9-6b90-4341-ab19-641b27c01104","pageId":"01M6XPJZGJ2N6HQGJMDW57WZCR","question":"Keep the support rota?","options":["Keep rota","Replace rota"],"outcome":"Keep rota","rationale":"The current rota covers each shift.","ownerId":"browser-owner","decidedAt":"2026-11-08T13:46:56.682Z","reviewAt":"2099-01-01T00:00:00.000Z","citations":[],"acceptedBy":"browser-owner","acceptedAt":"2026-11-08T13:46:56.682Z","supersedesId":null},"viewedRevisionId":"01M6XPK0TBM28G58T44ZME2JBX","revision":{"id":"01M6XPK0TBM28G58T44ZME2JBX","kind":"decision-acceptance","actorId":"browser-owner","createdAt":"2026-11-08T13:46:56.682Z"},"acceptedRevisionId":"01M6XPK0TBM28G58T44ZME2JBX","acceptedRevisionHref":"/app/decisions/01M6XPJZS79R3XKF3BS3PVBVC6?revision=01M6XPK0TBM28G58T44ZME2JBX","citationsCurrent":true,"overdue":false},"reviews":[{"id":"01M6XPK8TF80573SH1MWBWN7XV","decision_id":"01M6XPJZS79R3XKF3BS3PVBVC6","note":"Reviewed the rota with all shift leads; retain it until the next review.","reviewed_by_member_id":"browser-reader","next_review_at":"2099-02-01T00:00:00.000Z","created_at":"2026-11-08T13:47:04.898Z"}],"todayAfterSupersession":[]}
+# Journey failure context {
+#   "rejected": [],
+#   "consoleErrors": [
+#     {
+#       "url": "http://127.0.0.1:33695/app/pages/01M6XP8314YHSYHGT6Q1JJQEWB",
+#       "message": "Failed to load resource: net::ERR_INTERNET_DISCONNECTED"
+#     }
+#   ]
+# }
+# Journey failure context REQUEST TIMELINE {
+#   "primary": {
+#     "requestsAtDump": [
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 0,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 0,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 0,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 0,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 1,
+#         "durationMs": 1,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 2,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6XP…WZCR/<id>",
+#         "startMs": 82,
+#         "durationMs": 17,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6XP…QN8G/<id>",
+#         "startMs": 82,
+#         "durationMs": 49,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6XP…8A2N/<id>",
+#         "startMs": 82,
+#         "durationMs": 53,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6XP…QXBT/<id>",
+#         "startMs": 83,
+#         "durationMs": 51,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6XP…94K2/<id>",
+#         "startMs": 84,
+#         "durationMs": 51,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6XP…EVBA/<id>",
+#         "startMs": 85,
+#         "durationMs": 50,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>",
+#         "startMs": 85,
+#         "durationMs": 78,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/01M6XP…BVC6",
+#         "startMs": 85,
+#         "durationMs": 94,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/members",
+#         "startMs": 85,
+#         "durationMs": 90,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/01M6XP…NEQ2",
+#         "startMs": 187,
+#         "durationMs": 12,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/01M6XP…BVC6/history",
+#         "startMs": 187,
+#         "durationMs": 50,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/members",
+#         "startMs": 188,
+#         "durationMs": 30,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/01M6XP…BVC6/<id>",
+#         "startMs": 189,
+#         "durationMs": 39,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/01M6XP…BVC6/history",
+#         "startMs": 189,
+#         "durationMs": 76,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/01M6XP…BVC6/<id>",
+#         "startMs": 190,
+#         "durationMs": 59,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/app",
+#         "startMs": 1860,
+#         "durationMs": 111,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 1962,
+#         "durationMs": 2,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 1964,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 1964,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 1964,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6XP…WZCR/<id>",
+#         "startMs": 2068,
+#         "durationMs": 11,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6XP…QN8G/<id>",
+#         "startMs": 2068,
+#         "durationMs": 74,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6XP…8A2N/<id>",
+#         "startMs": 2068,
+#         "durationMs": 76,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6XP…QXBT/<id>",
+#         "startMs": 2068,
+#         "durationMs": 76,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6XP…94K2/<id>",
+#         "startMs": 2068,
+#         "durationMs": 77,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6XP…EVBA/<id>",
+#         "startMs": 2069,
+#         "durationMs": 76,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/notifications/<id>",
+#         "startMs": 2070,
+#         "durationMs": 251,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>",
+#         "startMs": 2072,
+#         "durationMs": 278,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/navigation/<id>",
+#         "startMs": 2076,
+#         "durationMs": 346,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>",
+#         "startMs": 2076,
+#         "durationMs": 265,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/notifications",
+#         "startMs": 2929,
+#         "durationMs": 143,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/01M6XP…BVC6",
+#         "startMs": 3300,
+#         "durationMs": 16,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/01M6XP…BVC6/<id>",
+#         "startMs": 3321,
+#         "durationMs": 19,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/notifications/<id>",
+#         "startMs": 3343,
+#         "durationMs": 176,
+#         "status": 200
+#       }
+#     ]
+#   },
+#   "others": [
+#     {
+#       "requestsAtDump": [
+#         {
+#           "method": "POST",
+#           "path": "/api/<id>",
+#           "startMs": 0,
+#           "durationMs": 37,
+#           "status": 200
+#         },
+#         {
+#           "method": "POST",
+#           "path": "/api/<id>/01M6XP…BSMT/accept",
+#           "startMs": 40,
+#           "durationMs": 41,
+#           "status": 200
+#         },
+#         {
+#           "method": "GET",
+#           "path": "/api/notifications",
+#           "startMs": 108,
+#           "durationMs": 79,
+#           "status": 200
+#         },
+#         {
+#           "method": "GET",
+#           "path": "/api/<id>/01M6XP…BSMT",
+#           "startMs": 189,
+#           "durationMs": 10,
+#           "status": 404
+#         },
+#         {
+#           "method": "GET",
+#           "path": "/app/<id>/01M6XP…BVC6",
+#           "startMs": 5608,
+#           "durationMs": 113,
+#           "status": 200
+#         },
+#         {
+#           "method": "GET",
+#           "path": "/assets/<id>",
+#           "startMs": 5711,
+#           "durationMs": 7,
+#           "status": 200
+#         },
+#         {
+#           "method": "GET",
+#           "path": "/assets/<id>",
+#           "startMs": 5711,
+#           "durationMs": 34,
+#           "status": 200
+#         },
+#         {
+#           "method": "GET",
+#           "path": "/assets/<id>",
+#           "startMs": 5711,
+#           "durationMs": 36,
+#           "status": 200
+#         },
+#         {
+#           "method": "GET",
+#           "path": "/assets/<id>",
+#           "startMs": 5711,
+#           "durationMs": 84,
+#           "status": 200
+#         },
+#         {
+#           "method": "GET",
+#           "path": "/assets/<id>",
+#           "startMs": 5711,
+#           "durationMs": 34,
+#           "status": 200
+#         },
+#         {
+#           "method": "GET",
+#           "path": "/assets/<id>",
+#           "startMs": 5711,
+#           "durationMs": 83,
+#           "status": 200
+#         },
+#         {
+#           "method": "GET",
+#           "path": "/api/pages/01M6XP…EVBA/<id>",
+#           "startMs": 5966,
+#           "durationMs": 19,
+#           "status": 200
+#         },
+#         {
+#           "method": "GET",
+#           "path": "/api/pages/01M6XP…QN8G/<id>",
+#           "startMs": 5967,
+#           "durationMs": 51,
+#           "status": 200
+#         },
+#         {
+#           "method": "GET",
+#           "path": "/api/pages/01M6XP…QXBT/<id>",
+#           "startMs": 5967,
+#           "durationMs": 51,
+#           "status": 200
+#         },
+#         {
+#           "method": "GET",
+#           "path": "/api/pages/01M6XP…94K2/<id>",
+#           "startMs": 5967,
+#           "durationMs": 51,
+#           "status": 200
+#         },
+#         {
+#           "method": "GET",
+#           "path": "/api/<id>",
+#           "startMs": 5967,
+#           "durationMs": 91,
+#           "status": 200
+#         },
+#         {
+#           "method": "GET",
+#           "path": "/api/<id>/01M6XP…BVC6",
+#           "startMs": 5967,
+#           "durationMs": 58,
+#           "status": 200
+#         },
+#         {
+#           "method": "GET",
+#           "path": "/api/members",
+#           "startMs": 5967,
+#           "durationMs": 91,
+#           "status": 200
+#         },
+#         {
+#           "method": "GET",
+#           "path": "/api/<id>/01M6XP…BVC6/history",
+#           "startMs": 6055,
+#           "durationMs": 19,
+#           "status": 200
+#         },
+#         {
+#           "method": "GET",
+#           "path": "/api/members",
+#           "startMs": 6055,
+#           "durationMs": 33,
+#           "status": 200
+#         },
+#         {
+#           "method": "GET",
+#           "path": "/api/<id>/01M6XP…BVC6/<id>",
+#           "startMs": 6055,
+#           "durationMs": 38,
+#           "status": 200
+#         },
+#         {
+#           "method": "GET",
+#           "path": "/api/<id>/01M6XP…BVC6/history",
+#           "startMs": 6056,
+#           "durationMs": 64,
+#           "status": 200
+#         },
+#         {
+#           "method": "GET",
+#           "path": "/api/<id>/01M6XP…BVC6/<id>",
+#           "startMs": 6056,
+#           "durationMs": 87,
+#           "status": 200
+#         },
+#         {
+#           "method": "POST",
+#           "path": "/api/<id>/01M6XP…BVC6/<id>",
+#           "startMs": 6792,
+#           "durationMs": 27,
+#           "status": 200
+#         },
+#         {
+#           "method": "GET",
+#           "path": "/api/<id>/01M6XP…BVC6",
+#           "startMs": 6820,
+#           "durationMs": 26,
+#           "status": 200
+#         },
+#         {
+#           "method": "GET",
+#           "path": "/api/<id>/01M6XP…BVC6/history",
+#           "startMs": 6853,
+#           "durationMs": 168,
+#           "status": 200
+#         },
+#         {
+#           "method": "GET",
+#           "path": "/api/<id>/01M6XP…BVC6/<id>",
+#           "startMs": 6853,
+#           "durationMs": 167,
+#           "status": 200
+#         },
+#         {
+#           "method": "GET",
+#           "path": "/api/notifications",
+#           "startMs": 16293,
+#           "durationMs": 132,
+#           "status": 200
+#         },
+#         {
+#           "method": "GET",
+#           "path": "/api/notifications",
+#           "startMs": 16429,
+#           "durationMs": 81,
+#           "status": 200
+#         }
+#       ]
+#     }
+#   ]
+# }
+# Subtest: real core-wiki and touch-member journeys at 390px
+not ok 1 - real core-wiki and touch-member journeys at 390px
+  ---
+  duration_ms: 538364.795199
+  type: 'test'
+  location: '/workspace/run-slate-f204/tests/qualification/ui-convergence/journey-shard.mjs:23:97'
+  failureType: 'testCodeFailure'
+  error: |-
+    Step DEC-005 — overdue decision review and supersession failed: The browser must have no console errors or uncaught page errors.
+    + actual - expected
+    
+    + [
+    +   {
+    +     message: 'Failed to load resource: net::ERR_INTERNET_DISCONNECTED',
+    +     url: 'http://127.0.0.1:33695/app/pages/01M6XP8314YHSYHGT6Q1JJQEWB'
+    +   }
+    + ]
+    - []
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  actual:
+    0:
+      url: 'http://127.0.0.1:33695/app/pages/01M6XP8314YHSYHGT6Q1JJQEWB'
+      message: 'Failed to load resource: net::ERR_INTERNET_DISCONNECTED'
+  operator: 'deepStrictEqual'
+  stack: |-
+    Object.assertNoConsoleErrors (file:///workspace/run-slate-f204/tests/qualification/ui-convergence/browser-support.mjs:198:45)
+    decisionReviewJourney (file:///workspace/run-slate-f204/tests/qualification/ui-convergence/decision-review-journey.mjs:132:9)
+    async withSecondPerson (file:///workspace/run-slate-f204/tests/qualification/ui-convergence/two-people-support.mjs:48:5)
+    async step (file:///workspace/run-slate-f204/tests/qualification/ui-convergence/journeys.test.mjs:42:9)
+    async withWorkspace.scheduled (file:///workspace/run-slate-f204/tests/qualification/ui-convergence/journeys.test.mjs:108:11)
+    async withWorkspace (file:///workspace/run-slate-f204/tests/qualification/ui-convergence/browser-support.mjs:197:7)
+    async TestContext.<anonymous> (file:///workspace/run-slate-f204/tests/qualification/ui-convergence/journeys.test.mjs:87:5)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+# NAV-006 touch create, type, insert and drag persisted
+# BLOCK-012 columns insert, desktop drag and touch layout passed at 1440px
+# PROBE COMM-002 acceptance 1–2: native comment controls and HTTP at 1440px -> two authors edit/delete; cross-author and owner override 403; edited times, two in-place tombstones and six activities survive replay/reload
+# NAV-006 touch comment and resolve persisted
+# WEB-006 native unpublish response {"width":1440,"elapsedMs":685}
+# PROBE SHARE-002 full: selected reads, title, body, comment and direct grants; 0 refused requests preserve inventories at 1440px
+# PROBE SHARE-002 edit: selected reads, title, body, comment and direct grants; 2 refused requests preserve inventories at 1440px
+# PROBE SHARE-002 comment: selected reads, title, body, comment and direct grants; 4 refused requests preserve inventories at 1440px
+# PROBE SHARE-002 view: selected reads, title, body, comment and direct grants; 5 refused requests preserve inventories at 1440px
+# NAV-006 touch workspace publication and sharing persisted
+# PAGE-007 Details, replay and edit-only refusal passed at 1440px
+# NAV-006 touch Search, Inbox, My tasks, requested reviews and verification health passed
+# DEC-005_BROWSER_RECEIPT {"width":1440,"decisionId":"01M6XQ25YMT5ESWK5DZQAEMS72","ownerNoticeCounts":[0,1,2],"otherMemberNotices":0,"revokedOwnerNewNotices":0,"decision":{"id":"01M6XQ25YMT5ESWK5DZQAEMS72","page_id":"01M6XQ25N549MA6ARV3GWY0Q0V","workspace_id":"browser-workspace","question":"Keep the support rota?","options_json":"[\\"Keep rota\\",\\"Replace rota\\"]","outcome":"Keep rota","rationale":"The current rota covers each shift.","owner_member_id":"browser-owner","decided_at":"2026-11-08T13:55:14.735Z","review_at":"2000-02-01T00:00:00.000Z","overdue_notified_at":"2026-11-08T13:55:31.721Z","state":"superseded","accepted_snapshot_json":"{\\"operationKey\\":\\"c380e982-9816-4a6d-9a1c-d2cc5eb6d737\\",\\"pageId\\":\\"01M6XQ25N549MA6ARV3GWY0Q0V\\",\\"question\\":\\"Keep the support rota?\\",\\"options\\":[\\"Keep rota\\",\\"Replace rota\\"],\\"outcome\\":\\"Keep rota\\",\\"rationale\\":\\"The current rota covers each shift.\\",\\"ownerId\\":\\"browser-owner\\",\\"decidedAt\\":\\"2026-11-08T13:55:14.735Z\\",\\"reviewAt\\":\\"2099-01-01T00:00:00.000Z\\",\\"citations\\":[],\\"acceptedBy\\":\\"browser-owner\\",\\"acceptedAt\\":\\"2026-11-08T13:55:14.735Z\\",\\"supersedesId\\":null}","superseded_by_decision_id":"01M6XQ2SFSA6YP2WR1GA5NY748","created_at":"2026-11-08T13:55:13.465Z","updated_at":"2026-11-08T13:55:34.241Z","revision_id":"01M6XQ2T8BKSJ2XDPZP3CV8DZS","removed_at":null,"removed_by_member_id":null,"accepted_revision_id":"01M6XQ276TNG4A6BY7R5PZVWCR","content":{"operationKey":"c380e982-9816-4a6d-9a1c-d2cc5eb6d737","pageId":"01M6XQ25N549MA6ARV3GWY0Q0V","question":"Keep the support rota?","options":["Keep rota","Replace rota"],"outcome":"Keep rota","rationale":"The current rota covers each shift.","ownerId":"browser-owner","decidedAt":"2026-11-08T13:55:14.735Z","reviewAt":"2099-01-01T00:00:00.000Z","citations":[],"acceptedBy":"browser-owner","acceptedAt":"2026-11-08T13:55:14.735Z","supersedesId":null},"viewedRevisionId":"01M6XQ276TNG4A6BY7R5PZVWCR","revision":{"id":"01M6XQ276TNG4A6BY7R5PZVWCR","kind":"decision-acceptance","actorId":"browser-owner","createdAt":"2026-11-08T13:55:14.735Z"},"acceptedRevisionId":"01M6XQ276TNG4A6BY7R5PZVWCR","acceptedRevisionHref":"/app/decisions/01M6XQ25YMT5ESWK5DZQAEMS72?revision=01M6XQ276TNG4A6BY7R5PZVWCR","citationsCurrent":true,"overdue":false},"reviews":[{"id":"01M6XQ2HS9JXWMQGYEGBTKWW26","decision_id":"01M6XQ25YMT5ESWK5DZQAEMS72","note":"Reviewed the rota with all shift leads; retain it until the next review.","reviewed_by_member_id":"browser-reader","next_review_at":"2099-02-01T00:00:00.000Z","created_at":"2026-11-08T13:55:25.593Z"}],"todayAfterSupersession":[]}
+# Journey failure context {
+#   "rejected": [],
+#   "consoleErrors": [
+#     {
+#       "url": "http://127.0.0.1:45135/app/pages/01M6XPN0VS0GD7VF6AAR0VVHVG",
+#       "message": "Failed to load resource: net::ERR_INTERNET_DISCONNECTED"
+#     },
+#     {
+#       "url": "http://127.0.0.1:45135/app/pages/01M6XPN0VS0GD7VF6AAR0VVHVG",
+#       "message": "Failed to load resource: net::ERR_INTERNET_DISCONNECTED"
+#     }
+#   ]
+# }
+# Journey failure context REQUEST TIMELINE {
+#   "primary": {
+#     "requestsAtDump": [
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 0,
+#         "durationMs": 2,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 2,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 2,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 2,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 2,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6XQ…0Q0V/<id>",
+#         "startMs": 108,
+#         "durationMs": 31,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6XP…J1S5/<id>",
+#         "startMs": 108,
+#         "durationMs": 77,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6XP…005X/<id>",
+#         "startMs": 108,
+#         "durationMs": 77,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6XP…PPA0/<id>",
+#         "startMs": 109,
+#         "durationMs": 77,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6XP…55TD/<id>",
+#         "startMs": 109,
+#         "durationMs": 77,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>",
+#         "startMs": 110,
+#         "durationMs": 100,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/01M6XQ…MS72",
+#         "startMs": 110,
+#         "durationMs": 118,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/members",
+#         "startMs": 111,
+#         "durationMs": 113,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/01M6XQ…Y748",
+#         "startMs": 238,
+#         "durationMs": 13,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/01M6XQ…MS72/history",
+#         "startMs": 238,
+#         "durationMs": 56,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/members",
+#         "startMs": 238,
+#         "durationMs": 38,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/01M6XQ…MS72/<id>",
+#         "startMs": 239,
+#         "durationMs": 48,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/01M6XQ…MS72/history",
+#         "startMs": 239,
+#         "durationMs": 91,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/01M6XQ…MS72/<id>",
+#         "startMs": 240,
+#         "durationMs": 68,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/01M6XQ…MS72",
+#         "startMs": 878,
+#         "durationMs": 18,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/notifications/<id>",
+#         "startMs": 900,
+#         "durationMs": 197,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/notifications",
+#         "startMs": 2721,
+#         "durationMs": 132,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/app",
+#         "startMs": 2862,
+#         "durationMs": 98,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 2955,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 2955,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 2955,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 2955,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6XQ…0Q0V/<id>",
+#         "startMs": 3046,
+#         "durationMs": 31,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6XP…J1S5/<id>",
+#         "startMs": 3046,
+#         "durationMs": 89,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6XP…005X/<id>",
+#         "startMs": 3046,
+#         "durationMs": 90,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6XP…PPA0/<id>",
+#         "startMs": 3049,
+#         "durationMs": 90,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6XP…55TD/<id>",
+#         "startMs": 3049,
+#         "durationMs": 89,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/notifications/<id>",
+#         "startMs": 3049,
+#         "durationMs": 240,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>",
+#         "startMs": 3050,
+#         "durationMs": 291,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/navigation/<id>",
+#         "startMs": 3050,
+#         "durationMs": 365,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>",
+#         "startMs": 3051,
+#         "durationMs": 283,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/notifications",
+#         "startMs": 3966,
+#         "durationMs": 151,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/01M6XQ…MS72",
+#         "startMs": 4303,
+#         "durationMs": 20,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/01M6XQ…MS72/<id>",
+#         "startMs": 4327,
+#         "durationMs": 21,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/notifications/<id>",
+#         "startMs": 4356,
+#         "durationMs": 173,
+#         "status": 200
+#       }
+#     ]
+#   },
+#   "others": [
+#     {
+#       "requestsAtDump": [
+#         {
+#           "method": "POST",
+#           "path": "/api/<id>",
+#           "startMs": 0,
+#           "durationMs": 37,
+#           "status": 200
+#         },
+#         {
+#           "method": "POST",
+#           "path": "/api/<id>/01M6XQ…J13B/accept",
+#           "startMs": 41,
+#           "durationMs": 42,
+#           "status": 200
+#         },
+#         {
+#           "method": "GET",
+#           "path": "/api/notifications",
+#           "startMs": 115,
+#           "durationMs": 84,
+#           "status": 200
+#         },
+#         {
+#           "method": "GET",
+#           "path": "/api/<id>/01M6XQ…J13B",
+#           "startMs": 202,
+#           "durationMs": 11,
+#           "status": 404
+#         },
+#         {
+#           "method": "GET",
+#           "path": "/api/notifications",
+#           "startMs": 1516,
+#           "durationMs": 97,
+#           "status": 200
+#         },
+#         {
+#           "method": "GET",
+#           "path": "/api/notifications",
+#           "startMs": 1616,
+#           "durationMs": 91,
+#           "status": 200
+#         },
+#         {
+#           "method": "GET",
+#           "path": "/app/<id>/01M6XQ…MS72",
+#           "startMs": 7729,
+#           "durationMs": 128,
+#           "status": 200
+#         },
+#         {
+#           "method": "GET",
+#           "path": "/assets/<id>",
+#           "startMs": 7848,
+#           "durationMs": 10,
+#           "status": 200
+#         },
+#         {
+#           "method": "GET",
+#           "path": "/assets/<id>",
+#           "startMs": 7848,
+#           "durationMs": 23,
+#           "status": 200
+#         },
+#         {
+#           "method": "GET",
+#           "path": "/assets/<id>",
+#           "startMs": 7848,
+#           "durationMs": 99,
+#           "status": 200
+#         },
+#         {
+#           "method": "GET",
+#           "path": "/assets/<id>",
+#           "startMs": 7848,
+#           "durationMs": 103,
+#           "status": 200
+#         },
+#         {
+#           "method": "GET",
+#           "path": "/assets/<id>",
+#           "startMs": 7848,
+#           "durationMs": 99,
+#           "status": 200
+#         },
+#         {
+#           "method": "GET",
+#           "path": "/assets/<id>",
+#           "startMs": 7848,
+#           "durationMs": 99,
+#           "status": 200
+#         },
+#         {
+#           "method": "GET",
+#           "path": "/api/pages/01M6XP…55TD/<id>",
+#           "startMs": 8104,
+#           "durationMs": 17,
+#           "status": 200
+#         },
+#         {
+#           "method": "GET",
+#           "path": "/api/pages/01M6XP…005X/<id>",
+#           "startMs": 8105,
+#           "durationMs": 74,
+#           "status": 200
+#         },
+#         {
+#           "method": "GET",
+#           "path": "/api/pages/01M6XP…PPA0/<id>",
+#           "startMs": 8105,
+#           "durationMs": 75,
+#           "status": 200
+#         },
+#         {
+#           "method": "GET",
+#           "path": "/api/<id>",
+#           "startMs": 8105,
+#           "durationMs": 122,
+#           "status": 200
+#         },
+#         {
+#           "method": "GET",
+#           "path": "/api/<id>/01M6XQ…MS72",
+#           "startMs": 8105,
+#           "durationMs": 87,
+#           "status": 200
+#         },
+#         {
+#           "method": "GET",
+#           "path": "/api/members",
+#           "startMs": 8105,
+#           "durationMs": 71,
+#           "status": 200
+#         },
+#         {
+#           "method": "GET",
+#           "path": "/api/<id>/01M6XQ…MS72/history",
+#           "startMs": 8226,
+#           "durationMs": 32,
+#           "status": 200
+#         },
+#         {
+#           "method": "GET",
+#           "path": "/api/members",
+#           "startMs": 8226,
+#           "durationMs": 14,
+#           "status": 200
+#         },
+#         {
+#           "method": "GET",
+#           "path": "/api/<id>/01M6XQ…MS72/<id>",
+#           "startMs": 8226,
+#           "durationMs": 66,
+#           "status": 200
+#         },
+#         {
+#           "method": "GET",
+#           "path": "/api/<id>/01M6XQ…MS72/history",
+#           "startMs": 8226,
+#           "durationMs": 67,
+#           "status": 200
+#         },
+#         {
+#           "method": "GET",
+#           "path": "/api/<id>/01M6XQ…MS72/<id>",
+#           "startMs": 8226,
+#           "durationMs": 89,
+#           "status": 200
+#         },
+#         {
+#           "method": "POST",
+#           "path": "/api/<id>/01M6XQ…MS72/<id>",
+#           "startMs": 8957,
+#           "durationMs": 31,
+#           "status": 200
+#         },
+#         {
+#           "method": "GET",
+#           "path": "/api/<id>/01M6XQ…MS72",
+#           "startMs": 8993,
+#           "durationMs": 20,
+#           "status": 200
+#         },
+#         {
+#           "method": "GET",
+#           "path": "/api/<id>/01M6XQ…MS72/history",
+#           "startMs": 9018,
+#           "durationMs": 156,
+#           "status": 200
+#         },
+#         {
+#           "method": "GET",
+#           "path": "/api/<id>/01M6XQ…MS72/<id>",
+#           "startMs": 9020,
+#           "durationMs": 127,
+#           "status": 200
+#         },
+#         {
+#           "method": "GET",
+#           "path": "/api/notifications",
+#           "startMs": 15431,
+#           "durationMs": 90,
+#           "status": 200
+#         },
+#         {
+#           "method": "GET",
+#           "path": "/api/notifications",
+#           "startMs": 21966,
+#           "durationMs": 94,
+#           "status": 200
+#         },
+#         {
+#           "method": "GET",
+#           "path": "/api/notifications",
+#           "startMs": 22064,
+#           "durationMs": 79,
+#           "status": 200
+#         }
+#       ]
+#     }
+#   ]
+# }
+# Subtest: real core-wiki and touch-member journeys at 1440px
+not ok 2 - real core-wiki and touch-member journeys at 1440px
+  ---
+  duration_ms: 504839.297527
+  type: 'test'
+  location: '/workspace/run-slate-f204/tests/qualification/ui-convergence/journey-shard.mjs:23:97'
+  failureType: 'testCodeFailure'
+  error: |-
+    Step DEC-005 — overdue decision review and supersession failed: The browser must have no console errors or uncaught page errors.
+    + actual - expected
+    
+    + [
+    +   {
+    +     message: 'Failed to load resource: net::ERR_INTERNET_DISCONNECTED',
+    +     url: 'http://127.0.0.1:45135/app/pages/01M6XPN0VS0GD7VF6AAR0VVHVG'
+    +   },
+    +   {
+    +     message: 'Failed to load resource: net::ERR_INTERNET_DISCONNECTED',
+    +     url: 'http://127.0.0.1:45135/app/pages/01M6XPN0VS0GD7VF6AAR0VVHVG'
+    +   }
+    + ]
+    - []
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  actual:
+    0:
+      url: 'http://127.0.0.1:45135/app/pages/01M6XPN0VS0GD7VF6AAR0VVHVG'
+      message: 'Failed to load resource: net::ERR_INTERNET_DISCONNECTED'
+    1:
+      url: 'http://127.0.0.1:45135/app/pages/01M6XPN0VS0GD7VF6AAR0VVHVG'
+      message: 'Failed to load resource: net::ERR_INTERNET_DISCONNECTED'
+  operator: 'deepStrictEqual'
+  stack: |-
+    Object.assertNoConsoleErrors (file:///workspace/run-slate-f204/tests/qualification/ui-convergence/browser-support.mjs:198:45)
+    decisionReviewJourney (file:///workspace/run-slate-f204/tests/qualification/ui-convergence/decision-review-journey.mjs:132:9)
+    async withSecondPerson (file:///workspace/run-slate-f204/tests/qualification/ui-convergence/two-people-support.mjs:48:5)
+    async step (file:///workspace/run-slate-f204/tests/qualification/ui-convergence/journeys.test.mjs:42:9)
+    async withWorkspace.scheduled (file:///workspace/run-slate-f204/tests/qualification/ui-convergence/journeys.test.mjs:108:11)
+    async withWorkspace (file:///workspace/run-slate-f204/tests/qualification/ui-convergence/browser-support.mjs:197:7)
+    async TestContext.<anonymous> (file:///workspace/run-slate-f204/tests/qualification/ui-convergence/journeys.test.mjs:87:5)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: flagship no-provider Ask retains a page-scoped draft at 1440px
+ok 3 - flagship no-provider Ask retains a page-scoped draft at 1440px
+  ---
+  duration_ms: 52668.477337
+  type: 'test'
+  ...
+1..3
+# tests 3
+# suites 0
+# pass 1
+# fail 2
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1118486.399829

@@ -1,0 +1,46 @@
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mProxy environment variables detected. We'll use your proxy for fetch requests.[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mProxy environment variables detected. We'll use your proxy for fetch requests.[0m
+
+
+
+ RUN  v4.1.11 /workspace/run-slate-f204
+
+stderr | tests/profile/profile.worker.test.ts > FLAG-001 — core wiki public doors retain native content while flagship routes and queued work require opt-in
+Import operation failed: This page is locked. Unlock it before editing.
+
+ ❯ tests/profile/profile.worker.test.ts (4 tests | 1 failed | 3 skipped) 3839ms
+   × FLAG-001 — core wiki public doors retain native content while flagship routes and queued work require opt-in 3837ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/profile/profile.worker.test.ts > FLAG-001 — core wiki public doors retain native content while flagship routes and queued work require opt-in
+Error: Case DEC-005 — default scheduled processing notifies the overdue owner once per review period and respects revoked access failed
+ ❯ tests/profile/profile.worker.test.ts:160:27
+    158|   await resetDeployment();
+    159| })(); await scenario.run(); }
+    160|     catch (cause) { throw new Error(`Case ${scenario.name} failed`, { …
+       |                           ^
+    161|     finally { await (() => vi.useRealTimers())(); }
+    162|   }
+
+Caused by: AssertionError: expected +0 to be 1 // Object.is equality
+
+- Expected
++ Received
+
+- 1
++ 0
+
+ ❯ Object.run tests/profile/profile.worker.test.ts:115:44
+ ❯ tests/profile/profile.worker.test.ts:159:7
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 3 skipped (4)
+   Start at  13:25:45
+   Duration  21.12s (transform 8.40s, setup 785ms, import 15.66s, tests 3.84s, environment 0ms)
+
