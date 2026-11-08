@@ -33,7 +33,8 @@
   "SAML sign-in verifies the domain and signatures while preserving guest and designated-owner access at 1440px": 4,
   "BLOCK-010 — native content queries retain criteria and current-reader results at 390px": 1,
   "BLOCK-010 — native content queries retain criteria and current-reader results at 1440px": 2,
-  "native ordinary page full authority retains inventories and refuses revoked captures at 1440px": 6,
+  "native ordinary page full authority retains inventories and refuses revoked captures for page changes at 1440px": 6,
+  "native ordinary page full authority retains inventories and refuses revoked captures for discussion and sharing at 1440px": 6,
   "native ordinary page edit authority retains inventories and refuses revoked captures at 1440px": 5,
   "native ordinary page comment authority retains inventories and refuses revoked captures at 1440px": 7,
   "native ordinary page view authority retains inventories and refuses revoked captures at 1440px": 3
