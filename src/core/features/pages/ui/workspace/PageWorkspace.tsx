@@ -30,6 +30,7 @@ import { usePageEditor } from "../../../../client/usePageEditor";
 import { RequestState } from "../../../../app/ui/RequestState";
 import { PageEditorBody } from "./PageEditorBody";
 import { PageDetails, panelTitles } from "./PageDetails";
+import type { Decision } from "../../../decisions/ui/PageDecisions";
 import { PageMoreMenu } from "./PageMoreMenu";
 import { PageTopBar } from "./PageTopBar";
 import { useNewPageArrival,newPageArrivalScript } from "./useNewPageArrival";
@@ -118,6 +119,8 @@ function LoadedPage({
   const navigate = useNavigate();
   const search = useLocation({select:location=>location.searchStr});
   const flagship = useFlagshipEnabled();
+  const decisions = useResource<{items:Decision[]}>(`/api/decisions?pageId=${encodeURIComponent(document.page.id)}`);
+  const decision = decisions.data?.items[0];
   const trail = usePageTrail(document, host?.trail);
   const titleWrite = useRef<Promise<void> | null>(null);
   const editor = usePageEditor(document, invalidateRead, () => titleWrite.current);
@@ -322,6 +325,8 @@ function LoadedPage({
           unsaved={editor.hasUnsavedChanges || titleSaving || title !== savedTitle}
           revision={editor.revision}
           flagship={flagship}
+          decision={decision}
+          decisionUnavailable={!decisions.data || !!decisions.error}
           extraItems={host?.moreItems}
           reload={reload}
           onPresent={() => {setPresent(true);setDetail(null);}}
@@ -377,6 +382,9 @@ function LoadedPage({
           {newPage && document.permissions.canEdit ? <script dangerouslySetInnerHTML={{__html:newPageArrivalScript}}/> : null}
           </div>
           {host?.database ? null : <PageReadMetadata document={document} />}
+          <RequestState loading={decisions.loading} error={decisions.error} retry={decisions.reload}>
+            {decision ? <p className="page-notice" data-page-decision>Decision record: <a href={`/app/decisions/${decision.id}`}>{decision.question}</a> · {decision.state}</p> : null}
+          </RequestState>
           {recovered.current && title!==savedTitle ? <SaveStatus state="unsaved" recoveredDraft onRetry={()=>void saveTitle()}/> : null}
           {titleFailure ? <SaveStatus state="failed" failureMessage={titleFailure} onRetry={() => void saveTitle()} /> : null}
           {host?.properties}

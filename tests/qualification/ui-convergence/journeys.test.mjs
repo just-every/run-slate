@@ -1,3 +1,4 @@
+import {decisionLayerJourney} from './decision-layer-journey.mjs';
 import {automationRunLogJourney} from "./automation-run-log-journey.mjs";
 import {contentQueryJourney} from './content-query-journey.mjs';
 import {publicProfileJourney} from './public-profile-journey.mjs';
@@ -85,6 +86,7 @@ for (const width of [390, 1440]) {
   test(`real core-wiki and touch-member journeys at ${width}px`, { timeout: width === 390 ? 780000 : 720000 }, async () => {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
+      await withSecondPerson(state,width,people=>step('DEC-001 populated decision layer and page invariance',()=>decisionLayerJourney(state,people)));
       if(width===390)await transferJobsJourney(state);
       const refused = await state.context.request.get(state.origin + '/api/ai/availability');
       assert.equal(refused.status(), 403);

@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "c57fc1007b3c71dfc1d163f45d74a7e3a1593fc035f231a2e836787d3d325515",
+      "sha256": "c5f934b93251348918018b17ccf6d0f4966178a6f4efced2283e22a0f39d7067",
       "executable": false
     },
     "DEMO.md": {
@@ -6536,7 +6536,7 @@
       "executable": false
     },
     "src/core/features/decisions/records.ts": {
-      "sha256": "71c3f757c7b7074be60db4c487fd4ab754fe0020d59a74797d334486d2bae340",
+      "sha256": "59926669e339c59e1239ca25c07b524e85b59b8225fdcd20101b91d4fb35b422",
       "executable": false
     },
     "src/core/features/decisions/routes.ts": {
@@ -6548,7 +6548,7 @@
       "executable": false
     },
     "src/core/features/decisions/service.ts": {
-      "sha256": "36b6f8243729d6aa82435411f8276f2f36f895b37899db8862409f30a65cf9c3",
+      "sha256": "7aea085bfe937498b3f2577031ab53f585a1b1a901f9e976303d6557b401f4d4",
       "executable": false
     },
     "src/core/features/decisions/successor.ts": {
@@ -6560,7 +6560,7 @@
       "executable": false
     },
     "src/core/features/decisions/ui/CreateDecisionDialog.tsx": {
-      "sha256": "c69cb74a1cf634a044586adec5868d38ded3593999ad83e6b23a71408dd3f753",
+      "sha256": "d6010780c4fe16a4336dcf0d84a2b098755c1047b7d7570149e1aef1c53f1fea",
       "executable": false
     },
     "src/core/features/decisions/ui/DecisionFields.tsx": {
@@ -8416,7 +8416,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageActionDialogs.tsx": {
-      "sha256": "938d01269601c5e6816a7f6a3e4d2bfaa213d3d4ca20c6332c53a84bd58f4ca3",
+      "sha256": "79284fd3f9cfa70b310aadc578a7eff06fdf60ead131fcd18855f7d1a5ca1b5d",
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageAppearance.tsx": {
@@ -8456,7 +8456,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageMoreMenu.tsx": {
-      "sha256": "28230ff34358c582b0eb08dee0401b194f7e6397928d3c37f926da453b707719",
+      "sha256": "2cf0b4a4bf80c5dfda99dede28820044dafcc87f40e55e480316257019ad512c",
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PagePresentation.tsx": {
@@ -8488,7 +8488,7 @@
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PageWorkspace.tsx": {
-      "sha256": "dee0954888f5c4d2fa0016c43ae70d8be9f4841bc74cca0ca51644722dd32ef2",
+      "sha256": "2d050cac48ab903f8e864c494b11ad8e3ed6202cea144e4c758656d2326d9de6",
       "executable": false
     },
     "src/core/features/pages/ui/workspace/PublicationReviewPanel.tsx": {
@@ -11484,7 +11484,7 @@
       "executable": false
     },
     "tests/profile/profile.worker.test.ts": {
-      "sha256": "ffcfa78c6d8c40a4bae2b3366fb1289661246edc4da9816080bf0a838a62489a",
+      "sha256": "d740804938a624588fbdf826b999c3944675a0baffb336f2907efefadf515b98",
       "executable": false
     },
     "tests/profile/vitest.config.ts": {
@@ -11963,6 +11963,10 @@
       "sha256": "2c637f6d1fa5389f933adf87c791944e8de436d60b4348cd96fda62edee321d0",
       "executable": false
     },
+    "tests/qualification/ui-convergence/decision-layer-journey.mjs": {
+      "sha256": "c096713d4f9159cbe428906cad8d415ad2d97b0a8801a13e25702dcdaac8dbd9",
+      "executable": false
+    },
     "tests/qualification/ui-convergence/developer-access-journey.mjs": {
       "sha256": "79d2626b424679dc294dddc2bb38114c3df560dfcb4a85aeabc4dd684f4debab",
       "executable": false
@@ -12144,7 +12148,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
-      "sha256": "1c7178f445267d83fc1f615d295dfb253e74cf9b95a2f6744cabba025fea3d17",
+      "sha256": "9fbfd16c0885eef6596e921bdfe0220e2a10b01dc5bc5e75403faa2716f7f29b",
       "executable": false
     },
     "tests/qualification/ui-convergence/link-access-journey.mjs": {
@@ -12456,11 +12460,11 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "e0c3e2355ca049ea3d48e9c55b22d421f2b10a91ac6e7da3c5ef2a37b97ea180",
+      "sha256": "eba6efcd3952ca216c3bfd60d2312bfaf4321c84d7e27b8a03bc4336edcc095d",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
-      "sha256": "1c5354824258d787c2a65e4fc10f9be60b73a1d9b9901d8959ee14adc52a9c5f",
+      "sha256": "df3b35a28aa751bcb79f03162452e9636d7d5e53b7a5f4f09222fa25722b9e73",
       "executable": false
     },
     "tests/requirements/count-registrations.mjs": {

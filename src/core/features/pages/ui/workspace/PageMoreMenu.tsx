@@ -34,6 +34,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSepara
 import { PageActionDialogs, type PageDialog } from "./PageActionDialogs";
 import { usePageFollowing } from "./usePageFollowing";
 import { errorMessage } from "../../../../client/transport";
+import type { Decision } from "../../../decisions/ui/PageDecisions";
 import { ReminderDialog } from '../../../editor/ui/blocks/ReminderDialog';
 
 /** A trailing mark on items that open a dialog or a panel; it is not part of the item's name. */
@@ -49,6 +50,8 @@ export function PageMoreMenu({
   revision,
   flagship,
   extraItems,
+  decision,
+  decisionUnavailable,
   reload,
   onPresent,
   onOpenPanel,
@@ -58,6 +61,8 @@ export function PageMoreMenu({
   unsaved: boolean;
   revision: string;
   flagship: boolean;
+  decision?: Decision;
+  decisionUnavailable: boolean;
   /** Items a host adds to the menu, after Export page. */
   extraItems?: ReactNode;
   reload: () => void;
@@ -173,12 +178,13 @@ export function PageMoreMenu({
             <span>{document.lock ? "Unlock page" : "Lock page"}</span>
           </DropdownMenuItem> : null}
           {document.permissions.canUnlock && !document.lock && unsaved ? <p className="page-more-note">Save or resolve your current edits before locking.</p> : null}
+          {decision ? item(<Scale aria-hidden="true" />, "Open decision record", open(() => window.location.assign(`/app/decisions/${decision.id}`)), false) : null}
           {canEdit ? (
             <>
               {item(<SmilePlus aria-hidden="true" />, props?.icon ? "Change icon" : "Add icon", dialogItem("icon"))}
               {item(<ImagePlus aria-hidden="true" />, hasCover ? "Change cover" : "Add cover", dialogItem("cover"))}
               {item(<Palette aria-hidden="true" />, "Display settings", panel("display"))}
-              {item(<Scale aria-hidden="true" />, "Add decision record", dialogItem("decision"))}
+              {!decision ? <DropdownMenuItem disabled={decisionUnavailable} onSelect={dialogItem("decision")}><Scale aria-hidden="true" /><span>Add decision record{opens}</span></DropdownMenuItem> : null}
               {item(<FolderInput aria-hidden="true" />, "Move page", dialogItem("move"))}
             </>
           ) : null}

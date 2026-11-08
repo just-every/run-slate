@@ -2049,7 +2049,7 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 #### DEC-001 — A decision is a layer over a page
 
-**Requirement.** A page can carry one decision record: a question, the options considered, an outcome, a rationale, an owner, a decided date, an optional review date, and citations to page revisions (`REV-005`).
+**Requirement.** A page can carry one decision record: a question, the options considered, an outcome, a rationale, an owner, a decided date, an optional review date, and citations to page revisions (`REV-005`). The default core-wiki page links to its current layer for authorized readers. An existing active layer explicitly refuses another creation; removal leaves its retained history accessible only under current page access and permits a new layer.
 
 **Acceptance.**
 1. The page stays a page: its body, comments, grants, versions and links are unchanged, and removing the decision record leaves the page intact.

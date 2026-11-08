@@ -8,6 +8,10 @@ const date=z.iso.datetime().nullable();
 export const decisionSchema=z.object({operationKey:z.string(),pageId:z.string(),id:z.string().optional(),expectedRevisionId:z.string().optional(),question:z.string().trim().min(1),options:z.array(z.string().trim().min(1)).min(1),outcome:z.string(),rationale:z.string(),ownerId:z.string(),decidedAt:date,reviewAt:date,citations:z.array(evidenceSchema),supersedesId:z.string().optional()}).strict();
 export interface DecisionRow {id:string;page_id:string;workspace_id:string;question:string;options_json:string;outcome:string|null;rationale:string|null;owner_member_id:string;decided_at:string|null;review_at:string|null;state:string;accepted_snapshot_json:string|null;superseded_by_decision_id:string|null;revision_id:string;removed_at:string|null;removed_by_member_id:string|null;accepted_revision_id:string|null}
 export async function decisionRow(ctx:FeatureContext,decisionId:string){const row=await ctx.db.prepare('SELECT * FROM knowledge_decisions WHERE id=? AND workspace_id=?').bind(decisionId,ctx.actor.workspaceId).first<DecisionRow>();if(!row)throw new ApiProblem(404,'NOT_FOUND','Not found.');await requirePageLevel(ctx,row.page_id,'view');return row;}
+export async function activeDecisionForPage(ctx:FeatureContext,pageId:string){
+ await requirePageLevel(ctx,pageId,'view');
+ return ctx.db.prepare('SELECT id FROM knowledge_decisions WHERE workspace_id=? AND page_id=? AND removed_at IS NULL').bind(ctx.actor.workspaceId,pageId).first<{id:string}>();
+}
 export function requireAttached(row:DecisionRow){if(row.removed_at)throw new ApiProblem(409,'REMOVED_DECISION','This decision layer was removed. Its history is retained.');}
 export async function getDecision(ctx:FeatureContext,decisionId:string,revisionId?:string){
  const row=await decisionRow(ctx,decisionId);

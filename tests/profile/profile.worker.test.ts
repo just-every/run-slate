@@ -83,6 +83,47 @@ it("FLAG-001 — core wiki public doors retain native content while flagship rou
   await bodyBlocksJourney(api,containerId,cookie);
   await pageLockJourney(api,containerId,workspaceId,cookie);
 } },
+    { name: 'DEC-001 — native decision layers preserve populated pages and refuse inaccessible reads and duplicate creation', run: async () => {
+  const {cookie,workspaceId}=await workspace(),api=createApi();
+  const editor=await seedMember(workspaceId,{role:'member',displayName:'Decision editor',email:[crypto.randomUUID(),'test.invalid'].join('@')}),editorCookie=await sessionFor(editor.memberId);
+  const request=(path:string,method='GET',body?:unknown,as=cookie)=>api.request('https://slate.example'+path,{method,headers:{cookie:as,...(body?{'content-type':'application/json'}:{})},...(body?{body:JSON.stringify(body)}:{})},env);
+  const read=async(path:string,as=cookie)=>{const r=await request(path,'GET',undefined,as);expect(r.status,await r.clone().text()).toBe(200);return r.json<any>();};
+  const receipts:unknown[]=[];
+  const command=async(path:string,body:Record<string,unknown>,as=cookie,method='POST')=>{const r=await request(path,method,{operationKey:crypto.randomUUID(),...body},as);expect(r.status,await r.clone().text()).toBe(200);const result=await r.json<any>();receipts.push(result.receipt);return result;};
+  const space=(await command('/api/containers',{name:'Decision records',visibility:'private'})).value;
+  const create=async(title:string,blocks:unknown[]=[]) => (await command('/api/pages',{containerId:space.id,title,blocks})).value.pageId as string;
+  const target=await create('Linked procedure'),blockId=crypto.randomUUID();
+  const pageId=await create('Decision source',[{id:blockId,blockType:'paragraph',treePosition:'a',content:{text:[{text:'Retained operational body. '},{text:'Linked procedure',link:{href:`https://slate.example/app/pages/${target}`}}]}}]);
+  const inbound=await create('Inbound reference',[{id:crypto.randomUUID(),blockType:'paragraph',treePosition:'a',content:{text:[{text:'Decision source',link:{href:`https://slate.example/app/pages/${pageId}`}}]}}]);
+  await command(`/api/pages/${pageId}` ,{expectedRevisionId:(await read(`/api/pages/${pageId}`)).page.revisionId,properties:{title:'Decision source revised'}},cookie,'PATCH');
+  const grant=(await command('/api/sharing',{targetKind:'page',targetId:pageId,principalKind:'member',principalId:editor.memberId,level:'edit'})).value;
+  await command('/api/sharing',{targetKind:'page',targetId:target,principalKind:'member',principalId:editor.memberId,level:'view'});
+  await command(`/api/comments/page/${pageId}`,{body:[{text:'Keep this independent discussion.'}]},editorCookie);
+  const snapshot=async()=>{const revisions=await read(`/api/revisions/${pageId}`);return {document:await read(`/api/pages/${pageId}`),comments:await read(`/api/comments/page/${pageId}`),grants:await read(`/api/sharing/pages/${pageId}`),revisions,exact:await Promise.all(revisions.items.map((item:any)=>read(`/api/revisions/${pageId}/${item.id}`))),backlinks:(await read(`/api/pages/${pageId}/details`)).linkedFrom,inbound:await read(`/api/pages/${inbound}`),outbound:await read(`/api/pages/${target}`)};};
+  const before=await snapshot();expect(before.document.blocks.length).toBeGreaterThan(0);expect(before.comments.threads.length).toBe(1);expect(before.revisions.items.length).toBeGreaterThan(1);expect(JSON.stringify(before.backlinks)).toContain(inbound);
+  const input={pageId,question:'Which procedure should we use?',options:['First','Second'],outcome:'First',rationale:'Preserve the known recovery path.',ownerId:editor.memberId,decidedAt:'2026-10-18T00:00:00.000Z',reviewAt:'2099-01-01T00:00:00.000Z',citations:[{kind:'page',sourceId:pageId,revisionId:before.document.workingRevisionId}]};
+  const key=crypto.randomUUID(),createdResponse=await request('/api/decisions','POST',{operationKey:key,...input},editorCookie);expect(createdResponse.status).toBe(200);const created=await createdResponse.json<any>();receipts.push(created.receipt);
+  expect(await (await request('/api/decisions','POST',{operationKey:key,...input},editorCookie)).json()).toEqual(created);
+  const id=created.value.id;expect(await snapshot()).toEqual(before);
+  expect((await read(`/api/decisions/${id}`,editorCookie)).content).toMatchObject(input);
+  const duplicateBefore=await read(`/api/decisions/${id}/history`,editorCookie),activityBefore=await read('/api/activity?action=decisions.save');
+  const duplicate=await request('/api/decisions','POST',{operationKey:crypto.randomUUID(),...input},editorCookie);expect(duplicate.status).toBe(409);expect(await duplicate.json()).toMatchObject({code:'PAGE_DECISION_EXISTS'});
+  expect(await read(`/api/decisions/${id}/history`,editorCookie)).toEqual(duplicateBefore);expect(await read('/api/activity?action=decisions.save')).toEqual(activityBefore);expect(await snapshot()).toEqual(before);
+  const edited=await command('/api/decisions',{...input,id,expectedRevisionId:created.value.revisionId,outcome:'Second',rationale:'Review selected the second procedure.'},editorCookie);expect(await snapshot()).toEqual(before);
+  expect((await read(`/api/decisions/${id}`,editorCookie)).content.outcome).toBe('Second');
+  const accepted=await command(`/api/decisions/${id}/accept`,{expectedRevisionId:edited.value.revisionId},editorCookie);expect(await snapshot()).toEqual(before);
+  const removed=await command(`/api/decisions/${id}/remove`,{expectedRevisionId:accepted.value.revisionId},editorCookie);expect(removed.value.removed).toBe(true);expect(await snapshot()).toEqual(before);
+  expect((await read('/api/decisions',editorCookie)).items.some((item:any)=>item.id===id)).toBe(false);
+  const history=await read(`/api/decisions/${id}/history`,editorCookie);expect(history.items.map((item:any)=>item.entity_kind)).toContain('decision-removal');expect(history.items.length).toBe(4);
+  expect((await read(`/api/decisions/${id}?revision=${created.value.revisionId}`,editorCookie)).content.outcome).toBe('First');
+  const replacement=await command('/api/decisions',{...input,question:'Which procedure next?'},editorCookie);expect(replacement.value.id).not.toBe(id);expect(await snapshot()).toEqual(before);
+  await command('/api/sharing',{targetKind:'page',targetId:pageId,id:grant.id,principalKind:'member',principalId:editor.memberId,level:'edit',revoke:true},cookie);
+  for(const path of [`/api/pages/${pageId}`,`/api/decisions/${id}`,`/api/decisions/${id}/history`,`/api/decisions/${id}/reviews`,`/api/decisions/${id}?revision=${created.value.revisionId}`,`/api/decisions/${replacement.value.id}`])expect((await request(path,'GET',undefined,editorCookie)).status).toBe(404);
+  expect((await read(`/api/decisions?pageId=${pageId}`,editorCookie)).items).toEqual([]);
+  expect((await request('/api/decisions','POST',{operationKey:key,...input},editorCookie)).status).toBe(404);
+  expect((await read(`/api/decisions/${replacement.value.id}`)).content.question).toBe('Which procedure next?');
+  expect(receipts.every(Boolean)).toBe(true);
+} },
     { name: 'FLAG-001 — old queued flagship work records failure and retries without dispatch or acknowledgement', run: async () => {
   for(const kind of ['intelligence.run','intelligence.finalize','federation.refresh']) {
     const id=crypto.randomUUID();let acknowledged=false,retried=false;

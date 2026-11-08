@@ -45,7 +45,7 @@ export function PageActionDialogs({
         </p>
       ) : null}
       {dialog === "export" ? <ReadableExportDialog id={id} onClose={onClose} /> : null}
-      {dialog === "decision" ? <CreateDecisionDialog pageId={id} onClose={onClose} /> : null}
+      {dialog === "decision" ? <CreateDecisionDialog key={id} pageId={id} onClose={onClose} /> : null}
       {dialog === "move" || dialog === "duplicate" ? (
         <PageTransferDialog pageId={id} revision={revision} kind={dialog} onClose={onClose} onDone={(next) => window.location.assign(`/app/pages/${next}`)} />
       ) : null}
