@@ -110,7 +110,8 @@ export async function decisionEditJourney(api: ReturnType<typeof createApi>, con
   expect((await read(route)).state).toBe('accepted');
   expect(acceptedBefore.revisions).toHaveLength(beforeNoop.revisions.length + 1);
   expect(acceptedBefore.revisions.find(row => row.id === accepted.receipt.revisionId)).toMatchObject({entity_kind: 'decision-acceptance', actor_id: ownerId, created_at: accepted.receipt.committedAt});
-  for (const [field, value] of changes.slice(0, 8)) {
+  const forbiddenChanges = {question: 'Cannot revise acceptance', options: ['Forbidden option'], outcome: 'First', rationale: 'Forbidden reasoning', ownerId: editor.memberId, decidedAt: '2026-10-19T00:00:00.000Z', reviewAt: '2099-03-01T00:00:00.000Z', citations: []};
+  for (const [field, value] of Object.entries(forbiddenChanges)) {
     const refused = await request('/api/decisions', 'POST', {...draft, [field]: value, operationKey: crypto.randomUUID(), expectedRevisionId: accepted.receipt.revisionId});
     expect(refused.status).toBe(409);
     expect(await refused.json()).toMatchObject({code: 'IMMUTABLE_DECISION'});

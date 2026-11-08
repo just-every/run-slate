@@ -13,10 +13,11 @@ export async function decisionEditJourney(state, width) {
   assert.deepEqual(await read('/api/profile'), {profile: 'core-wiki'});
   await withSecondPerson(state, width, async ({bob}) => {
     const host = await restrictedPage(state, 'Proposal editing procedure', ['Retained underlying page content']);
-    await grant(context, origin, host.pageId, bob.id, 'edit');
+    const editorGrant = await grant(context, origin, host.pageId, bob.id, 'edit');
     const owner = (await read('/api/members/current')).id;
     const evidence = await ok(context, origin, 'POST', '/api/pages', {operationKey: crypto.randomUUID(), containerId: host.spaceId, title: 'Proposal supporting evidence'});
     const source = await read('/api/pages/' + evidence.value.pageId);
+    await grant(context, origin, source.page.id, bob.id, 'view');
     const hostBefore = await read('/api/pages/' + host.pageId);
     const created = await ok(context, origin, 'POST', '/api/decisions', {
       operationKey: crypto.randomUUID(), pageId: host.pageId, question: 'Which procedure?', options: ['First', 'Second'],
@@ -34,9 +35,9 @@ export async function decisionEditJourney(state, width) {
     };
     const proposal = async () => {
       const details = article.locator('details').filter({has: view.locator('summary', {hasText: /^Choose the outcome$/})});
-      if (!await details.getAttribute('open').then(value => value !== null)) await details.locator('summary').click();
+      if (!await details.getAttribute('open').then(value => value !== null)) await details.locator(':scope > summary').click();
       const fields = details.locator('details').filter({has: view.locator('summary', {hasText: 'Question, owner, dates & evidence'})});
-      if (!await fields.getAttribute('open').then(value => value !== null)) await fields.locator('summary').click();
+      if (!await fields.getAttribute('open').then(value => value !== null)) await fields.locator(':scope > summary').click();
       return details;
     };
     const submit = async form => {
@@ -125,7 +126,7 @@ export async function decisionEditJourney(state, width) {
     const verifyHistory = async () => {
       await open();
       const details = view.locator('details').filter({has: view.locator('summary', {hasText: /^Decision history and reviews$/})});
-      await details.locator('summary').click();
+      await details.locator(':scope > summary').click();
       const rows = await history();
       const links = details.locator('li a');
       await expect(links).toHaveCount(rows.length);
@@ -156,7 +157,7 @@ export async function decisionEditJourney(state, width) {
       await expect(article.locator('details').first().locator('.evidence-reference')).toHaveCount(snapshot.content.citations.length);
     }
     // Downgrading the editor must remove the proposal controls and reject captures.
-    await grant(context, origin, host.pageId, bob.id, 'view');
+    await grant(context, origin, host.pageId, bob.id, 'view', {id: editorGrant.value.id});
     const viewOnlyBefore = await stored();
     await verifyHistory();
     await expect(article.getByText('Choose the outcome', {exact: true})).toHaveCount(0);
@@ -167,7 +168,7 @@ export async function decisionEditJourney(state, width) {
     assert.deepEqual(await stored(), viewOnlyBefore);
     refusals.push({name: 'view only', ...viewOnly});
     await accessible(view, 'decision proposal view only');
-    await grant(context, origin, host.pageId, bob.id, 'edit');
+    await grant(context, origin, host.pageId, bob.id, 'edit', {id: editorGrant.value.id});
     await state.page.goto(origin + '/app/decisions/' + id, {waitUntil: 'networkidle'});
     const accepting = state.page.waitForResponse(response => new URL(response.url()).pathname === route + '/accept' && response.request().method() === 'POST');
     await state.page.getByRole('button', {name: 'Accept decision', exact: true}).click();
@@ -181,8 +182,9 @@ export async function decisionEditJourney(state, width) {
     await verifyHistory();
     await expect(article.getByText('Choose the outcome', {exact: true})).toHaveCount(0);
     // Each editable field is separately refused after acceptance, with identical history.
-    for (const [field, , value] of changes) {
-      const attempt = await call(bob.context, origin, 'POST', '/api/decisions', {...unchanged.request, id, operationKey: crypto.randomUUID(), expectedRevisionId: acceptedBefore.decision.revision_id, [field]: field === 'question' ? 'Cannot revise acceptance' : value});
+    const forbiddenChanges = {question: 'Cannot revise acceptance', options: ['Forbidden option'], outcome: 'First', rationale: 'Forbidden reasoning', ownerId: bob.id, decidedAt: '2026-10-19T00:00:00.000Z', reviewAt: '2099-03-01T00:00:00.000Z', citations: []};
+    for (const [field, value] of Object.entries(forbiddenChanges)) {
+      const attempt = await call(bob.context, origin, 'POST', '/api/decisions', {...unchanged.request, id, operationKey: crypto.randomUUID(), expectedRevisionId: acceptedBefore.decision.revision_id, [field]: value});
       assert.equal(attempt.status, 409);
       assert.equal(attempt.body.code, 'IMMUTABLE_DECISION');
       assert.deepEqual(await stored(), acceptedBefore);

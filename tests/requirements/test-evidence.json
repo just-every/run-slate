@@ -1059,15 +1059,6 @@
         "ACT-002"
       ],
       "reason": "Exercises the SCIM HTTP protocol through native invitation, Member identity, group and removal services, including credential custody and current authority. Real directory-provider acceptance and native invitation capacity outside SCIM remain unproven."
-    },
-    {
-      "file": "tests/profile/profile.worker.test.ts",
-      "testName": "FLAG-001 — core wiki public doors retain native content while flagship routes and queued work require opt-in",
-      "kind": "supporting-regression",
-      "clauses": [
-        "DEC-006"
-      ],
-      "reason": "The native decisionEditJourney case edits all eight proposal fields as a non-owner member. It correlates one durable decision revision and activity entry with each receipt, reads every prior snapshot, preserves identical resubmission without a revision or activity, and refuses stale, view-only, non-appointed acceptance and accepted edits without changed rows. The existing core-wiki callers in tests/qualification/ui-convergence/journeys.test.mjs load native controls and visible history at both widths. Exact-SHA Verify and guarded landing remain separate; no cross-family revision or flagship acceptance is claimed."
     }
   ]
 }
