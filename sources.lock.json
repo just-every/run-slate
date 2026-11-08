@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "1cd1755f4e732aa7bc3883b00a868476cb2bf95a9abc02d4480d0bd890da549d",
+      "sha256": "4f3a5359b15a5ff828eaed06c9d833541f791715da79440274da8053c667bc96",
       "executable": false
     },
     "DEMO.md": {
@@ -8080,7 +8080,7 @@
       "executable": false
     },
     "src/core/features/notifications/email.ts": {
-      "sha256": "db107e80aae8d67ae305daee595a585132b73bb775baf4d9e30fea2bc551f4af",
+      "sha256": "dfaed8140b76ddda49e18d00600580626ce56df6a44babbe65543b95150428ad",
       "executable": false
     },
     "src/core/features/notifications/events.ts": {
@@ -11512,7 +11512,7 @@
       "executable": false
     },
     "tests/profile/notification-email-journey.ts": {
-      "sha256": "c56aa211329bd2c703c01b7eb801a2479c6e0042eeecbd93821606b1a1d16ff4",
+      "sha256": "b7d1e2964693323f7d26962f9566218a5b6d8e22974dd5ff0f7ffa4090af7902",
       "executable": false
     },
     "tests/profile/page-lock-journey.ts": {

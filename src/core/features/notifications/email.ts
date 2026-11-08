@@ -9,6 +9,7 @@ import {changeSummary} from './change-summary';
 import {unsubscribeDigest} from './unsubscribe';
 import {digestPeriod} from './digest';
 import type {OutboxRow} from './events';
+import {readPage} from '../pages/service';
 
 export async function emailIntent(ctx:FeatureContext,row:OutboxRow,memberId:string):Promise<D1PreparedStatement[]>{
  const preference=await ctx.db.prepare('SELECT mode,revision_id,updated_at FROM notification_delivery_preferences WHERE member_id=? AND event=?').bind(memberId,row.event).first<{mode:'default'|'in-app'|'immediate'|'daily'|'weekly';revision_id:string;updated_at:string}>();
@@ -23,10 +24,15 @@ interface EmailItem extends NotificationRow {notification_id:string;outbox_id:st
 /** Current content is read only to render allowed metadata; no body enters the envelope or receipt. */
 async function emailLine(ctx:FeatureContext,item:EmailItem,sectionNames:boolean,origin:string){
  const view=await visibleNotification(ctx,item);if(!view)return;
+ const detail=JSON.parse(item.detail_json) as {reminderId?:string;blockId?:string};
+ let task:Record<string,unknown>|undefined;
+ if(detail.blockId&&item.source_page_id){const block=(await readPage(ctx,item.source_page_id)).blocks.find(block=>block.id===detail.blockId);if(!block)return;if(block.blockType==='task')task=block.content as Record<string,unknown>;}
+ if(item.event==='task-assigned'&&(!task||task.done||task.assigneeMemberId!==ctx.actor.id))return;
  if(item.event==='reminder'||item.event==='task-due'){
-  const reminderId=(JSON.parse(item.detail_json) as {reminderId?:string}).reminderId;
-  const active=reminderId&&await ctx.db.prepare('SELECT 1 FROM reminders WHERE id=? AND member_id=? AND cancelled_at IS NULL AND delivered_at IS NOT NULL').bind(reminderId,ctx.actor.id).first();
+  const reminderId=detail.reminderId;
+  const active=reminderId&&await ctx.db.prepare('SELECT date FROM reminders WHERE id=? AND member_id=? AND cancelled_at IS NULL AND delivered_at IS NOT NULL').bind(reminderId,ctx.actor.id).first<{date:string}>();
   if(!active)return;
+  if(item.event==='task-due'&&(!task||task.done||task.assigneeMemberId!==ctx.actor.id||task.dueDate!==active.date))return;
  }
  const actor=await ctx.db.prepare('SELECT m.display_name FROM notification_outbox o JOIN members m ON m.id=o.actor_member_id WHERE o.id=?').bind(item.outbox_id).first<{display_name:string}>();
  const summary=await changeSummary(ctx,item.outbox_id,item.source_page_id,item.event,sectionNames);
