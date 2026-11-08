@@ -4008,9 +4008,9 @@ AUTO-003 is judged from the code and tests at commit `1c76d8836ddffd43d0ea70e168
 
 | Clauses | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Published | 42 | 184 | 1 | 227 |
+| Published | 43 | 183 | 1 | 227 |
 | Target and push further | 16 | 55 | 40 | 111 |
-| All | 58 | 239 | 41 | 338 |
+| All | 59 | 238 | 41 | 338 |
 
 | Clause | Title | Kind | Status | Evidence | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -4206,7 +4206,7 @@ AUTO-003 is judged from the code and tests at commit `1c76d8836ddffd43d0ea70e168
 | `AI-015` | Workspace answers | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | The cited material does not prove the complete revision, authority, audience and outcome journey for this capability under company policy; the held and all-autonomous cases remain unproven. Earlier implementation notes are retained in CHANGELOG.md. |
 | `AI-016` | Summaries | published | partial | `src/core/features/ai/routes.ts` | The cited material does not prove the complete revision, authority, audience and outcome journey for this capability under company policy; the held and all-autonomous cases remain unproven. Earlier implementation notes are retained in CHANGELOG.md. |
 | `AI-017` | Writing with AI | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | The cited material does not prove the complete revision, authority, audience and outcome journey for this capability under company policy; the held and all-autonomous cases remain unproven. Earlier implementation notes are retained in CHANGELOG.md. |
-| `DEC-001` | A decision is a layer over a page | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "A page can carry one decision record: a question, the options considered, an outcome, a rationale, an owner, a decided date, an optional review date, and citations to page revisions (`REV-005`)."<br>No validated CI-run proof for this acceptance point: "The page stays a page: its body, comments, grants, versions and links are unchanged, and removing the decision record leaves the page intact." |
+| `DEC-001` | A decision is a layer over a page | published | done | `CONTRACT.md` — requirement text only; no validated CI-run proof.; `tests/qualification/ui-convergence/decision-layer-journey.mjs` (decisionLayerJourney); `tests/profile/profile.worker.test.ts` (FLAG-001 — core wiki public doors retain native content while flagship routes and queued work require opt-in) | |
 | `DEC-002` | States | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "A decision is Proposed, Accepted or Superseded."<br>No validated CI-run proof for this acceptance point: "Proposed becomes Accepted, an Accepted decision is superseded by another decision, and Superseded is terminal."<br>No validated CI-run proof for this acceptance point: "Every transition records the actor and the time and appears in activity." |
 | `DEC-003` | An accepted decision is immutable | published | partial | `CONTRACT.md` — requirement text only; no validated CI-run proof. | No validated CI-run proof for this acceptance point: "Accepting freezes the decision's content together with the revisions it cites."<br>No validated CI-run proof for this acceptance point: "Later edits to a cited page add a warning that the citation is no longer current and never rewrite the accepted rationale; changing an accepted decision is done by superseding it, which links both decisions in both directions." |
 | `DEC-004` | Decision log | published | done | `CONTRACT.md` — requirement text only; no validated CI-run proof.; `tests/qualification/ui-convergence/journeys.test.mjs` (real core-wiki and touch-member journeys at 1440px); `tests/qualification/ui-convergence/journeys.test.mjs` (real core-wiki and touch-member journeys at 390px); `tests/profile/profile.worker.test.ts` (FLAG-001 — core wiki public doors retain native content while flagship routes and queued work require opt-in) | |
