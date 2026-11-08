@@ -6,8 +6,8 @@
   "remote": "https://github.com/just-every/run-slate.git",
   "pullRequest": null,
   "verifyRun": 42487651793,
-  "verifyStatus": "in_progress",
-  "verifyConclusion": null,
+  "verifyStatus": "completed",
+  "verifyConclusion": "failure",
   "localCoreStatus": "passed",
   "nativeTests": {
     "passed": 4,
@@ -44,5 +44,17 @@
     "1440Milliseconds": 573814.634793
   },
   "localCoreExit": 0,
-  "githubApiCalls": 4
+  "githubApiCalls": 9,
+  "initialEvidence": {
+    "ref": "refs/heads/evidence/sd-slate-c-f203",
+    "head": "b318f1c040688fc20b1dcb8312e44f14ab57e9c9",
+    "returnVerification": "restored, 39 regular files and all manifest hashes verified"
+  },
+  "failedJob": {
+    "id": 128753569213,
+    "name": "verify (ui-polish-mobile)",
+    "test": "presentation paginates read-only slides; touch history, details and exports work at 1440px",
+    "failure": "Touch surfaces have no browser errors or hydration mismatch: page-open request returned 409"
+  },
+  "repairStatus": "No source edit; exact-environment reproduction in progress"
 }

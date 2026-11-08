@@ -66,7 +66,9 @@ The exact candidate build, four native Worker cases, typecheck, first-party chec
 
 The initial main had green exact-SHA Verify **42416085031** and Run site **42416085015** at `67b706484e5430012d9c154c1e14090ea1e49bc2`; canceled duplicate **42482646230** does not establish a failure. These are baseline results only, never candidate results.
 
-Candidate Verify push **42487651793**, exact SHA `f733fff9bb25546df80ade82c7b492e5532b005f`, initially in progress. As of the second scheduled observation it remains in progress. Final status is recorded in TERMINAL.json and the CI receipt. No result from a different SHA counts.
+Candidate Verify push **42487651793** completed **failure** on exact SHA `f733fff9bb25546df80ade82c7b492e5532b005f`. App job **128752980785**, core job **128753569167** and tooling job **128753569227** passed, including the DEC-002 responsive and native registrations. The failing job is **128753569213**, `verify (ui-polish-mobile)`: the unchanged “presentation paginates read-only slides; touch history, details and exports work at 1440px” case failed at `touch.close` because a page-open request returned 409 and emitted a browser console error. The aggregate verify job **128759472513** propagates that failure; contract aggregation is skipped. This is not a generated-view failure and is not green.
+
+Before any source edit, the failed full shard command was rerun on this exact candidate in Ubuntu 24.04.4 LTS, Node 22.20.0, pnpm 10.12.4 and Playwright 1.63.0 with browser build 1243. All four public journeys, Worker shard 3 and the mobile polish suite passed: `journeys=0 worker-suite=0`, overall exit 0. The original 409 did not reproduce. The same full shard on unchanged main `67b706484e5430012d9c154c1e14090ea1e49bc2` is now being compared on that same Docker runner. No source edit or speculative CI repair has been made. CI-DIAGNOSIS.json contains the exact command, flags, failure and runtime; complete actual logs are retained. GitHub API calls used: 9 of 10. No rerun has been requested.
 
 Publication scan: candidate `f733fff9bb25546df80ade82c7b492e5532b005f`, complete=NOT RUN IN CLOUD, historyScanned=NOT RUN IN CLOUD, findings=NOT ESTABLISHED. The guarded lander owns the full-history scan; this is no claim of zero findings.
 Main equality: not landed. Candidate Run site: not run before main. Product pushes use only the named cloud branch and the fleet push guard. Evidence goes only to `refs/heads/evidence/sd-slate-c-f203`.
@@ -79,4 +81,4 @@ CLAIM DEC-002 DONE points=1,2,3 tests=tests/qualification/ui-convergence/journey
 
 This is the builder outcome claim for guarded landing, not a main status edit or release.
 
-Local final result: both complete responsive core callers pass, all four native Worker registrations pass, every mechanical check exits 0, and the working tree remains clean. No unresolved product or local test failure remains.
+Local final result: both complete responsive core callers pass, all four native Worker registrations pass, every mechanical check exits 0, and the working tree remains clean. No unresolved product or local touched-test failure remains; the unrelated red CI assertion remains a landing hold pending the required comparison and triage.

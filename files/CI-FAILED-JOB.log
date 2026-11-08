@@ -1,0 +1,529 @@
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	﻿2026-11-08T14:03:31.4909417Z ##[group]Run bash .github/scripts/run-shard.sh
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:03:31.4909744Z [36;1mbash .github/scripts/run-shard.sh[0m
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:03:31.4926706Z shell: /usr/bin/bash -e {0}
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:03:31.4926932Z env:
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:03:31.4927159Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:03:31.4927435Z   SLATE_UI_SHARD: 8/8
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:03:31.4927679Z   SLATE_UI_ASSIGNMENTS: .github/scripts/journey-shards.json
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:03:31.4927968Z   SERIAL_SUITE: false
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:03:31.4928153Z   WORKER_SHARD: 3
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:03:31.4928733Z   SUITE_COMMAND: node --test --test-concurrency=1 --test-name-pattern='^visible Slate polish.*390' tests/ui/polish-journeys.test.mjs
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:03:31.4929187Z ##[endgroup]
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:03:31.5336315Z TAP version 13
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:04:39.4095557Z # PROBE TMPL-005 children off: More > Save as template, preview and Use this template -> 1 exact copies, all seven source record families excluded at 1440px
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:04:51.3125027Z # PROBE TMPL-005 children on: More > Save as template, preview and Use this template -> 4 exact copies, all seven source record families excluded at 1440px
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:05:14.5321422Z # PROBE TMPL-006 scope: two readable container Templates tabs and workspace collection -> exact ordered lists, own scope first and other scope absent after reload
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:05:23.1033432Z # PROBE TMPL-006 move into container: one native Move collection submission -> receipt 01M6XQM93FVXYSZ22HEHBHBSZ0, unchanged snapshot and all three collections reconciled after reload
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:05:31.9312796Z # PROBE TMPL-006 move back to workspace: one native Move collection submission -> receipt 01M6XQM93FVXYSZ22HEHBHBSZ0, unchanged snapshot and all three collections reconciled after reload
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:05:38.6344221Z # NAV-006 touch create, type, insert and drag persisted
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:06:18.3190060Z # NAV-006 touch space management, templates, archive and owner workspace settings passed
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:06:18.4245987Z # Subtest: TMPL-007 starter templates are found by category; touch spaces, templates, archive and workspace settings work at 1440px
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:06:18.4258844Z ok 1 - TMPL-007 starter templates are found by category; touch spaces, templates, archive and workspace settings work at 1440px
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:06:18.4259866Z   ---
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:06:18.4260158Z   duration_ms: 146686.443528
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:06:18.4260480Z   type: 'test'
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:06:18.4260733Z   ...
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:08:31.7042927Z # PROBE PORT-001 1: native authored subtree -> Settings workspace ZIP retains 4 ordered pages, bodies, properties, thirteen revisions, changed, revoked and regranted member and group grants, edited and resolved anchored thread and reply with retained histories
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:08:31.7045505Z # PROBE PORT-001 2: native original downloads -> Settings ZIP has both exact original byte sequences and SHA-256 hashes; independent source snapshots unchanged
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:09:15.1638960Z # PROBE PORT-003 1: failed native export and restore replay and reload -> failed, no download or successful restore action
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:09:15.1640331Z # PROBE PORT-003 2: Settings export and empty-deployment restore -> queued, running, completed and failed persisted; counts equal native archive; safe reports identify commit failures
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:09:16.2561152Z # Subtest: readable exports retain discussions through HTML and Markdown re-import at 1440px
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:09:16.2562438Z ok 2 - readable exports retain discussions through HTML and Markdown re-import at 1440px
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:09:16.2563023Z   ---
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:09:16.2563218Z   duration_ms: 177832.287048
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:09:16.2563432Z   type: 'test'
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:09:16.2563608Z   ...
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:10:47.9917218Z # PROBE TMPL-003 snapshot: native apply twice -> two independent four-page trees with complete body and properties at 1440px
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:10:47.9918158Z # PROBE TMPL-003 retention: native update, archive and delete -> both copied trees, values, identifiers and revisions unchanged after reload at 1440px
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:10:48.0638719Z # Subtest: global create names destinations for every content kind at 1440px
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:10:48.0639685Z ok 3 - global create names destinations for every content kind at 1440px
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:10:48.0640019Z   ---
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:10:48.0640202Z   duration_ms: 91807.540377
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:10:48.0640419Z   type: 'test'
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:10:48.0640594Z   ...
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:11:22.4639940Z # NAV-006 touch create, type, insert and drag persisted
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:11:43.1622045Z # NAV-006 touch history, details, readable export and presentation passed
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.3375686Z # PROBE ARCH-004 native browser 1440: archive and restore retain populated data; cancelled and incomplete confirmation preserve it; exact confirmed cascade deletes
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9216546Z # Journey failure context {
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9217011Z #   "rejected": [],
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9217336Z #   "consoleErrors": []
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9218811Z # }
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9248608Z # Journey failure context REQUEST TIMELINE {
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9259059Z #   "primary": {
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9259662Z #     "requestsAtDump": [
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9260187Z #       {
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9260655Z #         "method": "GET",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9261192Z #         "path": "/<id>/<id>",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9261685Z #         "startMs": 0,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9262146Z #         "durationMs": 10,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9262610Z #         "status": 200
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9263033Z #       },
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9263436Z #       {
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9263860Z #         "method": "POST",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9264355Z #         "path": "/api/pages",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9264847Z #         "startMs": 12,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9265306Z #         "durationMs": 16,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9265761Z #         "status": 200
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9266213Z #       },
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9266597Z #       {
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9267030Z #         "method": "GET",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9268500Z #         "path": "/app/pages/01M6XQ…NB26",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9269110Z #         "startMs": 31,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9269563Z #         "durationMs": 64,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9270004Z #         "status": 200
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9270390Z #       },
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9270728Z #       {
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9271250Z #         "method": "GET",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9271742Z #         "path": "/assets/<id>",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9274900Z #         "startMs": 88,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9290713Z #         "durationMs": 0,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9299137Z #         "status": 200
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9299908Z #       },
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9300340Z #       {
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9300815Z #         "method": "GET",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9301349Z #         "path": "/assets/<id>",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9301872Z #         "startMs": 89,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9302344Z #         "durationMs": 0,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9302824Z #         "status": 200
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9303416Z #       },
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9303998Z #       {
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9304681Z #         "method": "GET",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9305346Z #         "path": "/assets/<id>",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9306106Z #         "startMs": 89,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9306732Z #         "durationMs": 0,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9307365Z #         "status": 200
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9307993Z #       },
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9308803Z #       {
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9309581Z #         "method": "GET",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9310275Z #         "path": "/assets/<id>",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9324481Z #         "startMs": 89,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9329497Z #         "durationMs": 0,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9330078Z #         "status": 200
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9330546Z #       },
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9330972Z #       {
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9331417Z #         "method": "GET",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9332279Z #         "path": "/api/tasks/01M6XQ…NB26/assignees",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9332915Z #         "startMs": 128,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9333423Z #         "durationMs": 13,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9333919Z #         "status": 200
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9334371Z #       },
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9334759Z #       {
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9335201Z #         "method": "GET",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9336152Z #         "path": "/api/navigation",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9336759Z #         "startMs": 697,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9337252Z #         "durationMs": 1,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9337746Z #         "status": 200
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9338192Z #       },
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9338848Z #       {
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9339287Z #         "method": "GET",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9364959Z #         "path": "/<id>/<id>",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9365562Z #         "startMs": 761,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9366062Z #         "durationMs": 56,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9366544Z #         "status": 200
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9366983Z #       },
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9367375Z #       {
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9367809Z #         "method": "GET",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9368539Z #         "path": "/api/workspace",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9369085Z #         "startMs": 804,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9369563Z #         "durationMs": 19,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9370039Z #         "status": 200
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9370490Z #       },
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9370888Z #       {
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9371317Z #         "method": "GET",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9371827Z #         "path": "/<id>/<id>",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9372320Z #         "startMs": 825,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9372784Z #         "durationMs": 2,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9373261Z #         "status": 200
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9373686Z #       },
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9374082Z #       {
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9374504Z #         "method": "GET",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9375043Z #         "path": "/api/workspace",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9375567Z #         "startMs": 829,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9376047Z #         "durationMs": 6,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9376508Z #         "status": 200
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9376943Z #       },
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9377326Z #       {
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9377736Z #         "method": "PUT",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9378487Z #         "path": "/api/workspace",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9379082Z #         "startMs": 837,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9379631Z #         "durationMs": 17,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9380129Z #         "status": 200
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9380595Z #       },
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9381002Z #       {
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9381407Z #         "method": "GET",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9383210Z #         "path": "/api/<id>/01M6XQ…NB26",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9383828Z #         "startMs": 3132,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9384373Z #         "durationMs": 4,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9384878Z #         "status": 200
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9385348Z #       },
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9385865Z #       {
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9386574Z #         "method": "GET",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9387252Z #         "path": "/api/<id>/01M6XQ…NB26",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9387827Z #         "startMs": 6125,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9388547Z #         "durationMs": 15,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9389271Z #         "status": 200
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9395072Z #       },
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9395579Z #       {
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9396108Z #         "method": "GET",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9396692Z #         "path": "/api/workspace",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9397264Z #         "startMs": 6748,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9397789Z #         "durationMs": 8,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9398301Z #         "status": 200
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9399063Z #       },
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9399501Z #       {
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9399978Z #         "method": "PUT",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9400538Z #         "path": "/api/workspace",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9401096Z #         "startMs": 6758,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9401583Z #         "durationMs": 12,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9402094Z #         "status": 200
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9402548Z #       },
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9402976Z #       {
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9403409Z #         "method": "GET",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9404097Z #         "path": "/api/<id>/01M6XQ…NB26",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9404656Z #         "startMs": 9128,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9405164Z #         "durationMs": 17,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9405646Z #         "status": 200
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9406109Z #       },
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9406502Z #       {
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9406947Z #         "method": "POST",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9407623Z #         "path": "/api/<id>/01M6XQ…NB26/presence",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9408651Z #         "startMs": 14462,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9409157Z #         "durationMs": 7,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9409616Z #         "status": 200
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9418952Z #       },
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9419692Z #       {
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9420195Z #         "method": "GET",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9420901Z #         "path": "/api/<id>/01M6XQ…NB26",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9421558Z #         "startMs": 14469,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9465990Z #         "durationMs": 10,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9466646Z #         "status": 200
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9467238Z #       },
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9467549Z #       {
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9467841Z #         "method": "GET",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9468565Z #         "path": "/api/<id>/01M6XQ…NB26",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9468957Z #         "startMs": 15127,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9469301Z #         "durationMs": 18,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9469619Z #         "status": 200
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9469909Z #       },
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9470158Z #       {
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9470498Z #         "method": "GET",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9471055Z #         "path": "/api/<id>/01M6XQ…NB26",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9471430Z #         "startMs": 19217,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9471840Z #         "durationMs": 1,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9472232Z #         "status": 200
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9472548Z #       },
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9472853Z #       {
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9473177Z #         "method": "GET",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9473700Z #         "path": "/api/<id>/01M6XQ…NB26",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9474078Z #         "startMs": 22641,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9474421Z #         "durationMs": 1,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9474747Z #         "status": 200
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9475037Z #       },
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9475314Z #       {
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9475581Z #         "method": "GET",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9476028Z #         "path": "/api/<id>/01M6XQ…NB26",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9476401Z #         "startMs": 24130,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9476732Z #         "durationMs": 7,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9477065Z #         "status": 200
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9477342Z #       },
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9477568Z #       {
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9477825Z #         "method": "POST",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9478299Z #         "path": "/api/<id>/01M6XQ…NB26/presence",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9478811Z #         "startMs": 27130,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9479098Z #         "durationMs": 10,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9479378Z #         "status": 200
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9479624Z #       },
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9480068Z #       {
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9480327Z #         "method": "GET",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9480821Z #         "path": "/api/<id>/01M6XQ…NB26",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9481206Z #         "startMs": 27139,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9481559Z #         "durationMs": 19,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9481885Z #         "status": 200
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9482166Z #       },
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9482420Z #       {
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9482687Z #         "method": "POST",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9483077Z #         "path": "/api/status",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9483437Z #         "startMs": 27858,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9483773Z #         "durationMs": 9,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9484097Z #         "status": 200
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9484373Z #       },
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9484623Z #       {
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9484896Z #         "method": "GET",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9485372Z #         "path": "/api/<id>/01M6XQ…NB26",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9488865Z #         "startMs": 30135,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9529158Z #         "durationMs": 18,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9534279Z #         "status": 200
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9534746Z #       },
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9535646Z #       {
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9536286Z #         "method": "GET",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9536977Z #         "path": "/api/<id>/01M6XQ…NB26",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9537555Z #         "startMs": 33129,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9538059Z #         "durationMs": 9,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9538708Z #         "status": 200
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9539177Z #       },
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9539573Z #       {
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9540007Z #         "method": "GET",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9540635Z #         "path": "/api/<id>/01M6XQ…NB26",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9541439Z #         "startMs": 36218,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9541917Z #         "durationMs": 0,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9542388Z #         "status": 200
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9542808Z #       },
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9543205Z #       {
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9543622Z #         "method": "POST",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9544300Z #         "path": "/api/<id>/01M6XQ…NB26/presence",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9544861Z #         "startMs": 39131,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9545349Z #         "durationMs": 25,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9545815Z #         "status": 200
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9546297Z #       },
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9546687Z #       {
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9547101Z #         "method": "GET",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9547736Z #         "path": "/api/<id>/01M6XQ…NB26",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9548265Z #         "startMs": 39156,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9548931Z #         "durationMs": 26,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9549399Z #         "status": 200
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9549842Z #       },
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9550262Z #       {
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9550690Z #         "method": "GET",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9551311Z #         "path": "/api/<id>/01M6XQ…NB26",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9551855Z #         "startMs": 42129,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9552335Z #         "durationMs": 31,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9552799Z #         "status": 200
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9553222Z #       },
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9553616Z #       {
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9554040Z #         "method": "GET",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9554680Z #         "path": "/api/<id>/01M6XQ…NB26",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9555223Z #         "startMs": 45132,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9556838Z #         "durationMs": 28,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9557359Z #         "status": 200
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9557786Z #       },
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9558192Z #       {
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9559167Z #         "method": "GET",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9559823Z #         "path": "/api/<id>/01M6XQ…NB26",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9560357Z #         "startMs": 48129,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9560841Z #         "durationMs": 22,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9561325Z #         "status": 200
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9561767Z #       },
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9562151Z #       {
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9562580Z #         "method": "POST",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9563233Z #         "path": "/api/<id>/01M6XQ…NB26/presence",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9563816Z #         "startMs": 55725,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9564285Z #         "durationMs": 3,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9564759Z #         "status": 200
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9565209Z #       },
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9565916Z #       {
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9566352Z #         "method": "GET",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9567003Z #         "path": "/api/<id>/01M6XQ…NB26",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9567559Z #         "startMs": 55728,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9568026Z #         "durationMs": 10,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9568668Z #         "status": 200
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9569098Z #       },
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9569496Z #       {
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9569902Z #         "method": "GET",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9570662Z #         "path": "/api/<id>/01M6XQ…NB26",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9571230Z #         "startMs": 55738,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9571713Z #         "durationMs": 21,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9572192Z #         "status": 200
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9572622Z #       },
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9573017Z #       {
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9573427Z #         "method": "GET",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9574055Z #         "path": "/api/<id>/01M6XQ…NB26",
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9574466Z #         "startMs": 58782,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9574797Z #         "durationMs": 108,
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9575135Z #         "status": 200
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9575442Z #       }
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9575723Z #     ]
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9576001Z #   },
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9576281Z #   "others": []
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:14.9576575Z # }
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0110198Z # Subtest: presentation paginates read-only slides; touch history, details and exports work at 1440px
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0129657Z not ok 4 - presentation paginates read-only slides; touch history, details and exports work at 1440px
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0130348Z   ---
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0130978Z   duration_ms: 86945.434767
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0131273Z   type: 'test'
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0131897Z   location: '/home/runner/work/run-slate/run-slate/tests/qualification/ui-convergence/journey-shard.mjs:23:97'
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0132541Z   failureType: 'testCodeFailure'
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0132866Z   error: |-
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0133219Z     Touch surfaces have no browser errors or hydration mismatch.
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0133634Z     + actual - expected
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0133907Z     
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0134120Z     + [
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0134472Z     +   '/api/pages/01M6XQZK9TRFFS86T9DZTXFD2E/open: 409',
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0135074Z     +   'Failed to load resource: the server responded with a status of 409 (Conflict)'
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0135562Z     + ]
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0135784Z     - []
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0136001Z     
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0136225Z   code: 'ERR_ASSERTION'
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0136530Z   name: 'AssertionError'
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0136820Z   expected:
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0137054Z   actual:
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0137381Z     0: '/api/pages/01M6XQZK9TRFFS86T9DZTXFD2E/open: 409'
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0137937Z     1: 'Failed to load resource: the server responded with a status of 409 (Conflict)'
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0138566Z   operator: 'deepStrictEqual'
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0138921Z   stack: |-
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0139593Z     touch.close (file:///home/runner/work/run-slate/run-slate/tests/qualification/ui-convergence/touch-journey.mjs:37:38)
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0140566Z     file:///home/runner/work/run-slate/run-slate/tests/qualification/ui-convergence/journeys.test.mjs:415:253
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0141577Z     async withWorkspace (file:///home/runner/work/run-slate/run-slate/tests/qualification/ui-convergence/browser-support.mjs:197:7)
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0142841Z     async TestContext.<anonymous> (file:///home/runner/work/run-slate/run-slate/tests/qualification/ui-convergence/journeys.test.mjs:412:5)
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0143761Z     async Test.run (node:internal/test_runner/test:1054:7)
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0144373Z     async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0144864Z   ...
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0440028Z 1..4
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0440372Z # tests 4
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0440625Z # suites 0
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0440869Z # pass 3
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0441101Z # fail 1
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0441361Z # cancelled 0
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0441634Z # skipped 0
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0441875Z # todo 0
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0442459Z # duration_ms 523522.430443
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0499400Z [33m(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0500334Z   - import "./source-fixtures" without a file extension (scripts/import-scale/generate-server-dc.ts:2:91). Add the file extension
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0501042Z   - import "./types" without a file extension (scripts/import-scale/generate-server-dc.ts:3:82). Add the file extension
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0501745Z   - import "./source-fixtures" without a file extension (scripts/import-scale/generate-server-dc.ts:4:22). Add the file extension
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0502743Z   - import "./csv" without a file extension (scripts/import-scale/source-fixtures.ts:4:46). Add the file extension
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0503773Z Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.[39m
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0504145Z 
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0504749Z [1m[30m[46m RUN [49m[39m[22m [36mv4.1.11 [39m[90m/home/runner/work/run-slate/run-slate[39m
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0505176Z 
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0505615Z  [32m✓[39m tests/flagship/core/mail.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 5479[2mms[22m[39m
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0506360Z    [33m[2m✓[22m[39m identity mail preserves durable retry, recovery, authentication and provider custody [33m 5478[2mms[22m[39m
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0507497Z [90mstdout[2m | tests/flagship/federation/federation.test.ts[2m > [22m[2mdurable imports and federation[2m > [22m[2mimports, source authority and portable archives persist exactly through failure and recovery
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0509007Z [22m[39mPROBE IMP-005 format=markdown mode=append: native upload and run -> persisted headings, tables, media and report match; replay unchanged
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0509546Z 
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0510376Z [90mstdout[2m | tests/flagship/federation/federation.test.ts[2m > [22m[2mdurable imports and federation[2m > [22m[2mimports, source authority and portable archives persist exactly through failure and recovery
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0511474Z [22m[39mPROBE IMP-005 format=markdown mode=children: native upload and run -> persisted headings, tables, media and report match; replay unchanged
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0511871Z 
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0512623Z [90mstdout[2m | tests/flagship/federation/federation.test.ts[2m > [22m[2mdurable imports and federation[2m > [22m[2mimports, source authority and portable archives persist exactly through failure and recovery
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0513673Z [22m[39mPROBE IMP-005 format=html mode=append: native upload and run -> persisted headings, tables, media and report match; replay unchanged
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0514052Z 
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0514800Z [90mstdout[2m | tests/flagship/federation/federation.test.ts[2m > [22m[2mdurable imports and federation[2m > [22m[2mimports, source authority and portable archives persist exactly through failure and recovery
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0515855Z [22m[39mPROBE IMP-005 format=html mode=children: native upload and run -> persisted headings, tables, media and report match; replay unchanged
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0516239Z 
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0516984Z [90mstdout[2m | tests/flagship/federation/federation.test.ts[2m > [22m[2mdurable imports and federation[2m > [22m[2mimports, source authority and portable archives persist exactly through failure and recovery
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0518011Z [22m[39mPROBE IMP-005 format=docx mode=append: native upload and run -> persisted headings, tables, media and report match; replay unchanged
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0518549Z 
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0519500Z [90mstdout[2m | tests/flagship/federation/federation.test.ts[2m > [22m[2mdurable imports and federation[2m > [22m[2mimports, source authority and portable archives persist exactly through failure and recovery
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0520550Z [22m[39mPROBE IMP-005 format=docx mode=children: native upload and run -> persisted headings, tables, media and report match; replay unchanged
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0521119Z 
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0521868Z [90mstdout[2m | tests/flagship/federation/federation.test.ts[2m > [22m[2mdurable imports and federation[2m > [22m[2mimports, source authority and portable archives persist exactly through failure and recovery
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0522900Z [22m[39mPROBE IMP-005 format=pdf mode=append: native upload and run -> persisted headings, tables, media and report match; replay unchanged
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0523270Z 
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0524022Z [90mstdout[2m | tests/flagship/federation/federation.test.ts[2m > [22m[2mdurable imports and federation[2m > [22m[2mimports, source authority and portable archives persist exactly through failure and recovery
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0525067Z [22m[39mPROBE IMP-005 format=pdf mode=children: native upload and run -> persisted headings, tables, media and report match; replay unchanged
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0525442Z 
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0526182Z [90mstdout[2m | tests/flagship/federation/federation.test.ts[2m > [22m[2mdurable imports and federation[2m > [22m[2mimports, source authority and portable archives persist exactly through failure and recovery
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0527208Z [22m[39mPROBE IMP-005 format=epub mode=append: native upload and run -> persisted headings, tables, media and report match; replay unchanged
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0527579Z 
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0528311Z [90mstdout[2m | tests/flagship/federation/federation.test.ts[2m > [22m[2mdurable imports and federation[2m > [22m[2mimports, source authority and portable archives persist exactly through failure and recovery
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0529665Z [22m[39mPROBE IMP-005 format=epub mode=children: native upload and run -> persisted headings, tables, media and report match; replay unchanged
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0530051Z 
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0530803Z [90mstdout[2m | tests/flagship/federation/federation.test.ts[2m > [22m[2mdurable imports and federation[2m > [22m[2mimports, source authority and portable archives persist exactly through failure and recovery
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0531832Z [22m[39mPROBE IMP-005 format=text mode=append: native upload and run -> persisted headings, tables, media and report match; replay unchanged
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0532207Z 
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0532945Z [90mstdout[2m | tests/flagship/federation/federation.test.ts[2m > [22m[2mdurable imports and federation[2m > [22m[2mimports, source authority and portable archives persist exactly through failure and recovery
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0533960Z [22m[39mPROBE IMP-005 format=text mode=children: native upload and run -> persisted headings, tables, media and report match; replay unchanged
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0534340Z 
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0535083Z [90mstderr[2m | tests/flagship/federation/federation.test.ts[2m > [22m[2mdurable imports and federation[2m > [22m[2mimports, source authority and portable archives persist exactly through failure and recovery
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0536006Z [22m[39mImport operation failed: Import CSV databases as child pages, preserving their records and schema.
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0536315Z 
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0537051Z [90mstdout[2m | tests/flagship/federation/federation.test.ts[2m > [22m[2mdurable imports and federation[2m > [22m[2mimports, source authority and portable archives persist exactly through failure and recovery
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0538068Z [22m[39mPROBE IMP-005 CSV: append -> 422 unchanged; child import -> database schema, two records and tables read through native doors
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0538588Z 
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0539429Z [90mstdout[2m | tests/flagship/federation/federation.test.ts[2m > [22m[2mdurable imports and federation[2m > [22m[2mimports, source authority and portable archives persist exactly through failure and recovery
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0540414Z [22m[39mPROBE IMP-005 page set: native child import -> destination, root, child and populated leaf hierarchy retained
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0540749Z 
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0541495Z [90mstderr[2m | tests/flagship/federation/federation.test.ts[2m > [22m[2mdurable imports and federation[2m > [22m[2mimports, source authority and portable archives persist exactly through failure and recovery
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0542448Z [22m[39mImport operation failed: The record changed. Reload before saving.
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0542691Z 
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0543428Z [90mstderr[2m | tests/flagship/federation/federation.test.ts[2m > [22m[2mdurable imports and federation[2m > [22m[2mimports, source authority and portable archives persist exactly through failure and recovery
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0544242Z [22m[39mImport operation failed: The record changed. Reload before saving.
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0544474Z 
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0545221Z [90mstderr[2m | tests/flagship/federation/federation.test.ts[2m > [22m[2mdurable imports and federation[2m > [22m[2mimports, source authority and portable archives persist exactly through failure and recovery
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0545931Z [22m[39mImport operation failed: Not found.
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0546101Z 
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0546838Z [90mstdout[2m | tests/flagship/federation/federation.test.ts[2m > [22m[2mdurable imports and federation[2m > [22m[2mimports, source authority and portable archives persist exactly through failure and recovery
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0548253Z [22m[39mPROBE IMP-005 safety: invalid format and unsafe archive -> 400; oversized stream -> 413; stale append and child runs -> 409 unchanged; view-only uploads and revoked editor run -> 404 unchanged; revoked-session replay -> 401; outbound fetches=0
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0549151Z 
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0549906Z [90mstderr[2m | tests/flagship/federation/federation.test.ts[2m > [22m[2mdurable imports and federation[2m > [22m[2mimports, source authority and portable archives persist exactly through failure and recovery
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0550892Z [22m[39mImport operation failed: D1_ERROR: injected write failure: SQLITE_CONSTRAINT (extended: SQLITE_CONSTRAINT_TRIGGER)
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0551234Z 
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0551983Z [90mstderr[2m | tests/flagship/federation/federation.test.ts[2m > [22m[2mdurable imports and federation[2m > [22m[2mimports, source authority and portable archives persist exactly through failure and recovery
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0552714Z [22m[39mSlate request failed with an internal error.
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0552889Z 
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0553145Z exception = workerd/api/streams/internal.c++:2972: disconnected: pump canceled
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0554457Z stack: /home/runner/work/run-slate/run-slate/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@5a3e640 /home/runner/work/run-slate/run-slate/node_modules/.pnpm/@cloudflare+workerd-linux-64@1.20260907.1/node_modules/@cloudflare/workerd-linux-64/bin/workerd@2673d30
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0555747Z  [32m✓[39m tests/flagship/federation/federation.test.ts [2m([22m[2m2 tests[22m[2m)[22m[33m 32990[2mms[22m[39m
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0556543Z      [33m[2m✓[22m[39m imports, source authority and portable archives persist exactly through failure and recovery [33m 16537[2mms[22m[39m
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0557536Z    [33m[2m✓[22m[39m PORT-009 — Scheduled backup writes to the destination, applies retention, notifies owners on failure and restores into an empty deployment [33m 16452[2mms[22m[39m
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0559032Z [90mstderr[2m | tests/e2e/review/review-access.test.ts[2m > [22m[2mNeeds review and the people directory expose only readable work, with live access, expertise choices and explicit review routing
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0570907Z [22m[39mREVIEW_ACCESS_TABLE [{"actor":"owner","filter":"mine","expected":5,"observed":5,"titles":"MarkerownerdraftUnique MarkerownerpersonalUnique MarkersharedchangedUnique MarkersharedexpiringUnique MarkersharedlapsedUnique"},{"actor":"owner","filter":"everyone","expected":7,"observed":7,"titles":"MarkerownerdraftUnique MarkerownerpersonalUnique MarkerreaderverifiedUnique MarkersharedchangedUnique MarkersharedexpiringUnique MarkersharedlapsedUnique MarkerverifierleftlapsedUnique"},{"actor":"owner","filter":"no-verifier","expected":2,"observed":2,"titles":"MarkerverifierleftcurrentUnique MarkerverifierleftlapsedUnique"},{"actor":"reader","filter":"mine","expected":3,"observed":3,"titles":"MarkermemberdraftUnique MarkermemberpersonalUnique MarkerreaderverifiedUnique"},{"actor":"reader","filter":"everyone","expected":7,"observed":7,"titles":"MarkermemberdraftUnique MarkermemberpersonalUnique MarkerreaderverifiedUnique MarkersharedchangedUnique MarkersharedexpiringUnique MarkersharedlapsedUnique MarkerverifierleftlapsedUnique"},{"actor":"reader","filter":"no-verifier","expected":0,"observed":0,"titles":"403"},{"actor":"denied","filter":"mine","expected":0,"observed":0,"titles":""},{"actor":"denied","filter":"everyone","expected":0,"observed":0,"titles":""},{"actor":"denied","filter":"no-verifier","expected":0,"observed":0,"titles":"403"},{"actor":"guest","filter":"mine","expected":0,"observed":0,"titles":""},{"actor":"guest","filter":"everyone","expected":5,"observed":5,"titles":"MarkerreaderverifiedUnique MarkersharedchangedUnique MarkersharedexpiringUnique MarkersharedlapsedUnique MarkerverifierleftlapsedUnique"},{"actor":"guest","filter":"no-verifier","expected":0,"observed":0,"titles":"403"},{"actor":"page-guest","filter":"mine","expected":0,"observed":0,"titles":""},{"actor":"page-guest","filter":"everyone","expected":1,"observed":1,"titles":"MarkerpageonlyUnique"},{"actor":"page-guest","filter":"no-verifier","expected":0,"observed":0,"titles":"403"},{"actor":"expired","filter":"mine","expected":0,"observed":0,"titles":""},{"actor":"expired","filter":"everyone","expected":0,"observed":0,"titles":""},{"actor":"expired","filter":"no-verifier","expected":0,"observed":0,"titles":"403"},{"actor":"revoked","filter":"mine","expected":0,"observed":0,"titles":""},{"actor":"revoked","filter":"everyone","expected":0,"observed":0,"titles":""},{"actor":"revoked","filter":"no-verifier","expected":0,"observed":0,"titles":"403"},{"actor":"inactive","filter":"mine","expected":0,"observed":0,"titles":"401"},{"actor":"inactive","filter":"everyone","expected":0,"observed":0,"titles":"401"},{"actor":"inactive","filter":"no-verifier","expected":0,"observed":0,"titles":"401"},{"actor":"removed","filter":"mine","expected":0,"observed":0,"titles":"401"},{"actor":"removed","filter":"everyone","expected":0,"observed":0,"titles":"401"},{"actor":"removed","filter":"no-verifier","expected":0,"observed":0,"titles":"401"},{"actor":"anonymous","filter":"mine","expected":0,"observed":0,"titles":"401"},{"actor":"anonymous","filter":"everyone","expected":0,"observed":0,"titles":"401"},{"actor":"anonymous","filter":"no-verifier","expected":0,"observed":0,"titles":"401"}]
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0578680Z 
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0579067Z  [32m✓[39m tests/e2e/review/review-access.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 5651[2mms[22m[39m
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0579944Z    [33m[2m✓[22m[39m Needs review and the people directory expose only readable work, with live access, expertise choices and explicit review routing [33m 5650[2mms[22m[39m
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0581118Z [90mstdout[2m | tests/flagship/release-clauses/inquiry/ambient-authority.test.ts[2m > [22m[2mINQ-004 — scheduled assessments preserve route, source, audience, semantic and audit authority
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0588134Z [22m[39mU5_NATIVE_INQ004_EXPIRY {"scope":{"id":"01M6XQKQZ9NSEQBN8R3KYZC84J","workspace_id":"01M6XQKQQFHQ1MAACRRSJ2KC3E","owner_id":"01M6XQKQQG63MJRBT0GEJMXG2E","page_id":"01M6XQKQQVF66X4N7ZQ85WWW9Q","revision_id":"01M6XQKQZ90KS3WVCQNNE6DEH5","refs_json":"[{\"kind\":\"page\",\"sourceId\":\"01M6XQKQQVF66X4N7ZQ85WWW9Q\",\"revisionId\":\"01M6XQKQQVMMZDCSDX71XRYCCA\"}]","audience_json":"[\"01M6XQKQQG63MJRBT0GEJMXG2E\"]","objective":"Inspect permitted changes","state":"active","sweep_seconds":86400,"audit_percent":100,"threshold":0.7,"next_sweep_at":"2026-11-09T14:04:49.008Z","reason":null,"created_at":"2026-11-08T14:04:48.989Z","updated_at":"2026-11-08T14:04:49.008Z"},"events":[{"id":"01M6XQKQZZRRN00WZ1SKWBAKKF","scope_id":"01M6XQKQZ9NSEQBN8R3KYZC84J","workspace_id":"01M6XQKQQFHQ1MAACRRSJ2KC3E","event_key":"6bc6088ac361ba52dbe49fc528e551315467c0475718825911cb3814d46c3db9","kind":"change","refs_json":"[{\"kind\":\"page\",\"sourceId\":\"01M6XQKQQVF66X4N7ZQ85WWW9Q\",\"revisionId\":\"01M6XQKQQVMMZDCSDX71XRYCCA\"}]","run_id":"01M6XQKR3T197HMK2QMMP715V3","comparison_event_id":null,"state":"failed","assessment_json":null,"failure_reason":"MODEL_ROUTE_REVOKED","created_at":"2026-11-08T14:04:49.008Z","updated_at":"2026-11-08T14:04:49.438Z"},{"id":"01M6XQKR0104RHY55CMYP410PT","scope_id":"01M6XQKQZ9NSEQBN8R3KYZC84J","workspace_id":"01M6XQKQQFHQ1MAACRRSJ2KC3E","event_key":"2026-11-08T14:04:48.989Z","kind":"frontier-sweep","refs_json":"[{\"kind\":\"page\",\"sourceId\":\"01M6XQKQQVF66X4N7ZQ85WWW9Q\",\"revisionId\":\"01M6XQKQQVMMZDCSDX71XRYCCA\"}]","run_id":"01M6XQKRAB5FHCYWNPWP4FCNGZ","comparison_event_id":null,"state":"failed","assessment_json":null,"failure_reason":"MODEL_ROUTE_REVOKED","created_at":"2026-11-08T14:04:49.008Z","updated_at":"2026-11-08T14:04:49.456Z"}],"comparisons":[]}
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0592813Z 
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0593538Z [90mstdout[2m | tests/flagship/release-clauses/inquiry/ambient-authority.test.ts[2m > [22m[2mINQ-004 — scheduled assessments preserve route, source, audience, semantic and audit authority
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0610183Z [22m[39mU5_NATIVE_INQ004_LINEAGE {"scope":{"id":"01M6XQKTYB5R5FPAH7G1A34T3Y","workspace_id":"01M6XQKTTRZG7607RMG8ZVWZHH","owner_id":"01M6XQKTTS0E08K1SNZ5XT79MX","page_id":"01M6XQKTV1DKY28KCS09YRK197","revision_id":"01M6XQKTYBTH7XC34J6G4SJ8HN","refs_json":"[{\"kind\":\"page\",\"sourceId\":\"01M6XQKTV1DKY28KCS09YRK197\",\"revisionId\":\"01M6XQKTV1AE1WF1RYK4XVA7V3\"}]","audience_json":"[\"01M6XQKTTS0E08K1SNZ5XT79MX\"]","objective":"Inspect permitted changes","state":"active","sweep_seconds":86400,"audit_percent":100,"threshold":0.7,"next_sweep_at":"2026-11-09T14:04:52.045Z","reason":null,"created_at":"2026-11-08T14:04:52.036Z","updated_at":"2026-11-08T14:04:52.045Z"},"events":[{"id":"01M6XQKTYM4ZNK3709V63GCQXX","scope_id":"01M6XQKTYB5R5FPAH7G1A34T3Y","workspace_id":"01M6XQKTTRZG7607RMG8ZVWZHH","event_key":"56d2e67ceb86d43ef4b8c3e5a314e36685b73b6753a93144d4037d84757068de","kind":"change","refs_json":"[{\"kind\":\"page\",\"sourceId\":\"01M6XQKTV1DKY28KCS09YRK197\",\"revisionId\":\"01M6XQKTV1AE1WF1RYK4XVA7V3\"}]","run_id":"01M6XQKV1Q9RHHWMF54WVG2T90","comparison_event_id":null,"state":"assessed","assessment_json":"{\"novelty\":0.1,\"contradiction\":0.1,\"impact\":0.1,\"relevance\":0.5,\"consequential\":false,\"question\":null,\"explanation\":\"No consequential change in the exact supplied revision.\",\"evidenceIds\":[\"E1\"],\"nextStep\":\"wait\",\"restartCondition\":\"An independently scheduled frontier sweep.\"}","failure_reason":null,"created_at":"2026-11-08T14:04:52.045Z","updated_at":"2026-11-08T14:04:52.254Z"},{"id":"01M6XQKTYNZ5H0VP0PB6614EZM","scope_id":"01M6XQKTYB5R5FPAH7G1A34T3Y","workspace_id":"01M6XQKTTRZG7607RMG8ZVWZHH","event_key":"2026-11-08T14:04:52.036Z","kind":"frontier-sweep","refs_json":"[{\"kind\":\"page\",\"sourceId\":\"01M6XQKTV1DKY28KCS09YRK197\",\"revisionId\":\"01M6XQKTV1AE1WF1RYK4XVA7V3\"}]","run_id":"01M6XQKV3MN388ZB06SFYYA5KX","comparison_event_id":null,"state":"assessed","assessment_json":"{\"novelty\":0.1,\"contradiction\":0.1,\"impact\":1,\"relevance\":1,\"consequential\":true,\"question\":\"Which owner should inspect the missed gap?\",\"explanation\":\"No consequential change in the exact supplied revision.\",\"evidenceIds\":[\"E1\"],\"nextStep\":\"investigate\",\"restartCondition\":\"An independently scheduled frontier sweep.\"}","failure_reason":null,"created_at":"2026-11-08T14:04:52.045Z","updated_at":"2026-11-08T14:04:52.591Z"},{"id":"01M6XQKV85Z4213MA0B0CS53KZ","scope_id":"01M6XQKTYB5R5FPAH7G1A34T3Y","workspace_id":"01M6XQKTTRZG7607RMG8ZVWZHH","event_key":"56d2e67ceb86d43ef4b8c3e5a314e36685b73b6753a93144d4037d84757068de","kind":"shadow","refs_json":"[{\"kind\":\"page\",\"sourceId\":\"01M6XQKTV1DKY28KCS09YRK197\",\"revisionId\":\"01M6XQKTV1AE1WF1RYK4XVA7V3\"}]","run_id":"01M6XQKVA13MKBRJVYMHR5DCNG","comparison_event_id":"01M6XQKTYM4ZNK3709V63GCQXX","state":"assessed","assessment_json":"{\"novelty\":0.1,\"contradiction\":0.1,\"impact\":1,\"relevance\":1,\"consequential\":true,\"question\":\"Which owner should inspect the missed gap?\",\"explanation\":\"No consequential change in the exact supplied revision.\",\"evidenceIds\":[\"E1\"],\"nextStep\":\"investigate\",\"restartCondition\":\"An independently scheduled frontier sweep.\"}","failure_reason":null,"created_at":"2026-11-08T14:04:52.254Z","updated_at":"2026-11-08T14:04:52.708Z"},{"id":"01M6XQKVA7QCKK6GAZ5VXQ8R8T","scope_id":"01M6XQKTYB5R5FPAH7G1A34T3Y","workspace_id":"01M6XQKTTRZG7607RMG8ZVWZHH","event_key":"56d2e67ceb86d43ef4b8c3e5a314e36685b73b6753a93144d4037d84757068de","kind":"low-score-audit","refs_json":"[{\"kind\":\"page\",\"sourceId\":\"01M6XQKTV1DKY28KCS09YRK197\",\"revisionId\":\"01M6XQKTV1AE1WF1RYK4XVA7V3\"}]","run_id":"01M6XQKVC31VE40786Y1CWH72W","comparison_event_id":"01M6XQKTYM4ZNK3709V63GCQXX","state":"assessed","assessment_json":"{\"novelty\":0.1,\"contradiction\":0.1,\"impact\":1,\"relevance\":1,\"consequential\":true,\"question\":\"Which owner should inspect the missed gap?\",\"explanation\":\"No consequential change in the exact supplied revision.\",\"evidenceIds\":[\"E1\"],\"nextStep\":\"investigate\",\"restartCondition\":\"An independently scheduled frontier sweep.\"}","failure_reason":null,"created_at":"2026-11-08T14:04:52.254Z","updated_at":"2026-11-08T14:04:52.817Z"}],"comparisons":[{"eventId":"01M6XQKV85Z4213MA0B0CS53KZ","rankedEventId":"01M6XQKTYM4ZNK3709V63GCQXX","missed":true},{"eventId":"01M6XQKVA7QCKK6GAZ5VXQ8R8T","rankedEventId":"01M6XQKTYM4ZNK3709V63GCQXX","missed":true}]}
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0621033Z 
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0621760Z [90mstdout[2m | tests/flagship/release-clauses/inquiry/ambient-authority.test.ts[2m > [22m[2mINQ-004 — scheduled assessments preserve route, source, audience, semantic and audit authority
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0623408Z [22m[39mU5_NATIVE_INQ004_SOURCE_REVOKED {"runs":[{"status":"failed","failure_reason":"NOT_FOUND","output_json":null,"cost_micros":0},{"status":"failed","failure_reason":"NOT_FOUND","output_json":null,"cost_micros":0}],"scope":{"state":"blocked","reason":"NOT_FOUND: restore current source access and explicitly resume."}}
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0624168Z 
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0624638Z  [32m✓[39m tests/flagship/release-clauses/inquiry/ambient-authority.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 6439[2mms[22m[39m
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0625487Z    [33m[2m✓[22m[39m INQ-004 — scheduled assessments preserve route, source, audience, semantic and audit authority [33m 6437[2mms[22m[39m
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0626216Z  [32m✓[39m tests/e2e/public-api/contract.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 5896[2mms[22m[39m
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0627052Z    [33m[2m✓[22m[39m personal API tokens run the published HTTP contract with member parity, task effects and immediate authority loss [33m 5895[2mms[22m[39m
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0627812Z  [32m✓[39m tests/flagship/core/access.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 2441[2mms[22m[39m
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0628695Z    [33m[2m✓[22m[39m page viewing applies current grants, private scopes, guest vetoes and restricted ancestry [33m 2440[2mms[22m[39m
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0629437Z  [32m✓[39m tests/e2e/review/verification-upgrade.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 778[2mms[22m[39m
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0630245Z    [33m[2m✓[22m[39m Existing verifications and member profiles upgrade in place without losing populated work or lapse notices [33m 778[2mms[22m[39m
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0630991Z  [32m✓[39m tests/e2e/imports/parsers.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 52[2mms[22m[39m
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0631855Z [90mstdout[2m | tests/flagship/core/preview-owner-signin.test.ts[2m > [22m[2mpreview and bootstrap owner sign-in preserve identity and single-use authority
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0633031Z [22m[39mPROBE WORK-001 ownership/no-second-workspace: native container, page, record and comment creation -> one canonical workspace; populated snapshots unchanged after creation and first-run refusals
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0633740Z 
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0634297Z [90mstdout[2m | tests/flagship/core/preview-owner-signin.test.ts[2m > [22m[2mpreview and bootstrap owner sign-in preserve identity and single-use authority
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0635277Z [22m[39mPROBE WORK-001 acceptance-2: signed /auth/owner-claim then replay and /auth/bootstrap -> 303, 409, 409; one workspace and unchanged native records
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0635690Z 
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0636078Z  [32m✓[39m tests/flagship/core/preview-owner-signin.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 4006[2mms[22m[39m
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0636799Z    [33m[2m✓[22m[39m preview and bootstrap owner sign-in preserve identity and single-use authority [33m 4005[2mms[22m[39m
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0637513Z  [32m✓[39m tests/qualification/authority/disconnect.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 276[2mms[22m[39m
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0638316Z  [32m✓[39m tests/qualification/release-integration-repairs/branch-portability.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 3070[2mms[22m[39m
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0639368Z    [33m[2m✓[22m[39m Unavailable branch admission survives stop, export, fresh restore and re-export without inventing a run [33m 3069[2mms[22m[39m
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0640597Z [90mstdout[2m | tests/flagship/release-clauses/federation/connector-disclosure.test.ts[2m > [22m[2mSOURCE-001 — connector list binds current native identity and explicitly reports unavailable authority after identity failure
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0644868Z [22m[39mU2 connector effects {"connections":2,"controlledCalls":[{"origin":"https://alpha.u2.test","path":"identity","method":"GET","status":200},{"origin":"https://beta.u2.test","path":"identity","method":"GET","status":200},{"origin":"https://alpha.u2.test","path":"identity","method":"GET","status":200},{"origin":"https://beta.u2.test","path":"identity","method":"GET","status":200},{"origin":"https://alpha.u2.test","path":"identity","method":"GET","status":200},{"origin":"https://alpha.u2.test","path":"identity","method":"GET","status":200},{"origin":"https://alpha.u2.test","path":"identity","method":"GET","status":200},{"origin":"https://alpha.u2.test","path":"identity","method":"GET","status":503},{"origin":"https://alpha.u2.test","path":"identity","method":"GET","status":503},{"origin":"https://alpha.u2.test","path":"identity","method":"GET","status":200},{"origin":"https://alpha.u2.test","path":"identity","method":"GET","status":200},{"origin":"https://beta.u2.test","path":"identity","method":"GET","status":200}],"operationalEffects":0}
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0647258Z 
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0647732Z  [32m✓[39m tests/flagship/release-clauses/federation/connector-disclosure.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 144[2mms[22m[39m
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0648587Z  [32m✓[39m tests/e2e/pages/reactions.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 880[2mms[22m[39m
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0649392Z    [33m[2m✓[22m[39m PAGE-014 — page and comment reactions identify each member, toggle independently and never notify or count as views [33m 879[2mms[22m[39m
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0650184Z  [32m✓[39m tests/flagship/intelligence/inquiry.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 1841[2mms[22m[39m
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0650908Z    [33m[2m✓[22m[39m inquiry hypotheses, outcomes and historical cutoffs retain evidence boundaries [33m 1839[2mms[22m[39m
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0651604Z  [32m✓[39m tests/flagship/intelligence/skills.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 1460[2mms[22m[39m
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0652328Z    [33m[2m✓[22m[39m pinned skills, evaluation cutoffs and retained learning preserve admission boundaries [33m 1459[2mms[22m[39m
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0653046Z  [32m✓[39m tests/e2e/navigation/create-in-place.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 619[2mms[22m[39m
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0653949Z    [33m[2m✓[22m[39m TREE-005 — root and child creation retain their chosen destination and refuse read-only destinations [33m 618[2mms[22m[39m
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0654719Z  [32m✓[39m tests/qualification/authority/import-safety.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 105[2mms[22m[39m
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0655056Z 
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0655298Z [2m Test Files [22m [1m[32m17 passed[39m[22m[90m (17)[39m
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0655711Z [2m      Tests [22m [1m[32m18 passed[39m[22m[90m (18)[39m
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0656053Z [2m   Start at [22m 14:03:34
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0656585Z [2m   Duration [22m 168.25s[2m (transform 7.87s, setup 10.30s, import 74.94s, tests 72.13s, environment 1ms)[22m
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0656888Z 
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0657158Z JSON report written to /home/runner/work/run-slate/run-slate/.artifacts/contract-3.json
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0657497Z TAP version 13
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0657810Z # Subtest: visible Slate polish and genuine failure/retry at 390px
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0658209Z ok 1 - visible Slate polish and genuine failure/retry at 390px
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0658641Z   ---
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0658823Z   duration_ms: 154039.328019
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0659030Z   type: 'test'
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0659207Z   ...
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0659362Z 1..1
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0659528Z # tests 1
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0659692Z # suites 0
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0659856Z # pass 1
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0660014Z # fail 0
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0660172Z # cancelled 0
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0660351Z # skipped 0
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0660625Z # todo 0
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0660809Z # duration_ms 172163.381069
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0661115Z Shard lane results: journeys=1 worker-suite=0
+verify (ui-polish-mobile)	Workers, public-door journeys and suite	2026-11-08T14:12:15.0671076Z ##[error]Process completed with exit code 1.

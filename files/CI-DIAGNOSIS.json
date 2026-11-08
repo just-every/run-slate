@@ -1,0 +1,36 @@
+{
+  "head": "f733fff9bb25546df80ade82c7b492e5532b005f",
+  "run": 42487651793,
+  "job": 128753569213,
+  "command": "bash .github/scripts/run-shard.sh",
+  "environment": {
+    "SLATE_UI_SHARD": "8/8",
+    "SLATE_UI_ASSIGNMENTS": ".github/scripts/journey-shards.json",
+    "SERIAL_SUITE": "false",
+    "WORKER_SHARD": "3",
+    "SUITE_COMMAND": "node --test --test-concurrency=1 --test-name-pattern='^visible Slate polish.*390' tests/ui/polish-journeys.test.mjs"
+  },
+  "failedTest": "presentation paginates read-only slides; touch history, details and exports work at 1440px",
+  "failure": "Touch surfaces have no browser errors or hydration mismatch. Actual contained a page-open 409 and a Failed to load resource 409 console error.",
+  "exactEnvironment": {
+    "os": "Ubuntu 24.04.4 LTS",
+    "node": "22.20.0",
+    "pnpm": "10.12.4",
+    "playwright": "1.63.0",
+    "browser": "chromium_headless_shell-1243",
+    "image": "mcr.microsoft.com/playwright:v1.63.0-noble",
+    "imageDigest": "sha256:eff16c30e6f3f4af0a03fa4b706120d5e9b0891c344a27d64559aff5900a4a27"
+  },
+  "sourceEditsAfterFailure": false,
+  "candidateReproduction": {
+    "exit": 0,
+    "journeys": 0,
+    "workerSuite": 0,
+    "matchedOriginalFailure": false,
+    "head": "f733fff9bb25546df80ade82c7b492e5532b005f"
+  },
+  "mainComparison": {
+    "status": "running",
+    "head": "67b706484e5430012d9c154c1e14090ea1e49bc2"
+  }
+}
