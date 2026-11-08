@@ -1,3 +1,4 @@
+import {mediaBlocksJourney} from './media-blocks-journey';
 import {decisionLogJourney} from './decision-log-journey';
 import {pageLockJourney} from './page-lock-journey';
 import {bodyBlocksJourney} from './body-blocks-journey';
@@ -87,6 +88,10 @@ it("FLAG-001 — core wiki public doors retain native content while flagship rou
     { name: 'DEC-004 — populated native decision log filters exact memberships and retains accepted revisions under current access', run: async () => {
       const {workspaceId,memberId,cookie} = await workspace();
       await decisionLogJourney(createApi(),workspaceId,memberId,cookie);
+    } },
+    { name: 'BLOCK-008 — native media disposition matrix preserves declared types, sanitized bytes and page authority', run: async () => {
+      const {workspaceId,cookie}=await workspace();
+      await mediaBlocksJourney(createApi(),workspaceId,cookie);
     } },
     { name: 'FLAG-001 — old queued flagship work records failure and retries without dispatch or acknowledgement', run: async () => {
   for(const kind of ['intelligence.run','intelligence.finalize','federation.refresh']) {
