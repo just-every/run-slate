@@ -1,3 +1,6 @@
+import {unpublishPage} from '../lifecycle/unpublish';
+import {z} from 'zod';
+import {parseBody} from '../workspace/routes';
 import {embedDeployment} from '../editor/embeds/refusal';
 import {embedStatus} from '../editor/embeds/service';
 import {editSyncedCopy} from '../editor/synced/write';
@@ -62,6 +65,7 @@ export function createPagesRoutes() {
     r.put('/:id/blocks', async (c) => c.json(await replaceBlocks(featureContext(c), c.req.param('id'), await validatedJson(c, replaceBlocksSchema))));
     r.post('/:id/lock', async c => c.json(await setPageLock(featureContext(c), c.req.param('id'), await c.req.json(), true)));
     r.post('/:id/unlock', async c => c.json(await setPageLock(featureContext(c), c.req.param('id'), await c.req.json(), false)));
+    r.post('/:id/unpublish',async c=>c.json(await unpublishPage(featureContext(c),c.req.param('id'),await parseBody(c.req,z.object({operationKey:z.string().min(8).max(160),expectedRevisionId:z.string().min(1)}).strict()))));
     r.post('/:id/publish-preview', async (c) => c.json(await previewPublication(featureContext(c), c.req.param('id'), await c.req.json())));
     r.post('/:id/publish', async (c) => c.json(await publishPage(featureContext(c), c.req.param('id'), await c.req.json())));
     r.post('/:id/cancel-schedule', async (c) => c.json(await cancelSchedule(featureContext(c), c.req.param('id'), await c.req.json())));

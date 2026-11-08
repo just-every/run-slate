@@ -1,10 +1,11 @@
+import {commitOperation} from '../../app/operations';
 import type {FeatureContext} from '../../app/feature-context';
 import {ApiProblem} from '../../app/problems';
 import {currentSubject,requireContainerLevel,requirePageLevel} from '../sharing/current-access';
 import {createUlid} from '../../shared/ulid';
 import {readableArchive} from './readable-archive';
 import {renderDocx} from './docx';
-export interface ReadableExportInput {scope:'page'|'descendants'|'container'|'workspace';id:string;format:'markdown'|'html'|'pdf'|'docx';includeComments?:boolean}
+export interface ReadableExportInput {scope:'page'|'descendants'|'container'|'workspace';id:string;format:'markdown'|'html'|'pdf'|'docx';includeComments?:boolean;operationKey?:string}
 /** Restart the access fence for every export, and release no bytes across an ACL change. */
 export async function exportReadable(ctx:FeatureContext,input:ReadableExportInput,origin?:string){
  ctx={...ctx,authorizationEpoch:undefined};
@@ -14,5 +15,20 @@ export async function exportReadable(ctx:FeatureContext,input:ReadableExportInpu
  if(input.format==='docx'&&!origin)throw new ApiProblem(503,'EXPORT_ORIGIN_REQUIRED','Word export requires the Slate origin.');
  const result=input.format==='docx'?{bytes:await renderDocx(ctx,allowed,new Set(ids.filter(id=>!allowed.has(id))),origin!,input.includeComments!==false),contentType:'application/vnd.openxmlformats-officedocument.wordprocessingml.document',filename:`slate-${input.scope}-${createUlid()}.docx`,report:[]}:await readableArchive(ctx,input,allowed);
  if((await ctx.db.prepare('SELECT epoch FROM core_acl_epoch WHERE id=1').first<{epoch:number}>())?.epoch!==ctx.authorizationEpoch)throw new ApiProblem(403,'EXPORT_ACCESS_CHANGED','Access changed while exporting. Try again.');
- return result;
+ // Rendering must finish before recording a successful export. The receipt and
+ // activity share the normal membership and ACL fences, including on replay.
+ const renderedEpoch=ctx.authorizationEpoch;
+ const operationKey=input.operationKey??`readable:${createUlid()}`;
+ const {operationKey:_,...request}=input;
+ const audit=await commitOperation(ctx,{
+  operationKey,action:'exports.readable',request,
+  authorize:async()=>{
+   if(input.scope==='workspace')await currentSubject(ctx);
+   else if(input.scope==='container')await requireContainerLevel(ctx,input.id,'view');
+   else await requirePageLevel(ctx,input.id,'view');
+   if(ctx.authorizationEpoch!==renderedEpoch)throw new ApiProblem(403,'EXPORT_ACCESS_CHANGED','Access changed while exporting. Try again.');
+  },
+  prepare:async({revisionId})=>({statements:[],entity:{kind:input.scope==='workspace'?'workspace':input.scope==='container'?'container':'page',id:input.scope==='workspace'?ctx.actor.workspaceId:input.id,revisionId},value:{scope:input.scope,format:input.format},detail:{scope:input.scope,format:input.format},feature:'exports'}),
+ });
+ return {...result,receipt:audit.receipt};
 }

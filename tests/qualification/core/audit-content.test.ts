@@ -1,3 +1,6 @@
+import {captureMail} from '../../e2e/helpers/mail-edge';
+import {seedMember} from '../../e2e/setup/fixtures';
+import {activityCoverageProof} from './activity-coverage-proof.mjs';
 import {revisionHistoryProof} from './revision-history-proof';
 import {archiveRetentionProof} from './archive-retention-proof';
 import {auditExportProof} from './audit-export-proof';
@@ -5,6 +8,22 @@ import {test,expect,vi} from 'vitest';
 import {auditFixture,env,createUlid,pageDurabilityProof,activityContextProof} from './audit-support';
 test('ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time',async()=>{
  const f=await auditFixture();
+ const {memberId:removableMemberId}=await seedMember(f.workspaceId,{email:['synthetic-slate-remove','test.invalid'].join('@'),displayName:'Removable member',role:'member'});
+ const mail=captureMail();
+ let coverage;
+ try {coverage=await activityCoverageProof({
+  ownerId:f.ownerId,memberId:f.readerId,removableMemberId,containerId:f.containerId,workspaceId:f.workspaceId,key:createUlid,host:String(env.PUBLIC_PAGE_HOST??new URL(String(env.APP_URL)).host),
+  request:async(method:string,path:string,body?:unknown,actor=f.ownerId,headers:Record<string,string>={})=>{
+   const binary=body instanceof Uint8Array;
+   const response=await f.api.request(new URL(path,String(env.APP_URL)).toString(),{method,headers:{cookie:f.cookies[actor]!,origin:new URL(String(env.APP_URL)).origin,...(binary?{}:{'content-type':'application/json'}),...headers},...(body===undefined?{}:{body:binary?new Uint8Array(body).buffer:JSON.stringify(body)})},env);
+   const responseHeaders=Object.fromEntries(response.headers),isJson=response.headers.get('content-type')?.includes('application/json');
+   return {status:response.status,headers:responseHeaders,...(isJson?{data:await response.json()}:{bytes:new Uint8Array(await response.arrayBuffer())})};
+  },
+  importFixture:async()=>new Uint8Array(await (await env.TEST_IMPORT_FIXTURES.fetch('https://fixture/confluence-space-export.zip')).arrayBuffer()),
+  runScheduled:async()=>{const {scheduledAutomation}=await import('../../../src/core/features/automation/events');await scheduledAutomation(env);},
+ });
+ } finally {mail.restore();}
+ console.info('ACTIVITY_COVERAGE_RECEIPT',JSON.stringify(coverage));
  await pageDurabilityProof(f);
  await revisionHistoryProof(f);
  await activityContextProof(f);

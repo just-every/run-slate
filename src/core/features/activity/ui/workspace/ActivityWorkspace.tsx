@@ -102,6 +102,7 @@ export function ActivityWorkspace() {
               <div>
                 <strong>{item.actor?.displayName ?? (item.action.startsWith("verification-rules.") ? "Verification rules" : "Former member")}</strong> ·{" "}
                 {item.action.replace(/[._-]/g, " ")}
+                <p className="muted">{item.target.kind} · {item.target.id}</p>
                 <p>
                   <time dateTime={item.occurredAt}>
                     {new Date(item.occurredAt).toLocaleString()}

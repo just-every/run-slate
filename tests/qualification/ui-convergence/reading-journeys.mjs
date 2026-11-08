@@ -1,3 +1,4 @@
+import {activityCoverageJourney} from './activity-coverage-journey.mjs';
 import {importReviewJourney} from './import-review-journey.mjs';
 import {statusVocabularyJourney} from './status-vocabulary-journey.mjs';
 import { shortcutReferenceJourney } from './shortcut-reference-journey.mjs';
@@ -102,6 +103,7 @@ export async function settingsJourney(state, width) {
   await guestConsoleJourney(state);
   await themeJourney(state, width);
   if(width===1440)await activityContextJourney(state);
+  else await activityCoverageJourney(state,{phone:true});
   // Last: the operator's per-minute request budget is spent by the many screens above, not by this reconciliation.
   await containerIdentityJourney(state,width);
   await importReviewJourney(state,width);

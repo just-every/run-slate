@@ -1,3 +1,6 @@
+import {deleteContainer} from './delete';
+import {requireStepUp} from '../session/step-up';
+import {requireWorkspaceOwner} from '../sharing/current-access';
 import { archiveContainer } from './archive';
 import { Hono } from 'hono';
 import { z } from 'zod';
@@ -13,6 +16,7 @@ export function createContainersRoutes() {
   .post('/', async c => c.json(await createContainer(featureContext(c),await c.req.json())))
   .get('/:id/home', async c => c.json(await readContainerHome(featureContext(c),c.req.param('id'))))
   .put('/:id/home', async c => c.json(await setContainerHome(featureContext(c),c.req.param('id'),await parseBody(c.req,homeSchema))))
+  .delete('/:id',async c=>{await requireWorkspaceOwner(featureContext(c));await requireStepUp(c,'delete');return c.json(await deleteContainer(featureContext(c),c.req.param('id'),await parseBody(c.req,z.object({operationKey:z.string().min(8).max(160),expectedRevisionId:z.string().min(1),confirmed:z.boolean()}).strict())));})
   .get('/:id', async c => c.json(await readContainer(featureContext(c),c.req.param('id'))))
   .post('/:id/archive', async c => c.json(await archiveContainer(featureContext(c),c.req.param('id'),await c.req.json())))
   .patch('/:id', async c => c.json(await updateContainer(featureContext(c),c.req.param('id'),await c.req.json())));

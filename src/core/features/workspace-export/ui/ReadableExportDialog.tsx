@@ -1,3 +1,4 @@
+import {useRef} from 'react';
 import { ActionDialog } from "../../../app/ui/ActionDialog";
 export function ReadableExportDialog({
   id,
@@ -10,6 +11,7 @@ export function ReadableExportDialog({
   workspace?: boolean;
   onClose: () => void;
 }) {
+  const operationKey=useRef(crypto.randomUUID());
   return (
     <ActionDialog
       title="Export readable content"
@@ -21,6 +23,7 @@ export function ReadableExportDialog({
           credentials: "same-origin",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
+            operationKey:operationKey.current,
             scope: String(data.get("scope")),
             id,
             format: String(data.get("format")),

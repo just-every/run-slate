@@ -1476,8 +1476,13 @@
       "id": "ACT-002",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for ACT-002 — Coverage. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
-      "supportingTests": []
+      "unmetReason": "Native non-AI activity coverage is exercised through the loaded audit-content registration and the existing responsive settings journeys. AI runs and their acceptance or rejection remain omitted and unproven under ADMIN-007 and shared company-policy prerequisites. Recorded exact-candidate Verify and guarded landing remain pending; this proof releases no Slate clause.",
+      "supportingTests": [
+        {
+          "file": "tests/qualification/core/audit-content.test.ts",
+          "testName": "ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time"
+        }
+      ]
     },
     {
       "id": "ACT-003",

@@ -1,3 +1,4 @@
+import {activityCoverageJourney} from './activity-coverage-journey.mjs';
 import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
 import { expect } from '@playwright/test';
@@ -6,6 +7,7 @@ import { ok, call, restrictedPage } from './two-people-support.mjs';
 
 /** Real timeline links retain page versions, comment threads and individual grants through reload. */
 export async function activityContextJourney(state) {
+ await activityCoverageJourney(state);
  const {page,context,origin,api}=state;
  const {pageId}=await restrictedPage(state,'Activity context guide',['synthetic-slate-original-context-body']);
  const mutate=(method,path,input)=>ok(context,origin,method,path,{operationKey:randomUUID(),...input});
