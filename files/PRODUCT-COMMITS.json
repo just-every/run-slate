@@ -1,0 +1,14 @@
+[
+  {
+    "head": "f733fff9bb25546df80ade82c7b492e5532b005f",
+    "subject": "Complete native decision state journey and audit readback"
+  },
+  {
+    "head": "183925174f50f075f668237bec08ee4325f3893e",
+    "subject": "Verify decision history, activity and revoked replay through native doors [skip ci]"
+  },
+  {
+    "head": "b540fa8fed6cbb4aa682de3adf71941761fc58ae",
+    "subject": "Prove native decision state replay and terminal refusals [skip ci]"
+  }
+]

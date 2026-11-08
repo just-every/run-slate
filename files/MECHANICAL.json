@@ -1,0 +1,59 @@
+{
+  "head": "f733fff9bb25546df80ade82c7b492e5532b005f",
+  "checks": [
+    {
+      "name": "typecheck",
+      "command": "pnpm typecheck",
+      "exit": 0,
+      "seconds": 27.582,
+      "log": "TYPECHECK-FINAL.log",
+      "sha256": "129c8bcce35da60d7e23a8c236a244a361309306c3bc4608e3c7c00bb92c7d01"
+    },
+    {
+      "name": "first-party",
+      "command": "pnpm exec rer check --profile first-party",
+      "exit": 0,
+      "seconds": 0.901,
+      "log": "FIRST-PARTY-FINAL.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "views",
+      "command": "node src/base/runtime/contract-docs.mjs check",
+      "exit": 0,
+      "seconds": 0.308,
+      "log": "VIEWS-FINAL.log",
+      "sha256": "c21aae40192141751d6d5c7a3a1d0eb701a6852f305d592d77b4dcab9c2536ab"
+    },
+    {
+      "name": "lock",
+      "command": "pnpm source:check",
+      "exit": 0,
+      "seconds": 1.341,
+      "log": "LOCK-FINAL.log",
+      "sha256": "4855cfc0ee58d78e26e9d2230471163ced060185a47ee682aacdeb78ec4d10a9"
+    },
+    {
+      "name": "diff",
+      "command": "git diff --check",
+      "exit": 0,
+      "seconds": 0.007,
+      "log": "DIFF-FINAL.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "migrationLedger": "not applicable; no migration changed",
+  "finalRegeneration": {
+    "viewsWrite": "node src/base/runtime/contract-docs.mjs write",
+    "viewsCheck": "node src/base/runtime/contract-docs.mjs check",
+    "viewsExit": 0,
+    "restored": [
+      "ACCEPTANCE.md",
+      "docs/CLAIMS.md"
+    ],
+    "lockWrite": "pnpm source:lock",
+    "lockCheck": "pnpm source:check",
+    "lockExit": 0,
+    "trackedDiffAfterRegeneration": false
+  }
+}

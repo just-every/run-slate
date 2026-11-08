@@ -1,0 +1,23 @@
+{
+  "head": "f733fff9bb25546df80ade82c7b492e5532b005f",
+  "checks": [
+    {
+      "name": "native profile Worker",
+      "command": "pnpm exec vitest run --config tests/profile/vitest.config.ts tests/profile/profile.worker.test.ts --reporter=default --reporter=json --outputFile=/tmp/slate-profile-results-final.json",
+      "head": "f733fff9bb25546df80ade82c7b492e5532b005f",
+      "exit": 0,
+      "passed": 4,
+      "failed": 0,
+      "report": "NATIVE-RESULTS.json"
+    },
+    {
+      "name": "complete loaded core callers",
+      "command": "SLATE_CHROMIUM_PATH=/usr/bin/chromium cloud_run timeout 1800 node --test --test-concurrency=1 --test-name-pattern='^real core-wiki and touch-member journeys' tests/qualification/ui-convergence/journeys.test.mjs",
+      "head": "f733fff9bb25546df80ade82c7b492e5532b005f",
+      "exit": 0,
+      "passed": 2,
+      "failed": 0,
+      "report": "CORE-FINAL.log"
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "repository": "just-every/run-slate",
+  "branch": "cloud/sd-slate-c-f203",
+  "head": "f733fff9bb25546df80ade82c7b492e5532b005f",
+  "productPush": "success",
+  "remote": "https://github.com/just-every/run-slate.git",
+  "pullRequest": null,
+  "verifyRun": 42487651793,
+  "verifyStatus": "in_progress",
+  "verifyConclusion": null,
+  "localCoreStatus": "passed",
+  "nativeTests": {
+    "passed": 4,
+    "failed": 0
+  },
+  "counts": {
+    "before": {
+      "done": 57,
+      "partial": 240,
+      "missing": 41
+    },
+    "after": {
+      "done": 57,
+      "partial": 240,
+      "missing": 41
+    }
+  },
+  "registrations": {
+    "before": 211,
+    "after": 211
+  },
+  "scan": {
+    "complete": null,
+    "historyScanned": null,
+    "findings": null,
+    "custody": "guarded Mac lander"
+  },
+  "mainLanded": false,
+  "localCore390Milliseconds": 737271.346323,
+  "localCoreTests": {
+    "passed": 2,
+    "failed": 0,
+    "390Milliseconds": 737271.346323,
+    "1440Milliseconds": 573814.634793
+  },
+  "localCoreExit": 0,
+  "githubApiCalls": 4
+}
