@@ -1,3 +1,4 @@
+import {decisionEditJourney} from './decision-edit-journey.mjs';
 import {decisionLogJourney} from './decision-log-journey.mjs';
 import {automationRunLogJourney} from "./automation-run-log-journey.mjs";
 import {contentQueryJourney} from './content-query-journey.mjs';
@@ -83,7 +84,7 @@ import { todayOutcomesJourney } from './today-outcomes-journey.mjs';
 // Retain both responsive branches: desktop sidebar visibility and horizontal
 // column geometry are unique assertions, while the phone case checks stacking.
 for (const width of [390, 1440]) {
-  test(`real core-wiki and touch-member journeys at ${width}px`, { timeout: width === 390 ? 780000 : 720000 }, async () => {
+  test(`real core-wiki and touch-member journeys at ${width}px`, { timeout: width === 390 ? 900000 : 840000 }, async () => {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
       if(width===390)await transferJobsJourney(state);
@@ -128,6 +129,13 @@ for (const width of [390, 1440]) {
             await accessible(state.page, `phone smoke ${route}`);
           }
         }
+        await step('DEC-006 — native proposal edits retain exact revisions and refuse unchanged or unauthorized writes', async () => {
+          await state.page.goto('about:blank');
+          await withWorkspace({width,height:width===1440?1000:844}, 'core-wiki', async proposal => {
+            await setupWorkspace(proposal);
+            await decisionEditJourney(proposal, width);
+          });
+        });
         await step('DEC-004 — populated native decision filters, current access and exact accepted navigation', () => decisionLogJourney(state, width));
       } finally {await touch?.close();}
     }, {}, { scheduled: true, slack: true });

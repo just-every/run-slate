@@ -2034,7 +2034,7 @@
       "id": "DEC-006",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for DEC-006 — A proposed decision is editable. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "The default-profile FLAG-001 registration invokes decisionEditJourney through native routes, reconciling all proposal fields with exact durable revision and activity rows, retained snapshots, unchanged resubmission and stale, view-only and accepted refusals. The existing core-wiki browser callers invoke decisionEditJourney at both responsive widths. CONTRACT.md remains the status source; exact-candidate Verify and guarded landing are separate.",
       "supportingTests": []
     },
     {

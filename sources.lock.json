@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "dcf06022fc98f9c9eddb1bb95a911f619d94bf3feca7ce7a0cebd67d593d51c1",
+      "sha256": "a6a064b4d9c76d751751bb67080919620adf58ad2b271cee613cee26f0f107f8",
       "executable": false
     },
     "DEMO.md": {
@@ -6536,7 +6536,7 @@
       "executable": false
     },
     "src/core/features/decisions/records.ts": {
-      "sha256": "71c3f757c7b7074be60db4c487fd4ab754fe0020d59a74797d334486d2bae340",
+      "sha256": "541f420e554404e6cd2a787b3c7155e294f50cf3f29fd5da73ebf80caf59abeb",
       "executable": false
     },
     "src/core/features/decisions/routes.ts": {
@@ -6572,15 +6572,15 @@
       "executable": false
     },
     "src/core/features/decisions/ui/DecisionProposal.tsx": {
-      "sha256": "002ec3484b320df4e7f48492e37a8fa0311ca1aea7e268b26f818f6c3d830ae7",
+      "sha256": "882154a6fd57c55541e541ff8edbaf4f64fb8c89656e90cbadf00085fffa670b",
       "executable": false
     },
     "src/core/features/decisions/ui/DecisionWorkspace.tsx": {
-      "sha256": "d9b5710419184034a1514d8d806ff5bc48e76698f0030cfbd508b091fd7938bf",
+      "sha256": "2fb7bd2d6490a0aa22747fb5625be0431a9520e84a4ab1421728e70852d5d44e",
       "executable": false
     },
     "src/core/features/decisions/ui/PageDecisions.tsx": {
-      "sha256": "a67422701c29d41dc6d27d83943262a4e87d5b2cab28f28ea21f2e2429aa8909",
+      "sha256": "cab05668b7498ebe4e5c80725a0568ce01f11eb56f5ed21a36976b3e492cf1d6",
       "executable": false
     },
     "src/core/features/decisions/ui/PrepareDecision.tsx": {
@@ -11475,6 +11475,10 @@
       "sha256": "f73b8a002fd4d6b5941d924c9cc4aac2bfaba77d81b9fb4f2201f4f13e0c33de",
       "executable": false
     },
+    "tests/profile/decision-edit-journey.ts": {
+      "sha256": "c64495a91be9ca171e202e0c5002f8734577d14598175f58656003e8f2ce97ec",
+      "executable": false
+    },
     "tests/profile/decision-log-journey.ts": {
       "sha256": "8ce143983241e31b14dd88edbc1a656aba3ede05e45f4170451d87e9b18a48be",
       "executable": false
@@ -11488,11 +11492,11 @@
       "executable": false
     },
     "tests/profile/profile.node.tsx": {
-      "sha256": "1835f268172a0ea75c498f58daa1147045566b59b34133fdaa62743cec363c80",
+      "sha256": "e8e45cc0626b2e3d3af361a82cdc05d7ac037c41a47d7f4822915851f42a22ea",
       "executable": false
     },
     "tests/profile/profile.worker.test.ts": {
-      "sha256": "4fa4ea20b7891b65cfdf7f17ba025bfcc0a6f54cdfe5511fd73663388763a828",
+      "sha256": "d9c56c1e56a2fb7ba6e0a241a7d78e77f038613193f86fa0dcddca5d108cb237",
       "executable": false
     },
     "tests/profile/vitest.config.ts": {
@@ -11971,6 +11975,10 @@
       "sha256": "2c637f6d1fa5389f933adf87c791944e8de436d60b4348cd96fda62edee321d0",
       "executable": false
     },
+    "tests/qualification/ui-convergence/decision-edit-journey.mjs": {
+      "sha256": "4171f9eca8c48b44b4f786892ac39a3850da5774e563a5c8a1c10aa7a2649fe7",
+      "executable": false
+    },
     "tests/qualification/ui-convergence/decision-log-journey.mjs": {
       "sha256": "1822426de71060b7157df3b165b1d912c0372194d15b153f706054f7185dcb3c",
       "executable": false
@@ -12156,7 +12164,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
-      "sha256": "4733ac13c5a0af6b953bf74ee4ba187e1067fba37f9b9b5b654bdfdf21018f27",
+      "sha256": "a837d249ee5f5df2be5705103ad27f4d57091c56acdc6ef717ba99c5d29c5342",
       "executable": false
     },
     "tests/qualification/ui-convergence/link-access-journey.mjs": {
@@ -12468,11 +12476,11 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "b66fa73283895f25f41a6da771f2684e018ac969adeccfd8c9869ae20742d20a",
+      "sha256": "6dbb6dc7327dbb6ccd2d01c18e04c49e76047f4ebf30b5f7e770f66e93133b42",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
-      "sha256": "7f730d5f429b5fa9982abba06af81e05c47f80d19c0a8095b283a8ee2495bcbe",
+      "sha256": "6c7e55c2c476ca67f1cd50d9b94e76b8d7d7b62dd42304134836ab9469fa22cc",
       "executable": false
     },
     "tests/requirements/count-registrations.mjs": {
