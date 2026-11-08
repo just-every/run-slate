@@ -1,0 +1,13 @@
+ CONTRACT.md                                        |   2 +-
+ sources.lock.json                                  |  24 ++--
+ src/core/app/background.ts                         |   2 +
+ src/core/features/ai/integration.ts                |   2 +-
+ src/core/features/decisions/records.ts             |   2 +-
+ src/core/features/decisions/scheduler.ts           |   2 +
+ .../navigation/ui/workspace/TodayWorkspace.tsx     |  82 +++++++------
+ src/core/features/runs/worker.ts                   |   1 -
+ tests/profile/profile.worker.test.ts               |  61 ++++++++-
+ .../ui-convergence/decision-review-journey.mjs     | 136 +++++++++++++++++++++
+ .../qualification/ui-convergence/journeys.test.mjs |   7 +-
+ tests/requirements/clause-inventory.json           |   2 +-
+ 12 files changed, 268 insertions(+), 55 deletions(-)

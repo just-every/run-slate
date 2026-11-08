@@ -1,0 +1,343 @@
+{
+  "tag": "sd-slate-c-f210",
+  "repository": "just-every/run-slate",
+  "head": "80c88e050d29bf3ad1879bb83cc943fff8129c18",
+  "branch": "cloud/sd-slate-c-f210",
+  "newSourceEditsThisContinuation": false,
+  "build": {
+    "schema": 1,
+    "commit": "80c88e050d29bf3ad1879bb83cc943fff8129c18",
+    "tree": "2be26fb213bfb6a5241aaf51d214ed87ffeeab9d",
+    "sourceSha256": "9c240645ffd09dd4f707bbf139517e5be8101808566d5facfb115a6aa3341855",
+    "lockSha256": "e2b6efc280e1ff2b88ba30b5f00b1a263668dcf9fbc486590ed9bc90486f7285",
+    "outputSha256": "3c46e95cd7de23f74208bc12c1ed39908929566fc64a8f377e01cb2bb91cfa6a"
+  },
+  "browser": [
+    {
+      "width": 1440,
+      "decisionId": "01M6XWZ9D94FD69A6T8G4SZD60",
+      "ownerNoticeCounts": [
+        0,
+        1,
+        2
+      ],
+      "otherMemberNotices": 0,
+      "revokedOwnerNewNotices": 0,
+      "decision": {
+        "id": "01M6XWZ9D94FD69A6T8G4SZD60",
+        "page_id": "01M6XWZ96SEX2BZ9NKBKN5J1W9",
+        "workspace_id": "browser-workspace",
+        "question": "Keep the support rota?",
+        "options_json": "[\"Keep rota\",\"Replace rota\"]",
+        "outcome": "Keep rota",
+        "rationale": "The current rota covers each shift.",
+        "owner_member_id": "browser-owner",
+        "decided_at": "2026-11-08T15:38:30.998Z",
+        "review_at": "2000-02-01T00:00:00.000Z",
+        "overdue_notified_at": "2026-11-08T15:38:42.858Z",
+        "state": "superseded",
+        "accepted_snapshot_json": "{\"operationKey\":\"ee526e54-c944-4675-9f66-f14aee59b375\",\"pageId\":\"01M6XWZ96SEX2BZ9NKBKN5J1W9\",\"question\":\"Keep the support rota?\",\"options\":[\"Keep rota\",\"Replace rota\"],\"outcome\":\"Keep rota\",\"rationale\":\"The current rota covers each shift.\",\"ownerId\":\"browser-owner\",\"decidedAt\":\"2026-11-08T15:38:30.998Z\",\"reviewAt\":\"2099-01-01T00:00:00.000Z\",\"citations\":[],\"acceptedBy\":\"browser-owner\",\"acceptedAt\":\"2026-11-08T15:38:30.998Z\",\"supersedesId\":null}",
+        "superseded_by_decision_id": "01M6XWZPSB36H79DAD1WY2RCE9",
+        "created_at": "2026-11-08T15:38:30.168Z",
+        "updated_at": "2026-11-08T15:38:44.273Z",
+        "revision_id": "01M6XWZQ6CN2707FH8VMD03VVP",
+        "removed_at": null,
+        "removed_by_member_id": null,
+        "accepted_revision_id": "01M6XWZA7HF9S4ENTS0219Y0ZJ",
+        "content": {
+          "operationKey": "ee526e54-c944-4675-9f66-f14aee59b375",
+          "pageId": "01M6XWZ96SEX2BZ9NKBKN5J1W9",
+          "question": "Keep the support rota?",
+          "options": [
+            "Keep rota",
+            "Replace rota"
+          ],
+          "outcome": "Keep rota",
+          "rationale": "The current rota covers each shift.",
+          "ownerId": "browser-owner",
+          "decidedAt": "2026-11-08T15:38:30.998Z",
+          "reviewAt": "2099-01-01T00:00:00.000Z",
+          "citations": [],
+          "acceptedBy": "browser-owner",
+          "acceptedAt": "2026-11-08T15:38:30.998Z",
+          "supersedesId": null
+        },
+        "viewedRevisionId": "01M6XWZA7HF9S4ENTS0219Y0ZJ",
+        "revision": {
+          "id": "01M6XWZA7HF9S4ENTS0219Y0ZJ",
+          "kind": "decision-acceptance",
+          "actorId": "browser-owner",
+          "createdAt": "2026-11-08T15:38:30.998Z"
+        },
+        "acceptedRevisionId": "01M6XWZA7HF9S4ENTS0219Y0ZJ",
+        "acceptedRevisionHref": "/app/decisions/01M6XWZ9D94FD69A6T8G4SZD60?revision=01M6XWZA7HF9S4ENTS0219Y0ZJ",
+        "citationsCurrent": true,
+        "overdue": false
+      },
+      "reviews": [
+        {
+          "id": "01M6XWZJQQ216D7C2XBKYR7BK3",
+          "decision_id": "01M6XWZ9D94FD69A6T8G4SZD60",
+          "note": "Reviewed the rota with all shift leads; retain it until the next review.",
+          "reviewed_by_member_id": "browser-reader",
+          "next_review_at": "2099-02-01T00:00:00.000Z",
+          "created_at": "2026-11-08T15:38:39.727Z"
+        }
+      ],
+      "todayAfterSupersession": []
+    },
+    {
+      "width": 390,
+      "decisionId": "01M6XX0NSNYE844JJ447K3DF06",
+      "ownerNoticeCounts": [
+        0,
+        1,
+        2
+      ],
+      "otherMemberNotices": 0,
+      "revokedOwnerNewNotices": 0,
+      "decision": {
+        "id": "01M6XX0NSNYE844JJ447K3DF06",
+        "page_id": "01M6XX0NKNPHR7WV4KVGQTBCG9",
+        "workspace_id": "browser-workspace",
+        "question": "Keep the support rota?",
+        "options_json": "[\"Keep rota\",\"Replace rota\"]",
+        "outcome": "Keep rota",
+        "rationale": "The current rota covers each shift.",
+        "owner_member_id": "browser-owner",
+        "decided_at": "2026-11-08T15:39:16.429Z",
+        "review_at": "2000-02-01T00:00:00.000Z",
+        "overdue_notified_at": "2026-11-08T15:39:27.056Z",
+        "state": "superseded",
+        "accepted_snapshot_json": "{\"operationKey\":\"a37190aa-b86a-4a57-955e-e09e2b74d794\",\"pageId\":\"01M6XX0NKNPHR7WV4KVGQTBCG9\",\"question\":\"Keep the support rota?\",\"options\":[\"Keep rota\",\"Replace rota\"],\"outcome\":\"Keep rota\",\"rationale\":\"The current rota covers each shift.\",\"ownerId\":\"browser-owner\",\"decidedAt\":\"2026-11-08T15:39:16.429Z\",\"reviewAt\":\"2099-01-01T00:00:00.000Z\",\"citations\":[],\"acceptedBy\":\"browser-owner\",\"acceptedAt\":\"2026-11-08T15:39:16.429Z\",\"supersedesId\":null}",
+        "superseded_by_decision_id": "01M6XX11TAABQWZFJ3KV6VJWVP",
+        "created_at": "2026-11-08T15:39:15.621Z",
+        "updated_at": "2026-11-08T15:39:28.270Z",
+        "revision_id": "01M6XX1256SX2H2RK7HE1Y1JBA",
+        "removed_at": null,
+        "removed_by_member_id": null,
+        "accepted_revision_id": "01M6XX0PK18T187GBFQWM3TYCC",
+        "content": {
+          "operationKey": "a37190aa-b86a-4a57-955e-e09e2b74d794",
+          "pageId": "01M6XX0NKNPHR7WV4KVGQTBCG9",
+          "question": "Keep the support rota?",
+          "options": [
+            "Keep rota",
+            "Replace rota"
+          ],
+          "outcome": "Keep rota",
+          "rationale": "The current rota covers each shift.",
+          "ownerId": "browser-owner",
+          "decidedAt": "2026-11-08T15:39:16.429Z",
+          "reviewAt": "2099-01-01T00:00:00.000Z",
+          "citations": [],
+          "acceptedBy": "browser-owner",
+          "acceptedAt": "2026-11-08T15:39:16.429Z",
+          "supersedesId": null
+        },
+        "viewedRevisionId": "01M6XX0PK18T187GBFQWM3TYCC",
+        "revision": {
+          "id": "01M6XX0PK18T187GBFQWM3TYCC",
+          "kind": "decision-acceptance",
+          "actorId": "browser-owner",
+          "createdAt": "2026-11-08T15:39:16.429Z"
+        },
+        "acceptedRevisionId": "01M6XX0PK18T187GBFQWM3TYCC",
+        "acceptedRevisionHref": "/app/decisions/01M6XX0NSNYE844JJ447K3DF06?revision=01M6XX0PK18T187GBFQWM3TYCC",
+        "citationsCurrent": true,
+        "overdue": false
+      },
+      "reviews": [
+        {
+          "id": "01M6XX0YBR1Y4BDBVCBQ49AAP5",
+          "decision_id": "01M6XX0NSNYE844JJ447K3DF06",
+          "note": "Reviewed the rota with all shift leads; retain it until the next review.",
+          "reviewed_by_member_id": "browser-reader",
+          "next_review_at": "2099-02-01T00:00:00.000Z",
+          "created_at": "2026-11-08T15:39:24.393Z"
+        }
+      ],
+      "todayAfterSupersession": []
+    }
+  ],
+  "checks": [
+    {
+      "command": "pnpm exec vitest run --config tests/profile/vitest.config.ts tests/profile/profile.worker.test.ts -t FLAG-001",
+      "mode": "before scheduler move, temporary restoration of old placement",
+      "exit": 1,
+      "failure": "expected +0 to be 1 at tests/profile/profile.worker.test.ts:115"
+    },
+    {
+      "command": "pnpm exec vitest run --config tests/profile/vitest.config.ts tests/profile/profile.worker.test.ts -t FLAG-001",
+      "mode": "fixed candidate",
+      "exit": 0
+    },
+    {
+      "command": "npx -y @runeditrun/rer setup --owner-email <fleet address> --non-interactive",
+      "exit": 0
+    },
+    {
+      "command": "npx -y @runeditrun/rer build",
+      "exit": 0
+    },
+    {
+      "command": "pnpm typecheck",
+      "exit": 0
+    },
+    {
+      "command": "pnpm exec rer check --profile first-party",
+      "exit": 0
+    },
+    {
+      "command": "node /tmp/slate-decision-proof.mjs",
+      "timeoutSeconds": 1200,
+      "widths": [
+        1440,
+        390
+      ],
+      "exit": 0
+    },
+    {
+      "command": "node src/base/runtime/contract-docs.mjs write",
+      "exit": 0
+    },
+    {
+      "command": "node src/base/runtime/contract-docs.mjs check",
+      "mode": "after write",
+      "exit": 0
+    },
+    {
+      "command": "pnpm integration:sync",
+      "exit": 0
+    },
+    {
+      "command": "pnpm source:lock",
+      "exit": 0
+    },
+    {
+      "command": "pnpm source:check",
+      "exit": 0
+    }
+  ],
+  "mechanical": {
+    "viewsRestoredFrom": "origin/main",
+    "generatedViewsCommitted": false,
+    "migrationLedger": "not applicable; no migrations changed",
+    "statusRowsChanged": false,
+    "countsBefore": {
+      "done": 57,
+      "partial": 240,
+      "missing": 41
+    },
+    "countsAfter": {
+      "done": 57,
+      "partial": 240,
+      "missing": 41
+    },
+    "registrationsBefore": 211,
+    "registrationsAfter": 211
+  },
+  "publicationScan": {
+    "commit": "80c88e050d29bf3ad1879bb83cc943fff8129c18",
+    "status": "NOT_RUN_CLOUD_LANDER_REQUIRED",
+    "complete": null,
+    "historyScanned": null,
+    "findings": null
+  },
+  "screenshots": [
+    "005-1440-decision-review-overdue-accepted",
+    "006-1440-decision-review-today-notice",
+    "007-1440-decision-review-recorded-and-cleared",
+    "008-1440-decision-review-today-cleared",
+    "009-1440-decision-review-superseded",
+    "014-390-decision-review-overdue-accepted",
+    "015-390-decision-review-today-notice",
+    "016-390-decision-review-recorded-and-cleared",
+    "017-390-decision-review-today-cleared",
+    "018-390-decision-review-superseded"
+  ],
+  "runtime": {
+    "node": "24.19.0",
+    "pnpm": "10.12.4",
+    "chromium": "/usr/bin/chromium",
+    "noSandbox": true
+  },
+  "ci": [
+    {
+      "conclusion": "failure",
+      "event": "push",
+      "head_branch": "cloud/sd-slate-c-f210",
+      "head_sha": "80c88e050d29bf3ad1879bb83cc943fff8129c18",
+      "html_url": "https://github.com/just-every/run-slate/actions/runs/42495969793",
+      "id": 42495969793,
+      "name": "Verify Slate",
+      "status": "completed"
+    },
+    {
+      "conclusion": "failure",
+      "event": "push",
+      "head_branch": "cloud/sd-slate-c-f204",
+      "head_sha": "80c88e050d29bf3ad1879bb83cc943fff8129c18",
+      "html_url": "https://github.com/just-every/run-slate/actions/runs/42490432350",
+      "id": 42490432350,
+      "name": "Verify Slate",
+      "status": "completed"
+    }
+  ],
+  "ciJobs": [
+    {
+      "conclusion": "success",
+      "failedSteps": [],
+      "id": 128778289467,
+      "name": "plan"
+    },
+    {
+      "conclusion": "failure",
+      "failedSteps": [
+        "Run node src/base/runtime/contract-docs.mjs check"
+      ],
+      "id": 128778335005,
+      "name": "verify (app)"
+    },
+    {
+      "conclusion": "skipped",
+      "failedSteps": [],
+      "id": 128778335993,
+      "name": "import-scale"
+    },
+    {
+      "conclusion": "failure",
+      "failedSteps": [
+        "Require the plan and every expected job"
+      ],
+      "id": 128778486702,
+      "name": "verify"
+    },
+    {
+      "conclusion": "skipped",
+      "failedSteps": [],
+      "id": 128778486929,
+      "name": "verify (${{ matrix.suite }})"
+    },
+    {
+      "conclusion": "skipped",
+      "failedSteps": [],
+      "id": 128778487167,
+      "name": "local-journeys"
+    },
+    {
+      "conclusion": "skipped",
+      "failedSteps": [],
+      "id": 128778487715,
+      "name": "contract"
+    }
+  ],
+  "ciApiCalls": 6,
+  "generatedViewException": true,
+  "productPush": {
+    "status": "success",
+    "attempts": 1,
+    "branch": "cloud/sd-slate-c-f210",
+    "head": "80c88e050d29bf3ad1879bb83cc943fff8129c18"
+  }
+}
