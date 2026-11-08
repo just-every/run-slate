@@ -1,0 +1,276 @@
+{
+  "head": "216aa8f675bd992d995ee3ed1f53ca449ed7f69a",
+  "branch": "cloud/sd-slate-c-f216",
+  "sourceParent": "6a6232f31641de9e5935ed1899a080aee6bb23ec",
+  "node": "22.20.0",
+  "pnpm": "10.12.4",
+  "commands": [
+    {
+      "id": "native_erasure",
+      "command": "pnpm exec vitest run tests/qualification/core/audit-content.test.ts --disableConsoleIntercept",
+      "exit": 0,
+      "scope": "exact candidate"
+    },
+    {
+      "id": "atomic_custody",
+      "command": "pnpm exec vitest run --config tests/qualification/erasure-metadata/vitest.config.ts tests/qualification/erasure-metadata/atomic-custody.test.ts",
+      "exit": 0,
+      "scope": "product bytes unchanged from tested save"
+    },
+    {
+      "id": "typecheck",
+      "command": "pnpm typecheck",
+      "exit": 0,
+      "scope": "Node 22.20.0"
+    },
+    {
+      "id": "first_party",
+      "command": "pnpm exec rer check --profile first-party",
+      "exit": 0,
+      "scope": "local first-party gate"
+    },
+    {
+      "id": "views_write",
+      "command": "node src/base/runtime/contract-docs.mjs write",
+      "exit": 0,
+      "scope": "generated views restored from main afterward"
+    },
+    {
+      "id": "views_check",
+      "command": "node src/base/runtime/contract-docs.mjs check",
+      "exit": 0,
+      "scope": "passed on generated views before restore"
+    },
+    {
+      "id": "integration",
+      "command": "pnpm integration:sync",
+      "exit": 0,
+      "scope": "no integration changes required"
+    },
+    {
+      "id": "source_lock",
+      "command": "pnpm source:lock",
+      "exit": 0,
+      "scope": "generated after final source and test edits"
+    },
+    {
+      "id": "source_check",
+      "command": "pnpm source:check",
+      "exit": 0,
+      "scope": "fresh lock and integration source"
+    },
+    {
+      "id": "contract",
+      "command": "pnpm check:contract",
+      "exit": 0,
+      "scope": "structural contract check"
+    },
+    {
+      "id": "browser_focused",
+      "command": "SLATE_CHROMIUM_PATH=/usr/bin/chromium cloud_run timeout 1200 node /tmp/f216-browser.mjs",
+      "exit": 0,
+      "scope": "1440 and 390, Node 22.20.0"
+    },
+    {
+      "id": "browser_existing_caller",
+      "command": "SLATE_CHROMIUM_PATH=/usr/bin/chromium cloud_run timeout 1200 node --test --test-name-pattern='^presentation paginates read-only slides;' tests/qualification/ui-convergence/journeys.test.mjs",
+      "exit": 0,
+      "scope": "existing Verify registration; 108447ms test, 125949ms process"
+    }
+  ],
+  "migrationLedger": {
+    "status": "not applicable",
+    "reason": "No migration changed"
+  },
+  "statusTable": {
+    "unchanged": true,
+    "clauses": 338
+  },
+  "counts": {
+    "before": {
+      "done": 58,
+      "partial": 239,
+      "missing": 41
+    },
+    "after": {
+      "done": 58,
+      "partial": 239,
+      "missing": 41
+    }
+  },
+  "registrations": {
+    "before": 211,
+    "after": 211,
+    "ordinary": 191
+  },
+  "publicationScan": {
+    "commit": "216aa8f675bd992d995ee3ed1f53ca449ed7f69a",
+    "complete": null,
+    "historyScanned": null,
+    "findings": null,
+    "status": "not run in cloud; required guarded-lander duty"
+  },
+  "ciDiscoveryAtUtc": "2026-11-08T18:31:28Z",
+  "ci": [
+    {
+      "head": "216aa8f675bd992d995ee3ed1f53ca449ed7f69a",
+      "runId": 42510279204,
+      "event": "push",
+      "conclusion": "failure",
+      "head_sha": "216aa8f675bd992d995ee3ed1f53ca449ed7f69a",
+      "html_url": "https://github.com/just-every/run-slate/actions/runs/42510279204",
+      "status": "completed",
+      "jobs": [
+        {
+          "conclusion": "success",
+          "id": 128821652743,
+          "name": "plan",
+          "status": "completed",
+          "steps": []
+        },
+        {
+          "conclusion": "failure",
+          "id": 128821682746,
+          "name": "verify (app)",
+          "status": "completed",
+          "steps": [
+            {
+              "conclusion": "failure",
+              "name": "Run node src/base/runtime/contract-docs.mjs check"
+            }
+          ]
+        },
+        {
+          "conclusion": "skipped",
+          "id": 128821683678,
+          "name": "import-scale",
+          "status": "completed",
+          "steps": []
+        },
+        {
+          "conclusion": "failure",
+          "id": 128821834450,
+          "name": "verify",
+          "status": "completed",
+          "steps": [
+            {
+              "conclusion": "failure",
+              "name": "Require the plan and every expected job"
+            }
+          ]
+        },
+        {
+          "conclusion": "skipped",
+          "id": 128821835353,
+          "name": "verify (${{ matrix.suite }})",
+          "status": "completed",
+          "steps": []
+        },
+        {
+          "conclusion": "skipped",
+          "id": 128821835457,
+          "name": "local-journeys",
+          "status": "completed",
+          "steps": []
+        },
+        {
+          "conclusion": "skipped",
+          "id": 128821835990,
+          "name": "contract",
+          "status": "completed",
+          "steps": []
+        }
+      ],
+      "githubCallsUsed": 6,
+      "failedJobReads": [
+        {
+          "job": 128821682746,
+          "command": "gh run view 42510279204 --repo just-every/run-slate --job 128821682746 --log-failed",
+          "exit": 0,
+          "failure": "ACCEPTANCE.md: generated content differs; run contract-docs write.",
+          "failedCommand": "node src/base/runtime/contract-docs.mjs check",
+          "failedCommandExit": 1
+        },
+        {
+          "job": 128821834450,
+          "command": "gh run view 42510279204 --repo just-every/run-slate --job 128821834450 --log-failed",
+          "exit": 0,
+          "failure": "Require the plan and every expected job: the app result is failure and dependent shards and contract jobs are skipped."
+        }
+      ],
+      "generatedViewOnlyException": true,
+      "productTestFailureObserved": false,
+      "testShardsExecuted": false,
+      "readyForGuardedHandoff": true,
+      "landed": false
+    }
+  ],
+  "recoveryBundle": {
+    "path": "/home/agent/rer-consolidation/work/sd-slate-c-f216/product.bundle",
+    "sha256": "362a4cfac6f7dcc541beadec07d4993cba7ffe501c30c9c13d8dc097305c90fd",
+    "verified": true,
+    "scope": "origin/main..HEAD; recovery data only"
+  },
+  "proofRows": [
+    {
+      "id": "acceptance-1",
+      "status": "scoped pass",
+      "test": "tests/qualification/core/page-erasure-proof.ts",
+      "lines": [
+        127,
+        141
+      ],
+      "browser": "tests/qualification/ui-convergence/archive-retention-journey.mjs",
+      "browserLines": [
+        117,
+        162
+      ],
+      "ciRun": 42510279204
+    },
+    {
+      "id": "acceptance-2",
+      "status": "partial; AI grounding held",
+      "test": "tests/qualification/core/page-erasure-proof.ts",
+      "lines": [
+        104,
+        126
+      ],
+      "ciRun": 42510279204
+    },
+    {
+      "id": "BASE-DATA-003-deadline",
+      "status": "pass locally",
+      "test": "tests/qualification/core/page-erasure-proof.ts",
+      "lines": [
+        113,
+        143
+      ],
+      "ciRun": 42510279204
+    },
+    {
+      "id": "full-access-and-step-up",
+      "status": "pass locally",
+      "test": "tests/qualification/core/page-erasure-proof.ts",
+      "lines": [
+        77,
+        106
+      ],
+      "ciRun": 42510279204
+    },
+    {
+      "id": "replay-and-revocation",
+      "status": "pass locally",
+      "test": "tests/qualification/core/page-erasure-proof.ts",
+      "lines": [
+        144,
+        152
+      ],
+      "ciRun": 42510279204
+    }
+  ],
+  "evidencePublication": {
+    "ref": "refs/heads/evidence/sd-slate-c-f216",
+    "productReadyIndependent": true
+  },
+  "generatedViewOnlyException": true
+}

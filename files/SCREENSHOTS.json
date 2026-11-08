@@ -1,0 +1,45 @@
+{
+  "head": "216aa8f675bd992d995ee3ed1f53ca449ed7f69a",
+  "files": [
+    {
+      "path": "screens/1440-empty-trash-named-preview.png",
+      "sha256": "fea7b568a24e41d0c5f0ebdcc9cc498c078c5d57bf2fc80fdd052cdf449b91f6",
+      "source": ".artifacts/ui-convergence/evidence/020-1440-touch-empty-trash-named-preview.png"
+    },
+    {
+      "path": "screens/1440-empty-trash-exact-confirmation.png",
+      "sha256": "32879dd5d106dc5c4956363aea826bf34a665cc8ef43f35e7a7d618d43aa30cb",
+      "source": ".artifacts/ui-convergence/evidence/021-1440-touch-empty-trash-exact-confirmation.png"
+    },
+    {
+      "path": "screens/1440-empty-trash-leaves-edit-only-content.png",
+      "sha256": "6add6beb7b44f6643b03ef2635ab9f9510e7da3d75d49b0b6e9fe13d130f6530",
+      "source": ".artifacts/ui-convergence/evidence/022-1440-touch-empty-trash-leaves-edit-only-content.png"
+    },
+    {
+      "path": "screens/1440-erased-open-exact-citation.png",
+      "sha256": "ff282d11a7d0bb531914dbcf321a73a6876b93456db5468b383e38423005ebc1",
+      "source": ".artifacts/ui-convergence/evidence/024-1440-touch-erased-open-exact-citation.png"
+    },
+    {
+      "path": "screens/390-empty-trash-named-preview.png",
+      "sha256": "fcaedc4e20bfddf9f0c0199d3db8cdfa5d5a6d509f10b60f2aed7e4bb621d8b6",
+      "source": ".artifacts/ui-convergence/evidence/028-390-touch-empty-trash-named-preview.png"
+    },
+    {
+      "path": "screens/390-empty-trash-exact-confirmation.png",
+      "sha256": "57b42351765f2a888d4474b56728da82251a42d4e6f490fabd074b87800fa2ba",
+      "source": ".artifacts/ui-convergence/evidence/029-390-touch-empty-trash-exact-confirmation.png"
+    },
+    {
+      "path": "screens/390-empty-trash-leaves-edit-only-content.png",
+      "sha256": "f888b11509a261e57bfe035dae5ac21cd030c411589a5ff3901bfc2fdfb4998a",
+      "source": ".artifacts/ui-convergence/evidence/030-390-touch-empty-trash-leaves-edit-only-content.png"
+    },
+    {
+      "path": "screens/390-erased-open-exact-citation.png",
+      "sha256": "dad4fdb85b1f311c96e6b9cf4f38e57770832af36b967397963ba9a033a01128",
+      "source": ".artifacts/ui-convergence/evidence/032-390-touch-erased-open-exact-citation.png"
+    }
+  ]
+}

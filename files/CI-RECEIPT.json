@@ -1,0 +1,92 @@
+{
+  "head": "216aa8f675bd992d995ee3ed1f53ca449ed7f69a",
+  "runId": 42510279204,
+  "event": "push",
+  "conclusion": "failure",
+  "head_sha": "216aa8f675bd992d995ee3ed1f53ca449ed7f69a",
+  "html_url": "https://github.com/just-every/run-slate/actions/runs/42510279204",
+  "status": "completed",
+  "jobs": [
+    {
+      "conclusion": "success",
+      "id": 128821652743,
+      "name": "plan",
+      "status": "completed",
+      "steps": []
+    },
+    {
+      "conclusion": "failure",
+      "id": 128821682746,
+      "name": "verify (app)",
+      "status": "completed",
+      "steps": [
+        {
+          "conclusion": "failure",
+          "name": "Run node src/base/runtime/contract-docs.mjs check"
+        }
+      ]
+    },
+    {
+      "conclusion": "skipped",
+      "id": 128821683678,
+      "name": "import-scale",
+      "status": "completed",
+      "steps": []
+    },
+    {
+      "conclusion": "failure",
+      "id": 128821834450,
+      "name": "verify",
+      "status": "completed",
+      "steps": [
+        {
+          "conclusion": "failure",
+          "name": "Require the plan and every expected job"
+        }
+      ]
+    },
+    {
+      "conclusion": "skipped",
+      "id": 128821835353,
+      "name": "verify (${{ matrix.suite }})",
+      "status": "completed",
+      "steps": []
+    },
+    {
+      "conclusion": "skipped",
+      "id": 128821835457,
+      "name": "local-journeys",
+      "status": "completed",
+      "steps": []
+    },
+    {
+      "conclusion": "skipped",
+      "id": 128821835990,
+      "name": "contract",
+      "status": "completed",
+      "steps": []
+    }
+  ],
+  "githubCallsUsed": 6,
+  "failedJobReads": [
+    {
+      "job": 128821682746,
+      "command": "gh run view 42510279204 --repo just-every/run-slate --job 128821682746 --log-failed",
+      "exit": 0,
+      "failure": "ACCEPTANCE.md: generated content differs; run contract-docs write.",
+      "failedCommand": "node src/base/runtime/contract-docs.mjs check",
+      "failedCommandExit": 1
+    },
+    {
+      "job": 128821834450,
+      "command": "gh run view 42510279204 --repo just-every/run-slate --job 128821834450 --log-failed",
+      "exit": 0,
+      "failure": "Require the plan and every expected job: the app result is failure and dependent shards and contract jobs are skipped."
+    }
+  ],
+  "generatedViewOnlyException": true,
+  "productTestFailureObserved": false,
+  "testShardsExecuted": false,
+  "readyForGuardedHandoff": true,
+  "landed": false
+}

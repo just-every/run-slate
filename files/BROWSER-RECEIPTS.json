@@ -1,0 +1,171 @@
+{
+  "candidateHead": "216aa8f675bd992d995ee3ed1f53ca449ed7f69a",
+  "node": "22.20.0",
+  "focusedWidths": [
+    1440,
+    390
+  ],
+  "existingDesktopCaller": "presentation paginates read-only slides; touch history, details and exports work at 1440px",
+  "existingDesktopCallerExit": 0,
+  "focusedExit": 0,
+  "productBytesEqualBuiltCommit": "5bd66c42487d5ce513b310a4e9e5c8ee8d6f1c67",
+  "relevantFileHashes": {
+    "src/core/features/archive/empty-trash.ts": "2cca5da25ec3b10bd59e1f6881a69d75f589cc217d1b697c4dd97ae2e96e55e2",
+    "src/core/features/archive/service.ts": "c1d6e8c794e7602bb9217be7ea4ad023c15e1cc7415212fbd2fff005de2ab12e",
+    "src/core/features/archive/routes.ts": "f51bfc878ef93578eacbc004683f12a2904f0ea14fb04f8017740bedfee28640",
+    "src/core/features/archive/list.ts": "47cbc5d1aa304f811f157a09f92796cf08771563383672804ce9a7b68e58ce8f",
+    "src/core/features/archive/erasure.ts": "fec552fc0bbf5614b4f88f5967e4132fb4dbec5ff1da9585ae51345db821626b",
+    "src/core/features/archive/ui/WorkspaceArchive.tsx": "72c5be50fd123a266dd695b2b8155c0944bdff7866373961317b576146c1ccec",
+    "tests/qualification/ui-convergence/archive-retention-journey.mjs": "49a818790c878e5401d5374bb043c3ab062f8759ab65106b2429a6bfcb88f54a",
+    "tests/qualification/core/page-erasure-proof.ts": "46e318d2e85ca4a7f6d2d263c77d53236de3198c48857de9717826d672e9db52"
+  },
+  "receipts": [
+    {
+      "run": "browser",
+      "mode": "single",
+      "width": 1440,
+      "value": {
+        "deletedPageIds": [
+          "01M6Y6E3BQQXFVAPBRGVHENC5R",
+          "01M6Y6E3D3SZ0SYCF264HA3KJ1",
+          "01M6Y6E3E6RDXHG3QYTHYK685Q",
+          "01M6Y6E3H6HTAXRQ7R95X66CGV"
+        ]
+      },
+      "receipt": {
+        "operationKey": "ce736ba3-9ae8-44ca-bbc9-592aea64db33",
+        "entity": {
+          "id": "01M6Y6E3BQQXFVAPBRGVHENC5R",
+          "kind": "page",
+          "revisionId": "01M6Y6EVCNQ45V49DYG5D0X5VK"
+        },
+        "revisionId": "01M6Y6EVCNQ45V49DYG5D0X5VK",
+        "activityId": "01M6Y6EVCP9B2W9RAQ9ZEFQC02",
+        "committedAt": "2026-11-08T18:24:17.294Z"
+      }
+    },
+    {
+      "run": "browser",
+      "mode": "empty",
+      "width": 1440,
+      "value": {
+        "deletedPageIds": [
+          "01M6Y6F36540KG8AN1ZTZZT37M",
+          "01M6Y6F370PYGZHDFQ8PR920Z7",
+          "01M6Y6F37XAHHKWHE5GVP348YW",
+          "01M6Y6F3AFBX359Q7YA2049YFM",
+          "01M6Y6F41H53F39D1RVMHZB11C"
+        ]
+      },
+      "receipt": {
+        "operationKey": "71da2f1c-2b31-467d-905f-1318f668ba27",
+        "entity": {
+          "id": "browser-workspace",
+          "kind": "workspace",
+          "revisionId": "01M6Y6FE28NQCZXSDA77T67CY7"
+        },
+        "revisionId": "01M6Y6FE28NQCZXSDA77T67CY7",
+        "activityId": "01M6Y6FE287MH15PF365J6A8W0",
+        "committedAt": "2026-11-08T18:24:36.422Z"
+      }
+    },
+    {
+      "run": "browser",
+      "mode": "single",
+      "width": 390,
+      "value": {
+        "deletedPageIds": [
+          "01M6Y6GGCTVCYDCEVJWG9EPZ5H",
+          "01M6Y6GGDKDM5PP9JH1N6KGWRR",
+          "01M6Y6GGEBKSKSWNA45KRMEBMM",
+          "01M6Y6GGGR2TC4325VBRYMDKW2"
+        ]
+      },
+      "receipt": {
+        "operationKey": "be9dc03a-6eb5-4598-9a3e-a9d1ce1cb8ce",
+        "entity": {
+          "id": "01M6Y6GGCTVCYDCEVJWG9EPZ5H",
+          "kind": "page",
+          "revisionId": "01M6Y6GW41RGKSTYDNYTWWWK97"
+        },
+        "revisionId": "01M6Y6GW41RGKSTYDNYTWWWK97",
+        "activityId": "01M6Y6GW41DRWW19GHT5YDB6DK",
+        "committedAt": "2026-11-08T18:25:23.578Z"
+      }
+    },
+    {
+      "run": "browser",
+      "mode": "empty",
+      "width": 390,
+      "value": {
+        "deletedPageIds": [
+          "01M6Y6H22FC66ECCY4XP6QHYAA",
+          "01M6Y6H236R7WB41QYXF2EWE02",
+          "01M6Y6H23WJEDQ46QT4DSRJ2S2",
+          "01M6Y6H2627TANSWZDBBA9Y8GS",
+          "01M6Y6H2QY47WPED2SVAJ54RZY"
+        ]
+      },
+      "receipt": {
+        "operationKey": "c54f849a-56e3-4f9a-a6cf-f1cf52e3665e",
+        "entity": {
+          "id": "browser-workspace",
+          "kind": "workspace",
+          "revisionId": "01M6Y6H6ZD16B0EFN5Q79CYXMZ"
+        },
+        "revisionId": "01M6Y6H6ZD16B0EFN5Q79CYXMZ",
+        "activityId": "01M6Y6H6ZDVE6C59JBMFET491B",
+        "committedAt": "2026-11-08T18:25:34.700Z"
+      }
+    },
+    {
+      "run": "caller",
+      "mode": "single",
+      "width": 1440,
+      "value": {
+        "deletedPageIds": [
+          "01M6Y6NC7N09FGXPZ4YQ2HK3B1",
+          "01M6Y6NC8VXGN2J1YDH1A26QT5",
+          "01M6Y6NC9P5K1838DE8H7J3GY2",
+          "01M6Y6NCC4352CF7DH4CQEJN9M"
+        ]
+      },
+      "receipt": {
+        "operationKey": "06182105-87e1-4e7d-ac3b-5741ab92d8ab",
+        "entity": {
+          "id": "01M6Y6NC7N09FGXPZ4YQ2HK3B1",
+          "kind": "page",
+          "revisionId": "01M6Y6P0Q7Q8KN2RWQSYP6PK34"
+        },
+        "revisionId": "01M6Y6P0Q7Q8KN2RWQSYP6PK34",
+        "activityId": "01M6Y6P0Q77NE4FE187Q05A21A",
+        "committedAt": "2026-11-08T18:28:12.129Z"
+      }
+    },
+    {
+      "run": "caller",
+      "mode": "empty",
+      "width": 1440,
+      "value": {
+        "deletedPageIds": [
+          "01M6Y6P7XQ11ZQ8NSNS73QB75T",
+          "01M6Y6P7YD089HJF1D8EPV6QDH",
+          "01M6Y6P7Z7V4F5SH86AW8M64N5",
+          "01M6Y6P81RHJY2M1H46A8KB2VE",
+          "01M6Y6P8Q3H9SV1N144X12GV34"
+        ]
+      },
+      "receipt": {
+        "operationKey": "cdb3b280-d473-40b8-964f-f3c8f4b3664e",
+        "entity": {
+          "id": "browser-workspace",
+          "kind": "workspace",
+          "revisionId": "01M6Y6PJ64EGB3G66DDXRRYZHC"
+        },
+        "revisionId": "01M6Y6PJ64EGB3G66DDXRRYZHC",
+        "activityId": "01M6Y6PJ644F5QFVRGGWCYPSH9",
+        "committedAt": "2026-11-08T18:28:30.018Z"
+      }
+    }
+  ]
+}
