@@ -1,0 +1,338 @@
+{
+  "head": "14bf807e66a51b12d16783f0fb4df35c75a696b4",
+  "branch": "cloud/sd-slate-c-f223",
+  "repository": "just-every/run-slate",
+  "checks": [
+    {
+      "name": "profile-initial",
+      "command": "pnpm exec vitest run --config tests/profile/vitest.config.ts",
+      "exit": 0,
+      "log": "profile-initial.log",
+      "sha256": "18227924d62f89ddf5d28d50b3639f0fbdd2c7af822a7a5b596ce557ed4488e0"
+    },
+    {
+      "name": "profile-final",
+      "command": "pnpm exec vitest run --config tests/profile/vitest.config.ts tests/profile/profile.worker.test.ts",
+      "exit": 0,
+      "log": "profile-final.log",
+      "sha256": "576f9ec5bba1b25990c149d3b61be8ede5e5ad28bca31d4996e4b17ce7f3d89f"
+    },
+    {
+      "name": "profile-node",
+      "command": "pnpm exec tsx --test tests/profile/profile.node.tsx",
+      "exit": 0,
+      "log": "profile-node.log",
+      "sha256": "31c1c397c5e26a41ec4adb0a51cad02aa381d75927426a1e72da06bad3e6e688"
+    },
+    {
+      "name": "typecheck-final",
+      "command": "pnpm typecheck",
+      "exit": 0,
+      "log": "typecheck-final.log",
+      "sha256": "6478a3b5c18c1dfbf212cd453d22246ddb18d1a4ae19d8ce9d65ac458ad588f7"
+    },
+    {
+      "name": "views-write",
+      "command": "node src/base/runtime/contract-docs.mjs write",
+      "exit": 0,
+      "log": "views-write.log",
+      "sha256": "df91012bf66fb476e9cd1a30c002829398beb55f869e07cc7be477197fa5a276"
+    },
+    {
+      "name": "views-check",
+      "command": "node src/base/runtime/contract-docs.mjs check",
+      "exit": 0,
+      "log": "views-check.log",
+      "sha256": "c21aae40192141751d6d5c7a3a1d0eb701a6852f305d592d77b4dcab9c2536ab"
+    },
+    {
+      "name": "integration",
+      "command": "pnpm integration:sync",
+      "exit": 0,
+      "log": "integration.log",
+      "sha256": "a0c822976416cb4eacf600f890bef75e41d91260e45f151f0a5b646420c93438"
+    },
+    {
+      "name": "source-lock",
+      "command": "pnpm source:lock",
+      "exit": 0,
+      "log": null,
+      "sha256": "6dd652f4281c805810a99a6acd31f454a4403054d81cd97d88738a4b9e5b0b62"
+    },
+    {
+      "name": "source-check",
+      "command": "pnpm source:check",
+      "exit": 0,
+      "log": null,
+      "sha256": "93149d09bb89727d647985a85c83c6abd10645be29ad759ee6bb8d4e873fa49a"
+    },
+    {
+      "name": "first-party",
+      "command": "pnpm exec rer check --profile first-party",
+      "exit": 0,
+      "log": null,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "restored-view-check",
+      "command": "node src/base/runtime/contract-docs.mjs check",
+      "exit": 1,
+      "log": "restored-view-check.log",
+      "sha256": "183372998615cc516043a5f66404b300281009a84349eda72da66d79fe542603"
+    }
+  ],
+  "sourceProof": "Final profile and typecheck logs were produced on exactly the source bytes committed at head; no relevant byte changed afterward.",
+  "preservation": "All product and specification changes are separate from this evidence-only packet.",
+  "counts": {
+    "before": {
+      "done": 58,
+      "partial": 239,
+      "missing": 41,
+      "total": 338,
+      "registrations": 211
+    },
+    "after": {
+      "done": 58,
+      "partial": 239,
+      "missing": 41,
+      "total": 338,
+      "registrations": 211
+    }
+  },
+  "mechanical": "MECHANICAL lock=pnpm source:lock and pnpm source:check exit=0; views=node src/base/runtime/contract-docs.mjs write and check exit=0; ledger=none exit=0",
+  "candidateFiles": {
+    "src/core/features/decisions/records.ts": "541f420e554404e6cd2a787b3c7155e294f50cf3f29fd5da73ebf80caf59abeb",
+    "src/core/features/decisions/ui/DecisionProposal.tsx": "882154a6fd57c55541e541ff8edbaf4f64fb8c89656e90cbadf00085fffa670b",
+    "src/core/features/decisions/ui/DecisionWorkspace.tsx": "2fb7bd2d6490a0aa22747fb5625be0431a9520e84a4ab1421728e70852d5d44e",
+    "src/core/features/decisions/ui/PageDecisions.tsx": "cab05668b7498ebe4e5c80725a0568ce01f11eb56f5ed21a36976b3e492cf1d6",
+    "tests/profile/decision-edit-journey.ts": "2a3189d6bf5975139bad384424f4c6c367984f772f9071bce38bc249827fe95a",
+    "tests/qualification/ui-convergence/decision-edit-journey.mjs": "fd1c18261174d9cab27ad680bce35b22b7d288165fd8e707fece2d2d0acd9dc3",
+    "tests/qualification/ui-convergence/journeys.test.mjs": "a837d249ee5f5df2be5705103ad27f4d57091c56acdc6ef717ba99c5d29c5342"
+  },
+  "identityInspection": [
+    {
+      "head": "14bf807e66a51b12d16783f0fb4df35c75a696b4",
+      "author": "fleet",
+      "committer": "fleet",
+      "trailers": []
+    },
+    {
+      "head": "3f3d90363e92cae87d36c94526f7b0bb35950ae1",
+      "author": "fleet",
+      "committer": "fleet",
+      "trailers": []
+    }
+  ],
+  "sourceViewsEqualMain": true,
+  "statusTableEqualMain": true,
+  "basePinsChanged": false,
+  "workflowsChanged": false,
+  "migrationLedger": "not applicable; no migration changed",
+  "unchangedProof": {
+    "finalHead": "14bf807e66a51b12d16783f0fb4df35c75a696b4",
+    "savedHead": "3f3d90363e92cae87d36c94526f7b0bb35950ae1",
+    "finalBuild": {
+      "schema": 1,
+      "commit": "14bf807e66a51b12d16783f0fb4df35c75a696b4",
+      "tree": "92812d90df752e9efecfb91a16403d4b9c04534f",
+      "sourceSha256": "849dbb1d0ee0b5107fbd7349f5cf0d510041dc1d8a27be5355ee87874485eaab",
+      "lockSha256": "6baf904dfffb63bab81030095096ece12b64382cb2f9b8704470dd6c634abd9a",
+      "outputSha256": "ed5b67e577f4782ff4b4349f0d9af0adedbc0861f3de3effafd1ff4e85ea7d5e"
+    },
+    "savedBuildOutputSha256": "ed5b67e577f4782ff4b4349f0d9af0adedbc0861f3de3effafd1ff4e85ea7d5e",
+    "explanation": "The final commit expands accepted-state test assertions and the matching specification, with a generated source lock. Product source bytes are unchanged from the saved build."
+  },
+  "ciDiscovery": [
+    {
+      "conclusion": null,
+      "event": "push",
+      "head_sha": "14bf807e66a51b12d16783f0fb4df35c75a696b4",
+      "html_url": "https://github.com/just-every/run-slate/actions/runs/42524743708",
+      "id": 42524743708,
+      "name": "Verify Slate",
+      "status": "in_progress"
+    }
+  ],
+  "productPushed": true,
+  "githubCoreCalls": 6,
+  "actualLogs": [
+    {
+      "file": "build-final.log",
+      "bytes": 29212,
+      "sha256": "6c9bf991f8a32238a8d6e253a682006ed149b935cfb6743d6c82d4978dadabbd"
+    },
+    {
+      "file": "source-lock.log",
+      "bytes": 543721,
+      "sha256": "6dd652f4281c805810a99a6acd31f454a4403054d81cd97d88738a4b9e5b0b62"
+    },
+    {
+      "file": "source-check.log",
+      "bytes": 543843,
+      "sha256": "93149d09bb89727d647985a85c83c6abd10645be29ad759ee6bb8d4e873fa49a"
+    },
+    {
+      "file": "first-party.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "candidateVerifyRun": 42524743708,
+  "candidateVerifyEvent": "push",
+  "candidateVerifyStatusAtDiscovery": "in_progress",
+  "ciStatus": {
+    "conclusion": "failure",
+    "head_sha": "14bf807e66a51b12d16783f0fb4df35c75a696b4",
+    "html_url": "https://github.com/just-every/run-slate/actions/runs/42524743708",
+    "status": "completed"
+  },
+  "browserProof": {
+    "head": "14bf807e66a51b12d16783f0fb4df35c75a696b4",
+    "command": "timeout 1800 node --test --test-concurrency=1 --test-name-pattern='^real core-wiki and touch-member journeys' tests/qualification/ui-convergence/journeys.test.mjs",
+    "exit": 0,
+    "passed": 2,
+    "failed": 0,
+    "receipts": [
+      {
+        "width": 1440,
+        "receipts": 13,
+        "snapshots": 10,
+        "refusals": 20,
+        "history": 11,
+        "saveActivities": 10
+      },
+      {
+        "width": 390,
+        "receipts": 13,
+        "snapshots": 10,
+        "refusals": 20,
+        "history": 11,
+        "saveActivities": 10
+      }
+    ],
+    "screens": [
+      {
+        "width": 390,
+        "state": "decision proposal native edit controls",
+        "overflow": false,
+        "seriousCriticalFindings": 0
+      },
+      {
+        "width": 1440,
+        "state": "decision proposal view only",
+        "overflow": false,
+        "seriousCriticalFindings": 0
+      },
+      {
+        "width": 390,
+        "state": "decision proposal retained history",
+        "overflow": false,
+        "seriousCriticalFindings": 0
+      },
+      {
+        "width": 1440,
+        "state": "accepted decision retains immutable history",
+        "overflow": false,
+        "seriousCriticalFindings": 0
+      },
+      {
+        "width": 1440,
+        "state": "decision proposal retained history",
+        "overflow": false,
+        "seriousCriticalFindings": 0
+      },
+      {
+        "width": 390,
+        "state": "decision proposal view only",
+        "overflow": false,
+        "seriousCriticalFindings": 0
+      },
+      {
+        "width": 390,
+        "state": "accepted decision retains immutable history",
+        "overflow": false,
+        "seriousCriticalFindings": 0
+      },
+      {
+        "width": 1440,
+        "state": "decision proposal native edit controls",
+        "overflow": false,
+        "seriousCriticalFindings": 0
+      }
+    ]
+  },
+  "remoteCustodyCheck": {
+    "branch": "cloud/sd-slate-c-f223",
+    "head": "14bf807e66a51b12d16783f0fb4df35c75a696b4",
+    "remoteMainAfterPush": "95a0372f6692b95607cedc7d1f9a0440dc9d3c38",
+    "mainAtFinalPrePushFetch": "6a6232f31641de9e5935ed1899a080aee6bb23ec",
+    "mainEqualsCandidate": false
+  },
+  "ciJobs": {
+    "jobs": [
+      {
+        "conclusion": "success",
+        "failed_steps": [],
+        "id": 128865744066,
+        "name": "plan",
+        "status": "completed"
+      },
+      {
+        "conclusion": "failure",
+        "failed_steps": [
+          "Run node src/base/runtime/contract-docs.mjs check"
+        ],
+        "id": 128865777713,
+        "name": "verify (app)",
+        "status": "completed"
+      },
+      {
+        "conclusion": "skipped",
+        "failed_steps": [],
+        "id": 128865779077,
+        "name": "import-scale",
+        "status": "completed"
+      },
+      {
+        "conclusion": "failure",
+        "failed_steps": [
+          "Require the plan and every expected job"
+        ],
+        "id": 128865954352,
+        "name": "verify",
+        "status": "completed"
+      },
+      {
+        "conclusion": "skipped",
+        "failed_steps": [],
+        "id": 128865954894,
+        "name": "local-journeys",
+        "status": "completed"
+      },
+      {
+        "conclusion": "skipped",
+        "failed_steps": [],
+        "id": 128865955174,
+        "name": "verify (${{ matrix.suite }})",
+        "status": "completed"
+      },
+      {
+        "conclusion": "skipped",
+        "failed_steps": [],
+        "id": 128865955578,
+        "name": "contract",
+        "status": "completed"
+      }
+    ]
+  },
+  "readyBasis": "Permitted generated-view freshness exception; app failed only contract-docs check, aggregate depended on it, test shards skipped. All touched local checks passed.",
+  "publicationScan": {
+    "head": "14bf807e66a51b12d16783f0fb4df35c75a696b4",
+    "status": "NOT RUN in cloud",
+    "complete": null,
+    "historyScanned": null,
+    "findings": null,
+    "owner": "guarded Mac lander"
+  },
+  "landing": "pending; no main push or promotion by this task"
+}
