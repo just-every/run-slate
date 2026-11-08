@@ -1,3 +1,4 @@
+import {databaseViewDefinitionSchema} from './database-view-definition';
 import {fileReferenceSchema} from './file-cards/reference';
 import {tableSchema} from './tables/schema';
 import {taskReportDefinitionSchema} from '../work-items/report-definition';
@@ -34,6 +35,7 @@ const schemas: Record<string, z.ZodType> = {
     'link-card': z.object({ url: z.string().refine(safeUrl), display: z.enum(['plain', 'inline', 'card', 'embed']), previewState: z.enum(['ready', 'loading', 'refused', 'failed']), preview: z.object({ title: z.string(), description: z.string().optional(), siteName: z.string().optional(), iconLabel: z.string().optional() }).optional(), previewMessage: z.string().optional() }),
     'content-query': z.object({definition:contentQueryDefinitionSchema}),
     'table-of-contents': z.object({minLevel:z.number().int().min(1).max(3),maxLevel:z.number().int().min(1).max(3),style:z.enum(['flat','nested'])}).refine(value=>value.minLevel<=value.maxLevel),
+    'database-view':z.object({definition:databaseViewDefinitionSchema}).strict(),
     'task-report':z.object({definition:taskReportDefinitionSchema}),
 };
 export function validateBlockContent(type: string, content: JsonValue): JsonValue {

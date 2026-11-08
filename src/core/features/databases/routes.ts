@@ -1,3 +1,4 @@
+import {embeddedViewQuerySchema} from '../editor/database-view-definition';
 import {z} from 'zod';
 import {convertTable,restoreTable} from './table-conversion';
 import {
@@ -103,7 +104,7 @@ export function createDatabasesRoutes() {
         featureContext(c),
         c.req.param("id"),
         c.req.param("viewId"),
-        await c.req.json(),
+        parseInput(embeddedViewQuerySchema, await c.req.json()),
       ),
     ),
   );

@@ -1059,6 +1059,33 @@
         "ACT-002"
       ],
       "reason": "Exercises the SCIM HTTP protocol through native invitation, Member identity, group and removal services, including credential custody and current authority. Real directory-provider acceptance and native invitation capacity outside SCIM remain unproven."
+    },
+    {
+      "file": "tests/profile/profile.worker.test.ts",
+      "testName": "FLAG-001 — core wiki public doors retain native content while flagship routes and queued work require opt-in",
+      "kind": "supporting-regression",
+      "clauses": [
+        "DB-011"
+      ],
+      "reason": "DB-011 native block and embedded query proof covers populated current-reader records, block criteria without source writes, authorization loss, anonymous notice and named readable references; the desktop browser also measures a cross-session source change while text is unsaved."
+    },
+    {
+      "file": "tests/qualification/ui-convergence/journeys.test.mjs",
+      "testName": "BLOCK-010 — native content queries retain criteria and current-reader results at 1440px",
+      "kind": "supporting-regression",
+      "clauses": [
+        "DB-011"
+      ],
+      "reason": "DB-011 native block and embedded query proof covers populated current-reader records, block criteria without source writes, authorization loss, anonymous notice and named readable references; the desktop browser also measures a cross-session source change while text is unsaved."
+    },
+    {
+      "file": "tests/qualification/ui-convergence/journeys.test.mjs",
+      "testName": "BLOCK-010 — native content queries retain criteria and current-reader results at 390px",
+      "kind": "supporting-regression",
+      "clauses": [
+        "DB-011"
+      ],
+      "reason": "DB-011 native block and embedded query proof covers populated current-reader records, block criteria without source writes, authorization loss, anonymous notice and named readable references; the desktop browser also measures a cross-session source change while text is unsaved."
     }
   ]
 }

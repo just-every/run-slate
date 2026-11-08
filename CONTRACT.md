@@ -1366,6 +1366,8 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 **Requirement.** A view can be embedded in a page body and stays live: it shows each reader only the records that reader may read, reflects a change to the source within 5 seconds, and carries its own filters and sorts without changing the source view.
 
+Native embeds save the database, saved-view reference and block-owned criteria only. Queries use the current signed-in reader and the embedding page's current access; unavailable sources show no records, counts or source names. Anonymous published pages carry a sign-in notice without querying. Readable exports carry a named view reference, resolved under current access, rather than record snapshots. These door rules also apply when DB-008 charts and DB-014 dashboards inherit live embedded views.
+
 **Acceptance.**
 1. A view can be embedded in a page body and stays live: it shows each reader only the records that reader may read, reflects a change to the source within 5 seconds, and carries its own filters and sorts without changing the source view.
 2. An embedded view shows only readable records, reflects changes within 5 seconds and keeps its own filters.

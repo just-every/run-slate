@@ -1,3 +1,4 @@
+import {databaseViewJourney} from './database-view-journey';
 import {decisionLogJourney} from './decision-log-journey';
 import {pageLockJourney} from './page-lock-journey';
 import {bodyBlocksJourney} from './body-blocks-journey';
@@ -84,6 +85,10 @@ it("FLAG-001 — core wiki public doors retain native content while flagship rou
   await bodyBlocksJourney(api,containerId,cookie);
   await pageLockJourney(api,containerId,workspaceId,cookie);
 } },
+    { name: 'DB-011 — native embedded views retain independent criteria, current readers, anonymous privacy and readable references', run: async () => {
+      const {workspaceId,containerId,memberId,cookie} = await workspace();
+      await databaseViewJourney(createApi(),workspaceId,containerId,memberId,cookie);
+    } },
     { name: 'DEC-004 — populated native decision log filters exact memberships and retains accepted revisions under current access', run: async () => {
       const {workspaceId,memberId,cookie} = await workspace();
       await decisionLogJourney(createApi(),workspaceId,memberId,cookie);
