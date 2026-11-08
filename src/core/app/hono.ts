@@ -23,7 +23,7 @@ import type { AppEnvironment } from "./types";
 export { isHonoRequest } from "./hono-paths";
 
 /** `/api/` members that answer without a native session. Everything else does not. */
-const publicApiPaths = new Set(["/api/auth/saml/public", "/api/auth/capabilities", "/api/auth/logout", "/api/auth/magic", "/api/auth/magic/status", "/api/auth/magic/accept", "/api/auth/invitation/accept", "/api/auth/identity/callback"]);
+const publicApiPaths = new Set(["/api/notifications/unsubscribe", "/api/auth/saml/public", "/api/auth/capabilities", "/api/auth/logout", "/api/auth/magic", "/api/auth/magic/status", "/api/auth/magic/accept", "/api/auth/invitation/accept", "/api/auth/identity/callback"]);
 
 export function createApi() {
   const app = new Hono<AppEnvironment>()

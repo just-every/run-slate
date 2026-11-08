@@ -1,7 +1,7 @@
 import { createMailSender } from '../../../../modules/mail/src/sender.mjs';
 import { isLocalOrigin, type RuntimeConfig } from '../config/runtime';
 
-export interface OutboundMail { to: string; subject: string; text: string; html?: string; idempotencyKey?: string }
+export interface OutboundMail { to: string; subject: string; text: string; html?: string; idempotencyKey?: string; unsubscribe?: {url:string;oneClick?:boolean} }
 export interface Mailer { send(message: OutboundMail): Promise<{ id: string | null }> }
 export class MailDeliveryError extends Error {
   constructor(message: string, readonly status: number | null, readonly retryable = true, readonly retryAfterSeconds?: number) { super(message); }
@@ -30,7 +30,7 @@ export function createMailer(options: MailerOptions): Mailer {
       },
     });
     const deliveryId = message.idempotencyKey ?? crypto.randomUUID();
-    const result = await sender.send({ deliveryId, from: options.from, to: [message.to], subject: message.subject, text: message.text, ...(message.html ? { html: message.html } : {}) });
+    const result = await sender.send({ deliveryId, from: options.from, to: [message.to], subject: message.subject, text: message.text, ...(message.html ? { html: message.html } : {}), ...(message.unsubscribe ? {unsubscribe:message.unsubscribe} : {}) });
     if (result.status === 'development') return { id: deliveryId };
     if (result.status === 'accepted' && options.provider === 'rer') return { id: result.providerMessageId };
     if (result.status === 'accepted' && result.providerMessageId) return { id: result.providerMessageId };

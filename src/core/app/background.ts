@@ -40,7 +40,7 @@ export async function scheduledJobs(env:AppBindings,now=new Date().toISOString()
     ['backups', () => scheduledBackups(env,now)],
     // STAT-007: nightly verification rules, in every profile.
     ['verification-rules', () => runVerificationRules(env)],
-    ['discovery', () => scheduledDiscovery(env)],
+    ['discovery', () => scheduledDiscovery(env,now)],
     ['automation', () => scheduledAutomation(env)],
     // A cron event comes from the runtime itself, not a remote request; the loopback
     // APP_URL requirement for LOCAL_DEVELOPMENT still applies.

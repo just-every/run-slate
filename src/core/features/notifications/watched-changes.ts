@@ -1,3 +1,4 @@
+import {changeBlockStatement} from './change-summary';
 import type { FeatureContext } from '../../app/feature-context';
 import { createUlid } from '../../shared/ulid';
 import { implicitWatchStatement } from '../navigation/watches';
@@ -19,5 +20,6 @@ export function watchedChangeStatements(ctx:FeatureContext,pageId:string,kind:st
  session_id=CASE WHEN watch_edit_sessions.last_edit_at<=? THEN excluded.session_id ELSE watch_edit_sessions.session_id END,
  last_edit_at=MAX(watch_edit_sessions.last_edit_at,excluded.last_edit_at)`).bind(pageId,ctx.actor.id,id,ctx.now,new Date(Date.parse(ctx.now)-watchEditingWindowMs).toISOString()));
  statements.push(...notificationStatements(ctx,{id:`watch:${id}`,event,pageId},{containerIds,editingSession:editing}));
+ if(editing)statements.push(changeBlockStatement(ctx,pageId));
  return statements;
 }
