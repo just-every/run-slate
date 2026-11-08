@@ -1,3 +1,4 @@
+import {decisionLogJourney} from './decision-log-journey';
 import {pageLockJourney} from './page-lock-journey';
 import {bodyBlocksJourney} from './body-blocks-journey';
 import {workItems,tasksJourney,remindersJourney,taskReportsJourney} from './work-items-journey';
@@ -83,6 +84,10 @@ it("FLAG-001 — core wiki public doors retain native content while flagship rou
   await bodyBlocksJourney(api,containerId,cookie);
   await pageLockJourney(api,containerId,workspaceId,cookie);
 } },
+    { name: 'DEC-004 — populated native decision log filters exact memberships and retains accepted revisions under current access', run: async () => {
+      const {workspaceId,memberId,cookie} = await workspace();
+      await decisionLogJourney(createApi(),workspaceId,memberId,cookie);
+    } },
     { name: 'FLAG-001 — old queued flagship work records failure and retries without dispatch or acknowledgement', run: async () => {
   for(const kind of ['intelligence.run','intelligence.finalize','federation.refresh']) {
     const id=crypto.randomUUID();let acknowledged=false,retried=false;
