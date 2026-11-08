@@ -1,0 +1,90 @@
+{
+  "head": "9b595ec9f73dd1c2cc8cf061e310f10c2f0427b3",
+  "recordedAt": "2026-11-08T20:04:14.907191+00:00",
+  "node": "22.20.0",
+  "checks": [
+    {
+      "command": "npx -y @runeditrun/rer build",
+      "exit": 0
+    },
+    {
+      "command": "pnpm exec vitest run --config tests/profile/vitest.config.ts tests/profile/profile.worker.test.ts -t FLAG-001",
+      "exit": 0,
+      "tests": "1 passed, 3 unrelated registrations not selected"
+    },
+    {
+      "command": "pnpm typecheck",
+      "exit": 0
+    },
+    {
+      "command": "pnpm exec rer check --profile first-party",
+      "exit": 0
+    },
+    {
+      "command": "node --test --test-concurrency=1 --test-name-pattern=\"BLOCK-010 \u2014 native content queries\" tests/qualification/ui-convergence/journeys.test.mjs",
+      "exit": 0,
+      "tests": "2 passed, 0 failed",
+      "runId": "sd-slate-c-f218-query-9b595ec9f73dd1c2cc8cf061e310f10c2f0427b3"
+    },
+    {
+      "command": "node src/base/runtime/contract-docs.mjs write && node src/base/runtime/contract-docs.mjs check",
+      "exit": 0,
+      "generatedFiles": "Restored from origin/main, not committed"
+    },
+    {
+      "command": "node scripts/edition-authoring/cli.mjs check",
+      "exit": 0
+    },
+    {
+      "command": "node scripts/sync-integration.mjs --check",
+      "exit": 0
+    }
+  ],
+  "sourceChangeVisibleMs": 950,
+  "registrationsBefore": 211,
+  "registrationsAfter": 211,
+  "publicationScan": {
+    "commit": "9b595ec9f73dd1c2cc8cf061e310f10c2f0427b3",
+    "complete": null,
+    "historyScanned": null,
+    "findings": null,
+    "reason": "Cloud delegates this guard to the maintained Mac lander"
+  },
+  "productPush": {
+    "repository": "just-every/run-slate",
+    "branch": "cloud/sd-slate-c-f218",
+    "head": "9b595ec9f73dd1c2cc8cf061e310f10c2f0427b3",
+    "verifiedBy": "git ls-remote --heads origin cloud/sd-slate-c-f218",
+    "status": "pushed"
+  },
+  "ci": {
+    "runId": 42518171354,
+    "head": "9b595ec9f73dd1c2cc8cf061e310f10c2f0427b3",
+    "event": "push",
+    "observedStatus": "completed",
+    "conclusion": "failure",
+    "generatedViewOnly": true,
+    "failedAppJob": 128845683698,
+    "dependentAggregateJob": 128845861414,
+    "failure": "ACCEPTANCE.md: generated content differs; run contract-docs write.",
+    "failedLogCommands": [
+      {
+        "command": "gh run view 42518171354 --repo just-every/run-slate --job 128845683698 --log-failed",
+        "exit": 0
+      },
+      {
+        "command": "gh run view 42518171354 --repo just-every/run-slate --job 128845861414 --log-failed",
+        "exit": 0
+      }
+    ],
+    "githubBudgetCalls": 6
+  },
+  "mechanical": {
+    "lock": 0,
+    "integration": 0,
+    "viewsWrite": 0,
+    "viewsCheck": 0,
+    "generatedViewsCommitted": false,
+    "migrationLedger": "none"
+  }
+}

@@ -1,0 +1,7 @@
+Publication receipt: CI environment bindings omitted under the evidence selection rule.
+verify (app)	Run node src/base/runtime/contract-docs.mjs check	﻿2026-11-08T20:04:40.4389050Z ##[group]Run node src/base/runtime/contract-docs.mjs check
+verify (app)	Run node src/base/runtime/contract-docs.mjs check	2026-11-08T20:04:40.4389529Z [36;1mnode src/base/runtime/contract-docs.mjs check[0m
+verify (app)	Run node src/base/runtime/contract-docs.mjs check	2026-11-08T20:04:40.4409865Z shell: /usr/bin/bash -e {0}
+verify (app)	Run node src/base/runtime/contract-docs.mjs check	2026-11-08T20:04:40.4410740Z ##[endgroup]
+verify (app)	Run node src/base/runtime/contract-docs.mjs check	2026-11-08T20:04:40.6003068Z ACCEPTANCE.md: generated content differs; run contract-docs write.
+verify (app)	Run node src/base/runtime/contract-docs.mjs check	2026-11-08T20:04:40.6096810Z ##[error]Process completed with exit code 1.

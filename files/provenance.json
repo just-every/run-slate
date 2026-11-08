@@ -1,0 +1,16 @@
+{
+  "tag": "sd-slate-c-f218",
+  "repository": "just-every/run-slate",
+  "branch": "cloud/sd-slate-c-f218",
+  "head": "9b595ec9f73dd1c2cc8cf061e310f10c2f0427b3",
+  "main": "6a6232f31641de9e5935ed1899a080aee6bb23ec",
+  "counts": {
+    "partial": 239,
+    "done": 58,
+    "missing": 41
+  },
+  "registrationCountBefore": 211,
+  "registrationCountAfter": 211,
+  "shallow": false,
+  "generatedFilesCommitted": []
+}
