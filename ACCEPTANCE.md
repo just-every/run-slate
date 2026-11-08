@@ -2785,7 +2785,7 @@ Core · published · **partial**
 
 Core · published · **partial**
 
-**Requirement.** While a decision is Proposed, a member with edit access on its page can change its question, options, outcome, rationale, owner, decided date, review date and citations.
+**Requirement.** While a decision is Proposed, a member with edit access on its page can change its question, options, outcome, rationale, owner, decided date, review date and citations. Native human proposal editing and retained decision snapshots use the default core-wiki profile; run-derived preparation remains flagship-only under ADMIN-007 and shared company-policy prerequisites.
 
 **Acceptance.**
 1. Each change writes a revision (`REV-001`) keeping the previous content with its actor and time, resubmitting an unchanged proposal writes no revision, and the history is readable under `REV-002`.
