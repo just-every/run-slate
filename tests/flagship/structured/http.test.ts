@@ -301,6 +301,7 @@ test("Worker HTTP rejects missing expired revoked and denied sessions and persis
 
 
 
+  await chartHttpJourney({call, mutate, cookie, memberCookie, readerId: reader.actor.id, ownerId: ctx.actor.id, containerId});
 }, 90_000);
 
 test("database file references list only attachments the reader could open", async () => {
@@ -329,3 +330,76 @@ test("database file references list only attachments the reader could open", asy
   expect(resolved.text).not.toContain("unreleased-pricing.txt");
   expect((await call("GET", `/databases/${db.id}/references/attachment`, owner)).text).toContain("unreleased-pricing.txt");
 });
+
+
+/** Native chart and saved-view reads share current session and record authority. */
+async function chartHttpJourney({call, mutate, cookie, memberCookie, readerId, ownerId, containerId}: any) {
+  const current = (await call("GET", "/workspace")).body;
+  const {name, mark, description, guestAccess, publicLinkAccess, anonymousAccess} = current;
+  await mutate("PUT", "/workspace", {expectedRevisionId: current.revisionId, name, mark, description, guestAccess, publicLinkAccess, anonymousAccess,
+    policies: {...current.policies, "page.lifecycle.v1": "always-live"}});
+  const created = await mutate("POST", "/databases", {containerId, title: "Native chart source"});
+  const base = `/databases/${created.id}`;
+  let revision = created.revisionId;
+  for (const field of [
+    {id: "chart-stage", name: "Stage", type: "status", config: {options: ["Open", "Closed"]}, position: 0},
+    {id: "chart-amount", name: "Amount", type: "number", config: {}, position: 1},
+    {id: "chart-included", name: "Included", type: "checkbox", config: {}, position: 2},
+  ]) revision = (await mutate("POST", base + "/fields", {expectedRevisionId: revision, field})).revisionId;
+  const source = {id: "chart-filtered", name: "Included native work", layout: "table", filters: [{field: "chart-included", op: "eq", value: true}], sorts: [{field: "$title", direction: "asc"}], groups: [], calculations: {}, display: {}, position: 0};
+  revision = (await mutate("POST", base + "/views", {expectedRevisionId: revision, view: source})).revisionId;
+  const rows: any[] = [];
+  for (const [title, stage, amount, included, restricted] of [
+    ["A shared", "Open", 10, true, false], ["B shared", "Open", 20, true, false],
+    ["C shared", "Closed", 30, true, false], ["D excluded", "Closed", 500, false, false],
+    ["E private", "Open", 100, true, true], ["F empty measure", "Closed", null, true, false],
+    ["G empty group", null, 15, true, false],
+  ]) {
+    const record = await mutate("POST", base + "/records", {title, values: {"chart-stage": stage, "chart-amount": amount, "chart-included": included}});
+    if (restricted) {
+      await mutate("POST", "/sharing", {targetKind: "page", targetId: record.pageId, principalKind: "member", principalId: ownerId, level: "full"});
+      const page = (await call("GET", `/pages/${record.pageId}`)).body;
+      await mutate("PUT", `/sharing/pages/${record.pageId}/inheritance`, {expectedRevisionId: page.page.revisionId, restricted: true});
+    }
+    rows.push({...record, title, included, restricted});
+  }
+  const path = `${base}/views/${source.id}`;
+  expect((await call("GET", path + "/chart?group=chart-stage", memberCookie)).status).toBe(404);
+  const grant = await mutate("POST", "/sharing", {targetKind: "page", targetId: created.pageId, principalKind: "member", principalId: readerId, level: "view"});
+  for (const actor of [cookie, memberCookie]) {
+    const result = await call("GET", path, actor);
+    expect(result.status).toBe(200);
+    expect(result.body.records.map((record: any) => record.pageId)).toEqual(rows.filter(row => row.included && (actor === cookie || !row.restricted)).map(row => row.pageId));
+    for (const calculation of ["count", "sum", "average", "minimum", "maximum"]) {
+      const buckets = new Map<string, (number | null)[]>();
+      for (const record of result.body.records) {
+        const key = JSON.stringify(record.values["chart-stage"] ?? null);
+        buckets.set(key, [...(buckets.get(key) ?? []), record.values["chart-amount"]]);
+      }
+      const expected = [...buckets].map(([label, values]) => {
+        const numbers = values.filter((value): value is number => typeof value === "number");
+        const sum = numbers.reduce((total, value) => total + value, 0);
+        return {label: JSON.parse(label), value: calculation === "count" ? values.length : calculation === "sum" ? sum : calculation === "average" ? (numbers.length ? sum / numbers.length : null) : calculation === "minimum" ? (numbers.length ? Math.min(...numbers) : null) : (numbers.length ? Math.max(...numbers) : null)};
+      });
+      const chart = await call("GET", path + `/chart?group=chart-stage&numeric=${calculation === "count" ? "" : "chart-amount"}&calculation=${calculation}`, actor);
+      expect(chart.status).toBe(200);
+      expect(chart.body).toEqual({viewId: source.id, viewName: source.name, series: expected});
+    }
+  }
+  source.name = "Renamed native source";
+  source.filters.push({field: "chart-stage", op: "eq", value: "Open"} as any);
+  await mutate("POST", base + "/views", {expectedRevisionId: revision, view: source});
+  const renamed = await call("GET", path + "/chart?group=chart-stage&numeric=chart-amount&calculation=sum", memberCookie);
+  expect(renamed.body).toEqual({viewId: source.id, viewName: source.name, series: [{label: "Open", value: 30}]});
+  const before = (await call("GET", path)).body;
+  await mutate("POST", "/sharing", {id: grant.id, targetKind: "page", targetId: created.pageId, principalKind: "member", principalId: readerId, level: "view", revoke: true});
+  for (const route of [path, path + "/chart?group=chart-stage&numeric=chart-amount&calculation=sum"]) {
+    const refused = await call("GET", route, memberCookie);
+    expect(refused.status).toBe(404);
+    expect(JSON.stringify(refused.body)).not.toContain(source.name);
+  }
+  expect((await call("GET", path)).body).toEqual(before);
+  const {sessionFor} = await import("../../e2e/setup/fixtures");
+  const revoked = await sessionFor(ownerId, {revokedAt: new Date().toISOString()});
+  expect((await call("GET", path + "/chart?group=chart-stage", revoked)).status).toBe(401);
+}

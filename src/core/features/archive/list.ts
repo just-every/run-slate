@@ -11,7 +11,10 @@ export async function listArchive(ctx: FeatureContext) {
                 // Readers below edit see the published title, as the page door shows them.
                 if (!['edit', 'full'].includes(access.decision.level ?? '') && published_revision_id && published_revision_id !== working_revision_id)
                     item.title = JSON.parse((await ctx.db.prepare('SELECT properties_json FROM page_revisions WHERE id=?').bind(published_revision_id).first<{ properties_json: string }>())?.properties_json ?? '{}').title ?? '';
-                out.push(item);
+                out.push({ ...item, permissions: {
+                    canRestore: access.decision.level === 'edit' || access.decision.level === 'full',
+                    canDelete: access.decision.level === 'full',
+                } });
             }
             catch (e) {
                 if (!(e instanceof ApiProblem) || e.status !== 404)

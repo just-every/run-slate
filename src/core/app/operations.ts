@@ -5,6 +5,7 @@ import { ApiProblem } from './problems';
 import type { EntityRef, JsonValue, MutationReceipt } from '../shared/api/common';
 import { createUlid } from '../shared/ulid';
 import { requestHash } from './request-hash';
+import { guardFailure, rejectedGuard, type GuardDiagnostic } from './guard-diagnostics';
 export { requestHash } from './request-hash';
 interface GuardCheck { select: string; values: (string | number | null)[]; recheck?: { select: string; values: (string | number | null)[]; pageId?: string } }
 const guardChecks = new WeakMap<D1PreparedStatement, GuardCheck>();
@@ -36,9 +37,11 @@ export async function commitOperation<T>(ctx: FeatureContext, input: {
   const expires = new Date(Date.parse(ctx.now)+86400000).toISOString();
   const statements = [
       ctx.db.prepare('INSERT INTO operation_receipts (id,workspace_id,actor_member_id,operation_key,request_hash,target_kind,target_id,response_status,response_json,created_at,expires_at) VALUES (?,?,?,?,?,?,?,200,?,?,?)').bind(createUlid(),ctx.actor.workspaceId,ctx.actor.id,input.operationKey,hash,plan.entity.kind,plan.entity.id,JSON.stringify(result),ctx.now,expires),
-      ...(authorizationEpoch === undefined ? [] : [mutationGuard(ctx.db, 'SELECT epoch=? FROM core_acl_epoch WHERE id=1',[authorizationEpoch])]),
+      // Membership changes also advance the ACL epoch. Name the more specific
+      // rejecting fence first when both have changed.
+      mutationGuard(ctx.db, "SELECT status='active' FROM members WHERE id=? AND workspace_id=?", [ctx.actor.id,ctx.actor.workspaceId], undefined, {guard:'membership'}),
+      ...(authorizationEpoch === undefined ? [] : [mutationGuard(ctx.db, 'SELECT epoch=? FROM core_acl_epoch WHERE id=1',[authorizationEpoch], undefined, {guard:'acl_epoch',expected:authorizationEpoch})]),
       ...(ctx.credentialGuard ? [ctx.credentialGuard()] : []),
-      mutationGuard(ctx.db, "SELECT status='active' FROM members WHERE id=? AND workspace_id=?", [ctx.actor.id,ctx.actor.workspaceId]),
       ...(ctx.stepUp ? [freshProofGuard(ctx)] : []),
       ...(ctx.operationStatements?.before ?? []),
       ...plan.statements,
@@ -50,6 +53,8 @@ export async function commitOperation<T>(ctx: FeatureContext, input: {
   } catch (cause) {
     const raced = await lookup(); if (raced) { await input.authorize(); if(input.action!=='pages.open')await refreshAfterCommit(ctx); return replay(raced); }
     if (String(cause).includes('core_write_guards') || String(cause).includes('CHECK constraint')) {
+      const diagnostic = rejectedGuard(cause);
+      if (diagnostic) throw new ApiProblem(409,'REVISION_CONFLICT','The record changed. Reload before saving.',diagnostic);
       if (await rejectedByPageLock(ctx, statements)) throw new ApiProblem(409,'PAGE_LOCKED','This page is locked. Unlock it before editing.');
       throw new ApiProblem(409,'REVISION_CONFLICT','The record changed. Reload before saving.');
     }
@@ -75,9 +80,11 @@ export function freshProofGuard(ctx: FeatureContext): D1PreparedStatement {
   return mutationGuard(ctx.db, `SELECT EXISTS(SELECT 1 FROM sessions s JOIN members m ON m.id=s.member_id WHERE s.id=? AND s.member_id=? AND m.status='active' AND s.revoked_at IS NULL AND (${accepted}))`, [proof.sessionId, ctx.actor.id, ...(localDev ? [ctx.now] : []), proof.since]);
 }
 /** Guard SELECT must return a boolean scalar. It executes inside the same atomic D1 batch as writes. */
-export function mutationGuard(db: D1Database, select: string, values: (string | number | null)[], recheck?: GuardCheck['recheck']): D1PreparedStatement {
+export function mutationGuard(db: D1Database, select: string, values: (string | number | null)[], recheck?: GuardCheck['recheck'], diagnostic?: GuardDiagnostic): D1PreparedStatement {
   if (!/^SELECT\s/i.test(select)) throw new Error('Mutation guard requires a SELECT.');
-  const statement = db.prepare(`INSERT INTO core_write_guards (id,accepted) VALUES (?, COALESCE((${select}),0))`).bind(createUlid(),...values);
+  const failure = diagnostic ? guardFailure(diagnostic) : undefined;
+  const accepted = failure ? `CASE WHEN COALESCE((${select}),0)=1 THEN 1 ELSE ${failure.sql} END` : `COALESCE((${select}),0)`;
+  const statement = db.prepare(`INSERT INTO core_write_guards (id,accepted) VALUES (?, ${accepted})`).bind(createUlid(),...values,...(failure?.values ?? []));
   guardChecks.set(statement, {select, values, recheck});
   return statement;
 }
