@@ -1,4 +1,5 @@
 import {decisionReviewJourney} from './decision-review-journey.mjs';
+import {decisionLogJourney} from './decision-log-journey.mjs';
 import {automationRunLogJourney} from "./automation-run-log-journey.mjs";
 import {contentQueryJourney} from './content-query-journey.mjs';
 import {publicProfileJourney} from './public-profile-journey.mjs';
@@ -94,7 +95,8 @@ for (const width of [390, 1440]) {
       await state.page.getByRole('button', { name: 'More', exact: true }).click();
       await expect(state.page.getByRole('menu').getByRole('menuitem', { name: 'Ask', exact: true })).toHaveCount(0);
       await state.page.keyboard.press('Escape');
-      // Inspect this flow before the writing journey deliberately takes its browser offline.
+      // Prove the exact decision corpus before adding review decisions and before offline editing.
+      await step('DEC-004 — populated native decision filters, current access and exact accepted navigation', () => decisionLogJourney(state, width));
       await step('DEC-005 — overdue decision review and supersession', () => withSecondPerson(state,width,people => decisionReviewJourney(state,people,width)));
       let pageId,touch;
       try {

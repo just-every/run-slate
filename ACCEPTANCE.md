@@ -8,10 +8,10 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 57 | 240 | 35 | 332 |
+| Core | 58 | 239 | 35 | 332 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 57 | 240 | 41 | 338 |
+| Full target | 58 | 239 | 41 | 338 |
 
 Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e6612` (29 October 2026); SEARCH-001 native source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. DB-012 record-detail proof reviewed from source `63a0e8f` (31 October 2026); its exact candidate and Verify are named by the branch handoff. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
@@ -2757,22 +2757,22 @@ Core · published · **partial**
 
 #### DEC-004 — Decision log
 
-Core · published · **partial**
+Core · published · **done**
 
-**Requirement.** Decisions are listed and filtered by state, container, owner, decided date, review date and whether their citations are current, and each result opens the exact accepted revision.
+**Requirement.** Decisions are listed and filtered by state, container, owner, decided date, review date and whether their citations are current, and each result opens the exact accepted revision. Native human decision records use the default core-wiki profile. Run-derived preparation remains flagship-only under ADMIN-007 and shared company-policy prerequisites.
 
 **Acceptance.**
 1. Decisions are listed and filtered by state, container, owner, decided date, review date and whether their citations are current, and each result opens the exact accepted revision.
 2. Decision log filters by state, container, owner, dates and citation currency.
 
-**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
-**Gap.** No validated CI-run proof for this acceptance point: "Decisions are listed and filtered by state, container, owner, decided date, review date and whether their citations are current, and each result opens the exact accepted revision."
+**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.; `tests/qualification/ui-convergence/journeys.test.mjs` (real core-wiki and touch-member journeys at 1440px); `tests/qualification/ui-convergence/journeys.test.mjs` (real core-wiki and touch-member journeys at 390px); `tests/profile/profile.worker.test.ts` (FLAG-001 — core wiki public doors retain native content while flagship routes and queued work require opt-in)
+**Gap.** None.
 
 #### DEC-005 — Review dates
 
 Core · published · **partial**
 
-**Requirement.** A review date that passes labels the decision overdue and notifies its owner (`NOTIF-001`) until a member records a completed review — a note, an actor, a time and the next review date — or supersedes the decision.
+**Requirement.** A review date that passes labels the decision overdue and notifies its owner (`NOTIF-001`) until a member records a completed review — a note, an actor, a time and the next review date — or supersedes the decision. The native scheduler creates one in-app notice per overdue review period in every launch profile, only while the owner can read the page. A completed review retains its attribution and next review date without changing the accepted snapshot, and clears the current Today reminder; supersession also clears that reminder.
 
 **Acceptance.**
 1. An overdue decision stays Accepted.
