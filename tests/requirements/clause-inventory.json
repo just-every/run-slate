@@ -2013,10 +2013,6 @@
         {
           "file": "tests/flagship/intelligence/authority.test.ts",
           "testName": "source disclosure, citations, run budgets and decisions preserve current authority"
-        },
-        {
-          "file": "tests/profile/profile.worker.test.ts",
-          "testName": "FLAG-001 — core wiki public doors retain native content while flagship routes and queued work require opt-in"
         }
       ]
     },

@@ -167,7 +167,7 @@
         "AI-002",
         "DEC-003"
       ],
-      "reason": "Asserts AI-013 current source and audience ACL prevents persisted output, replay and HTTP disclosure after revocation. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts AI-004 exact issued citation validation rejects invented identifiers and deleted exact revisions. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts AI-012 concurrent reservations cannot overspend and failed reservation creates no run. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts AI-002 pause releases execution, resume rechecks revision, terminal cancellation never resurrects. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts DEC-003 accepted decision immutable and source changes warn without rewriting rationale. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance."
+      "reason": "Asserts AI-013 current source and audience ACL prevents persisted output, replay and HTTP disclosure after revocation. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts AI-004 exact issued citation validation rejects invented identifiers and deleted exact revisions. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts AI-012 concurrent reservations cannot overspend and failed reservation creates no run. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts AI-002 pause releases execution, resume rechecks revision, terminal cancellation never resurrects. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. Asserts DEC-003 accepted decision immutable and source changes warn without rewriting rationale. Its supporting scope is limited to the listed requirements; it does not establish their full UI, every profile, external-provider behavior or complete end-to-end acceptance. DEC-003 completion proof is also loaded by the separate existing native profile registration in tests/profile/profile.worker.test.ts and by decisionImmutabilityJourney in the existing responsive core callers in tests/qualification/ui-convergence/journeys.test.mjs. Those profile and browser callers do not write the root Workers report, so they are documented here without adding an unsupported root-registry identity."
     },
     {
       "file": "tests/flagship/intelligence/effects.test.ts",
@@ -1059,15 +1059,6 @@
         "ACT-002"
       ],
       "reason": "Exercises the SCIM HTTP protocol through native invitation, Member identity, group and removal services, including credential custody and current authority. Real directory-provider acceptance and native invitation capacity outside SCIM remain unproven."
-    },
-    {
-      "file": "tests/profile/profile.worker.test.ts",
-      "testName": "FLAG-001 — core wiki public doors retain native content while flagship routes and queued work require opt-in",
-      "kind": "supporting-regression",
-      "clauses": [
-        "DEC-003"
-      ],
-      "reason": "The DEC-003 native scenario accepts two exact page revisions, preserves the complete accepted snapshot after another member edits a source, reports changed currency, refuses immutable writes without changing history or activity, permits owner preparation with retained citations, refuses stale acceptance, accepts current replacement citations and preserves both lineage identifiers. Restricted replacement reads disclose no question. The focused decisionImmutabilityJourney in the existing responsive core callers supplies routed controls, card and log warnings, reload and exact two-way navigation. Independent exact-candidate Verify and guarded landing remain required."
     }
   ]
 }

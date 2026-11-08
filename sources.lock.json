@@ -11964,7 +11964,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/decision-immutability-journey.mjs": {
-      "sha256": "bf236bc3e3bbb2a578b38d4a0ccaab985c546bd08f157bafe44110bc2f941249",
+      "sha256": "cbc555ac3ec4d9fdb4ae18152cfa0c756b195a07a7bced3218bd27ed4253eec8",
       "executable": false
     },
     "tests/qualification/ui-convergence/developer-access-journey.mjs": {
@@ -12460,7 +12460,7 @@
       "executable": false
     },
     "tests/requirements/clause-inventory.json": {
-      "sha256": "43a3e2f9d2b2508182d2928d7b4a7c6e75e71275dea8cbb53ad1bb3b19e5dff9",
+      "sha256": "a85e102ac96d7001fec557e9c1ce970905174406027142b1c319168221a5b667",
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
@@ -12476,7 +12476,7 @@
       "executable": false
     },
     "tests/requirements/test-evidence.json": {
-      "sha256": "13d8030751ddbe797c17343588ad82b85df28bce0bb1e99c53cdfb8db7693395",
+      "sha256": "d7ce6d6ac7af1d2575a2a958376c842574bd87503b7ddd6af2357da5e9c1c0cb",
       "executable": false
     },
     "tests/rer/editor.test.mjs": {
