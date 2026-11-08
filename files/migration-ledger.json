@@ -1,0 +1,250 @@
+{
+  "head": "13f63a0124fc905fea81723b675b68405e1e661f",
+  "complete": true,
+  "applied": 60,
+  "expected": 60,
+  "historyPreserved": true,
+  "foreignKeyViolations": 0,
+  "migrations": [
+    {
+      "name": "0001_knowledge_foundation.sql",
+      "sha256": "88bb09f3c90f4741bc686f333fd765ca838ff6e96969d5182b292df0c4816c39"
+    },
+    {
+      "name": "0002_core_runtime.sql",
+      "sha256": "34e5c0c5c9a3f4bb7364e649054a87ec8fe614bd469417e6e7c3412ba1e47346"
+    },
+    {
+      "name": "0003_content_collaboration.sql",
+      "sha256": "534fe0d90d535c02a669c55591698b02520cd478c2bb3b87d74825154c71d1f7"
+    },
+    {
+      "name": "0004_structured_work.sql",
+      "sha256": "0d7b125abce670a4c0ddc91ea1b6aabf01040d5b43ccf55d87deb4c6d9265b84"
+    },
+    {
+      "name": "0005_discovery.sql",
+      "sha256": "30fdacd003ca45ae696e7a1f43295c7b5edcf832b5dd606127d256aa883657cf"
+    },
+    {
+      "name": "0006_federation.sql",
+      "sha256": "82ce8833fa9c44896161d348ad8b6eab8de8a4eea7846965424d76b8ed9ff490"
+    },
+    {
+      "name": "0007_intelligence.sql",
+      "sha256": "0aa93951924b7ec18aeb42c9fa9a4c8ce73130e556b64bc67dd25b731f943e95"
+    },
+    {
+      "name": "0008_identity_mail_outbox.sql",
+      "sha256": "54081fa31f8455c807a8a30e92f4c36d6ba58c0cb7723cc44c6c80d85cbb0c41"
+    },
+    {
+      "name": "0010_inquiry_runtime.sql",
+      "sha256": "c2902e39803be0cfc68ec08be664ecfde3757c3d942569c39d44e24634439c30"
+    },
+    {
+      "name": "0011_core_qualification.sql",
+      "sha256": "62504724d2b837fc4c83582186dd0dc3a570cd53a32602f132e17f03fded2c44"
+    },
+    {
+      "name": "0012_search_capacity.sql",
+      "sha256": "192154b7f46b994e8409870bfb03fc0c31a62543adc1d78da599e1f9a4edf139"
+    },
+    {
+      "name": "0013_decision_layer.sql",
+      "sha256": "3478d3f0ae6afcdac150b5477d13c1a69e9da749c890624c12cf7cb5d03c697b"
+    },
+    {
+      "name": "0014_publication_choices.sql",
+      "sha256": "b0e9592fb7e3439024766e843b9c12d4ed64debcbff5b06608e0e37b40550c26"
+    },
+    {
+      "name": "0015_archive_nullable_position.sql",
+      "sha256": "3892580f32f9483c531919b0a405d032eee86a7a87ae7b9aa5b3caf0b491a10a"
+    },
+    {
+      "name": "0016_portability_jobs.sql",
+      "sha256": "53ad45c8d187ab1f5442525f091d264b51879896dcf07abd4982acd9e62f4471"
+    },
+    {
+      "name": "0017_inquiry_branch_admission.sql",
+      "sha256": "79b5952892b8f4d60c7eb36f8acd0c041503f0ee5a638ec5a40b692e7ad0e09a"
+    },
+    {
+      "name": "0018_development_mail_outbox.sql",
+      "sha256": "45d6b03eadfe1e91737763ae85cdff74e7216f859869e34431550bba48294996"
+    },
+    {
+      "name": "0019_installation_portability.sql",
+      "sha256": "c7db9042f6d5c571e10297c02df858ad2f3466beb4fa85649fee407cc228747b"
+    },
+    {
+      "name": "0020_identity_adapter_preparation.sql",
+      "sha256": "9c9ca33da5d4d38ea21202242d99bf53cd455ab6fc53be99ea482b2be4add1f0"
+    },
+    {
+      "name": "0021_search_fts.sql",
+      "sha256": "2e0200633f80b21142b7ebfa394150fc7526f7147632731c778024e243d9b834"
+    },
+    {
+      "name": "0022_native_identity_authority.sql",
+      "sha256": "3b0525e350286313717c900aa05e131ba51478140642950136fdef394a897f56"
+    },
+    {
+      "name": "0023_identity_providers.sql",
+      "sha256": "f879fb86b079e591dfe4a8513752a8e0394e252b940aa35d3f7430f27b7382c6"
+    },
+    {
+      "name": "0024_reviewed_imports.sql",
+      "sha256": "5ca0b2c214db4c518ad950b6cdd282c35248b615877cad43d3ff75faa42ac01b"
+    },
+    {
+      "name": "0025_import_generation.sql",
+      "sha256": "54b9e7de95dbc1d0a0088717f2230b953f8503e988526eeeb811788191eb8029"
+    },
+    {
+      "name": "0026_verification_review.sql",
+      "sha256": "3b781bb6ec64ea5dd3855b4b0b70c09bfdb9e37af193076a87310bd3bc7fec73"
+    },
+    {
+      "name": "0027_mention_titles_reindex.sql",
+      "sha256": "ff8ac67f6b5598e6b4dbb292748c8ded3d12c0552438adaff343e206ee3874f7"
+    },
+    {
+      "name": "0028_import_reversal_fences.sql",
+      "sha256": "48709d8ddb1ac828e9d48d22633baed4938d2d5a565a770a09917fb3a91e5a83"
+    },
+    {
+      "name": "0029_import_retirement.sql",
+      "sha256": "8fbb81317ee0667a26b88a7a9fa1a42c56eb254654468e6dd8b8c7d810be5693"
+    },
+    {
+      "name": "0030_native_dependencies.sql",
+      "sha256": "bb14fa7c0797f2aa3b04e08dfe8711615e9dbe9a4df9c0e3eed988dda8c5823b"
+    },
+    {
+      "name": "0031_import_preparation_progress.sql",
+      "sha256": "0df0299800a546a8da6c0a52585f987ba8d08a6fc10d2c826fa31da85f523d6a"
+    },
+    {
+      "name": "0031_review_requests.sql",
+      "sha256": "d8b3db2956dc776e90a3f0414b88ae620f87838c4227c32441f59baa85c4a3a6"
+    },
+    {
+      "name": "0032_page_locks.sql",
+      "sha256": "61634d055f70e5e731183c41d290cdac595a5138eb09f6fed4ad1acd0e2029ea"
+    },
+    {
+      "name": "0032_work_items.sql",
+      "sha256": "fb24d70fa1e6bc2a2d6c0a60345b9e94290ccb4cc4b3736f0413a0a26face661"
+    },
+    {
+      "name": "0033_following.sql",
+      "sha256": "91872d9cca2ede3387b1a66bb9712196a0a56e265fe19f4315d080b947f47c6c"
+    },
+    {
+      "name": "0034_preview_owner_signin.sql",
+      "sha256": "512644f038ca39e3855353739ceae3776e31f26db4a881382c5ff6db7cc9a019"
+    },
+    {
+      "name": "0035_blog_posts.sql",
+      "sha256": "7bdb3f6ad89553a0b1bc9e30082c945fe8155e80c485a7fb0c1a3cea30ff7f10"
+    },
+    {
+      "name": "0036_space_hub.sql",
+      "sha256": "2b6140ea970d50764e96d56814358c065c9a0a612a0e4ab722dce32d2ef0198c"
+    },
+    {
+      "name": "0037_import_custody_replace.sql",
+      "sha256": "5ecda8428a8afed7e4c02e67e5999f2a9224c55522c2a02797161b9d78f78794"
+    },
+    {
+      "name": "0038_import_door.sql",
+      "sha256": "2dc5eee7d872feb98e80f86dd74ac60ab227ab2b1bb49122774c31ad675d249e"
+    },
+    {
+      "name": "0039_import_door_native_targets.sql",
+      "sha256": "b09a6ce761d2992c8314f6ea85742866e565b7e4229bc5dfeeb4e3fb603daa09"
+    },
+    {
+      "name": "0040_guest_policy.sql",
+      "sha256": "8cc7748743993c4b4c57b89bf65a6cc7ce99d9e39649ecfde1a9a8f5e1b9de33"
+    },
+    {
+      "name": "0041_analytics_reports.sql",
+      "sha256": "583df37b7ca6c6c8ad72e8db45cb823042238055dc8c708467f3c9ebf0a90d8b"
+    },
+    {
+      "name": "0042_record_templates.sql",
+      "sha256": "2e3e85de4bd4cc82d8963248e382c23c633f1f0adce2ebc4798451021e5a3a8d"
+    },
+    {
+      "name": "0043_portability_import_leases.sql",
+      "sha256": "312347110f67c8cf8c54f307b9dd41cf0d09ebc585304c391ec99d7b4a2a0623"
+    },
+    {
+      "name": "0044_verification_rules.sql",
+      "sha256": "99aaa096863958a80f93d12e78dbadd039feb2d1de570335a5f4155bedcbdde0"
+    },
+    {
+      "name": "0045_chat_destinations.sql",
+      "sha256": "c750d83e09d532cd2edb121b312ec3b8c81b92abaa774457407e73044cf00946"
+    },
+    {
+      "name": "0046_chat_delivery_policy.sql",
+      "sha256": "b23b6a31ed8d7f824a14f83cab27d1d1b35c12b0778531588c2636cccca663bf"
+    },
+    {
+      "name": "0047_scheduled_backups.sql",
+      "sha256": "3e35571a055d1d92a7a1a22c4ceb6fe47d33ae746c3f2334e216cd2d44200d4d"
+    },
+    {
+      "name": "0048_provider_folder_imports.sql",
+      "sha256": "39c7a4ae5736752663deb223063c6799d7c72bb52c4edf79a7eedb1d45e80982"
+    },
+    {
+      "name": "0049_saml_single_sign_on.sql",
+      "sha256": "8ea441f72de8ad37b833824c21cc5d802027e41dfcb71583e9972d666d2f552b"
+    },
+    {
+      "name": "0050_chat_held_acknowledgment.sql",
+      "sha256": "f328f36e4216432eab1dc729f6f321e2f83344ba4630b9c390cc40c1f3d356a1"
+    },
+    {
+      "name": "0055_public_api_tokens.sql",
+      "sha256": "9e3e8c1311f8253ca1ae1f7c5ef34c75f225bce62dd61a5a54f81f2ab1c7ca66"
+    },
+    {
+      "name": "0056_webhook_subscriptions.sql",
+      "sha256": "fdbf117819a48a2dba9b1fbfa90d08562f6527c3bf8e96c89d671b7a2ad8ee5f"
+    },
+    {
+      "name": "0057_audit_stream.sql",
+      "sha256": "0d2c6c0ce09d647c2bdfe6b4f7c4bc828dc38735141c01ede5a2e39c49b0201f"
+    },
+    {
+      "name": "0058_scim_directory.sql",
+      "sha256": "4575fde9650217cb358c7df14dc098ecb3a1f471db6f8c0e7a2fc82d0ea90084"
+    },
+    {
+      "name": "0059_member_profiles.sql",
+      "sha256": "0b3a60c26182b8c8f6a79cbcaa20bd27ed4c448d9d796636c4a416146a0215c9"
+    },
+    {
+      "name": "0060_synced_static.sql",
+      "sha256": "88b23a722205bdbbb461d20dcd370d5d9c1478e44e5eb1d3ead2d422c7715fb6"
+    },
+    {
+      "name": "0061_provider_embed_observations.sql",
+      "sha256": "cc44fd9f0237ae4295aaf7af3c2036f3f34acb302017e9d8cc430d74d1ebeabd"
+    },
+    {
+      "name": "0062_scim_portable_invitations.sql",
+      "sha256": "3ce68bcb9dd3b821f4314509c9104515ea91568be8c5d5fe1f3313ecf817644e"
+    },
+    {
+      "name": "0063_required_reading.sql",
+      "sha256": "31a59f8a71638af6c93fdebdc80eae5c20a2ae44adf98b086a6d79e3fb7b2daf"
+    }
+  ]
+}

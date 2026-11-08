@@ -1,0 +1,182 @@
+{
+  "send": {
+    "value": {
+      "id": "01M6YBWHM5EPGFX205YW6ET798",
+      "pageId": "01M6YBWEZ60QPBCXV72RYWBP5K",
+      "dueAt": "2026-11-10T19:59:08.879Z",
+      "readers": [
+        {
+          "memberId": "browser-owner",
+          "displayName": "Alex Owner"
+        },
+        {
+          "memberId": "required-pending",
+          "displayName": "Casey Pending"
+        },
+        {
+          "memberId": "browser-reader",
+          "displayName": "Morgan Reader"
+        }
+      ],
+      "excluded": [
+        {
+          "memberId": "required-excluded",
+          "displayName": "Taylor Excluded"
+        }
+      ]
+    },
+    "receipt": {
+      "operationKey": "ce604be6-9f2d-4448-b4cb-5b14fe22824d",
+      "entity": {
+        "kind": "required-reading",
+        "id": "01M6YBWHM5EPGFX205YW6ET798",
+        "revisionId": "01M6YBWHM4AWDVH72C8Z6W9609"
+      },
+      "revisionId": "01M6YBWHM4AWDVH72C8Z6W9609",
+      "activityId": "01M6YBWHM4RK8NVYQVCVWP375F",
+      "committedAt": "2026-11-08T19:59:08.879Z"
+    }
+  },
+  "acknowledgments": [
+    {
+      "value": {
+        "id": "01M6YBWHM5EPGFX205YW6ET798",
+        "memberId": "browser-owner",
+        "acknowledgedAt": "2026-11-08T19:59:10.097Z"
+      },
+      "receipt": {
+        "operationKey": "d9c1402a-9ad3-4927-9237-baf2451a11f8",
+        "entity": {
+          "kind": "required-reading",
+          "id": "01M6YBWHM5EPGFX205YW6ET798",
+          "revisionId": "01M6YBWJRR1Y01N4ZA7NBQJ6AG"
+        },
+        "revisionId": "01M6YBWJRR1Y01N4ZA7NBQJ6AG",
+        "activityId": "01M6YBWJRRF0588MB839BK9C5Z",
+        "committedAt": "2026-11-08T19:59:10.097Z"
+      }
+    },
+    {
+      "value": {
+        "id": "01M6YBWHM5EPGFX205YW6ET798",
+        "memberId": "browser-reader",
+        "acknowledgedAt": "2026-11-08T19:59:11.746Z"
+      },
+      "receipt": {
+        "operationKey": "99bb4d0b-3c58-4de7-b9c7-83c6b0322ca1",
+        "entity": {
+          "kind": "required-reading",
+          "id": "01M6YBWHM5EPGFX205YW6ET798",
+          "revisionId": "01M6YBWMC9V365AA2K38XR7G3A"
+        },
+        "revisionId": "01M6YBWMC9V365AA2K38XR7G3A",
+        "activityId": "01M6YBWMC911A0EP69MTW5R5C5",
+        "committedAt": "2026-11-08T19:59:11.746Z"
+      }
+    }
+  ],
+  "report": {
+    "id": "01M6YBWHM5EPGFX205YW6ET798",
+    "pageId": "01M6YBWEZ60QPBCXV72RYWBP5K",
+    "createdAt": "2026-11-08T19:59:08.879Z",
+    "reminderDays": 2,
+    "dueAt": "2000-01-01T00:00:00.000Z",
+    "cancelledAt": null,
+    "members": [
+      {
+        "memberId": "browser-owner",
+        "displayName": "Alex Owner",
+        "acknowledgedAt": "2026-11-08T19:59:10.097Z",
+        "remindedAt": null,
+        "state": "acknowledged"
+      },
+      {
+        "memberId": "required-pending",
+        "displayName": "Casey Pending",
+        "acknowledgedAt": null,
+        "remindedAt": "2026-11-08T19:59:13.565Z",
+        "state": "reminded"
+      },
+      {
+        "memberId": "browser-reader",
+        "displayName": "Morgan Reader",
+        "acknowledgedAt": "2026-11-08T19:59:11.746Z",
+        "remindedAt": null,
+        "state": "acknowledged"
+      },
+      {
+        "memberId": "required-excluded",
+        "displayName": "Taylor Excluded",
+        "acknowledgedAt": null,
+        "remindedAt": null,
+        "state": "cannot-read"
+      }
+    ]
+  },
+  "reminders": [
+    {
+      "id": "required-reading-reminder:01M6YBWHM5EPGFX205YW6ET798:required-pending:required-pending",
+      "event": "required-reading-reminder",
+      "pageId": "01M6YBWEZ60QPBCXV72RYWBP5K",
+      "containerId": null,
+      "commentId": null,
+      "title": "Launch required reading",
+      "detail": {
+        "requiredReadingId": "01M6YBWHM5EPGFX205YW6ET798"
+      },
+      "createdAt": "2026-11-08T19:59:13.565Z",
+      "readAt": null,
+      "audience": "direct",
+      "href": "/app/pages/01M6YBWEZ60QPBCXV72RYWBP5K",
+      "period": "2026-11-08",
+      "recipientId": "required-pending"
+    }
+  ],
+  "activity": [
+    {
+      "id": "01M6YBWMC911A0EP69MTW5R5C5",
+      "actor": {
+        "id": "browser-reader",
+        "displayName": "Morgan Reader"
+      },
+      "feature": "required-reading",
+      "action": "required-reading.acknowledge",
+      "target": {
+        "kind": "required-reading",
+        "id": "01M6YBWHM5EPGFX205YW6ET798"
+      },
+      "occurredAt": "2026-11-08T19:59:11.746Z",
+      "operationKey": "99bb4d0b-3c58-4de7-b9c7-83c6b0322ca1",
+      "automationRunId": null,
+      "aiRunId": null,
+      "deleted": false,
+      "context": {}
+    },
+    {
+      "id": "01M6YBWJRRF0588MB839BK9C5Z",
+      "actor": {
+        "id": "browser-owner",
+        "displayName": "Alex Owner"
+      },
+      "feature": "required-reading",
+      "action": "required-reading.acknowledge",
+      "target": {
+        "kind": "required-reading",
+        "id": "01M6YBWHM5EPGFX205YW6ET798"
+      },
+      "occurredAt": "2026-11-08T19:59:10.097Z",
+      "operationKey": "d9c1402a-9ad3-4927-9237-baf2451a11f8",
+      "automationRunId": null,
+      "aiRunId": null,
+      "deleted": false,
+      "context": {}
+    }
+  ],
+  "refused": {
+    "status": 403,
+    "body": {
+      "code": "FORBIDDEN",
+      "message": "A workspace owner is required."
+    }
+  }
+}

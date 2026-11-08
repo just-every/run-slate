@@ -1,0 +1,26 @@
+{
+  "product": {
+    "status": "pushed",
+    "branch": "cloud/sd-slate-c-f219",
+    "head": "13f63a0124fc905fea81723b675b68405e1e661f",
+    "attempts": 4,
+    "command": "git push --porcelain origin HEAD:refs/heads/cloud/sd-slate-c-f219",
+    "priorGitHttpStatus": "unknown (not supplied by Git)",
+    "initialApiHttpStatus": 401,
+    "remoteVerified": true,
+    "apiRecoveryAttempts": 2
+  },
+  "evidence": {
+    "status": "pending"
+  },
+  "ci": {
+    "id": 42518087681,
+    "event": "push",
+    "status": "completed",
+    "conclusion": "failure",
+    "primaryJob": 128845444310,
+    "reason": "Generated ACCEPTANCE.md freshness only; permitted READY exception. Dependent tests skipped.",
+    "aggregateJob": 128845622769,
+    "url": "https://github.com/just-every/run-slate/actions/runs/42518087681"
+  }
+}

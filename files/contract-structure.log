@@ -1,0 +1,107 @@
+ WARN  Unsupported engine: wanted: {"node":"22.20.0"} (current: {"node":"v24.19.0","pnpm":"10.12.4"})
+
+> slate@0.4.0 check:contract /workspace/slate-f219
+> node scripts/check-contract.mjs
+
+{
+  "checks": [
+    {
+      "name": "contract clause IDs are unique",
+      "status": "passed",
+      "clauseCount": 338
+    },
+    {
+      "name": "baseline clause IDs are unique",
+      "status": "passed",
+      "clauseCount": 45
+    },
+    {
+      "name": "every contract override names a real clause",
+      "status": "passed",
+      "unknownOverrides": [],
+      "overrideCount": 0
+    },
+    {
+      "name": "manifest exactly maps contract clauses",
+      "status": "passed",
+      "clauseCount": 338,
+      "mappedCount": 338
+    },
+    {
+      "name": "contract and manifest policies match",
+      "status": "passed",
+      "contractPolicies": [
+        "page.lifecycle.v1",
+        "page.access.v1",
+        "page.public-access.v1",
+        "page.version.v1",
+        "page.status.v1",
+        "container.access.v1",
+        "record.page-parity.v1",
+        "automation.scope.v1"
+      ],
+      "manifestPolicies": [
+        "page.lifecycle.v1",
+        "page.access.v1",
+        "page.public-access.v1",
+        "page.version.v1",
+        "page.status.v1",
+        "record.page-parity.v1",
+        "automation.scope.v1",
+        "container.access.v1"
+      ]
+    },
+    {
+      "name": "every declared policy has a definition with values",
+      "status": "passed",
+      "policies": {
+        "page.lifecycle.v1": [
+          "always-live",
+          "draft-then-publish"
+        ],
+        "page.access.v1": [
+          "workspace-general",
+          "container-general"
+        ],
+        "page.public-access.v1": [
+          "site",
+          "link"
+        ],
+        "page.version.v1": [
+          "autosnapshot",
+          "labelled"
+        ],
+        "page.status.v1": [
+          "verification-only",
+          "open-vocabulary"
+        ],
+        "record.page-parity.v1": [
+          "record-is-page",
+          "record-is-row"
+        ],
+        "automation.scope.v1": [
+          "source",
+          "container",
+          "site"
+        ],
+        "container.access.v1": [
+          "class-led",
+          "grant-led"
+        ]
+      }
+    },
+    {
+      "name": "contract IDs are distinct from complete Base IDs",
+      "status": "passed"
+    },
+    {
+      "name": "retired runtimes have been removed",
+      "status": "passed",
+      "findings": []
+    },
+    {
+      "name": "operator and public paths follow the seed URL convention",
+      "status": "passed"
+    }
+  ]
+}

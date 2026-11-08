@@ -1,0 +1,91 @@
+{
+  "repository": "just-every/run-slate",
+  "branch": "cloud/sd-slate-c-f219",
+  "head": "13f63a0124fc905fea81723b675b68405e1e661f",
+  "sourceTree": "21f6ffc76d8eb9379542040dd0dd1a20e21a1614",
+  "recordedAt": "2026-11-08T20:02:12.507592+00:00",
+  "checks": [
+    {
+      "name": "build",
+      "command": "cloud_run npx -y @runeditrun/rer build",
+      "exit": 0
+    },
+    {
+      "name": "typecheck",
+      "command": "pnpm typecheck",
+      "exit": 0
+    },
+    {
+      "name": "first-party",
+      "command": "pnpm exec rer check --profile first-party",
+      "exit": 0
+    },
+    {
+      "name": "contract-structure",
+      "command": "pnpm check:contract",
+      "exit": 0
+    },
+    {
+      "name": "views",
+      "command": "node src/base/runtime/contract-docs.mjs write; node src/base/runtime/contract-docs.mjs check; restore generated views from origin/main",
+      "exit": 0
+    },
+    {
+      "name": "source-lock",
+      "command": "pnpm source:lock; pnpm source:check",
+      "exit": 0
+    },
+    {
+      "name": "migration-ledger",
+      "command": "python3 /tmp/slate-migration-ledger.py",
+      "exit": 0
+    },
+    {
+      "name": "native",
+      "command": "cloud_run pnpm exec vitest run --config tests/profile/vitest.config.ts tests/profile/profile.worker.test.ts -t \"core wiki public doors\"",
+      "exit": 0
+    },
+    {
+      "name": "browser",
+      "command": "cloud_run env SLATE_CHROMIUM_PATH=/usr/bin/chromium timeout 1200 node /tmp/slate-required-reading-browser.mjs",
+      "exit": 0
+    }
+  ],
+  "registrations": {
+    "before": 211,
+    "after": 211
+  },
+  "contractCounts": {
+    "before": {
+      "done": 58,
+      "partial": 239,
+      "missing": 41
+    },
+    "after": {
+      "done": 58,
+      "partial": 239,
+      "missing": 41
+    }
+  },
+  "statusSectionUnchanged": true,
+  "addedEmailShapedStrings": 0,
+  "main": "6a6232f31641de9e5935ed1899a080aee6bb23ec",
+  "scan": {
+    "commit": "13f63a0124fc905fea81723b675b68405e1e661f",
+    "complete": false,
+    "historyScanned": false,
+    "findings": null,
+    "reason": "Guarded Mac lander owns the publication scan; no cloud scan claim."
+  },
+  "publication": "Product pushed successfully at guard attempt 4; remote ref matches the exact candidate.",
+  "ci": {
+    "id": 42518087681,
+    "event": "push",
+    "status": "completed",
+    "conclusion": "failure",
+    "primaryJob": 128845444310,
+    "reason": "Generated ACCEPTANCE.md freshness only; permitted READY exception. Dependent tests skipped.",
+    "aggregateJob": 128845622769,
+    "url": "https://github.com/just-every/run-slate/actions/runs/42518087681"
+  }
+}

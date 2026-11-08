@@ -1,0 +1,36 @@
+fleet Git: removed 0 credential-bearing GitHub URL rewrite sections
+PUSH attempt=1/5 command=git push --porcelain origin HEAD:refs/heads/cloud/sd-slate-c-f219
+PUSH_CREDENTIAL sha256_16=8addacf6ac95b0bc bundle_file_age_seconds=1384 token_issue_age=unknown
+fleet Git: removed 0 credential-bearing GitHub URL rewrite sections
+remote: Invalid username or token. Password authentication is not supported for Git operations.
+fatal: Authentication failed for 'https://github.com/just-every/run-slate.git/'
+PUSH_REJECTED attempt=1 exit=128 HTTP=unknown (not supplied by Git) command=git push --porcelain origin HEAD:refs/heads/cloud/sd-slate-c-f219
+PUSH_BACKOFF seconds=15; next attempt refreshes the injected bundle
+PUSH_REFRESH exit=0; credential will be re-read by Git
+PUSH attempt=2/5 command=git push --porcelain origin HEAD:refs/heads/cloud/sd-slate-c-f219
+PUSH_CREDENTIAL sha256_16=8addacf6ac95b0bc bundle_file_age_seconds=0 token_issue_age=unknown
+fleet Git: removed 0 credential-bearing GitHub URL rewrite sections
+remote: Invalid username or token. Password authentication is not supported for Git operations.
+fatal: Authentication failed for 'https://github.com/just-every/run-slate.git/'
+PUSH_REJECTED attempt=2 exit=128 HTTP=unknown (not supplied by Git) command=git push --porcelain origin HEAD:refs/heads/cloud/sd-slate-c-f219
+PUSH_BACKOFF seconds=45; next attempt refreshes the injected bundle
+PUSH_REFRESH exit=0; credential will be re-read by Git
+PUSH attempt=3/5 command=git push --porcelain origin HEAD:refs/heads/cloud/sd-slate-c-f219
+PUSH_CREDENTIAL sha256_16=8addacf6ac95b0bc bundle_file_age_seconds=0 token_issue_age=unknown
+fleet Git: removed 0 credential-bearing GitHub URL rewrite sections
+remote: Invalid username or token. Password authentication is not supported for Git operations.
+fatal: Authentication failed for 'https://github.com/just-every/run-slate.git/'
+PUSH_REJECTED attempt=3 exit=128 HTTP=unknown (not supplied by Git) command=git push --porcelain origin HEAD:refs/heads/cloud/sd-slate-c-f219
+PUSH_BACKOFF seconds=90; next attempt refreshes the injected bundle
+PUSH_REFRESH exit=0; credential will be re-read by Git
+PUSH attempt=4/5 command=git push --porcelain origin HEAD:refs/heads/cloud/sd-slate-c-f219
+PUSH_CREDENTIAL sha256_16=8addacf6ac95b0bc bundle_file_age_seconds=0 token_issue_age=unknown
+fleet Git: removed 0 credential-bearing GitHub URL rewrite sections
+To https://github.com/just-every/run-slate.git
+ 	HEAD:refs/heads/cloud/sd-slate-c-f219	404f4bd4..13f63a01
+Done
+remote: 
+remote: GitHub found 30 vulnerabilities on just-every/run-slate's default branch (12 high, 16 moderate, 2 low). To find out more, visit:        
+remote:      https://github.com/just-every/run-slate/security/dependabot        
+remote: 
+PUSH_OK branch=cloud/sd-slate-c-f219

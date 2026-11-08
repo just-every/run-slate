@@ -1,0 +1,16 @@
+verify	Require the plan and every expected job	﻿2026-11-08T20:03:53.4563146Z ##[group]Run set -euo pipefail
+verify	Require the plan and every expected job	2026-11-08T20:03:53.4564260Z [36;1mset -euo pipefail[0m
+verify	Require the plan and every expected job	2026-11-08T20:03:53.4565350Z [36;1mtest "$PLAN" = success[0m
+verify	Require the plan and every expected job	2026-11-08T20:03:53.4566579Z [36;1mif [ "$SKIP" = true ]; then exit 0; fi[0m
+verify	Require the plan and every expected job	2026-11-08T20:03:53.4567841Z [36;1m# Dispatch has always been the installer/local-only entry point.[0m
+verify	Require the plan and every expected job	2026-11-08T20:03:53.4569142Z [36;1mif [ "$EVENT" != workflow_dispatch ]; then[0m
+verify	Require the plan and every expected job	2026-11-08T20:03:53.4570444Z [36;1m  for result in "$APP" "$SHARDS" "$CONTRACT"; do test "$result" = success; done[0m
+verify	Require the plan and every expected job	2026-11-08T20:03:53.4571582Z [36;1mfi[0m
+verify	Require the plan and every expected job	2026-11-08T20:03:53.4572831Z [36;1mif [ "$EVENT" = schedule ] || [ "$EVENT" = workflow_dispatch ] || [[ "$REF" == refs/tags/* ]]; then[0m
+verify	Require the plan and every expected job	2026-11-08T20:03:53.4574208Z [36;1m  test "$LOCAL" = success[0m
+verify	Require the plan and every expected job	2026-11-08T20:03:53.4575270Z [36;1mfi[0m
+verify	Require the plan and every expected job	2026-11-08T20:03:53.4576172Z [36;1mif [ "$EVENT" = schedule ] || [[ "$REF" == refs/tags/* ]]; then[0m
+verify	Require the plan and every expected job	2026-11-08T20:03:53.4577304Z [36;1m  test "$SCALE" = success[0m
+verify	Require the plan and every expected job	2026-11-08T20:03:53.4578322Z [36;1mfi[0m
+verify	Require the plan and every expected job	2026-11-08T20:03:53.5202243Z shell: /usr/bin/bash -e {0}
+verify	Require the plan and every expected job	2026-11-08T20:03:53.5458265Z ##[error]Process completed with exit code 1.
