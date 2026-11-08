@@ -149,7 +149,8 @@ it("FLAG-001 — core wiki public doors retain native content while flagship rou
     const history=(await read('/api/decisions/'+result.value.id+'/history')).items;
     const revision=history.find((row:any)=>row.id===receipt.revisionId);
     expect(revision).toMatchObject({entity_kind:path.endsWith('/accept')?'decision-acceptance':path.endsWith('/review')?'decision-review':'decision',actor_id:actor,created_at:receipt.committedAt});
-    expect(audit.filter((row:any)=>row.id===receipt.activityId)).toEqual([expect.objectContaining({actor:expect.objectContaining({id:actor}),occurredAt:receipt.committedAt,operationKey:receipt.operationKey,target:{kind:'decision',id:result.value.id}})]);
+    const action=path.endsWith('/accept')?'decisions.accept':path.endsWith('/review')?'decisions.review':path.endsWith('/propose-successor')?'decisions.propose-successor':'decisions.save';
+    expect(audit.filter((row:any)=>row.id===receipt.activityId)).toEqual([expect.objectContaining({action,actor:expect.objectContaining({id:actor}),occurredAt:receipt.committedAt,operationKey:receipt.operationKey,target:{kind:'decision',id:result.value.id}})]);
   }
   for(const id of [firstId,secondId]){
     const history=(await read('/api/decisions/'+id+'/history')).items, supersession=history.filter((row:any)=>row.entity_kind==='decision-supersession');

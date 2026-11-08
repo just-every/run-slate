@@ -42,6 +42,8 @@ export async function decisionStatesJourney(state) {
         assert.equal(status,200,JSON.stringify(result));
         assert.equal(result.receipt.operationKey,input.operationKey);
         assert.equal(result.receipt.entity.kind,'decision');
+        assert.equal(result.receipt.entity.id,result.value.id);
+        assert.equal(result.receipt.revisionId,result.value.revisionId);
         console.log('Native decision commit',path,result.value.state??'review',result.receipt.revisionId);
         committed.push({result,path,input,actorId:actor===alice?'browser-owner':bob.id});
         replays.push({actor,path,input,result});
@@ -148,6 +150,9 @@ export async function decisionStatesJourney(state) {
       const revision=history.find(row=>row.id===receipt.revisionId);
       const kind=path.endsWith('/accept')?'decision-acceptance':path.endsWith('/review')?'decision-review':'decision';
       assert.equal(revision.entity_kind,kind);assert.equal(revision.actor_id,actorId);assert.equal(revision.created_at,receipt.committedAt);
+      const action=path.endsWith('/accept')?'decisions.accept':path.endsWith('/review')?'decisions.review':path.endsWith('/propose-successor')?'decisions.propose-successor':'decisions.save';
+      const event=audit.find(row=>row.id===receipt.activityId);
+      assert.ok(event);assert.equal(event.action,action);assert.equal(event.operationKey,input.operationKey);
       expected.push({id:receipt.activityId,revisionId:receipt.revisionId,targetId:id,actorId,at:receipt.committedAt});
       if(path.endsWith('/accept')) {
         const predecessor=(await read(`/api/decisions/${id}`)).content.supersedesId;
