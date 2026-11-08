@@ -9304,7 +9304,7 @@
       "executable": false
     },
     "src/core/features/settings/ui/workspace/NotificationPreferences.tsx": {
-      "sha256": "b29358618ae07a93ca1273ab99b5dc1d74427fd94b33a19158f427ff5e7fa3a0",
+      "sha256": "4f2c4a7d0c052d18bf80c2e64e9b885d04ad02c16a64a13ffd53ca8a7dc81eb6",
       "executable": false
     },
     "src/core/features/settings/ui/workspace/PendingInvitations.tsx": {
