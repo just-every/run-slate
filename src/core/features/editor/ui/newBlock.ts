@@ -8,6 +8,7 @@ export function newBlock(
 ): EditorBlock {
   const text = [{ text: "" }];
   switch (kind) {
+    case "database-view": return {id,type:"database-view",definition:{filters:[]}};
     case "synced-reference": throw new Error("Choose a source link before inserting a synced block.");
     case "columns": return {id,type:"columns",count:3};
     case "file-card":
