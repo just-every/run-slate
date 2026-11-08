@@ -1,3 +1,4 @@
+import {pageErasureProof} from './page-erasure-proof';
 import {revisionHistoryProof} from './revision-history-proof';
 import {archiveRetentionProof} from './archive-retention-proof';
 import {auditExportProof} from './audit-export-proof';
@@ -59,4 +60,5 @@ test('ACT-002 BASE-OPS-005 audit content, publication, archive and version mutat
 }
 await auditExportProof(f);
 await archiveRetentionProof(f);
+await pageErasureProof(f);
 });

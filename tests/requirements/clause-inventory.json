@@ -964,11 +964,15 @@
       "id": "ARCH-006",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of ARCH-006 — Permanent deletion. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "The existing audit-content registration invokes pageErasureProof through native HTTP for single and Empty trash page subtrees: exact named confirmation, fresh step-up, unchanged unsafe refusals, independent D1 and R2 inventories, every revision body, uploaded metadata, comments, analytics, retained reference tombstones and anonymized activity. Existing responsive archiveRetentionJourney callers cover the real dialogs, retained links, mentions and exact revision citations after reload. AI grounding remains held by ADMIN-007 and shared company policy; other record-kind links and requirement-wide acceptance remain unproven. CONTRACT.md retains the judgment.",
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
           "testName": "content durable HTTP content saves, revisions, moves, deletion, suggestions and attachment limits preserve durable state"
+        },
+        {
+          "file": "tests/qualification/core/audit-content.test.ts",
+          "testName": "ACT-002 BASE-OPS-005 audit content, publication, archive and version mutations once with actor and time"
         }
       ]
     },

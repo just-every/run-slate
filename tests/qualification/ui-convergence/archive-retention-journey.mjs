@@ -9,7 +9,7 @@ import {tap,type,checkpoint} from './touch-controls.mjs';
 /** Archive and deletion use the ordinary member's native controls and session. */
 export async function archiveRetentionJourney(state,touch) {
   const {page,context,origin,containerId}=touch;
-  const f=await retentionFixture({containerId,memberId:'browser-reader',
+  const door={containerId,memberId:'browser-reader',
     request:async(method,route,body)=>{
       // Vocabulary belongs to the workspace owner; all content uses the member.
       const result=await call(route==='/api/status'?state.context:context,origin,method,route,body);
@@ -23,7 +23,8 @@ export async function archiveRetentionJourney(state,touch) {
       const response=await context.request.get(`${origin}/api/media/${id}`);
       assert.equal(response.status(),200);return new Uint8Array(await response.body());
     },
-  });
+  };
+  const f=await retentionFixture(door);
   await page.goto(`${origin}/app/pages/${f.root.pageId}`,{waitUntil:'networkidle'});
   await tap(page.getByRole('button',{name:'More',exact:true}));
   await tap(page.getByRole('menuitem',{name:'Archive page',exact:true}));
@@ -43,6 +44,7 @@ export async function archiveRetentionJourney(state,touch) {
   await page.goto(`${origin}/app/pages/${f.root.pageId}`,{waitUntil:'networkidle'});
   await expect(page.getByText('Current retained body',{exact:true})).toBeVisible();
   await checkpoint(page,'retained archive restored');
+  const references=await erasureReferences(touch,f);
   const doc=await f.read(`/api/pages/${f.root.pageId}`);
   await ok(context,origin,'POST',`/api/archive/${f.root.pageId}`,{operationKey:randomUUID(),expectedRevisionId:doc.page.revisionId,action:'trash'});
   await page.goto(origin+'/app/archive',{waitUntil:'networkidle'});
@@ -82,7 +84,11 @@ export async function archiveRetentionJourney(state,touch) {
     assert.equal(signedIn.body.member.id,'browser-reader');
     assert.equal(signedIn.body.member.role,'member');
     await context.addCookies([{name:'slate_session',value:signedIn.cookie.split('=')[1],url:origin}]);
+    const response=page.waitForResponse(response=>response.request().method()==='POST'&&response.url().endsWith('/permanent-delete'));
     await tap(dialog.getByRole('button',{name:'Delete permanently',exact:true}));
+    const deleted=await response;
+    assert.equal(deleted.status(),200,await deleted.text());
+    console.log('ERASURE_BROWSER_RECEIPT',JSON.stringify({mode:'single',width:page.viewportSize().width,...await deleted.json()}));
     await expect(dialog).toBeHidden();
     assert.deepEqual([...attempts[0].confirmedPageIds].sort(),[...f.ids].sort());
     await expect(row).toHaveCount(0);
@@ -90,5 +96,121 @@ export async function archiveRetentionJourney(state,touch) {
     for(const id of f.ids)assert.equal((await call(context,origin,'GET',`/api/pages/${id}`)).status,404);
   } finally {context.off('request',record);}
   await checkpoint(page,'confirmed cascade deleted');
+  await erasedReferenceReadback(touch,references,f);
+  await emptyTrashJourney(state,touch,door);
   console.log(`PROBE ARCH-004 native browser ${page.viewportSize().width}: archive and restore retain populated data; cancelled and incomplete confirmation preserve it; exact confirmed cascade deletes`);
+}
+
+async function erasureReferences(touch,f) {
+  const revision=f.before.pages[0].history.items[0].id;
+  const root=f.root.pageId;
+  const created=await ok(touch.context,touch.origin,'POST','/api/pages',{operationKey:randomUUID(),containerId:touch.containerId,title:'Retained erasure references',blocks:[{
+    id:randomUUID(),blockType:'paragraph',treePosition:'1',content:{text:[
+      {text:'Open plain reference',link:{href:`/app/pages/${root}`}},
+      {text:'Open exact citation',link:{href:`/app/pages/${root}?detail=history&revision=${revision}`}},
+      {text:'Retained archive tree',mention:{kind:'page',id:root,label:'Retained archive tree'}},
+    ]},
+  }]});
+  return {id:created.value.pageId,revision};
+}
+
+async function erasedReferenceReadback(touch,references,f) {
+  const {context,origin}=touch,root=f.root.pageId;
+  const document=await ok(context,origin,'GET',`/api/pages/${references.id}`);
+  assert.equal(document.mentions[root].state,'deleted');
+  assert.equal(document.mentions[root].label,'Deleted page');
+  assert.ok(!JSON.stringify(document.blocks).includes('Retained archive tree'));
+  let tombstone;
+  for(const route of [`/api/pages/${root}`,`/api/revisions/${root}/${references.revision}`,`/api/pages/${root}/link-card?revision=${references.revision}`]){
+    const gone=await call(context,origin,'GET',route);
+    assert.equal(gone.status,404);assert.equal(gone.body.code,'PAGE_ERASED');
+    assert.deepEqual(Object.keys(gone.body.details).sort(),['deletedAt','kind']);
+    assert.equal(gone.body.details.kind,'page');
+    assert.ok(Number.isFinite(Date.parse(gone.body.details.deletedAt)));
+    tombstone=gone.body.details;
+  }
+  const proof=await context.browser().newContext({viewport:touch.page.viewportSize(),locale:'en-US'});
+  await proof.addCookies((await context.cookies()).filter(cookie=>cookie.name==='slate_session'));
+  const host=await proof.newPage();
+  try {
+    await host.goto(`${origin}/app/pages/${references.id}`,{waitUntil:'networkidle'});
+    await host.reload({waitUntil:'networkidle'});
+    await expect(host.locator('[data-mention-kind="page"]')).toContainText('Deleted page');
+    await expect(host.locator('[data-mention-kind="page"] a')).toHaveCount(0);
+    for(const name of ['Open plain reference','Open exact citation']){
+      const href=await host.getByRole('link',{name,exact:true}).getAttribute('href');
+      assert.ok(href,'A retained link has an actual destination after reload.');
+      const target=await proof.newPage();
+      await target.goto(new URL(href,origin).href,{waitUntil:'networkidle'});
+      await target.reload({waitUntil:'networkidle'});
+      const erased=target.getByRole('article',{name:'Deleted record'});
+      await expect(erased).toContainText('Deleted page');
+      await expect(erased.locator('time')).toHaveAttribute('datetime',tombstone.deletedAt);
+      for(const text of ['Retained archive tree','Current retained body','Historical retained body','Retained discussion'])
+        await expect(erased).not.toContainText(text);
+      await expect(target.locator('.revision-preview')).toHaveCount(0);
+      await checkpoint(target,'erased '+name.toLowerCase());
+      await target.close();
+    }
+    const activity=await ok(context,origin,'GET','/api/activity?kind=page&limit=100');
+    const erased=activity.items.filter(row=>f.ids.includes(row.target.id));
+    assert.ok(erased.length>0);
+    for(const row of erased){
+      assert.equal(row.target.kind,'page');assert.equal(row.actor,null);
+      assert.equal(row.deleted,true);assert.deepEqual(row.context,{});
+      assert.ok(Number.isFinite(Date.parse(row.occurredAt)));
+    }
+  } finally {await proof.close();}
+}
+
+async function emptyTrashJourney(state,touch,door) {
+  const {context,page,origin}=touch;
+  const f=await retentionFixture(door),references=await erasureReferences(touch,f);
+  const extra=await ok(context,origin,'POST','/api/pages',{operationKey:randomUUID(),containerId:touch.containerId,title:'Another trash root'});
+  const privateSpace=await ok(state.context,origin,'POST','/api/containers',{operationKey:randomUUID(),name:'Protected trash boundary',visibility:'private'});
+  const protectedPage=await ok(state.context,origin,'POST','/api/pages',{operationKey:randomUUID(),containerId:privateSpace.value.id,title:'Edit-only trash stays'});
+  await ok(state.context,origin,'POST','/api/sharing',{operationKey:randomUUID(),targetKind:'page',targetId:protectedPage.value.pageId,principalKind:'member',principalId:'browser-reader',level:'edit'});
+  for(const [owner,id] of [[context,f.root.pageId],[context,extra.value.pageId],[state.context,protectedPage.value.pageId]]){
+    const doc=await ok(owner,origin,'GET',`/api/pages/${id}`);
+    await ok(owner,origin,'POST',`/api/archive/${id}`,{operationKey:randomUUID(),expectedRevisionId:doc.page.revisionId,action:'trash'});
+  }
+  const expected=[...f.ids,extra.value.pageId].sort();
+  await page.goto(origin+'/app/archive',{waitUntil:'networkidle'});
+  await tap(page.getByRole('button',{name:'Trash',exact:true}));
+  await tap(page.getByRole('button',{name:'Empty trash',exact:true}));
+  const dialog=page.getByRole('dialog',{name:'Empty trash?',exact:true});
+  await expect(dialog.getByRole('checkbox')).toHaveCount(expected.length);
+  await expect(dialog.getByRole('checkbox',{name:'Edit-only trash stays',exact:true})).toHaveCount(0);
+  await checkpoint(page,'empty trash named preview');
+  await tap(dialog.getByRole('button',{name:'Cancel',exact:true}));
+  assert.deepEqual((await ok(context,origin,'GET','/api/archive/empty-trash-preview')).items.map(row=>row.id).sort(),expected);
+  await tap(page.getByRole('button',{name:'Empty trash',exact:true}));
+  await type(page,dialog.getByRole('textbox',{name:'Type "Empty trash"',exact:true}),'Empty trash');
+  await dialog.getByRole('checkbox').first().check();
+  const attempts=[],record=request=>{if(request.method()==='POST'&&request.url().endsWith('/api/archive/empty-trash'))attempts.push(request.postDataJSON());};
+  context.on('request',record);
+  try {
+    await tap(dialog.getByRole('button',{name:'Empty trash',exact:true}));
+    assert.deepEqual(attempts,[],'Empty trash cannot submit an incomplete confirmation.');
+    for(const box of await dialog.getByRole('checkbox').all())await box.check();
+    await checkpoint(page,'empty trash exact confirmation');
+    const member=await touch.api('/api/members/current'),signed=await signInWithOutbox(origin,member.email);
+    await context.addCookies([{name:'slate_session',value:signed.cookie.split('=')[1],url:origin}]);
+    const response=page.waitForResponse(response=>response.request().method()==='POST'&&response.url().endsWith('/api/archive/empty-trash'));
+    await tap(dialog.getByRole('button',{name:'Empty trash',exact:true}));
+    const deleted=await response;assert.equal(deleted.status(),200,await deleted.text());
+    const result=await deleted.json();
+    assert.deepEqual(result.value.deletedPageIds,expected);
+    console.log('ERASURE_BROWSER_RECEIPT',JSON.stringify({mode:'empty',width:page.viewportSize().width,...result}));
+    await expect(dialog).toBeHidden();
+    assert.deepEqual([...attempts[0].confirmedPageIds].sort(),expected);
+    await page.reload({waitUntil:'networkidle'});
+    await tap(page.getByRole('button',{name:'Trash',exact:true}));
+    await expect(page.getByRole('heading',{name:'Edit-only trash stays',exact:true})).toBeVisible();
+    await expect(page.getByRole('button',{name:'Empty trash',exact:true})).toHaveCount(0);
+    assert.equal((await ok(context,origin,'GET',`/api/pages/${references.id}`)).page.id,references.id);
+    await checkpoint(page,'empty trash leaves edit-only content');
+  } finally {context.off('request',record);}
+  await erasedReferenceReadback(touch,references,f);
+  console.log(`PROBE ARCH-006 native browser ${page.viewportSize().width}: named single and Empty trash confirmations erase exact sets, retained plain links and exact citations reload as kind and time tombstones, mentions and activity are content-free`);
 }
