@@ -1,3 +1,4 @@
+import {registerRequiredReadingVisibility} from './service';
 import type {AppBindings,AuthenticatedMember} from '../../app/types';
 import type {FeatureContext} from '../../app/feature-context';
 import {ApiProblem} from '../../app/problems';
@@ -7,11 +8,12 @@ import {recipientContext,processNotificationOutbox} from '../notifications/outbo
 import {notificationStatements} from '../notifications/events';
 /** A deterministic outbox identity and atomic acknowledgment fence survive repeated and concurrent ticks. */
 export async function scheduledRequiredReading(env:AppBindings,now:string){
+ registerRequiredReadingVisibility();
  const owners=await env.DB.prepare("SELECT m.id,m.workspace_id AS workspaceId,m.email,m.display_name AS displayName,m.role,w.name AS workspaceName FROM members m JOIN workspaces w ON w.id=m.workspace_id WHERE m.status='active' AND m.role='owner' AND m.member_kind='member' AND m.id=(SELECT id FROM members x WHERE x.workspace_id=m.workspace_id AND x.status='active' AND x.role='owner' AND x.member_kind='member' ORDER BY id LIMIT 1)").all<Omit<AuthenticatedMember,'initials'>>();
  let delivered=0;
  for(const owner of owners.results){
   const ctx:FeatureContext={db:env.DB,files:env.FILES,jobs:env.JOBS,actor:{...owner,initials:owner.displayName.slice(0,2)},now};
-  const rows=await env.DB.prepare(`SELECT r.id,r.page_id,m.member_id FROM required_readings r JOIN required_reading_members m ON m.reading_id=r.id WHERE r.workspace_id=? AND r.cancelled_at IS NULL AND r.due_at<=? AND m.eligible=1 AND m.acknowledged_at IS NULL AND m.reminded_at IS NULL ORDER BY r.due_at,r.id,m.member_id LIMIT 100`).bind(owner.workspaceId,now).all<{id:string;page_id:string;member_id:string}>();
+  const rows=await env.DB.prepare(`SELECT r.id,r.page_id,m.member_id FROM required_readings r JOIN required_reading_members m ON m.reading_id=r.id WHERE r.workspace_id=? AND r.cancelled_at IS NULL AND r.due_at<=? AND m.eligible=1 AND m.acknowledged_at IS NULL AND m.reminded_at IS NULL ORDER BY r.due_at,r.id,m.member_id`).bind(owner.workspaceId,now).all<{id:string;page_id:string;member_id:string}>();
   for(const row of rows.results){const recipient=await recipientContext(ctx,row.member_id);if(!recipient)continue;
    try{await requirePageLevel(recipient,row.page_id,'view');}catch(e){if(e instanceof ApiProblem&&[401,404].includes(e.status))continue;throw e;}
    try{await env.DB.batch([

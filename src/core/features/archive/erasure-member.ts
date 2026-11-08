@@ -19,9 +19,10 @@ export async function prepareEraseMemberStores(ctx:FeatureContext,memberId:strin
  add('DELETE FROM member_expertise_overrides WHERE member_id=?',memberId);
  add('DELETE FROM member_profiles WHERE member_id=?',memberId);
  add('UPDATE member_profiles SET manager_member_id=NULL,revision_id=?,updated_at=? WHERE manager_member_id=?',crypto.randomUUID(),now,memberId);
+ add("UPDATE operation_receipts SET response_json='{\"value\":{\"erased\":true}}' WHERE workspace_id=? AND target_kind='required-reading' AND (target_id IN (SELECT reading_id FROM required_reading_members WHERE member_id=?) OR target_id IN (SELECT id FROM required_readings WHERE sender_member_id=?))",w,memberId,memberId);
+ add("UPDATE notification_outbox SET recipients_json=COALESCE((SELECT json_group_array(value) FROM json_each(notification_outbox.recipients_json) WHERE value!=?),'[]') WHERE workspace_id=? AND event IN ('required-reading','required-reading-reminder')",memberId,w);
  add('DELETE FROM required_reading_members WHERE member_id=?',memberId);
  add('UPDATE required_readings SET sender_member_id=NULL,cancelled_at=COALESCE(cancelled_at,?) WHERE sender_member_id=?',now,memberId);
- add("UPDATE operation_receipts SET response_json='{\"value\":{\"erased\":true}}' WHERE workspace_id=? AND target_kind='required-reading'",w);
  for(const table of ['reminders','page_favourites','container_favourites','page_watches','container_watches','recent_pages','content_page_opens','content_tree_expansion','content_presence','reactions','discovery_preferences','discovery_revisions','saved_searches','discovery_snapshots','federation_oauth_states'])add(`DELETE FROM ${table} WHERE member_id=?`,memberId);
  add("UPDATE backup_destinations SET created_by_member_id=NULL,name='Removed owner backup',endpoint='',bucket='',prefix='',credential_ciphertext=NULL,state='removed',drill_report_json=NULL WHERE created_by_member_id=?",memberId);
  add("DELETE FROM federation_import_mappings WHERE import_job_id IN (SELECT id FROM provider_folder_runs WHERE workspace_id=? AND actor_id=?)",w,memberId);

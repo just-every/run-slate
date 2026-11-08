@@ -14,13 +14,13 @@ export async function requiredReadingJourney(state,people,width){
  const ids={pending:'required-pending',excluded:'required-excluded',owner:'required-other-owner'};
  const now=new Date().toISOString();
  await state.fixtureSql(Object.entries(ids).map(([kind,id])=>`INSERT INTO members(id,workspace_id,email,display_name,initials,role,member_kind,status,created_at,updated_at) VALUES('${id}','browser-workspace','${['synthetic-slate-'+id,'test.invalid'].join('@')}','${kind==='pending'?'Casey Pending':kind==='excluded'?'Taylor Excluded':'Jordan Owner'}','RR','${kind==='owner'?'owner':'member'}','member','active','${now}','${now}')`));
- const {pageId}=await restrictedPage(alice,'Launch required reading',['Read the deployment checklist before launch.']);
+ const {pageId}=await restrictedPage({...alice,origin},'Launch required reading',['Read the deployment checklist before launch.']);
  await grant(alice.context,origin,pageId,bob.id,'view');await grant(alice.context,origin,pageId,ids.pending,'view');await grant(alice.context,origin,pageId,ids.owner,'view');
  const group=(await ok(alice.context,origin,'POST','/api/groups',{operationKey:randomUUID(),name:'Launch required readers',memberIds:[ownerId,bob.id,ids.pending,ids.excluded]})).value.id;
  await alice.page.goto(`${origin}/app/pages/${pageId}`,{waitUntil:'networkidle'});
  await openPageAction(alice.page,'Required reading');
  let dialog=alice.page.getByRole('dialog',{name:'Required reading',exact:true});
- await dialog.getByLabel('Group',{exact:true}).selectOption(group);await dialog.getByLabel('Remind after days',{exact:true}).fill('2');
+ await dialog.getByRole('combobox',{name:'Group',exact:true}).selectOption(group);await dialog.getByLabel('Remind after days',{exact:true}).fill('2');
  await expect(dialog).toContainText('3 readers will receive an inbox item.');await expect(dialog.getByRole('region',{name:'Members who cannot read'})).toContainText('Taylor Excluded');
  await alice.page.screenshot({path:path.join(evidence,'send-preview.png'),fullPage:true});
  const sending=alice.page.waitForResponse(r=>new URL(r.url()).pathname==='/api/required-reading'&&r.request().method()==='POST');
@@ -34,16 +34,16 @@ export async function requiredReadingJourney(state,people,width){
  for(const person of [alice,bob]){
   await person.page.goto(origin+'/app/inbox',{waitUntil:'networkidle'});
   const notices=(await ok(person.context,origin,'GET','/api/notifications?limit=100')).items.filter(n=>n.detail?.requiredReadingId===id&&n.event==='required-reading');assert.equal(notices.length,1);
-  const item=person.page.locator('.outcome-list li').filter({hasText:'Launch required reading'});await expect(item).toHaveCount(1);
+  const item=person.page.locator('.outcome-list li').filter({hasText:'Launch required reading'}).filter({has:person.page.locator('.outcome-kind').filter({hasText:/^required reading(?: ·|$)/})});await expect(item).toHaveCount(1);
   const receiving=person.page.waitForResponse(r=>new URL(r.url()).pathname===`/api/required-reading/${id}/acknowledge`);
   await item.getByRole('button',{name:'Acknowledge reading',exact:true}).click();
   const ackResponse=await receiving,ack=await ackResponse.json();assert.equal(ackResponse.status(),200);receipts.acknowledgments.push(ack);
   await expect(item.getByRole('status')).toContainText('Acknowledged');
-  await person.page.reload({waitUntil:'networkidle'});await expect(person.page.locator('.outcome-list li').filter({hasText:'Launch required reading'}).getByRole('status')).toContainText('Acknowledged');
+  await person.page.reload({waitUntil:'networkidle'});await expect(person.page.locator('.outcome-list li').filter({hasText:'Launch required reading'}).filter({has:person.page.locator('.outcome-kind').filter({hasText:/^required reading(?: ·|$)/})}).getByRole('status')).toContainText('Acknowledged');
   await person.page.screenshot({path:path.join(evidence,person===alice?'sender-acknowledged.png':'reader-acknowledged.png'),fullPage:true});
  }
- const before=(await state.records('SELECT id FROM required_readings')).length;
- const refused=await call(bob.context,origin,'POST','/api/required-reading',{operationKey:randomUUID(),pageId,groupId:group,reminderDays:2});assert.equal(refused.status,403);assert.equal((await state.records('SELECT id FROM required_readings')).length,before);
+ const before=(await ok(alice.context,origin,'GET',`/api/required-reading/page/${pageId}`)).items.length;
+ const refused=await call(bob.context,origin,'POST','/api/required-reading',{operationKey:randomUUID(),pageId,groupId:group,reminderDays:2});assert.equal(refused.status,403);assert.equal((await ok(alice.context,origin,'GET',`/api/required-reading/page/${pageId}`)).items.length,before);
  assert.equal((await call(bob.context,origin,'GET',`/api/required-reading/${id}/report`)).status,404);
  assert.deepEqual((await ok(bob.context,origin,'GET','/api/activity?action=required-reading.acknowledge')).items,[]);
  await bob.page.goto(`${origin}/app/pages/${pageId}`,{waitUntil:'networkidle'});await bob.page.getByRole('button',{name:'More',exact:true}).click();await expect(bob.page.getByRole('menuitem',{name:'Required reading',exact:true})).toHaveCount(0);
@@ -51,7 +51,13 @@ export async function requiredReadingJourney(state,people,width){
  // The controlled native schedule case proves the real interval. The emitted journey moves stored due state past the clock.
  await state.fixtureSql([`UPDATE required_readings SET due_at='2000-01-01T00:00:00.000Z' WHERE id='${id}'`]);
  await Promise.all([state.runScheduled(),state.runScheduled()]);await state.runScheduled();
- const reminders=await state.records("SELECT recipient_member_id FROM notifications WHERE event='required-reading-reminder'");assert.deepEqual(reminders.map(n=>n.recipient_member_id),[ids.pending]);
+ const reminders=[];
+ for(const kind of ['pending','excluded']){
+  const context=await state.context.browser().newContext();
+  try{const signIn=await signInWithOutbox(origin,['synthetic-slate-'+ids[kind],'test.invalid'].join('@'));await context.addCookies([{name:'slate_session',value:signIn.cookie.split('=')[1],url:origin}]);const items=(await ok(context,origin,'GET','/api/notifications?limit=100')).items.filter(n=>n.detail?.requiredReadingId===id);assert.equal(items.filter(n=>n.event==='required-reading').length,kind==='pending'?1:0);reminders.push(...items.filter(n=>n.event==='required-reading-reminder').map(n=>({...n,recipientId:ids[kind]})));}finally{await context.close();}
+ }
+ assert.deepEqual(reminders.map(n=>n.recipientId),[ids.pending]);
+ for(const person of [alice,bob])assert.equal((await ok(person.context,origin,'GET','/api/notifications?limit=100')).items.filter(n=>n.detail?.requiredReadingId===id&&n.event==='required-reading-reminder').length,0);
  const report=await ok(alice.context,origin,'GET',`/api/required-reading/${id}/report`);
  assert.deepEqual(report.members.map(m=>[m.displayName,m.state]),[['Alex Owner','acknowledged'],['Casey Pending','reminded'],['Morgan Reader','acknowledged'],['Taylor Excluded','cannot-read']]);
  assert.ok(report.members.filter(m=>m.state==='acknowledged').every(m=>m.acknowledgedAt));assert.ok(report.members.find(m=>m.state==='reminded').remindedAt);

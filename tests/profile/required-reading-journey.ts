@@ -38,6 +38,8 @@ export async function requiredReadingJourney(api:ReturnType<typeof createApi>,wo
   expect(await call(people[name]!,'POST',`/api/required-reading/${id}/acknowledge`,ack)).toEqual(result);
   expect((await call(people[name]!,'GET',`/api/required-reading/${id}`)).acknowledgedAt).toBe(result.value.acknowledgedAt);
  }
+ const logout=await api.request(origin+'/auth/signout',{method:'POST',headers:{cookie:cookies[people['First reader']!]!,origin}},env);expect(logout.status).toBe(204);
+ const beforeRevoked=await counts();await call(people['First reader']!,'POST',`/api/required-reading/${id}/acknowledge`,{operationKey:op()},401);expect(await counts()).toEqual(beforeRevoked);cookies[people['First reader']!]=await sessionFor(people['First reader']!);
  const afterAcks=await counts();
  await call(people['Excluded reader']!,'POST',`/api/required-reading/${id}/acknowledge`,{operationKey:op()},404);
  await call(people['First reader']!,'GET',`/api/required-reading/${id}/report`,undefined,404);
@@ -49,10 +51,12 @@ export async function requiredReadingJourney(api:ReturnType<typeof createApi>,wo
  await scheduledJobs(env,new Date(Date.now()+86400000).toISOString());
  expect(await noticeCount(people['Pending reader']!,'required-reading-reminder')).toBe(0);
  await call(ownerId,'POST','/api/sharing',{operationKey:op(),id:grants['Revoked reader'],targetKind:'page',targetId:page,principalKind:'member',principalId:people['Revoked reader'],level:'view',revoke:true});
+ const revokedBefore=await counts();await call(people['Revoked reader']!,'POST',`/api/required-reading/${id}/acknowledge`,{operationKey:op()},404);expect(await counts()).toEqual(revokedBefore);
  cookies[ownerId]=await sessionFor(ownerId,{freshProof:true});
  const erase={operationKey:op(),memberId:people['Erased reader'],erase:true};
  await call(ownerId,'POST','/api/members/remove',erase);
  expect(await env.DB.prepare('SELECT count(*) AS n FROM required_reading_members WHERE member_id=?').bind(people['Erased reader']).first<number>('n')).toBe(0);
+ const erasedReplay=await call(ownerId,'POST','/api/required-reading',input);expect(erasedReplay.value).toEqual({erased:true});expect(await env.DB.prepare('SELECT count(*) AS n FROM required_readings').first<number>('n')).toBe(1);
  const due=sent.value.dueAt;vi.setSystemTime(new Date(due));
  await Promise.all([scheduledJobs(env,due),scheduledJobs(env,due)]);await scheduledJobs(env,due);
  expect(await noticeCount(people['Pending reader']!,'required-reading-reminder')).toBe(1);
