@@ -1,0 +1,18 @@
+{
+  "at": "2026-11-08T20:02:59.852872+00:00",
+  "branch": "cloud/fv-slate-timeout-5",
+  "head": "db780e55cb6d4c6be0d2449a73aa1920e306a4ec",
+  "base": "6a6232f31641de9e5935ed1899a080aee6bb23ec",
+  "candidate_commits": [
+    {
+      "head": "db780e55cb6d4c6be0d2449a73aa1920e306a4ec",
+      "author": "Run Edit Run fleet",
+      "author_email": "fleet@runeditrun.com",
+      "committer": "Run Edit Run fleet",
+      "committer_email": "fleet@runeditrun.com",
+      "trailers": "",
+      "message": "Bound responsive sharing inventories under the native request limit\n\nReplay the full-authority operation split and loaded container-grant assertion on current main. Reserve responsive owner diagnostic reads at eight per second while retaining the existing extended pacing, assertions, native limits and CI layout."
+    }
+  ],
+  "passed": true
+}

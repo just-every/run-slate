@@ -1,0 +1,7 @@
+{"label": "after-390-serial", "exit": 0, "duration_seconds": 713, "command": ["node", "--test", "--test-concurrency=1", "--test-name-pattern=^real core-wiki and touch-member journeys at 390px$", "tests/qualification/ui-convergence/journeys.test.mjs"]}
+{"label": "after-1440-serial", "exit": 0, "duration_seconds": 565, "command": ["node", "--test", "--test-concurrency=1", "--test-name-pattern=^real core-wiki and touch-member journeys at 1440px$", "tests/qualification/ui-convergence/journeys.test.mjs"]}
+{"label": "repeat-390-1", "exit": 0, "duration_seconds": 289, "command": ["node", "<external-prefix-runner>", "390", "1"]}
+{"label": "repeat-390-2", "exit": 0, "duration_seconds": 289, "command": ["node", "<external-prefix-runner>", "390", "2"]}
+{"label": "repeat-1440-1", "exit": 0, "duration_seconds": 319, "command": ["node", "<external-prefix-runner>", "1440", "1"]}
+{"label": "repeat-1440-2", "exit": 0, "duration_seconds": 314, "command": ["node", "<external-prefix-runner>", "1440", "2"]}
+{"label": "matrices-serial", "exit": 0, "duration_seconds": 734, "command": ["node", "--test", "--test-concurrency=1", "--test-name-pattern=^native ordinary page .*authority retains inventories", "tests/qualification/ui-convergence/journeys.test.mjs"]}

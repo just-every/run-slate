@@ -1,0 +1,21 @@
+{
+  "method": "Exploratory three simultaneous browser suite processes; stopped after deadline failures. These are not final-candidate passing receipts.",
+  "before_390": {
+    "source": "269edbac replay, unpaced selected matrix",
+    "sharing_step": "passed with all four selected levels and touch publication",
+    "observed_rate_limited": false,
+    "overall": "780-second timeout later in phone template journey"
+  },
+  "after_1440": {
+    "source": "provisional 125 ms in both modes",
+    "sharing_step": "passed with all four levels and touch publication",
+    "overall": "interrupted during later steps"
+  },
+  "matrices": {
+    "source": "provisional 125 ms in both modes",
+    "full_page_pass_ms": 222811.60546,
+    "full_discussion_pass_ms": 162883.610441,
+    "edit": "240-second timeout; interrupted remaining trial"
+  },
+  "correction": "Retain existing 105 ms extended pacing. Add 125 ms only to selected responsive matrix. Run final validation serially."
+}

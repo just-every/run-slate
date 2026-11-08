@@ -1,0 +1,15 @@
+{
+  "method": "Selected actual logs, with injected values, credential fields, cookie values, URL queries and local checkout/runner paths masked. Counter-only receipts contain no credentials and are retained unchanged.",
+  "logs": [
+    "before-390.log",
+    "after-1440-1.log",
+    "after-matrices.log",
+    "after-390-serial.log",
+    "after-1440-serial.log",
+    "repeat-390-1.log",
+    "repeat-390-2.log",
+    "repeat-1440-1.log",
+    "repeat-1440-2.log",
+    "matrices-serial.log"
+  ]
+}

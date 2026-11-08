@@ -1,0 +1,39 @@
+[
+  {
+    "command": [
+      "pnpm",
+      "source:check"
+    ],
+    "exit": 0,
+    "expected_exit": 0,
+    "receipt": "source-check.log"
+  },
+  {
+    "command": [
+      "node",
+      "scripts/check-contract.mjs"
+    ],
+    "exit": 0,
+    "expected_exit": 0,
+    "receipt": "contract-check.log"
+  },
+  {
+    "command": [
+      "node",
+      "scripts/publish-check.mjs"
+    ],
+    "exit": 0,
+    "expected_exit": 0,
+    "receipt": "publication-inputs.json"
+  },
+  {
+    "command": [
+      "node",
+      "src/base/runtime/contract-docs.mjs",
+      "check"
+    ],
+    "exit": 1,
+    "expected_exit": 1,
+    "receipt": "restored-view-check.log"
+  }
+]

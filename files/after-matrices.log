@@ -1,0 +1,47 @@
+SHARING_PHASE full page edits 1440: 35766 ms
+SHARING_PHASE full lifecycle 1440: 42112 ms
+SHARING_PHASE full archive 1440: 28746 ms
+PROBE SHARE-002 erasure full: non-owner confirmed deletion and old-capture refusal
+SHARING_PHASE full erasure 1440: 19400 ms
+PROBE SHARE-002 full/page: native operation inventories, replays and revoked captures; 26 refused requests preserve inventories at 1440px
+✔ native ordinary page full authority retains inventories and refuses revoked captures for page changes at 1440px (222811.60546ms)
+ℹ Sharing full/page setup: 35135 ms
+ℹ Sharing full/page matrix: 182405 ms
+SHARING_PHASE full discussion 1440: 42405 ms
+PROBE SHARE-002 full/discussion: native operation inventories, replays and revoked captures; 27 refused requests preserve inventories at 1440px
+✔ native ordinary page full authority retains inventories and refuses revoked captures for discussion and sharing at 1440px (162883.610441ms)
+ℹ Sharing full/discussion setup: 34448 ms
+ℹ Sharing full/discussion matrix: 122787 ms
+SHARING_PHASE edit page edits 1440: 30917 ms
+SHARING_PHASE edit lifecycle 1440: 25501 ms
+SHARING_PHASE edit archive 1440: 27984 ms
+PROBE SHARE-002 erasure edit: preview and delete refused with fresh native proof and exact restored inventory
+SHARING_PHASE edit erasure 1440: 8074 ms
+SHARING_PHASE edit discussion 1440: 44208 ms
+✖ native ordinary page edit authority retains inventories and refuses revoked captures at 1440px (240004.946863ms)
+ℹ Sharing edit/all setup: 33959 ms
+PROBE SHARE-002 edit/all: native operation inventories, replays and revoked captures; 42 refused requests preserve inventories at 1440px
+SHARING_PHASE comment page edits 1440: 15657 ms
+
+Interrupted while running:
+
+⚠ tests/qualification/ui-convergence/journeys.test.mjs (tests/qualification/ui-convergence/journeys.test.mjs:1:1)
+✖ tests/qualification/ui-convergence/journeys.test.mjs (728951.87471ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 2
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 728933.839448
+
+✖ failing tests:
+
+test at tests/qualification/ui-convergence/journey-shard.mjs:23:97
+✖ native ordinary page edit authority retains inventories and refuses revoked captures at 1440px (240004.946863ms)
+  'test timed out after 240000ms'
+
+test at tests/qualification/ui-convergence/journeys.test.mjs:1:1
+✖ tests/qualification/ui-convergence/journeys.test.mjs (728951.87471ms)
+  'Promise resolution is still pending but the event loop has already resolved'

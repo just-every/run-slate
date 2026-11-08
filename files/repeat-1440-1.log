@@ -1,0 +1,11 @@
+NAV-006 touch create, type, insert and drag persisted
+BLOCK-012 columns insert, desktop drag and touch layout passed at 1440px
+PROBE COMM-002 acceptance 1–2: native comment controls and HTTP at 1440px -> two authors edit/delete; cross-author and owner override 403; edited times, two in-place tombstones and six activities survive replay/reload
+NAV-006 touch comment and resolve persisted
+WEB-006 native unpublish response {"width":1440,"elapsedMs":636}
+PROBE SHARE-002 full/all: selected reads, title, body, comment and direct grants; 0 refused requests preserve inventories at 1440px
+PROBE SHARE-002 edit/all: selected reads, title, body, comment and direct grants; 2 refused requests preserve inventories at 1440px
+PROBE SHARE-002 comment/all: selected reads, title, body, comment and direct grants; 4 refused requests preserve inventories at 1440px
+PROBE SHARE-002 view/all: selected reads, title, body, comment and direct grants; 5 refused requests preserve inventories at 1440px
+NAV-006 touch workspace publication and sharing persisted
+PASS repeated native core sharing prefix 1440px repeat=1 duration_ms=302072

@@ -1,0 +1,22 @@
+NAV-006 touch create, type, insert and drag persisted
+BLOCK-012 columns insert, desktop drag and touch layout passed at 1440px
+PROBE COMM-002 acceptance 1–2: native comment controls and HTTP at 1440px -> two authors edit/delete; cross-author and owner override 403; edited times, two in-place tombstones and six activities survive replay/reload
+NAV-006 touch comment and resolve persisted
+WEB-006 native unpublish response {"width":1440,"elapsedMs":623}
+PROBE SHARE-002 full/all: selected reads, title, body, comment and direct grants; 0 refused requests preserve inventories at 1440px
+PROBE SHARE-002 edit/all: selected reads, title, body, comment and direct grants; 2 refused requests preserve inventories at 1440px
+PROBE SHARE-002 comment/all: selected reads, title, body, comment and direct grants; 4 refused requests preserve inventories at 1440px
+PROBE SHARE-002 view/all: selected reads, title, body, comment and direct grants; 5 refused requests preserve inventories at 1440px
+NAV-006 touch workspace publication and sharing persisted
+PAGE-007 Details, replay and edit-only refusal passed at 1440px
+NAV-006 touch Search, Inbox, My tasks, requested reviews and verification health passed
+Chat docs dimensions { width: 1440, height: 5213 }
+✔ real core-wiki and touch-member journeys at 1440px (545782.617525ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 563715.363028

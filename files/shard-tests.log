@@ -1,0 +1,11 @@
+✔ named moves and new ordinal registrations each execute once (3.123293ms)
+✔ ordinary partitioning covers every registration across arbitrary widths (1.201604ms)
+✔ malformed assignments fail closed instead of silently losing a journey (0.718102ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 99.398008

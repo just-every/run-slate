@@ -1,0 +1,43 @@
+PROBE PORT-001 1: native authored subtree -> Settings workspace ZIP retains 4 ordered pages, bodies, properties, thirteen revisions, changed, revoked and regranted member and group grants, edited and resolved anchored thread and reply with retained histories
+PROBE PORT-001 2: native original downloads -> Settings ZIP has both exact original byte sequences and SHA-256 hashes; independent source snapshots unchanged
+PROBE PORT-003 1: failed native export and restore replay and reload -> failed, no download or successful restore action
+PROBE PORT-003 2: Settings export and empty-deployment restore -> queued, running, completed and failed persisted; counts equal native archive; safe reports identify commit failures
+NAV-006 touch create, type, insert and drag persisted
+BLOCK-012 columns insert, desktop drag and touch layout passed at 390px
+PROBE COMM-002 acceptance 1–2: native comment controls and HTTP at 390px -> two authors edit/delete; cross-author and owner override 403; edited times, two in-place tombstones and six activities survive replay/reload
+NAV-006 touch comment and resolve persisted
+WEB-006 native unpublish response {"width":390,"elapsedMs":616}
+PROBE SHARE-002 full/all: selected reads, title, body, comment and direct grants; 0 refused requests preserve inventories at 390px
+PROBE SHARE-002 edit/all: selected reads, title, body, comment and direct grants; 2 refused requests preserve inventories at 390px
+PROBE SHARE-002 comment/all: selected reads, title, body, comment and direct grants; 4 refused requests preserve inventories at 390px
+PROBE SHARE-002 view/all: selected reads, title, body, comment and direct grants; 5 refused requests preserve inventories at 390px
+NAV-006 touch workspace publication and sharing persisted
+PAGE-007 Details, replay and edit-only refusal passed at 390px
+NAV-006 touch Search, Inbox, My tasks, requested reviews and verification health passed
+Chat docs dimensions { width: 390, height: 8088 }
+PROBE REV-002 autosnapshot page: native commits -> 7 exact rows and snapshots; visible actor, time, origin and labels; reader reload and revoked refusal passed
+PROBE REV-002 autosnapshot database: native commits -> 7 exact rows and snapshots; visible actor, time, origin and labels; reader reload and revoked refusal passed
+PROBE REV-002 autosnapshot record: native commits -> 8 exact rows and snapshots; visible actor, time, origin and labels; reader reload and revoked refusal passed
+PROBE REV-002 labelled page: native commits -> 7 exact rows and snapshots; visible actor, time, origin and labels; reader reload and revoked refusal passed
+PROBE REV-002 labelled database: native commits -> 7 exact rows and snapshots; visible actor, time, origin and labels; reader reload and revoked refusal passed
+PROBE REV-002 labelled record: native commits -> 8 exact rows and snapshots; visible actor, time, origin and labels; reader reload and revoked refusal passed
+PROBE AUTO-003 browser 390: native database Automations -> trigger, actor, readable touched record and time; error retries, visible failure beside rule and persisted disable reason
+PROBE DB-012 ordinary edit: native record Quantity 7 -> 11; computed value 22 and reload retained
+PROBE DB-012 record-is-page: viewer fields, retained comments, exact historical body and unchanged stored current body passed
+PROBE DB-012 record-is-row: viewer fields, retained comments, exact historical body and unchanged stored current body passed
+PROBE DB-012 record-is-page: viewer fields, retained comments, exact historical body and unchanged stored current body passed
+PROBE DB-012 read-only: all six fields readable; native viewer PATCH -> 404 and unchanged record and history
+PROBE TMPL-005 children off: More > Save as template, preview and Use this template -> 1 exact copies, all seven source record families excluded at 390px
+PROBE TMPL-005 children on: More > Save as template, preview and Use this template -> 4 exact copies, all seven source record families excluded at 390px
+PROBE ARCH-004 native browser 390: archive and restore retain populated data; cancelled and incomplete confirmation preserve it; exact confirmed cascade deletes
+PROBE REV-006 1: edit-only, current, published and autosnapshot DELETE requests -> refused without revision or activity changes
+PROBE REV-006 2: full-member History confirmation -> version 2 content removed, attributed timed tombstone after reload; every other revision retained; replay has one activity
+✔ real core-wiki and touch-member journeys at 390px (695576.082901ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 712404.218215

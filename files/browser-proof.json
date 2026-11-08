@@ -1,0 +1,14 @@
+[
+  {
+    "viewport": 390,
+    "source": "056-390-view-member-page-after-reload.png",
+    "packet_file": "browser-390.png",
+    "state": "Native view-authority page after reload; synthetic fixture, no credentials displayed."
+  },
+  {
+    "viewport": 1440,
+    "source": "071-1440-view-member-page-after-reload.png",
+    "packet_file": "browser-1440.png",
+    "state": "Native view-authority page after reload; synthetic fixture, no credentials displayed."
+  }
+]

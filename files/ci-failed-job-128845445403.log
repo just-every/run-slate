@@ -1,0 +1,7 @@
+verify (app)	Run node src/base/runtime/contract-docs.mjs check	﻿2026-11-08T20:03:41.1015038Z ##[group]Run node src/base/runtime/contract-docs.mjs check
+verify (app)	Run node src/base/runtime/contract-docs.mjs check	2026-11-08T20:03:41.1015417Z [36;1mnode src/base/runtime/contract-docs.mjs check[0m
+verify (app)	Run node src/base/runtime/contract-docs.mjs check	2026-11-08T20:03:41.1032580Z shell: /usr/bin/bash -e {0}
+[Workflow environment block omitted by packet selection policy.]
+verify (app)	Run node src/base/runtime/contract-docs.mjs check	2026-11-08T20:03:41.1033266Z ##[endgroup]
+verify (app)	Run node src/base/runtime/contract-docs.mjs check	2026-11-08T20:03:41.2448773Z ACCEPTANCE.md: generated content differs; run contract-docs write.
+verify (app)	Run node src/base/runtime/contract-docs.mjs check	2026-11-08T20:03:41.2534187Z ##[error]Process completed with exit code 1.

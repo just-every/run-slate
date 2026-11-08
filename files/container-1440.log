@@ -1,0 +1,2 @@
+PROBE CONT-009 native controls 1440: owner and non-owner administrator grant changes=46; replay and inherited snapshots pass; deadlines={"narrowed":{"writeStatus":404,"editorMs":495,"projectionsMs":597},"revoked":{"writeStatus":404,"editorMs":606,"projectionsMs":760}}
+PASS native container grant loaded options and complete retained grant journey at 1440px duration_ms=105433

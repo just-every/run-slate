@@ -1,0 +1,242 @@
+{
+  "schema": 1,
+  "repository": "just-every/run-slate",
+  "tag": "fv-slate-timeout-5",
+  "branch": "cloud/fv-slate-timeout-5",
+  "product_head": "db780e55cb6d4c6be0d2449a73aa1920e306a4ec",
+  "pushed": true,
+  "local_serial": [
+    {
+      "label": "after-390-serial",
+      "exit": 0,
+      "duration_seconds": 713,
+      "command": [
+        "node",
+        "--test",
+        "--test-concurrency=1",
+        "--test-name-pattern=^real core-wiki and touch-member journeys at 390px$",
+        "tests/qualification/ui-convergence/journeys.test.mjs"
+      ]
+    },
+    {
+      "label": "after-1440-serial",
+      "exit": 0,
+      "duration_seconds": 565,
+      "command": [
+        "node",
+        "--test",
+        "--test-concurrency=1",
+        "--test-name-pattern=^real core-wiki and touch-member journeys at 1440px$",
+        "tests/qualification/ui-convergence/journeys.test.mjs"
+      ]
+    },
+    {
+      "label": "repeat-390-1",
+      "exit": 0,
+      "duration_seconds": 289,
+      "command": [
+        "node",
+        "<external-prefix-runner>",
+        "390",
+        "1"
+      ]
+    },
+    {
+      "label": "repeat-390-2",
+      "exit": 0,
+      "duration_seconds": 289,
+      "command": [
+        "node",
+        "<external-prefix-runner>",
+        "390",
+        "2"
+      ]
+    },
+    {
+      "label": "repeat-1440-1",
+      "exit": 0,
+      "duration_seconds": 319,
+      "command": [
+        "node",
+        "<external-prefix-runner>",
+        "1440",
+        "1"
+      ]
+    },
+    {
+      "label": "repeat-1440-2",
+      "exit": 0,
+      "duration_seconds": 314,
+      "command": [
+        "node",
+        "<external-prefix-runner>",
+        "1440",
+        "2"
+      ]
+    },
+    {
+      "label": "matrices-serial",
+      "exit": 0,
+      "duration_seconds": 734,
+      "command": [
+        "node",
+        "--test",
+        "--test-concurrency=1",
+        "--test-name-pattern=^native ordinary page .*authority retains inventories",
+        "tests/qualification/ui-convergence/journeys.test.mjs"
+      ]
+    }
+  ],
+  "registrations": [
+    {
+      "batch": "after-390-serial",
+      "result": "\u2714 real core-wiki and touch-member journeys at 390px (695576.082901ms)"
+    },
+    {
+      "batch": "after-1440-serial",
+      "result": "\u2714 real core-wiki and touch-member journeys at 1440px (545782.617525ms)"
+    },
+    {
+      "batch": "matrices-serial",
+      "result": "\u2714 native ordinary page full authority retains inventories and refuses revoked captures for page changes at 1440px (153501.401246ms)"
+    },
+    {
+      "batch": "matrices-serial",
+      "result": "\u2714 native ordinary page full authority retains inventories and refuses revoked captures for discussion and sharing at 1440px (121690.833897ms)"
+    },
+    {
+      "batch": "matrices-serial",
+      "result": "\u2714 native ordinary page edit authority retains inventories and refuses revoked captures at 1440px (184492.810148ms)"
+    },
+    {
+      "batch": "matrices-serial",
+      "result": "\u2714 native ordinary page comment authority retains inventories and refuses revoked captures at 1440px (139178.355034ms)"
+    },
+    {
+      "batch": "matrices-serial",
+      "result": "\u2714 native ordinary page view authority retains inventories and refuses revoked captures at 1440px (117189.971876ms)"
+    }
+  ],
+  "source_checks": [
+    {
+      "command": [
+        "pnpm",
+        "source:check"
+      ],
+      "exit": 0,
+      "expected_exit": 0,
+      "receipt": "source-check.log"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-contract.mjs"
+      ],
+      "exit": 0,
+      "expected_exit": 0,
+      "receipt": "contract-check.log"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/publish-check.mjs"
+      ],
+      "exit": 0,
+      "expected_exit": 0,
+      "receipt": "publication-inputs.json"
+    },
+    {
+      "command": [
+        "node",
+        "src/base/runtime/contract-docs.mjs",
+        "check"
+      ],
+      "exit": 1,
+      "expected_exit": 1,
+      "receipt": "restored-view-check.log"
+    }
+  ],
+  "runtime_versions": {
+    "node": "v24.19.0",
+    "pnpm": "10.12.4",
+    "chromium": "Chromium 154.0.8037.57 built on Debian GNU/Linux 13 (trixie)"
+  },
+  "hosted_verify": {
+    "conclusion": "failure",
+    "event": "push",
+    "head_branch": "cloud/fv-slate-timeout-5",
+    "head_sha": "db780e55cb6d4c6be0d2449a73aa1920e306a4ec",
+    "html_url": "https://github.com/just-every/run-slate/actions/runs/42518090549",
+    "id": 42518090549,
+    "name": "Verify Slate",
+    "status": "completed",
+    "qualified_ready": true,
+    "qualification": "Task-authorized generated-view-only exception: stale ACCEPTANCE.md; downstream aggregator failure and skipped jobs result from that step.",
+    "failed_jobs": [
+      128845445403,
+      128845596863
+    ],
+    "log_receipts": "ci-log-receipts.json",
+    "github_cli_calls": 4,
+    "reruns": 0
+  },
+  "clause_counts": {
+    "total": 338,
+    "done": 58,
+    "partial": 239,
+    "missing": 41
+  },
+  "registration_counts": {
+    "before": 211,
+    "after": 212,
+    "ordinary_before": 191,
+    "ordinary_after": 192,
+    "ordinary_cap": 200
+  },
+  "clause_statuses": {
+    "SHARE_002": "partial -> partial (evidence titles updated)",
+    "CONT_009": "partial -> partial (loaded grant assertion retained)",
+    "DEC_004": "done -> done (main judgment retained)"
+  },
+  "container_proof": {
+    "command": [
+      "node",
+      "<external-container-runner>"
+    ],
+    "viewport": 1440,
+    "exit": 0,
+    "duration_seconds": 122
+  },
+  "other_local_checks": [
+    {
+      "command": "cloud_run npx -y @runeditrun/rer setup --owner-email fleet@runeditrun.com --non-interactive",
+      "exit": 0
+    },
+    {
+      "command": "cloud_run npx -y @runeditrun/rer build",
+      "exit": 0
+    },
+    {
+      "command": "pnpm typecheck",
+      "exit": 0
+    },
+    {
+      "command": "node --test .github/scripts/journey-shard.test.mjs",
+      "exit": 0,
+      "passed": 3
+    },
+    {
+      "command": "pnpm test:release-source",
+      "exit": 0,
+      "passed": 2
+    }
+  ],
+  "recovery_bundle": {
+    "head": "db780e55cb6d4c6be0d2449a73aa1920e306a4ec",
+    "sha256": "2de6d102ccd70da53e89232a73d0a57a3d01e09935909534a3e220070d1fd23b",
+    "verified": true,
+    "prerequisite": "6a6232f31641de9e5935ed1899a080aee6bb23ec",
+    "path_relative_to_home": "rer-consolidation/work/push-rescue/cloud_fv-slate-timeout-5-db780e55.bundle"
+  },
+  "push_attempt": 4
+}

@@ -1,0 +1,34 @@
+[
+  {
+    "job_id": "128845445403",
+    "command": [
+      "gh",
+      "run",
+      "view",
+      "42518090549",
+      "--repo",
+      "just-every/run-slate",
+      "--job",
+      "128845445403",
+      "--log-failed"
+    ],
+    "exit": 0,
+    "receipt": "ci-failed-job-128845445403.log"
+  },
+  {
+    "job_id": "128845596863",
+    "command": [
+      "gh",
+      "run",
+      "view",
+      "42518090549",
+      "--repo",
+      "just-every/run-slate",
+      "--job",
+      "128845596863",
+      "--log-failed"
+    ],
+    "exit": 0,
+    "receipt": "ci-failed-job-128845596863.log"
+  }
+]

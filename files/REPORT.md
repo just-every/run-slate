@@ -1,0 +1,53 @@
+# Slate fv-slate-timeout-5
+
+Repository: just-every/run-slate. Product branch: cloud/fv-slate-timeout-5. No default-branch write or PR is requested by this repository's landing rules. Product and evidence custody are separate.
+
+## Plan and source result
+
+The complete plan is PLAN.md. The branch reapplies 269edbac8d03d4957dd5854f6924e88a813e60e8 on main 6a6232f31641de9e5935ed1899a080aee6bb23ec. It retains the two full-authority registrations, every canonical inventory/replay/revocation assertion, eight existing CI partitions, their deadlines, and CONT-009's loaded-option assertion. CONTRACT.md's newer judgments and DEC-004's independent requirement prose were retained. The source lock was regenerated from the final intended staged tree with the repository's documented commands. Generated views are restored from main and are not committed.
+
+## Cause and repair
+
+The hosted RATE_LIMITED 429 in the supplied run is an application response. Native enforceRateLimit hashes client address, scope and fixed-minute bucket. The address is cf-connecting-ip, which the local emitted runtime supplies as 127.0.0.1. Authenticated API scope is operator:<member id>, with a literal 600 requests per 60-second window. This means different members already have different operator buckets. The touch context and second-person context intentionally reuse browser-reader's native session; owner api() and every snapshot inventory use browser-owner. Assigning different IPs to different members would not address the owner's heavy inventory traffic.
+
+permissionLevelsJourney already reserved diagnostic reads before Promise.all, but only when extended=true. Both responsive core callers use extended=false, making nextRead advance by zero; all five snapshot branches and activity cursor requests could fan out without that bound. The responsive mode now reserves 125 ms slots, permitting 480 diagnostic requests per minute and leaving 120 requests (20%) for native owner browser traffic under the unchanged 600 limit. The extended mode retains its existing 105 ms spacing (572 diagnostic requests per minute) with the owner view unmounted. The original Promise.all overlap remains, with every request admitted through that common bound. No retry wrapper, skipped assertion, production limit or workflow/deadline change is part of this repair.
+
+There is no configured API-limit override/test seam in this product path. No lower-limit run or production limit modification was made. Local measurements query only actual native request_limits rows; instrumentation is absent from the product diff. Complete actor/window counts and maxima are in limit-summary.json and explicitly selected raw counter receipts. Unmapped counters are retained rather than attributed to a guessed actor. Independent installations are not summed into one bucket.
+
+## Clause and registration counts
+
+Before and after: 338 clauses, 58 done, 239 partial, 41 missing. Published: 42 done, 184 partial, 1 missing (227 total). Target: 16 done, 55 partial, 40 missing (111 total).
+
+SHARE-002 remains partial; its evidence now names the two retained full-authority sections. CONT-009 remains partial, with the earlier loaded-grant assertion retained. DEC-004 remains done under main's newer judgment. No clause is promoted.
+
+Replayed registration split: 211 -> 212 expanded cases, conservatively 191 -> 192 ordinary cases under the unchanged 200 cap. Pacing itself adds no registration.
+
+## Validation and custody
+
+Final actual local and hosted receipts will be recorded in verification.json. The baseline and candidate use real native sessions, emitted product Worker, D1, and Chromium; successful API responses are not substituted. Synthetic mail/identity fixtures retain their existing scope. Repeated-prefix proof runs the same setup, owner writing, touch writing/columns, comments/authorship, sharing levels and touch publication/sharing functions without adding a permanent test registration. Full registrations retain their own independent deadlines.
+
+Contract write/check passes. Restoring main's generated views produces the expected ACCEPTANCE.md stale-view check; docs/CLAIMS.md is unchanged. The cloud instruction explicitly leaves those views to the Mac lander. A hosted failure solely at that step is evaluated under the task's generated-view exception, with the actual conclusion and downstream skipped jobs reported honestly. Product READY does not claim landing or completion of the fleet's independent publication scan.
+
+The first exploratory run used three simultaneous browser suite processes and a provisional 125 ms bound in both modes. It hit later wall-clock deadlines: baseline phone case 780 seconds and provisional edit matrix 240 seconds. Those trials were stopped and are recorded in parallel-trials.json, not presented as final-candidate passes. The final patch retains the original extended pacing. The complete 390px registration then passed serially in 695.576 seconds (780-second deadline), including all downstream phone and DEC-004 checks; observed native owner peak across the complete registration was 518, and the reader/touch peak was 356.
+
+The complete 1440px registration passed serially in 545.783 seconds (720-second deadline), including its later chat, status and decision-log checks. Both full responsive registrations therefore pass on the final responsive pacing with production limits intact.
+
+The hosted regression evidence supplied in the brief is Verify 42508449478, job 128816706512, with RATE_LIMITED 429 from the owner snapshot inside the 390px core journey. No GitHub read was spent re-fetching that supplied evidence. The slower exploratory local baseline did not reproduce that 429: it passed the sharing step, then hit its overall phone deadline later. Its sampled owner peak was 422. This limitation is retained rather than presenting a locally fabricated red/green reproduction. The final serial/native counter receipts demonstrate the actual principal/window buckets and headroom with the added responsive bound.
+
+Counter receipts store native rows observed through read-only SQLite access, with per-window observed maxima. The repeat runners also take a terminal native-table observation before fixture teardown. Native scheduled cleanup can remove expired rows during the complete registrations, so those runs' window counts are observations rather than a claim that every final increment was retained. No request, response, limiter value or application clock is replaced by the measurements.
+
+Final serial authority registrations all passed within their unchanged 240-second deadlines: full/page 153.501 s, full/discussion 121.691 s, edit 184.493 s, comment 139.178 s and view 117.190 s. The final authority batch's highest observed owner count was 479. The direct native CONT-009 1440px proof passed in 105.433 s, covering 46 owner/non-owner administrator changes, retained snapshots, inherited state, replay and loaded access-level options; narrowing/revocation refused writes with native 404 and live editor/projection deadlines under one second. This direct proof is supporting local evidence and adds no permanent Verify registration or clause promotion.
+
+Both responsive widths passed their complete registrations plus two additional complete affected prefixes in fresh installations. All seven registered cases and all four prefix repeats passed; serial-checks.jsonl retains actual commands, exit codes and durations. TypeScript, three shard-routing tests, two release-source tests, source lock/integration, contract rules and source publication inputs passed. Local setup and build completed successfully. Runtime versions are retained without implying the hosted Node version was used locally.
+
+Product commit: `db780e55cb6d4c6be0d2449a73aa1920e306a4ec`. The commit contains only the eight intended product/contract/spec/lock files. Its author and committer are Run Edit Run fleet at fleet@runeditrun.com; no co-author trailers survive. Product pushes and evidence publication remain separate. At the first guarded push, the refreshed injected GitHub credential was rejected as invalid. Bounded recovery succeeded on attempt four; product-push.log records sanitized actual diagnostics and every retry's identity audit. A verified recovery bundle outside the clone already preserves the commit; verification.json records its path, prerequisite and SHA-256. No default branch or PR was changed.
+
+The named product branch was successfully pushed at `db780e55cb6d4c6be0d2449a73aa1920e306a4ec` on guarded attempt four after three rejected authentications. Every attempt inspected the complete candidate identity/trailers; every refresh reinstalled the decrypted-bundle Git setup. A post-save fetch and merge of main was already up to date, so no published history or default branch was rewritten.
+
+## Exact-SHA hosted result
+
+Verify Slate run 42518090549 completed on db780e55cb6d4c6be0d2449a73aa1920e306a4ec. Actual workflow conclusion: failure. Job 128845445403 (`verify (app)`) fails only `node src/base/runtime/contract-docs.mjs check`, with the exact diagnostic `ACCEPTANCE.md: generated content differs; run contract-docs write.` Job 128845596863 is the downstream aggregator: APP failed, SHARDS and CONTRACT were skipped, and its success requirement therefore fails. Plan passed. No hosted browser shard ran. Both failed-job archives were read once successfully; no rerun was requested. Four task GitHub CLI calls were used: exact-SHA discovery, completed-run jobs, and one failed-log read per failed job. The run was already complete at discovery, so no active polling watcher remained.
+
+This is READY under the cloud task's explicit generated-view exception, not a claim that the workflow literally concluded success. The Mac lander must regenerate the views and run Verify again on its resulting landing commit. No generated view is committed here; no publication scan or landing is claimed. There is no remaining product-push blocker: authentication recovery succeeded on the fourth bounded attempt.
+
+The packet includes complete selected actual receipts, both browser widths, local counter observations and source/CI outcomes. Workflow environment blocks are omitted from log copies because the packet policy excludes environment dumps; the error diagnostics and job conclusions are retained. Build provenance is included as actually recorded: the emitted app was built before harness-only changes, with main's commit metadata. Product application sources are unchanged by this branch; native fixtures and local checks are supporting evidence rather than live-provider or clause-completion claims.
