@@ -73,10 +73,10 @@
       "sha256": "9b63abd24ed7a8a3e6789692d929edb7f6322ec610acad6eb98512c5f2150a69"
     },
     {
-      "blob": "46bc1392353dac30a0962c94998b3558fbb9fbb3",
-      "bytes": 1286,
+      "blob": "6b42667b52875734837493f525ef2f0e1cf4f29a",
+      "bytes": 1300,
       "path": "local-checks.json",
-      "sha256": "6602428a757ec2f0e742f19ad9ee85200cba00577c2cd2d951d45a50053a20f4"
+      "sha256": "591c155a19a7c2382fb1977321f3fc73c1623457eae10678c22bee60f38facb6"
     },
     {
       "blob": "ab626d91903b5c2a160ea86b296bd9b77d004376",
@@ -245,6 +245,12 @@
       "bytes": 43620,
       "path": "screens/018-390-unavailable-replacement-discloses-no-question.png",
       "sha256": "0908c6470790c97686d0d1f431c497e0fe0f027dbc720bd298789507645345b6"
+    },
+    {
+      "blob": "514d042e76797530a9157420301bc75a05329c33",
+      "bytes": 1934,
+      "path": "selected-files.json",
+      "sha256": "df7f6d87d927827319d872a20b24f81ca33b92417f8732d674b67d793528f583"
     },
     {
       "blob": "078db5456023b39f2024355f04d206eb98041c7b",

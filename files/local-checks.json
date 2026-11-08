@@ -25,7 +25,7 @@
       "log": "build.log"
     },
     {
-      "command": "SLATE_CHROMIUM_PATH=/usr/bin/chromium cloud_run perl -e alarm-1200 -- node /tmp/slate-decision-proof.mjs",
+      "command": "SLATE_CHROMIUM_PATH=/usr/bin/chromium cloud_run perl -e 'alarm 1200; exec @ARGV' -- node /tmp/slate-decision-proof.mjs",
       "exit": 0,
       "result": "decisionImmutabilityJourney passed at 1440 and 390, same helper and default core-wiki fixture as existing Verify callers",
       "log": "browser-final.log"
