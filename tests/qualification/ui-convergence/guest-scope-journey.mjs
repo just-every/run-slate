@@ -407,7 +407,7 @@ async function tokenVetoProof(state,{space,editable,anonymous,publicRead,change,
   const challenge=await call(credentialContext,origin,'POST','/auth/step-up',{action:'credentials:mint',returnTo:'/app/settings?section=developer'});
   assert.equal(challenge.status,202);
   const confirmation=new URL(await newOutboxLink(origin,beforeProof));
-  const confirmed=await credentialContext.request.post(confirmation.href,{headers:{origin},form:{token:confirmation.searchParams.get('token')},maxRedirects:0});
+  const confirmed=await credentialContext.request.post(origin+confirmation.pathname,{headers:{origin},form:{token:confirmation.searchParams.get('token')},maxRedirects:0});
   assert.equal(confirmed.status(),303,'The existing native session confirms the sensitive operation through its own mailbox.');
   assert.equal((await ok(credentialContext,origin,'GET','/api/members/current')).id,owner.id);
   let tokenId;
@@ -421,6 +421,13 @@ async function tokenVetoProof(state,{space,editable,anonymous,publicRead,change,
     };
     assert.equal((await invoke('GET',`/api/v1/pages/${editable}`)).status,200,'The token is valid for ordinary content access.');
     await change('container','publicLinkAccess','forbidden');
+    const createCommand={operationKey:key(),containerId:space,title:'Token-created private publication intake'};
+    const created=await invoke('POST','/api/v1/pages',createCommand);
+    assert.equal(created.status,200,JSON.stringify(created.body));
+    const tokenPage=created.body.value.pageId;
+    assert.equal((await api(`/api/pages/${tokenPage}`)).page.title,createCommand.title,'A real write-scoped token may create ordinary content under the veto.');
+    assert.equal((await api(`/api/publishing/${tokenPage}`)).exposure,null);
+    assert.equal((await publicRead(anonymous,tokenPage)).status,404,'Token creation conveys no anonymous publication.');
     const snapshot=async()=>({workspace:await api('/api/workspace'),container:await api(`/api/containers/${space}`),
       exposure:await api(`/api/publishing/${editable}`),document:await api(`/api/pages/${editable}`),
       grants:await api(`/api/sharing/containers/${space}`)});
@@ -449,7 +456,12 @@ async function tokenVetoProof(state,{space,editable,anonymous,publicRead,change,
     await ok(credentialContext,origin,'POST',`/api/developer/tokens/${tokenId}/revoke`,{operationKey:key()});
     assert.equal((await invoke('GET',`/api/v1/pages/${editable}`)).status,401,'Revocation ends the issued credential immediately.');
     assert.equal((await invoke('POST',`/api/v1/publishing/${editable}`,publication)).status,401,'A revoked capture cannot regain publication.');
-    proof.token={id:tokenId,scope:{containerId:space,level:'write'},stepUp:{requested:challenge.status,confirmed:confirmed.status(),actor:owner.id},attempts,revokedRead:401};
+    const createdBeforeReplay=await api(`/api/pages/${tokenPage}`);
+    assert.equal((await invoke('POST','/api/v1/pages',createCommand)).status,401,'A revoked write capture cannot create or publish again.');
+    assert.deepEqual(await api(`/api/pages/${tokenPage}`),createdBeforeReplay);
+    assert.equal((await api(`/api/publishing/${tokenPage}`)).exposure,null);
+    assert.equal((await publicRead(anonymous,tokenPage)).status,404);
+    proof.token={id:tokenId,scope:{containerId:space,level:'write'},createdPage:{id:tokenPage,receipt:created.body.receipt,anonymousRead:404},stepUp:{requested:challenge.status,confirmed:confirmed.status(),actor:owner.id},attempts,revokedRead:401};
   } finally {
     await transport.dispose();
     if(tokenId)await ok(credentialContext,origin,'POST',`/api/developer/tokens/${tokenId}/revoke`,{operationKey:key()});
