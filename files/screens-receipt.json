@@ -1,0 +1,74 @@
+[
+  {
+    "state": "decision proposal native edit controls",
+    "width": 390,
+    "image": "screens/390/005-390-decision-proposal-native-edit-controls.png",
+    "metadata": "screens/390/005-390-decision-proposal-native-edit-controls.json",
+    "sha256": "86b14a02a7ef005fae16ee76957ddd7ac5583593305db5f2ffc078b2d02d50ca",
+    "seriousOrCritical": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "state": "decision proposal retained history",
+    "width": 390,
+    "image": "screens/390/006-390-decision-proposal-retained-history.png",
+    "metadata": "screens/390/006-390-decision-proposal-retained-history.json",
+    "sha256": "021ebc3f99a267d90b7ce86968e7e5a07cd0865432dfbbdb429193bab1bf08a2",
+    "seriousOrCritical": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "state": "decision proposal view only",
+    "width": 390,
+    "image": "screens/390/007-390-decision-proposal-view-only.png",
+    "metadata": "screens/390/007-390-decision-proposal-view-only.json",
+    "sha256": "2adf4af7c72c306cd35f186b3bdaf0712cf07c4d066d0c763452dee8e6beca36",
+    "seriousOrCritical": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "state": "accepted decision retains immutable history",
+    "width": 390,
+    "image": "screens/390/008-390-accepted-decision-retains-immutable-history.png",
+    "metadata": "screens/390/008-390-accepted-decision-retains-immutable-history.json",
+    "sha256": "41816fbdd36d5dc30c959010eaeea5ebd4c0acef35c5cadbce90231ba858160f",
+    "seriousOrCritical": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "state": "decision proposal native edit controls",
+    "width": 1440,
+    "image": "screens/1440/013-1440-decision-proposal-native-edit-controls.png",
+    "metadata": "screens/1440/013-1440-decision-proposal-native-edit-controls.json",
+    "sha256": "fbb17cf105b62b4fc2a376bdeba1e51706c0ca67e2571afc2f5bfa7e8b6f419e",
+    "seriousOrCritical": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "state": "decision proposal retained history",
+    "width": 1440,
+    "image": "screens/1440/014-1440-decision-proposal-retained-history.png",
+    "metadata": "screens/1440/014-1440-decision-proposal-retained-history.json",
+    "sha256": "0cbd5e78608528878492b444342c59cf79de9f739cd5f38be1d012bf079dabb0",
+    "seriousOrCritical": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "state": "decision proposal view only",
+    "width": 1440,
+    "image": "screens/1440/015-1440-decision-proposal-view-only.png",
+    "metadata": "screens/1440/015-1440-decision-proposal-view-only.json",
+    "sha256": "9a920f208dadb356dc94157c4c5c2637093110bb8fe88bde9b758824410cb035",
+    "seriousOrCritical": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "state": "accepted decision retains immutable history",
+    "width": 1440,
+    "image": "screens/1440/016-1440-accepted-decision-retains-immutable-history.png",
+    "metadata": "screens/1440/016-1440-accepted-decision-retains-immutable-history.json",
+    "sha256": "0c8a117f306d93964fa980821bbb3cdb40e8b0caa6f82fe55197356a976ce4a9",
+    "seriousOrCritical": 0,
+    "horizontalOverflow": false
+  }
+]

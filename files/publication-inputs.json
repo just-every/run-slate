@@ -1,0 +1,11 @@
+{
+  "command": [
+    "timeout",
+    "60",
+    "node",
+    "scripts/publish-check.mjs"
+  ],
+  "exit": 0,
+  "startedUtc": "2026-11-09T11:14:58Z",
+  "durationSeconds": 0.152
+}

@@ -1,0 +1,26 @@
+{
+  "cap": 200,
+  "definition": "All expanded cases minus the same 20 release-wall cases documented in tests/requirements/cli-journey.md",
+  "counts": {
+    "main": {
+      "ordinary": 195,
+      "all": 215,
+      "excludedReleaseWall": 20,
+      "unresolved": []
+    },
+    "fix2": {
+      "ordinary": 196,
+      "all": 216,
+      "excludedReleaseWall": 20,
+      "unresolved": []
+    },
+    "candidate": {
+      "ordinary": 198,
+      "all": 218,
+      "excludedReleaseWall": 20,
+      "unresolved": []
+    }
+  },
+  "counterSha256": "026d12d79a49934c736d54f59e2bdb151fb7cc7a8bf4d08d6188422d441ddd68",
+  "note": "An initial diagnostic excluded contract() call sites, yielding 197. The final conservative count follows the repository documentation and excludes only its 20 release-wall cases, yielding 198."
+}

@@ -1,0 +1,436 @@
+{
+  "main": {
+    "count": 34,
+    "cap": 200,
+    "registrations": [
+      {
+        "name": "real core-wiki and touch-member journeys at 390px",
+        "timeout": 780000
+      },
+      {
+        "name": "real core-wiki and touch-member journeys at 1440px",
+        "timeout": 720000
+      },
+      {
+        "name": "provider embeds load only on interaction and [EMBED-004] files respect reader access at 1440px",
+        "timeout": 240000
+      },
+      {
+        "name": "space tree title filtering preserves ancestors, access and expansion at 390px",
+        "timeout": 420000
+      },
+      {
+        "name": "spreadsheet tables merge, sort and round-trip through edited database records at 1440px",
+        "timeout": 480000
+      },
+      {
+        "name": "shared page invitations name their space and disappear on revocation at 1440px",
+        "timeout": 240000
+      },
+      {
+        "name": "native ordinary page full authority retains inventories and refuses revoked captures for page changes at 1440px",
+        "timeout": 240000
+      },
+      {
+        "name": "native ordinary page full authority retains inventories and refuses revoked captures for discussion and sharing at 1440px",
+        "timeout": 240000
+      },
+      {
+        "name": "native ordinary page edit authority retains inventories and refuses revoked captures at 1440px",
+        "timeout": 240000
+      },
+      {
+        "name": "native ordinary page comment authority retains inventories and refuses revoked captures at 1440px",
+        "timeout": 240000
+      },
+      {
+        "name": "native ordinary page view authority retains inventories and refuses revoked captures at 1440px",
+        "timeout": 240000
+      },
+      {
+        "name": "SEARCH-011 — verified, unverified and lapsed pages rank in order with badges, near-duplicates collapse and published views carry no trust at 1440px",
+        "timeout": 240000
+      },
+      {
+        "name": "named review request, reviewer queue, exact verify and overdue escalation at 1440px",
+        "timeout": 240000
+      },
+      {
+        "name": "TMPL-007 starter templates are found by category; touch spaces, templates, archive and workspace settings work at 1440px",
+        "timeout": 240000
+      },
+      {
+        "name": "two people edit at once, lose access mid-edit and restore history at 1440px",
+        "timeout": 420000
+      },
+      {
+        "name": "readable exports retain discussions through HTML and Markdown re-import at 1440px",
+        "timeout": 360000
+      },
+      {
+        "name": "global create names destinations for every content kind at 1440px",
+        "timeout": 240000
+      },
+      {
+        "name": "BLOCK-016 — task reports, My tasks and typed assignments preserve reader access and completion at 1440px",
+        "timeout": 240000
+      },
+      {
+        "name": "page creation destinations and editor locks preserve readable content at 1440px",
+        "timeout": 300000
+      },
+      {
+        "name": "DB-015 — a database's Templates tab says a schedule runs as its last saver, and a re-save hands it over at 1440px",
+        "timeout": 240000
+      },
+      {
+        "name": "SAML sign-in verifies the domain and signatures while preserving guest and designated-owner access at 1440px",
+        "timeout": 180000
+      },
+      {
+        "name": "editable space home and curated company hub for a new member at 1440px",
+        "timeout": 240000
+      },
+      {
+        "name": "page and space readership show people, author views and inclusive dates at 1440px",
+        "timeout": 180000
+      },
+      {
+        "name": "group mentions preview readers and refuse oversized groups at 1440px",
+        "timeout": 240000
+      },
+      {
+        "name": "CONT-012 a watched space's create, edit sessions and comment appear once each in Home's Following at 1440px",
+        "timeout": 240000
+      },
+      {
+        "name": "space blog post reaches a follower's inbox and Home at 1440px",
+        "timeout": 240000
+      },
+      {
+        "name": "rejected writes retain drafts and require explicit retry at 1440px",
+        "timeout": 180000
+      },
+      {
+        "name": "page and comment reactions identify people without notifications or views at 1440px",
+        "timeout": 180000
+      },
+      {
+        "name": "flagship no-provider Ask retains a page-scoped draft at 1440px",
+        "timeout": 180000
+      },
+      {
+        "name": "presentation paginates read-only slides; touch history, details and exports work at 1440px",
+        "timeout": 180000
+      },
+      {
+        "name": "page display settings are shared and survive export and import at 1440px",
+        "timeout": 180000
+      },
+      {
+        "name": "page outline follows headings and navigates long pages at 1440px",
+        "timeout": 600000
+      },
+      {
+        "name": "BLOCK-010 — native content queries retain criteria and current-reader results at 1440px",
+        "timeout": 180000
+      },
+      {
+        "name": "BLOCK-010 — native content queries retain criteria and current-reader results at 390px",
+        "timeout": 180000
+      }
+    ]
+  },
+  "fix2": {
+    "count": 34,
+    "cap": 200,
+    "registrations": [
+      {
+        "name": "real core-wiki and touch-member journeys at 390px",
+        "timeout": 900000
+      },
+      {
+        "name": "real core-wiki and touch-member journeys at 1440px",
+        "timeout": 840000
+      },
+      {
+        "name": "provider embeds load only on interaction and [EMBED-004] files respect reader access at 1440px",
+        "timeout": 240000
+      },
+      {
+        "name": "space tree title filtering preserves ancestors, access and expansion at 390px",
+        "timeout": 420000
+      },
+      {
+        "name": "spreadsheet tables merge, sort and round-trip through edited database records at 1440px",
+        "timeout": 480000
+      },
+      {
+        "name": "shared page invitations name their space and disappear on revocation at 1440px",
+        "timeout": 240000
+      },
+      {
+        "name": "native ordinary page full authority retains inventories and refuses revoked captures for page changes at 1440px",
+        "timeout": 240000
+      },
+      {
+        "name": "native ordinary page full authority retains inventories and refuses revoked captures for discussion and sharing at 1440px",
+        "timeout": 240000
+      },
+      {
+        "name": "native ordinary page edit authority retains inventories and refuses revoked captures at 1440px",
+        "timeout": 240000
+      },
+      {
+        "name": "native ordinary page comment authority retains inventories and refuses revoked captures at 1440px",
+        "timeout": 240000
+      },
+      {
+        "name": "native ordinary page view authority retains inventories and refuses revoked captures at 1440px",
+        "timeout": 240000
+      },
+      {
+        "name": "SEARCH-011 — verified, unverified and lapsed pages rank in order with badges, near-duplicates collapse and published views carry no trust at 1440px",
+        "timeout": 240000
+      },
+      {
+        "name": "named review request, reviewer queue, exact verify and overdue escalation at 1440px",
+        "timeout": 240000
+      },
+      {
+        "name": "TMPL-007 starter templates are found by category; touch spaces, templates, archive and workspace settings work at 1440px",
+        "timeout": 240000
+      },
+      {
+        "name": "two people edit at once, lose access mid-edit and restore history at 1440px",
+        "timeout": 420000
+      },
+      {
+        "name": "readable exports retain discussions through HTML and Markdown re-import at 1440px",
+        "timeout": 360000
+      },
+      {
+        "name": "global create names destinations for every content kind at 1440px",
+        "timeout": 240000
+      },
+      {
+        "name": "BLOCK-016 — task reports, My tasks and typed assignments preserve reader access and completion at 1440px",
+        "timeout": 240000
+      },
+      {
+        "name": "page creation destinations and editor locks preserve readable content at 1440px",
+        "timeout": 300000
+      },
+      {
+        "name": "DB-015 — a database's Templates tab says a schedule runs as its last saver, and a re-save hands it over at 1440px",
+        "timeout": 240000
+      },
+      {
+        "name": "SAML sign-in verifies the domain and signatures while preserving guest and designated-owner access at 1440px",
+        "timeout": 180000
+      },
+      {
+        "name": "editable space home and curated company hub for a new member at 1440px",
+        "timeout": 240000
+      },
+      {
+        "name": "page and space readership show people, author views and inclusive dates at 1440px",
+        "timeout": 180000
+      },
+      {
+        "name": "group mentions preview readers and refuse oversized groups at 1440px",
+        "timeout": 240000
+      },
+      {
+        "name": "CONT-012 a watched space's create, edit sessions and comment appear once each in Home's Following at 1440px",
+        "timeout": 240000
+      },
+      {
+        "name": "space blog post reaches a follower's inbox and Home at 1440px",
+        "timeout": 240000
+      },
+      {
+        "name": "rejected writes retain drafts and require explicit retry at 1440px",
+        "timeout": 180000
+      },
+      {
+        "name": "page and comment reactions identify people without notifications or views at 1440px",
+        "timeout": 180000
+      },
+      {
+        "name": "flagship no-provider Ask retains a page-scoped draft at 1440px",
+        "timeout": 180000
+      },
+      {
+        "name": "presentation paginates read-only slides; touch history, details and exports work at 1440px",
+        "timeout": 180000
+      },
+      {
+        "name": "page display settings are shared and survive export and import at 1440px",
+        "timeout": 180000
+      },
+      {
+        "name": "page outline follows headings and navigates long pages at 1440px",
+        "timeout": 600000
+      },
+      {
+        "name": "BLOCK-010 — native content queries retain criteria and current-reader results at 1440px",
+        "timeout": 180000
+      },
+      {
+        "name": "BLOCK-010 — native content queries retain criteria and current-reader results at 390px",
+        "timeout": 180000
+      }
+    ]
+  },
+  "candidate": {
+    "count": 36,
+    "cap": 200,
+    "registrations": [
+      {
+        "name": "real core-wiki and touch-member journeys at 390px",
+        "timeout": 780000
+      },
+      {
+        "name": "real core-wiki and touch-member journeys at 1440px",
+        "timeout": 720000
+      },
+      {
+        "name": "provider embeds load only on interaction and [EMBED-004] files respect reader access at 1440px",
+        "timeout": 240000
+      },
+      {
+        "name": "space tree title filtering preserves ancestors, access and expansion at 390px",
+        "timeout": 420000
+      },
+      {
+        "name": "spreadsheet tables merge, sort and round-trip through edited database records at 1440px",
+        "timeout": 480000
+      },
+      {
+        "name": "shared page invitations name their space and disappear on revocation at 1440px",
+        "timeout": 240000
+      },
+      {
+        "name": "native ordinary page full authority retains inventories and refuses revoked captures for page changes at 1440px",
+        "timeout": 240000
+      },
+      {
+        "name": "native ordinary page full authority retains inventories and refuses revoked captures for discussion and sharing at 1440px",
+        "timeout": 240000
+      },
+      {
+        "name": "native ordinary page edit authority retains inventories and refuses revoked captures at 1440px",
+        "timeout": 240000
+      },
+      {
+        "name": "native ordinary page comment authority retains inventories and refuses revoked captures at 1440px",
+        "timeout": 240000
+      },
+      {
+        "name": "native ordinary page view authority retains inventories and refuses revoked captures at 1440px",
+        "timeout": 240000
+      },
+      {
+        "name": "SEARCH-011 — verified, unverified and lapsed pages rank in order with badges, near-duplicates collapse and published views carry no trust at 1440px",
+        "timeout": 240000
+      },
+      {
+        "name": "named review request, reviewer queue, exact verify and overdue escalation at 1440px",
+        "timeout": 240000
+      },
+      {
+        "name": "TMPL-007 starter templates are found by category; touch spaces, templates, archive and workspace settings work at 1440px",
+        "timeout": 240000
+      },
+      {
+        "name": "two people edit at once, lose access mid-edit and restore history at 1440px",
+        "timeout": 420000
+      },
+      {
+        "name": "readable exports retain discussions through HTML and Markdown re-import at 1440px",
+        "timeout": 360000
+      },
+      {
+        "name": "global create names destinations for every content kind at 1440px",
+        "timeout": 240000
+      },
+      {
+        "name": "BLOCK-016 — task reports, My tasks and typed assignments preserve reader access and completion at 1440px",
+        "timeout": 240000
+      },
+      {
+        "name": "page creation destinations and editor locks preserve readable content at 1440px",
+        "timeout": 300000
+      },
+      {
+        "name": "DB-015 — a database's Templates tab says a schedule runs as its last saver, and a re-save hands it over at 1440px",
+        "timeout": 240000
+      },
+      {
+        "name": "SAML sign-in verifies the domain and signatures while preserving guest and designated-owner access at 1440px",
+        "timeout": 180000
+      },
+      {
+        "name": "editable space home and curated company hub for a new member at 1440px",
+        "timeout": 240000
+      },
+      {
+        "name": "page and space readership show people, author views and inclusive dates at 1440px",
+        "timeout": 180000
+      },
+      {
+        "name": "group mentions preview readers and refuse oversized groups at 1440px",
+        "timeout": 240000
+      },
+      {
+        "name": "CONT-012 a watched space's create, edit sessions and comment appear once each in Home's Following at 1440px",
+        "timeout": 240000
+      },
+      {
+        "name": "space blog post reaches a follower's inbox and Home at 1440px",
+        "timeout": 240000
+      },
+      {
+        "name": "rejected writes retain drafts and require explicit retry at 1440px",
+        "timeout": 180000
+      },
+      {
+        "name": "page and comment reactions identify people without notifications or views at 1440px",
+        "timeout": 180000
+      },
+      {
+        "name": "flagship no-provider Ask retains a page-scoped draft at 1440px",
+        "timeout": 180000
+      },
+      {
+        "name": "presentation paginates read-only slides; touch history, details and exports work at 1440px",
+        "timeout": 180000
+      },
+      {
+        "name": "page display settings are shared and survive export and import at 1440px",
+        "timeout": 180000
+      },
+      {
+        "name": "page outline follows headings and navigates long pages at 1440px",
+        "timeout": 600000
+      },
+      {
+        "name": "BLOCK-010 — native content queries retain criteria and current-reader results at 1440px",
+        "timeout": 180000
+      },
+      {
+        "name": "BLOCK-010 — native content queries retain criteria and current-reader results at 390px",
+        "timeout": 180000
+      },
+      {
+        "name": "DEC-006 — native proposal edits retain exact revisions and refuse unchanged or unauthorized writes at 390px",
+        "timeout": 420000
+      },
+      {
+        "name": "DEC-006 — native proposal edits retain exact revisions and refuse unchanged or unauthorized writes at 1440px",
+        "timeout": 420000
+      }
+    ]
+  }
+}

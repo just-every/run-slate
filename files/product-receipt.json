@@ -1,0 +1,19 @@
+{
+  "repository": "just-every/run-slate",
+  "branch": "cloud/sd-slate-c-f212-fix3",
+  "head": "a570985d38a47cb95075fb6e530b2f7b669e8bdd",
+  "tree": "0c732667896ee912f1a59b4f24b4a654fcadbf7f",
+  "testedTreeEqual": true,
+  "clean": true,
+  "main": "0b55774db7e7454174c6d7474ba46b4cf55f820f",
+  "files": [
+    "sources.lock.json",
+    "tests/qualification/ui-convergence/journeys.test.mjs",
+    "tests/requirements/cli-journey.md"
+  ],
+  "commitIdentity": "Run Edit Run fleet <fleet@runeditrun.com>\nRun Edit Run fleet <fleet@runeditrun.com>",
+  "pr": null,
+  "pushed": true,
+  "pushAttempts": 1,
+  "pushCommand": "python3 $HOME/rer-consolidation/.tools/cloud-push.py origin cloud/sd-slate-c-f212-fix3"
+}

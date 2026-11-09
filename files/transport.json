@@ -1,0 +1,13 @@
+{
+  "command": [
+    "timeout",
+    "180",
+    "node",
+    "--test",
+    "tests/qualification/ui-convergence/journey-api.test.mjs",
+    ".github/scripts/journey-shard.test.mjs"
+  ],
+  "exit": 0,
+  "startedUtc": "2026-11-09T11:09:53Z",
+  "durationSeconds": 8.416
+}

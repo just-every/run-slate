@@ -1,0 +1,4 @@
+Heavy job admitted: Slate setup:workflow [e1fe68be31c9]
+Local cleanup could not confirm that every helper process stopped (An active local operation owns the state: PID 1039 (node). Stop it with rer dev --stop or rer preview --stop; for an unmanaged process, stop PID 1039 before retrying.). The setup itself finished.
+An active local operation owns the state: PID 1039 (node). Stop it with rer dev --stop or rer preview --stop; for an unmanaged process, stop PID 1039 before retrying.
+setup: failed (exit 4)

@@ -1,0 +1,205 @@
+{
+  "tag": "sd-slate-c-f212-fix3",
+  "repository": "just-every/run-slate",
+  "branch": "cloud/sd-slate-c-f212-fix3",
+  "head": "a570985d38a47cb95075fb6e530b2f7b669e8bdd",
+  "productPushed": true,
+  "productPushAttempts": 1,
+  "status": "READY",
+  "readiness": "generated-view-only CI exemption",
+  "ci": {
+    "repository": "just-every/run-slate",
+    "head": "a570985d38a47cb95075fb6e530b2f7b669e8bdd",
+    "runId": 42609007374,
+    "url": "https://github.com/just-every/run-slate/actions/runs/42609007374",
+    "actualStatus": "completed",
+    "actualConclusion": "failure",
+    "appJobId": 129132289811,
+    "aggregateJobId": 129132520624,
+    "failedStep": "node src/base/runtime/contract-docs.mjs check",
+    "staleFiles": [
+      "ACCEPTANCE.md"
+    ],
+    "downstream": "skipped after app dependency failure",
+    "readyExemption": true,
+    "reason": "Only the generated view check failed; the brief requires retaining main views for Mac landing regeneration.",
+    "logReadCommand": [
+      "gh",
+      "run",
+      "view",
+      "42609007374",
+      "--repo",
+      "just-every/run-slate",
+      "--job",
+      "129132289811",
+      "--log-failed"
+    ],
+    "logReadExit": 0,
+    "githubCallsUsed": 4,
+    "githubCallBudget": 10,
+    "minimumCallSpacingSeconds": 301.092568397522
+  },
+  "checks": {
+    "transport": {
+      "command": [
+        "timeout",
+        "180",
+        "node",
+        "--test",
+        "tests/qualification/ui-convergence/journey-api.test.mjs",
+        ".github/scripts/journey-shard.test.mjs"
+      ],
+      "exit": 0,
+      "startedUtc": "2026-11-09T11:09:53Z",
+      "durationSeconds": 8.416
+    },
+    "typecheck": {
+      "command": [
+        "timeout",
+        "180",
+        "pnpm",
+        "typecheck"
+      ],
+      "exit": 0,
+      "startedUtc": "2026-11-09T11:10:02Z",
+      "durationSeconds": 83.293
+    },
+    "first-party": {
+      "command": [
+        "timeout",
+        "180",
+        "pnpm",
+        "exec",
+        "rer",
+        "check",
+        "--profile",
+        "first-party"
+      ],
+      "exit": 0,
+      "startedUtc": "2026-11-09T11:11:25Z",
+      "durationSeconds": 3.734
+    },
+    "release-source": {
+      "command": [
+        "timeout",
+        "360",
+        "pnpm",
+        "test:release-source"
+      ],
+      "exit": 0,
+      "startedUtc": "2026-11-09T11:14:53Z",
+      "durationSeconds": 4.38
+    },
+    "publication-inputs": {
+      "command": [
+        "timeout",
+        "60",
+        "node",
+        "scripts/publish-check.mjs"
+      ],
+      "exit": 0,
+      "startedUtc": "2026-11-09T11:14:58Z",
+      "durationSeconds": 0.152
+    },
+    "build": {
+      "command": [
+        "timeout",
+        "600",
+        "npx",
+        "-y",
+        "@runeditrun/rer",
+        "build"
+      ],
+      "exit": 0,
+      "startedUtc": "2026-11-09T11:14:04Z",
+      "durationSeconds": 136.681
+    },
+    "native-dec006": {
+      "command": [
+        "timeout",
+        "1000",
+        "node",
+        "--test",
+        "--test-concurrency=1",
+        "--test-name-pattern=^DEC-006 \u2014 native proposal edits",
+        "tests/qualification/ui-convergence/journeys.test.mjs"
+      ],
+      "exit": 0,
+      "startedUtc": "2026-11-09T11:16:21Z",
+      "durationSeconds": 546.395
+    },
+    "candidate-verify": {
+      "command": [
+        "timeout",
+        "900",
+        "pnpm",
+        "verify"
+      ],
+      "exit": 0,
+      "startedUtc": "2026-11-09T11:29:46Z",
+      "durationSeconds": 433.139
+    },
+    "setup-recovered": {
+      "command": [
+        "timeout",
+        "600",
+        "npx",
+        "-y",
+        "@runeditrun/rer",
+        "setup",
+        "--owner-email",
+        "fleet@runeditrun.com",
+        "--non-interactive"
+      ],
+      "exit": 0,
+      "startedUtc": "2026-11-09T11:11:20Z",
+      "durationSeconds": 141.088
+    }
+  },
+  "ordinaryCases": {
+    "before": 196,
+    "after": 198,
+    "cap": 200
+  },
+  "browserCases": {
+    "before": 34,
+    "after": 36
+  },
+  "clauses": {
+    "DEC-006": {
+      "before": "partial",
+      "after": "partial"
+    },
+    "countsBefore": {
+      "done": 59,
+      "partial": 238,
+      "missing": 41
+    },
+    "countsAfter": {
+      "done": 59,
+      "partial": 238,
+      "missing": 41
+    }
+  },
+  "coreTimeoutMs": {
+    "390": 780000,
+    "1440": 720000
+  },
+  "standaloneTimeoutMs": 420000,
+  "nativeDurationsMs": {
+    "390": 266749.582127,
+    "1440": 194090.678172
+  },
+  "ownerPeakPerMinute": {
+    "390": 120,
+    "1440": 113
+  },
+  "readerPeakPerMinute": {
+    "390": 293,
+    "1440": 246
+  },
+  "blockers": [],
+  "pr": null,
+  "landingClaim": false,
+  "cleanup": "Remove product clone and node_modules after successful evidence publication; final message confirms completion."
+}

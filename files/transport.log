@@ -1,0 +1,52 @@
+TAP version 13
+# Subtest: named moves and new ordinal registrations each execute once
+ok 1 - named moves and new ordinal registrations each execute once
+  ---
+  duration_ms: 1.740826
+  type: 'test'
+  ...
+# Subtest: ordinary partitioning covers every registration across arbitrary widths
+ok 2 - ordinary partitioning covers every registration across arbitrary widths
+  ---
+  duration_ms: 4.512814
+  type: 'test'
+  ...
+# Subtest: malformed assignments fail closed instead of silently losing a journey
+ok 3 - malformed assignments fail closed instead of silently losing a journey
+  ---
+  duration_ms: 1.106186
+  type: 'test'
+  ...
+# Subtest: snapshot probes and call share one actor queue, browser address and real refusal
+ok 4 - snapshot probes and call share one actor queue, browser address and real refusal
+  ---
+  duration_ms: 5015.524407
+  type: 'test'
+  ...
+# Subtest: probe bursts stay within 400 per rolling minute without delaying light traffic
+ok 5 - probe bursts stay within 400 per rolling minute without delaying light traffic
+  ---
+  duration_ms: 26.196934
+  type: 'test'
+  ...
+# Subtest: the idle-owner probe budget still reserves 100 native requests per minute
+ok 6 - the idle-owner probe budget still reserves 100 native requests per minute
+  ---
+  duration_ms: 12.799663
+  type: 'test'
+  ...
+# Subtest: proposal browser API fan-outs and helper snapshots share real queued dispatch without retries
+ok 7 - proposal browser API fan-outs and helper snapshots share real queued dispatch without retries
+  ---
+  duration_ms: 2236.112076
+  type: 'test'
+  ...
+1..7
+# tests 7
+# suites 0
+# pass 7
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 8309.393928

@@ -1,0 +1,9 @@
+{
+  "command": [
+    "python3",
+    "/tmp/slate-mechanical.py"
+  ],
+  "exit": 0,
+  "startedUtc": "2026-11-09T11:14:00Z",
+  "durationSeconds": 3.897
+}

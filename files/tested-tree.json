@@ -1,0 +1,5 @@
+{
+  "testedIndexTree": "0c732667896ee912f1a59b4f24b4a654fcadbf7f",
+  "baseHead": "0eaa43c302904eb27fece856ad28c2e9ea48b92c",
+  "description": "The staged tree before native browser proof. Final product commit must have this identical tree; emitted provenance initially names the inherited fix2 HEAD with dirty source."
+}

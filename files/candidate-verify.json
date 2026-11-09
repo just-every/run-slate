@@ -1,0 +1,11 @@
+{
+  "command": [
+    "timeout",
+    "900",
+    "pnpm",
+    "verify"
+  ],
+  "exit": 0,
+  "startedUtc": "2026-11-09T11:29:46Z",
+  "durationSeconds": 433.139
+}

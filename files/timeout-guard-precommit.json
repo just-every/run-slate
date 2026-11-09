@@ -1,0 +1,19 @@
+{
+  "existingRaisedTimeouts": [],
+  "existingChangedTimeouts": [],
+  "newTests": [
+    {
+      "name": "DEC-006 \u2014 native proposal edits retain exact revisions and refuse unchanged or unauthorized writes at 1440px",
+      "timeoutMs": 420000
+    },
+    {
+      "name": "DEC-006 \u2014 native proposal edits retain exact revisions and refuse unchanged or unauthorized writes at 390px",
+      "timeoutMs": 420000
+    }
+  ],
+  "rawDiffTimeoutLines": [
+    "705:+  test(`DEC-006 \u2014 native proposal edits retain exact revisions and refuse unchanged or unauthorized writes at ${width}px`, { timeout: 420000 }, async t => {",
+    "850: COMM-002\u2019s `commentAuthorshipJourney` in the existing core-wiki registrations awaits each native deletion receipt, verifies its durable comment and activity through the actor transport, then replays all writes. After reload it waits for both visible \"Comment deleted\" tombstones before taking the exact chronological DOM inventory. Opening Comments mounts an asynchronous read; a separate API snapshot does not establish that the panel has rendered. Existing author/refusal, timestamp, replay and exact order assertions remain required, with unchanged timeouts and CI registrations."
+  ],
+  "provisional": true
+}

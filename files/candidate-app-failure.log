@@ -1,0 +1,8 @@
+verify (app)	Run node src/base/runtime/contract-docs.mjs check	﻿2026-11-09T11:26:37.3758263Z ##[group]Run node src/base/runtime/contract-docs.mjs check
+verify (app)	Run node src/base/runtime/contract-docs.mjs check	2026-11-09T11:26:37.3758639Z [36;1mnode src/base/runtime/contract-docs.mjs check[0m
+verify (app)	Run node src/base/runtime/contract-docs.mjs check	2026-11-09T11:26:37.3777983Z shell: /usr/bin/bash -e {0}
+verify (app)	Run node src/base/runtime/contract-docs.mjs check	2026-11-09T11:26:37.3778125Z env:
+verify (app)	Run node src/base/runtime/contract-docs.mjs check	2026-11-09T11:26:37.3778264Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+verify (app)	Run node src/base/runtime/contract-docs.mjs check	2026-11-09T11:26:37.3778435Z ##[endgroup]
+verify (app)	Run node src/base/runtime/contract-docs.mjs check	2026-11-09T11:26:37.4908189Z ACCEPTANCE.md: generated content differs; run contract-docs write.
+verify (app)	Run node src/base/runtime/contract-docs.mjs check	2026-11-09T11:26:37.4985524Z ##[error]Process completed with exit code 1.

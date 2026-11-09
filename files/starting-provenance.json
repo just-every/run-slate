@@ -1,0 +1,9 @@
+{
+  "repository": "just-every/run-slate",
+  "branch": "cloud/sd-slate-c-f212-fix3",
+  "fix2": "0eaa43c302904eb27fece856ad28c2e9ea48b92c",
+  "expectedFix2": "0eaa43c302904eb27fece856ad28c2e9ea48b92c",
+  "main": "0b55774db7e7454174c6d7474ba46b4cf55f820f",
+  "shallow": "false",
+  "merge": "Already up to date; origin/main is an ancestor of fix2"
+}

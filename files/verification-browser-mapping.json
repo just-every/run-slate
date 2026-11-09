@@ -1,0 +1,16 @@
+[
+  {
+    "name": "chromium",
+    "path": "/home/agent/.cache/ms-playwright/chromium-1234/chrome-linux64/chrome",
+    "target": "/usr/bin/chromium"
+  },
+  {
+    "name": "chromium-headless-shell",
+    "path": "/home/agent/.cache/ms-playwright/chromium_headless_shell-1234/chrome-headless-shell-linux64/chrome-headless-shell",
+    "target": "/usr/bin/chromium"
+  },
+  {
+    "observedHydrationBrowserExecutable": "/home/agent/.cache/ms-playwright/chromium_headless_shell-1243/chrome-headless-shell-linux64/chrome-headless-shell",
+    "pid": 9299
+  }
+]

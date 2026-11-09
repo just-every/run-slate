@@ -1,0 +1,11 @@
+{
+  "command": [
+    "timeout",
+    "180",
+    "pnpm",
+    "typecheck"
+  ],
+  "exit": 0,
+  "startedUtc": "2026-11-09T11:10:02Z",
+  "durationSeconds": 83.293
+}

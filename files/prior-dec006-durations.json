@@ -1,0 +1,30 @@
+{
+  "evidenceHead": "9151457cb6e7e6e0c86b9b3a14b13bbd703609d2",
+  "runs": [
+    {
+      "repeat": 1,
+      "source": "files/candidate-dec006-1.log",
+      "durationMs": [
+        243282.018486,
+        326957.447315
+      ]
+    },
+    {
+      "repeat": 2,
+      "source": "files/candidate-dec006-2.log",
+      "durationMs": [
+        231592.082028,
+        280641.009278
+      ]
+    },
+    {
+      "repeat": 3,
+      "source": "files/candidate-dec006-3.log",
+      "durationMs": [
+        281996.891866,
+        279542.020432
+      ]
+    }
+  ],
+  "newTimeoutMs": 420000
+}

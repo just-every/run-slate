@@ -1,0 +1,15 @@
+{
+  "command": [
+    "timeout",
+    "180",
+    "pnpm",
+    "exec",
+    "rer",
+    "check",
+    "--profile",
+    "first-party"
+  ],
+  "exit": 0,
+  "startedUtc": "2026-11-09T11:11:25Z",
+  "durationSeconds": 3.734
+}

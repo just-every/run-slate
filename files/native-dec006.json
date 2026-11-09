@@ -1,0 +1,14 @@
+{
+  "command": [
+    "timeout",
+    "1000",
+    "node",
+    "--test",
+    "--test-concurrency=1",
+    "--test-name-pattern=^DEC-006 \u2014 native proposal edits",
+    "tests/qualification/ui-convergence/journeys.test.mjs"
+  ],
+  "exit": 0,
+  "startedUtc": "2026-11-09T11:16:21Z",
+  "durationSeconds": 546.395
+}

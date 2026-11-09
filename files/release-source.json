@@ -1,0 +1,11 @@
+{
+  "command": [
+    "timeout",
+    "360",
+    "pnpm",
+    "test:release-source"
+  ],
+  "exit": 0,
+  "startedUtc": "2026-11-09T11:14:53Z",
+  "durationSeconds": 4.38
+}

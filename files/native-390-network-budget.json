@@ -1,0 +1,149 @@
+{
+  "artifact": {
+    "schema": 1,
+    "commit": "0eaa43c302904eb27fece856ad28c2e9ea48b92c",
+    "tree": "1616179f98352a718e5330a0420236e00983c5f8",
+    "sourceSha256": "7b4901ae0538d3a03ef88948f7a920e352c997b35341b6473dceb47de09e80e1",
+    "lockSha256": "462f317cd834bc42200f0d0708eb4ffa063d49a81b752987e4fe770ff840eb3e",
+    "outputSha256": "066753c4f8e0c9167b635e3df3d91df1822f3551fd707da5288e5274ad0605f4"
+  },
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "profile": "core-wiki",
+  "requestBudget": {
+    "windowMs": 60000,
+    "nativeLimit": 600,
+    "marginCeiling": 500,
+    "actors": [
+      {
+        "actor": "unregistered",
+        "peak": 2,
+        "peakAtMs": 167840,
+        "total": 2,
+        "sources": {
+          "probe": 2
+        },
+        "paths": {
+          "GET /api/workspace/first-run": 1,
+          "POST /api/workspace/first-run": 1
+        }
+      },
+      {
+        "actor": "unregistered",
+        "peak": 2,
+        "peakAtMs": 171522,
+        "total": 2,
+        "sources": {
+          "probe": 2
+        },
+        "paths": {
+          "GET /api/workspace/first-run": 1,
+          "POST /api/workspace/first-run": 1
+        }
+      },
+      {
+        "actor": "unregistered",
+        "peak": 2,
+        "peakAtMs": 174952,
+        "total": 2,
+        "sources": {
+          "probe": 2
+        },
+        "paths": {
+          "GET /api/workspace/first-run": 1,
+          "POST /api/workspace/first-run": 1
+        }
+      },
+      {
+        "actor": "browser-owner",
+        "peak": 120,
+        "peakAtMs": 259211,
+        "total": 201,
+        "sources": {
+          "probe": 188,
+          "browser": 13
+        },
+        "paths": {
+          "GET /api/workspace/first-run": 2,
+          "POST /api/workspace/first-run": 2,
+          "GET /api/tasks/01M700HWTN6YWY0TCC4W6TNZHE/assignees": 4,
+          "GET /api/workspace": 3,
+          "GET /api/containers": 2,
+          "GET /api/pages": 1,
+          "POST /api/invitations": 1,
+          "GET /api/collaboration/01M700HWTN6YWY0TCC4W6TNZHE": 37,
+          "GET /api/hub": 2,
+          "GET /api/navigation/following": 2,
+          "GET /api/blog": 2,
+          "GET /api/profile": 1,
+          "POST /api/pages": 2,
+          "POST /api/sharing": 5,
+          "GET /api/pages/01M700JNSC6N4GVSZKQ02DZPZY": 3,
+          "PUT /api/sharing/pages/01M700JNSC6N4GVSZKQ02DZPZY/inheritance": 1,
+          "GET /api/members/current": 1,
+          "GET /api/pages/01M700JPRFNM08MHF0KR6T4C83": 1,
+          "POST /api/decisions": 1,
+          "GET /api/decisions/01M700JQ0CWPFCNY9CJECSGPGA": 37,
+          "GET /api/decisions/01M700JQ0CWPFCNY9CJECSGPGA/history": 40,
+          "GET /api/activity": 34,
+          "POST /api/collaboration/01M700HWTN6YWY0TCC4W6TNZHE/presence": 8,
+          "GET /api/decisions": 1,
+          "GET /api/members": 3,
+          "GET /api/decisions/01M700JQ0CWPFCNY9CJECSGPGA/reviews": 3,
+          "POST /api/decisions/01M700JQ0CWPFCNY9CJECSGPGA/accept": 1,
+          "POST /api/decisions/01M700JQ0CWPFCNY9CJECSGPGA/remove": 1
+        }
+      },
+      {
+        "actor": "unregistered",
+        "peak": 1,
+        "peakAtMs": 203946,
+        "total": 1,
+        "sources": {
+          "probe": 1
+        },
+        "paths": {
+          "GET /api/session": 1
+        }
+      },
+      {
+        "actor": "01M700J7BQDG8E2RPB1DRB3EE0",
+        "peak": 14,
+        "peakAtMs": 208350,
+        "total": 14,
+        "sources": {
+          "browser": 12,
+          "probe": 2
+        },
+        "paths": {
+          "GET /api/hub": 4,
+          "GET /api/navigation/following": 4,
+          "GET /api/blog": 4,
+          "GET /api/workspace/first-run": 1,
+          "POST /api/workspace/first-run": 1
+        }
+      },
+      {
+        "actor": "browser-reader",
+        "peak": 293,
+        "peakAtMs": 280433,
+        "total": 396,
+        "sources": {
+          "probe": 396
+        },
+        "paths": {
+          "GET /api/decisions": 35,
+          "GET /api/decisions/01M700JQ0CWPFCNY9CJECSGPGA": 56,
+          "GET /api/members": 115,
+          "GET /api/decisions/01M700JQ0CWPFCNY9CJECSGPGA/history": 79,
+          "GET /api/decisions/01M700JQ0CWPFCNY9CJECSGPGA/reviews": 79,
+          "GET /api/pages": 10,
+          "POST /api/decisions": 21,
+          "GET /api/pages/01M700JPRFNM08MHF0KR6T4C83": 1
+        }
+      }
+    ]
+  }
+}

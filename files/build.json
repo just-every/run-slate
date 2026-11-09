@@ -1,0 +1,13 @@
+{
+  "command": [
+    "timeout",
+    "600",
+    "npx",
+    "-y",
+    "@runeditrun/rer",
+    "build"
+  ],
+  "exit": 0,
+  "startedUtc": "2026-11-09T11:14:04Z",
+  "durationSeconds": 136.681
+}

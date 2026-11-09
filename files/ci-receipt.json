@@ -1,0 +1,32 @@
+{
+  "repository": "just-every/run-slate",
+  "head": "a570985d38a47cb95075fb6e530b2f7b669e8bdd",
+  "runId": 42609007374,
+  "url": "https://github.com/just-every/run-slate/actions/runs/42609007374",
+  "actualStatus": "completed",
+  "actualConclusion": "failure",
+  "appJobId": 129132289811,
+  "aggregateJobId": 129132520624,
+  "failedStep": "node src/base/runtime/contract-docs.mjs check",
+  "staleFiles": [
+    "ACCEPTANCE.md"
+  ],
+  "downstream": "skipped after app dependency failure",
+  "readyExemption": true,
+  "reason": "Only the generated view check failed; the brief requires retaining main views for Mac landing regeneration.",
+  "logReadCommand": [
+    "gh",
+    "run",
+    "view",
+    "42609007374",
+    "--repo",
+    "just-every/run-slate",
+    "--job",
+    "129132289811",
+    "--log-failed"
+  ],
+  "logReadExit": 0,
+  "githubCallsUsed": 4,
+  "githubCallBudget": 10,
+  "minimumCallSpacingSeconds": 301.092568397522
+}

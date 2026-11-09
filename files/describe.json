@@ -1,0 +1,13 @@
+{
+  "command": [
+    "timeout",
+    "60",
+    "pnpm",
+    "exec",
+    "rer",
+    "describe"
+  ],
+  "exit": 0,
+  "startedUtc": "2026-11-09T11:14:58Z",
+  "durationSeconds": 5.477
+}

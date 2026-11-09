@@ -1,0 +1,54 @@
+[
+  {
+    "number": 1,
+    "command": [
+      "gh",
+      "api",
+      "repos/just-every/run-slate/actions/runs?head_sha=a570985d38a47cb95075fb6e530b2f7b669e8bdd&per_page=100"
+    ],
+    "startedUtc": "2026-11-09T11:26:37Z",
+    "startedEpoch": 1794223597.4138613,
+    "exit": 0
+  },
+  {
+    "number": 2,
+    "command": [
+      "gh",
+      "api",
+      "repos/just-every/run-slate/actions/runs/42609007374",
+      "--jq",
+      "{status,conclusion,head_sha,html_url}"
+    ],
+    "startedUtc": "2026-11-09T11:31:39Z",
+    "startedEpoch": 1794223899.692875,
+    "exit": 0
+  },
+  {
+    "number": 3,
+    "command": [
+      "gh",
+      "api",
+      "repos/just-every/run-slate/actions/runs/42609007374/jobs?per_page=100"
+    ],
+    "startedUtc": "2026-11-09T11:36:41Z",
+    "startedEpoch": 1794224201.8330624,
+    "exit": 0
+  },
+  {
+    "number": 4,
+    "command": [
+      "gh",
+      "run",
+      "view",
+      "42609007374",
+      "--repo",
+      "just-every/run-slate",
+      "--job",
+      "129132289811",
+      "--log-failed"
+    ],
+    "startedUtc": "2026-11-09T11:41:42Z",
+    "startedEpoch": 1794224502.9256308,
+    "exit": 0
+  }
+]

@@ -1,0 +1,16 @@
+{
+  "command": [
+    "timeout",
+    "600",
+    "npx",
+    "-y",
+    "@runeditrun/rer",
+    "setup",
+    "--owner-email",
+    "fleet@runeditrun.com",
+    "--non-interactive"
+  ],
+  "exit": 4,
+  "startedUtc": "2026-11-09T11:10:19Z",
+  "durationSeconds": 11.292
+}
