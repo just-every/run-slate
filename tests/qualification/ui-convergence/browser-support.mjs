@@ -213,6 +213,7 @@ export async function withWorkspace(viewport, profile, run, overrides = {}, { sc
       await writeFile(path.join(scratchRoot, `${profile}-${viewport.width}-network.json`), JSON.stringify({
         fixture: 'Identity-only D1 records and native development outbox sessions; no spaces, pages, invitations or application responses are seeded.',
         artifact, viewport, profile, network, consoleErrors, modelRequests,
+        requestBudget: { windowMs: 60000, nativeLimit: 600, marginCeiling: 500, actors: runtime ? actorRequestPeaks(runtime.baseUrl) : [] },
       }, null, 2));
     } finally {
       try { await browser?.close(); }

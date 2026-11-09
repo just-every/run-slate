@@ -213,14 +213,16 @@ export async function decisionEditJourney(state, width) {
     await accessible(view, 'accepted decision retains immutable history');
     const directory = path.join('.artifacts/ui-convergence/decision-edit', String(width));
     await mkdir(directory, {recursive: true});
-    await writeFile(path.join(directory, 'receipts.json'), JSON.stringify({width, profile: 'core-wiki', artifact: JSON.parse(await readFile('.cache/slate/build-source.json', 'utf8')), id, receipts, snapshots, refusals, final: acceptedBefore}, null, 2));
+    await writeFile(path.join(directory, 'receipts.json'), JSON.stringify({width, profile: 'core-wiki', requestBudget: {windowMs: 60000, nativeLimit: 600, marginCeiling: 500, actors: actorRequestPeaks(origin)}, artifact: JSON.parse(await readFile('.cache/slate/build-source.json', 'utf8')), id, receipts, snapshots, refusals, final: acceptedBefore}, null, 2));
     await view.goto('about:blank');
     await state.page.goto('about:blank');
     await ok(context, origin, 'POST', route + '/remove', {operationKey: crypto.randomUUID(), expectedRevisionId: acceptedBefore.decision.revision_id});
     } finally { await restoreReaderTransport(); }
   }); } finally { await restoreOwnerTransport(); }
   await state.page.goto('about:blank');
-  for (const row of actorRequestPeaks(origin).filter(row => ['browser-owner', 'browser-reader'].includes(row.actor))) {
+  const actors = actorRequestPeaks(origin).filter(row => ['browser-owner', 'browser-reader'].includes(row.actor));
+  console.log('DEC-006 REQUEST BUDGET', JSON.stringify({width, windowMs: 60000, nativeLimit: 600, marginCeiling: 500, actors}));
+  for (const row of actors) {
     assert.ok(row.peak <= 500, `DEC-006 ${row.actor} rolling-minute peak ${row.peak} exceeds the 500 request margin`);
   }
   console.log(`PROBE DEC-006: native proposal controls and HTTP at ${width}px -> eight fields retain exact revisions, unchanged writes are no-ops, stale=409, view-only=404, accepted edits=409; actor peaks <=500/min`);

@@ -148,7 +148,9 @@ for (const width of [390, 1440]) {
         await step('DEC-004 — populated native decision filters, current access and exact accepted navigation', () => decisionLogJourney(state, width));
         // Keep the exact log corpus before DEC-003 leaves retained lineage visible.
         await step('DEC-003 — immutable accepted snapshots, stale evidence and two-way lineage', () => withSecondPerson(state, width, people => decisionImmutabilityJourney(state, people)));
-        const ownerPeak = actorRequestPeaks(state.origin).find(row => row.actor === 'browser-owner').peak;
+        const actors = actorRequestPeaks(state.origin);
+        console.log('CORE JOURNEY REQUEST BUDGET', JSON.stringify({width, windowMs: 60000, nativeLimit: 600, marginCeiling: 500, actors}));
+        const ownerPeak = actors.find(row => row.actor === 'browser-owner').peak;
         console.log(`OWNER PEAK after: ${ownerPeak}/min at ${width}px`);
         assert.ok(ownerPeak <= 500, `Owner rolling-minute peak ${ownerPeak} exceeds the 500 request margin`);
       } finally {await touch?.close();}
