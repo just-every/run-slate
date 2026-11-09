@@ -1,0 +1,18 @@
+[
+  {
+    "status": 200,
+    "comments": [
+      {
+        "id": "01M6Z18YE3565V21KQ8P6DPYT7",
+        "body": null,
+        "deletedAt": "2026-11-09T02:13:08.384Z"
+      },
+      {
+        "id": "01M6Z1901GR6RJT438R9BADS0S",
+        "body": null,
+        "deletedAt": "2026-11-09T02:13:09.573Z"
+      }
+    ],
+    "record": "CONTROLLED_RESPONSE"
+  }
+]

@@ -1,0 +1,20 @@
+[
+  {
+    "trial": 1,
+    "width": 390,
+    "status": "pass",
+    "elapsedMs": 26169
+  },
+  {
+    "trial": 2,
+    "width": 390,
+    "status": "pass",
+    "elapsedMs": 25208
+  },
+  {
+    "trial": 3,
+    "width": 390,
+    "status": "pass",
+    "elapsedMs": 26222
+  }
+]

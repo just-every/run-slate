@@ -1,0 +1,15 @@
+[
+  {
+    "trial": 1,
+    "width": 390,
+    "status": "fail",
+    "elapsedMs": 34470,
+    "message": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n+ []\n- [\n-   'comment-01M6Z1GYQHD8Y8HGHQPGRG9END',\n-   'comment-01M6Z1H0JB61H6H9NXWCKT8CV6'\n- ]\n",
+    "actual": [],
+    "expected": [
+      "comment-01M6Z1GYQHD8Y8HGHQPGRG9END",
+      "comment-01M6Z1H0JB61H6H9NXWCKT8CV6"
+    ],
+    "stack": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n+ []\n- [\n-   'comment-01M6Z1GYQHD8Y8HGHQPGRG9END',\n-   'comment-01M6Z1H0JB61H6H9NXWCKT8CV6'\n- ]\n\n    at file://<checkout>/.artifacts/comments-gated-subject.mjs:227:14\n    at async withSecondPerson (file://<checkout>/tests/qualification/ui-convergence/two-people-support.mjs:48:5)\n    at async commentAuthorshipJourney (file://<checkout>/.artifacts/comments-gated-subject.mjs:88:3)\n    at async file://<checkout>/.artifacts/isolate-comments-gated.mjs:29:4\n    at async withWorkspace (file://<checkout>/tests/qualification/ui-convergence/browser-support.mjs:197:7)\n    at async file://<checkout>/.artifacts/isolate-comments-gated.mjs:27:3"
+  }
+]

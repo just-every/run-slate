@@ -1,0 +1,68 @@
+{
+  "schema": 1,
+  "checks": [
+    {
+      "command": "npx -y @runeditrun/rer setup --owner-email fleet@runeditrun.com --non-interactive",
+      "exit": 0,
+      "result": "local setup prepared; rer dev not left running"
+    },
+    {
+      "command": "npx -y @runeditrun/rer build",
+      "exit": 0,
+      "result": "baseline and both historical artifacts built independently"
+    },
+    {
+      "command": "pnpm exec vitest run tests/flagship/content/http.test.ts -t 'content durable HTTP publication, human verification and media enforce current reader authority'",
+      "exit": 0,
+      "passed": 1,
+      "outsideFilterSkipped": 3
+    },
+    {
+      "command": "SLATE_CHROMIUM_PATH=/usr/bin/chromium node --test tests/qualification/ui-convergence/journey-api.test.mjs",
+      "exit": 0,
+      "passed": 3
+    },
+    {
+      "command": "node --test tests/release/*.test.mjs",
+      "exit": 0,
+      "passed": 2
+    },
+    {
+      "command": "pnpm integration:sync",
+      "exit": 0
+    },
+    {
+      "command": "node src/base/runtime/contract-docs.mjs write && node src/base/runtime/contract-docs.mjs check",
+      "exit": 0,
+      "result": "Wrote 0 contract documents; views current; restored ACCEPTANCE.md and docs/CLAIMS.md from origin/main"
+    },
+    {
+      "command": "pnpm source:lock && pnpm source:check",
+      "exit": 0,
+      "result": "regenerated last, checked and committed"
+    },
+    {
+      "command": "node scripts/publish-check.mjs",
+      "exit": 0,
+      "result": "source-publication-inputs passed; not the independent fleet publication scan"
+    },
+    {
+      "command": "git diff --cached --check",
+      "exit": 0
+    },
+    {
+      "command": "python3 cloud-push.py origin cloud/fv-slate-comments-1",
+      "exit": 0,
+      "attempts": 1,
+      "result": "new named branch pushed; no default branch push; no force; identity/trailers checked before push"
+    },
+    {
+      "command": "SLATE_CHROMIUM_PATH=/usr/bin/chromium node --test --test-concurrency=1 --test-name-pattern='^real core-wiki and touch-member journeys at 390px$' tests/qualification/ui-convergence/journeys.test.mjs",
+      "exit": 1,
+      "result": "One registration cancelled by its unchanged 780000ms timeout; COMM-002 passed; later functional steps continued; terminal duration 1003847.603794ms",
+      "log": "full-core-390.log"
+    }
+  ],
+  "invocationCorrection": "An initial transport-check invocation omitted the Chromium path, failed browser launch and hung its local listener; stopped only that owned invocation and reran with the documented path. Corrected result is above.",
+  "fullPlan": "PLAN.md"
+}

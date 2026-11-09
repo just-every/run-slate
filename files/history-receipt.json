@@ -1,0 +1,9 @@
+{
+  "main": "d2e67e449b239aacace820a458866cf81043ca96",
+  "preTransport": "70a1ca379440899480c93f715fb7f7be094bdfc6",
+  "earlierMain": "95a0372f6692b95607cedc7d1f9a0440dc9d3c38",
+  "commentsJourneyUnchangedSince": "e1bd1c0f6b3f98e8027fd11cb021dbe02011c114",
+  "productDiffPreTransportToMain": "",
+  "productDiffEarlierMainToMain": " src/core/features/decisions/successor.ts           | 2 +-\n src/core/features/decisions/ui/DecisionLineage.tsx | 2 +-\n 2 files changed, 2 insertions(+), 2 deletions(-)\n",
+  "limiterTestSeam": "No native limiter bypass/test seam found; all experiments retain product limits."
+}

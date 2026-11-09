@@ -1,0 +1,733 @@
+{
+  "pageId": "01M6Z1QV3V15TZQ4QSA3K5XZS4",
+  "width": 1440,
+  "members": [
+    {
+      "id": "browser-owner",
+      "role": "owner"
+    },
+    {
+      "id": "browser-reader",
+      "role": "member"
+    }
+  ],
+  "records": [
+    {
+      "path": "/api/comments/page/01M6Z1QV3V15TZQ4QSA3K5XZS4",
+      "action": "comments.create",
+      "input": {
+        "operationKey": "f612955e-11dc-48c6-9de9-71e04fc95c3e",
+        "body": [
+          {
+            "text": "Owner handover: confirm the rota."
+          }
+        ]
+      },
+      "result": {
+        "value": {
+          "id": "01M6Z1QX3XATZCQAXHCQKR1CD4",
+          "threadId": "01M6Z1QX3XHFY0DD2XJX98T0ZY",
+          "revisionId": "01M6Z1QX3HX4XW1DYD3YZ4EH0N"
+        },
+        "receipt": {
+          "operationKey": "f612955e-11dc-48c6-9de9-71e04fc95c3e",
+          "entity": {
+            "id": "01M6Z1QX3XHFY0DD2XJX98T0ZY",
+            "kind": "comment-thread",
+            "revisionId": "01M6Z1QX3HX4XW1DYD3YZ4EH0N"
+          },
+          "revisionId": "01M6Z1QX3HX4XW1DYD3YZ4EH0N",
+          "activityId": "01M6Z1QX3HYTJCHHWYBCS1Z6NP",
+          "committedAt": "2026-11-09T02:21:05.511Z"
+        }
+      },
+      "activity": {
+        "id": "01M6Z1QX3HYTJCHHWYBCS1Z6NP",
+        "actor": {
+          "id": "browser-owner",
+          "displayName": "Alex Owner"
+        },
+        "feature": "comments",
+        "action": "comments.create",
+        "target": {
+          "kind": "comment-thread",
+          "id": "01M6Z1QX3XHFY0DD2XJX98T0ZY"
+        },
+        "occurredAt": "2026-11-09T02:21:05.511Z",
+        "operationKey": "f612955e-11dc-48c6-9de9-71e04fc95c3e",
+        "automationRunId": null,
+        "aiRunId": null,
+        "deleted": false,
+        "context": {
+          "pageId": "01M6Z1QV3V15TZQ4QSA3K5XZS4",
+          "commentId": "01M6Z1QX3XATZCQAXHCQKR1CD4",
+          "threadId": "01M6Z1QX3XHFY0DD2XJX98T0ZY"
+        }
+      }
+    },
+    {
+      "path": "/api/comments/page/01M6Z1QV3V15TZQ4QSA3K5XZS4",
+      "action": "comments.create",
+      "input": {
+        "operationKey": "923aaa14-a359-4026-95de-f7e0c85aed56",
+        "threadId": "01M6Z1QX3XHFY0DD2XJX98T0ZY",
+        "body": [
+          {
+            "text": "Member handover: checking the rota."
+          }
+        ]
+      },
+      "result": {
+        "value": {
+          "id": "01M6Z1QYQRYDBDFA6NPYQZEWT1",
+          "threadId": "01M6Z1QX3XHFY0DD2XJX98T0ZY",
+          "revisionId": "01M6Z1QYQHRVYGWRS44DX77DBF"
+        },
+        "receipt": {
+          "operationKey": "923aaa14-a359-4026-95de-f7e0c85aed56",
+          "entity": {
+            "id": "01M6Z1QX3XHFY0DD2XJX98T0ZY",
+            "kind": "comment-thread",
+            "revisionId": "01M6Z1QYQHRVYGWRS44DX77DBF"
+          },
+          "revisionId": "01M6Z1QYQHRVYGWRS44DX77DBF",
+          "activityId": "01M6Z1QYQHJWKK1D1CGQ84V3SA",
+          "committedAt": "2026-11-09T02:21:07.177Z"
+        }
+      },
+      "activity": {
+        "id": "01M6Z1QYQHJWKK1D1CGQ84V3SA",
+        "actor": {
+          "id": "browser-reader",
+          "displayName": "Morgan Reader"
+        },
+        "feature": "comments",
+        "action": "comments.create",
+        "target": {
+          "kind": "comment-thread",
+          "id": "01M6Z1QX3XHFY0DD2XJX98T0ZY"
+        },
+        "occurredAt": "2026-11-09T02:21:07.177Z",
+        "operationKey": "923aaa14-a359-4026-95de-f7e0c85aed56",
+        "automationRunId": null,
+        "aiRunId": null,
+        "deleted": false,
+        "context": {
+          "pageId": "01M6Z1QV3V15TZQ4QSA3K5XZS4",
+          "commentId": "01M6Z1QYQRYDBDFA6NPYQZEWT1",
+          "threadId": "01M6Z1QX3XHFY0DD2XJX98T0ZY"
+        }
+      }
+    },
+    {
+      "path": "/api/comments/01M6Z1QX3XATZCQAXHCQKR1CD4",
+      "action": "comments.edit",
+      "input": {
+        "operationKey": "a413bbde-7edf-4708-874b-263c944f7bb3",
+        "expectedRevisionId": "01M6Z1QX3HX4XW1DYD3YZ4EH0N",
+        "body": [
+          {
+            "text": "Owner handover: rota confirmed."
+          }
+        ]
+      },
+      "result": {
+        "value": {
+          "id": "01M6Z1QX3XATZCQAXHCQKR1CD4",
+          "revisionId": "01M6Z1R4NYYJDF4ZPDZCQ4RYYK"
+        },
+        "receipt": {
+          "operationKey": "a413bbde-7edf-4708-874b-263c944f7bb3",
+          "entity": {
+            "id": "01M6Z1QX3XHFY0DD2XJX98T0ZY",
+            "kind": "comment-thread",
+            "revisionId": "01M6Z1R4NYYJDF4ZPDZCQ4RYYK"
+          },
+          "revisionId": "01M6Z1R4NYYJDF4ZPDZCQ4RYYK",
+          "activityId": "01M6Z1R4NY5R99SWVF75ENPZ7D",
+          "committedAt": "2026-11-09T02:21:13.236Z"
+        }
+      },
+      "activity": {
+        "id": "01M6Z1R4NY5R99SWVF75ENPZ7D",
+        "actor": {
+          "id": "browser-owner",
+          "displayName": "Alex Owner"
+        },
+        "feature": "comments",
+        "action": "comments.edit",
+        "target": {
+          "kind": "comment-thread",
+          "id": "01M6Z1QX3XHFY0DD2XJX98T0ZY"
+        },
+        "occurredAt": "2026-11-09T02:21:13.236Z",
+        "operationKey": "a413bbde-7edf-4708-874b-263c944f7bb3",
+        "automationRunId": null,
+        "aiRunId": null,
+        "deleted": false,
+        "context": {
+          "pageId": "01M6Z1QV3V15TZQ4QSA3K5XZS4",
+          "commentId": "01M6Z1QX3XATZCQAXHCQKR1CD4",
+          "threadId": "01M6Z1QX3XHFY0DD2XJX98T0ZY"
+        }
+      }
+    },
+    {
+      "path": "/api/comments/01M6Z1QYQRYDBDFA6NPYQZEWT1",
+      "action": "comments.edit",
+      "input": {
+        "operationKey": "1a04de48-f9cf-499f-92fb-d15d78cffb31",
+        "expectedRevisionId": "01M6Z1QYQHRVYGWRS44DX77DBF",
+        "body": [
+          {
+            "text": "Member handover: next shift confirmed."
+          }
+        ]
+      },
+      "result": {
+        "value": {
+          "id": "01M6Z1QYQRYDBDFA6NPYQZEWT1",
+          "revisionId": "01M6Z1R80XW2YV02S2E2Y93MP5"
+        },
+        "receipt": {
+          "operationKey": "1a04de48-f9cf-499f-92fb-d15d78cffb31",
+          "entity": {
+            "id": "01M6Z1QX3XHFY0DD2XJX98T0ZY",
+            "kind": "comment-thread",
+            "revisionId": "01M6Z1R80XW2YV02S2E2Y93MP5"
+          },
+          "revisionId": "01M6Z1R80XW2YV02S2E2Y93MP5",
+          "activityId": "01M6Z1R80XG64R1TV9WN0740DN",
+          "committedAt": "2026-11-09T02:21:16.692Z"
+        }
+      },
+      "activity": {
+        "id": "01M6Z1R80XG64R1TV9WN0740DN",
+        "actor": {
+          "id": "browser-reader",
+          "displayName": "Morgan Reader"
+        },
+        "feature": "comments",
+        "action": "comments.edit",
+        "target": {
+          "kind": "comment-thread",
+          "id": "01M6Z1QX3XHFY0DD2XJX98T0ZY"
+        },
+        "occurredAt": "2026-11-09T02:21:16.692Z",
+        "operationKey": "1a04de48-f9cf-499f-92fb-d15d78cffb31",
+        "automationRunId": null,
+        "aiRunId": null,
+        "deleted": false,
+        "context": {
+          "pageId": "01M6Z1QV3V15TZQ4QSA3K5XZS4",
+          "commentId": "01M6Z1QYQRYDBDFA6NPYQZEWT1",
+          "threadId": "01M6Z1QX3XHFY0DD2XJX98T0ZY"
+        }
+      }
+    },
+    {
+      "path": "/api/comments/01M6Z1QX3XATZCQAXHCQKR1CD4",
+      "action": "comments.delete",
+      "input": {
+        "operationKey": "2def476b-ad38-4fb3-b3bf-2aea85a4adba",
+        "expectedRevisionId": "01M6Z1R4NYYJDF4ZPDZCQ4RYYK",
+        "delete": true
+      },
+      "result": {
+        "value": {
+          "id": "01M6Z1QX3XATZCQAXHCQKR1CD4",
+          "revisionId": "01M6Z1RD88YMQJEKYA6CCKZMXH"
+        },
+        "receipt": {
+          "operationKey": "2def476b-ad38-4fb3-b3bf-2aea85a4adba",
+          "entity": {
+            "id": "01M6Z1QX3XHFY0DD2XJX98T0ZY",
+            "kind": "comment-thread",
+            "revisionId": "01M6Z1RD88YMQJEKYA6CCKZMXH"
+          },
+          "revisionId": "01M6Z1RD88YMQJEKYA6CCKZMXH",
+          "activityId": "01M6Z1RD88NZ3WKJ1FFV7H22WK",
+          "committedAt": "2026-11-09T02:21:22.042Z"
+        }
+      },
+      "activity": {
+        "id": "01M6Z1RD88NZ3WKJ1FFV7H22WK",
+        "actor": {
+          "id": "browser-owner",
+          "displayName": "Alex Owner"
+        },
+        "feature": "comments",
+        "action": "comments.delete",
+        "target": {
+          "kind": "comment-thread",
+          "id": "01M6Z1QX3XHFY0DD2XJX98T0ZY"
+        },
+        "occurredAt": "2026-11-09T02:21:22.042Z",
+        "operationKey": "2def476b-ad38-4fb3-b3bf-2aea85a4adba",
+        "automationRunId": null,
+        "aiRunId": null,
+        "deleted": false,
+        "context": {
+          "pageId": "01M6Z1QV3V15TZQ4QSA3K5XZS4",
+          "commentId": "01M6Z1QX3XATZCQAXHCQKR1CD4",
+          "threadId": "01M6Z1QX3XHFY0DD2XJX98T0ZY"
+        }
+      }
+    },
+    {
+      "path": "/api/comments/01M6Z1QYQRYDBDFA6NPYQZEWT1",
+      "action": "comments.delete",
+      "input": {
+        "operationKey": "ffffb4dc-6600-400a-a874-102072d91905",
+        "expectedRevisionId": "01M6Z1R80XW2YV02S2E2Y93MP5",
+        "delete": true
+      },
+      "result": {
+        "value": {
+          "id": "01M6Z1QYQRYDBDFA6NPYQZEWT1",
+          "revisionId": "01M6Z1REJHH0YQYJSQNEHMQVTJ"
+        },
+        "receipt": {
+          "operationKey": "ffffb4dc-6600-400a-a874-102072d91905",
+          "entity": {
+            "id": "01M6Z1QX3XHFY0DD2XJX98T0ZY",
+            "kind": "comment-thread",
+            "revisionId": "01M6Z1REJHH0YQYJSQNEHMQVTJ"
+          },
+          "revisionId": "01M6Z1REJHH0YQYJSQNEHMQVTJ",
+          "activityId": "01M6Z1REJHY819DTRFFTF133K8",
+          "committedAt": "2026-11-09T02:21:23.403Z"
+        }
+      },
+      "activity": {
+        "id": "01M6Z1REJHY819DTRFFTF133K8",
+        "actor": {
+          "id": "browser-reader",
+          "displayName": "Morgan Reader"
+        },
+        "feature": "comments",
+        "action": "comments.delete",
+        "target": {
+          "kind": "comment-thread",
+          "id": "01M6Z1QX3XHFY0DD2XJX98T0ZY"
+        },
+        "occurredAt": "2026-11-09T02:21:23.403Z",
+        "operationKey": "ffffb4dc-6600-400a-a874-102072d91905",
+        "automationRunId": null,
+        "aiRunId": null,
+        "deleted": false,
+        "context": {
+          "pageId": "01M6Z1QV3V15TZQ4QSA3K5XZS4",
+          "commentId": "01M6Z1QYQRYDBDFA6NPYQZEWT1",
+          "threadId": "01M6Z1QX3XHFY0DD2XJX98T0ZY"
+        }
+      }
+    }
+  ],
+  "refusals": [
+    {
+      "actorId": "browser-reader",
+      "commentId": "01M6Z1QX3XATZCQAXHCQKR1CD4",
+      "change": {
+        "body": [
+          {
+            "text": "Cross-author replacement"
+          }
+        ]
+      },
+      "result": {
+        "status": 403,
+        "body": {
+          "code": "FORBIDDEN",
+          "message": "Only the author can edit or delete their comment."
+        }
+      }
+    },
+    {
+      "actorId": "browser-reader",
+      "commentId": "01M6Z1QX3XATZCQAXHCQKR1CD4",
+      "change": {
+        "delete": true
+      },
+      "result": {
+        "status": 403,
+        "body": {
+          "code": "FORBIDDEN",
+          "message": "Only the author can edit or delete their comment."
+        }
+      }
+    },
+    {
+      "actorId": "browser-owner",
+      "commentId": "01M6Z1QYQRYDBDFA6NPYQZEWT1",
+      "change": {
+        "body": [
+          {
+            "text": "Cross-author replacement"
+          }
+        ]
+      },
+      "result": {
+        "status": 403,
+        "body": {
+          "code": "FORBIDDEN",
+          "message": "Only the author can edit or delete their comment."
+        }
+      }
+    },
+    {
+      "actorId": "browser-owner",
+      "commentId": "01M6Z1QYQRYDBDFA6NPYQZEWT1",
+      "change": {
+        "delete": true
+      },
+      "result": {
+        "status": 403,
+        "body": {
+          "code": "FORBIDDEN",
+          "message": "Only the author can edit or delete their comment."
+        }
+      }
+    }
+  ],
+  "retainedEdits": {
+    "comments": {
+      "threads": [
+        {
+          "id": "01M6Z1QX3XHFY0DD2XJX98T0ZY",
+          "workspace_id": "browser-workspace",
+          "page_id": "01M6Z1QV3V15TZQ4QSA3K5XZS4",
+          "kind": "page",
+          "block_id": null,
+          "anchor_json": null,
+          "anchor_revision_id": null,
+          "state": "open",
+          "resolved_at": null,
+          "resolved_by_member_id": null,
+          "created_at": "2026-11-09T02:21:05.511Z",
+          "updated_at": "2026-11-09T02:21:16.692Z",
+          "revision_id": "01M6Z1R80XW2YV02S2E2Y93MP5",
+          "orphaned": 0
+        }
+      ],
+      "comments": [
+        {
+          "id": "01M6Z1QX3XATZCQAXHCQKR1CD4",
+          "threadId": "01M6Z1QX3XHFY0DD2XJX98T0ZY",
+          "parentCommentId": null,
+          "authorMemberId": "browser-owner",
+          "body": [
+            {
+              "text": "Owner handover: rota confirmed."
+            }
+          ],
+          "authorDisplayName": "Alex Owner",
+          "createdAt": "2026-11-09T02:21:05.511Z",
+          "updatedAt": "2026-11-09T02:21:13.236Z",
+          "deletedAt": null,
+          "revisionId": "01M6Z1R4NYYJDF4ZPDZCQ4RYYK"
+        },
+        {
+          "id": "01M6Z1QYQRYDBDFA6NPYQZEWT1",
+          "threadId": "01M6Z1QX3XHFY0DD2XJX98T0ZY",
+          "parentCommentId": null,
+          "authorMemberId": "browser-reader",
+          "body": [
+            {
+              "text": "Member handover: next shift confirmed."
+            }
+          ],
+          "authorDisplayName": "Morgan Reader",
+          "createdAt": "2026-11-09T02:21:07.177Z",
+          "updatedAt": "2026-11-09T02:21:16.692Z",
+          "deletedAt": null,
+          "revisionId": "01M6Z1R80XW2YV02S2E2Y93MP5"
+        }
+      ],
+      "reactions": []
+    },
+    "activity": [
+      {
+        "id": "01M6Z1R80XG64R1TV9WN0740DN",
+        "actor": {
+          "id": "browser-reader",
+          "displayName": "Morgan Reader"
+        },
+        "feature": "comments",
+        "action": "comments.edit",
+        "target": {
+          "kind": "comment-thread",
+          "id": "01M6Z1QX3XHFY0DD2XJX98T0ZY"
+        },
+        "occurredAt": "2026-11-09T02:21:16.692Z",
+        "operationKey": "1a04de48-f9cf-499f-92fb-d15d78cffb31",
+        "automationRunId": null,
+        "aiRunId": null,
+        "deleted": false,
+        "context": {
+          "pageId": "01M6Z1QV3V15TZQ4QSA3K5XZS4",
+          "commentId": "01M6Z1QYQRYDBDFA6NPYQZEWT1",
+          "threadId": "01M6Z1QX3XHFY0DD2XJX98T0ZY"
+        }
+      },
+      {
+        "id": "01M6Z1R4NY5R99SWVF75ENPZ7D",
+        "actor": {
+          "id": "browser-owner",
+          "displayName": "Alex Owner"
+        },
+        "feature": "comments",
+        "action": "comments.edit",
+        "target": {
+          "kind": "comment-thread",
+          "id": "01M6Z1QX3XHFY0DD2XJX98T0ZY"
+        },
+        "occurredAt": "2026-11-09T02:21:13.236Z",
+        "operationKey": "a413bbde-7edf-4708-874b-263c944f7bb3",
+        "automationRunId": null,
+        "aiRunId": null,
+        "deleted": false,
+        "context": {
+          "pageId": "01M6Z1QV3V15TZQ4QSA3K5XZS4",
+          "commentId": "01M6Z1QX3XATZCQAXHCQKR1CD4",
+          "threadId": "01M6Z1QX3XHFY0DD2XJX98T0ZY"
+        }
+      },
+      {
+        "id": "01M6Z1QYQHJWKK1D1CGQ84V3SA",
+        "actor": {
+          "id": "browser-reader",
+          "displayName": "Morgan Reader"
+        },
+        "feature": "comments",
+        "action": "comments.create",
+        "target": {
+          "kind": "comment-thread",
+          "id": "01M6Z1QX3XHFY0DD2XJX98T0ZY"
+        },
+        "occurredAt": "2026-11-09T02:21:07.177Z",
+        "operationKey": "923aaa14-a359-4026-95de-f7e0c85aed56",
+        "automationRunId": null,
+        "aiRunId": null,
+        "deleted": false,
+        "context": {
+          "pageId": "01M6Z1QV3V15TZQ4QSA3K5XZS4",
+          "commentId": "01M6Z1QYQRYDBDFA6NPYQZEWT1",
+          "threadId": "01M6Z1QX3XHFY0DD2XJX98T0ZY"
+        }
+      },
+      {
+        "id": "01M6Z1QX3HYTJCHHWYBCS1Z6NP",
+        "actor": {
+          "id": "browser-owner",
+          "displayName": "Alex Owner"
+        },
+        "feature": "comments",
+        "action": "comments.create",
+        "target": {
+          "kind": "comment-thread",
+          "id": "01M6Z1QX3XHFY0DD2XJX98T0ZY"
+        },
+        "occurredAt": "2026-11-09T02:21:05.511Z",
+        "operationKey": "f612955e-11dc-48c6-9de9-71e04fc95c3e",
+        "automationRunId": null,
+        "aiRunId": null,
+        "deleted": false,
+        "context": {
+          "pageId": "01M6Z1QV3V15TZQ4QSA3K5XZS4",
+          "commentId": "01M6Z1QX3XATZCQAXHCQKR1CD4",
+          "threadId": "01M6Z1QX3XHFY0DD2XJX98T0ZY"
+        }
+      }
+    ]
+  },
+  "deleted": {
+    "comments": {
+      "threads": [
+        {
+          "id": "01M6Z1QX3XHFY0DD2XJX98T0ZY",
+          "workspace_id": "browser-workspace",
+          "page_id": "01M6Z1QV3V15TZQ4QSA3K5XZS4",
+          "kind": "page",
+          "block_id": null,
+          "anchor_json": null,
+          "anchor_revision_id": null,
+          "state": "open",
+          "resolved_at": null,
+          "resolved_by_member_id": null,
+          "created_at": "2026-11-09T02:21:05.511Z",
+          "updated_at": "2026-11-09T02:21:23.403Z",
+          "revision_id": "01M6Z1REJHH0YQYJSQNEHMQVTJ",
+          "orphaned": 0
+        }
+      ],
+      "comments": [
+        {
+          "id": "01M6Z1QX3XATZCQAXHCQKR1CD4",
+          "threadId": "01M6Z1QX3XHFY0DD2XJX98T0ZY",
+          "parentCommentId": null,
+          "authorMemberId": "browser-owner",
+          "body": null,
+          "authorDisplayName": "Alex Owner",
+          "createdAt": "2026-11-09T02:21:05.511Z",
+          "updatedAt": "2026-11-09T02:21:22.042Z",
+          "deletedAt": "2026-11-09T02:21:22.042Z",
+          "revisionId": "01M6Z1RD88YMQJEKYA6CCKZMXH"
+        },
+        {
+          "id": "01M6Z1QYQRYDBDFA6NPYQZEWT1",
+          "threadId": "01M6Z1QX3XHFY0DD2XJX98T0ZY",
+          "parentCommentId": null,
+          "authorMemberId": "browser-reader",
+          "body": null,
+          "authorDisplayName": "Morgan Reader",
+          "createdAt": "2026-11-09T02:21:07.177Z",
+          "updatedAt": "2026-11-09T02:21:23.403Z",
+          "deletedAt": "2026-11-09T02:21:23.403Z",
+          "revisionId": "01M6Z1REJHH0YQYJSQNEHMQVTJ"
+        }
+      ],
+      "reactions": []
+    },
+    "activity": [
+      {
+        "id": "01M6Z1REJHY819DTRFFTF133K8",
+        "actor": {
+          "id": "browser-reader",
+          "displayName": "Morgan Reader"
+        },
+        "feature": "comments",
+        "action": "comments.delete",
+        "target": {
+          "kind": "comment-thread",
+          "id": "01M6Z1QX3XHFY0DD2XJX98T0ZY"
+        },
+        "occurredAt": "2026-11-09T02:21:23.403Z",
+        "operationKey": "ffffb4dc-6600-400a-a874-102072d91905",
+        "automationRunId": null,
+        "aiRunId": null,
+        "deleted": false,
+        "context": {
+          "pageId": "01M6Z1QV3V15TZQ4QSA3K5XZS4",
+          "commentId": "01M6Z1QYQRYDBDFA6NPYQZEWT1",
+          "threadId": "01M6Z1QX3XHFY0DD2XJX98T0ZY"
+        }
+      },
+      {
+        "id": "01M6Z1RD88NZ3WKJ1FFV7H22WK",
+        "actor": {
+          "id": "browser-owner",
+          "displayName": "Alex Owner"
+        },
+        "feature": "comments",
+        "action": "comments.delete",
+        "target": {
+          "kind": "comment-thread",
+          "id": "01M6Z1QX3XHFY0DD2XJX98T0ZY"
+        },
+        "occurredAt": "2026-11-09T02:21:22.042Z",
+        "operationKey": "2def476b-ad38-4fb3-b3bf-2aea85a4adba",
+        "automationRunId": null,
+        "aiRunId": null,
+        "deleted": false,
+        "context": {
+          "pageId": "01M6Z1QV3V15TZQ4QSA3K5XZS4",
+          "commentId": "01M6Z1QX3XATZCQAXHCQKR1CD4",
+          "threadId": "01M6Z1QX3XHFY0DD2XJX98T0ZY"
+        }
+      },
+      {
+        "id": "01M6Z1R80XG64R1TV9WN0740DN",
+        "actor": {
+          "id": "browser-reader",
+          "displayName": "Morgan Reader"
+        },
+        "feature": "comments",
+        "action": "comments.edit",
+        "target": {
+          "kind": "comment-thread",
+          "id": "01M6Z1QX3XHFY0DD2XJX98T0ZY"
+        },
+        "occurredAt": "2026-11-09T02:21:16.692Z",
+        "operationKey": "1a04de48-f9cf-499f-92fb-d15d78cffb31",
+        "automationRunId": null,
+        "aiRunId": null,
+        "deleted": false,
+        "context": {
+          "pageId": "01M6Z1QV3V15TZQ4QSA3K5XZS4",
+          "commentId": "01M6Z1QYQRYDBDFA6NPYQZEWT1",
+          "threadId": "01M6Z1QX3XHFY0DD2XJX98T0ZY"
+        }
+      },
+      {
+        "id": "01M6Z1R4NY5R99SWVF75ENPZ7D",
+        "actor": {
+          "id": "browser-owner",
+          "displayName": "Alex Owner"
+        },
+        "feature": "comments",
+        "action": "comments.edit",
+        "target": {
+          "kind": "comment-thread",
+          "id": "01M6Z1QX3XHFY0DD2XJX98T0ZY"
+        },
+        "occurredAt": "2026-11-09T02:21:13.236Z",
+        "operationKey": "a413bbde-7edf-4708-874b-263c944f7bb3",
+        "automationRunId": null,
+        "aiRunId": null,
+        "deleted": false,
+        "context": {
+          "pageId": "01M6Z1QV3V15TZQ4QSA3K5XZS4",
+          "commentId": "01M6Z1QX3XATZCQAXHCQKR1CD4",
+          "threadId": "01M6Z1QX3XHFY0DD2XJX98T0ZY"
+        }
+      },
+      {
+        "id": "01M6Z1QYQHJWKK1D1CGQ84V3SA",
+        "actor": {
+          "id": "browser-reader",
+          "displayName": "Morgan Reader"
+        },
+        "feature": "comments",
+        "action": "comments.create",
+        "target": {
+          "kind": "comment-thread",
+          "id": "01M6Z1QX3XHFY0DD2XJX98T0ZY"
+        },
+        "occurredAt": "2026-11-09T02:21:07.177Z",
+        "operationKey": "923aaa14-a359-4026-95de-f7e0c85aed56",
+        "automationRunId": null,
+        "aiRunId": null,
+        "deleted": false,
+        "context": {
+          "pageId": "01M6Z1QV3V15TZQ4QSA3K5XZS4",
+          "commentId": "01M6Z1QYQRYDBDFA6NPYQZEWT1",
+          "threadId": "01M6Z1QX3XHFY0DD2XJX98T0ZY"
+        }
+      },
+      {
+        "id": "01M6Z1QX3HYTJCHHWYBCS1Z6NP",
+        "actor": {
+          "id": "browser-owner",
+          "displayName": "Alex Owner"
+        },
+        "feature": "comments",
+        "action": "comments.create",
+        "target": {
+          "kind": "comment-thread",
+          "id": "01M6Z1QX3XHFY0DD2XJX98T0ZY"
+        },
+        "occurredAt": "2026-11-09T02:21:05.511Z",
+        "operationKey": "f612955e-11dc-48c6-9de9-71e04fc95c3e",
+        "automationRunId": null,
+        "aiRunId": null,
+        "deleted": false,
+        "context": {
+          "pageId": "01M6Z1QV3V15TZQ4QSA3K5XZS4",
+          "commentId": "01M6Z1QX3XATZCQAXHCQKR1CD4",
+          "threadId": "01M6Z1QX3XHFY0DD2XJX98T0ZY"
+        }
+      }
+    ]
+  }
+}

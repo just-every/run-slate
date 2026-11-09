@@ -1,0 +1,8 @@
+# Plan: fv-slate-comments-1
+
+1. Read launcher/repository rules and record main history since 67b70648. Inspect the precise COMM-002 failing assertion, delete receipts, actor transport, snapshot ordering, and comments rendering.
+2. Build the unchanged current product. Run isolated native two-author comments journeys repeatedly at 390. Compare pre-timeout-6 main (d2e67e44^) and 95a0372f with the same unchanged product. Check for an existing limiter test seam; preserve production limits.
+3. Use a test-only controlled response gate to reproduce the suspected render race deterministically without delaying deletion or replacing product responses. Record persisted rows and the rendered inventory before and after release.
+4. Change only the cause in COMM-002: wait for the visible returned tombstones before reading their exact chronological DOM inventory. Keep mutation receipts, actor transport, authority/refusal/replay assertions, CI shape and timeouts intact.
+5. Verify the controlled regression, natural repeated comments runs, native HTTP acceptance, transport checks, and browser proof at 1440 and 390. Update only COMM-002 evidence if needed, regenerate contract views and check, restore generated views from origin/main, sync integration, lock source last and run source checks.
+6. Review identities/messages and product diff, commit with fleet identity/hooks, push cloud/fv-slate-comments-1 using the guard, and watch exact-SHA Verify through REST within ten calls. Publish the complete non-secret packet separately to evidence/fv-slate-comments-1. Report cause, counts, status, run IDs and custody.

@@ -1,0 +1,10 @@
+✔ public fixture policy preserves every reviewed archive (1625.44256ms)
+✔ operations inspect input readiness without claiming provider readiness (171.246566ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1920.709519

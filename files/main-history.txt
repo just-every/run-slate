@@ -1,0 +1,9 @@
+d2e67e44 Share actor request budgets across sharing journey probes
+70a1ca37 Merge current main into DEC-003 candidate
+cd96dd47 DEC-003 done: its gate passed (lander status flip)
+3b120c35 Regenerate contract views from CONTRACT.md
+5bfd0e7a Complete default decision immutability proof with visible stale log evidence
+556e948f Retain immutable decision snapshots under supersession receipt replay [skip ci]
+e7bda0b0 Align decision proof metadata with existing Verify reports and bind receipts to builds
+1e54a11f Prove immutable decisions and restricted two-way lineage through native controls
+ee9fcb49 Fix default decision lineage and stale-evidence replacement preparation [skip ci]

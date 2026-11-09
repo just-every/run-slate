@@ -1,0 +1,102 @@
+{
+  "schema": 1,
+  "repository": "just-every/run-slate",
+  "branch": "cloud/fv-slate-comments-1",
+  "head": "0b55774db7e7454174c6d7474ba46b4cf55f820f",
+  "push": {
+    "attempts": 1,
+    "status": "published",
+    "log": "product-push.log"
+  },
+  "changes": [
+    "tests/qualification/ui-convergence/comments-journey.mjs",
+    "tests/requirements/cli-journey.md",
+    "sources.lock.json"
+  ],
+  "clauseStatusChanges": [],
+  "clause": "COMM-002",
+  "statusBefore": "done",
+  "statusAfter": "done",
+  "beforeCounts": {
+    "core": [
+      59,
+      238,
+      35,
+      332
+    ],
+    "agentSurface": [
+      0,
+      0,
+      6,
+      6
+    ],
+    "fullTarget": [
+      59,
+      238,
+      41,
+      338
+    ]
+  },
+  "afterCounts": {
+    "core": [
+      59,
+      238,
+      35,
+      332
+    ],
+    "agentSurface": [
+      0,
+      0,
+      6,
+      6
+    ],
+    "fullTarget": [
+      59,
+      238,
+      41,
+      338
+    ]
+  },
+  "cause": "b: pre-existing load-sensitive harness render race",
+  "controlledBefore": {
+    "revisions": 3,
+    "emptyDOMFailures": 3,
+    "durableDeletedRecordsPerRun": 2
+  },
+  "controlledAfter": {
+    "passes": 1,
+    "emptyBeforeDelivery": true,
+    "tombstonesAfterDelivery": 2
+  },
+  "fixedNatural": {
+    "passes": 3,
+    "width": 390
+  },
+  "exactCandidateBrowser": {
+    "widths": [
+      1440,
+      390
+    ],
+    "passes": 2,
+    "seriousOrCriticalAxeViolations": 0
+  },
+  "PR": null,
+  "landing": "not performed; fleet custody",
+  "verify": {
+    "runId": 42550265520,
+    "head": "0b55774db7e7454174c6d7474ba46b4cf55f820f",
+    "status": "completed",
+    "conclusion": "success",
+    "url": "https://github.com/just-every/run-slate/actions/runs/42550265520"
+  },
+  "additionalFullPhone": {
+    "exit": 1,
+    "cancelled": 1,
+    "timeoutMs": 780000,
+    "terminalDurationMs": 1003847.603794,
+    "commentsPassedBeforeDeadline": true,
+    "log": "full-core-390.log"
+  },
+  "custody": "READY product branch; no landing performed",
+  "blockers": []
+}

@@ -1,0 +1,316 @@
+diff --git a/tests/qualification/ui-convergence/browser-support.mjs b/tests/qualification/ui-convergence/browser-support.mjs
+index 502a18df..31467bcb 100644
+--- a/tests/qualification/ui-convergence/browser-support.mjs
++++ b/tests/qualification/ui-convergence/browser-support.mjs
+@@ -1,3 +1,4 @@
++import { api as journeyApi, registerActor, useActor } from './journey-api.mjs';
+ import {transferControl} from '../../helpers/transfer-storage-gate.mjs';
+ import {initializeEmbedEdge,readEmbedRequests} from '../../helpers/embed-edge.mjs';
+ import { initializeWebhookEdge, setWebhookFailure } from '../../helpers/webhook-edge.mjs';
+@@ -6,7 +7,7 @@ import assert from 'node:assert/strict';
+ import { inbox, newOutboxLink, signInWithOutbox } from '../../e2e/outbox-auth.mjs';
+ import { cp, mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
+ import path from 'node:path';
+-import { chromium, expect, request } from '@playwright/test';
++import { chromium, expect } from '@playwright/test';
+ import { applyMigrations, executeD1, root, stop, testSessionSecret } from '../../e2e/runtime-harness.mjs';
+ import { startShellWorker } from '../release-shell/runtime.mjs';
+ import { accessible, insideViewport, withinViewport } from './browser-evidence.mjs';
+@@ -75,13 +76,17 @@ export async function withWorkspace(viewport, profile, run, overrides = {}, { sc
+     const ownerSession=await signInWithOutbox(runtime.baseUrl,ownerEmail);
+     const readerSession=await signInWithOutbox(runtime.baseUrl,readerEmail);
+     const token=ownerSession.cookie.split('=')[1];let readerToken=readerSession.cookie.split('=')[1];
++    registerActor(runtime.baseUrl, ownerSession.cookie, 'browser-owner');
++    registerActor(runtime.baseUrl, readerSession.cookie, 'browser-reader');
+     // Software raster, one raster thread, fixed colour and text handling: captures of the same page match across browser launches.
+     const rasterArgs = ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--disable-gpu-rasterization', '--disable-lcd-text', '--font-render-hinting=none', '--force-color-profile=srgb', '--num-raster-threads=1', '--disable-partial-raster', '--disable-skia-runtime-opts'];
+     browser = await chromium.launch({ headless: true, ...(process.env.SLATE_CHROMIUM_PATH ? { executablePath: process.env.SLATE_CHROMIUM_PATH } : {}), args: ['--no-sandbox', '--use-mock-keychain', '--password-store=basic', ...rasterArgs] });
+     const context = await browser.newContext({ viewport, permissions: ['clipboard-read', 'clipboard-write'], locale: 'en-US' });
+     if (saml) await installSamlIdp(context, state, runtime.baseUrl);
+     await context.addCookies([{ name: 'slate_session', value: token, url: runtime.baseUrl }]);
+-    const timeline = requestTimeline(context), otherTimelines = [];
++    await useActor(context, runtime.baseUrl);
++    requestTimeline(context);
++    const otherTimelines = [];
+     const page = await context.newPage();
+     context.on('request', request => {
+       if (request.method() === 'POST' && /\/api\/(ai\/ask|inquiries\/ask)/.test(request.url())) modelRequests.push(request.url());
+@@ -118,28 +123,15 @@ export async function withWorkspace(viewport, profile, run, overrides = {}, { sc
+     page.on('console', message => { if (message.type() === 'error') consoleErrors.push({ url: page.url(), message: message.text() }); });
+     page.on('pageerror', cause => consoleErrors.push({ url: page.url(), message: String(cause) }));
+     const api = async (route, options = {}) => {
+-      // Own the transport as call() does: Connection: close alone can still
+-      // select a pooled socket that the local proxy has already closed.
+-      const transport = await request.newContext({ storageState: await context.storageState() });
+-      const observation = timeline.start('GET', runtime.baseUrl + route);
+-      try {
+-        const response = await transport.get(runtime.baseUrl + route, { ...options, maxRetries: 0 });
+-        timeline.answered(observation, response.status());
+-        assert.equal(response.status(), 200, await response.text());
+-        const value = await response.json();
+-        timeline.answered(observation, response.status(), value);
+-        network.push({ url: runtime.baseUrl + route, method: 'GET', status: response.status(), responseBody: value });
+-        return value;
+-      } catch (cause) {
+-        if (observation.status === 'pending') timeline.failed(observation, cause);
+-        throw cause;
+-      } finally {
+-        await transport.dispose();
+-      }
++      const result = await journeyApi(context, runtime.baseUrl, 'GET', route, undefined, options);
++      assert.equal(result.status, 200, JSON.stringify(result.body));
++      network.push({ url: runtime.baseUrl + route, method: 'GET', status: result.status, responseBody: result.body });
++      return result.body;
+     };
+     const switchIdentity = async identity => {
+       await context.clearCookies();
+       await context.addCookies([{ name: 'slate_session', value: identity === 'reader' ? readerToken : token, url: runtime.baseUrl }]);
++      await useActor(context, runtime.baseUrl);
+     };
+     const records = async () => {
+       // Unmount the page before the deliberate Worker restart so background
+@@ -194,7 +186,7 @@ export async function withWorkspace(viewport, profile, run, overrides = {}, { sc
+       assert.equal(response.status, 200, await response.text());
+     };
+     try {
+-      await run({otherTimelines, transferGate:(action,method)=>transferControl(runtime.child,action,method), readEmbedRequests:()=>readEmbedRequests(state), page, context, origin: runtime.baseUrl, api, records, atRest, fixtureSql, runScheduled, switchIdentity, modelRequests, get readerCookie(){return `slate_session=${readerToken}`;}, refreshReaderIdentity:async()=>{readerToken=(await signInWithOutbox(runtime.baseUrl,readerEmail)).cookie.split('=')[1];},
++      await run({otherTimelines, transferGate:(action,method)=>transferControl(runtime.child,action,method), readEmbedRequests:()=>readEmbedRequests(state), page, context, origin: runtime.baseUrl, api, records, atRest, fixtureSql, runScheduled, switchIdentity, modelRequests, get readerCookie(){return `slate_session=${readerToken}`;}, refreshReaderIdentity:async()=>{const session=await signInWithOutbox(runtime.baseUrl,readerEmail);registerActor(runtime.baseUrl,session.cookie,'browser-reader');readerToken=session.cookie.split('=')[1];},
+         assertNoConsoleErrors: () => assert.deepEqual(consoleErrors, [], 'The browser must have no console errors or uncaught page errors.'),
+         ...(webhooks ? {setWebhookFailure:failure=>setWebhookFailure(state,failure)} : {}),
+         ...(backups ? { setS3Failure: failure => setS3Failure(state, failure), readS3Requests: () => readS3Requests(state), readS3Objects: () => readS3Objects(state) } : {}),
+@@ -238,6 +230,7 @@ export async function setupWorkspace({ page, context, origin, api, records }) {
+     const view = await context.browser().newContext({ viewport: page.viewportSize() });
+     try {
+       if (cookie) await view.addCookies([{ name: 'slate_session', value: cookie.split('=')[1], url: origin }]);
++      await useActor(view, origin);
+       await run(view, await view.newPage());
+     } finally { await view.close(); }
+   };
+@@ -251,8 +244,8 @@ export async function setupWorkspace({ page, context, origin, api, records }) {
+       await visitor.goto(origin + '/setup', { waitUntil: 'networkidle' });
+       assert.equal(new URL(visitor.url()).pathname, '/signin');
+       await expect(visitor.getByRole('heading', { name: 'Name this workspace', exact: true })).toHaveCount(0);
+-      assert.equal((await view.request.get(origin + '/api/workspace/first-run')).status(), 401);
+-      assert.equal((await view.request.post(origin + '/api/workspace/first-run', { headers: { origin }, data: completion() })).status(), 401);
++      assert.equal((await journeyApi(view, origin, 'GET', '/api/workspace/first-run')).status, 401);
++      assert.equal((await journeyApi(view, origin, 'POST', '/api/workspace/first-run', completion())).status, 401);
+     });
+   }
+   for (const route of ['/app', '/app/search', '/app/settings']) {
+@@ -307,21 +300,23 @@ export async function setupWorkspace({ page, context, origin, api, records }) {
+   await accessible(page, 'first page');
+   assert.deepEqual(await api('/api/workspace/first-run'), { required: false, canComplete: false });
+   const before = await api('/api/workspace');
+-  const repeat = await context.request.post(origin + '/api/workspace/first-run', { headers: { origin }, data: completion() });
+-  assert.equal(repeat.status(), 409, 'A new completion cannot create another initial space or page.');
++  const repeat = await journeyApi(context, origin, 'POST', '/api/workspace/first-run', completion());
++  assert.equal(repeat.status, 409, 'A new completion cannot create another initial space or page.');
+   assert.deepEqual(await api('/api/workspace'), before);
+   // A genuinely new native session for a later member must never inherit the
+   // owner's wizard, including on a direct setup URL after a reload.
+   const laterEmail = ['later-' + crypto.randomUUID(), 'test.invalid'].join('@');
+   const mail = await inbox(origin);
+-  const invite = await context.request.post(origin + '/api/invitations', { headers: { origin }, data: { operationKey: crypto.randomUUID(), email: laterEmail, kind: 'member' } });
+-  assert.equal(invite.status(), 200);
++  const invite = await journeyApi(context, origin, 'POST', '/api/invitations', { operationKey: crypto.randomUUID(), email: laterEmail, kind: 'member' });
++  assert.equal(invite.status, 200);
+   const link = new URL(await newOutboxLink(origin, mail));
+   const accepted = await fetch(origin + '/api/auth/invitation/accept', { method: 'POST', redirect: 'manual', headers: { origin, 'content-type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams({ token: link.searchParams.get('token') }) });
+   assert.equal(accepted.status, 303);
+   const laterCookie = accepted.headers.get('set-cookie').split(';', 1)[0];
+   await freshView(laterCookie, async (view, member) => {
+-    const session = await (await view.request.get(origin + '/api/session')).json();
++    const session = (await journeyApi(view, origin, 'GET', '/api/session')).body;
++    registerActor(origin, laterCookie, session.member.id);
++    await useActor(view, origin);
+     assert.equal(session.member.email, laterEmail);
+     assert.equal(session.member.role, 'member');
+     for (const route of ['/app', '/setup']) {
+@@ -332,8 +327,8 @@ export async function setupWorkspace({ page, context, origin, api, records }) {
+       await member.reload({ waitUntil: 'networkidle' });
+       assert.equal(new URL(member.url()).pathname, '/app');
+     }
+-    assert.deepEqual(await (await view.request.get(origin + '/api/workspace/first-run')).json(), { required: false, canComplete: false });
+-    assert.equal((await view.request.post(origin + '/api/workspace/first-run', { headers: { origin }, data: completion() })).status(), 403);
++    assert.deepEqual((await journeyApi(view, origin, 'GET', '/api/workspace/first-run')).body, { required: false, canComplete: false });
++    assert.equal((await journeyApi(view, origin, 'POST', '/api/workspace/first-run', completion())).status, 403);
+   });
+   await page.goto(origin + '/setup', { waitUntil: 'networkidle' });
+   assert.equal(new URL(page.url()).pathname, '/app', 'Completed owners return to their workspace.');
+diff --git a/tests/qualification/ui-convergence/journey-api.mjs b/tests/qualification/ui-convergence/journey-api.mjs
+new file mode 100644
+index 00000000..331f70c5
+--- /dev/null
++++ b/tests/qualification/ui-convergence/journey-api.mjs
+@@ -0,0 +1,89 @@
++import assert from 'node:assert/strict';
++import { createHash } from 'node:crypto';
++import { JourneyRequestBudget } from './journey-request-budget.mjs';
++import { request } from '@playwright/test';
++import { requestTimeline } from './request-timeline.mjs';
++
++const actors = new Map(), queues = new Map();
++
++function queueFor(origin, ip) {
++  const key = origin + '\n' + ip;
++  if (!queues.has(key)) queues.set(key, { tail: Promise.resolve(), budget: new JourneyRequestBudget() });
++  return queues.get(key);
++}
++
++/** Keep one person's native session on one synthetic documentation address. */
++export function registerActor(origin, cookie, memberId) {
++  actors.set(origin + '\n' + cookie.split('=')[1], address(memberId));
++}
++
++function address(identity) {
++  const hex = createHash('sha256').update(identity).digest('hex').slice(0, 24);
++  return '2001:db8:' + hex.match(/.{4}/g).join(':');
++}
++
++async function actor(context, origin, headers = {}) {
++  const supplied = new Headers(headers).get('cookie');
++  const cookie = supplied === null
++    ? (await context.cookies(origin)).find(item => item.name === 'slate_session')?.value ?? 'anonymous'
++    : supplied.match(/(?:^|;\s*)slate_session=([^;]*)/)?.[1] ?? 'anonymous';
++  return actors.get(origin + '\n' + cookie) ?? address(cookie);
++}
++
++/** Native browser traffic and probes carry the same actor IP, including identity switches. */
++export async function useActor(context, origin) {
++  const ip = await actor(context, origin);
++  await context.setExtraHTTPHeaders({ 'cf-connecting-ip': ip });
++}
++
++/** The extended matrix unmounts its owner; retain 100 requests of headroom even then. */
++export async function idleActorBudget(context, origin) {
++  assert.ok(context.pages().every(page => page.url() === 'about:blank'), 'The larger diagnostic budget requires an unmounted actor');
++  const budget = queueFor(origin, await actor(context, origin)).budget;
++  const previous = budget.refillEveryMs;
++  budget.refillEveryMs = 150; // 100 burst + 400/minute = at most 500 probes.
++  return () => { budget.refillEveryMs = previous; };
++}
++
++/**
++ * One transport for journey probes, including call()/ok() and snapshot reads.
++ * Serialize each actor's probes so snapshot fan-out is one. A burst of 100
++ * plus five refills/second allows at most 400 probes in any rolling minute,
++ * leaving 200 of the native 600 requests for that actor's browser work.
++ * Light traffic is immediate; a spent budget waits before dispatch, never after
++ * a 429. No response is retried and the product limiter is unchanged.
++ */
++export async function api(context, origin, method, route, data, options = {}) {
++  await useActor(context, origin);
++  const ip = await actor(context, origin, options.headers);
++  const queue = queueFor(origin, ip);
++  const run = queue.tail.then(async () => {
++    // Own the transport: an idle pooled socket may have been closed by the
++    // local proxy. Retain real cookies and dispose it after this one request.
++    const transport = await request.newContext({ storageState: await context.storageState() });
++    await queue.budget.reserve();
++    const timeline = requestTimeline(context), observation = timeline.start(method, origin + route);
++    try {
++      const response = await transport.fetch(origin + route, {
++        ...options, method,
++        headers: { origin, 'content-type': 'application/json', ...Object.fromEntries(new Headers(options.headers)), 'cf-connecting-ip': ip },
++        ...(data === undefined ? {} : { data: JSON.stringify(data) }), maxRetries: 0,
++      });
++      timeline.answered(observation, response.status());
++      const text = await response.text();
++      let body;
++      try { body = text ? JSON.parse(text) : undefined; } catch { body = text; }
++      timeline.answered(observation, response.status(), body);
++      const retryAfter = response.headers()['retry-after'];
++      return { status: response.status(), body, ...(retryAfter === undefined ? {} : { retryAfter }) };
++    } catch (cause) {
++      if (observation.status === 'pending') timeline.failed(observation, cause);
++      throw cause;
++    } finally {
++      await transport.dispose();
++    }
++  });
++  // A refused or failed probe must not poison later independent assertions.
++  queue.tail = run.then(() => {}, () => {});
++  return run;
++}
+diff --git a/tests/qualification/ui-convergence/journey-request-budget.mjs b/tests/qualification/ui-convergence/journey-request-budget.mjs
+new file mode 100644
+index 00000000..ad906d8d
+--- /dev/null
++++ b/tests/qualification/ui-convergence/journey-request-budget.mjs
+@@ -0,0 +1,25 @@
++import { setTimeout as delay } from 'node:timers/promises';
++
++/** 100 immediate probes plus 300 refills/minute leave 200 of the native 600 for browser work. */
++export class JourneyRequestBudget {
++  constructor({ now = () => performance.now(), wait = delay, refillEveryMs = 200 } = {}) {
++    this.now = now;
++    this.wait = wait;
++    this.refillEveryMs = refillEveryMs;
++    this.updated = now();
++    this.tokens = 100;
++  }
++
++  async reserve() {
++    for (;;) {
++      const now = this.now();
++      this.tokens = Math.min(100, this.tokens + (now - this.updated) / this.refillEveryMs);
++      this.updated = now;
++      if (this.tokens >= 1) {
++        this.tokens--;
++        return;
++      }
++      await this.wait(Math.ceil((1 - this.tokens) * this.refillEveryMs));
++    }
++  }
++}
+diff --git a/tests/qualification/ui-convergence/two-people-support.mjs b/tests/qualification/ui-convergence/two-people-support.mjs
+index bc42afc2..59a771b6 100644
+--- a/tests/qualification/ui-convergence/two-people-support.mjs
++++ b/tests/qualification/ui-convergence/two-people-support.mjs
+@@ -1,8 +1,9 @@
++import { api, useActor } from './journey-api.mjs';
+ import assert from 'node:assert/strict';
+ import { randomUUID } from 'node:crypto';
+ import { mkdir, writeFile } from 'node:fs/promises';
+ import path from 'node:path';
+-import { expect, request } from '@playwright/test';
++import { expect } from '@playwright/test';
+ import { root } from '../../e2e/runtime-harness.mjs';
+ import { apiErrorDiagnostics } from './error-diagnostics.mjs';
+ import { requestTimeline, timelineContext } from './request-timeline.mjs';
+@@ -18,6 +19,7 @@ export async function withSecondPerson(state, width, run) {
+   const viewport = { width, height: width === 1440 ? 1000 : 844 };
+   const context = await state.context.browser().newContext({ viewport, permissions: ['clipboard-read', 'clipboard-write'], locale: 'en-US' });
+   await context.addCookies([{ name: 'slate_session', value: state.readerCookie.split('=')[1], url: state.origin }]);
++  await useActor(context, state.origin);
+   requestTimeline(context);
+   const errors = [];
+   const page = await context.newPage();
+@@ -59,26 +61,7 @@ export async function withSecondPerson(state, width, run) {
+ 
+ /** A mutation through the person's own session, as the browser would send it. */
+ export async function call(context, origin, method, route, data) {
+-  // Connection: close still lets Playwright select an already pooled socket.
+-  // Own and dispose the transport for each call, retaining the person's current
+-  // authentication without carrying idle connections across browser actions.
+-  const transport = await request.newContext({ storageState: await context.storageState() });
+-  const timeline = requestTimeline(context), observation = timeline.start(method, origin + route);
+-  try {
+-    const response = await transport.fetch(origin + route, { method, headers: { origin, 'content-type': 'application/json' }, data: data === undefined ? undefined : JSON.stringify(data), maxRetries: 0 });
+-    timeline.answered(observation, response.status());
+-    const text = await response.text();
+-    let body;
+-    try { body = text ? JSON.parse(text) : undefined; } catch { body = text; }
+-    timeline.answered(observation, response.status(), body);
+-    const retryAfter = response.headers()['retry-after'];
+-    return { status: response.status(), body, ...(retryAfter === undefined ? {} : { retryAfter }) };
+-  } catch (cause) {
+-    if (observation.status === 'pending') timeline.failed(observation, cause);
+-    throw cause;
+-  } finally {
+-    await transport.dispose();
+-  }
++  return api(context, origin, method, route, data);
+ }
+ 
+ export async function ok(context, origin, method, route, data) {

@@ -1,0 +1,17 @@
+d2e67e44 2026-11-08T22:35:50Z Share actor request budgets across sharing journey probes
+70a1ca37 2026-11-09T07:35:45+10:00 Merge current main into DEC-003 candidate
+95a0372f 2026-11-09T06:45:59+10:00 Regenerate contract views from CONTRACT.md
+db780e55 2026-11-08T19:59:35Z Bound responsive sharing inventories under the native request limit
+6a6232f3 2026-11-09T02:57:58+10:00 DEC-004 done: its gate passed (lander status flip)
+44ff19a4 2026-11-09T02:57:57+10:00 Regenerate contract views from CONTRACT.md
+cd96dd47 2026-11-09T02:24:48+10:00 DEC-003 done: its gate passed (lander status flip)
+3b120c35 2026-11-09T02:24:47+10:00 Regenerate contract views from CONTRACT.md
+5bfd0e7a 2026-11-08T14:57:42Z Complete default decision immutability proof with visible stale log evidence
+556e948f 2026-11-08T14:56:54Z Retain immutable decision snapshots under supersession receipt replay [skip ci]
+e7bda0b0 2026-11-08T14:10:39Z Align decision proof metadata with existing Verify reports and bind receipts to builds
+1e54a11f 2026-11-08T13:39:05Z Prove immutable decisions and restricted two-way lineage through native controls
+e52be2b6 2026-11-08T13:33:59Z Bind decision log browser receipts to the verified source
+d5ef1e39 2026-11-08T13:29:31Z Disambiguate proposal prose and retain suite evidence boundaries [skip ci]
+ee9fcb49 2026-11-08T13:28:51Z Fix default decision lineage and stale-evidence replacement preparation [skip ci]
+1990c5c9 2026-11-08T13:25:18Z Keep decision profile boundary in contract requirement [skip ci]
+43f9064c 2026-11-08T13:24:48Z Prove populated native decision log in default profile [skip ci]
