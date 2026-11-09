@@ -11944,7 +11944,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/comments-journey.mjs": {
-      "sha256": "dc70ca58e6c469eb47e699a33874a4a566b65bde18098fec475d107891fb9b7d",
+      "sha256": "06345ea65f18fd84a8ce3baa96019246063bc838486870c284d9c0ac8328fe50",
       "executable": false
     },
     "tests/qualification/ui-convergence/container-grants-journey.mjs": {
@@ -12488,7 +12488,7 @@
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
-      "sha256": "5b1eab0889e90018b6f69b9d55ce436016541084d46fb656b9fdc2df11ec49db",
+      "sha256": "a1784f99a7c0ecba35f4360614ce66a02009c1bb7d0fd2d4a64ecbc34f5c71a5",
       "executable": false
     },
     "tests/requirements/count-registrations.mjs": {
