@@ -1,3 +1,4 @@
+import { useActor } from './journey-api.mjs';
 import assert from 'node:assert/strict';
 import {randomUUID} from 'node:crypto';
 import {call,ok} from './two-people-support.mjs';
@@ -21,6 +22,7 @@ export async function beginTouchJourney(state,width,{writePage=true}={}) {
   try {
     await policies({...workspace.policies,'page.lifecycle.v1':'draft-then-publish'});
     await context.addCookies([{name:'slate_session',value:state.readerCookie.split('=')[1],url:state.origin}]);
+    await useActor(context,state.origin);
     const page=await context.newPage();
     page.on('pageerror',cause=>errors.push(String(cause)));
     page.on('response',response=>{if(response.status()>=400)errors.push(`${new URL(response.url()).pathname}: ${response.status()}`);});
