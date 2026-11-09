@@ -59,18 +59,6 @@ The 11:36:41 UTC job metadata read confirms app job **129132289811** failed only
 
 The final verification build record names the exact pushed commit and tested tree; its source and lock digests match the native proof. Native and final verification output identities also match exactly. `candidate-build-source.json` retains the actual post-commit build record.
 
-
-## Terminal outcome and custody
-
-**READY under the stated generated-view exemption**, with **no remaining product blocker**. The actual hosted conclusion is failure; it is not called a hosted success. The local `pnpm verify` succeeds on the exact pushed SHA. App job 129132289811's single failed-log read succeeded and names ACCEPTANCE.md only. The aggregate guard fails because the app failed, and downstream suites are skipped, not presented as passing. Four GitHub calls were used, all more than 300 seconds apart, including discovery and diagnostics. No failed archive request was retried.
-
-Full product and test provenance is in product-receipt.json, product-push.log, source-stability.json, candidate-build-source.json, native-dec006.json/log, the per-width native receipts and screens, ci-receipt.json, and outcome.json. Complete command outputs are retained, with secret values/private local links removed. The explicit reviewed selection is publication-selection.json. This packet contains no raw workspace network report, credentials, environment dump, private held-out gate material or symlink. It is sent only to `refs/heads/evidence/sd-slate-c-f212-fix3`; the terminal EVIDENCE line supplies its exact transport head. Evidence transport alone does not establish READY, acceptance or landing.
-
-Cleanup is the final operation after successful evidence custody: remove this task's product clone and node_modules. All test-owned browsers and live Worker/server processes have already closed. The final terminal message confirms actual cleanup. The packet remains outside the clone under `$HOME/rer-consolidation/work/sd-slate-c-f212-fix3/packet/`.
-
-POST lanes/sd/INBOX.md: sd-slate-c-f212-fix3 DEC-006 split into independent 390/1440 registrations; main core deadlines restored 780000/720000; native 2/2 and local verify green; owner peaks 120/113 per minute; ordinary cases 196->198 <=200; DEC-006 partial->partial, counts 59/238/41 unchanged; pushed a570985d38a47cb95075fb6e530b2f7b669e8bdd; Verify 42609007374 generated-ACCEPTANCE-only red, READY exemption; no landing claim.
-
-
 ## Terminal outcome and custody
 
 **READY under the stated generated-view exemption**, with **no remaining product blocker**. The actual hosted conclusion is failure; it is not called a hosted success. The local `pnpm verify` succeeds on the exact pushed SHA. App job 129132289811's single failed-log read succeeded and names ACCEPTANCE.md only. The aggregate guard fails because the app failed, and downstream suites are skipped, not presented as passing. Four GitHub calls were used, all more than 300 seconds apart, including discovery and diagnostics. No failed archive request was retried.
