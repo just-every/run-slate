@@ -1,4 +1,5 @@
 import {decisionEditJourney} from './decision-edit-journey.mjs';
+import {decisionImmutabilityJourney} from './decision-immutability-journey.mjs';
 import {decisionLogJourney} from './decision-log-journey.mjs';
 import {automationRunLogJourney} from "./automation-run-log-journey.mjs";
 import {contentQueryJourney} from './content-query-journey.mjs';
@@ -137,6 +138,8 @@ for (const width of [390, 1440]) {
           });
         });
         await step('DEC-004 — populated native decision filters, current access and exact accepted navigation', () => decisionLogJourney(state, width));
+        // Keep the exact log corpus before DEC-003 leaves retained lineage visible.
+        await step('DEC-003 — immutable accepted snapshots, stale evidence and two-way lineage', () => withSecondPerson(state, width, people => decisionImmutabilityJourney(state, people)));
       } finally {await touch?.close();}
     }, {}, { scheduled: true, slack: true });
   });
@@ -192,18 +195,20 @@ for (const width of [1440]) {
   });
 }
 
-// Each independently granted level keeps every native assertion in its own
-// installation. The original sharing journey and these cases all retain the
-// existing 240-second deadline; no earlier traffic consumes their request window.
-for (const level of ['full', 'edit', 'comment', 'view']) {
-  test(`native ordinary page ${level} authority retains inventories and refuses revoked captures at 1440px`, { timeout: 240000 }, async t => {
+// The full matrix took 237.18s on hosted Ubuntu before runner variation pushed
+// it past 240s. Split its independent operation families into fresh installations;
+// both retain complete inventories, every replay and final revoked-capture check.
+// The original sharing journey and every case retain the 240-second deadline.
+for (const [level, section] of [['full', 'page'], ['full', 'discussion'], ['edit', 'all'], ['comment', 'all'], ['view', 'all']]) {
+  const operations = section === 'all' ? '' : section === 'page' ? ' for page changes' : ' for discussion and sharing';
+  test(`native ordinary page ${level} authority retains inventories and refuses revoked captures${operations} at 1440px`, { timeout: 240000 }, async t => {
     await withWorkspace({ width: 1440, height: 1000 }, 'core-wiki', async state => {
       const setup = performance.now();
       await setupWorkspace(state);
-      t.diagnostic(`Sharing ${level} setup: ${Math.round(performance.now() - setup)} ms`);
+      t.diagnostic(`Sharing ${level}/${section} setup: ${Math.round(performance.now() - setup)} ms`);
       const matrix = performance.now();
-      try { await permissionLevelsJourney(state, { levels: [level] }); }
-      finally { t.diagnostic(`Sharing ${level} matrix: ${Math.round(performance.now() - matrix)} ms`); }
+      try { await permissionLevelsJourney(state, { levels: [level], section }); }
+      finally { t.diagnostic(`Sharing ${level}/${section} matrix: ${Math.round(performance.now() - matrix)} ms`); }
     });
   });
 }
