@@ -1,0 +1,1 @@
+{"observed_exit":0,"observed_log_bytes":0,"actual_test_passed":false,"qualification_excluded":true,"reason":"Parallel toolchain sourcing rewrote the shared temporary reaper; no target test ran. Restarted separately, then final proof uses one sourced sequential command."}

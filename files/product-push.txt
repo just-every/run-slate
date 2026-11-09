@@ -1,0 +1,36 @@
+fleet Git: removed 0 credential-bearing GitHub URL rewrite sections
+PUSH attempt=1/5 command=git push --porcelain origin HEAD:refs/heads/cloud/sd-slate-c-f212-fix1
+Run Edit Run fleet <fleet@runeditrun.com>
+Run Edit Run fleet <fleet@runeditrun.com>
+
+James Peter <github@zemaj.com>
+James Peter <github@zemaj.com>
+
+Run Edit Run fleet <fleet@runeditrun.com>
+Run Edit Run fleet <fleet@runeditrun.com>
+
+Run Edit Run fleet <fleet@runeditrun.com>
+Run Edit Run fleet <fleet@runeditrun.com>
+
+Run Edit Run fleet <fleet@runeditrun.com>
+Run Edit Run fleet <fleet@runeditrun.com>
+
+Run Edit Run fleet <fleet@runeditrun.com>
+Run Edit Run fleet <fleet@runeditrun.com>
+
+Run Edit Run fleet <fleet@runeditrun.com>
+Run Edit Run fleet <fleet@runeditrun.com>
+
+
+fleet Git: removed 0 credential-bearing GitHub URL rewrite sections
+To https://github.com/just-every/run-slate.git
+*	HEAD:refs/heads/cloud/sd-slate-c-f212-fix1	[new branch]
+Done
+remote: 
+remote: Create a pull request for 'cloud/sd-slate-c-f212-fix1' on GitHub by visiting:        
+remote:      https://github.com/just-every/run-slate/pull/new/cloud/sd-slate-c-f212-fix1        
+remote: 
+remote: GitHub found 30 vulnerabilities on just-every/run-slate's default branch (12 high, 16 moderate, 2 low). To find out more, visit:        
+remote:      https://github.com/just-every/run-slate/security/dependabot        
+remote: 
+PUSH_OK branch=cloud/sd-slate-c-f212-fix1

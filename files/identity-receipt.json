@@ -1,0 +1,72 @@
+{
+  "range": "origin/main..HEAD",
+  "includes_side_parents": true,
+  "new_commit_identity": "Run Edit Run fleet <fleet@runeditrun.com>",
+  "candidate_count": 7,
+  "result": "pass",
+  "commits": [
+    {
+      "head": "2ea899a49ec26d7f91caf585e1c7937b37d6f329",
+      "author_name": "Run Edit Run fleet",
+      "author_email": "fleet@runeditrun.com",
+      "committer_name": "Run Edit Run fleet",
+      "committer_email": "fleet@runeditrun.com",
+      "message": "Keep DEC-006 journey requests within actor rate budgets\n\nRoute native proposal and sharing-owner JSON traffic through the existing actor queue. Count browser and helper requests together, unmount the unrelated owner during sharing snapshots, and remove redundant same-URL navigation before proposal reloads.\n\nRetain native responses, all existing assertions and deadlines, and the product's rate limits. Add rolling-minute margin assertions and transport coverage for genuine refusals, identity switches, binary bytes and offline behavior.\n\n",
+      "coauthor_lines": []
+    },
+    {
+      "head": "0cddbd258a74da2d45863b86a350ec03352faf89",
+      "author_name": "James Peter",
+      "author_email": "github@zemaj.com",
+      "committer_name": "James Peter",
+      "committer_email": "github@zemaj.com",
+      "message": "Merge current main and harness fixes into DEC-006 candidate\n\n",
+      "coauthor_lines": []
+    },
+    {
+      "head": "c12309320aa603ec6da310a90db75c97bc9ef073",
+      "author_name": "Run Edit Run fleet",
+      "author_email": "fleet@runeditrun.com",
+      "committer_name": "Run Edit Run fleet",
+      "committer_email": "fleet@runeditrun.com",
+      "message": "DEC-006 done: its gate passed (lander status flip)\n\n",
+      "coauthor_lines": []
+    },
+    {
+      "head": "0543f2ae659c94cdda2053bd3405f1ac130550c3",
+      "author_name": "Run Edit Run fleet",
+      "author_email": "fleet@runeditrun.com",
+      "committer_name": "Run Edit Run fleet",
+      "committer_email": "fleet@runeditrun.com",
+      "message": "Regenerate contract views from CONTRACT.md\n\n",
+      "coauthor_lines": []
+    },
+    {
+      "head": "1ce8fa17f7358ec5d77165d77edad10535a81d17",
+      "author_name": "Run Edit Run fleet",
+      "author_email": "fleet@runeditrun.com",
+      "committer_name": "Run Edit Run fleet",
+      "committer_email": "fleet@runeditrun.com",
+      "message": "Allow pending decision drafts and retain complete edit proof\n\n",
+      "coauthor_lines": []
+    },
+    {
+      "head": "deca2bc3737bad869451345e4a600800331f7679",
+      "author_name": "Run Edit Run fleet",
+      "author_email": "fleet@runeditrun.com",
+      "committer_name": "Run Edit Run fleet",
+      "committer_email": "fleet@runeditrun.com",
+      "message": "Complete decision edit refusal and snapshot journeys [skip ci]\n\n",
+      "coauthor_lines": []
+    },
+    {
+      "head": "3c987db5d5f7282a6742cca680aa45031f2da2ab",
+      "author_name": "Run Edit Run fleet",
+      "author_email": "fleet@runeditrun.com",
+      "committer_name": "Run Edit Run fleet",
+      "committer_email": "fleet@runeditrun.com",
+      "message": "Preserve proposed decision edits and native proof [skip ci]\n\n",
+      "coauthor_lines": []
+    }
+  ]
+}

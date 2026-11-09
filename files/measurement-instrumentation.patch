@@ -1,0 +1,112 @@
+diff --git a/tests/qualification/ui-convergence/browser-support.mjs b/tests/qualification/ui-convergence/browser-support.mjs
+index 31467bcb..02aa7268 100644
+--- a/tests/qualification/ui-convergence/browser-support.mjs
++++ b/tests/qualification/ui-convergence/browser-support.mjs
+@@ -1,4 +1,4 @@
+-import { api as journeyApi, registerActor, useActor } from './journey-api.mjs';
++import { api as journeyApi, registerActor, useActor, actorRequestPeaks } from './journey-api.mjs';
+ import {transferControl} from '../../helpers/transfer-storage-gate.mjs';
+ import {initializeEmbedEdge,readEmbedRequests} from '../../helpers/embed-edge.mjs';
+ import { initializeWebhookEdge, setWebhookFailure } from '../../helpers/webhook-edge.mjs';
+@@ -217,7 +217,7 @@ export async function withWorkspace(viewport, profile, run, overrides = {}, { sc
+     } finally {
+       try { await browser?.close(); }
+       finally {
+-        try { if (runtime) await stop(runtime.child); }
++        try { if (runtime) { console.log('ACTOR REQUEST PEAKS', JSON.stringify({width: viewport.width, actors: actorRequestPeaks(runtime.baseUrl)})); await stop(runtime.child); } }
+         finally { await closeSamlIdp(state); await rm(state, { recursive: true, force: true }); }
+       }
+     }
+diff --git a/tests/qualification/ui-convergence/journey-api.mjs b/tests/qualification/ui-convergence/journey-api.mjs
+index 331f70c5..c0b9e37f 100644
+--- a/tests/qualification/ui-convergence/journey-api.mjs
++++ b/tests/qualification/ui-convergence/journey-api.mjs
+@@ -5,6 +5,28 @@ import { request } from '@playwright/test';
+ import { requestTimeline } from './request-timeline.mjs';
+ 
+ const actors = new Map(), queues = new Map();
++const labels = new Map(), measuredContexts = new WeakSet(), measurements = new Map();
++
++function countRequest(origin, ip, source, method, url) {
++  if (!new URL(url, origin).pathname.startsWith('/api/')) return;
++  const key = origin + '\n' + ip;
++  if (!measurements.has(key)) measurements.set(key, { times: [], peak: 0, total: 0, sources: {}, paths: {} });
++  const row = measurements.get(key), now = performance.now();
++  while (row.times.length && row.times[0] <= now - 60000) row.times.shift();
++  row.times.push(now);
++  row.peak = Math.max(row.peak, row.times.length);
++  row.total++;
++  row.sources[source] = (row.sources[source] ?? 0) + 1;
++  const route = method + ' ' + new URL(url, origin).pathname;
++  row.paths[route] = (row.paths[route] ?? 0) + 1;
++}
++
++/** Aggregate all contexts sharing an actor, including native page fan-outs. */
++export function actorRequestPeaks(origin) {
++  return [...measurements].filter(([key]) => key.startsWith(origin + '\n')).map(([key, row]) => ({
++    actor: labels.get(key) ?? 'unregistered', peak: row.peak, total: row.total, sources: row.sources, paths: row.paths,
++  }));
++}
+ 
+ function queueFor(origin, ip) {
+   const key = origin + '\n' + ip;
+@@ -15,6 +37,7 @@ function queueFor(origin, ip) {
+ /** Keep one person's native session on one synthetic documentation address. */
+ export function registerActor(origin, cookie, memberId) {
+   actors.set(origin + '\n' + cookie.split('=')[1], address(memberId));
++  labels.set(origin + '\n' + address(memberId), memberId);
+ }
+ 
+ function address(identity) {
+@@ -34,6 +57,14 @@ async function actor(context, origin, headers = {}) {
+ export async function useActor(context, origin) {
+   const ip = await actor(context, origin);
+   await context.setExtraHTTPHeaders({ 'cf-connecting-ip': ip });
++  if (!measuredContexts.has(context)) {
++    measuredContexts.add(context);
++    context.on('request', request => {
++      if (new URL(request.url()).origin !== origin) return;
++      // Read the request's actual actor header; a context can switch identities.
++      countRequest(origin, request.headers()['cf-connecting-ip'] ?? ip, 'browser', request.method(), request.url());
++    });
++  }
+ }
+ 
+ /** The extended matrix unmounts its owner; retain 100 requests of headroom even then. */
+@@ -62,6 +93,7 @@ export async function api(context, origin, method, route, data, options = {}) {
+     // local proxy. Retain real cookies and dispose it after this one request.
+     const transport = await request.newContext({ storageState: await context.storageState() });
+     await queue.budget.reserve();
++    countRequest(origin, ip, 'probe', method, origin + route);
+     const timeline = requestTimeline(context), observation = timeline.start(method, origin + route);
+     try {
+       const response = await transport.fetch(origin + route, {
+diff --git a/tests/qualification/ui-convergence/journey-api.test.mjs b/tests/qualification/ui-convergence/journey-api.test.mjs
+index aee795d8..a679e283 100644
+--- a/tests/qualification/ui-convergence/journey-api.test.mjs
++++ b/tests/qualification/ui-convergence/journey-api.test.mjs
+@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
+ import { createServer } from 'node:http';
+ import test from 'node:test';
+ import { chromium } from '@playwright/test';
+-import { api, idleActorBudget, registerActor, useActor } from './journey-api.mjs';
++import { api, idleActorBudget, registerActor, useActor, actorRequestPeaks } from './journey-api.mjs';
+ import { JourneyRequestBudget } from './journey-request-budget.mjs';
+ import { call } from './two-people-support.mjs';
+ 
+@@ -60,6 +60,15 @@ test('snapshot probes and call share one actor queue, browser address and real r
+     await useActor(owner, origin);
+     await page.goto(origin + '/api/switched');
+     assert.equal(requests.find(row => row.path === '/api/switched').ip, read.body.ip);
++    const peaks = actorRequestPeaks(origin);
++    const ownerPeak = peaks.find(row => row.actor === 'test-owner');
++    const readerPeak = peaks.find(row => row.actor === 'test-reader');
++    assert.equal(ownerPeak.total, 10, 'Count browser work and every probe, including a refused request, once');
++    assert.equal(ownerPeak.peak, 10);
++    assert.deepEqual(ownerPeak.sources, {browser: 2, probe: 8});
++    assert.equal(readerPeak.total, 3, 'Cookie overrides and switched contexts retain the same reader bucket');
++    assert.equal(readerPeak.peak, 3);
++    assert.deepEqual(readerPeak.sources, {probe: 1, browser: 2});
+   } finally {
+     await browser.close();
+     await new Promise(resolve => server.close(resolve));

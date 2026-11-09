@@ -1,0 +1,616 @@
+diff --git a/ACCEPTANCE.md b/ACCEPTANCE.md
+index 537f7a22..a6ce40a1 100644
+--- a/ACCEPTANCE.md
++++ b/ACCEPTANCE.md
+@@ -8,10 +8,10 @@ The primary journey: Import the team's existing knowledge, invite its members, w
+ 
+ | Tier | Done | Partial | Missing | Total |
+ | --- | ---: | ---: | ---: | ---: |
+-| Core | 60 | 237 | 35 | 332 |
++| Core | 59 | 238 | 35 | 332 |
+ | Agent surface | 0 | 0 | 6 | 6 |
+ | Later | 0 | 0 | 0 | 0 |
+-| Full target | 60 | 237 | 41 | 338 |
++| Full target | 59 | 238 | 41 | 338 |
+ 
+ Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e6612` (29 October 2026); SEARCH-001 native source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. DB-012 record-detail proof reviewed from source `63a0e8f` (31 October 2026); its exact candidate and Verify are named by the branch handoff. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
+ 
+@@ -2783,17 +2783,17 @@ Core · published · **partial**
+ 
+ #### DEC-006 — A proposed decision is editable
+ 
+-Core · published · **done**
++Core · published · **partial**
+ 
+-**Requirement.** While a decision is Proposed, a member with edit access on its page can change its question, options, outcome, rationale, owner, decided date, review date and citations. Native human proposal editing and retained decision snapshots use the default core-wiki profile; run-derived preparation remains flagship-only under ADMIN-007 and shared company-policy prerequisites.
++**Requirement.** While a decision is Proposed, a member with edit access on its page can change its question, options, outcome, rationale, owner, decided date, review date and citations.
+ 
+ **Acceptance.**
+ 1. Each change writes a revision (`REV-001`) keeping the previous content with its actor and time, resubmitting an unchanged proposal writes no revision, and the history is readable under `REV-002`.
+ 2. Accepting the decision ends this, and `DEC-003` governs from then on.
+ 3. Proposed decisions are editable with revisions; unchanged resubmits write none.
+ 
+-**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.; `tests/profile/profile.worker.test.ts` (FLAG-001 — core wiki public doors retain native content while flagship routes and queued work require opt-in); `tests/qualification/ui-convergence/journeys.test.mjs` (real core-wiki and touch-member journeys at 1440px); `tests/qualification/ui-convergence/journeys.test.mjs` (real core-wiki and touch-member journeys at 390px)
+-**Gap.** None.
++**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
++**Gap.** No validated CI-run proof for this acceptance point: "While a decision is Proposed, a member with edit access on its page can change its question, options, outcome, rationale, owner, decided date, review date and citations."<br>No validated CI-run proof for this acceptance point: "Each change writes a revision (`REV-001`) keeping the previous content with its actor and time, resubmitting an unchanged proposal writes no revision, and the history is readable under `REV-002`."<br>No validated CI-run proof for this acceptance point: "Accepting the decision ends this, and `DEC-003` governs from then on."
+ 
+ ### Full flagship and sustained inquiry
+ 
+diff --git a/sources.lock.json b/sources.lock.json
+index a0b9c80a..71ad79a4 100644
+--- a/sources.lock.json
++++ b/sources.lock.json
+@@ -960,7 +960,7 @@
+       "executable": false
+     },
+     "ACCEPTANCE.md": {
+-      "sha256": "058e858b5faabb8dd8a89fe0287df3811b54a64a57c17f2771aae3a9eda8d997",
++      "sha256": "6376f3c7487cbc97b3afc02bdbc3499dc21eb2919ad017be70fbc4474d284508",
+       "executable": false
+     },
+     "AGENTS.consumer.md": {
+@@ -11672,7 +11672,7 @@
+       "executable": false
+     },
+     "tests/qualification/interface/decisions.mjs": {
+-      "sha256": "742538e6726583391ecc5014aedd4111287b10898e0c722b15954f42626788e1",
++      "sha256": "918f69bf937074e30a27d5e0a5d6a00a75b7db52f4078ff1c839055c21ebedd3",
+       "executable": false
+     },
+     "tests/qualification/interface/publication.mjs": {
+@@ -11928,7 +11928,7 @@
+       "executable": false
+     },
+     "tests/qualification/ui-convergence/browser-support.mjs": {
+-      "sha256": "80f645316a54e9541d6100c6236486572e1210c11ea998893b36dc46fbbe4323",
++      "sha256": "448fa0199aed2d531ab738d0e3ddb923f0f7dd37971af524b0f1db9d0e6ba1f3",
+       "executable": false
+     },
+     "tests/qualification/ui-convergence/chat-journey.mjs": {
+@@ -11948,7 +11948,7 @@
+       "executable": false
+     },
+     "tests/qualification/ui-convergence/comments-journey.mjs": {
+-      "sha256": "dc70ca58e6c469eb47e699a33874a4a566b65bde18098fec475d107891fb9b7d",
++      "sha256": "06345ea65f18fd84a8ce3baa96019246063bc838486870c284d9c0ac8328fe50",
+       "executable": false
+     },
+     "tests/qualification/ui-convergence/container-grants-journey.mjs": {
+@@ -11976,7 +11976,7 @@
+       "executable": false
+     },
+     "tests/qualification/ui-convergence/decision-edit-journey.mjs": {
+-      "sha256": "4171f9eca8c48b44b4f786892ac39a3850da5774e563a5c8a1c10aa7a2649fe7",
++      "sha256": "6c0f7988366ceea715615e42225d2cab962b34d1b15f44319ae6cb6ae9370aed",
+       "executable": false
+     },
+     "tests/qualification/ui-convergence/decision-immutability-journey.mjs": {
+@@ -11984,7 +11984,7 @@
+       "executable": false
+     },
+     "tests/qualification/ui-convergence/decision-log-journey.mjs": {
+-      "sha256": "1822426de71060b7157df3b165b1d912c0372194d15b153f706054f7185dcb3c",
++      "sha256": "c29734760242f3a70471f13ec78d06aae41557e66c8d2522582ed389b1e20820",
+       "executable": false
+     },
+     "tests/qualification/ui-convergence/developer-access-journey.mjs": {
+@@ -12164,11 +12164,11 @@
+       "executable": false
+     },
+     "tests/qualification/ui-convergence/journey-api.mjs": {
+-      "sha256": "8911f7473b649c715534de6cdae424768535ef0edf825ea0ee52377886ba83c9",
++      "sha256": "0f2a7d2a1c23fcf98c5ede46f8f46f7f805ce7302303e7397383f314fd48178f",
+       "executable": false
+     },
+     "tests/qualification/ui-convergence/journey-api.test.mjs": {
+-      "sha256": "70ef15d639ec3d202288d5307a8e96268443d4db723652fd9dc0b8f3e1884bc3",
++      "sha256": "6faef83068017b25b03422be3c6e85650f8cc1fa22d9bab1bde2b0a56e29d9e3",
+       "executable": false
+     },
+     "tests/qualification/ui-convergence/journey-request-budget.mjs": {
+@@ -12180,7 +12180,7 @@
+       "executable": false
+     },
+     "tests/qualification/ui-convergence/journeys.test.mjs": {
+-      "sha256": "b280efa9e60915823e24fe01607b67bcab7cb80cc18eec9eca80d600b7fd378e",
++      "sha256": "0f8e4c91e16c6549c3e623e93125a40826c5d7103351e020d2b3bdd498442bfa",
+       "executable": false
+     },
+     "tests/qualification/ui-convergence/link-access-journey.mjs": {
+@@ -12279,6 +12279,10 @@
+       "sha256": "b530886b8acd20ff0cd2e1730cbc6596a61f1c383256ff63638636af6c71f918",
+       "executable": false
+     },
++    "tests/qualification/ui-convergence/routed-journey-api.mjs": {
++      "sha256": "204d6cc913464ef421f7ad1dea9122fe2daa9e4634292421b89899e18831cd70",
++      "executable": false
++    },
+     "tests/qualification/ui-convergence/saml-journey.mjs": {
+       "sha256": "a4d843735fc1f991585f39ff1a0fa5a53edb9ff4a6d24d752ad7e19dc15e93ac",
+       "executable": false
+@@ -12304,7 +12308,7 @@
+       "executable": false
+     },
+     "tests/qualification/ui-convergence/sharing-journey.mjs": {
+-      "sha256": "ac942ca3f85ca6da539b567b4999459c4362fe1dbcc298f92e116383551da42b",
++      "sha256": "a7b309bc2e4d265e5c8b25b83ed737ce87e8a65d482fed4031121b1a350cfffc",
+       "executable": false
+     },
+     "tests/qualification/ui-convergence/sharing-lifecycle-matrix.mjs": {
+@@ -12412,7 +12416,7 @@
+       "executable": false
+     },
+     "tests/qualification/ui-convergence/transfer-jobs-journey.mjs": {
+-      "sha256": "8c448ad3a495d4341fb82f9a413bf7b15f9d9e5897becad1da7a5c3bd50f4609",
++      "sha256": "c8e817df84b5e014580bd30d9e241babcbe5c9807001f5f42d395cf9c764463f",
+       "executable": false
+     },
+     "tests/qualification/ui-convergence/tree-filter-journey.mjs": {
+@@ -12496,7 +12500,7 @@
+       "executable": false
+     },
+     "tests/requirements/cli-journey.md": {
+-      "sha256": "16a24fdd41ca37d3bf88f55c68b714557aea5f2bc875d3f47c1c9199c18330a3",
++      "sha256": "b1b340e2406aaf9e3ea3d1d2b276a0d6cd5bf4ccca2a958e57a65f75716c3345",
+       "executable": false
+     },
+     "tests/requirements/count-registrations.mjs": {
+diff --git a/tests/qualification/interface/decisions.mjs b/tests/qualification/interface/decisions.mjs
+index ce0b0941..597b4e24 100644
+--- a/tests/qualification/interface/decisions.mjs
++++ b/tests/qualification/interface/decisions.mjs
+@@ -1,6 +1,5 @@
+ import assert from 'node:assert/strict';
+-export async function decisionChecks({page,context,runtime,id,check}){
+- const read=async path=>await(await context.request.get(runtime.origin+path)).json();
++export async function decisionChecks({page,context,runtime,id,check,read=async path=>await(await context.request.get(runtime.origin+path)).json()}){
+  const before=await read('/api/pages/'+id),member=await read('/api/members/current');
+  await page.goto(runtime.origin+'/app/pages/'+id);await page.getByRole('button',{name:'More',exact:true}).click();await page.getByRole('menuitem',{name:'Add decision record',exact:true}).click();const dialog=page.getByRole('dialog');
+  await dialog.getByLabel('Question',{exact:true}).fill('Which local option should we adopt?');await dialog.getByLabel('Options considered').fill('First\nSecond');await dialog.getByLabel('Proposed outcome').fill('First');await dialog.getByLabel('Rationale',{exact:true}).fill('Recorded local reasoning');await dialog.getByLabel('Decided date').fill('2026-09-30');await dialog.getByLabel('Next review',{exact:true}).fill('2099-01-01');await dialog.getByLabel('Add a page as evidence').selectOption(id);await dialog.getByRole('button',{name:'Add current revision',exact:true}).click();await dialog.getByText('1 exact reference retained.',{exact:true}).waitFor();await dialog.getByRole('button',{name:'Create proposed decision',exact:true}).click();await page.waitForURL(/\/app\/decisions\//);const decisionId=page.url().split('/').at(-1);
+diff --git a/tests/qualification/ui-convergence/browser-support.mjs b/tests/qualification/ui-convergence/browser-support.mjs
+index 31467bcb..02aa7268 100644
+--- a/tests/qualification/ui-convergence/browser-support.mjs
++++ b/tests/qualification/ui-convergence/browser-support.mjs
+@@ -1,4 +1,4 @@
+-import { api as journeyApi, registerActor, useActor } from './journey-api.mjs';
++import { api as journeyApi, registerActor, useActor, actorRequestPeaks } from './journey-api.mjs';
+ import {transferControl} from '../../helpers/transfer-storage-gate.mjs';
+ import {initializeEmbedEdge,readEmbedRequests} from '../../helpers/embed-edge.mjs';
+ import { initializeWebhookEdge, setWebhookFailure } from '../../helpers/webhook-edge.mjs';
+@@ -217,7 +217,7 @@ export async function withWorkspace(viewport, profile, run, overrides = {}, { sc
+     } finally {
+       try { await browser?.close(); }
+       finally {
+-        try { if (runtime) await stop(runtime.child); }
++        try { if (runtime) { console.log('ACTOR REQUEST PEAKS', JSON.stringify({width: viewport.width, actors: actorRequestPeaks(runtime.baseUrl)})); await stop(runtime.child); } }
+         finally { await closeSamlIdp(state); await rm(state, { recursive: true, force: true }); }
+       }
+     }
+diff --git a/tests/qualification/ui-convergence/comments-journey.mjs b/tests/qualification/ui-convergence/comments-journey.mjs
+index d87d844f..3bb5f1fa 100644
+--- a/tests/qualification/ui-convergence/comments-journey.mjs
++++ b/tests/qualification/ui-convergence/comments-journey.mjs
+@@ -220,12 +220,13 @@ export async function commentAuthorshipJourney(state, width) {
+     for (const person of [alice, bob]) {
+       await open(person);
+       assert.deepEqual(await ok(person.context, origin, 'GET', commentsPath), deleted.comments);
+-      assert.deepEqual(await article(person, first.id).locator('..').locator('.comment').evaluateAll(items => items.map(item => item.id)), order.map(id => `comment-${id}`));
+       for (const comment of [first, second]) {
+         await expect(article(person, comment.id)).toContainText('Comment deleted');
+         await expect(article(person, comment.id)).not.toContainText(comment.body[0].text);
+         await expect(article(person, comment.id).getByRole('button', { name: /^(Edit|Delete)$/ })).toHaveCount(0);
+       }
++      // Opening Comments starts a fresh read; inspect order after both tombstones render.
++      assert.deepEqual(await article(person, first.id).locator('..').locator('.comment').evaluateAll(items => items.map(item => item.id)), order.map(id => `comment-${id}`));
+     }
+     await showComments();
+     for (const comment of [first, second]) await expect(article(bob, comment.id).getByText('Comment deleted', { exact: true })).toBeInViewport({ ratio: 1 });
+diff --git a/tests/qualification/ui-convergence/decision-edit-journey.mjs b/tests/qualification/ui-convergence/decision-edit-journey.mjs
+index 4f3bd950..02dfe5b5 100644
+--- a/tests/qualification/ui-convergence/decision-edit-journey.mjs
++++ b/tests/qualification/ui-convergence/decision-edit-journey.mjs
+@@ -1,4 +1,6 @@
+ import assert from 'node:assert/strict';
++import { routeJourneyApi } from './routed-journey-api.mjs';
++import { actorRequestPeaks } from './journey-api.mjs';
+ import {mkdir, readFile, writeFile} from 'node:fs/promises';
+ import path from 'node:path';
+ import {expect} from '@playwright/test';
+@@ -11,7 +13,10 @@ export async function decisionEditJourney(state, width) {
+   const {context, origin} = state;
+   const read = route => ok(context, origin, 'GET', route);
+   assert.deepEqual(await read('/api/profile'), {profile: 'core-wiki'});
+-  await withSecondPerson(state, width, async ({bob}) => {
++  const restoreOwnerTransport = await routeJourneyApi(context, origin);
++  try { await withSecondPerson(state, width, async ({bob}) => {
++    const restoreReaderTransport = await routeJourneyApi(bob.context, origin);
++    try {
+     const host = await restrictedPage(state, 'Proposal editing procedure', ['Retained underlying page content']);
+     const editorGrant = await grant(context, origin, host.pageId, bob.id, 'edit');
+     const owner = (await read('/api/members/current')).id;
+@@ -30,7 +35,7 @@ export async function decisionEditJourney(state, width) {
+     const activity = async () => (await read('/api/activity?action=decisions.save&limit=100')).items.filter(item => item.target.id === id);
+     const stored = async () => ({decision: await read(route), history: await history(), activity: await activity()});
+     const open = async () => {
+-      await view.goto(origin + '/app/decisions/' + id, {waitUntil: 'networkidle'});
++      if (view.url() !== origin + '/app/decisions/' + id) await view.goto(origin + '/app/decisions/' + id, {waitUntil: 'networkidle'});
+       await view.reload({waitUntil: 'networkidle'});
+     };
+     const proposal = async () => {
+@@ -212,6 +217,11 @@ export async function decisionEditJourney(state, width) {
+     await view.goto('about:blank');
+     await state.page.goto('about:blank');
+     await ok(context, origin, 'POST', route + '/remove', {operationKey: crypto.randomUUID(), expectedRevisionId: acceptedBefore.decision.revision_id});
+-  });
++    } finally { await restoreReaderTransport(); }
++  }); } finally { await restoreOwnerTransport(); }
+   await state.page.goto('about:blank');
++  for (const row of actorRequestPeaks(origin).filter(row => ['browser-owner', 'browser-reader'].includes(row.actor))) {
++    assert.ok(row.peak <= 500, `DEC-006 ${row.actor} rolling-minute peak ${row.peak} exceeds the 500 request margin`);
++  }
++  console.log(`PROBE DEC-006: native proposal controls and HTTP at ${width}px -> eight fields retain exact revisions, unchanged writes are no-ops, stale=409, view-only=404, accepted edits=409; actor peaks <=500/min`);
+ }
+diff --git a/tests/qualification/ui-convergence/decision-log-journey.mjs b/tests/qualification/ui-convergence/decision-log-journey.mjs
+index e80becd5..d0b3adb1 100644
+--- a/tests/qualification/ui-convergence/decision-log-journey.mjs
++++ b/tests/qualification/ui-convergence/decision-log-journey.mjs
+@@ -16,7 +16,7 @@ export async function decisionLogJourney(state, width) {
+   // weakening creation, proposal history, acceptance, reviews or removal.
+   const handbook = (await api('/api/containers')).items.find(item => item.name === 'Handbook').id;
+   const manual = await ok(context, origin, 'POST', '/api/pages', {operationKey: crypto.randomUUID(), containerId: handbook, title: 'Manual decision proof'});
+-  await decisionChecks({page, context, runtime: {origin}, id: manual.value.pageId, check() {}});
++  await decisionChecks({page, context, runtime: {origin}, id: manual.value.pageId, read: route => api(route), check() {}});
+   await page.goto('about:blank');
+   await withSecondPerson(state, width, async ({bob}) => {
+     const owner = (await api('/api/members/current')).id;
+diff --git a/tests/qualification/ui-convergence/journey-api.mjs b/tests/qualification/ui-convergence/journey-api.mjs
+index 331f70c5..50d7d8d7 100644
+--- a/tests/qualification/ui-convergence/journey-api.mjs
++++ b/tests/qualification/ui-convergence/journey-api.mjs
+@@ -5,6 +5,45 @@ import { request } from '@playwright/test';
+ import { requestTimeline } from './request-timeline.mjs';
+ 
+ const actors = new Map(), queues = new Map();
++const labels = new Map(), measuredContexts = new WeakSet(), measurements = new Map(), transportedBrowsers = new WeakSet();
++
++function countRequest(origin, ip, source, method, url) {
++  if (!new URL(url, origin).pathname.startsWith('/api/')) return;
++  const key = origin + '\n' + ip;
++  if (!measurements.has(key)) measurements.set(key, { times: [], peak: 0, total: 0, sources: {}, paths: {} });
++  const row = measurements.get(key), now = performance.now();
++  while (row.times.length && row.times[0] <= now - 60000) row.times.shift();
++  row.times.push(now);
++  if (row.times.length > row.peak) { row.peak = row.times.length; row.peakAtMs = Math.round(now); }
++  row.total++;
++  row.sources[source] = (row.sources[source] ?? 0) + 1;
++  const route = method + ' ' + new URL(url, origin).pathname;
++  row.paths[route] = (row.paths[route] ?? 0) + 1;
++}
++
++/** A routed browser is counted at actual api() dispatch, never twice at issuance. */
++export function browserUsesApiTransport(context, enabled) {
++  if (enabled) transportedBrowsers.add(context);
++  else transportedBrowsers.delete(context);
++}
++
++/** Count an existing page-level route that dispatches outside a context's JSON transport. */
++export async function countUnroutedBrowserRequest(context, origin, request) {
++  if (transportedBrowsers.has(context)) countRequest(origin,
++    request.headers()['cf-connecting-ip'] ?? await actor(context, origin), 'browser', request.method(), request.url());
++}
++
++/** Count legacy binary probes without changing their byte-preserving transport. */
++export async function countBinaryProbe(context, origin, method, route) {
++  countRequest(origin, await actor(context, origin), 'probe', method, origin + route);
++}
++
++/** Aggregate all contexts sharing an actor, including native page fan-outs. */
++export function actorRequestPeaks(origin) {
++  return [...measurements].filter(([key]) => key.startsWith(origin + '\n')).map(([key, row]) => ({
++    actor: labels.get(key) ?? 'unregistered', peak: row.peak, peakAtMs: row.peakAtMs, total: row.total, sources: row.sources, paths: row.paths,
++  }));
++}
+ 
+ function queueFor(origin, ip) {
+   const key = origin + '\n' + ip;
+@@ -15,6 +54,7 @@ function queueFor(origin, ip) {
+ /** Keep one person's native session on one synthetic documentation address. */
+ export function registerActor(origin, cookie, memberId) {
+   actors.set(origin + '\n' + cookie.split('=')[1], address(memberId));
++  labels.set(origin + '\n' + address(memberId), memberId);
+ }
+ 
+ function address(identity) {
+@@ -34,6 +74,14 @@ async function actor(context, origin, headers = {}) {
+ export async function useActor(context, origin) {
+   const ip = await actor(context, origin);
+   await context.setExtraHTTPHeaders({ 'cf-connecting-ip': ip });
++  if (!measuredContexts.has(context)) {
++    measuredContexts.add(context);
++    context.on('request', request => {
++      if (transportedBrowsers.has(context) || new URL(request.url()).origin !== origin) return;
++      // Read the request's actual actor header; a context can switch identities.
++      countRequest(origin, request.headers()['cf-connecting-ip'] ?? ip, 'browser', request.method(), request.url());
++    });
++  }
+ }
+ 
+ /** The extended matrix unmounts its owner; retain 100 requests of headroom even then. */
+@@ -62,6 +110,7 @@ export async function api(context, origin, method, route, data, options = {}) {
+     // local proxy. Retain real cookies and dispose it after this one request.
+     const transport = await request.newContext({ storageState: await context.storageState() });
+     await queue.budget.reserve();
++    countRequest(origin, ip, 'probe', method, origin + route);
+     const timeline = requestTimeline(context), observation = timeline.start(method, origin + route);
+     try {
+       const response = await transport.fetch(origin + route, {
+diff --git a/tests/qualification/ui-convergence/journey-api.test.mjs b/tests/qualification/ui-convergence/journey-api.test.mjs
+index aee795d8..7a3c746e 100644
+--- a/tests/qualification/ui-convergence/journey-api.test.mjs
++++ b/tests/qualification/ui-convergence/journey-api.test.mjs
+@@ -2,7 +2,8 @@ import assert from 'node:assert/strict';
+ import { createServer } from 'node:http';
+ import test from 'node:test';
+ import { chromium } from '@playwright/test';
+-import { api, idleActorBudget, registerActor, useActor } from './journey-api.mjs';
++import { api, idleActorBudget, registerActor, useActor, actorRequestPeaks } from './journey-api.mjs';
++import { routeJourneyApi } from './routed-journey-api.mjs';
+ import { JourneyRequestBudget } from './journey-request-budget.mjs';
+ import { call } from './two-people-support.mjs';
+ 
+@@ -60,6 +61,15 @@ test('snapshot probes and call share one actor queue, browser address and real r
+     await useActor(owner, origin);
+     await page.goto(origin + '/api/switched');
+     assert.equal(requests.find(row => row.path === '/api/switched').ip, read.body.ip);
++    const peaks = actorRequestPeaks(origin);
++    const ownerPeak = peaks.find(row => row.actor === 'test-owner');
++    const readerPeak = peaks.find(row => row.actor === 'test-reader');
++    assert.equal(ownerPeak.total, 10, 'Count browser work and every probe, including a refused request, once');
++    assert.equal(ownerPeak.peak, 10);
++    assert.deepEqual(ownerPeak.sources, {browser: 2, probe: 8});
++    assert.equal(readerPeak.total, 3, 'Cookie overrides and switched contexts retain the same reader bucket');
++    assert.equal(readerPeak.peak, 3);
++    assert.deepEqual(readerPeak.sources, {probe: 1, browser: 2});
+   } finally {
+     await browser.close();
+     await new Promise(resolve => server.close(resolve));
+@@ -92,3 +102,69 @@ test('the idle-owner probe budget still reserves 100 native requests per minute'
+   for (let i = 0; i < 550; i++) { await budget.reserve(); dispatched.push(now); }
+   for (let i = 500; i < dispatched.length; i++) assert.ok(dispatched[i] - dispatched[i - 500] >= 60000);
+ });
++
++
++test('proposal browser API fan-outs and helper snapshots share real queued dispatch without retries', async () => {
++  const requests = [];
++  let active = 0, maximumActive = 0;
++  const server = createServer((req, res) => {
++    if (req.url === '/') { res.writeHead(200, {'content-type': 'text/html'}); res.end('<main>Native transport fixture</main>'); return; }
++    const row = {path: req.url, cookie: req.headers.cookie, ip: req.headers['cf-connecting-ip'], body: ''};
++    requests.push(row);
++    maximumActive = Math.max(maximumActive, ++active);
++    req.on('data', chunk => { row.body += chunk; });
++    req.on('end', () => setTimeout(() => {
++      if (req.url === '/api/files/raw') { res.writeHead(200, {'content-type': 'application/octet-stream'}); res.end(Buffer.from([0, 255, 128, 13, 10])); active--; return; }
++      const refused = req.url === '/api/refused';
++      res.writeHead(refused ? 429 : 200, {'content-type': 'application/json', ...(refused ? {'retry-after': '60'} : {})});
++      res.end(JSON.stringify({path: req.url, ...(row.body ? {submitted: JSON.parse(row.body)} : {})}));
++      active--;
++    }, 10));
++  });
++  await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
++  const origin = `http://127.0.0.1:${server.address().port}`;
++  const browser = await chromium.launch({headless: true, ...(process.env.SLATE_CHROMIUM_PATH ? {executablePath: process.env.SLATE_CHROMIUM_PATH} : {}), args: ['--no-sandbox']});
++  try {
++    const context = await browser.newContext();
++    await context.addCookies([{name: 'slate_session', value: 'proposal-owner', url: origin}]);
++    registerActor(origin, 'slate_session=proposal-owner', 'proposal-owner');
++    await useActor(context, origin);
++    const restore = await routeJourneyApi(context, origin);
++    const page = await context.newPage();
++    await page.goto(origin);
++    // Page-level timing fixtures fall through to the shared context transport.
++    await page.route('**/api/native/*', route => route.fallback());
++    const [native, snapshot] = await Promise.all([
++      page.evaluate(async () => Promise.all([
++        ...Array.from({length: 6}, (_, i) => fetch('/api/native/' + i).then(r => r.json())),
++        fetch('/api/write', {method: 'POST', headers: {'content-type': 'application/json'}, body: JSON.stringify({operationKey: 'native-capture', question: 'Retained question'})}).then(r => r.json()),
++        fetch('/api/refused').then(async r => ({status: r.status, retryAfter: r.headers.get('retry-after'), body: await r.json()})),
++      ])),
++      api(context, origin, 'GET', '/api/snapshot'),
++    ]);
++    assert.equal(snapshot.status, 200);
++    assert.deepEqual(native[6].submitted, {operationKey: 'native-capture', question: 'Retained question'});
++    assert.deepEqual(native[7], {status: 429, retryAfter: '60', body: {path: '/api/refused'}});
++    assert.equal(requests.filter(row => row.path === '/api/refused').length, 1);
++    assert.equal(maximumActive, 1, 'Browser fan-outs and snapshots have one actual in-flight request per actor');
++    assert.equal(requests.length, 9);
++    assert.ok(requests.every(row => row.cookie === 'slate_session=proposal-owner' && row.ip === requests[0].ip));
++    const [peak] = actorRequestPeaks(origin);
++    assert.equal(peak.actor, 'proposal-owner');
++    assert.equal(peak.total, 9, 'Routed browser issuance is not counted a second time');
++    assert.equal(peak.peak, 9);
++    const binary = await page.evaluate(() => fetch('/api/files/raw').then(async r => [...new Uint8Array(await r.arrayBuffer())]));
++    assert.deepEqual(binary, [0, 255, 128, 13, 10], 'Existing binary doors keep exact browser response bytes');
++    assert.equal(actorRequestPeaks(origin)[0].total, 10, 'Unrouted binary browser requests still count once');
++    await context.setOffline(true);
++    assert.equal(await page.evaluate(() => fetch('/api/offline-write', {method: 'POST', headers: {'content-type': 'application/json'}, body: JSON.stringify({question: 'Must stay local'})}).then(() => false, () => true)), true);
++    assert.equal(requests.filter(row => row.path === '/api/offline-write').length, 0, 'Intentional browser network loss never enters the independent API transport');
++    await context.setOffline(false);
++    await restore();
++    await page.evaluate(() => fetch('/api/restored').then(r => r.json()));
++    assert.equal(actorRequestPeaks(origin)[0].total, 11, 'Direct browser counting resumes when the scoped transport is removed');
++  } finally {
++    await browser.close();
++    await new Promise(resolve => server.close(resolve));
++  }
++});
+diff --git a/tests/qualification/ui-convergence/journeys.test.mjs b/tests/qualification/ui-convergence/journeys.test.mjs
+index 8e00f4ab..c62d4f8b 100644
+--- a/tests/qualification/ui-convergence/journeys.test.mjs
++++ b/tests/qualification/ui-convergence/journeys.test.mjs
+@@ -1,3 +1,5 @@
++import {routeJourneyApi} from './routed-journey-api.mjs';
++import {actorRequestPeaks} from './journey-api.mjs';
+ import {decisionEditJourney} from './decision-edit-journey.mjs';
+ import {decisionImmutabilityJourney} from './decision-immutability-journey.mjs';
+ import {decisionLogJourney} from './decision-log-journey.mjs';
+@@ -41,6 +43,7 @@ import { expect } from '@playwright/test';
+ 
+ // Consecutive steps share their parent journey's workspace and registration.
+ async function step(name, run) {
++  console.log('JOURNEY STEP', JSON.stringify({name, startMs: Math.round(performance.now())}));
+   try { await run(); }
+   catch (cause) {
+     if (cause instanceof Error) { cause.message = `Step ${name} failed: ${cause.message}`; throw cause; }
+@@ -89,9 +92,9 @@ for (const width of [390, 1440]) {
+     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
+       await setupWorkspace(state);
+       if(width===390)await transferJobsJourney(state);
+-      const refused = await state.context.request.get(state.origin + '/api/ai/availability');
+-      assert.equal(refused.status(), 403);
+-      assert.equal((await refused.json()).code, 'FEATURE_DISABLED');
++      const refused = await call(state.context, state.origin, 'GET', '/api/ai/availability');
++      assert.equal(refused.status, 403);
++      assert.equal(refused.body.code, 'FEATURE_DISABLED');
+       await expect(state.page.getByRole('button', { name: 'Ask', exact: true })).toHaveCount(0);
+       await state.page.getByRole('button', { name: 'More', exact: true }).click();
+       await expect(state.page.getByRole('menu').getByRole('menuitem', { name: 'Ask', exact: true })).toHaveCount(0);
+@@ -102,7 +105,12 @@ for (const width of [390, 1440]) {
+         assert.ok(pageId, 'Writing must complete before dependent journeys.');
+         assert.ok(touch, 'Touch-member writing must complete before its dependent journeys.');
+         await step('anchored comment, reset composer, reply and resolve; touch member comments and resolves', async () => {await commentJourney(state, pageId);await commentAuthorshipJourney(state, width);await touchCommentJourney(touch,touch.pageId);});
+-        await step('invite existing member, persisted grant and canonical copied link; touch member publishes and shares', async () => {await shareJourney(state, pageId);await touchPublishShareJourney(touch,touch.pageId);});
++        await step('invite existing member, persisted grant and canonical copied link; touch member publishes and shares', async () => {
++          const restoreTransport = await routeJourneyApi(state.context, state.origin);
++          try { await shareJourney(state, pageId); }
++          finally { await restoreTransport(); }
++          await touchPublishShareJourney(touch,touch.pageId);
++        });
+         await step('PAGE-007 populated Details and full-member ownership preserve grants under replay and edit-only refusal', async () => {await withSecondPerson(state,width,people=>pageDetailsJourney(state,people));});
+         await step('query, highlighted results and opening exact page; touch Search, Inbox, My tasks and review queues', async () => {await searchJourney(state, pageId);await touchOperatorJourney(state,touch);});
+         await step('published readers, editor indication, republish and lossless discard', () => withSecondPerson(state, width, people => unpublishedChangesJourney(state, people)));
+@@ -140,6 +148,9 @@ for (const width of [390, 1440]) {
+         await step('DEC-004 — populated native decision filters, current access and exact accepted navigation', () => decisionLogJourney(state, width));
+         // Keep the exact log corpus before DEC-003 leaves retained lineage visible.
+         await step('DEC-003 — immutable accepted snapshots, stale evidence and two-way lineage', () => withSecondPerson(state, width, people => decisionImmutabilityJourney(state, people)));
++        const ownerPeak = actorRequestPeaks(state.origin).find(row => row.actor === 'browser-owner').peak;
++        console.log(`OWNER PEAK after: ${ownerPeak}/min at ${width}px`);
++        assert.ok(ownerPeak <= 500, `Owner rolling-minute peak ${ownerPeak} exceeds the 500 request margin`);
+       } finally {await touch?.close();}
+     }, {}, { scheduled: true, slack: true });
+   });
+diff --git a/tests/qualification/ui-convergence/routed-journey-api.mjs b/tests/qualification/ui-convergence/routed-journey-api.mjs
+new file mode 100644
+index 00000000..b6362174
+--- /dev/null
++++ b/tests/qualification/ui-convergence/routed-journey-api.mjs
+@@ -0,0 +1,66 @@
++import assert from 'node:assert/strict';
++import { api, browserUsesApiTransport, countUnroutedBrowserRequest } from './journey-api.mjs';
++
++/**
++ * The proposal matrix's native JSON requests use the same actor queue as its
++ * independent snapshots. Dispatch each genuine request once; deliver its native
++ * status and decoded JSON, including refusals. No product response is invented
++ * and no failed request is retried. Documents and assets remain browser traffic.
++ */
++export async function routeJourneyApi(context, origin) {
++  const pattern = origin + '/api/**', pending = new Set(), pages = new Map();
++  // api() owns a separate request context. Respect this browser's intentional
++  // network-loss fixture before any request enters that independent transport.
++  let offline = false;
++  const originalSetOffline = context.setOffline;
++  const setOffline = async value => { offline = value; await originalSetOffline.call(context, value); };
++  context.setOffline = setOffline;
++  const dispatch = async route => {
++    const request = route.request(), url = new URL(request.url());
++    const input = request.postData();
++    if (offline) return route.abort('internetdisconnected');
++    // Binary doors retain the browser's exact bytes and download headers. They
++    // still count against this actor; the large JSON matrices use api() below.
++    if (/^\/api\/(files|exports|imports)(?:\/|$)/.test(url.pathname)
++      || /(?:\/download|\/original|\/export|\.csv)$/.test(url.pathname)
++      || (input !== null && !request.headers()['content-type']?.includes('application/json'))) {
++      await countUnroutedBrowserRequest(context, origin, request);
++      return route.continue();
++    }
++    const result = await api(context, origin, request.method(), url.pathname + url.search,
++      input ? JSON.parse(input) : undefined, { headers: await request.allHeaders() });
++    assert.ok(result.body === undefined || typeof result.body === 'object', 'The proposal journey uses native JSON API doors only');
++    if (request.failure()) return;
++    await route.fulfill({
++      status: result.status,
++      headers: { 'cache-control': 'no-store', ...(result.retryAfter === undefined ? {} : { 'retry-after': result.retryAfter }) },
++      ...(result.body === undefined ? { body: '' } : { json: result.body }),
++    });
++  };
++  const handler = route => {
++    const work = dispatch(route);
++    pending.add(work);
++    work.then(() => pending.delete(work), () => pending.delete(work));
++    return work;
++  };
++  // Keep timing fixtures and this transport in one page route chain. A context
++  // route can otherwise be continued/handled by a page fixture independently.
++  const install = page => {
++    const ready = page.route(pattern, handler);
++    pages.set(page, ready);
++    return ready;
++  };
++  context.on('page', install);
++  await Promise.all(context.pages().map(install));
++  browserUsesApiTransport(context, true);
++  return async () => {
++    context.off('page', install);
++    for (const [page, ready] of pages) {
++      await ready;
++      if (!page.isClosed()) await page.unroute(pattern, handler);
++    }
++    browserUsesApiTransport(context, false);
++    if (context.setOffline === setOffline) context.setOffline = originalSetOffline;
++    await Promise.all([...pending]);
++  };
++}
+diff --git a/tests/qualification/ui-convergence/sharing-journey.mjs b/tests/qualification/ui-convergence/sharing-journey.mjs
+index 392e16c9..884dfc08 100644
+--- a/tests/qualification/ui-convergence/sharing-journey.mjs
++++ b/tests/qualification/ui-convergence/sharing-journey.mjs
+@@ -106,8 +106,8 @@ export async function shareJourney(state, pageId) {
+ export async function permissionLevelsJourney(state, { extended = true, levels = ['full', 'edit', 'comment', 'view'], section = 'all' } = {}) {
+   const { context, origin, api } = state, width = state.page.viewportSize().width;
+   // The owner uses authenticated API probes throughout this matrix. Unmount
+-  // their unrelated first page so its collaboration polling consumes no reads.
+-  if (extended) await state.page.goto('about:blank');
++  // their unrelated page in both matrices so invalidation fan-outs consume no reads.
++  await state.page.goto('about:blank');
+   const restoreBudget = extended ? await idleActorBudget(context, origin) : () => {};
+   // All probes, including snapshots and call()/ok(), share journey-api's
+   // per-actor dispatch queue; no inventory-specific transport or timer.
+diff --git a/tests/qualification/ui-convergence/transfer-jobs-journey.mjs b/tests/qualification/ui-convergence/transfer-jobs-journey.mjs
+index f7539361..d65486ae 100644
+--- a/tests/qualification/ui-convergence/transfer-jobs-journey.mjs
++++ b/tests/qualification/ui-convergence/transfer-jobs-journey.mjs
+@@ -1,3 +1,4 @@
++import {countBinaryProbe} from './journey-api.mjs';
+ import assert from 'node:assert/strict';
+ import {mkdir,mkdtemp,readFile,rm,writeFile} from 'node:fs/promises';
+ import {createHash,randomUUID} from 'node:crypto';
+@@ -236,6 +237,7 @@ async function shown(state, job, expected) {
+     const replay=await call(state.context,state.origin,'POST',jobPath(job.id)+'/run',{});
+     assert.equal(replay.status,200);
+     assert.deepEqual(replay.body,stored,'Replaying a failed job cannot turn it into a completion.');
++    await countBinaryProbe(state.context, state.origin, 'GET', `/api/exports/${job.id}/download`);
+     const download=await state.context.request.get(state.origin+`/api/exports/${job.id}/download`);
+     assert.notEqual(download.status(),200,'A failed transfer cannot be downloaded by guessing its path.');
+   }
+diff --git a/tests/requirements/cli-journey.md b/tests/requirements/cli-journey.md
+index d3c26795..b8c6809c 100644
+--- a/tests/requirements/cli-journey.md
++++ b/tests/requirements/cli-journey.md
+@@ -278,3 +278,5 @@ The existing core-wiki callers in `tests/qualification/ui-convergence/journeys.t
+ The full-level registration is split into "native ordinary page full authority retains inventories and refuses revoked captures for page changes at 1440px" and "native ordinary page full authority retains inventories and refuses revoked captures for discussion and sharing at 1440px". Page changes cover display, ownership, structure, locks, lifecycle, archive and erasure; the other installation covers discussion, reactions and grants. Both start with the same native populated-page and title/body proof, retain complete canonical inventories and duplicate-capture assertions, replay every captured operation against the final retained state, then revoke the actor and refuse all captured mutations and metadata reads. Edit, comment, view and the responsive selected callers remain combined. These five level registrations each retain 240000 ms and stay on the existing eight shards (both full cases on partition 6). The expanded inventory adds one ordinary registration: 212 expanded cases, conservatively 192 ordinary after excluding the same 20 release-wall cases, below 200. The prior same-SHA full case took 237.18 s on hosted Ubuntu with only 2.82 s margin; main had no intervening commits when investigated. This split supplies independent request windows without changing any production limit, adding retries, or promoting SHARE-002 acceptance.
+ 
+ The sharing harness routes native API probes through `tests/qualification/ui-convergence/journey-api.mjs`: `state.api()`, `call()`/`ok()`, reader-cookie overrides, all five canonical snapshot branches and every activity cursor page share one queue per actor and installation. Probes dispatch one at a time per actor using a bounded 100-request burst and five refills per second: at most 400 probes in any rolling minute. This leaves 200 of the unchanged 600 requests for native browser work without imposing a fixed delay on light traffic. Extended matrices assert that the owner has no mounted page before allowing its probes 400 refills per minute plus the same 100-request burst (at most 500), leaving 100 requests of headroom even for that idle actor. Owner, reader, touch and recipient browser contexts carry the same synthetic documentation IP as their own helper calls; a reader-cookie override selects the reader address without changing the owner browser. The native limiter already includes `operator:<member id>` in its key, so different members were never one operator bucket merely because their local address matched. The former inventory-only 125/105 ms reservations excluded other helper calls and did not bound the owner's total traffic. The transport regression exercised by the existing reachability command checks concurrent comments-snapshot branches, alternate helper calls, cookie overrides, identity switches and a single unretried 429. Every canonical inventory, refusal, replay and assertion remains; no production limit, response retry, deadline, registration partition or workflow change is introduced.
++
++COMM-002’s `commentAuthorshipJourney` in the existing core-wiki registrations awaits each native deletion receipt, verifies its durable comment and activity through the actor transport, then replays all writes. After reload it waits for both visible "Comment deleted" tombstones before taking the exact chronological DOM inventory. Opening Comments mounts an asynchronous read; a separate API snapshot does not establish that the panel has rendered. Existing author/refusal, timestamp, replay and exact order assertions remain required, with unchanged timeouts and CI registrations.

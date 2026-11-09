@@ -1,0 +1,322 @@
+TAP version 13
+# PROBE PORT-001 1: native authored subtree -> Settings workspace ZIP retains 4 ordered pages, bodies, properties, thirteen revisions, changed, revoked and regranted member and group grants, edited and resolved anchored thread and reply with retained histories
+# PROBE PORT-001 2: native original downloads -> Settings ZIP has both exact original byte sequences and SHA-256 hashes; independent source snapshots unchanged
+# PROBE PORT-003 1: failed native export and restore replay and reload -> failed, no download or successful restore action
+# PROBE PORT-003 2: Settings export and empty-deployment restore -> queued, running, completed and failed persisted; counts equal native archive; safe reports identify commit failures
+# JOURNEY STEP {"name":"BLOCK-001 — a new page body takes real keystrokes, including before it finishes loading, and keeps them through committed save, failed save, explicit retry and leaving; touch member creates, inserts and drags blocks","startMs":165414}
+# Subtest: real core-wiki and touch-member journeys at 390px
+not ok 1 - real core-wiki and touch-member journeys at 390px
+  ---
+  duration_ms: 155229.258876
+  type: 'test'
+  location: '/home/agent/rer-consolidation/work/sd-slate-c-f212-fix1/slate/tests/qualification/ui-convergence/journey-shard.mjs:23:97'
+  failureType: 'unhandledRejection'
+  error: 'route.fulfill: Route is already handled!'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    dispatch (/home/agent/rer-consolidation/work/sd-slate-c-f212-fix1/slate/tests/qualification/ui-convergence/routed-journey-api.mjs:26:17)
+  ...
+# Journey failure context {
+#   "rejected": [],
+#   "consoleErrors": []
+# }
+# Journey failure context REQUEST TIMELINE {
+#   "primary": {
+#     "requestsAtDump": [
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6ZC…W0VW",
+#         "startMs": 0,
+#         "durationMs": 15,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/activity",
+#         "startMs": 23,
+#         "durationMs": 29,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6ZC…W0VW",
+#         "startMs": 408,
+#         "durationMs": 13,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/activity",
+#         "startMs": 426,
+#         "durationMs": 33,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/navigation",
+#         "startMs": 473,
+#         "durationMs": 129,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages",
+#         "startMs": 474,
+#         "durationMs": 120,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/databases",
+#         "startMs": 474,
+#         "durationMs": 100,
+#         "status": 200
+#       },
+#       {
+#         "method": "POST",
+#         "path": "/api/pages/01M6ZC…W0VW/open",
+#         "startMs": 507,
+#         "durationMs": 100,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/navigation",
+#         "startMs": 509,
+#         "durationMs": 25,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages",
+#         "startMs": 549,
+#         "durationMs": 68,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/navigation",
+#         "startMs": 608,
+#         "durationMs": 87,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/databases",
+#         "startMs": 621,
+#         "durationMs": 12,
+#         "status": 200
+#       },
+#       {
+#         "method": "POST",
+#         "path": "/api/pages/01M6ZC…W0VW/open",
+#         "startMs": 636,
+#         "durationMs": 12,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6ZC…W0VW",
+#         "startMs": 652,
+#         "durationMs": 13,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/navigation",
+#         "startMs": 668,
+#         "durationMs": 20,
+#         "status": 200
+#       },
+#       {
+#         "method": "PUT",
+#         "path": "/api/pages/01M6ZC…W0VW/blocks",
+#         "startMs": 1829,
+#         "durationMs": 56,
+#         "status": 200
+#       },
+#       {
+#         "method": "PUT",
+#         "path": "/api/pages/01M6ZC…W0VW/blocks",
+#         "startMs": 1848,
+#         "durationMs": 32,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6ZC…W0VW",
+#         "startMs": 1886,
+#         "durationMs": 23,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6ZC…W0VW",
+#         "startMs": 1893,
+#         "durationMs": 14,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6ZC…W0VW",
+#         "startMs": 1949,
+#         "durationMs": 13,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/app/pages/01M6ZC…W0VW",
+#         "startMs": 1971,
+#         "durationMs": 103,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 2074,
+#         "durationMs": 17,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 2077,
+#         "durationMs": 34,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 2077,
+#         "durationMs": 33,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 2078,
+#         "durationMs": 56,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6ZC…3Z2E/<id>",
+#         "startMs": 2179,
+#         "durationMs": 38,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/tasks/01M6ZC…W0VW/assignees",
+#         "startMs": 2180,
+#         "durationMs": 77,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/<id>",
+#         "startMs": 2182,
+#         "durationMs": 11,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6ZC…3Z2E/<id>",
+#         "startMs": 2198,
+#         "durationMs": 15,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/tasks/01M6ZC…W0VW/assignees",
+#         "startMs": 2219,
+#         "durationMs": 32,
+#         "status": 200
+#       },
+#       {
+#         "method": "PATCH",
+#         "path": "/api/pages/01M6ZC…W0VW/blocks/<id>",
+#         "startMs": 3993,
+#         "durationMs": 57,
+#         "status": 200
+#       },
+#       {
+#         "method": "PATCH",
+#         "path": "/api/pages/01M6ZC…W0VW/blocks/<id>",
+#         "startMs": 4002,
+#         "durationMs": 43,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/01M6ZC…W0VW",
+#         "startMs": 5176,
+#         "durationMs": 31,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/01M6ZC…W0VW",
+#         "startMs": 5184,
+#         "durationMs": 20,
+#         "status": 200
+#       },
+#       {
+#         "method": "POST",
+#         "path": "/api/pages/01M6ZC…W0VW/open",
+#         "startMs": 5211,
+#         "durationMs": 27,
+#         "status": 200
+#       },
+#       {
+#         "method": "POST",
+#         "path": "/api/pages/01M6ZC…W0VW/open",
+#         "startMs": 5217,
+#         "durationMs": 18,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/navigation",
+#         "startMs": 5240,
+#         "durationMs": 26,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/navigation",
+#         "startMs": 5245,
+#         "durationMs": 17,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/01M6ZC…W0VW",
+#         "startMs": 8175,
+#         "durationMs": 28,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/01M6ZC…W0VW",
+#         "startMs": 8181,
+#         "durationMs": 18,
+#         "status": 200
+#       }
+#     ]
+#   },
+#   "others": []
+# }
+# ACTOR REQUEST PEAKS {"width":390,"actors":[{"actor":"unregistered","peak":2,"peakAtMs":25851,"total":2,"sources":{"probe":2},"paths":{"GET /api/workspace/first-run":1,"POST /api/workspace/first-run":1}},{"actor":"unregistered","peak":2,"peakAtMs":27001,"total":2,"sources":{"probe":2},"paths":{"GET /api/workspace/first-run":1,"POST /api/workspace/first-run":1}},{"actor":"unregistered","peak":2,"peakAtMs":28053,"total":2,"sources":{"probe":2},"paths":{"GET /api/workspace/first-run":1,"POST /api/workspace/first-run":1}},{"actor":"browser-owner","peak":209,"peakAtMs":89342,"total":258,"sources":{"probe":177,"browser":81},"paths":{"GET /api/workspace/first-run":2,"POST /api/workspace/first-run":2,"GET /api/tasks/01M6ZC3X2W4E99NB8PQXKKDXZS/assignees":5,"GET /api/workspace":3,"GET /api/containers":5,"GET /api/pages":5,"POST /api/invitations":1,"GET /api/collaboration/01M6ZC3X2W4E99NB8PQXKKDXZS":1,"GET /api/hub":5,"GET /api/navigation/following":5,"GET /api/blog":5,"GET /api/imports/provider-folders":9,"GET /api/imports/provider-folders/destinations":9,"GET /api/imports":9,"GET /api/backups":9,"POST /api/groups":1,"POST /api/pages":6,"GET /api/pages/01M6ZC4J2CRCQ187APAK193Z2E":4,"PATCH /api/pages/01M6ZC4J2CRCQ187APAK193Z2E":1,"PATCH /api/pages/01M6ZC4J2CRCQ187APAK193Z2E/blocks/c6b127f1-7325-487e-a294-5972062c2e77":1,"GET /api/pages/01M6ZC4JCYZ00B738XG71DGS9E":4,"PATCH /api/pages/01M6ZC4JCYZ00B738XG71DGS9E":1,"PATCH /api/pages/01M6ZC4JCYZ00B738XG71DGS9E/blocks/aad863ef-fa6e-4ee8-8a1f-c4713d7a1692":1,"GET /api/pages/01M6ZC4JJMFZBY1TGYC5DEZSY0":3,"PATCH /api/pages/01M6ZC4JJMFZBY1TGYC5DEZSY0":1,"PATCH /api/pages/01M6ZC4JJMFZBY1TGYC5DEZSY0/blocks/4627ccd6-0046-4f03-9ba2-26c7dac2a5d5":1,"GET /api/pages/01M6ZC4JR2F7D27CV60AJMV8CC":3,"PATCH /api/pages/01M6ZC4JR2F7D27CV60AJMV8CC":1,"PATCH /api/pages/01M6ZC4JR2F7D27CV60AJMV8CC/blocks/e4a51e7b-d861-4f64-9022-b88fe06cc9b9":1,"POST /api/sharing":8,"PUT /api/sharing/pages/01M6ZC4JCYZ00B738XG71DGS9E/inheritance":1,"POST /api/comments/page/01M6ZC4J2CRCQ187APAK193Z2E":2,"GET /api/comments/page/01M6ZC4J2CRCQ187APAK193Z2E":4,"PATCH /api/comments/01M6ZC4KV73ZR81FYS3MGW25WT":1,"POST /api/comments/thread/01M6ZC4KV7G8Y7ZH9BV9TNT10K/resolve":1,"GET /api/revisions/01M6ZC4J2CRCQ187APAK193Z2E":1,"GET /api/revisions/01M6ZC4J2CRCQ187APAK193Z2E/01M6ZC4J9QH8DY7GYH9WZ6QWYP":1,"GET /api/revisions/01M6ZC4J2CRCQ187APAK193Z2E/01M6ZC4J59M9HVD40YYNG2JTBR":1,"GET /api/revisions/01M6ZC4J2CRCQ187APAK193Z2E/01M6ZC4J2C6K3G1ZDQEACN5SRS":1,"GET /api/sharing/pages/01M6ZC4J2CRCQ187APAK193Z2E":1,"GET /api/revisions/01M6ZC4JJMFZBY1TGYC5DEZSY0":1,"GET /api/revisions/01M6ZC4JJMFZBY1TGYC5DEZSY0/01M6ZC4JQ1RERJEMD6TNPTVF96":1,"GET /api/revisions/01M6ZC4JJMFZBY1TGYC5DEZSY0/01M6ZC4JMB88HKCFMFDPH8VZ8H":1,"GET /api/revisions/01M6ZC4JJMFZBY1TGYC5DEZSY0/01M6ZC4JJMA0Y207XB24AT9QTC":1,"GET /api/sharing/pages/01M6ZC4JJMFZBY1TGYC5DEZSY0":1,"GET /api/comments/page/01M6ZC4JJMFZBY1TGYC5DEZSY0":1,"GET /api/revisions/01M6ZC4JCYZ00B738XG71DGS9E":1,"GET /api/revisions/01M6ZC4JCYZ00B738XG71DGS9E/01M6ZC4KRTJZ5Z808FHY2Y0EQK":1,"GET /api/revisions/01M6ZC4JCYZ00B738XG71DGS9E/01M6ZC4JHDS7ADVKZHXCY2KKM4":1,"GET /api/revisions/01M6ZC4JCYZ00B738XG71DGS9E/01M6ZC4JF3KR8PD7AVHBW1890M":1,"GET /api/revisions/01M6ZC4JCYZ00B738XG71DGS9E/01M6ZC4JCY6WR1WJ8AE3PNRVA5":1,"GET /api/sharing/pages/01M6ZC4JCYZ00B738XG71DGS9E":1,"GET /api/comments/page/01M6ZC4JCYZ00B738XG71DGS9E":1,"GET /api/revisions/01M6ZC4JR2F7D27CV60AJMV8CC":1,"GET /api/revisions/01M6ZC4JR2F7D27CV60AJMV8CC/01M6ZC4JWFYZK85K7WBSGJAKTS":1,"GET /api/revisions/01M6ZC4JR2F7D27CV60AJMV8CC/01M6ZC4JTC0JM6D2BVH3ZHQHJW":1,"GET /api/revisions/01M6ZC4JR2F7D27CV60AJMV8CC/01M6ZC4JR2BPWQ8RPMKJ850AW1":1,"GET /api/sharing/pages/01M6ZC4JR2F7D27CV60AJMV8CC":1,"GET /api/comments/page/01M6ZC4JR2F7D27CV60AJMV8CC":1,"POST /api/exports/jobs/workspace":2,"GET /api/exports/jobs/01M6ZC4TV0JKVT0M2BDQPVD57B":34,"GET /api/pages/01M6ZC4J2CRCQ187APAK193Z2E/expansion":16,"POST /api/exports/jobs/01M6ZC4TV0JKVT0M2BDQPVD57B/run":3,"GET /api/exports/01M6ZC4TV0JKVT0M2BDQPVD57B/download":2,"GET /api/exports/jobs/01M6ZC52KVXJW0FGXXE4T647SB":28,"POST /api/exports/jobs/01M6ZC52KVXJW0FGXXE4T647SB/run":1,"GET /api/exports/01M6ZC52KVXJW0FGXXE4T647SB/download":1,"GET /api/session":2,"GET /api/ai/availability":1,"GET /api/navigation":4,"GET /api/tasks/01M6ZC812JWMEYVCCJW5C4W0VW/assignees":2,"GET /api/pages/01M6ZC812JWMEYVCCJW5C4W0VW":7,"GET /api/activity":2,"PATCH /api/pages/01M6ZC812JWMEYVCCJW5C4W0VW":1,"GET /api/databases":1,"POST /api/pages/01M6ZC812JWMEYVCCJW5C4W0VW/open":2,"PUT /api/pages/01M6ZC812JWMEYVCCJW5C4W0VW/blocks":1,"PATCH /api/pages/01M6ZC812JWMEYVCCJW5C4W0VW/blocks/first-01M6ZC812JWMEYVCCJW5C4W0VW":1,"GET /api/collaboration/01M6ZC812JWMEYVCCJW5C4W0VW":2}},{"actor":"unregistered","peak":1,"peakAtMs":48894,"total":1,"sources":{"probe":1},"paths":{"GET /api/session":1}},{"actor":"01M6ZC468WCND1YB6FB20DEBRP","peak":14,"peakAtMs":52561,"total":14,"sources":{"browser":12,"probe":2},"paths":{"GET /api/hub":4,"GET /api/navigation/following":4,"GET /api/blog":4,"GET /api/workspace/first-run":1,"POST /api/workspace/first-run":1}},{"actor":"browser-reader","peak":4,"peakAtMs":86205,"total":4,"sources":{"probe":4},"paths":{"GET /api/pages/01M6ZC4J2CRCQ187APAK193Z2E":2,"GET /api/pages/01M6ZC4JCYZ00B738XG71DGS9E":2}}]}
+# Error: Test "real core-wiki and touch-member journeys at 390px" at tests/qualification/ui-convergence/journey-shard.mjs:23:97 generated asynchronous activity after the test ended. This activity created the error "Error: route.fulfill: Route is already handled!" and would have caused the test to fail, but instead triggered an unhandledRejection event.
+# Error: Test "real core-wiki and touch-member journeys at 390px" at tests/qualification/ui-convergence/journey-shard.mjs:23:97 generated asynchronous activity after the test ended. This activity created the error "Error: route.fulfill: Route is already handled!" and would have caused the test to fail, but instead triggered an unhandledRejection event.
+# Error: Test "real core-wiki and touch-member journeys at 390px" at tests/qualification/ui-convergence/journey-shard.mjs:23:97 generated asynchronous activity after the test ended. This activity created the error "Error: route.fulfill: Route is already handled!" and would have caused the test to fail, but instead triggered an unhandledRejection event.
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 184266.410311

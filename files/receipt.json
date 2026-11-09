@@ -1,0 +1,298 @@
+{
+  "schema": 1,
+  "tag": "sd-slate-c-f212-fix1",
+  "repository": "just-every/run-slate",
+  "branch": "cloud/sd-slate-c-f212-fix1",
+  "input_head": "0cddbd258a74da2d45863b86a350ec03352faf89",
+  "merged_main": "0b55774db7e7454174c6d7474ba46b4cf55f820f",
+  "product_pushed": true,
+  "ci_run_ids": [
+    42577008851
+  ],
+  "checks": [
+    {
+      "command": "npx -y @runeditrun/rer setup --owner-email fleet@runeditrun.com --non-interactive",
+      "exit": 0
+    },
+    {
+      "command": "npx -y @runeditrun/rer build",
+      "exit": 0
+    },
+    {
+      "command": "pnpm exec tsx --test tests/profile/profile.node.tsx",
+      "exit": 0
+    },
+    {
+      "command": "pnpm exec vitest run --config tests/profile/vitest.config.ts tests/profile/profile.worker.test.ts",
+      "exit": 0
+    },
+    {
+      "command": "pnpm typecheck",
+      "exit": 0
+    },
+    {
+      "command": "npx -y @runeditrun/rer check --profile first-party",
+      "exit": 0
+    },
+    {
+      "command": "node --test tests/qualification/ui-convergence/journey-api.test.mjs",
+      "exit": 0
+    },
+    {
+      "command": "node --test tests/qualification/ui-convergence/journey-api.test.mjs",
+      "exit": 0,
+      "passed": 4
+    },
+    {
+      "command": "focused native writeJourney at 1440px using routed API",
+      "exit": 0
+    },
+    {
+      "command": "pnpm test:release-source",
+      "exit": 0
+    },
+    {
+      "command": "pnpm test:profile (Node 22.20.0)",
+      "exit": 0
+    }
+  ],
+  "measurement": {
+    "status": "final-scope-runs-in-progress",
+    "stored_limiter_max_observed": 537
+  },
+  "clause_status_changes": [],
+  "before": {
+    "width": 390,
+    "exit": 0,
+    "duration_seconds": 836.958620773,
+    "owner_peak_per_minute": 564,
+    "proposal_owner_peak_per_minute": 163,
+    "proposal_reader_peak_per_minute": 495
+  },
+  "proof_tree": "6aedf2a6a22af148bac75b81267a485ba2882767",
+  "fix": {
+    "product_rate_limit_changed": false,
+    "retry_added": false,
+    "timeout_increased": false,
+    "existing_assertions_weakened": false,
+    "native_proposal_api_through_shared_queue": true
+  },
+  "mechanical": {
+    "views_write": "node src/base/runtime/contract-docs.mjs write",
+    "views_write_exit": 0,
+    "views_check": "node src/base/runtime/contract-docs.mjs check",
+    "views_check_exit": 0,
+    "views_restored_from": "origin/main",
+    "lock": "pnpm source:lock",
+    "lock_exit": 0,
+    "lock_check": "pnpm source:check",
+    "lock_check_exit": 0
+  },
+  "contract": {
+    "before_counts": {
+      "done": 60,
+      "partial": 237,
+      "missing": 41,
+      "total": 338
+    },
+    "after_counts": {
+      "done": 60,
+      "partial": 237,
+      "missing": 41,
+      "total": 338
+    },
+    "source_count_row": "| All | 60 | 237 | 41 | 338 |",
+    "dec_006_status_from_input": "done",
+    "dec_006_status_after": "done",
+    "new_status_judgment": false
+  },
+  "full_history_clone": true,
+  "product_head": "2ea899a49ec26d7f91caf585e1c7937b37d6f329",
+  "product_tree": "6aedf2a6a22af148bac75b81267a485ba2882767",
+  "push": {
+    "command": "python3 $HOME/rer-consolidation/.tools/cloud-push.py origin cloud/sd-slate-c-f212-fix1",
+    "exit": 0,
+    "attempt": 1,
+    "status": "PUSH_OK"
+  },
+  "repetitions_completed": 3,
+  "qualification_progress": {
+    "completed_repetitions": 1,
+    "owner_peaks_first_pair": {
+      "390": 399,
+      "1440": 387
+    },
+    "remaining": "repetitions 2 and 3 at committed SHA"
+  },
+  "ci_qualification": "generated-view-only exemption",
+  "ci_actual_conclusion": "failure",
+  "ci_failed_job_ids": [
+    129026924474,
+    129027157452
+  ],
+  "qualification": [
+    {
+      "repetition": 1,
+      "width": 390,
+      "duration_seconds": 889.050197164,
+      "owner_peak_per_minute": 399,
+      "reader_peak_per_minute": 478,
+      "proposal_owner_peak_per_minute": 135,
+      "proposal_reader_peak_per_minute": 388,
+      "exit": 0
+    },
+    {
+      "repetition": 1,
+      "width": 1440,
+      "duration_seconds": 732.271004553,
+      "owner_peak_per_minute": 387,
+      "reader_peak_per_minute": 294,
+      "proposal_owner_peak_per_minute": 131,
+      "proposal_reader_peak_per_minute": 388,
+      "exit": 0
+    },
+    {
+      "repetition": 2,
+      "width": 390,
+      "duration_seconds": 873.36326465,
+      "owner_peak_per_minute": 423,
+      "reader_peak_per_minute": 477,
+      "proposal_owner_peak_per_minute": 138,
+      "proposal_reader_peak_per_minute": 389,
+      "exit": 0
+    },
+    {
+      "repetition": 2,
+      "width": 1440,
+      "duration_seconds": 709.4509414229999,
+      "owner_peak_per_minute": 395,
+      "reader_peak_per_minute": 295,
+      "proposal_owner_peak_per_minute": 134,
+      "proposal_reader_peak_per_minute": 388,
+      "exit": 0
+    },
+    {
+      "repetition": 3,
+      "width": 390,
+      "duration_seconds": 883.519049568,
+      "owner_peak_per_minute": 399,
+      "reader_peak_per_minute": 445,
+      "proposal_owner_peak_per_minute": 135,
+      "proposal_reader_peak_per_minute": 388,
+      "exit": 0
+    },
+    {
+      "repetition": 3,
+      "width": 1440,
+      "duration_seconds": 719.791277353,
+      "owner_peak_per_minute": 393,
+      "reader_peak_per_minute": 312,
+      "proposal_owner_peak_per_minute": 132,
+      "proposal_reader_peak_per_minute": 388,
+      "exit": 0
+    }
+  ],
+  "owner_peak_after": 423,
+  "committed_artifact": {
+    "schema": 1,
+    "commit": "2ea899a49ec26d7f91caf585e1c7937b37d6f329",
+    "tree": "6aedf2a6a22af148bac75b81267a485ba2882767",
+    "sourceSha256": "d340aa14ace20cb770147d9bb37972fc3310a8e735b838dc8d3ba253cc6df109",
+    "lockSha256": "b547d716983af684298d42a651d77a650db1880d8cf0172afcb37dbc66584898",
+    "outputSha256": "d5e376b9cae276bbc98184b68af69d4d9bcffe8ca9d8dda84d30e573a14f399e"
+  },
+  "blockers": [],
+  "pr_url": null,
+  "final_checks": [
+    {
+      "command": "pnpm test:release-source",
+      "exit": 0
+    },
+    {
+      "command": "pnpm typecheck",
+      "exit": 0
+    },
+    {
+      "command": "npx -y @runeditrun/rer check --profile first-party",
+      "exit": 0
+    },
+    {
+      "command": "pnpm source:check",
+      "exit": 0
+    },
+    {
+      "command": "git diff --exit-code origin/main -- ACCEPTANCE.md docs/CLAIMS.md",
+      "exit": 0
+    },
+    {
+      "command": "git diff --exit-code 0cddbd258a74da2d45863b86a350ec03352faf89 HEAD -- CONTRACT.md",
+      "exit": 0
+    }
+  ],
+  "responsive_screenshots": [
+    {
+      "path": "proofs/390-decision-proposal-native-edit-controls.png",
+      "width": 390,
+      "height": 1910,
+      "sha256": "f108d8c1bf99d4190796286fa7d0afabb80f9b446c3d11c1f6d4ed37c1a2045b",
+      "source_commit": "2ea899a49ec26d7f91caf585e1c7937b37d6f329",
+      "repetition": 3
+    },
+    {
+      "path": "proofs/390-decision-proposal-retained-history.png",
+      "width": 390,
+      "height": 1424,
+      "sha256": "03ec4828775fb87969ca7291f95097e44b8c3f0112215642679883da5ff72f22",
+      "source_commit": "2ea899a49ec26d7f91caf585e1c7937b37d6f329",
+      "repetition": 3
+    },
+    {
+      "path": "proofs/390-decision-proposal-view-only.png",
+      "width": 390,
+      "height": 1182,
+      "sha256": "6a54a2048e9e905c4ece7bf6a8d07d02e7461fc5f87f9a585558cba3fed8125f",
+      "source_commit": "2ea899a49ec26d7f91caf585e1c7937b37d6f329",
+      "repetition": 3
+    },
+    {
+      "path": "proofs/390-accepted-decision-retains-immutable-history.png",
+      "width": 390,
+      "height": 1446,
+      "sha256": "1a6c1eb650be17141b8c6d75fa1863f6f031e78780bdd33ae9e5a5377a0018a2",
+      "source_commit": "2ea899a49ec26d7f91caf585e1c7937b37d6f329",
+      "repetition": 3
+    },
+    {
+      "path": "proofs/1440-decision-proposal-native-edit-controls.png",
+      "width": 1440,
+      "height": 1708,
+      "sha256": "92d3c9655ff69e5123d9c92a10e5b3a8558312d60b49991fe5a37f8bd9e1ad8b",
+      "source_commit": "2ea899a49ec26d7f91caf585e1c7937b37d6f329",
+      "repetition": 3
+    },
+    {
+      "path": "proofs/1440-decision-proposal-retained-history.png",
+      "width": 1440,
+      "height": 1064,
+      "sha256": "f87389d0d8724219b48970b5b191520ae25192fb53a1e747f0dc73cb87683923",
+      "source_commit": "2ea899a49ec26d7f91caf585e1c7937b37d6f329",
+      "repetition": 3
+    },
+    {
+      "path": "proofs/1440-decision-proposal-view-only.png",
+      "width": 1440,
+      "height": 1000,
+      "sha256": "b4994759f1cd46944ce80f5c1571faa6748fe1332e4dadfce26fb317069f1e63",
+      "source_commit": "2ea899a49ec26d7f91caf585e1c7937b37d6f329",
+      "repetition": 3
+    },
+    {
+      "path": "proofs/1440-accepted-decision-retains-immutable-history.png",
+      "width": 1440,
+      "height": 1020,
+      "sha256": "822f8b5cd342a1e94f8a938fafd1b26322d69c73d92d165933ef4ccdbbf14bfe",
+      "source_commit": "2ea899a49ec26d7f91caf585e1c7937b37d6f329",
+      "repetition": 3
+    }
+  ]
+}

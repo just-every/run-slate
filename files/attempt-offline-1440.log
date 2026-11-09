@@ -1,0 +1,318 @@
+TAP version 13
+# JOURNEY STEP {"name":"BLOCK-001 — a new page body takes real keystrokes, including before it finishes loading, and keeps them through committed save, failed save, explicit retry and leaving; touch member creates, inserts and drags blocks","startMs":61832}
+# Subtest: real core-wiki and touch-member journeys at 1440px
+not ok 1 - real core-wiki and touch-member journeys at 1440px
+  ---
+  duration_ms: 57481.113851
+  type: 'test'
+  location: '/home/agent/rer-consolidation/work/sd-slate-c-f212-fix1/slate/tests/qualification/ui-convergence/journey-shard.mjs:23:97'
+  failureType: 'unhandledRejection'
+  error: 'route.fulfill: Route is already handled!'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    dispatch (/home/agent/rer-consolidation/work/sd-slate-c-f212-fix1/slate/tests/qualification/ui-convergence/routed-journey-api.mjs:26:17)
+  ...
+# Journey failure context {
+#   "rejected": [],
+#   "consoleErrors": []
+# }
+# Journey failure context REQUEST TIMELINE {
+#   "primary": {
+#     "requestsAtDump": [
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6ZC…34CR",
+#         "startMs": 0,
+#         "durationMs": 13,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/activity",
+#         "startMs": 20,
+#         "durationMs": 12,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6ZC…34CR",
+#         "startMs": 423,
+#         "durationMs": 15,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/activity",
+#         "startMs": 445,
+#         "durationMs": 19,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/navigation",
+#         "startMs": 483,
+#         "durationMs": 91,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages",
+#         "startMs": 485,
+#         "durationMs": 73,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/databases",
+#         "startMs": 486,
+#         "durationMs": 71,
+#         "status": 200
+#       },
+#       {
+#         "method": "POST",
+#         "path": "/api/pages/01M6ZC…34CR/open",
+#         "startMs": 501,
+#         "durationMs": 72,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/navigation",
+#         "startMs": 510,
+#         "durationMs": 76,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/navigation",
+#         "startMs": 575,
+#         "durationMs": 138,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages",
+#         "startMs": 601,
+#         "durationMs": 19,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/databases",
+#         "startMs": 625,
+#         "durationMs": 9,
+#         "status": 200
+#       },
+#       {
+#         "method": "POST",
+#         "path": "/api/pages/01M6ZC…34CR/open",
+#         "startMs": 639,
+#         "durationMs": 13,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6ZC…34CR",
+#         "startMs": 655,
+#         "durationMs": 29,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/navigation",
+#         "startMs": 691,
+#         "durationMs": 18,
+#         "status": 200
+#       },
+#       {
+#         "method": "PUT",
+#         "path": "/api/pages/01M6ZC…34CR/blocks",
+#         "startMs": 2164,
+#         "durationMs": 77,
+#         "status": 200
+#       },
+#       {
+#         "method": "PUT",
+#         "path": "/api/pages/01M6ZC…34CR/blocks",
+#         "startMs": 2188,
+#         "durationMs": 45,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6ZC…34CR",
+#         "startMs": 2241,
+#         "durationMs": 35,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6ZC…34CR",
+#         "startMs": 2257,
+#         "durationMs": 15,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6ZC…34CR",
+#         "startMs": 2322,
+#         "durationMs": 19,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/app/pages/01M6ZC…34CR",
+#         "startMs": 2356,
+#         "durationMs": 154,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/01M6ZC…34CR",
+#         "startMs": 2449,
+#         "durationMs": 7372,
+#         "status": "pending"
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 2494,
+#         "durationMs": 15,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 2497,
+#         "durationMs": 33,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 2498,
+#         "durationMs": 34,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 2498,
+#         "durationMs": 84,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/01M6ZC…34CR",
+#         "startMs": 2555,
+#         "durationMs": 27,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/tasks/01M6ZC…34CR/assignees",
+#         "startMs": 2633,
+#         "durationMs": 65,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/<id>",
+#         "startMs": 2645,
+#         "durationMs": 18,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/tasks/01M6ZC…34CR/assignees",
+#         "startMs": 2652,
+#         "durationMs": 40,
+#         "status": 200
+#       },
+#       {
+#         "method": "PATCH",
+#         "path": "/api/pages/01M6ZC…34CR/blocks/<id>",
+#         "startMs": 4679,
+#         "durationMs": 87,
+#         "status": 200
+#       },
+#       {
+#         "method": "PATCH",
+#         "path": "/api/pages/01M6ZC…34CR/blocks/<id>",
+#         "startMs": 4690,
+#         "durationMs": 72,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/01M6ZC…34CR",
+#         "startMs": 5629,
+#         "durationMs": 31,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/01M6ZC…34CR",
+#         "startMs": 5638,
+#         "durationMs": 18,
+#         "status": 200
+#       },
+#       {
+#         "method": "POST",
+#         "path": "/api/pages/01M6ZC…34CR/open",
+#         "startMs": 5667,
+#         "durationMs": 50,
+#         "status": 200
+#       },
+#       {
+#         "method": "POST",
+#         "path": "/api/pages/01M6ZC…34CR/open",
+#         "startMs": 5675,
+#         "durationMs": 29,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/navigation",
+#         "startMs": 5717,
+#         "durationMs": 33,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/navigation",
+#         "startMs": 5725,
+#         "durationMs": 21,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/01M6ZC…34CR",
+#         "startMs": 8631,
+#         "durationMs": 41,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/01M6ZC…34CR",
+#         "startMs": 8644,
+#         "durationMs": 22,
+#         "status": 200
+#       }
+#     ]
+#   },
+#   "others": []
+# }
+# ACTOR REQUEST PEAKS {"width":1440,"actors":[{"actor":"unregistered","peak":2,"peakAtMs":26436,"total":2,"sources":{"probe":2},"paths":{"GET /api/workspace/first-run":1,"POST /api/workspace/first-run":1}},{"actor":"unregistered","peak":2,"peakAtMs":27452,"total":2,"sources":{"probe":2},"paths":{"GET /api/workspace/first-run":1,"POST /api/workspace/first-run":1}},{"actor":"unregistered","peak":2,"peakAtMs":28436,"total":2,"sources":{"probe":2},"paths":{"GET /api/workspace/first-run":1,"POST /api/workspace/first-run":1}},{"actor":"browser-owner","peak":63,"peakAtMs":86086,"total":63,"sources":{"probe":62,"browser":1},"paths":{"GET /api/workspace/first-run":2,"POST /api/workspace/first-run":2,"GET /api/tasks/01M6ZC3Y44FFRNVHEY8ZM57ZB4/assignees":4,"GET /api/workspace":3,"GET /api/containers":3,"GET /api/pages":4,"POST /api/invitations":1,"GET /api/collaboration/01M6ZC3Y44FFRNVHEY8ZM57ZB4":2,"GET /api/hub":5,"GET /api/navigation/following":5,"GET /api/blog":5,"GET /api/ai/availability":1,"GET /api/navigation":4,"POST /api/pages":1,"GET /api/tasks/01M6ZC51D15ZSXCR0EV5W434CR/assignees":2,"GET /api/pages/01M6ZC51D15ZSXCR0EV5W434CR":7,"GET /api/session":1,"GET /api/activity":2,"PATCH /api/pages/01M6ZC51D15ZSXCR0EV5W434CR":1,"GET /api/databases":1,"POST /api/pages/01M6ZC51D15ZSXCR0EV5W434CR/open":2,"PUT /api/pages/01M6ZC51D15ZSXCR0EV5W434CR/blocks":1,"GET /api/collaboration/01M6ZC51D15ZSXCR0EV5W434CR":3,"PATCH /api/pages/01M6ZC51D15ZSXCR0EV5W434CR/blocks/first-01M6ZC51D15ZSXCR0EV5W434CR":1}},{"actor":"unregistered","peak":1,"peakAtMs":50670,"total":1,"sources":{"probe":1},"paths":{"GET /api/session":1}},{"actor":"01M6ZC480WACQGZ3MCVFWPAMMY","peak":14,"peakAtMs":54576,"total":14,"sources":{"browser":12,"probe":2},"paths":{"GET /api/hub":4,"GET /api/navigation/following":4,"GET /api/blog":4,"GET /api/workspace/first-run":1,"POST /api/workspace/first-run":1}}]}
+# Error: Test "real core-wiki and touch-member journeys at 1440px" at tests/qualification/ui-convergence/journey-shard.mjs:23:97 generated asynchronous activity after the test ended. This activity created the error "Error: route.fulfill: Route is already handled!" and would have caused the test to fail, but instead triggered an unhandledRejection event.
+# Error: Test "real core-wiki and touch-member journeys at 1440px" at tests/qualification/ui-convergence/journey-shard.mjs:23:97 generated asynchronous activity after the test ended. This activity created the error "Error: route.fulfill: Route is already handled!" and would have caused the test to fail, but instead triggered an unhandledRejection event.
+# Error: Test "real core-wiki and touch-member journeys at 1440px" at tests/qualification/ui-convergence/journey-shard.mjs:23:97 generated asynchronous activity after the test ended. This activity created the error "Error: route.fulfill: Route is already handled!" and would have caused the test to fail, but instead triggered an unhandledRejection event.
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 87423.775225
