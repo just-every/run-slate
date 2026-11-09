@@ -40,7 +40,11 @@ export async function statusVocabularyJourney(state, width) {
     await dialog.getByLabel('Colour',{exact:true}).fill(color);
     await dialog.getByLabel('Require a human to verify the exact revision').check();
     if(retire) await dialog.getByLabel('Retire this status',{exact:true}).check();
+    // Saving includes a native mutation and vocabulary reload before the dialog closes.
+    const saved=page.waitForResponse(r=>new URL(r.url()).pathname==='/api/status'&&r.request().method()==='POST');
     await dialog.getByRole('button',{name:'Save status',exact:true}).click();
+    assert.equal((await saved).status(),200,'The native status save succeeds.');
+    await page.waitForLoadState('networkidle');
     await expect(dialog).toHaveCount(0);
     return (await api('/api/status')).items.find(s=>s.label===label);
   };

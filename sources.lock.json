@@ -12320,7 +12320,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/status-vocabulary-journey.mjs": {
-      "sha256": "a0d6c7d270eaa113d291ceaad45971238a6d45c3c5d4c807f2f379ad3a07f1e7",
+      "sha256": "a6dee99a2916f6770f0d1aac58ae935420fdf077be7973b954f3766d57b7c1fe",
       "executable": false
     },
     "tests/qualification/ui-convergence/synced-custody.mjs": {
@@ -12488,7 +12488,7 @@
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
-      "sha256": "ba59de8ab0e527d09d884e18e1e574141ca73ffa6490bacf589d56137a45d6a4",
+      "sha256": "5b1eab0889e90018b6f69b9d55ce436016541084d46fb656b9fdc2df11ec49db",
       "executable": false
     },
     "tests/requirements/count-registrations.mjs": {
