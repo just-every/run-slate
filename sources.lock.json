@@ -960,7 +960,7 @@
       "executable": false
     },
     "ACCEPTANCE.md": {
-      "sha256": "060d04a13ebb980f8f7a12ef69dc3c85914683fa0fcdfc14cb5dba9609a1f116",
+      "sha256": "824d7b7f50679c595453817c2b45b558c1049ed225c5350698c5d017b6da74a5",
       "executable": false
     },
     "AGENTS.consumer.md": {
@@ -988,7 +988,7 @@
       "executable": false
     },
     "CONTRACT.md": {
-      "sha256": "221a6498aa4e58321e87c970ffd0122f25fe0baaa71036e3ee71fe6202a8e8d1",
+      "sha256": "9504bf5bfe1f76b8a4f358de880d9c208f6806da32d02bea1e826fe65561faad",
       "executable": false
     },
     "DEMO.md": {
@@ -11972,7 +11972,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/database-journey.mjs": {
-      "sha256": "2c637f6d1fa5389f933adf87c791944e8de436d60b4348cd96fda62edee321d0",
+      "sha256": "532f5b1ab84d41d0627860b7641deeecfe09c25ebe37f02da01cf9347a54dc55",
       "executable": false
     },
     "tests/qualification/ui-convergence/decision-edit-journey.mjs": {
@@ -12180,7 +12180,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/journeys.test.mjs": {
-      "sha256": "7d57a7a867480e403e60f11d48e03a2916f7d4463556ecb23561c4a9103fea67",
+      "sha256": "6857e49f31f9d2191375d5d2a295d8d618c9d89a3a006d5ea11af3ab3ce1c0c1",
       "executable": false
     },
     "tests/qualification/ui-convergence/link-access-journey.mjs": {
@@ -12264,7 +12264,7 @@
       "executable": false
     },
     "tests/qualification/ui-convergence/record-detail-journey.mjs": {
-      "sha256": "72a142ff019377ed6581f31e172d6b1ab4db6a74c897bdaa0ae2f15778ca2fcc",
+      "sha256": "899e0a47997e8f59aec93d9fd1aec8bfa8c6566197bf40f52f68ceb96d295f22",
       "executable": false
     },
     "tests/qualification/ui-convergence/record-templates-journey.mjs": {
@@ -12500,7 +12500,7 @@
       "executable": false
     },
     "tests/requirements/cli-journey.md": {
-      "sha256": "8925257d06f331686a34d674062a31b4b1368fefde22f6732f79bfa6121869ce",
+      "sha256": "e046ddce278a58ef9f1f55cb0d82416714cccedea79e9c7b53d16d8bbffdf7c1",
       "executable": false
     },
     "tests/requirements/count-registrations.mjs": {

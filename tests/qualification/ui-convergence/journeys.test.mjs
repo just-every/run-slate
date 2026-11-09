@@ -122,7 +122,6 @@ for (const width of [390, 1440]) {
         if (width === 390) {
           await withSecondPerson(state, width, people => step('REV-002 complete page histories and current readers on a phone', () => historyInventoryJourney(state, people)));
           await automationRunLogJourney(state,touch);
-          await step('DB-012 populated record fields, comments, history and parity', () => recordDetailJourney(state, width));
           await standaloneChartJourney(state,{proofOnly:true});
           await templateCaptureJourney(state);
           await templateGalleryJourney(state);
@@ -479,6 +478,23 @@ for (const width of [390, 1440]) {
       const editing = performance.now();
       try { await decisionEditJourney(proposal, width); }
       finally { t.diagnostic(`DEC-006 editing at ${width}px: ${Math.round(performance.now() - editing)} ms`); }
+    });
+  });
+}
+
+// Record detail owns its request window instead of extending core/touch or
+// database round trips. Keep both responsive branches and all native assertions.
+// Native cloud runs took 280s (phone) and reached the desktop revocation phase
+// at 300s; these new registrations get 360s including setup and runner margin.
+for (const width of [390, 1440]) {
+  test(`DB-012 and DB-002 — populated record detail and actual relation records at ${width}px`, { timeout: 360000 }, async t => {
+    await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
+      const setup = performance.now();
+      await setupWorkspace(state);
+      t.diagnostic(`Record detail setup at ${width}px: ${Math.round(performance.now() - setup)} ms`);
+      const detail = performance.now();
+      try { await recordDetailJourney(state, width); }
+      finally { t.diagnostic(`Record detail at ${width}px: ${Math.round(performance.now() - detail)} ms`); }
     });
   });
 }

@@ -4,9 +4,38 @@ import {randomUUID} from 'node:crypto';
 import {expect} from '@playwright/test';
 import {accessible} from './browser-evidence.mjs';
 import {call, grant, ok, withSecondPerson} from './two-people-support.mjs';
+import {routeJourneyApi} from './routed-journey-api.mjs';
+import {actorRequestPeaks} from './journey-api.mjs';
+
+async function withRecordReader(state, width, run) {
+  await withSecondPerson(state, width, async people => {
+    const restore = await routeJourneyApi(people.bob.context, state.origin);
+    try { await run(people); }
+    finally {
+      await restore();
+      await people.bob.page.goto('about:blank');
+    }
+  });
+}
 
 /** Populated native records, independent member sessions and retained snapshots. */
 export async function recordDetailJourney(state, width) {
+  // The unrelated first-run page has no assertions here; unmount its editor
+  // before the record proof so its collaboration polls do not spend this actor's budget.
+  await state.page.goto('about:blank');
+  const restore = await routeJourneyApi(state.context, state.origin);
+  try { await recordDetailContents(state, width); }
+  finally {
+    await restore();
+    await state.page.goto('about:blank');
+  }
+  const actors = actorRequestPeaks(state.origin);
+  console.log('RECORD DETAIL REQUEST BUDGET', JSON.stringify({width, windowMs: 60000, nativeLimit: 600, marginCeiling: 500, actors}));
+  const ownerPeak = actors.find(row => row.actor === 'browser-owner').peak;
+  assert.ok(ownerPeak <= 500, `Record detail owner rolling-minute peak ${ownerPeak} exceeds the 500 request margin`);
+}
+
+async function recordDetailContents(state, width) {
   const {context, origin, api} = state;
   const mutate = (method, route, data, actor = context) => ok(actor, origin, method, route, {operationKey: randomUUID(), ...data});
   const workspace = await api('/api/workspace');
@@ -63,7 +92,7 @@ export async function recordDetailJourney(state, width) {
     await expect(page.locator('.record-fields-list').getByRole('button', {name: 'Edit', exact: true})).toHaveCount(canEdit ? 2 : 0);
   };
   try {
-    await withSecondPerson(state, width, async ({bob}) => {
+    await withRecordReader(state, width, async ({bob}) => {
       await policies('record-is-page');
       await bob.page.goto(recordUrl, {waitUntil: 'networkidle'});
       await checkFields(bob.page, true, 7);
@@ -184,7 +213,7 @@ export async function relationRecordsJourney(state, width) {
   const recordUrl = origin + `/app/databases/${source.id}/records/${record.pageId}`;
   const row = view => view.locator('.record-field').filter({has: view.locator('dt').getByText(field.name, {exact: true})});
   const selected = [first.pageId, second.pageId];
-  await withSecondPerson(state, width, async ({bob}) => {
+  await withRecordReader(state, width, async ({bob}) => {
     const openPicker = async () => {
       await row(bob.page).getByRole('button', {name: 'Edit', exact: true}).click();
       const picker = bob.page.getByRole('dialog', {name: 'Choose Linked records', exact: true});
