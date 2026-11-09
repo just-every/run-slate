@@ -1,0 +1,18 @@
+{
+  "command": [
+    "python3",
+    "/tmp/fleet-gh.py",
+    "run",
+    "view",
+    "42596882194",
+    "--repo",
+    "just-every/run-slate",
+    "--job",
+    "129091644187",
+    "--log-failed"
+  ],
+  "exit_code": 0,
+  "stdout_bytes": 1068,
+  "stderr": "",
+  "at": "2026-11-09T10:14:41.062291+00:00"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "main-core-390",
+  "command": "cloud_run timeout 1000 node --test --test-concurrency=1 --test-name-pattern='^real core-wiki and touch-member journeys at 390px$' tests/qualification/ui-convergence/journeys.test.mjs",
+  "started_at": "2026-11-09T09:34:03.923238+00:00",
+  "finished_at": "2026-11-09T09:37:26.706258+00:00",
+  "duration_seconds": 202.783,
+  "exit_code": 1
+}

@@ -1,0 +1,11 @@
+{
+  "repository": "just-every/run-slate",
+  "branch": "cloud/sd-slate-c-f212-fix2",
+  "head": "0eaa43c302904eb27fece856ad28c2e9ea48b92c",
+  "main": "0b55774db7e7454174c6d7474ba46b4cf55f820f",
+  "push_exit_code": 0,
+  "push_guard": "python3 $HOME/rer-consolidation/.tools/cloud-push.py origin cloud/sd-slate-c-f212-fix2",
+  "push_log": "product-push.log",
+  "full_journey_acceptance": false,
+  "note": "Full phone registration failed before DEC-006; independent native proof and exact-SHA CI are separate."
+}

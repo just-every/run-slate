@@ -1,0 +1,8 @@
+{
+  "name": "main-write-390",
+  "command": "cloud_run timeout 330 node --test /tmp/slate-write-probe.mjs",
+  "started_at": "2026-11-09T09:28:40.459257+00:00",
+  "finished_at": "2026-11-09T09:33:38.922373+00:00",
+  "duration_seconds": 298.463,
+  "exit_code": 1
+}

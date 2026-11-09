@@ -1,0 +1,12 @@
+✔ snapshot probes and call share one actor queue, browser address and real refusal (3632.555609ms)
+✔ probe bursts stay within 400 per rolling minute without delaying light traffic (5.219033ms)
+✔ the idle-owner probe budget still reserves 100 native requests per minute (3.010378ms)
+✔ proposal browser API fan-outs and helper snapshots share real queued dispatch without retries (2066.310956ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 7039.549895

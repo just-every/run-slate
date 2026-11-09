@@ -1,0 +1,15 @@
+commit 0eaa43c302904eb27fece856ad28c2e9ea48b92c
+Author:     Run Edit Run fleet <fleet@runeditrun.com>
+AuthorDate: Mon Nov 9 09:53:53 2026 +0000
+Commit:     Run Edit Run fleet <fleet@runeditrun.com>
+CommitDate: Mon Nov 9 09:53:53 2026 +0000
+
+    Retain DEC-006 request budget receipts and main clause judgment
+
+ CONTRACT.md                                                  |  6 +++---
+ sources.lock.json                                            | 10 +++++-----
+ tests/qualification/ui-convergence/browser-support.mjs       |  1 +
+ tests/qualification/ui-convergence/decision-edit-journey.mjs |  6 ++++--
+ tests/qualification/ui-convergence/journeys.test.mjs         |  4 +++-
+ tests/requirements/cli-journey.md                            |  2 ++
+ 6 files changed, 18 insertions(+), 11 deletions(-)

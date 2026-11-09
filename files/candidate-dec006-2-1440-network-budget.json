@@ -1,0 +1,149 @@
+{
+  "artifact": {
+    "schema": 1,
+    "commit": "0eaa43c302904eb27fece856ad28c2e9ea48b92c",
+    "tree": "1616179f98352a718e5330a0420236e00983c5f8",
+    "sourceSha256": "e06051a381de588f764728293ff8c0a3c5db0e1cfbd028ece8310acc5462bc7a",
+    "lockSha256": "7cac132c3f807cca2690e0c12003907b7959e522edd0228d455811e09c7d6912",
+    "outputSha256": "7cf0842c8cae8fcdce2798c6364eb495bac7c87d7908c5efa7f970c8a6dccc24"
+  },
+  "viewport": {
+    "width": 1440,
+    "height": 1000
+  },
+  "profile": "core-wiki",
+  "requestBudget": {
+    "windowMs": 60000,
+    "nativeLimit": 600,
+    "marginCeiling": 500,
+    "actors": [
+      {
+        "actor": "unregistered",
+        "peak": 2,
+        "peakAtMs": 364700,
+        "total": 2,
+        "sources": {
+          "probe": 2
+        },
+        "paths": {
+          "GET /api/workspace/first-run": 1,
+          "POST /api/workspace/first-run": 1
+        }
+      },
+      {
+        "actor": "unregistered",
+        "peak": 2,
+        "peakAtMs": 367109,
+        "total": 2,
+        "sources": {
+          "probe": 2
+        },
+        "paths": {
+          "GET /api/workspace/first-run": 1,
+          "POST /api/workspace/first-run": 1
+        }
+      },
+      {
+        "actor": "unregistered",
+        "peak": 2,
+        "peakAtMs": 369729,
+        "total": 2,
+        "sources": {
+          "probe": 2
+        },
+        "paths": {
+          "GET /api/workspace/first-run": 1,
+          "POST /api/workspace/first-run": 1
+        }
+      },
+      {
+        "actor": "browser-owner",
+        "peak": 109,
+        "peakAtMs": 499032,
+        "total": 218,
+        "sources": {
+          "probe": 204,
+          "browser": 14
+        },
+        "paths": {
+          "GET /api/workspace/first-run": 2,
+          "POST /api/workspace/first-run": 2,
+          "GET /api/tasks/01M6ZX4BY1JGK3YXKWRN9E8H3E/assignees": 4,
+          "GET /api/workspace": 3,
+          "GET /api/containers": 2,
+          "GET /api/pages": 1,
+          "GET /api/collaboration/01M6ZX4BY1JGK3YXKWRN9E8H3E": 51,
+          "POST /api/invitations": 1,
+          "GET /api/hub": 2,
+          "GET /api/navigation/following": 2,
+          "GET /api/blog": 2,
+          "GET /api/profile": 1,
+          "POST /api/pages": 2,
+          "POST /api/sharing": 5,
+          "GET /api/pages/01M6ZX5YWWYDMX840AC3GV7XKT": 3,
+          "PUT /api/sharing/pages/01M6ZX5YWWYDMX840AC3GV7XKT/inheritance": 1,
+          "GET /api/members/current": 1,
+          "GET /api/pages/01M6ZX61RHBBCPJ7YM62BXE56H": 1,
+          "POST /api/decisions": 1,
+          "GET /api/decisions/01M6ZX62VJK3FN0D72W1GCDT9V": 37,
+          "GET /api/decisions/01M6ZX62VJK3FN0D72W1GCDT9V/history": 40,
+          "GET /api/activity": 34,
+          "POST /api/collaboration/01M6ZX4BY1JGK3YXKWRN9E8H3E/presence": 11,
+          "GET /api/decisions": 1,
+          "GET /api/members": 3,
+          "GET /api/decisions/01M6ZX62VJK3FN0D72W1GCDT9V/reviews": 3,
+          "POST /api/decisions/01M6ZX62VJK3FN0D72W1GCDT9V/accept": 1,
+          "POST /api/decisions/01M6ZX62VJK3FN0D72W1GCDT9V/remove": 1
+        }
+      },
+      {
+        "actor": "unregistered",
+        "peak": 1,
+        "peakAtMs": 417222,
+        "total": 1,
+        "sources": {
+          "probe": 1
+        },
+        "paths": {
+          "GET /api/session": 1
+        }
+      },
+      {
+        "actor": "01M6ZX53MZ2EKT8VT0P25N8ZJ2",
+        "peak": 14,
+        "peakAtMs": 422637,
+        "total": 14,
+        "sources": {
+          "browser": 12,
+          "probe": 2
+        },
+        "paths": {
+          "GET /api/hub": 4,
+          "GET /api/navigation/following": 4,
+          "GET /api/blog": 4,
+          "GET /api/workspace/first-run": 1,
+          "POST /api/workspace/first-run": 1
+        }
+      },
+      {
+        "actor": "browser-reader",
+        "peak": 206,
+        "peakAtMs": 526016,
+        "total": 390,
+        "sources": {
+          "probe": 390
+        },
+        "paths": {
+          "GET /api/decisions": 35,
+          "GET /api/decisions/01M6ZX62VJK3FN0D72W1GCDT9V": 56,
+          "GET /api/members": 113,
+          "GET /api/decisions/01M6ZX62VJK3FN0D72W1GCDT9V/history": 77,
+          "GET /api/decisions/01M6ZX62VJK3FN0D72W1GCDT9V/reviews": 77,
+          "GET /api/pages": 10,
+          "POST /api/decisions": 21,
+          "GET /api/pages/01M6ZX61RHBBCPJ7YM62BXE56H": 1
+        }
+      }
+    ]
+  }
+}

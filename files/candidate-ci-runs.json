@@ -1,0 +1,1 @@
+{"workflow_runs":[{"conclusion":"failure","created_at":"2026-11-09T09:53:59Z","event":"push","head_branch":"cloud/sd-slate-c-f212-fix2","head_sha":"0eaa43c302904eb27fece856ad28c2e9ea48b92c","html_url":"https://github.com/just-every/run-slate/actions/runs/42596882194","id":42596882194,"name":"Verify Slate","status":"completed","updated_at":"2026-11-09T09:54:46Z"}]}

@@ -1,0 +1,129 @@
+{
+  "repository": "just-every/run-slate",
+  "branch": "cloud/sd-slate-c-f212-fix2",
+  "head": "0eaa43c302904eb27fece856ad28c2e9ea48b92c",
+  "product_pushed": true,
+  "ready": false,
+  "blocker": "Required enclosing full core-wiki/touch-member phone registration failed before DEC-006; three consecutive full-registration passes were not obtained.",
+  "native_dec006_three_consecutive_pairs_passed": true,
+  "baseline": [
+    {
+      "width": 390,
+      "owner_peak": 88,
+      "reader_peak": 247
+    },
+    {
+      "width": 1440,
+      "owner_peak": 83,
+      "reader_peak": 189
+    }
+  ],
+  "repeats": [
+    {
+      "repeat": 1,
+      "width": 390,
+      "owner_peak": 100,
+      "reader_peak": 235,
+      "owner_total": 205,
+      "reader_total": 396,
+      "exit_code": 0
+    },
+    {
+      "repeat": 1,
+      "width": 1440,
+      "owner_peak": 82,
+      "reader_peak": 198,
+      "owner_total": 234,
+      "reader_total": 390,
+      "exit_code": 0
+    },
+    {
+      "repeat": 2,
+      "width": 390,
+      "owner_peak": 118,
+      "reader_peak": 299,
+      "owner_total": 199,
+      "reader_total": 390,
+      "exit_code": 0
+    },
+    {
+      "repeat": 2,
+      "width": 1440,
+      "owner_peak": 109,
+      "reader_peak": 206,
+      "owner_total": 218,
+      "reader_total": 390,
+      "exit_code": 0
+    },
+    {
+      "repeat": 3,
+      "width": 390,
+      "owner_peak": 110,
+      "reader_peak": 206,
+      "owner_total": 214,
+      "reader_total": 384,
+      "exit_code": 0
+    },
+    {
+      "repeat": 3,
+      "width": 1440,
+      "owner_peak": 94,
+      "reader_peak": 187,
+      "owner_total": 216,
+      "reader_total": 396,
+      "exit_code": 0
+    }
+  ],
+  "native_owner_peak_after": {
+    "390": 118,
+    "1440": 109
+  },
+  "native_reader_peak_after": {
+    "390": 299,
+    "1440": 206
+  },
+  "full_phone_before_observed_peak": 194,
+  "full_phone_before_complete": false,
+  "full_phone_after_complete": false,
+  "ci": {
+    "run_id": 42596882194,
+    "conclusion": "failure",
+    "head_sha": "0eaa43c302904eb27fece856ad28c2e9ea48b92c",
+    "html_url": "https://github.com/just-every/run-slate/actions/runs/42596882194",
+    "status": "completed",
+    "app_job_id": 129091644187,
+    "app_failed_steps": [
+      "Run node src/base/runtime/contract-docs.mjs check"
+    ],
+    "generated_view_exempt": true,
+    "exemption_local_proof": "views-generated-check.log exits 0 before generated views are restored; views-restored-check.log names ACCEPTANCE.md only",
+    "product_ready": false,
+    "reason": "The required enclosing full phone registration has not passed; independent DEC-006 proof is separate.",
+    "github_calls_used": 8,
+    "limit": 10,
+    "app_log_receipt": "candidate-app-failure-receipt.json",
+    "app_failure_log": "candidate-app-failure.log",
+    "app_log_observed_error": "ACCEPTANCE.md: generated content differs; run contract-docs write."
+  },
+  "clause_change": {
+    "id": "DEC-006",
+    "inherited_candidate_status": "done",
+    "retained_main_status": "partial",
+    "final_status": "partial",
+    "raised": false
+  },
+  "counts": {
+    "before": {
+      "done": 60,
+      "partial": 237,
+      "missing": 41,
+      "total": 338
+    },
+    "after": {
+      "done": 59,
+      "partial": 238,
+      "missing": 41,
+      "total": 338
+    }
+  }
+}

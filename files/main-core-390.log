@@ -1,0 +1,328 @@
+rer toolchain: node v24.19.0 pnpm 10.12.4 (pins 22.20.0 / 10.12.4)
+TAP version 13
+# Journey failure context {
+#   "rejected": [],
+#   "consoleErrors": []
+# }
+# Journey failure context REQUEST TIMELINE {
+#   "primary": {
+#     "requestsAtDump": [
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 0,
+#         "durationMs": 15,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 0,
+#         "durationMs": 158,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 0,
+#         "durationMs": 147,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 0,
+#         "durationMs": 20,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 0,
+#         "durationMs": 19,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/<id>/01M6ZT…BTSA",
+#         "startMs": 10,
+#         "durationMs": 128,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/<id>/01M6ZT…BTSA",
+#         "startMs": 227,
+#         "durationMs": 116,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6ZT…EKRD/<id>",
+#         "startMs": 437,
+#         "durationMs": 44,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/<id>",
+#         "startMs": 444,
+#         "durationMs": 118,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/<id>/<id>",
+#         "startMs": 444,
+#         "durationMs": 123,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/<id>/01M6ZT…BTSA",
+#         "startMs": 444,
+#         "durationMs": 311,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>",
+#         "startMs": 445,
+#         "durationMs": 123,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>",
+#         "startMs": 445,
+#         "durationMs": 91,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/<id>/01M6ZT…BTSA",
+#         "startMs": 486,
+#         "durationMs": 375,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/<id>/01M6ZT…BTSA",
+#         "startMs": 976,
+#         "durationMs": 146,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/<id>/01M6ZT…BTSA",
+#         "startMs": 1226,
+#         "durationMs": 149,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/app/settings/<id>",
+#         "startMs": 1277,
+#         "durationMs": 291,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/<id>/01M6ZT…BTSA",
+#         "startMs": 1478,
+#         "durationMs": 141,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 1546,
+#         "durationMs": 11,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 1556,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 1556,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 1556,
+#         "durationMs": 2,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 1559,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 1559,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 1559,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/<id>/01M6ZT…BTSA",
+#         "startMs": 1803,
+#         "durationMs": 664,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6ZT…EKRD/<id>",
+#         "startMs": 1816,
+#         "durationMs": 422,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/<id>",
+#         "startMs": 1816,
+#         "durationMs": 357,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/<id>/<id>",
+#         "startMs": 1816,
+#         "durationMs": 422,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/<id>/01M6ZT…BTSA",
+#         "startMs": 1818,
+#         "durationMs": 649,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>",
+#         "startMs": 1818,
+#         "durationMs": 476,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>",
+#         "startMs": 1818,
+#         "durationMs": 458,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/<id>/01M6ZT…BTSA",
+#         "startMs": 2475,
+#         "durationMs": 95,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/<id>/01M6ZT…BTSA",
+#         "startMs": 2744,
+#         "durationMs": 108,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/<id>/01M6ZT…BTSA",
+#         "startMs": 2989,
+#         "durationMs": 114,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/<id>/01M6ZT…BTSA",
+#         "startMs": 3000,
+#         "durationMs": 247,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/<id>/01M6ZT…BTSA",
+#         "startMs": 3246,
+#         "durationMs": 133,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/<id>/01M6ZT…BTSA",
+#         "startMs": 3479,
+#         "durationMs": 4747,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/<id>/01M6ZT…BTSA",
+#         "startMs": 3480,
+#         "durationMs": 7955,
+#         "status": "pending"
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/<id>/01M6ZT…BTSA",
+#         "startMs": 8713,
+#         "durationMs": 318,
+#         "status": 200
+#       }
+#     ]
+#   },
+#   "others": []
+# }
+# Subtest: real core-wiki and touch-member journeys at 390px
+not ok 1 - real core-wiki and touch-member journeys at 390px
+  ---
+  duration_ms: 140453.525652
+  type: 'test'
+  location: '/home/agent/rer-consolidation/work/sd-slate-c-f212-fix2/run-slate/tests/qualification/ui-convergence/journey-shard.mjs:23:97'
+  failureType: 'testCodeFailure'
+  error: |-
+    expect(received).toBe(expected) // Object.is equality
+    
+    Expected: true
+    Received: false
+    
+    Call Log:
+    - Timeout 5000ms exceeded while waiting on the predicate
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    captureRawStack (/home/agent/rer-consolidation/work/sd-slate-c-f212-fix2/run-slate/node_modules/.pnpm/playwright-core@1.63.0/node_modules/playwright-core/lib/coreBundle.js:8588:17)
+    callMatcherAsStep (/home/agent/rer-consolidation/work/sd-slate-c-f212-fix2/run-slate/node_modules/.pnpm/playwright@1.63.0/node_modules/playwright/lib/matchers/expect.js:13310:57)
+    Object.toBe (/home/agent/rer-consolidation/work/sd-slate-c-f212-fix2/run-slate/node_modules/.pnpm/playwright@1.63.0/node_modules/playwright/lib/matchers/expect.js:13302:23)
+    run (/home/agent/rer-consolidation/work/sd-slate-c-f212-fix2/run-slate/tests/qualification/ui-convergence/transfer-jobs-journey.mjs:280:78)
+    async transferJobsJourney (/home/agent/rer-consolidation/work/sd-slate-c-f212-fix2/run-slate/tests/qualification/ui-convergence/transfer-jobs-journey.mjs:326:18)
+    async withWorkspace.scheduled (/home/agent/rer-consolidation/work/sd-slate-c-f212-fix2/run-slate/tests/qualification/ui-convergence/journeys.test.mjs:90:22)
+    async withWorkspace (/home/agent/rer-consolidation/work/sd-slate-c-f212-fix2/run-slate/tests/qualification/ui-convergence/browser-support.mjs:189:7)
+    async TestContext.<anonymous> (/home/agent/rer-consolidation/work/sd-slate-c-f212-fix2/run-slate/tests/qualification/ui-convergence/journeys.test.mjs:88:5)
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 200996.983888

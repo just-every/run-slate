@@ -1,0 +1,21 @@
+rer toolchain: node v24.19.0 pnpm 10.12.4 (pins 22.20.0 / 10.12.4)
+TAP version 13
+# Subtest: main comparison: native writing and typed shortcuts at 390px
+not ok 1 - main comparison: native writing and typed shortcuts at 390px
+  ---
+  duration_ms: 240725.347082
+  type: 'test'
+  location: '/tmp/slate-write-probe.mjs:5:1'
+  failureType: 'testTimeoutFailure'
+  error: 'test timed out after 240000ms'
+  code: 'ERR_TEST_FAILURE'
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 0
+# cancelled 1
+# skipped 0
+# todo 0
+# duration_ms 296816.189673

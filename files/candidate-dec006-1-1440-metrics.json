@@ -1,0 +1,147 @@
+{
+  "name": "candidate-dec006-1",
+  "width": 1440,
+  "actor_measurements": [
+    {
+      "width": 1440,
+      "actors": [
+        {
+          "actor": "unregistered",
+          "peak": 2,
+          "peakAtMs": 363161,
+          "total": 2,
+          "sources": {
+            "probe": 2
+          },
+          "paths": {
+            "GET /api/workspace/first-run": 1,
+            "POST /api/workspace/first-run": 1
+          }
+        },
+        {
+          "actor": "unregistered",
+          "peak": 2,
+          "peakAtMs": 365276,
+          "total": 2,
+          "sources": {
+            "probe": 2
+          },
+          "paths": {
+            "GET /api/workspace/first-run": 1,
+            "POST /api/workspace/first-run": 1
+          }
+        },
+        {
+          "actor": "unregistered",
+          "peak": 2,
+          "peakAtMs": 366957,
+          "total": 2,
+          "sources": {
+            "probe": 2
+          },
+          "paths": {
+            "GET /api/workspace/first-run": 1,
+            "POST /api/workspace/first-run": 1
+          }
+        },
+        {
+          "actor": "browser-owner",
+          "peak": 82,
+          "peakAtMs": 525062,
+          "total": 234,
+          "sources": {
+            "probe": 217,
+            "browser": 17
+          },
+          "paths": {
+            "GET /api/workspace/first-run": 2,
+            "POST /api/workspace/first-run": 2,
+            "GET /api/tasks/01M6ZWFZWHXP2NHZS9PQG6VGA9/assignees": 4,
+            "GET /api/workspace": 3,
+            "GET /api/containers": 2,
+            "GET /api/pages": 1,
+            "GET /api/collaboration/01M6ZWFZWHXP2NHZS9PQG6VGA9": 63,
+            "POST /api/invitations": 1,
+            "POST /api/collaboration/01M6ZWFZWHXP2NHZS9PQG6VGA9/presence": 15,
+            "GET /api/hub": 2,
+            "GET /api/navigation/following": 2,
+            "GET /api/blog": 2,
+            "GET /api/profile": 1,
+            "POST /api/pages": 2,
+            "POST /api/sharing": 5,
+            "GET /api/pages/01M6ZWJAM1YY4BH1CY6KD3M3CK": 3,
+            "PUT /api/sharing/pages/01M6ZWJAM1YY4BH1CY6KD3M3CK/inheritance": 1,
+            "GET /api/members/current": 1,
+            "GET /api/pages/01M6ZWJBPAN7ZV9GS8TPJN2AJP": 1,
+            "POST /api/decisions": 1,
+            "GET /api/decisions/01M6ZWJC9P4DN693GMYB3ADVCK": 37,
+            "GET /api/decisions/01M6ZWJC9P4DN693GMYB3ADVCK/history": 40,
+            "GET /api/activity": 34,
+            "GET /api/decisions": 1,
+            "GET /api/members": 3,
+            "GET /api/decisions/01M6ZWJC9P4DN693GMYB3ADVCK/reviews": 3,
+            "POST /api/decisions/01M6ZWJC9P4DN693GMYB3ADVCK/accept": 1,
+            "POST /api/decisions/01M6ZWJC9P4DN693GMYB3ADVCK/remove": 1
+          }
+        },
+        {
+          "actor": "unregistered",
+          "peak": 1,
+          "peakAtMs": 413799,
+          "total": 1,
+          "sources": {
+            "probe": 1
+          },
+          "paths": {
+            "GET /api/session": 1
+          }
+        },
+        {
+          "actor": "01M6ZWGKEP7RQ7VP8CAPRSBVHZ",
+          "peak": 14,
+          "peakAtMs": 420439,
+          "total": 14,
+          "sources": {
+            "browser": 12,
+            "probe": 2
+          },
+          "paths": {
+            "GET /api/hub": 4,
+            "GET /api/navigation/following": 4,
+            "GET /api/blog": 4,
+            "GET /api/workspace/first-run": 1,
+            "POST /api/workspace/first-run": 1
+          }
+        },
+        {
+          "actor": "browser-reader",
+          "peak": 198,
+          "peakAtMs": 644662,
+          "total": 390,
+          "sources": {
+            "probe": 390
+          },
+          "paths": {
+            "GET /api/decisions": 35,
+            "GET /api/decisions/01M6ZWJC9P4DN693GMYB3ADVCK": 56,
+            "GET /api/members": 113,
+            "GET /api/decisions/01M6ZWJC9P4DN693GMYB3ADVCK/history": 77,
+            "GET /api/decisions/01M6ZWJC9P4DN693GMYB3ADVCK/reviews": 77,
+            "GET /api/pages": 10,
+            "POST /api/decisions": 21,
+            "GET /api/pages/01M6ZWJBPAN7ZV9GS8TPJN2AJP": 1
+          }
+        }
+      ]
+    }
+  ],
+  "owner_peak": 82,
+  "owner_peak_lines": [],
+  "dec006_probe_lines": [
+    "PROBE DEC-006: native proposal controls and HTTP at 1440px -> eight fields retain exact revisions, unchanged writes are no-ops, stale=409, view-only=404, accepted edits=409; actor peaks <=500/min"
+  ],
+  "dec006_receipts": {
+    "path": "candidate-dec006-1-1440-dec006-receipts.json",
+    "sha256": "3ac7a104ddd03b6f4f31d3569a3adaa224dbd8bd75b3127eefce768bf4344c08"
+  }
+}

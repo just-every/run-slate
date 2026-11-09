@@ -1,0 +1,8 @@
+{
+  "name": "touched-checks",
+  "command": "cloud_run timeout 240 pnpm test:ui:reachability && cloud_run timeout 300 pnpm typecheck && cloud_run timeout 300 pnpm test:profile && cloud_run timeout 300 pnpm test:release-source && node scripts/publish-check.mjs",
+  "started_at": "2026-11-09T09:48:58.022848+00:00",
+  "finished_at": "2026-11-09T09:53:36.850407+00:00",
+  "duration_seconds": 278.828,
+  "exit_code": 0
+}

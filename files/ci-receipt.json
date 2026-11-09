@@ -1,0 +1,20 @@
+{
+  "run_id": 42596882194,
+  "conclusion": "failure",
+  "head_sha": "0eaa43c302904eb27fece856ad28c2e9ea48b92c",
+  "html_url": "https://github.com/just-every/run-slate/actions/runs/42596882194",
+  "status": "completed",
+  "app_job_id": 129091644187,
+  "app_failed_steps": [
+    "Run node src/base/runtime/contract-docs.mjs check"
+  ],
+  "generated_view_exempt": true,
+  "exemption_local_proof": "views-generated-check.log exits 0 before generated views are restored; views-restored-check.log names ACCEPTANCE.md only",
+  "product_ready": false,
+  "reason": "The required enclosing full phone registration has not passed; independent DEC-006 proof is separate.",
+  "github_calls_used": 8,
+  "limit": 10,
+  "app_log_receipt": "candidate-app-failure-receipt.json",
+  "app_failure_log": "candidate-app-failure.log",
+  "app_log_observed_error": "ACCEPTANCE.md: generated content differs; run contract-docs write."
+}

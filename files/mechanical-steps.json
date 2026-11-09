@@ -1,0 +1,96 @@
+[
+  {
+    "command": [
+      "node",
+      "src/base/runtime/contract-docs.mjs",
+      "write"
+    ],
+    "exit_code": 0,
+    "expected_exit_code": 0,
+    "log": "views-write.log"
+  },
+  {
+    "command": [
+      "node",
+      "src/base/runtime/contract-docs.mjs",
+      "check"
+    ],
+    "exit_code": 0,
+    "expected_exit_code": 0,
+    "log": "views-generated-check.log"
+  },
+  {
+    "command": [
+      "git",
+      "checkout",
+      "origin/main",
+      "--",
+      "ACCEPTANCE.md",
+      "docs/CLAIMS.md"
+    ],
+    "exit_code": 0,
+    "expected_exit_code": 0,
+    "log": "views-restore.log"
+  },
+  {
+    "command": [
+      "node",
+      "src/base/runtime/contract-docs.mjs",
+      "check"
+    ],
+    "exit_code": 1,
+    "expected_exit_code": 1,
+    "log": "views-restored-check.log"
+  },
+  {
+    "command": [
+      "pnpm",
+      "integration:sync"
+    ],
+    "exit_code": 0,
+    "expected_exit_code": 0,
+    "log": "integration-sync.log"
+  },
+  {
+    "command": [
+      "git",
+      "add",
+      "CONTRACT.md",
+      "tests/qualification/ui-convergence/browser-support.mjs",
+      "tests/qualification/ui-convergence/decision-edit-journey.mjs",
+      "tests/qualification/ui-convergence/journeys.test.mjs",
+      "tests/requirements/cli-journey.md"
+    ],
+    "exit_code": 0,
+    "expected_exit_code": 0,
+    "log": "stage-source.log"
+  },
+  {
+    "command": [
+      "pnpm",
+      "source:lock"
+    ],
+    "exit_code": 0,
+    "expected_exit_code": 0,
+    "log": "source-lock.log"
+  },
+  {
+    "command": [
+      "git",
+      "add",
+      "sources.lock.json"
+    ],
+    "exit_code": 0,
+    "expected_exit_code": 0,
+    "log": "stage-lock.log"
+  },
+  {
+    "command": [
+      "pnpm",
+      "source:check"
+    ],
+    "exit_code": 0,
+    "expected_exit_code": 0,
+    "log": "source-check.log"
+  }
+]

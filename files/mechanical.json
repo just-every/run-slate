@@ -1,0 +1,8 @@
+{
+  "name": "mechanical",
+  "command": "python3 /tmp/slate-mechanical.py",
+  "started_at": "2026-11-09T09:48:47.117013+00:00",
+  "finished_at": "2026-11-09T09:48:57.974904+00:00",
+  "duration_seconds": 10.858,
+  "exit_code": 0
+}

@@ -1,0 +1,116 @@
+rer toolchain: node v24.19.0 pnpm 10.12.4 (pins 22.20.0 / 10.12.4)
+
+> slate@0.4.0 test:ui:reachability /home/agent/rer-consolidation/work/sd-slate-c-f212-fix2/candidate
+> node --test tests/qualification/ui-convergence/reachability.test.mjs
+
+TAP version 13
+# Subtest: snapshot probes and call share one actor queue, browser address and real refusal
+ok 1 - snapshot probes and call share one actor queue, browser address and real refusal
+  ---
+  duration_ms: 2921.7414
+  type: 'test'
+  ...
+# Subtest: probe bursts stay within 400 per rolling minute without delaying light traffic
+ok 2 - probe bursts stay within 400 per rolling minute without delaying light traffic
+  ---
+  duration_ms: 4.135683
+  type: 'test'
+  ...
+# Subtest: the idle-owner probe budget still reserves 100 native requests per minute
+ok 3 - the idle-owner probe budget still reserves 100 native requests per minute
+  ---
+  duration_ms: 10.538992
+  type: 'test'
+  ...
+# Subtest: proposal browser API fan-outs and helper snapshots share real queued dispatch without retries
+ok 4 - proposal browser API fan-outs and helper snapshots share real queued dispatch without retries
+  ---
+  duration_ms: 1714.47469
+  type: 'test'
+  ...
+# Subtest: the live UI import graph resolves runtime imports and rejects unreachable modules
+ok 5 - the live UI import graph resolves runtime imports and rejects unreachable modules
+  ---
+  duration_ms: 4325.722376
+  type: 'test'
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 5
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 14790.736418
+
+> slate@0.4.0 typecheck /home/agent/rer-consolidation/work/sd-slate-c-f212-fix2/candidate
+> tsc --noEmit
+
+
+> slate@0.4.0 test:profile /home/agent/rer-consolidation/work/sd-slate-c-f212-fix2/candidate
+> tsx --test tests/profile/*.node.tsx tests/profile/*.node.mjs && vitest run --config tests/profile/vitest.config.ts
+
+TAP version 13
+# Subtest: FLAG-001 — core wiki defaults, route boundaries and controls require explicit flagship opt-in
+ok 1 - FLAG-001 — core wiki defaults, route boundaries and controls require explicit flagship opt-in
+  ---
+  duration_ms: 102.913562
+  type: 'test'
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 1
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 5246.196722
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mProxy environment variables detected. We'll use your proxy for fetch requests.[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mProxy environment variables detected. We'll use your proxy for fetch requests.[0m
+
+
+
+ RUN  v4.1.11 /home/agent/rer-consolidation/work/sd-slate-c-f212-fix2/candidate
+
+
+ Test Files  2 passed (2)
+      Tests  5 passed (5)
+   Start at  09:51:24
+   Duration  128.09s (transform 38.94s, setup 15.13s, import 61.35s, tests 51.51s, environment 4ms)
+
+
+> slate@0.4.0 test:release-source /home/agent/rer-consolidation/work/sd-slate-c-f212-fix2/candidate
+> node --test tests/release/*.test.mjs
+
+TAP version 13
+# Subtest: public fixture policy preserves every reviewed archive
+ok 1 - public fixture policy preserves every reviewed archive
+  ---
+  duration_ms: 1739.736977
+  type: 'test'
+  ...
+# Subtest: operations inspect input readiness without claiming provider readiness
+ok 2 - operations inspect input readiness without claiming provider readiness
+  ---
+  duration_ms: 245.806565
+  type: 'test'
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 2
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1963.858819
+{
+  "check": "source-publication-inputs",
+  "passed": true,
+  "failures": [],
+  "limits": "Does not certify live providers, sealed prior-store upgrade, qualification suites, a tag, public visibility or deployment."
+}

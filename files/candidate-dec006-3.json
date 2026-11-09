@@ -1,0 +1,8 @@
+{
+  "name": "candidate-dec006-3",
+  "command": "cloud_run timeout 1300 node --test --test-concurrency=1 /tmp/slate-dec006-probe.mjs",
+  "started_at": "2026-11-09T10:23:40.741492+00:00",
+  "finished_at": "2026-11-09T10:34:32.686684+00:00",
+  "duration_seconds": 651.945,
+  "exit_code": 0
+}

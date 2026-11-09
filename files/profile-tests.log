@@ -1,0 +1,29 @@
+ WARN  Unsupported engine: wanted: {"node":"22.20.0"} (current: {"node":"v24.19.0","pnpm":"10.12.4"})
+
+> slate@0.4.0 test:profile /home/agent/rer-consolidation/work/sd-slate-c-f212-fix2/run-slate
+> tsx --test tests/profile/*.node.tsx tests/profile/*.node.mjs && vitest run --config tests/profile/vitest.config.ts
+
+✔ FLAG-001 — core wiki defaults, route boundaries and controls require explicit flagship opt-in (84.837704ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2943.749812
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mProxy environment variables detected. We'll use your proxy for fetch requests.[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mProxy environment variables detected. We'll use your proxy for fetch requests.[0m
+
+
+
+ RUN  v4.1.11 /home/agent/rer-consolidation/work/sd-slate-c-f212-fix2/run-slate
+
+
+ Test Files  2 passed (2)
+      Tests  5 passed (5)
+   Start at  09:12:55
+   Duration  126.15s (transform 30.83s, setup 5.65s, import 50.13s, tests 73.47s, environment 2ms)
+

@@ -1,0 +1,12 @@
+{
+  "source_head": "2ea899a49ec26d7f91caf585e1c7937b37d6f329",
+  "checks": [
+    {"command":"npx -y @runeditrun/rer setup --owner-email fleet@runeditrun.com --non-interactive","exit_code":0,"bound_seconds":300,"scope":"original full-history clone"},
+    {"command":"npx -y @runeditrun/rer build","exit_code":0,"bound_seconds":600,"log":"build.log"},
+    {"command":"node --test tests/qualification/ui-convergence/journey-api.test.mjs","exit_code":0,"passed":4,"failed":0,"log":"transport-tests.log"},
+    {"command":"pnpm typecheck","exit_code":0,"log":"typecheck.log"},
+    {"command":"pnpm test:profile","exit_code":0,"node_passed":1,"worker_files_passed":2,"worker_tests_passed":5,"log":"profile-tests.log"},
+    {"command":"pnpm exec rer check --profile first-party","exit_code":0,"log":"first-party.log"},
+    {"command":"node src/base/runtime/contract-docs.mjs check","exit_code":1,"reason":"ACCEPTANCE.md generated content differs","log":"views-baseline.log"}
+  ]
+}

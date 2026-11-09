@@ -1,0 +1,22 @@
+ CONTRACT.md                                        |   8 +-
+ sources.lock.json                                  |  46 +++--
+ src/core/features/decisions/records.ts             |   4 +-
+ .../features/decisions/ui/DecisionProposal.tsx     |   2 -
+ .../features/decisions/ui/DecisionWorkspace.tsx    |   2 +-
+ src/core/features/decisions/ui/PageDecisions.tsx   |  16 +-
+ tests/profile/decision-edit-journey.ts             | 133 ++++++++++++
+ tests/profile/profile.node.tsx                     |   2 +-
+ tests/profile/profile.worker.test.ts               |   5 +
+ tests/qualification/interface/decisions.mjs        |   3 +-
+ .../ui-convergence/browser-support.mjs             |   4 +-
+ .../ui-convergence/decision-edit-journey.mjs       | 227 +++++++++++++++++++++
+ .../ui-convergence/decision-log-journey.mjs        |   2 +-
+ tests/qualification/ui-convergence/journey-api.mjs |  49 +++++
+ .../ui-convergence/journey-api.test.mjs            |  78 ++++++-
+ .../qualification/ui-convergence/journeys.test.mjs |  29 ++-
+ .../ui-convergence/routed-journey-api.mjs          |  66 ++++++
+ .../ui-convergence/sharing-journey.mjs             |   4 +-
+ .../ui-convergence/transfer-jobs-journey.mjs       |   2 +
+ tests/requirements/clause-inventory.json           |   2 +-
+ tests/requirements/cli-journey.md                  |   3 +
+ 21 files changed, 643 insertions(+), 44 deletions(-)

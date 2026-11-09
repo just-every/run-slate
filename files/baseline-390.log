@@ -1,0 +1,337 @@
+rer toolchain: node v24.19.0 pnpm 10.12.4 (pins 22.20.0 / 10.12.4)
+TAP version 13
+# PROBE PORT-001 1: native authored subtree -> Settings workspace ZIP retains 4 ordered pages, bodies, properties, thirteen revisions, changed, revoked and regranted member and group grants, edited and resolved anchored thread and reply with retained histories
+# PROBE PORT-001 2: native original downloads -> Settings ZIP has both exact original byte sequences and SHA-256 hashes; independent source snapshots unchanged
+# PROBE PORT-003 1: failed native export and restore replay and reload -> failed, no download or successful restore action
+# PROBE PORT-003 2: Settings export and empty-deployment restore -> queued, running, completed and failed persisted; counts equal native archive; safe reports identify commit failures
+# JOURNEY STEP {"name":"BLOCK-001 — a new page body takes real keystrokes, including before it finishes loading, and keeps them through committed save, failed save, explicit retry and leaving; touch member creates, inserts and drags blocks","startMs":386709}
+# Journey failure context {
+#   "rejected": [],
+#   "consoleErrors": [
+#     {
+#       "url": "http://127.0.0.1:35415/app/pages/01M6ZT07R3SSGFQZWMZR4VZGNV",
+#       "message": "Failed to load resource: net::ERR_INTERNET_DISCONNECTED"
+#     },
+#     {
+#       "url": "http://127.0.0.1:35415/app/pages/01M6ZT07R3SSGFQZWMZR4VZGNV",
+#       "message": "Failed to load resource: net::ERR_INTERNET_DISCONNECTED"
+#     }
+#   ]
+# }
+# Journey failure context REQUEST TIMELINE {
+#   "primary": {
+#     "requestsAtDump": [
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 0,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6ZS…ZEWW/<id>",
+#         "startMs": 116,
+#         "durationMs": 21,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/tasks/01M6ZT…G4G4/assignees",
+#         "startMs": 116,
+#         "durationMs": 105,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/01M6ZT…G4G4",
+#         "startMs": 3520,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "POST",
+#         "path": "/api/pages",
+#         "startMs": 5646,
+#         "durationMs": 83,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/app/pages/01M6ZT…GYT3",
+#         "startMs": 5741,
+#         "durationMs": 327,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 6058,
+#         "durationMs": 2,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 6060,
+#         "durationMs": 1,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 6061,
+#         "durationMs": 3,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 6064,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6ZS…ZEWW/<id>",
+#         "startMs": 6153,
+#         "durationMs": 28,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/tasks/01M6ZT…GYT3/assignees",
+#         "startMs": 6165,
+#         "durationMs": 226,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/<id>/<id>",
+#         "startMs": 6170,
+#         "durationMs": 187,
+#         "status": 200
+#       },
+#       {
+#         "method": "PATCH",
+#         "path": "/api/pages/01M6ZT…GYT3",
+#         "startMs": 7009,
+#         "durationMs": 74,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6ZT…GYT3",
+#         "startMs": 7040,
+#         "durationMs": 84,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/navigation",
+#         "startMs": 7088,
+#         "durationMs": 252,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages",
+#         "startMs": 7089,
+#         "durationMs": 234,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/databases",
+#         "startMs": 7089,
+#         "durationMs": 149,
+#         "status": 200
+#       },
+#       {
+#         "method": "POST",
+#         "path": "/api/pages/01M6ZT…GYT3/open",
+#         "startMs": 7107,
+#         "durationMs": 301,
+#         "status": 200
+#       },
+#       {
+#         "method": "PUT",
+#         "path": "/api/pages/01M6ZT…GYT3/blocks",
+#         "startMs": 7406,
+#         "durationMs": 75,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6ZT…GYT3",
+#         "startMs": 7489,
+#         "durationMs": 32,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6ZT…GYT3",
+#         "startMs": 7676,
+#         "durationMs": 148,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6ZT…GYT3",
+#         "startMs": 7940,
+#         "durationMs": 39,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6ZT…GYT3",
+#         "startMs": 8245,
+#         "durationMs": 29,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6ZT…GYT3",
+#         "startMs": 8277,
+#         "durationMs": 43,
+#         "status": 200
+#       },
+#       {
+#         "method": "PUT",
+#         "path": "/api/pages/01M6ZT…GYT3/blocks",
+#         "startMs": 8320,
+#         "durationMs": 77,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/01M6ZT…GYT3",
+#         "startMs": 9367,
+#         "durationMs": 163,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6ZT…GYT3",
+#         "startMs": 9371,
+#         "durationMs": 214,
+#         "status": 200
+#       },
+#       {
+#         "method": "POST",
+#         "path": "/api/pages/01M6ZT…GYT3/open",
+#         "startMs": 9543,
+#         "durationMs": 150,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6ZT…GYT3",
+#         "startMs": 9643,
+#         "durationMs": 81,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/navigation",
+#         "startMs": 9693,
+#         "durationMs": 1962,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6ZT…GYT3",
+#         "startMs": 11573,
+#         "durationMs": 4616,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/01M6ZT…GYT3",
+#         "startMs": 15775,
+#         "durationMs": 1150,
+#         "status": 200
+#       },
+#       {
+#         "method": "PUT",
+#         "path": "/api/pages/01M6ZT…GYT3/blocks",
+#         "startMs": 16189,
+#         "durationMs": 1185,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6ZT…GYT3",
+#         "startMs": 16648,
+#         "durationMs": 374,
+#         "status": 200
+#       },
+#       {
+#         "method": "POST",
+#         "path": "/api/<id>/01M6ZT…GYT3/presence",
+#         "startMs": 18966,
+#         "durationMs": 8,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/01M6ZT…GYT3",
+#         "startMs": 18976,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "POST",
+#         "path": "/api/pages/01M6ZT…GYT3/open",
+#         "startMs": 18982,
+#         "durationMs": 2,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/navigation",
+#         "startMs": 18985,
+#         "durationMs": 347,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/01M6ZT…GYT3",
+#         "startMs": 21572,
+#         "durationMs": 163,
+#         "status": 200
+#       }
+#     ]
+#   },
+#   "others": []
+# }
+# ACTOR REQUEST PEAKS {"width":390,"actors":[{"actor":"unregistered","peak":2,"peakAtMs":77585,"total":2,"sources":{"probe":2},"paths":{"GET /api/workspace/first-run":1,"POST /api/workspace/first-run":1}},{"actor":"unregistered","peak":2,"peakAtMs":79036,"total":2,"sources":{"probe":2},"paths":{"GET /api/workspace/first-run":1,"POST /api/workspace/first-run":1}},{"actor":"unregistered","peak":2,"peakAtMs":80341,"total":2,"sources":{"probe":2},"paths":{"GET /api/workspace/first-run":1,"POST /api/workspace/first-run":1}},{"actor":"browser-owner","peak":194,"peakAtMs":183966,"total":335,"sources":{"probe":136,"browser":199},"paths":{"GET /api/workspace/first-run":2,"POST /api/workspace/first-run":2,"GET /api/tasks/01M6ZSPW749ERK6XHB9SFWDNE4/assignees":5,"GET /api/workspace":3,"GET /api/containers":5,"GET /api/pages":6,"GET /api/collaboration/01M6ZSPW749ERK6XHB9SFWDNE4":3,"POST /api/invitations":1,"GET /api/hub":5,"GET /api/navigation/following":5,"GET /api/blog":5,"GET /api/imports/provider-folders":9,"GET /api/imports/provider-folders/destinations":9,"GET /api/backups":9,"GET /api/imports":9,"POST /api/groups":1,"POST /api/pages":9,"GET /api/pages/01M6ZSR8MEM8V5H0Z37VAGZEWW":4,"PATCH /api/pages/01M6ZSR8MEM8V5H0Z37VAGZEWW":1,"PATCH /api/pages/01M6ZSR8MEM8V5H0Z37VAGZEWW/blocks/01403465-405f-4a54-bf11-62950d45138e":1,"GET /api/pages/01M6ZSR949GPRRYFSYWE0SHPZ8":4,"PATCH /api/pages/01M6ZSR949GPRRYFSYWE0SHPZ8":1,"PATCH /api/pages/01M6ZSR949GPRRYFSYWE0SHPZ8/blocks/cc5ccd46-b94d-4034-b351-faa6961cefaf":1,"GET /api/pages/01M6ZSR9D14X3J91XRTHE2FVJF":3,"PATCH /api/pages/01M6ZSR9D14X3J91XRTHE2FVJF":1,"PATCH /api/pages/01M6ZSR9D14X3J91XRTHE2FVJF/blocks/5021f672-2b1d-4c4c-82f4-ccc0d82f56f5":1,"GET /api/pages/01M6ZSR9ND5SSESFGT70CX64KC":3,"PATCH /api/pages/01M6ZSR9ND5SSESFGT70CX64KC":1,"PATCH /api/pages/01M6ZSR9ND5SSESFGT70CX64KC/blocks/2c29721e-3567-4d9e-ad3e-bab9c3673433":1,"POST /api/sharing":8,"PUT /api/sharing/pages/01M6ZSR949GPRRYFSYWE0SHPZ8/inheritance":1,"POST /api/comments/page/01M6ZSR8MEM8V5H0Z37VAGZEWW":2,"GET /api/comments/page/01M6ZSR8MEM8V5H0Z37VAGZEWW":4,"PATCH /api/comments/01M6ZSRBE96CS56NR92AHT1Y7R":1,"POST /api/comments/thread/01M6ZSRBE9BYP9HAF654CJCMJ0/resolve":1,"GET /api/revisions/01M6ZSR8MEM8V5H0Z37VAGZEWW":1,"GET /api/revisions/01M6ZSR8MEM8V5H0Z37VAGZEWW/01M6ZSR91SFR1FNNX3M3FQYVYK":1,"GET /api/revisions/01M6ZSR8MEM8V5H0Z37VAGZEWW/01M6ZSR8X90HGWDC725PZ0YV2W":1,"GET /api/revisions/01M6ZSR8MEM8V5H0Z37VAGZEWW/01M6ZSR8MDJH925JBB341X1MZN":1,"GET /api/sharing/pages/01M6ZSR8MEM8V5H0Z37VAGZEWW":1,"GET /api/revisions/01M6ZSR9D14X3J91XRTHE2FVJF":1,"GET /api/revisions/01M6ZSR9D14X3J91XRTHE2FVJF/01M6ZSR9K4BCZWXBK4HQ672N0W":1,"GET /api/revisions/01M6ZSR9D14X3J91XRTHE2FVJF/01M6ZSR9FMNQ188JS2ZGPAEE0G":1,"GET /api/revisions/01M6ZSR9D14X3J91XRTHE2FVJF/01M6ZSR9D1T1KVSPSTRY4EPVMT":1,"GET /api/sharing/pages/01M6ZSR9D14X3J91XRTHE2FVJF":1,"GET /api/comments/page/01M6ZSR9D14X3J91XRTHE2FVJF":1,"GET /api/revisions/01M6ZSR949GPRRYFSYWE0SHPZ8":1,"GET /api/revisions/01M6ZSR949GPRRYFSYWE0SHPZ8/01M6ZSRBBQZ2T5EPVY5PH59RXP":1,"GET /api/revisions/01M6ZSR949GPRRYFSYWE0SHPZ8/01M6ZSR9B774212AMVET7MSNCH":1,"GET /api/revisions/01M6ZSR949GPRRYFSYWE0SHPZ8/01M6ZSR97E1YDASE0CSQRNNDSF":1,"GET /api/revisions/01M6ZSR949GPRRYFSYWE0SHPZ8/01M6ZSR949A42N6KW6355E7CXZ":1,"GET /api/sharing/pages/01M6ZSR949GPRRYFSYWE0SHPZ8":1,"GET /api/comments/page/01M6ZSR949GPRRYFSYWE0SHPZ8":1,"GET /api/revisions/01M6ZSR9ND5SSESFGT70CX64KC":1,"GET /api/revisions/01M6ZSR9ND5SSESFGT70CX64KC/01M6ZSR9XFBX5TYPK8HGGC2JY6":1,"GET /api/revisions/01M6ZSR9ND5SSESFGT70CX64KC/01M6ZSR9S3JD7MMKMHDK9XPAAD":1,"GET /api/revisions/01M6ZSR9ND5SSESFGT70CX64KC/01M6ZSR9NDD9FQQ3HQS45SG4EK":1,"GET /api/sharing/pages/01M6ZSR9ND5SSESFGT70CX64KC":1,"GET /api/comments/page/01M6ZSR9ND5SSESFGT70CX64KC":1,"POST /api/exports/jobs/workspace":2,"POST /api/exports/jobs/01M6ZSRMGBBY248BHVGNXPMHB5/run":3,"GET /api/exports/jobs/01M6ZSRMGBBY248BHVGNXPMHB5":33,"GET /api/pages/01M6ZSR8MEM8V5H0Z37VAGZEWW/expansion":23,"GET /api/exports/01M6ZSRMGBBY248BHVGNXPMHB5/download":2,"POST /api/exports/jobs/01M6ZSRXAK7C13K4RZCATWSY92/run":1,"GET /api/exports/jobs/01M6ZSRXAK7C13K4RZCATWSY92":31,"GET /api/exports/01M6ZSRXAK7C13K4RZCATWSY92/download":1,"GET /api/session":3,"GET /api/ai/availability":1,"GET /api/navigation":6,"GET /api/tasks/01M6ZT07R3SSGFQZWMZR4VZGNV/assignees":4,"GET /api/pages/01M6ZT07R3SSGFQZWMZR4VZGNV":15,"PATCH /api/pages/01M6ZT07R3SSGFQZWMZR4VZGNV":1,"GET /api/collaboration/01M6ZT07R3SSGFQZWMZR4VZGNV":5,"GET /api/activity":4,"GET /api/databases":2,"POST /api/pages/01M6ZT07R3SSGFQZWMZR4VZGNV/open":1,"PUT /api/pages/01M6ZT07R3SSGFQZWMZR4VZGNV/blocks":2,"PATCH /api/pages/01M6ZT07R3SSGFQZWMZR4VZGNV/blocks/first-01M6ZT07R3SSGFQZWMZR4VZGNV":2,"PATCH /api/pages/01M6ZT07R3SSGFQZWMZR4VZGNV/blocks/09b10263-6f2e-41a8-bfc1-a4d4d291c95d":1,"GET /api/tasks/01M6ZT0YV8SN3DY3XNTPVFWQSK/assignees":2,"PUT /api/pages/01M6ZT0YV8SN3DY3XNTPVFWQSK/blocks":1,"GET /api/pages/01M6ZT0YV8SN3DY3XNTPVFWQSK":4,"PATCH /api/pages/01M6ZT0YV8SN3DY3XNTPVFWQSK/blocks/first-01M6ZT0YV8SN3DY3XNTPVFWQSK":1,"GET /api/tasks/01M6ZT19HKF7YFDB42PJ1NG4G4/assignees":2,"PUT /api/pages/01M6ZT19HKF7YFDB42PJ1NG4G4/blocks":1,"GET /api/pages/01M6ZT19HKF7YFDB42PJ1NG4G4":4,"PATCH /api/pages/01M6ZT19HKF7YFDB42PJ1NG4G4/blocks/first-01M6ZT19HKF7YFDB42PJ1NG4G4":1,"GET /api/collaboration/01M6ZT19HKF7YFDB42PJ1NG4G4":2,"GET /api/tasks/01M6ZT1K616R31EGWCJ7B3GYT3/assignees":1,"PATCH /api/pages/01M6ZT1K616R31EGWCJ7B3GYT3":1,"GET /api/pages/01M6ZT1K616R31EGWCJ7B3GYT3":10,"POST /api/pages/01M6ZT1K616R31EGWCJ7B3GYT3/open":3,"PUT /api/pages/01M6ZT1K616R31EGWCJ7B3GYT3/blocks":3,"GET /api/collaboration/01M6ZT1K616R31EGWCJ7B3GYT3":4,"POST /api/collaboration/01M6ZT1K616R31EGWCJ7B3GYT3/presence":1}},{"actor":"unregistered","peak":1,"peakAtMs":124934,"total":1,"sources":{"probe":1},"paths":{"GET /api/session":1}},{"actor":"01M6ZSQG5BTCNCFJ6F04J2QW7C","peak":14,"peakAtMs":130554,"total":14,"sources":{"browser":12,"probe":2},"paths":{"GET /api/hub":4,"GET /api/navigation/following":4,"GET /api/blog":4,"GET /api/workspace/first-run":1,"POST /api/workspace/first-run":1}},{"actor":"browser-reader","peak":4,"peakAtMs":204187,"total":4,"sources":{"probe":4},"paths":{"GET /api/pages/01M6ZSR8MEM8V5H0Z37VAGZEWW":2,"GET /api/pages/01M6ZSR949GPRRYFSYWE0SHPZ8":2}}]}
+# Subtest: real core-wiki and touch-member journeys at 390px
+not ok 1 - real core-wiki and touch-member journeys at 390px
+  ---
+  duration_ms: 407211.365246
+  type: 'test'
+  location: '/home/agent/rer-consolidation/work/sd-slate-c-f212-fix2/run-slate/tests/qualification/ui-convergence/journey-shard.mjs:23:97'
+  failureType: 'testCodeFailure'
+  error: 'Step BLOCK-001 — a new page body takes real keystrokes, including before it finishes loading, and keeps them through committed save, failed save, explicit retry and leaving; touch member creates, inserts and drags blocks failed: Typed shortcut "# " failed'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    typedShortcutsJourney (file:///home/agent/rer-consolidation/work/sd-slate-c-f212-fix2/run-slate/tests/qualification/ui-convergence/typed-shortcuts-journey.mjs:113:13)
+    async writeJourney (file:///home/agent/rer-consolidation/work/sd-slate-c-f212-fix2/run-slate/tests/qualification/ui-convergence/write-journey.mjs:143:3)
+    async file:///home/agent/rer-consolidation/work/sd-slate-c-f212-fix2/run-slate/tests/qualification/ui-convergence/journeys.test.mjs:104:262
+    async step (file:///home/agent/rer-consolidation/work/sd-slate-c-f212-fix2/run-slate/tests/qualification/ui-convergence/journeys.test.mjs:47:9)
+    async withWorkspace.scheduled (file:///home/agent/rer-consolidation/work/sd-slate-c-f212-fix2/run-slate/tests/qualification/ui-convergence/journeys.test.mjs:104:9)
+    async withWorkspace (file:///home/agent/rer-consolidation/work/sd-slate-c-f212-fix2/run-slate/tests/qualification/ui-convergence/browser-support.mjs:189:7)
+    async TestContext.<anonymous> (file:///home/agent/rer-consolidation/work/sd-slate-c-f212-fix2/run-slate/tests/qualification/ui-convergence/journeys.test.mjs:92:5)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 472584.11266

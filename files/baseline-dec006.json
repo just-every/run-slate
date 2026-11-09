@@ -1,0 +1,8 @@
+{
+  "name": "baseline-dec006",
+  "command": "cloud_run timeout 1300 node --test --test-concurrency=1 /tmp/slate-dec006-probe.mjs",
+  "started_at": "2026-11-09T09:37:32.806350+00:00",
+  "finished_at": "2026-11-09T09:47:40.875860+00:00",
+  "duration_seconds": 608.07,
+  "exit_code": 0
+}

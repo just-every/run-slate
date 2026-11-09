@@ -1,0 +1,12 @@
+rer toolchain: node v24.19.0 pnpm 10.12.4 (pins 22.20.0 / 10.12.4)
+v22.20.0
+10.12.4
+MECHANICAL views-write exit=0
+MECHANICAL views-generated-check exit=0
+MECHANICAL views-restore exit=0
+MECHANICAL views-restored-check exit=1
+MECHANICAL integration-sync exit=0
+MECHANICAL stage-source exit=0
+MECHANICAL source-lock exit=0
+MECHANICAL stage-lock exit=0
+MECHANICAL source-check exit=0
