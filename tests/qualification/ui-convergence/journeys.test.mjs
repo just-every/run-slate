@@ -88,7 +88,7 @@ import { todayOutcomesJourney } from './today-outcomes-journey.mjs';
 // Retain both responsive branches: desktop sidebar visibility and horizontal
 // column geometry are unique assertions, while the phone case checks stacking.
 for (const width of [390, 1440]) {
-  test(`real core-wiki and touch-member journeys at ${width}px`, { timeout: width === 390 ? 900000 : 840000 }, async () => {
+  test(`real core-wiki and touch-member journeys at ${width}px`, { timeout: width === 390 ? 780000 : 720000 }, async () => {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
       if(width===390)await transferJobsJourney(state);
@@ -138,13 +138,6 @@ for (const width of [390, 1440]) {
             await accessible(state.page, `phone smoke ${route}`);
           }
         }
-        await step('DEC-006 — native proposal edits retain exact revisions and refuse unchanged or unauthorized writes', async () => {
-          await state.page.goto('about:blank');
-          await withWorkspace({width,height:width===1440?1000:844}, 'core-wiki', async proposal => {
-            await setupWorkspace(proposal);
-            await decisionEditJourney(proposal, width);
-          });
-        });
         await step('DEC-004 — populated native decision filters, current access and exact accepted navigation', () => decisionLogJourney(state, width));
         // Keep the exact log corpus before DEC-003 leaves retained lineage visible.
         await step('DEC-003 — immutable accepted snapshots, stale evidence and two-way lineage', () => withSecondPerson(state, width, people => decisionImmutabilityJourney(state, people)));
@@ -470,6 +463,22 @@ for (const width of [1440, 390]) {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
       await contentQueryJourney(state, width);
+    });
+  });
+}
+
+// DEC-006 already owns an independent workspace. Give each responsive branch
+// its own deadline so the core/touch journeys retain their established budgets.
+// Prior native runs took 232–327 seconds including setup; 420 allows margin.
+for (const width of [390, 1440]) {
+  test(`DEC-006 — native proposal edits retain exact revisions and refuse unchanged or unauthorized writes at ${width}px`, { timeout: 420000 }, async t => {
+    await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async proposal => {
+      const setup = performance.now();
+      await setupWorkspace(proposal);
+      t.diagnostic(`DEC-006 setup at ${width}px: ${Math.round(performance.now() - setup)} ms`);
+      const editing = performance.now();
+      try { await decisionEditJourney(proposal, width); }
+      finally { t.diagnostic(`DEC-006 editing at ${width}px: ${Math.round(performance.now() - editing)} ms`); }
     });
   });
 }
