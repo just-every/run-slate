@@ -1,0 +1,11 @@
+{
+  "label": "transport",
+  "command": [
+    "node",
+    "--test",
+    "tests/qualification/ui-convergence/journey-api.test.mjs",
+    ".github/scripts/journey-shard.test.mjs"
+  ],
+  "exit": 0,
+  "seconds": 16.095
+}

@@ -1,0 +1,9 @@
+{
+  "label": "source-check-candidate",
+  "command": [
+    "pnpm",
+    "source:check"
+  ],
+  "exit": 0,
+  "seconds": 4.874
+}

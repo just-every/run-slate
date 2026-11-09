@@ -1,0 +1,11 @@
+{
+  "label": "build-exact-sha",
+  "command": [
+    "npx",
+    "-y",
+    "@runeditrun/rer",
+    "build"
+  ],
+  "exit": 0,
+  "seconds": 151.848
+}

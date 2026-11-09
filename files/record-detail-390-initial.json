@@ -1,0 +1,12 @@
+{
+  "label": "record-detail-390",
+  "command": [
+    "node",
+    "--test",
+    "--test-concurrency=1",
+    "--test-name-pattern=^DB-012 and DB-002.*390px$",
+    "tests/qualification/ui-convergence/journeys.test.mjs"
+  ],
+  "exit": 1,
+  "seconds": 434.201
+}

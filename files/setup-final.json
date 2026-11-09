@@ -1,0 +1,14 @@
+{
+  "label": "setup-final",
+  "command": [
+    "npx",
+    "-y",
+    "@runeditrun/rer",
+    "setup",
+    "--owner-email",
+    "fleet@runeditrun.com",
+    "--non-interactive"
+  ],
+  "exit": 0,
+  "seconds": 239.061
+}

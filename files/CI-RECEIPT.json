@@ -1,0 +1,17 @@
+{
+  "repository": "just-every/run-slate",
+  "head": "2c46b756524867c2bc636f188116383f91941229",
+  "run_id": 42661381338,
+  "workflow_conclusion": "failure",
+  "root_job_id": 129313624546,
+  "root_failed_step": "Run node src/base/runtime/contract-docs.mjs check",
+  "observed_root_error": "ACCEPTANCE.md: generated content differs; run contract-docs write.",
+  "aggregate_job_id": 129313967002,
+  "matrix_placeholder_job_id": 129313967043,
+  "matrix_conclusion": "skipped",
+  "core_executed": false,
+  "ready_exemption": "generated-view-only failure; lander regenerates restored views before landing",
+  "github_read_calls_so_far": 3,
+  "github_read_calls": 4,
+  "aggregate_log_confirmed_dependency_failure": true
+}

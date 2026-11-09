@@ -1,0 +1,10 @@
+{
+  "label": "restored-view-check",
+  "command": [
+    "node",
+    "src/base/runtime/contract-docs.mjs",
+    "check"
+  ],
+  "exit": 1,
+  "seconds": 0.466
+}

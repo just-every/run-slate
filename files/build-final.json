@@ -1,0 +1,11 @@
+{
+  "label": "build-final",
+  "command": [
+    "npx",
+    "-y",
+    "@runeditrun/rer",
+    "build"
+  ],
+  "exit": 0,
+  "seconds": 309.568
+}

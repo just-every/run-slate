@@ -1,0 +1,141 @@
+{
+  "product_head": "2c46b756524867c2bc636f188116383f91941229",
+  "required_focused_checks": [
+    {
+      "receipt": "transport.json",
+      "label": "transport",
+      "command": [
+        "node",
+        "--test",
+        "tests/qualification/ui-convergence/journey-api.test.mjs",
+        ".github/scripts/journey-shard.test.mjs"
+      ],
+      "exit": 0,
+      "seconds": 16.095
+    },
+    {
+      "receipt": "typecheck.json",
+      "label": "typecheck",
+      "command": [
+        "pnpm",
+        "typecheck"
+      ],
+      "exit": 0,
+      "seconds": 101.499
+    },
+    {
+      "receipt": "first-party-candidate.json",
+      "label": "first-party-candidate",
+      "command": [
+        "npx",
+        "-y",
+        "@runeditrun/rer",
+        "check",
+        "--profile",
+        "first-party"
+      ],
+      "exit": 0,
+      "seconds": 14.292
+    },
+    {
+      "receipt": "structured-http-final.json",
+      "label": "structured-http-final",
+      "command": [
+        "pnpm",
+        "exec",
+        "vitest",
+        "run",
+        "--config",
+        "tests/flagship/structured/vitest.config.ts",
+        "tests/flagship/structured/http.test.ts"
+      ],
+      "exit": 0,
+      "seconds": 98.793
+    },
+    {
+      "receipt": "views-write-final.json",
+      "label": "views-write-final",
+      "command": [
+        "node",
+        "src/base/runtime/contract-docs.mjs",
+        "write"
+      ],
+      "exit": 0,
+      "seconds": 0.611
+    },
+    {
+      "receipt": "views-check-final.json",
+      "label": "views-check-final",
+      "command": [
+        "node",
+        "src/base/runtime/contract-docs.mjs",
+        "check"
+      ],
+      "exit": 0,
+      "seconds": 0.825
+    },
+    {
+      "receipt": "source-lock-candidate.json",
+      "label": "source-lock-candidate",
+      "command": [
+        "pnpm",
+        "source:lock"
+      ],
+      "exit": 0,
+      "seconds": 2.628
+    },
+    {
+      "receipt": "source-check-candidate.json",
+      "label": "source-check-candidate",
+      "command": [
+        "pnpm",
+        "source:check"
+      ],
+      "exit": 0,
+      "seconds": 4.874
+    },
+    {
+      "receipt": "setup-final.json",
+      "label": "setup-final",
+      "command": [
+        "npx",
+        "-y",
+        "@runeditrun/rer",
+        "setup",
+        "--owner-email",
+        "fleet@runeditrun.com",
+        "--non-interactive"
+      ],
+      "exit": 0,
+      "seconds": 239.061
+    },
+    {
+      "receipt": "build-exact-sha.json",
+      "label": "build-exact-sha",
+      "command": [
+        "npx",
+        "-y",
+        "@runeditrun/rer",
+        "build"
+      ],
+      "exit": 0,
+      "seconds": 151.848
+    }
+  ],
+  "standalone_phone": "PASS at 300000 ms provisional budget; final app bytes identical",
+  "desktop_retry": {
+    "label": "record-detail-1440-retry",
+    "command": [
+      "node",
+      "--test",
+      "--test-concurrency=1",
+      "--test-name-pattern=^DB-012 and DB-002.*1440px$",
+      "tests/qualification/ui-convergence/journeys.test.mjs"
+    ],
+    "exit": 0,
+    "seconds": 415.203
+  },
+  "restored_view_check": "expected exit 1: ACCEPTANCE.md only; write/check before restore passed",
+  "historical_failures_retained": true,
+  "native_receipt": "NATIVE-RECEIPT.json"
+}

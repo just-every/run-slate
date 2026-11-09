@@ -1,0 +1,9 @@
+{
+  "label": "source-check",
+  "command": [
+    "pnpm",
+    "source:check"
+  ],
+  "exit": 0,
+  "seconds": 1.494
+}

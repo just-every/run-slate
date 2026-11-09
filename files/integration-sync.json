@@ -1,0 +1,9 @@
+{
+  "label": "integration-sync",
+  "command": [
+    "pnpm",
+    "integration:sync"
+  ],
+  "exit": 0,
+  "seconds": 1.093
+}

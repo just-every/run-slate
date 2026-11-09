@@ -1,0 +1,13 @@
+{
+  "label": "first-party-candidate",
+  "command": [
+    "npx",
+    "-y",
+    "@runeditrun/rer",
+    "check",
+    "--profile",
+    "first-party"
+  ],
+  "exit": 0,
+  "seconds": 14.292
+}

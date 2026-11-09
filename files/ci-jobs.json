@@ -1,0 +1,373 @@
+{
+  "total_count": 7,
+  "jobs": [
+    {
+      "id": 129313549264,
+      "run_id": 42661381338,
+      "workflow_name": "Verify Slate",
+      "head_branch": "cloud/sd-slate-c-f174-fix4",
+      "run_url": "https://api.github.com/repos/just-every/run-slate/actions/runs/42661381338",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOU_o02s8AAAAeG7Ar0A",
+      "head_sha": "2c46b756524867c2bc636f188116383f91941229",
+      "url": "https://api.github.com/repos/just-every/run-slate/actions/jobs/129313549264",
+      "html_url": "https://github.com/just-every/run-slate/actions/runs/42661381338/job/129313549264",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-11-09T17:06:38Z",
+      "started_at": "2026-11-09T17:06:40Z",
+      "completed_at": "2026-11-09T17:06:46Z",
+      "name": "plan",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-11-09T17:06:41Z",
+          "completed_at": "2026-11-09T17:06:41Z"
+        },
+        {
+          "name": "Run actions/checkout@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-11-09T17:06:41Z",
+          "completed_at": "2026-11-09T17:06:44Z"
+        },
+        {
+          "name": "Run set -euo pipefail",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-11-09T17:06:44Z",
+          "completed_at": "2026-11-09T17:06:44Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-11-09T17:06:44Z",
+          "completed_at": "2026-11-09T17:06:44Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-11-09T17:06:44Z",
+          "completed_at": "2026-11-09T17:06:44Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/just-every/run-slate/check-runs/129313549264",
+      "labels": [
+        "ubuntu-24.04"
+      ],
+      "runner_id": 1000298239,
+      "runner_name": "GitHub Actions 1000298239",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 129313624546,
+      "run_id": 42661381338,
+      "workflow_name": "Verify Slate",
+      "head_branch": "cloud/sd-slate-c-f174-fix4",
+      "run_url": "https://api.github.com/repos/just-every/run-slate/actions/runs/42661381338",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOU_o02s8AAAAeG7FR4g",
+      "head_sha": "2c46b756524867c2bc636f188116383f91941229",
+      "url": "https://api.github.com/repos/just-every/run-slate/actions/jobs/129313624546",
+      "html_url": "https://github.com/just-every/run-slate/actions/runs/42661381338/job/129313624546",
+      "status": "completed",
+      "conclusion": "failure",
+      "created_at": "2026-11-09T17:06:46Z",
+      "started_at": "2026-11-09T17:06:48Z",
+      "completed_at": "2026-11-09T17:07:22Z",
+      "name": "verify (app)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-11-09T17:06:48Z",
+          "completed_at": "2026-11-09T17:06:49Z"
+        },
+        {
+          "name": "Run actions/checkout@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-11-09T17:06:49Z",
+          "completed_at": "2026-11-09T17:06:52Z"
+        },
+        {
+          "name": "Run pnpm/action-setup@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-11-09T17:06:52Z",
+          "completed_at": "2026-11-09T17:06:53Z"
+        },
+        {
+          "name": "Run actions/setup-node@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-11-09T17:06:53Z",
+          "completed_at": "2026-11-09T17:07:01Z"
+        },
+        {
+          "name": "Run pnpm install --frozen-lockfile",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-11-09T17:07:01Z",
+          "completed_at": "2026-11-09T17:07:10Z"
+        },
+        {
+          "name": "Install Chromium",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-11-09T17:07:10Z",
+          "completed_at": "2026-11-09T17:07:19Z"
+        },
+        {
+          "name": "Run node src/base/runtime/contract-docs.mjs check",
+          "status": "completed",
+          "conclusion": "failure",
+          "number": 7,
+          "started_at": "2026-11-09T17:07:19Z",
+          "completed_at": "2026-11-09T17:07:20Z"
+        },
+        {
+          "name": "Run node scripts/sync-project-setup.mjs --check && pnpm verify",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 8,
+          "started_at": "2026-11-09T17:07:20Z",
+          "completed_at": "2026-11-09T17:07:20Z"
+        },
+        {
+          "name": "Run actions/upload-artifact@v4",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 9,
+          "started_at": "2026-11-09T17:07:20Z",
+          "completed_at": "2026-11-09T17:07:20Z"
+        },
+        {
+          "name": "Retain failures",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10,
+          "started_at": "2026-11-09T17:07:20Z",
+          "completed_at": "2026-11-09T17:07:20Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v5",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 18,
+          "started_at": "2026-11-09T17:07:20Z",
+          "completed_at": "2026-11-09T17:07:20Z"
+        },
+        {
+          "name": "Post Run pnpm/action-setup@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 19,
+          "started_at": "2026-11-09T17:07:20Z",
+          "completed_at": "2026-11-09T17:07:20Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 20,
+          "started_at": "2026-11-09T17:07:20Z",
+          "completed_at": "2026-11-09T17:07:20Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 21,
+          "started_at": "2026-11-09T17:07:20Z",
+          "completed_at": "2026-11-09T17:07:20Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/just-every/run-slate/check-runs/129313624546",
+      "labels": [
+        "ubuntu-24.04"
+      ],
+      "runner_id": 1000298241,
+      "runner_name": "GitHub Actions 1000298241",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 129313627573,
+      "run_id": 42661381338,
+      "workflow_name": "Verify Slate",
+      "head_branch": "cloud/sd-slate-c-f174-fix4",
+      "run_url": "https://api.github.com/repos/just-every/run-slate/actions/runs/42661381338",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOU_o02s8AAAAeG7FdtQ",
+      "head_sha": "2c46b756524867c2bc636f188116383f91941229",
+      "url": "https://api.github.com/repos/just-every/run-slate/actions/jobs/129313627573",
+      "html_url": "https://github.com/just-every/run-slate/actions/runs/42661381338/job/129313627573",
+      "status": "completed",
+      "conclusion": "skipped",
+      "created_at": "2026-11-09T17:06:46Z",
+      "started_at": "2026-11-09T17:06:46Z",
+      "completed_at": "2026-11-09T17:06:46Z",
+      "name": "import-scale",
+      "steps": [],
+      "check_run_url": "https://api.github.com/repos/just-every/run-slate/check-runs/129313627573",
+      "labels": [
+        "ubuntu-24.04"
+      ],
+      "runner_id": null,
+      "runner_name": null,
+      "runner_group_id": null,
+      "runner_group_name": null
+    },
+    {
+      "id": 129313967002,
+      "run_id": 42661381338,
+      "workflow_name": "Verify Slate",
+      "head_branch": "cloud/sd-slate-c-f174-fix4",
+      "run_url": "https://api.github.com/repos/just-every/run-slate/actions/runs/42661381338",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOU_o02s8AAAAeG7aLmg",
+      "head_sha": "2c46b756524867c2bc636f188116383f91941229",
+      "url": "https://api.github.com/repos/just-every/run-slate/actions/jobs/129313967002",
+      "html_url": "https://github.com/just-every/run-slate/actions/runs/42661381338/job/129313967002",
+      "status": "completed",
+      "conclusion": "failure",
+      "created_at": "2026-11-09T17:07:23Z",
+      "started_at": "2026-11-09T17:07:25Z",
+      "completed_at": "2026-11-09T17:07:28Z",
+      "name": "verify",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-11-09T17:07:26Z",
+          "completed_at": "2026-11-09T17:07:26Z"
+        },
+        {
+          "name": "Require the plan and every expected job",
+          "status": "completed",
+          "conclusion": "failure",
+          "number": 2,
+          "started_at": "2026-11-09T17:07:26Z",
+          "completed_at": "2026-11-09T17:07:26Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-11-09T17:07:26Z",
+          "completed_at": "2026-11-09T17:07:26Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/just-every/run-slate/check-runs/129313967002",
+      "labels": [
+        "ubuntu-24.04"
+      ],
+      "runner_id": 1000298249,
+      "runner_name": "GitHub Actions 1000298249",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 129313967043,
+      "run_id": 42661381338,
+      "workflow_name": "Verify Slate",
+      "head_branch": "cloud/sd-slate-c-f174-fix4",
+      "run_url": "https://api.github.com/repos/just-every/run-slate/actions/runs/42661381338",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOU_o02s8AAAAeG7aLww",
+      "head_sha": "2c46b756524867c2bc636f188116383f91941229",
+      "url": "https://api.github.com/repos/just-every/run-slate/actions/jobs/129313967043",
+      "html_url": "https://github.com/just-every/run-slate/actions/runs/42661381338/job/129313967043",
+      "status": "completed",
+      "conclusion": "skipped",
+      "created_at": "2026-11-09T17:07:23Z",
+      "started_at": "2026-11-09T17:07:23Z",
+      "completed_at": "2026-11-09T17:07:22Z",
+      "name": "verify (${{ matrix.suite }})",
+      "steps": [],
+      "check_run_url": "https://api.github.com/repos/just-every/run-slate/check-runs/129313967043",
+      "labels": [
+        "ubuntu-24.04"
+      ],
+      "runner_id": null,
+      "runner_name": null,
+      "runner_group_id": null,
+      "runner_group_name": null
+    },
+    {
+      "id": 129313967543,
+      "run_id": 42661381338,
+      "workflow_name": "Verify Slate",
+      "head_branch": "cloud/sd-slate-c-f174-fix4",
+      "run_url": "https://api.github.com/repos/just-every/run-slate/actions/runs/42661381338",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOU_o02s8AAAAeG7aNtw",
+      "head_sha": "2c46b756524867c2bc636f188116383f91941229",
+      "url": "https://api.github.com/repos/just-every/run-slate/actions/jobs/129313967543",
+      "html_url": "https://github.com/just-every/run-slate/actions/runs/42661381338/job/129313967543",
+      "status": "completed",
+      "conclusion": "skipped",
+      "created_at": "2026-11-09T17:07:23Z",
+      "started_at": "2026-11-09T17:07:23Z",
+      "completed_at": "2026-11-09T17:07:22Z",
+      "name": "local-journeys",
+      "steps": [],
+      "check_run_url": "https://api.github.com/repos/just-every/run-slate/check-runs/129313967543",
+      "labels": [
+        "ubuntu-24.04"
+      ],
+      "runner_id": null,
+      "runner_name": null,
+      "runner_group_id": null,
+      "runner_group_name": null
+    },
+    {
+      "id": 129313969123,
+      "run_id": 42661381338,
+      "workflow_name": "Verify Slate",
+      "head_branch": "cloud/sd-slate-c-f174-fix4",
+      "run_url": "https://api.github.com/repos/just-every/run-slate/actions/runs/42661381338",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOU_o02s8AAAAeG7aT4w",
+      "head_sha": "2c46b756524867c2bc636f188116383f91941229",
+      "url": "https://api.github.com/repos/just-every/run-slate/actions/jobs/129313969123",
+      "html_url": "https://github.com/just-every/run-slate/actions/runs/42661381338/job/129313969123",
+      "status": "completed",
+      "conclusion": "skipped",
+      "created_at": "2026-11-09T17:07:23Z",
+      "started_at": "2026-11-09T17:07:23Z",
+      "completed_at": "2026-11-09T17:07:22Z",
+      "name": "contract",
+      "steps": [],
+      "check_run_url": "https://api.github.com/repos/just-every/run-slate/check-runs/129313969123",
+      "labels": [
+        "ubuntu-24.04"
+      ],
+      "runner_id": null,
+      "runner_name": null,
+      "runner_group_id": null,
+      "runner_group_name": null
+    }
+  ]
+}

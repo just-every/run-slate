@@ -1,0 +1,36 @@
+TAP version 13
+# PROBE DB-012 ordinary edit: native record Quantity 7 -> 11; computed value 22 and reload retained
+# PROBE DB-012 record-is-page: viewer fields, retained comments, exact historical body and unchanged stored current body passed
+# PROBE DB-012 record-is-row: viewer fields, retained comments, exact historical body and unchanged stored current body passed
+# PROBE DB-012 record-is-page: viewer fields, retained comments, exact historical body and unchanged stored current body passed
+# PROBE DB-012 read-only: all six fields readable; native viewer PATCH -> 404 and unchanged record and history
+# Subtest: DB-012 and DB-002 — populated record detail and actual relation records at 390px
+not ok 1 - DB-012 and DB-002 — populated record detail and actual relation records at 390px
+  ---
+  duration_ms: 198200.415871
+  type: 'test'
+  location: '/home/agent/rer-consolidation/work/sd-slate-c-f174-fix4/run-slate/tests/qualification/ui-convergence/journey-shard.mjs:23:97'
+  failureType: 'unhandledRejection'
+  error: |-
+    apiRequestContext.fetch: Timeout 30000ms exceeded.
+    Call log:
+      - → GET http://127.0.0.1:36081/api/collaboration/01M70JF9D96869R0RSM46EY44Q?after=0
+        - user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36
+        - accept: application/json
+        - accept-encoding: gzip,deflate,br
+        - origin: http://127.0.0.1:36081
+        - content-type: application/json
+        - accept-language: en-US
+        - cf-connecting-ip: 2001:db8:8b05:7eed:59bc:c162:adf2:be69
+        - cookie: slate_session=<REDACTED>
+        - referer: http://127.0.0.1:36081/app/pages/01M70JF9D96869R0RSM46EY44Q
+        - sec-ch-ua: "Not A(Brand";v="99", "Chromium";v="154"
+        - sec-ch-ua-mobile: ?0
+        - sec-ch-ua-platform: "Linux"
+    
+  code: 'ERR_TEST_FAILURE'
+  name: 'TimeoutError'
+  stack: |-
+    /home/agent/rer-consolidation/work/sd-slate-c-f174-fix4/run-slate/tests/qualification/ui-convergence/journey-api.mjs:116:40
+  ...
+# Record detail setup at 390px: 78045 ms

@@ -1,0 +1,9 @@
+{
+  "label": "source-lock",
+  "command": [
+    "pnpm",
+    "source:lock"
+  ],
+  "exit": 0,
+  "seconds": 1.513
+}

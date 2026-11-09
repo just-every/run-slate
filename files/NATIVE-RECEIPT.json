@@ -1,0 +1,29 @@
+{
+  "product_head": "2c46b756524867c2bc636f188116383f91941229",
+  "same_emitted_output": true,
+  "widths": {
+    "390": {
+      "browser-owner": {
+        "peak": 56,
+        "total": 148
+      },
+      "browser-reader": {
+        "peak": 71,
+        "total": 123
+      }
+    },
+    "1440": {
+      "browser-owner": {
+        "peak": 52,
+        "total": 151
+      },
+      "browser-reader": {
+        "peak": 84,
+        "total": 140
+      }
+    }
+  },
+  "core_journey_run_locally": false,
+  "core_owner_margin_unchanged": 500,
+  "new_registration_timeout_ms": 360000
+}

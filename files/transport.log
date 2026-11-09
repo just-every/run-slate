@@ -1,0 +1,15 @@
+✔ named moves and new ordinal registrations each execute once (17.425244ms)
+✔ ordinary partitioning covers every registration across arbitrary widths (7.531037ms)
+✔ malformed assignments fail closed instead of silently losing a journey (1.721427ms)
+✔ snapshot probes and call share one actor queue, browser address and real refusal (7255.625458ms)
+✔ probe bursts stay within 400 per rolling minute without delaying light traffic (10.451853ms)
+✔ the idle-owner probe budget still reserves 100 native requests per minute (12.47628ms)
+✔ proposal browser API fan-outs and helper snapshots share real queued dispatch without retries (5880.375168ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 15733.631844

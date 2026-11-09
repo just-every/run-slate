@@ -1,0 +1,21 @@
+{
+  "repository": "just-every/run-slate",
+  "branch": "cloud/sd-slate-c-f174-fix4",
+  "head": "2c46b756524867c2bc636f188116383f91941229",
+  "push": true,
+  "ordinary_before": 198,
+  "ordinary_after": 200,
+  "expanded_before": 218,
+  "expanded_after": 220,
+  "DB-002": "PARTIAL",
+  "PR": null,
+  "terminal_custody": "READY under explicit generated-view-only exemption",
+  "ci_run_id": 42661381338,
+  "workflow_conclusion": "failure",
+  "exemption": "ACCEPTANCE.md generated view only",
+  "landing_claim": false,
+  "full_history_clone": true,
+  "source_candidate": "77ea3b5cf3cce512772192e5fe64039980867f47",
+  "origin_main": "92d1c9d733801e953801fd8e17ab23efea778df8",
+  "clean_checkout_before_cleanup": true
+}

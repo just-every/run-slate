@@ -1,0 +1,334 @@
+TAP version 13
+# PROBE DB-012 ordinary edit: native record Quantity 7 -> 11; computed value 22 and reload retained
+# PROBE DB-012 record-is-page: viewer fields, retained comments, exact historical body and unchanged stored current body passed
+# PROBE DB-012 record-is-row: viewer fields, retained comments, exact historical body and unchanged stored current body passed
+# PROBE DB-012 record-is-page: viewer fields, retained comments, exact historical body and unchanged stored current body passed
+# PROBE DB-012 read-only: all six fields readable; native viewer PATCH -> 404 and unchanged record and history
+# Journey failure context {
+#   "rejected": [],
+#   "consoleErrors": []
+# }
+# Journey failure context REQUEST TIMELINE {
+#   "primary": {
+#     "requestsAtDump": [
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 0,
+#         "durationMs": 162,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 0,
+#         "durationMs": 123,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 0,
+#         "durationMs": 116,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M70M…P0KZ/<id>",
+#         "startMs": 293,
+#         "durationMs": 148,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M70M…F5CP/<id>",
+#         "startMs": 302,
+#         "durationMs": 209,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M70M…80FT/<id>",
+#         "startMs": 304,
+#         "durationMs": 271,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/<id>",
+#         "startMs": 333,
+#         "durationMs": 32,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M70M…P0KZ/<id>",
+#         "startMs": 345,
+#         "durationMs": 69,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M70M…F5CP/<id>",
+#         "startMs": 443,
+#         "durationMs": 43,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M70M…80FT/<id>",
+#         "startMs": 514,
+#         "durationMs": 53,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/databases",
+#         "startMs": 1691,
+#         "durationMs": 838,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/databases",
+#         "startMs": 1882,
+#         "durationMs": 597,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/01M70M…F5CP",
+#         "startMs": 3286,
+#         "durationMs": 98,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/01M70M…F5CP",
+#         "startMs": 3342,
+#         "durationMs": 27,
+#         "status": 200
+#       },
+#       {
+#         "method": "POST",
+#         "path": "/api/databases/01M70M…5D8C/<id>",
+#         "startMs": 3867,
+#         "durationMs": 375,
+#         "status": 200
+#       },
+#       {
+#         "method": "POST",
+#         "path": "/api/databases/01M70M…5D8C/<id>",
+#         "startMs": 3963,
+#         "durationMs": 229,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/databases/01M70M…5D8C",
+#         "startMs": 4244,
+#         "durationMs": 181,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/databases/01M70M…5D8C",
+#         "startMs": 4285,
+#         "durationMs": 102,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/databases/01M70M…5D8C",
+#         "startMs": 4937,
+#         "durationMs": 193,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/app/databases/01M70M…5D8C",
+#         "startMs": 5147,
+#         "durationMs": 519,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 5645,
+#         "durationMs": 16,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 5647,
+#         "durationMs": 92,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 5647,
+#         "durationMs": 92,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 5647,
+#         "durationMs": 381,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 5647,
+#         "durationMs": 98,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 5647,
+#         "durationMs": 92,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/<id>",
+#         "startMs": 6132,
+#         "durationMs": 51,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M70M…P0KZ/<id>",
+#         "startMs": 6177,
+#         "durationMs": 97,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M70M…F5CP/<id>",
+#         "startMs": 6182,
+#         "durationMs": 160,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M70M…80FT/<id>",
+#         "startMs": 6183,
+#         "durationMs": 191,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M70M…P0KZ/<id>",
+#         "startMs": 6210,
+#         "durationMs": 41,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M70M…F5CP/<id>",
+#         "startMs": 6278,
+#         "durationMs": 39,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M70M…80FT/<id>",
+#         "startMs": 6335,
+#         "durationMs": 31,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/databases",
+#         "startMs": 8488,
+#         "durationMs": 206,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/databases",
+#         "startMs": 8533,
+#         "durationMs": 148,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/01M70M…F5CP",
+#         "startMs": 9494,
+#         "durationMs": 563,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/01M70M…F5CP",
+#         "startMs": 9783,
+#         "durationMs": 105,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/01M70M…F5CP",
+#         "startMs": 12497,
+#         "durationMs": 125,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/01M70M…F5CP",
+#         "startMs": 12548,
+#         "durationMs": 56,
+#         "status": 200
+#       },
+#       {
+#         "method": "POST",
+#         "path": "/api/<id>/01M70M…F5CP/presence",
+#         "startMs": 73194,
+#         "durationMs": 3848,
+#         "status": "pending"
+#       }
+#     ]
+#   },
+#   "others": []
+# }
+# ACTOR REQUEST PEAKS {"width":1440,"actors":[{"actor":"unregistered","peak":2,"peakAtMs":131149,"total":2,"sources":{"probe":2},"paths":{"GET /api/workspace/first-run":1,"POST /api/workspace/first-run":1}},{"actor":"unregistered","peak":2,"peakAtMs":132751,"total":2,"sources":{"probe":2},"paths":{"GET /api/workspace/first-run":1,"POST /api/workspace/first-run":1}},{"actor":"unregistered","peak":2,"peakAtMs":134367,"total":2,"sources":{"probe":2},"paths":{"GET /api/workspace/first-run":1,"POST /api/workspace/first-run":1}},{"actor":"browser-owner","peak":45,"peakAtMs":325046,"total":92,"sources":{"probe":78,"browser":14},"paths":{"GET /api/workspace/first-run":2,"POST /api/workspace/first-run":2,"GET /api/tasks/01M70MRXYN0J2DK4QD0Z5SQVD7/assignees":4,"GET /api/workspace":9,"GET /api/containers":3,"GET /api/pages":1,"GET /api/collaboration/01M70MRXYN0J2DK4QD0Z5SQVD7":3,"POST /api/invitations":1,"GET /api/hub":2,"GET /api/navigation/following":2,"GET /api/blog":2,"POST /api/databases":3,"POST /api/databases/01M70MTW1G4EPXFX707PR3BD92/fields":6,"POST /api/databases/01M70MTW1G4EPXFX707PR3BD92/records":1,"GET /api/pages/01M70MTYPEA4BHP6663DHGDCPY":4,"PUT /api/pages/01M70MTYPEA4BHP6663DHGDCPY/blocks":1,"GET /api/databases/01M70MTW1G4EPXFX707PR3BD92/records/01M70MTYPEA4BHP6663DHGDCPY":8,"PATCH /api/pages/01M70MTYPEA4BHP6663DHGDCPY/blocks/ab885024-6856-441f-9a43-304f5711050d":1,"POST /api/comments/page/01M70MTYPEA4BHP6663DHGDCPY":1,"POST /api/sharing":7,"GET /api/pages/01M70MTW1G0BQ60H485M3ZP0KZ":1,"PUT /api/sharing/pages/01M70MTW1G0BQ60H485M3ZP0KZ/inheritance":1,"PUT /api/workspace":5,"GET /api/sharing/pages/01M70MTW1G0BQ60H485M3ZP0KZ":1,"GET /api/revisions/01M70MTYPEA4BHP6663DHGDCPY":2,"POST /api/databases/01M70MX9VAZJSCPCHTZ0F9BN3C/records":2,"POST /api/databases/01M70MX9GWV882J43DKXEJ5D8C/records":1,"GET /api/pages/01M70MXAPDYHKPV16QGWTBWA6R":1,"PUT /api/sharing/pages/01M70MXAPDYHKPV16QGWTBWA6R/inheritance":1,"GET /api/pages/01M70MTW1G0BQ60H485M3ZP0KZ/expansion":2,"GET /api/pages/01M70MX9GW593626A2EAEYF5CP/expansion":2,"GET /api/pages/01M70MX9VA6ZPXDFZ3KVS880FT/expansion":2,"GET /api/databases":2,"GET /api/collaboration/01M70MX9GW593626A2EAEYF5CP":3,"POST /api/databases/01M70MX9GWV882J43DKXEJ5D8C/fields":1,"GET /api/databases/01M70MX9GWV882J43DKXEJ5D8C":2}},{"actor":"unregistered","peak":1,"peakAtMs":191821,"total":1,"sources":{"probe":1},"paths":{"GET /api/session":1}},{"actor":"01M70MSPHM6BNKGW0353XAMATJ","peak":14,"peakAtMs":197031,"total":14,"sources":{"browser":12,"probe":2},"paths":{"GET /api/hub":4,"GET /api/navigation/following":4,"GET /api/blog":4,"GET /api/workspace/first-run":1,"POST /api/workspace/first-run":1}},{"actor":"browser-reader","peak":35,"peakAtMs":304486,"total":42,"sources":{"probe":42},"paths":{"GET /api/pages/01M70MTW1G0BQ60H485M3ZP0KZ/expansion":4,"GET /api/tasks/01M70MTYPEA4BHP6663DHGDCPY/assignees":5,"GET /api/collaboration/01M70MTYPEA4BHP6663DHGDCPY":11,"PATCH /api/databases/01M70MTW1G4EPXFX707PR3BD92/records/01M70MTYPEA4BHP6663DHGDCPY":2,"GET /api/databases/01M70MTW1G4EPXFX707PR3BD92/records/01M70MTYPEA4BHP6663DHGDCPY":1,"GET /api/pages/01M70MTYPEA4BHP6663DHGDCPY":1,"POST /api/collaboration/01M70MTYPEA4BHP6663DHGDCPY/presence":2,"POST /api/pages/01M70MTYPEA4BHP6663DHGDCPY/open":1,"GET /api/navigation":1,"GET /api/comments/page/01M70MTYPEA4BHP6663DHGDCPY":5,"GET /api/revisions/01M70MTYPEA4BHP6663DHGDCPY":6,"GET /api/revisions/01M70MTYPEA4BHP6663DHGDCPY/01M70MTZQ83FTP5QSPK69D5VBZ":3}}]}
+# Subtest: DB-012 and DB-002 — populated record detail and actual relation records at 1440px
+not ok 1 - DB-012 and DB-002 — populated record detail and actual relation records at 1440px
+  ---
+  duration_ms: 281018.45073
+  type: 'test'
+  location: '/home/agent/rer-consolidation/work/sd-slate-c-f174-fix4/run-slate/tests/qualification/ui-convergence/journey-shard.mjs:23:97'
+  failureType: 'testCodeFailure'
+  error: |-
+    page.screenshot: Timeout 30000ms exceeded.
+    Call log:
+    [2m  - taking page screenshot[22m
+    [2m  - waiting for fonts to load...[22m
+    [2m  - fonts loaded[22m
+    
+  code: 'ERR_TEST_FAILURE'
+  name: 'TimeoutError'
+  stack: |-
+    accessible (/home/agent/rer-consolidation/work/sd-slate-c-f174-fix4/run-slate/tests/qualification/ui-convergence/browser-evidence.mjs:22:14)
+    async relationRecordsJourney (/home/agent/rer-consolidation/work/sd-slate-c-f174-fix4/run-slate/tests/qualification/ui-convergence/record-detail-journey.mjs:200:3)
+    async recordDetailContents (/home/agent/rer-consolidation/work/sd-slate-c-f174-fix4/run-slate/tests/qualification/ui-convergence/record-detail-journey.mjs:161:3)
+    async recordDetailJourney (/home/agent/rer-consolidation/work/sd-slate-c-f174-fix4/run-slate/tests/qualification/ui-convergence/record-detail-journey.mjs:27:9)
+    async file:///home/agent/rer-consolidation/work/sd-slate-c-f174-fix4/run-slate/tests/qualification/ui-convergence/journeys.test.mjs:496:13
+    async withWorkspace (/home/agent/rer-consolidation/work/sd-slate-c-f174-fix4/run-slate/tests/qualification/ui-convergence/browser-support.mjs:189:7)
+    async TestContext.<anonymous> (/home/agent/rer-consolidation/work/sd-slate-c-f174-fix4/run-slate/tests/qualification/ui-convergence/journeys.test.mjs:491:5)
+  ...
+# Record detail setup at 1440px: 100251 ms
+# Record detail at 1440px: 159544 ms
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 389904.289639

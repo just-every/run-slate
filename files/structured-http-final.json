@@ -1,0 +1,14 @@
+{
+  "label": "structured-http-final",
+  "command": [
+    "pnpm",
+    "exec",
+    "vitest",
+    "run",
+    "--config",
+    "tests/flagship/structured/vitest.config.ts",
+    "tests/flagship/structured/http.test.ts"
+  ],
+  "exit": 0,
+  "seconds": 98.793
+}

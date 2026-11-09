@@ -1,0 +1,9 @@
+{
+  "label": "typecheck",
+  "command": [
+    "pnpm",
+    "typecheck"
+  ],
+  "exit": 0,
+  "seconds": 101.499
+}

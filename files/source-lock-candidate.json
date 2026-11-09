@@ -1,0 +1,9 @@
+{
+  "label": "source-lock-candidate",
+  "command": [
+    "pnpm",
+    "source:lock"
+  ],
+  "exit": 0,
+  "seconds": 2.628
+}

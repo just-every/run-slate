@@ -1,0 +1,327 @@
+TAP version 13
+# PROBE DB-012 ordinary edit: native record Quantity 7 -> 11; computed value 22 and reload retained
+# PROBE DB-012 record-is-page: viewer fields, retained comments, exact historical body and unchanged stored current body passed
+# PROBE DB-012 record-is-row: viewer fields, retained comments, exact historical body and unchanged stored current body passed
+# PROBE DB-012 record-is-page: viewer fields, retained comments, exact historical body and unchanged stored current body passed
+# PROBE DB-012 read-only: all six fields readable; native viewer PATCH -> 404 and unchanged record and history
+# PROBE DB-002 3 390: native relation configuration, empty and multiple selections, reload, rename and canonical target address passed
+# PROBE DB-002 3 390: revoked target removed from native values, labels and picker; retained owner identities unchanged; forbidden write and follow refused
+# Subtest: DB-012 and DB-002 — populated record detail and actual relation records at 390px
+not ok 1 - DB-012 and DB-002 — populated record detail and actual relation records at 390px
+  ---
+  duration_ms: 219895.253311
+  type: 'test'
+  location: '/home/agent/rer-consolidation/work/sd-slate-c-f174-fix4/run-slate/tests/qualification/ui-convergence/journey-shard.mjs:23:97'
+  failureType: 'unhandledRejection'
+  error: 'route.fulfill: Route is already handled!'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    dispatch (/home/agent/rer-consolidation/work/sd-slate-c-f174-fix4/run-slate/tests/qualification/ui-convergence/routed-journey-api.mjs:34:17)
+  ...
+# Record detail setup at 390px: 92167 ms
+# Record detail at 390px: 116364 ms
+# Journey failure context {
+#   "rejected": [
+#     {
+#       "url": "http://127.0.0.1:43831/api/databases/01M70K8ZFYH67R42Z98J5RWQ7X/fields",
+#       "method": "POST",
+#       "requestBody": "{\\"operationKey\\":\\"e7d60e81-d154-42bc-a262-0fda3193fec9\\",\\"expectedRevisionId\\":\\"01M70K9DRNMVGW1RAYY4HF3K5G\\",\\"field\\":{\\"id\\":\\"81c50c36-060d-4668-a7f2-5a0b02c1acc1\\",\\"name\\":\\"Linked records\\",\\"type\\":\\"relation\\",\\"config\\":{\\"databaseId\\":\\"01M70K8ZFYH67R42Z98J5RWQ7X\\"},\\"position\\":0}}",
+#       "status": 409,
+#       "responseBody": "{\\"code\\":\\"FIELD_DATA_LOSS\\",\\"message\\":\\"Clear relation values before changing their target database.\\"}"
+#     }
+#   ],
+#   "consoleErrors": [
+#     {
+#       "url": "http://127.0.0.1:43831/app/databases/01M70K8ZFYH67R42Z98J5RWQ7X",
+#       "message": "Failed to load resource: the server responded with a status of 409 (Conflict)"
+#     }
+#   ]
+# }
+# Journey failure context REQUEST TIMELINE {
+#   "primary": {
+#     "requestsAtDump": [
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 0,
+#         "durationMs": 16,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 1,
+#         "durationMs": 56,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 8,
+#         "durationMs": 48,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 8,
+#         "durationMs": 124,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 8,
+#         "durationMs": 50,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 9,
+#         "durationMs": 50,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M70K…TCGS/<id>",
+#         "startMs": 256,
+#         "durationMs": 112,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M70K…ZP12/<id>",
+#         "startMs": 259,
+#         "durationMs": 162,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M70K…65EX/<id>",
+#         "startMs": 260,
+#         "durationMs": 207,
+#         "status": 200
+#       },
+#       {
+#         "method": "POST",
+#         "path": "/api/databases/<id>",
+#         "startMs": 265,
+#         "durationMs": 291,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/<id>",
+#         "startMs": 271,
+#         "durationMs": 28,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M70K…TCGS/<id>",
+#         "startMs": 315,
+#         "durationMs": 45,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M70K…ZP12/<id>",
+#         "startMs": 370,
+#         "durationMs": 44,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M70K…65EX/<id>",
+#         "startMs": 425,
+#         "durationMs": 29,
+#         "status": 200
+#       },
+#       {
+#         "method": "POST",
+#         "path": "/api/databases/<id>",
+#         "startMs": 468,
+#         "durationMs": 77,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/databases",
+#         "startMs": 1284,
+#         "durationMs": 177,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/databases",
+#         "startMs": 1308,
+#         "durationMs": 130,
+#         "status": 200
+#       },
+#       {
+#         "method": "POST",
+#         "path": "/api/databases/01M70K…WQ7X/<id>",
+#         "startMs": 1926,
+#         "durationMs": 265,
+#         "status": 409
+#       },
+#       {
+#         "method": "POST",
+#         "path": "/api/databases/01M70K…WQ7X/<id>",
+#         "startMs": 1960,
+#         "durationMs": 199,
+#         "status": 409
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/databases/01M70K…WQ7X",
+#         "startMs": 2250,
+#         "durationMs": 62,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/databases/01M70K…WQ7X/<id>/01M70K…3SA4",
+#         "startMs": 2344,
+#         "durationMs": 184,
+#         "status": 200
+#       },
+#       {
+#         "method": "POST",
+#         "path": "/api/sharing",
+#         "startMs": 2831,
+#         "durationMs": 186,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/databases/01M70K…WQ7X/<id>/01M70K…3SA4",
+#         "startMs": 3074,
+#         "durationMs": 165,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/01M70K…ZP12",
+#         "startMs": 3227,
+#         "durationMs": 89,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/01M70K…ZP12",
+#         "startMs": 3248,
+#         "durationMs": 51,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/revisions/01M70K…3SA4",
+#         "startMs": 3316,
+#         "durationMs": 25,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/01M70K…ZP12",
+#         "startMs": 6225,
+#         "durationMs": 46,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/01M70K…ZP12",
+#         "startMs": 6236,
+#         "durationMs": 28,
+#         "status": 200
+#       },
+#       {
+#         "method": "POST",
+#         "path": "/api/<id>/01M70K…ZP12/presence",
+#         "startMs": 12435,
+#         "durationMs": 334,
+#         "status": 200
+#       },
+#       {
+#         "method": "POST",
+#         "path": "/api/<id>/01M70K…ZP12/presence",
+#         "startMs": 12669,
+#         "durationMs": 68,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/01M70K…ZP12",
+#         "startMs": 12770,
+#         "durationMs": 108,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/01M70K…ZP12",
+#         "startMs": 12788,
+#         "durationMs": 78,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/01M70K…ZP12",
+#         "startMs": 12895,
+#         "durationMs": 218,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/01M70K…ZP12",
+#         "startMs": 12931,
+#         "durationMs": 155,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/01M70K…ZP12",
+#         "startMs": 15897,
+#         "durationMs": 212,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/01M70K…ZP12",
+#         "startMs": 15998,
+#         "durationMs": 60,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/databases/01M70K…WQ7X/<id>/01M70K…3SA4",
+#         "startMs": 17314,
+#         "durationMs": 55,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/revisions/01M70K…3SA4",
+#         "startMs": 17381,
+#         "durationMs": 22,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/01M70K…ZP12",
+#         "startMs": 18925,
+#         "durationMs": 1364,
+#         "status": "pending"
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/01M70K…ZP12",
+#         "startMs": 19137,
+#         "durationMs": 37,
+#         "status": 200
+#       }
+#     ]
+#   },
+#   "others": []
+# }
+# ACTOR REQUEST PEAKS {"width":390,"actors":[{"actor":"unregistered","peak":2,"peakAtMs":104826,"total":2,"sources":{"probe":2},"paths":{"GET /api/workspace/first-run":1,"POST /api/workspace/first-run":1}},{"actor":"unregistered","peak":2,"peakAtMs":107363,"total":2,"sources":{"probe":2},"paths":{"GET /api/workspace/first-run":1,"POST /api/workspace/first-run":1}},{"actor":"unregistered","peak":2,"peakAtMs":108739,"total":2,"sources":{"probe":2},"paths":{"GET /api/workspace/first-run":1,"POST /api/workspace/first-run":1}},{"actor":"browser-owner","peak":65,"peakAtMs":295429,"total":129,"sources":{"probe":115,"browser":14},"paths":{"GET /api/workspace/first-run":2,"POST /api/workspace/first-run":2,"GET /api/tasks/01M70K5PJRH4VVWX417N7EP9WE/assignees":4,"GET /api/workspace":9,"GET /api/containers":3,"GET /api/pages":1,"GET /api/collaboration/01M70K5PJRH4VVWX417N7EP9WE":3,"POST /api/invitations":1,"GET /api/hub":2,"GET /api/navigation/following":2,"GET /api/blog":2,"POST /api/databases":3,"POST /api/databases/01M70K77S5FTFEVJPAZ6QR9MD9/fields":6,"POST /api/databases/01M70K77S5FTFEVJPAZ6QR9MD9/records":1,"GET /api/pages/01M70K7BSK82G8JMT1QKY4DJZG":4,"PUT /api/pages/01M70K7BSK82G8JMT1QKY4DJZG/blocks":1,"GET /api/databases/01M70K77S5FTFEVJPAZ6QR9MD9/records/01M70K7BSK82G8JMT1QKY4DJZG":8,"PATCH /api/pages/01M70K7BSK82G8JMT1QKY4DJZG/blocks/438f5812-11ea-4f5d-a3c2-bde3edf26cd9":1,"POST /api/comments/page/01M70K7BSK82G8JMT1QKY4DJZG":1,"POST /api/sharing":8,"GET /api/pages/01M70K77S5608R167HHTMYTCGS":1,"PUT /api/sharing/pages/01M70K77S5608R167HHTMYTCGS/inheritance":1,"PUT /api/workspace":5,"GET /api/sharing/pages/01M70K77S5608R167HHTMYTCGS":1,"GET /api/revisions/01M70K7BSK82G8JMT1QKY4DJZG":2,"POST /api/databases/01M70K8ZPERBW5GHXTX6ZT1Q07/records":2,"POST /api/databases/01M70K8ZFYH67R42Z98J5RWQ7X/records":1,"GET /api/pages/01M70K906M3ZTFRKN9498F4BA1":1,"PUT /api/sharing/pages/01M70K906M3ZTFRKN9498F4BA1/inheritance":1,"GET /api/pages/01M70K77S5608R167HHTMYTCGS/expansion":4,"GET /api/pages/01M70K8ZFYJTZQ55KRJDX4ZP12/expansion":4,"GET /api/pages/01M70K8ZPEXY494V1S07AH65EX/expansion":4,"GET /api/databases":3,"POST /api/databases/01M70K8ZFYH67R42Z98J5RWQ7X/fields":2,"GET /api/databases/01M70K8ZFYH67R42Z98J5RWQ7X":4,"GET /api/collaboration/01M70K8ZFYJTZQ55KRJDX4ZP12":15,"POST /api/databases/01M70K8ZFYH67R42Z98J5RWQ7X/views":1,"GET /api/databases/01M70K8ZFYH67R42Z98J5RWQ7X/records/01M70K91T3M2SDYK7WNBYY3SA4":6,"POST /api/collaboration/01M70K8ZFYJTZQ55KRJDX4ZP12/presence":2,"GET /api/pages/01M70K8ZXX166DPK9Z0JGE0PHB":1,"PATCH /api/pages/01M70K8ZXX166DPK9Z0JGE0PHB":1,"POST /api/databases/references":1,"GET /api/revisions/01M70K91T3M2SDYK7WNBYY3SA4":2}},{"actor":"unregistered","peak":1,"peakAtMs":167204,"total":1,"sources":{"probe":1},"paths":{"GET /api/session":1}},{"actor":"01M70K6A7RHWNEDQKXP9Q8Y6X8","peak":14,"peakAtMs":172645,"total":14,"sources":{"browser":12,"probe":2},"paths":{"GET /api/hub":4,"GET /api/navigation/following":4,"GET /api/blog":4,"GET /api/workspace/first-run":1,"POST /api/workspace/first-run":1}},{"actor":"browser-reader","peak":83,"peakAtMs":300190,"total":124,"sources":{"probe":124},"paths":{"GET /api/pages/01M70K77S5608R167HHTMYTCGS/expansion":12,"GET /api/tasks/01M70K7BSK82G8JMT1QKY4DJZG/assignees":5,"PATCH /api/databases/01M70K77S5FTFEVJPAZ6QR9MD9/records/01M70K7BSK82G8JMT1QKY4DJZG":2,"GET /api/databases/01M70K77S5FTFEVJPAZ6QR9MD9/records/01M70K7BSK82G8JMT1QKY4DJZG":1,"GET /api/pages/01M70K7BSK82G8JMT1QKY4DJZG":1,"POST /api/pages/01M70K7BSK82G8JMT1QKY4DJZG/open":2,"GET /api/navigation":6,"GET /api/collaboration/01M70K7BSK82G8JMT1QKY4DJZG":11,"POST /api/collaboration/01M70K7BSK82G8JMT1QKY4DJZG/presence":2,"GET /api/comments/page/01M70K7BSK82G8JMT1QKY4DJZG":5,"GET /api/revisions/01M70K7BSK82G8JMT1QKY4DJZG":6,"GET /api/revisions/01M70K7BSK82G8JMT1QKY4DJZG/01M70K7CMN3607QGQ4XVYP9VE3":3,"GET /api/pages/01M70K8ZFYJTZQ55KRJDX4ZP12/expansion":8,"GET /api/pages/01M70K8ZPEXY494V1S07AH65EX/expansion":8,"GET /api/tasks/01M70K91T3M2SDYK7WNBYY3SA4/assignees":6,"GET /api/databases/01M70K8ZFYH67R42Z98J5RWQ7X/references/81c50c36-060d-4668-a7f2-5a0b02c1acc1":5,"PATCH /api/databases/01M70K8ZFYH67R42Z98J5RWQ7X/records/01M70K91T3M2SDYK7WNBYY3SA4":4,"GET /api/databases/01M70K8ZFYH67R42Z98J5RWQ7X/records/01M70K91T3M2SDYK7WNBYY3SA4":5,"GET /api/pages/01M70K91T3M2SDYK7WNBYY3SA4":3,"GET /api/databases/01M70K8ZFYH67R42Z98J5RWQ7X/views/8deb7179-1023-4f2b-976b-2e6b8a305a97":3,"POST /api/databases/references":12,"POST /api/pages/01M70K91T3M2SDYK7WNBYY3SA4/open":3,"GET /api/collaboration/01M70K91T3M2SDYK7WNBYY3SA4":6,"GET /api/tasks/01M70K8ZXX166DPK9Z0JGE0PHB/assignees":1,"GET /api/collaboration/01M70K8ZXX166DPK9Z0JGE0PHB":2,"POST /api/collaboration/01M70K91T3M2SDYK7WNBYY3SA4/presence":1,"GET /api/databases/01M70K8ZPERBW5GHXTX6ZT1Q07/records/01M70K906M3ZTFRKN9498F4BA1":1}}]}

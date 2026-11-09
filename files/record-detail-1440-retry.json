@@ -1,0 +1,12 @@
+{
+  "label": "record-detail-1440-retry",
+  "command": [
+    "node",
+    "--test",
+    "--test-concurrency=1",
+    "--test-name-pattern=^DB-012 and DB-002.*1440px$",
+    "tests/qualification/ui-convergence/journeys.test.mjs"
+  ],
+  "exit": 0,
+  "seconds": 415.203
+}

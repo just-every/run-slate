@@ -1,0 +1,10 @@
+{
+  "label": "views-check-final",
+  "command": [
+    "node",
+    "src/base/runtime/contract-docs.mjs",
+    "check"
+  ],
+  "exit": 0,
+  "seconds": 0.825
+}

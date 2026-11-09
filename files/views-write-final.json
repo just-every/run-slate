@@ -1,0 +1,10 @@
+{
+  "label": "views-write-final",
+  "command": [
+    "node",
+    "src/base/runtime/contract-docs.mjs",
+    "write"
+  ],
+  "exit": 0,
+  "seconds": 0.611
+}
