@@ -1,0 +1,19 @@
+{
+  "label": "candidate-1",
+  "head": "77ea3b5cf3cce512772192e5fe64039980867f47",
+  "command": "export PATH=\"$HOME/.rer/toolchain/node-22.20.0/node_modules/node/bin:$PATH\"\n. /tmp/rer-cloud-toolchain.sh\ncloud_run timeout 660 env SLATE_CHROMIUM_PATH=/usr/bin/chromium SLATE_UI_SHARD=1/1 node --test --test-concurrency=1 --test-name-pattern='^page outline follows headings and navigates long pages at 1440px$' tests/qualification/ui-convergence/journeys.test.mjs",
+  "start_utc": "2026-11-09T15:20:15.580820+00:00",
+  "log": "candidate-1.log",
+  "exit": 124,
+  "wall_seconds": 662.928,
+  "end_utc": "2026-11-09T15:31:18.509727+00:00",
+  "test_duration_ms": 600003.103656,
+  "matching_dialog_failure": false,
+  "test_result": "testTimeoutFailure at unchanged 600000ms deadline; outer bounded command exit 124",
+  "status_vocabulary_profiles_passed": [
+    "verification-only",
+    "open-vocabulary"
+  ],
+  "reached_status_vocabulary": true,
+  "outcome": "Unchanged 600000ms whole-test deadline; outer bound exit 124"
+}

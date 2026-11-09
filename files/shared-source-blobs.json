@@ -1,0 +1,30 @@
+{
+  "tests/qualification/ui-convergence/journeys.test.mjs": {
+    "candidate_blob": "309e9e722e5b21084b78f90cdcf38af71f7b31f7",
+    "main_blob": "309e9e722e5b21084b78f90cdcf38af71f7b31f7"
+  },
+  "tests/qualification/ui-convergence/journey-shard.mjs": {
+    "candidate_blob": "ff593fbf67b87628ea636b0c32bf6da3afcfcfba",
+    "main_blob": "ff593fbf67b87628ea636b0c32bf6da3afcfcfba"
+  },
+  "tests/qualification/ui-convergence/outline-journey.mjs": {
+    "candidate_blob": "a6b4ed2ebfc46c1a99f829c54ea82e7ce514a29c",
+    "main_blob": "a6b4ed2ebfc46c1a99f829c54ea82e7ce514a29c"
+  },
+  "tests/qualification/ui-convergence/status-vocabulary-journey.mjs": {
+    "candidate_blob": "732ac4cf2e19fbe9ae14b9d12cb28ee5eb4577c6",
+    "main_blob": "732ac4cf2e19fbe9ae14b9d12cb28ee5eb4577c6"
+  },
+  "tests/qualification/ui-convergence/browser-support.mjs": {
+    "candidate_blob": "5021efa004d774206e07b497a1f83b5712b3d453",
+    "main_blob": "5021efa004d774206e07b497a1f83b5712b3d453"
+  },
+  "src/core/features/page-status/ui/workspace/StatusSettings.tsx": {
+    "candidate_blob": "e58c3af8945b8fb4fc77de4713cc2dca6f2870a3",
+    "main_blob": "e58c3af8945b8fb4fc77de4713cc2dca6f2870a3"
+  },
+  "src/core/app/ui/ActionDialog.tsx": {
+    "candidate_blob": "13166c259890092e6ab10aa37faaaca9530acc66",
+    "main_blob": "13166c259890092e6ab10aa37faaaca9530acc66"
+  }
+}

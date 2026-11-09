@@ -1,0 +1,15 @@
+{
+  "label": "main-2",
+  "head": "92d1c9d733801e953801fd8e17ab23efea778df8",
+  "command": "export PATH=\"$HOME/.rer/toolchain/node-22.20.0/node_modules/node/bin:$PATH\"\n. /tmp/rer-cloud-toolchain.sh\ncloud_run timeout 660 env SLATE_CHROMIUM_PATH=/usr/bin/chromium SLATE_UI_SHARD=1/1 node --test --test-concurrency=1 --test-name-pattern='^page outline follows headings and navigates long pages at 1440px$' tests/qualification/ui-convergence/journeys.test.mjs",
+  "start_utc": "2026-11-09T15:48:00.546753+00:00",
+  "log": "main-2.log",
+  "exit": 1,
+  "wall_seconds": 298.503,
+  "end_utc": "2026-11-09T15:52:59.049580+00:00",
+  "test_duration_ms": 199897.731021,
+  "matching_dialog_failure": false,
+  "status_vocabulary_profiles_passed": [],
+  "reached_status_vocabulary": false,
+  "outcome": "Shortcut destination React hydration predicate (line 39), 5000ms, before vocabulary journey"
+}

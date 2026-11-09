@@ -1,0 +1,5 @@
+{
+  "command": "cloud_run timeout 600 npx -y @runeditrun/rer build",
+  "exit": 0,
+  "head": "92d1c9d733801e953801fd8e17ab23efea778df8"
+}

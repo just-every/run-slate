@@ -1,0 +1,322 @@
+rer toolchain: node v22.20.0 pnpm 10.12.4 (pins 22.20.0 / 10.12.4)
+TAP version 13
+# Journey failure context {
+#   "rejected": [],
+#   "consoleErrors": []
+# }
+# Journey failure context REQUEST TIMELINE {
+#   "primary": {
+#     "requestsAtDump": [
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 0,
+#         "durationMs": 4,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 4,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 5,
+#         "durationMs": 1,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 6,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M70F…4C23/<id>",
+#         "startMs": 260,
+#         "durationMs": 65,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/tasks/01M70F…58V4/assignees",
+#         "startMs": 265,
+#         "durationMs": 124,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/app/databases/01M70F…0T79",
+#         "startMs": 1515,
+#         "durationMs": 2374,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/01M70F…58V4",
+#         "startMs": 3607,
+#         "durationMs": 30742,
+#         "status": "pending"
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 3888,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 3889,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 3889,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 3889,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 3889,
+#         "durationMs": 811,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 3889,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M70F…4C23/<id>",
+#         "startMs": 4909,
+#         "durationMs": 167,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/01M70F…4C23",
+#         "startMs": 8004,
+#         "durationMs": 268,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/01M70F…4C23",
+#         "startMs": 10974,
+#         "durationMs": 126,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/app/databases/01M70F…0T79/<id>/01M70F…NXWM",
+#         "startMs": 11386,
+#         "durationMs": 796,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 12152,
+#         "durationMs": 12,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 12164,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 12164,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 12164,
+#         "durationMs": 6,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 12170,
+#         "durationMs": 2,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 12172,
+#         "durationMs": 7,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M70F…4C23/<id>",
+#         "startMs": 12426,
+#         "durationMs": 128,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/tasks/01M70F…NXWM/assignees",
+#         "startMs": 12451,
+#         "durationMs": 275,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/app/pages/01M70F…58V4",
+#         "startMs": 13955,
+#         "durationMs": 604,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 14558,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 14558,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 14558,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 14559,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M70F…4C23/<id>",
+#         "startMs": 14717,
+#         "durationMs": 94,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/tasks/01M70F…58V4/assignees",
+#         "startMs": 14726,
+#         "durationMs": 292,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M70F…58V4",
+#         "startMs": 15762,
+#         "durationMs": 7012,
+#         "status": 200
+#       },
+#       {
+#         "method": "PATCH",
+#         "path": "/api/pages/01M70F…58V4/blocks/3a5464…2fdf",
+#         "startMs": 22822,
+#         "durationMs": 809,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/01M70F…58V4",
+#         "startMs": 22847,
+#         "durationMs": 785,
+#         "status": 200
+#       },
+#       {
+#         "method": "POST",
+#         "path": "/api/<id>/01M70F…58V4/presence",
+#         "startMs": 32648,
+#         "durationMs": 429,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/01M70F…58V4",
+#         "startMs": 33077,
+#         "durationMs": 6,
+#         "status": 200
+#       },
+#       {
+#         "method": "POST",
+#         "path": "/api/pages/01M70F…58V4/open",
+#         "startMs": 33084,
+#         "durationMs": 134,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/navigation",
+#         "startMs": 33217,
+#         "durationMs": 71,
+#         "status": 200
+#       }
+#     ]
+#   },
+#   "others": []
+# }
+# ACTOR REQUEST PEAKS {"width":1440,"actors":[{"actor":"unregistered","peak":2,"peakAtMs":73930,"total":2,"sources":{"probe":2},"paths":{"GET /api/workspace/first-run":1,"POST /api/workspace/first-run":1}},{"actor":"unregistered","peak":2,"peakAtMs":75329,"total":2,"sources":{"probe":2},"paths":{"GET /api/workspace/first-run":1,"POST /api/workspace/first-run":1}},{"actor":"unregistered","peak":2,"peakAtMs":76725,"total":2,"sources":{"probe":2},"paths":{"GET /api/workspace/first-run":1,"POST /api/workspace/first-run":1}},{"actor":"browser-owner","peak":78,"peakAtMs":184616,"total":124,"sources":{"probe":20,"browser":104},"paths":{"GET /api/workspace/first-run":2,"POST /api/workspace/first-run":2,"GET /api/tasks/01M70F2F8VT7GR3PMD7KYC69MR/assignees":5,"GET /api/workspace":3,"GET /api/containers":4,"GET /api/pages":1,"POST /api/invitations":1,"GET /api/collaboration/01M70F2F8VT7GR3PMD7KYC69MR":2,"GET /api/hub":3,"GET /api/navigation/following":3,"GET /api/blog":3,"POST /api/pages":2,"GET /api/tasks/01M70F388JCDPBCT2E335FGCVB/assignees":2,"GET /api/collaboration/01M70F388JCDPBCT2E335FGCVB":6,"GET /api/pages/01M70F388JCDPBCT2E335FGCVB":6,"PATCH /api/pages/01M70F388JCDPBCT2E335FGCVB/blocks/ac899234-3d2e-4c43-b284-c77465352aac":1,"PUT /api/pages/01M70F388JCDPBCT2E335FGCVB/blocks":3,"POST /api/pages/01M70F388JCDPBCT2E335FGCVB/open":1,"GET /api/navigation":2,"POST /api/databases":1,"POST /api/databases/01M70F3P2EZ6E4RKG5HAVM0T79/records":1,"GET /api/navigation/configuration":1,"GET /api/pages/01M70F3P2E8DTEKAK83ARB4C23/expansion":27,"GET /api/workspace/mention-configuration":3,"GET /api/reminders":1,"GET /api/tasks":1,"GET /api/status/requests/queue":1,"GET /api/guests":1,"GET /api/guests/policy":1,"GET /api/members":2,"GET /api/groups":1,"GET /api/invitations":1,"GET /api/auth/saml":1,"GET /api/developer/tokens":1,"GET /api/activity/settings":1,"GET /api/developer/webhooks":1,"GET /api/developer/scim":1,"GET /api/navigation/watch-configuration":1,"GET /api/navigation/preferences":1,"GET /api/activity":1,"GET /api/automation":1,"GET /api/status":1,"GET /api/notifications/chat/destinations":1,"GET /api/imports/provider-folders":1,"GET /api/imports/provider-folders/destinations":1,"GET /api/backups":1,"GET /api/imports":1,"GET /api/analytics/report-scopes":1,"GET /api/analytics":1,"GET /api/analytics/reports":1,"GET /api/tasks/01M70F3NYNK3BCB79YPCCC58V4/assignees":2,"GET /api/collaboration/01M70F3NYNK3BCB79YPCCC58V4":3,"GET /api/collaboration/01M70F3P2E8DTEKAK83ARB4C23":2,"GET /api/tasks/01M70F3TS0N0M3EPKA2MT4NXWM/assignees":1,"GET /api/pages/01M70F3NYNK3BCB79YPCCC58V4":1,"PATCH /api/pages/01M70F3NYNK3BCB79YPCCC58V4/blocks/3a5464f0-d45a-4f8d-bede-9f911b562fdf":1,"POST /api/collaboration/01M70F3NYNK3BCB79YPCCC58V4/presence":1,"POST /api/pages/01M70F3NYNK3BCB79YPCCC58V4/open":1}},{"actor":"unregistered","peak":1,"peakAtMs":102777,"total":1,"sources":{"probe":1},"paths":{"GET /api/session":1}},{"actor":"01M70F2TC14SAKFBZGQSZ5NEVE","peak":14,"peakAtMs":107528,"total":14,"sources":{"browser":12,"probe":2},"paths":{"GET /api/hub":4,"GET /api/navigation/following":4,"GET /api/blog":4,"GET /api/workspace/first-run":1,"POST /api/workspace/first-run":1}}]}
+# Subtest: page outline follows headings and navigates long pages at 1440px
+not ok 1 - page outline follows headings and navigates long pages at 1440px
+  ---
+  duration_ms: 160428.65681
+  type: 'test'
+  location: '/home/agent/rer-consolidation/work/sd-slate-c-f174-fix3/run-slate/tests/qualification/ui-convergence/journey-shard.mjs:23:97'
+  failureType: 'testCodeFailure'
+  error: 'Timeout 5000ms exceeded while waiting on the predicate'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    captureRawStack (/home/agent/rer-consolidation/work/sd-slate-c-f174-fix3/run-slate/node_modules/.pnpm/playwright-core@1.63.0/node_modules/playwright-core/lib/coreBundle.js:8588:17)
+    callMatcherAsStep (/home/agent/rer-consolidation/work/sd-slate-c-f174-fix3/run-slate/node_modules/.pnpm/playwright@1.63.0/node_modules/playwright/lib/matchers/expect.js:13310:57)
+    Object.toEqual (/home/agent/rer-consolidation/work/sd-slate-c-f174-fix3/run-slate/node_modules/.pnpm/playwright@1.63.0/node_modules/playwright/lib/matchers/expect.js:13302:23)
+    shortcutReferenceJourney (/home/agent/rer-consolidation/work/sd-slate-c-f174-fix3/run-slate/tests/qualification/ui-convergence/shortcut-reference-journey.mjs:62:95)
+    async settingsJourney (/home/agent/rer-consolidation/work/sd-slate-c-f174-fix3/run-slate/tests/qualification/ui-convergence/reading-journeys.mjs:70:3)
+    async withWorkspace.RER_DEMO (/home/agent/rer-consolidation/work/sd-slate-c-f174-fix3/run-slate/tests/qualification/ui-convergence/journeys.test.mjs:453:7)
+    async withWorkspace (/home/agent/rer-consolidation/work/sd-slate-c-f174-fix3/run-slate/tests/qualification/ui-convergence/browser-support.mjs:189:7)
+    async TestContext.<anonymous> (/home/agent/rer-consolidation/work/sd-slate-c-f174-fix3/run-slate/tests/qualification/ui-convergence/journeys.test.mjs:450:5)
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 220831.800732

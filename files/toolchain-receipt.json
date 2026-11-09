@@ -1,0 +1,29 @@
+{
+  "setup": {
+    "completed": true,
+    "last_status_lines": [],
+    "successful_exit_marker": false,
+    "no_failure_marker": true
+  },
+  "build-candidate": {
+    "completed": true,
+    "last_status_lines": [
+      "\u2713 2692 modules transformed.",
+      "\u2713 built in 23.24s",
+      "\u2713 4038 modules transformed.",
+      "\u2713 built in 43.92s"
+    ],
+    "successful_exit_marker": true,
+    "no_failure_marker": true
+  },
+  "node": "22.20.0",
+  "pnpm": "10.12.4",
+  "chromium": "/usr/bin/chromium",
+  "commands": [
+    "pnpm install --frozen-lockfile",
+    "cloud_run timeout 600 npx -y @runeditrun/rer setup --owner-email fleet@runeditrun.com --non-interactive",
+    "cloud_run timeout 600 npx -y @runeditrun/rer build"
+  ],
+  "chromium_version": "154.0.8037.57 (Debian GNU/Linux 13)",
+  "host_node_default": "24.19.0; all builds and focused tests explicitly prepended Node 22.20.0"
+}

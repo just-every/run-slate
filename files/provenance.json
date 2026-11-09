@@ -1,0 +1,23 @@
+{
+  "repository": "just-every/run-slate",
+  "branch": "cloud/sd-slate-c-f174-fix3",
+  "candidate": "77ea3b5cf3cce512772192e5fe64039980867f47",
+  "main": "92d1c9d733801e953801fd8e17ab23efea778df8",
+  "full_history": true,
+  "main_merge": "Already up to date; fetched main is an ancestor of candidate; no new merge commit needed.",
+  "base": "92d1c9d733801e953801fd8e17ab23efea778df8",
+  "candidate_stat": "ACCEPTANCE.md                                      |   4 +-\n CONTRACT.md                                        |   2 +-\n sources.lock.json                                  |  20 +--\n src/core/features/databases/discovery.ts           |   7 +\n src/core/features/databases/service.ts             |  19 +++\n .../features/databases/ui/fields/FieldCell.tsx     |   1 +\n tests/flagship/structured/http.test.ts             | 119 +++++++++++++-\n .../ui-convergence/record-detail-journey.mjs       | 174 +++++++++++++++++++++\n tests/requirements/clause-inventory.json           |   6 +-\n tests/requirements/cli-journey.md                  |   5 +\n tests/requirements/test-evidence.json              |   5 +-\n 11 files changed, 343 insertions(+), 19 deletions(-)",
+  "original_ci_run": 42628420307,
+  "original_ci_job": 129214505536,
+  "metadata_run_attempt": 2,
+  "github_calls_so_far": 4,
+  "product_changes_this_task": 0,
+  "hosted_evidence_notes": [
+    "Brief labels job 129214505536 attempt 1; GitHub job metadata reports run_attempt=2. Attempt-2 archive confirms the exact dialog failure at 111190.781497 ms.",
+    "gh run view 42628420307 --repo just-every/run-slate --job 129214505536 --log-failed fetched the latest attempt logs rather than the historical job attempt; those logs show page-outline passing at 345131.969724 ms and a different real-core-wiki request-budget failure (531 > 500).",
+    "One further REST call downloaded the run attempt-2 archive; no blocked blob redirects or signed URLs were retried. API/CLI calls after all metadata reads: 4 of 10."
+  ],
+  "terminal_product_head": "77ea3b5cf3cce512772192e5fe64039980867f47",
+  "terminal_product_branch": "cloud/sd-slate-c-f174-fix3",
+  "working_tree_clean": true
+}

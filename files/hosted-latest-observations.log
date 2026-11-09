@@ -1,0 +1,26 @@
+verify (core)	Workers, public-door journeys and suite	2026-11-09T14:56:29.9840851Z not ok 1 - real core-wiki and touch-member journeys at 390px
+verify (core)	Workers, public-door journeys and suite	2026-11-09T14:56:29.9841517Z   ---
+verify (core)	Workers, public-door journeys and suite	2026-11-09T14:56:29.9841924Z   duration_ms: 670688.977878
+verify (core)	Workers, public-door journeys and suite	2026-11-09T14:56:29.9842165Z   type: 'test'
+verify (core)	Workers, public-door journeys and suite	2026-11-09T14:56:29.9842672Z   location: '/home/runner/work/run-slate/run-slate/tests/qualification/ui-convergence/journey-shard.mjs:23:97'
+verify (core)	Workers, public-door journeys and suite	2026-11-09T14:56:29.9843175Z   failureType: 'testCodeFailure'
+verify (core)	Workers, public-door journeys and suite	2026-11-09T14:56:29.9843550Z   error: 'Owner rolling-minute peak 531 exceeds the 500 request margin'
+verify (core)	Workers, public-door journeys and suite	2026-11-09T14:56:29.9843930Z   code: 'ERR_ASSERTION'
+verify (core)	Workers, public-door journeys and suite	2026-11-09T14:56:29.9844147Z   name: 'AssertionError'
+verify (core)	Workers, public-door journeys and suite	2026-11-09T14:56:29.9844362Z   expected: true
+verify (core)	Workers, public-door journeys and suite	2026-11-09T14:56:29.9844906Z   actual: false
+verify (core)	Workers, public-door journeys and suite	2026-11-09T14:56:29.9845096Z   operator: '=='
+verify (core)	Workers, public-door journeys and suite	2026-11-09T14:56:29.9845293Z   stack: |-
+verify (core)	Workers, public-door journeys and suite	2026-11-09T14:56:29.9845830Z     withWorkspace.scheduled (file:///home/runner/work/run-slate/run-slate/tests/qualification/ui-convergence/journeys.test.mjs:148:16)
+verify (core)	Workers, public-door journeys and suite	2026-11-09T14:56:29.9846431Z     async withWorkspace (file:///home/runner/work/run-slate/run-slate/tests/qualification/ui-convergence/browser-support.mjs:189:7)
+verify (core)	Workers, public-door journeys and suite	2026-11-09T14:56:29.9847005Z     async TestContext.<anonymous> (file:///home/runner/work/run-slate/run-slate/tests/qualification/ui-convergence/journeys.test.mjs:92:5)
+verify (core)	Workers, public-door journeys and suite	2026-11-09T14:56:29.9847415Z     async Test.run (node:internal/test_runner/test:1054:7)
+verify (core)	Workers, public-door journeys and suite	2026-11-09T14:56:29.9847714Z     async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+verify (core)	Workers, public-door journeys and suite	2026-11-09T14:56:29.9847957Z   ...
+verify (core)	Workers, public-door journeys and suite	2026-11-09T14:56:53.1113424Z # JOURNEY STEP {"name":"BLOCK-016 — task report access, inline completion and published sign-in notice","startMs":711004}
+verify (core)	Workers, public-door journeys and suite	2026-11-09T15:03:34.7047866Z # Subtest: page outline follows headings and navigates long pages at 1440px
+verify (core)	Workers, public-door journeys and suite	2026-11-09T15:03:34.7048741Z ok 4 - page outline follows headings and navigates long pages at 1440px
+verify (core)	Workers, public-door journeys and suite	2026-11-09T15:03:34.7049368Z   ---
+verify (core)	Workers, public-door journeys and suite	2026-11-09T15:03:34.7049620Z   duration_ms: 345131.969724
+verify (core)	Workers, public-door journeys and suite	2026-11-09T15:03:34.7049983Z   type: 'test'
+verify (core)	Workers, public-door journeys and suite	2026-11-09T15:03:34.7050171Z   ...

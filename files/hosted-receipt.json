@@ -1,0 +1,44 @@
+{
+  "run": 42628420307,
+  "job": 129214505536,
+  "head": "77ea3b5cf3cce512772192e5fe64039980867f47",
+  "actual_run_attempt": 2,
+  "test": "page outline follows headings and navigates long pages at 1440px",
+  "test_duration_ms": 111190.781497,
+  "failure": "Edit status dialog expected count 0, received 1 after 5000ms",
+  "stack": [
+    "status-vocabulary-journey.mjs:44 (saveEntry)",
+    "status-vocabulary-journey.mjs:77 (retire existing entry)",
+    "reading-journeys.mjs:100 (settingsJourney)",
+    "journeys.test.mjs:453 (page-outline test calls settingsJourney)"
+  ],
+  "rejected_requests": [],
+  "console_errors": [],
+  "save_status_post_ms": 16,
+  "save_status_post_status": 200,
+  "save_status_reload_get_ms": 12,
+  "save_status_reload_status": 200,
+  "interpretation": "The native retirement request and following status reload completed successfully. The recorded dialog remained mounted. This is not evidence of a slow or rejected status API write. No candidate causation established before local comparison.",
+  "calls": [
+    {
+      "n": 1,
+      "command": "gh run view 42628420307 --repo just-every/run-slate --job 129214505536 --log-failed",
+      "result": "Latest-attempt archive: page outline passed; another core journey exceeded request margin."
+    },
+    {
+      "n": 2,
+      "command": "gh api repos/just-every/run-slate/actions/jobs/129214505536 --jq {metadata}",
+      "result": "Completed/failure, run_attempt=2, exact candidate head."
+    },
+    {
+      "n": 3,
+      "command": "gh api repos/just-every/run-slate/actions/runs/42628420307/attempts/2/logs",
+      "result": "Archive download succeeded; extracted actual historical page-outline failure."
+    },
+    {
+      "n": 4,
+      "command": "gh api repos/just-every/run-slate/actions/runs/42628420307/attempts/3/jobs?per_page=100 --jq [core job metadata]",
+      "result": "Core job 129229865669 completed/failure, attempt 3, exact candidate SHA."
+    }
+  ]
+}

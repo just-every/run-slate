@@ -1,0 +1,16 @@
+{
+  "label": "candidate-2",
+  "head": "77ea3b5cf3cce512772192e5fe64039980867f47",
+  "command": "export PATH=\"$HOME/.rer/toolchain/node-22.20.0/node_modules/node/bin:$PATH\"\n. /tmp/rer-cloud-toolchain.sh\ncloud_run timeout 660 env SLATE_CHROMIUM_PATH=/usr/bin/chromium SLATE_UI_SHARD=1/1 node --test --test-concurrency=1 --test-name-pattern='^page outline follows headings and navigates long pages at 1440px$' tests/qualification/ui-convergence/journeys.test.mjs",
+  "start_utc": "2026-11-09T15:31:44.639790+00:00",
+  "log": "candidate-2.log",
+  "exit": 1,
+  "wall_seconds": 222.764,
+  "end_utc": "2026-11-09T15:35:27.404178+00:00",
+  "test_duration_ms": 160428.65681,
+  "matching_dialog_failure": false,
+  "test_result": "testCodeFailure: shortcutReferenceJourney line 62, predicate timeout 5000ms; before statusVocabularyJourney",
+  "status_vocabulary_profiles_passed": [],
+  "reached_status_vocabulary": false,
+  "outcome": "Shortcut formatting persistence predicate (line 62), 5000ms, before vocabulary journey"
+}

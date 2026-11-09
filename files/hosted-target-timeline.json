@@ -1,0 +1,287 @@
+{
+  "primary": {
+    "requestsAtDump": [
+      {
+        "method": "POST",
+        "path": "/api/status/<id>/01M70B\u20264S15",
+        "startMs": 0,
+        "durationMs": 51,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/status/<id>/01M70B\u20264S15",
+        "startMs": 51,
+        "durationMs": 14,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/pages/01M70B\u20264S15",
+        "startMs": 66,
+        "durationMs": 17,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/status/<id>/<id>",
+        "startMs": 83,
+        "durationMs": 31,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/status",
+        "startMs": 91,
+        "durationMs": 36,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/pages/01M70B\u20264S15",
+        "startMs": 95,
+        "durationMs": 36,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/app/settings",
+        "startMs": 135,
+        "durationMs": 42,
+        "status": 307
+      },
+      {
+        "method": "GET",
+        "path": "/app/settings/<id>",
+        "startMs": 177,
+        "durationMs": 70,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/assets/<id>",
+        "startMs": 236,
+        "durationMs": 0,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/assets/<id>",
+        "startMs": 236,
+        "durationMs": 0,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/assets/<id>",
+        "startMs": 236,
+        "durationMs": 1,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/assets/<id>",
+        "startMs": 237,
+        "durationMs": 0,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/assets/<id>",
+        "startMs": 237,
+        "durationMs": 1,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/assets/<id>",
+        "startMs": 237,
+        "durationMs": 0,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/assets/<id>",
+        "startMs": 238,
+        "durationMs": 0,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/pages/01M70B\u20267DRS/<id>",
+        "startMs": 288,
+        "durationMs": 12,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/status",
+        "startMs": 288,
+        "durationMs": 19,
+        "status": 200
+      },
+      {
+        "method": "POST",
+        "path": "/api/status",
+        "startMs": 966,
+        "durationMs": 15,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/status",
+        "startMs": 981,
+        "durationMs": 9,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/status",
+        "startMs": 1001,
+        "durationMs": 10,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/pages/01M70B\u2026A4Y7",
+        "startMs": 1023,
+        "durationMs": 13,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/pages/01M70B\u20264S15",
+        "startMs": 1039,
+        "durationMs": 14,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/revisions/01M70B\u2026A4Y7",
+        "startMs": 1056,
+        "durationMs": 11,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/revisions/01M70B\u20264S15",
+        "startMs": 1070,
+        "durationMs": 11,
+        "status": 200
+      },
+      {
+        "method": "POST",
+        "path": "/api/status",
+        "startMs": 1181,
+        "durationMs": 16,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/status",
+        "startMs": 1198,
+        "durationMs": 12,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/app/settings",
+        "startMs": 6435,
+        "durationMs": 44,
+        "status": 307
+      },
+      {
+        "method": "GET",
+        "path": "/app/settings/workspace",
+        "startMs": 6479,
+        "durationMs": 72,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/assets/<id>",
+        "startMs": 6541,
+        "durationMs": 0,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/assets/<id>",
+        "startMs": 6542,
+        "durationMs": 0,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/assets/<id>",
+        "startMs": 6542,
+        "durationMs": 0,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/assets/<id>",
+        "startMs": 6543,
+        "durationMs": 0,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/assets/<id>",
+        "startMs": 6543,
+        "durationMs": 0,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/assets/<id>",
+        "startMs": 6543,
+        "durationMs": 0,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/assets/<id>",
+        "startMs": 6543,
+        "durationMs": 0,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/pages/01M70B\u20267DRS/<id>",
+        "startMs": 6592,
+        "durationMs": 10,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/workspace/<id>",
+        "startMs": 6592,
+        "durationMs": 21,
+        "status": 200
+      },
+      {
+        "method": "PUT",
+        "path": "/api/workspace",
+        "startMs": 7234,
+        "durationMs": 22,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/workspace",
+        "startMs": 7257,
+        "durationMs": 14,
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/workspace",
+        "startMs": 7277,
+        "durationMs": 10,
+        "status": 200
+      }
+    ]
+  },
+  "others": []
+}
