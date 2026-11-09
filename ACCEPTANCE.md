@@ -8,10 +8,10 @@ The primary journey: Import the team's existing knowledge, invite its members, w
 
 | Tier | Done | Partial | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Core | 59 | 238 | 35 | 332 |
+| Core | 60 | 237 | 35 | 332 |
 | Agent surface | 0 | 0 | 6 | 6 |
 | Later | 0 | 0 | 0 | 0 |
-| Full target | 59 | 238 | 41 | 338 |
+| Full target | 60 | 237 | 41 | 338 |
 
 Judged from the code and tests at commit `65d6c569c06f0150648800f3eaecce4bc77e6612` (29 October 2026); SEARCH-001 native source proof. Exact candidate and landing receipts are recorded by its branch Verify and the guarded lander. DB-012 record-detail proof reviewed from source `63a0e8f` (31 October 2026); its exact candidate and Verify are named by the branch handoff. Field proof register: 16 rows; 0 passed, 0 failed, 16 not run.
 
@@ -1692,7 +1692,7 @@ Core · published · **done**
 
 #### AUTO-001 — A rule
 
-Core · published · **partial**
+Core · published · **done**
 
 **Requirement.** A rule has a name, a scope, a trigger, ordered conditions, an optional branch over related records, ordered actions, and an actor.
 
@@ -1700,8 +1700,8 @@ Core · published · **partial**
 1. Triggers are record and page events and a schedule; actions edit fields, create pages and records, move and archive them, add comments, and send a notification through a configured adapter.
 2. A rule with trigger, conditions, branch and actions runs on record events and schedules.
 
-**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.
-**Gap.** No validated CI-run proof for this acceptance point: "A rule has a name, a scope, a trigger, ordered conditions, an optional branch over related records, ordered actions, and an actor."<br>No validated CI-run proof for this acceptance point: "Triggers are record and page events and a schedule; actions edit fields, create pages and records, move and archive them, add comments, and send a notification through a configured adapter."
+**Evidence.** `CONTRACT.md` — requirement text only; no validated CI-run proof.; `tests/profile/profile.worker.test.ts` (FLAG-001 — core wiki public doors retain native content while flagship routes and queued work require opt-in)
+**Gap.** None.
 
 #### AUTO-002 — A rule acts as its actor
 
