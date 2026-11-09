@@ -1,0 +1,103 @@
+TAP version 13
+# STATUS_PROFILE width=1440 value=verification-only
+# PROBE STAT-001 profile=verification-only: native owner controls, retained pages, non-owner refusals and explicit bulk receipts passed at 1440px
+# STATUS_PROFILE width=1440 value=open-vocabulary
+# PROBE STAT-001 profile=open-vocabulary: native owner controls, retained pages, non-owner refusals and explicit bulk receipts passed at 1440px
+# PROBE WORK-001 acceptance-1: Settings name/mark -> persisted Field operations 🌿, owner reload and fresh member headers at 1440px; member write refused unchanged
+# Theme route 1440px light: /app
+# Theme route 1440px light: /app/search
+# Theme route 1440px light: /app/inbox
+# Theme route 1440px light: /app/tasks
+# Theme route 1440px light: /app/review
+# Theme route 1440px light: /app/containers
+# Theme route 1440px light: /app/templates
+# Theme route 1440px light: /app/archive
+# Theme route 1440px light: /app/settings
+# Theme route 1440px light: /app/settings/workspace
+# Theme route 1440px light: /app/settings/members
+# Theme route 1440px light: /app/settings/saml
+# Theme route 1440px light: /app/settings/developer
+# Theme route 1440px light: /app/settings/appearance
+# Theme route 1440px light: /app/settings/preferences
+# Theme route 1440px light: /app/settings/activity
+# Theme route 1440px light: /app/settings/automation
+# Theme route 1440px light: /app/settings/statuses
+# Theme route 1440px light: /app/settings/spaces
+# Theme route 1440px light: /app/settings/chat
+# Theme route 1440px light: /app/settings/portability
+# Theme route 1440px light: /app/pages/01M6Z5HCKH79FP4MEZ8Y2D4QHV
+# Theme route 1440px light: /app/databases/01M6Z5HCNB9XTJ9N3WYTG9JDQE
+# Theme route 1440px light: /app/databases/01M6Z5HCNB9XTJ9N3WYTG9JDQE/records/01M6Z5HCSGNFM154REZPKQHY3F
+# Theme route 1440px dark: /app
+# Theme route 1440px dark: /app/search
+# Theme route 1440px dark: /app/inbox
+# Theme route 1440px dark: /app/tasks
+# Theme route 1440px dark: /app/review
+# Theme route 1440px dark: /app/containers
+# Theme route 1440px dark: /app/templates
+# Theme route 1440px dark: /app/archive
+# Theme route 1440px dark: /app/settings
+# Theme route 1440px dark: /app/settings/workspace
+# Theme route 1440px dark: /app/settings/members
+# Theme route 1440px dark: /app/settings/saml
+# Theme route 1440px dark: /app/settings/developer
+# Theme route 1440px dark: /app/settings/appearance
+# Theme route 1440px dark: /app/settings/preferences
+# Theme route 1440px dark: /app/settings/activity
+# Theme route 1440px dark: /app/settings/automation
+# Theme route 1440px dark: /app/settings/statuses
+# Theme route 1440px dark: /app/settings/spaces
+# Theme route 1440px dark: /app/settings/chat
+# Theme route 1440px dark: /app/settings/portability
+# Theme route 1440px dark: /app/pages/01M6Z5HCKH79FP4MEZ8Y2D4QHV
+# Theme route 1440px dark: /app/databases/01M6Z5HCNB9XTJ9N3WYTG9JDQE
+# Theme route 1440px dark: /app/databases/01M6Z5HCNB9XTJ9N3WYTG9JDQE/records/01M6Z5HCSGNFM154REZPKQHY3F
+# Theme route 1440px system: /app
+# Theme route 1440px system: /app/search
+# Theme route 1440px system: /app/inbox
+# Theme route 1440px system: /app/tasks
+# Theme route 1440px system: /app/review
+# Theme route 1440px system: /app/containers
+# Theme route 1440px system: /app/templates
+# Theme route 1440px system: /app/archive
+# Theme route 1440px system: /app/settings
+# Theme route 1440px system: /app/settings/workspace
+# Theme route 1440px system: /app/settings/members
+# Theme route 1440px system: /app/settings/saml
+# Theme route 1440px system: /app/settings/developer
+# Theme route 1440px system: /app/settings/appearance
+# Theme route 1440px system: /app/settings/preferences
+# Theme route 1440px system: /app/settings/activity
+# Theme route 1440px system: /app/settings/automation
+# Theme route 1440px system: /app/settings/statuses
+# Theme route 1440px system: /app/settings/spaces
+# Theme route 1440px system: /app/settings/chat
+# Theme route 1440px system: /app/settings/portability
+# Theme route 1440px system: /app/pages/01M6Z5HCKH79FP4MEZ8Y2D4QHV
+# Theme route 1440px system: /app/databases/01M6Z5HCNB9XTJ9N3WYTG9JDQE
+# Theme route 1440px system: /app/databases/01M6Z5HCNB9XTJ9N3WYTG9JDQE/records/01M6Z5HCSGNFM154REZPKQHY3F
+# WORK-012 native themes, new sessions, independent members and anonymous exposures passed at 1440px
+# IMPORT_BROWSER_RECEIPT {"width":1440,"jobId":"01M6Z5N8EYQKCQ2YX8REQB4874","state":"completed","mappings":[{"sourceId":"confluence-member:100001:d9d99555-7c2d-5fc9-9d5f-444042ec9317","kind":"member","targetId":"browser-reader"}],"access":{"restrictedPages":3,"sourceNamedGrants":3,"mappedLiveGrants":3,"unresolvedRestrictedPages":0,"recoveryGrants":3,"historicalMembers":34,"historicalGroups":0},"pages":[{"id":"1986356cce01b085:page:54","title":"Overview","anonymousNative":401,"anonymousPublished":404},{"id":"1986356cce01b085:page:36","title":"Getting started in Confluence","anonymousNative":401,"anonymousPublished":404},{"id":"1986356cce01b085:page:299","title":"Pizza Restaurant Launch Plan","anonymousNative":401,"anonymousPublished":404}],"unavailableTargetShown":true,"retainedMappingUnchanged":true}
+# PROBE IMP-016 Settings 1440: genuine archive upload, explicit mapping, Apply and reload -> completed; reviewed member and historical people displayed; conversion retained; 3 restricted reader pages and no anonymous page
+# PROBE CONT-009 native controls 1440: owner and non-owner administrator grant changes=46; replay and inherited snapshots pass; deadlines={"narrowed":{"writeStatus":404,"editorMs":958,"projectionsMs":1164},"revoked":{"writeStatus":404,"editorMs":911,"projectionsMs":1122}}
+# PROBE CONT-007 container guestAccess 1440: native settings persisted; independent veto, retained address and authority reconciled
+# PROBE CONT-007 container publicLinkAccess 1440: native settings persisted; independent veto, retained address and authority reconciled
+# PROBE CONT-007 container anonymousAccess 1440: native settings persisted; independent veto, retained address and authority reconciled
+# PROBE CONT-007 workspace guestAccess 1440: native settings persisted; independent veto, retained address and authority reconciled
+# PROBE CONT-007 workspace publicLinkAccess 1440: native settings persisted; independent veto, retained address and authority reconciled
+# PROBE CONT-007 workspace anonymousAccess 1440: native settings persisted; independent veto, retained address and authority reconciled
+# Subtest: page outline follows headings and navigates long pages at 1440px
+ok 1 - page outline follows headings and navigates long pages at 1440px
+  ---
+  duration_ms: 599758.525196
+  type: 'test'
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 1
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 625195.54924

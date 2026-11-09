@@ -1,0 +1,346 @@
+TAP version 13
+# STATUS_PROFILE width=1440 value=verification-only
+# STATUS_RESPONSE {"at":1794191389729,"status":200,"method":"GET","body":{"items":[{"key":"in-progress","label":"In progress","color":"\#4488cc","requiresVerification":0,"retiredAt":null},{"key":"ready-for-review","label":"Ready for review","color":"\#cc9900","requiresVerification":0,"retiredAt":null},{"key":"rough-draft","label":"Rough draft","color":"\#8b9098","requiresVerification":0,"retiredAt":null},{"key":"verified","label":"Verified","color":"\#228855","requiresVerification":1,"retiredAt":null}]}}
+# STATUS_REQUEST {"at":1794191395867,"data":{"operationKey":"f6145101-1a20-46d4-ac57-718057799151","key":"40a343c8-cff6-400b-b1ce-4ef71fa90c3b","label":"Review 1","color":"\#654321","requiresVerification":true,"retire":false}}
+# STATUS_RESPONSE {"at":1794191396031,"status":200,"method":"POST","body":{"value":{"key":"40a343c8-cff6-400b-b1ce-4ef71fa90c3b","revisionId":"01M6Z28336CYE14BG3XEDHQZZN"},"receipt":{"operationKey":"f6145101-1a20-46d4-ac57-718057799151","entity":{"id":"40a343c8-cff6-400b-b1ce-4ef71fa90c3b","kind":"status","revisionId":"01M6Z28336CYE14BG3XEDHQZZN"},"revisionId":"01M6Z28336CYE14BG3XEDHQZZN","activityId":"01M6Z283360X9GEBX3Y0RXF48P","committedAt":"2026-11-09T02:29:55.924Z"}}}
+# STATUS_RESPONSE {"at":1794191396147,"status":200,"method":"GET","body":{"items":[{"key":"40a343c8-cff6-400b-b1ce-4ef71fa90c3b","label":"Review 1","color":"\#654321","requiresVerification":1,"retiredAt":null},{"key":"in-progress","label":"In progress","color":"\#4488cc","requiresVerification":0,"retiredAt":null},{"key":"ready-for-review","label":"Ready for review","color":"\#cc9900","requiresVerification":0,"retiredAt":null},{"key":"rough-draft","label":"Rough draft","color":"\#8b9098","requiresVerification":0,"retiredAt":null},{"key":"verified","label":"Verified","color":"\#228855","requiresVerification":1,"retiredAt":null}]}}
+# STATUS_RESPONSE {"at":1794191407449,"status":200,"method":"GET","body":{"items":[{"key":"40a343c8-cff6-400b-b1ce-4ef71fa90c3b","label":"Review 1","color":"\#654321","requiresVerification":1,"retiredAt":null},{"key":"in-progress","label":"In progress","color":"\#4488cc","requiresVerification":0,"retiredAt":null},{"key":"ready-for-review","label":"Ready for review","color":"\#cc9900","requiresVerification":0,"retiredAt":null},{"key":"rough-draft","label":"Rough draft","color":"\#8b9098","requiresVerification":0,"retiredAt":null},{"key":"verified","label":"Verified","color":"\#228855","requiresVerification":1,"retiredAt":null}]}}
+# STATUS_RESPONSE {"at":1794191419919,"status":200,"method":"GET","body":{"items":[{"key":"40a343c8-cff6-400b-b1ce-4ef71fa90c3b","label":"Review 1","color":"\#654321","requiresVerification":1,"retiredAt":null},{"key":"in-progress","label":"In progress","color":"\#4488cc","requiresVerification":0,"retiredAt":null},{"key":"ready-for-review","label":"Ready for review","color":"\#cc9900","requiresVerification":0,"retiredAt":null},{"key":"rough-draft","label":"Rough draft","color":"\#8b9098","requiresVerification":0,"retiredAt":null},{"key":"verified","label":"Verified","color":"\#228855","requiresVerification":1,"retiredAt":null}]}}
+# STATUS_RESPONSE {"at":1794191422067,"status":200,"method":"GET","body":{"items":[{"key":"40a343c8-cff6-400b-b1ce-4ef71fa90c3b","label":"Review 1","color":"\#654321","requiresVerification":1,"retiredAt":null},{"key":"in-progress","label":"In progress","color":"\#4488cc","requiresVerification":0,"retiredAt":null},{"key":"ready-for-review","label":"Ready for review","color":"\#cc9900","requiresVerification":0,"retiredAt":null},{"key":"rough-draft","label":"Rough draft","color":"\#8b9098","requiresVerification":0,"retiredAt":null},{"key":"verified","label":"Verified","color":"\#228855","requiresVerification":1,"retiredAt":null}]}}
+# STATUS_REQUEST {"at":1794191424216,"data":{"operationKey":"b65b3c3f-af7f-4923-a95a-f22a0da894eb","key":"40a343c8-cff6-400b-b1ce-4ef71fa90c3b","label":"Reviewed 1","color":"\#2468ac","requiresVerification":true,"retire":false}}
+# STATUS_RESPONSE {"at":1794191424360,"status":200,"method":"POST","body":{"value":{"key":"40a343c8-cff6-400b-b1ce-4ef71fa90c3b","revisionId":"01M6Z28YSJ37HVEJ0AYY95FS34"},"receipt":{"operationKey":"b65b3c3f-af7f-4923-a95a-f22a0da894eb","entity":{"id":"40a343c8-cff6-400b-b1ce-4ef71fa90c3b","kind":"status","revisionId":"01M6Z28YSJ37HVEJ0AYY95FS34"},"revisionId":"01M6Z28YSJ37HVEJ0AYY95FS34","activityId":"01M6Z28YSJNA6667XZ7C5MH339","committedAt":"2026-11-09T02:30:24.270Z"}}}
+# STATUS_RESPONSE {"at":1794191424436,"status":200,"method":"GET","body":{"items":[{"key":"40a343c8-cff6-400b-b1ce-4ef71fa90c3b","label":"Reviewed 1","color":"\#2468ac","requiresVerification":1,"retiredAt":null},{"key":"in-progress","label":"In progress","color":"\#4488cc","requiresVerification":0,"retiredAt":null},{"key":"ready-for-review","label":"Ready for review","color":"\#cc9900","requiresVerification":0,"retiredAt":null},{"key":"rough-draft","label":"Rough draft","color":"\#8b9098","requiresVerification":0,"retiredAt":null},{"key":"verified","label":"Verified","color":"\#228855","requiresVerification":1,"retiredAt":null}]}}
+# STATUS_REQUEST {"at":1794191427676,"data":{"operationKey":"187e8191-6895-403f-a601-5d70cde1403a","key":"40a343c8-cff6-400b-b1ce-4ef71fa90c3b","label":"Reviewed 1","color":"\#2468ac","requiresVerification":true,"retire":true}}
+# RETIREMENT_COMMITTED 200
+# Journey failure context {
+#   "rejected": [],
+#   "consoleErrors": []
+# }
+# Journey failure context REQUEST TIMELINE {
+#   "primary": {
+#     "requestsAtDump": [
+#       {
+#         "method": "POST",
+#         "path": "/api/status/<id>/01M6Z2…3T6B",
+#         "startMs": 0,
+#         "durationMs": 401,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>/01M6Z2…3T6B",
+#         "startMs": 113,
+#         "durationMs": 383,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/status/<id>/01M6Z2…3T6B",
+#         "startMs": 405,
+#         "durationMs": 185,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/status",
+#         "startMs": 559,
+#         "durationMs": 86,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6Z2…3T6B",
+#         "startMs": 590,
+#         "durationMs": 106,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6Z2…3T6B",
+#         "startMs": 663,
+#         "durationMs": 61,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/status/<id>/<id>",
+#         "startMs": 701,
+#         "durationMs": 148,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/app/settings",
+#         "startMs": 797,
+#         "durationMs": 279,
+#         "status": 307
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/app/settings/<id>",
+#         "startMs": 1076,
+#         "durationMs": 394,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 1473,
+#         "durationMs": 114,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 1491,
+#         "durationMs": 98,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 1491,
+#         "durationMs": 96,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 1491,
+#         "durationMs": 381,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 1491,
+#         "durationMs": 232,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 1491,
+#         "durationMs": 321,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 1491,
+#         "durationMs": 321,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/status",
+#         "startMs": 2297,
+#         "durationMs": 500,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/<id>",
+#         "startMs": 2349,
+#         "durationMs": 443,
+#         "status": 200
+#       },
+#       {
+#         "method": "POST",
+#         "path": "/api/status",
+#         "startMs": 4971,
+#         "durationMs": 132,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/status",
+#         "startMs": 5103,
+#         "durationMs": 76,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/status",
+#         "startMs": 5272,
+#         "durationMs": 40,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6Z2…YQ37",
+#         "startMs": 5357,
+#         "durationMs": 49,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6Z2…3T6B",
+#         "startMs": 5427,
+#         "durationMs": 70,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/revisions/01M6Z2…YQ37",
+#         "startMs": 5525,
+#         "durationMs": 102,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/revisions/01M6Z2…3T6B",
+#         "startMs": 5656,
+#         "durationMs": 97,
+#         "status": 200
+#       },
+#       {
+#         "method": "POST",
+#         "path": "/api/status",
+#         "startMs": 8443,
+#         "durationMs": 21146,
+#         "status": "pending"
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/app/settings",
+#         "startMs": 13690,
+#         "durationMs": 228,
+#         "status": 307
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/app/settings/workspace",
+#         "startMs": 13918,
+#         "durationMs": 404,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 14349,
+#         "durationMs": 154,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 14355,
+#         "durationMs": 292,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 14451,
+#         "durationMs": 196,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 14477,
+#         "durationMs": 340,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 14477,
+#         "durationMs": 171,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 14477,
+#         "durationMs": 171,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 14477,
+#         "durationMs": 310,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/workspace/<id>",
+#         "startMs": 14904,
+#         "durationMs": 79,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/<id>",
+#         "startMs": 14965,
+#         "durationMs": 46,
+#         "status": 200
+#       },
+#       {
+#         "method": "PUT",
+#         "path": "/api/workspace",
+#         "startMs": 20761,
+#         "durationMs": 137,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/workspace",
+#         "startMs": 20916,
+#         "durationMs": 157,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/workspace",
+#         "startMs": 21049,
+#         "durationMs": 98,
+#         "status": 200
+#       }
+#     ]
+#   },
+#   "others": []
+# }
+# Subtest: retirement response under controlled six-second hosted delay
+not ok 1 - retirement response under controlled six-second hosted delay
+  ---
+  duration_ms: 241449.912276
+  type: 'test'
+  location: '<checkout>/tests/qualification/ui-convergence/status-load-probe.mjs:5:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    expect(locator).toHaveCount(expected) failed
+    
+    Locator:  getByRole('dialog', { name: 'Edit status', exact: true })
+    Expected: 0
+    Received: 1
+    Timeout:  5000ms
+    
+    Call log:
+      - Expect "toHaveCount" getByRole('dialog', { name: 'Edit status', exact: true }) with timeout 5000ms
+      - waiting for getByRole('dialog', { name: 'Edit status', exact: true })
+        13 × locator resolved to 1 element
+           - unexpected value "1"
+    
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    captureRawStack (<checkout>/node_modules/.pnpm/playwright-core@1.63.0/node_modules/playwright-core/lib/coreBundle.js:8588:17)
+    callMatcherAsStep (<checkout>/node_modules/.pnpm/playwright@1.63.0/node_modules/playwright/lib/matchers/expect.js:13310:57)
+    Object.toHaveCount (<checkout>/node_modules/.pnpm/playwright@1.63.0/node_modules/playwright/lib/matchers/expect.js:13302:23)
+    saveEntry (<checkout>/tests/qualification/ui-convergence/status-vocabulary-journey.mjs:44:26)
+    async statusVocabularyJourney (<checkout>/tests/qualification/ui-convergence/status-vocabulary-journey.mjs:77:7)
+    async withWorkspace.RER_DEMO (<checkout>/tests/qualification/ui-convergence/status-load-probe.mjs:17:3)
+    async withWorkspace (<checkout>/tests/qualification/ui-convergence/browser-support.mjs:189:7)
+    async TestContext.<anonymous> (<checkout>/tests/qualification/ui-convergence/status-load-probe.mjs:6:2)
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 339771.720304

@@ -1,0 +1,85 @@
+[
+  {
+    "call": 1,
+    "kind": "historical jobs API",
+    "run": 42545418441
+  },
+  {
+    "call": 2,
+    "kind": "historical failed-job archive",
+    "run": 42545418441,
+    "job": 128935776493
+  },
+  {
+    "call": 3,
+    "time": 1794191795.364933,
+    "args": [
+      "api",
+      "repos/just-every/run-slate/actions/runs?head_sha=2bf63ae0f4a2da36656f9c0d00d384ce69ff78b0&per_page=100",
+      "--jq",
+      "[.workflow_runs[]|{id,name,path,status,conclusion,head_sha,html_url}]"
+    ],
+    "exit": 0,
+    "output": "[{\"conclusion\":null,\"head_sha\":\"2bf63ae0f4a2da36656f9c0d00d384ce69ff78b0\",\"html_url\":\"https://github.com/just-every/run-slate/actions/runs/42551871955\",\"id\":42551871955,\"name\":\"Verify Slate\",\"path\":\".github/workflows/verify.yml\",\"status\":\"in_progress\"}]\n"
+  },
+  {
+    "call": 4,
+    "time": 1794192095.5132196,
+    "args": [
+      "api",
+      "repos/just-every/run-slate/actions/runs/42551871955",
+      "--jq",
+      "{status,conclusion,head_sha,html_url}"
+    ],
+    "exit": 0,
+    "output": "{\"conclusion\":null,\"head_sha\":\"2bf63ae0f4a2da36656f9c0d00d384ce69ff78b0\",\"html_url\":\"https://github.com/just-every/run-slate/actions/runs/42551871955\",\"status\":\"in_progress\"}\n"
+  },
+  {
+    "call": 5,
+    "time": 1794192395.4036946,
+    "args": [
+      "api",
+      "repos/just-every/run-slate/actions/runs/42551871955",
+      "--jq",
+      "{status,conclusion,head_sha,html_url}"
+    ],
+    "exit": 0,
+    "output": "{\"conclusion\":null,\"head_sha\":\"2bf63ae0f4a2da36656f9c0d00d384ce69ff78b0\",\"html_url\":\"https://github.com/just-every/run-slate/actions/runs/42551871955\",\"status\":\"in_progress\"}\n"
+  },
+  {
+    "call": 6,
+    "time": 1794192695.4621103,
+    "args": [
+      "api",
+      "repos/just-every/run-slate/actions/runs/42551871955",
+      "--jq",
+      "{status,conclusion,head_sha,html_url}"
+    ],
+    "exit": 0,
+    "output": "{\"conclusion\":null,\"head_sha\":\"2bf63ae0f4a2da36656f9c0d00d384ce69ff78b0\",\"html_url\":\"https://github.com/just-every/run-slate/actions/runs/42551871955\",\"status\":\"in_progress\"}\n"
+  },
+  {
+    "call": 7,
+    "time": 1794192995.4109018,
+    "args": [
+      "api",
+      "repos/just-every/run-slate/actions/runs/42551871955",
+      "--jq",
+      "{status,conclusion,head_sha,html_url}"
+    ],
+    "exit": 0,
+    "output": "{\"conclusion\":null,\"head_sha\":\"2bf63ae0f4a2da36656f9c0d00d384ce69ff78b0\",\"html_url\":\"https://github.com/just-every/run-slate/actions/runs/42551871955\",\"status\":\"in_progress\"}\n"
+  },
+  {
+    "call": 8,
+    "time": 1794193831.8299708,
+    "args": [
+      "api",
+      "repos/just-every/run-slate/actions/runs/42551871955",
+      "--jq",
+      "{status,conclusion,head_sha,html_url}"
+    ],
+    "exit": 0,
+    "output": "{\"conclusion\":\"success\",\"head_sha\":\"2bf63ae0f4a2da36656f9c0d00d384ce69ff78b0\",\"html_url\":\"https://github.com/just-every/run-slate/actions/runs/42551871955\",\"status\":\"completed\"}\n"
+  }
+]

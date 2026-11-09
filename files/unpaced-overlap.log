@@ -1,0 +1,321 @@
+TAP version 13
+# STATUS_RESPONSE {"at":1794191395104,"status":200,"method":"GET","body":{"items":[{"key":"in-progress","label":"In progress","color":"\#4488cc","requiresVerification":0,"retiredAt":null},{"key":"ready-for-review","label":"Ready for review","color":"\#cc9900","requiresVerification":0,"retiredAt":null},{"key":"rough-draft","label":"Rough draft","color":"\#8b9098","requiresVerification":0,"retiredAt":null},{"key":"verified","label":"Verified","color":"\#228855","requiresVerification":1,"retiredAt":null}]}}
+# Journey failure context {
+#   "rejected": [],
+#   "consoleErrors": []
+# }
+# Journey failure context REQUEST TIMELINE {
+#   "primary": {
+#     "requestsAtDump": [
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 0,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 0,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 0,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 0,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 0,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 0,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6Z2…81Z2/<id>",
+#         "startMs": 509,
+#         "durationMs": 77,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/activity",
+#         "startMs": 515,
+#         "durationMs": 4365,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/members",
+#         "startMs": 515,
+#         "durationMs": 183,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/app/settings/<id>",
+#         "startMs": 6607,
+#         "durationMs": 677,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 7215,
+#         "durationMs": 6,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 7221,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 7221,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 7221,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 7221,
+#         "durationMs": 35,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 7257,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 7257,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6Z2…81Z2/<id>",
+#         "startMs": 7796,
+#         "durationMs": 161,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>",
+#         "startMs": 7796,
+#         "durationMs": 130,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/<id>",
+#         "startMs": 12605,
+#         "durationMs": 102,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/app/settings/<id>",
+#         "startMs": 14013,
+#         "durationMs": 793,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 14618,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 14619,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 14619,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 14619,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 14619,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 14619,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 14658,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6Z2…81Z2/<id>",
+#         "startMs": 15457,
+#         "durationMs": 3614,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/status",
+#         "startMs": 15457,
+#         "durationMs": 3624,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/app/settings/<id>",
+#         "startMs": 20302,
+#         "durationMs": 1160,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 21393,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 21393,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 21393,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 21393,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 21393,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 21393,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/assets/<id>",
+#         "startMs": 21394,
+#         "durationMs": 0,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/pages/01M6Z2…81Z2/<id>",
+#         "startMs": 21692,
+#         "durationMs": 61,
+#         "status": 200
+#       },
+#       {
+#         "method": "GET",
+#         "path": "/api/containers",
+#         "startMs": 21694,
+#         "durationMs": 111,
+#         "status": 200
+#       }
+#     ]
+#   },
+#   "others": []
+# }
+# Subtest: page outline follows headings and navigates long pages at 1440px
+not ok 1 - page outline follows headings and navigates long pages at 1440px
+  ---
+  duration_ms: 253539.581159
+  type: 'test'
+  location: '<checkout>/tests/qualification/ui-convergence/journey-shard.mjs:23:97'
+  failureType: 'testCodeFailure'
+  error: 'Timeout 5000ms exceeded while waiting on the predicate'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    captureRawStack (<checkout>/node_modules/.pnpm/playwright-core@1.63.0/node_modules/playwright-core/lib/coreBundle.js:8588:17)
+    callMatcherAsStep (<checkout>/node_modules/.pnpm/playwright@1.63.0/node_modules/playwright/lib/matchers/expect.js:13310:57)
+    Object.toBe (<checkout>/node_modules/.pnpm/playwright@1.63.0/node_modules/playwright/lib/matchers/expect.js:13302:23)
+    shortcutReferenceJourney (<checkout>/tests/qualification/ui-convergence/shortcut-reference-journey.mjs:39:139)
+    async settingsJourney (<checkout>/tests/qualification/ui-convergence/reading-journeys.mjs:70:3)
+    async withWorkspace.RER_DEMO (<checkout>/tests/qualification/ui-convergence/journeys.test.mjs:439:7)
+    async withWorkspace (<checkout>/tests/qualification/ui-convergence/browser-support.mjs:189:7)
+    async TestContext.<anonymous> (<checkout>/tests/qualification/ui-convergence/journeys.test.mjs:436:5)
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 342845.329793

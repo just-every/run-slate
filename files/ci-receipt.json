@@ -1,0 +1,62 @@
+{
+  "repository": "just-every/run-slate",
+  "head": "2bf63ae0f4a2da36656f9c0d00d384ce69ff78b0",
+  "observations": [
+    {
+      "conclusion": "success",
+      "head_sha": "2bf63ae0f4a2da36656f9c0d00d384ce69ff78b0",
+      "html_url": "https://github.com/just-every/run-slate/actions/runs/42551871955",
+      "id": 42551871955,
+      "name": "Verify Slate",
+      "path": ".github/workflows/verify.yml",
+      "status": "completed"
+    },
+    {
+      "observed_at": 1794192095.3476322,
+      "conclusion": null,
+      "head_sha": "2bf63ae0f4a2da36656f9c0d00d384ce69ff78b0",
+      "html_url": "https://github.com/just-every/run-slate/actions/runs/42551871955",
+      "status": "in_progress"
+    },
+    {
+      "observed_at": 1794192395.3523538,
+      "conclusion": null,
+      "head_sha": "2bf63ae0f4a2da36656f9c0d00d384ce69ff78b0",
+      "html_url": "https://github.com/just-every/run-slate/actions/runs/42551871955",
+      "status": "in_progress"
+    },
+    {
+      "observed_at": 1794192695.3562653,
+      "conclusion": null,
+      "head_sha": "2bf63ae0f4a2da36656f9c0d00d384ce69ff78b0",
+      "html_url": "https://github.com/just-every/run-slate/actions/runs/42551871955",
+      "status": "in_progress"
+    },
+    {
+      "observed_at": 1794192995.3628438,
+      "conclusion": null,
+      "head_sha": "2bf63ae0f4a2da36656f9c0d00d384ce69ff78b0",
+      "html_url": "https://github.com/just-every/run-slate/actions/runs/42551871955",
+      "status": "in_progress"
+    },
+    {
+      "observed_at": 1794193831.7859073,
+      "conclusion": "success",
+      "head_sha": "2bf63ae0f4a2da36656f9c0d00d384ce69ff78b0",
+      "html_url": "https://github.com/just-every/run-slate/actions/runs/42551871955",
+      "status": "completed"
+    }
+  ],
+  "discovery_exit": 0,
+  "discovered_at": 1794191795.3350806,
+  "run_id": 42551871955,
+  "latest": {
+    "conclusion": "success",
+    "head_sha": "2bf63ae0f4a2da36656f9c0d00d384ce69ff78b0",
+    "html_url": "https://github.com/just-every/run-slate/actions/runs/42551871955",
+    "id": 42551871955,
+    "name": "Verify Slate",
+    "path": ".github/workflows/verify.yml",
+    "status": "completed"
+  }
+}

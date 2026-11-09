@@ -1,0 +1,97 @@
+TAP version 13
+# STATUS_PROFILE width=1440 value=verification-only
+# PROBE STAT-001 profile=verification-only: native owner controls, retained pages, non-owner refusals and explicit bulk receipts passed at 1440px
+# STATUS_PROFILE width=1440 value=open-vocabulary
+# PROBE STAT-001 profile=open-vocabulary: native owner controls, retained pages, non-owner refusals and explicit bulk receipts passed at 1440px
+# PROBE WORK-001 acceptance-1: Settings name/mark -> persisted Field operations 🌿, owner reload and fresh member headers at 1440px; member write refused unchanged
+# Theme route 1440px light: /app
+# Theme route 1440px light: /app/search
+# Theme route 1440px light: /app/inbox
+# Theme route 1440px light: /app/tasks
+# Theme route 1440px light: /app/review
+# Theme route 1440px light: /app/containers
+# Theme route 1440px light: /app/templates
+# Theme route 1440px light: /app/archive
+# Theme route 1440px light: /app/settings
+# Theme route 1440px light: /app/settings/workspace
+# Theme route 1440px light: /app/settings/members
+# Theme route 1440px light: /app/settings/saml
+# Theme route 1440px light: /app/settings/developer
+# Theme route 1440px light: /app/settings/appearance
+# Theme route 1440px light: /app/settings/preferences
+# Theme route 1440px light: /app/settings/activity
+# Theme route 1440px light: /app/settings/automation
+# Theme route 1440px light: /app/settings/statuses
+# Theme route 1440px light: /app/settings/spaces
+# Theme route 1440px light: /app/settings/chat
+# Theme route 1440px light: /app/settings/portability
+# Theme route 1440px light: /app/pages/01M6Z2FF2JXCGSQKGTXKFDB1A0
+# Theme route 1440px light: /app/databases/01M6Z2FF3XJBVEXAWADDHYWT6A
+# Theme route 1440px light: /app/databases/01M6Z2FF3XJBVEXAWADDHYWT6A/records/01M6Z2FF84DN1QWWT0DRRQH7A7
+# Theme route 1440px dark: /app
+# Theme route 1440px dark: /app/search
+# Theme route 1440px dark: /app/inbox
+# Theme route 1440px dark: /app/tasks
+# Theme route 1440px dark: /app/review
+# Theme route 1440px dark: /app/containers
+# Theme route 1440px dark: /app/templates
+# Theme route 1440px dark: /app/archive
+# Theme route 1440px dark: /app/settings
+# Theme route 1440px dark: /app/settings/workspace
+# Theme route 1440px dark: /app/settings/members
+# Theme route 1440px dark: /app/settings/saml
+# Theme route 1440px dark: /app/settings/developer
+# Theme route 1440px dark: /app/settings/appearance
+# Theme route 1440px dark: /app/settings/preferences
+# Theme route 1440px dark: /app/settings/activity
+# Theme route 1440px dark: /app/settings/automation
+# Theme route 1440px dark: /app/settings/statuses
+# Theme route 1440px dark: /app/settings/spaces
+# Theme route 1440px dark: /app/settings/chat
+# Theme route 1440px dark: /app/settings/portability
+# Theme route 1440px dark: /app/pages/01M6Z2FF2JXCGSQKGTXKFDB1A0
+# Theme route 1440px dark: /app/databases/01M6Z2FF3XJBVEXAWADDHYWT6A
+# Theme route 1440px dark: /app/databases/01M6Z2FF3XJBVEXAWADDHYWT6A/records/01M6Z2FF84DN1QWWT0DRRQH7A7
+# Theme route 1440px system: /app
+# Theme route 1440px system: /app/search
+# Subtest: page outline follows headings and navigates long pages at 1440px
+not ok 1 - page outline follows headings and navigates long pages at 1440px
+  ---
+  duration_ms: 600006.43439
+  type: 'test'
+  location: '<checkout>/tests/qualification/ui-convergence/journey-shard.mjs:23:97'
+  failureType: 'testTimeoutFailure'
+  error: 'test timed out after 600000ms'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# Theme route 1440px system: /app/inbox
+# Theme route 1440px system: /app/tasks
+# Theme route 1440px system: /app/review
+# Theme route 1440px system: /app/containers
+# Theme route 1440px system: /app/templates
+# Theme route 1440px system: /app/archive
+# Theme route 1440px system: /app/settings
+# Theme route 1440px system: /app/settings/workspace
+# Theme route 1440px system: /app/settings/members
+# Theme route 1440px system: /app/settings/saml
+# Theme route 1440px system: /app/settings/developer
+# Theme route 1440px system: /app/settings/appearance
+# Theme route 1440px system: /app/settings/preferences
+# Theme route 1440px system: /app/settings/activity
+# Theme route 1440px system: /app/settings/automation
+# Theme route 1440px system: /app/settings/statuses
+# Theme route 1440px system: /app/settings/spaces
+# Theme route 1440px system: /app/settings/chat
+# Theme route 1440px system: /app/settings/portability
+# Theme route 1440px system: /app/pages/01M6Z2FF2JXCGSQKGTXKFDB1A0
+# Theme route 1440px system: /app/databases/01M6Z2FF3XJBVEXAWADDHYWT6A
+# Theme route 1440px system: /app/databases/01M6Z2FF3XJBVEXAWADDHYWT6A/records/01M6Z2FF84DN1QWWT0DRRQH7A7
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 0
+# cancelled 1
+# skipped 0
+# todo 0
+# duration_ms 784789.236068

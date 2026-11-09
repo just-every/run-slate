@@ -1,0 +1,64 @@
+{
+  "contract_write": "Wrote 0 contract documents.",
+  "contract_check": "Contract documents are current.",
+  "integration_sync": "Integration resource, migration and source identities match.",
+  "source_lock": "Regenerated using pnpm source:lock after staging intended files.",
+  "source_check": {
+    "exit": 0,
+    "last_line": "Integration resource, migration and source identities match."
+  },
+  "node_syntax": {
+    "command": "node --check tests/qualification/ui-convergence/status-vocabulary-journey.mjs",
+    "exit": 0
+  },
+  "diff_check": {
+    "exit": 0
+  },
+  "counts_before": {
+    "done": 59,
+    "partial": 238,
+    "missing": 41,
+    "total": 338
+  },
+  "counts_after": {
+    "done": 59,
+    "partial": 238,
+    "missing": 41,
+    "total": 338
+  },
+  "clause": "STAT-001",
+  "status_before": "done",
+  "status_after": "done",
+  "product_head": "2bf63ae0f4a2da36656f9c0d00d384ce69ff78b0",
+  "product_branch": "cloud/fv-slate-outline-1",
+  "identity_and_messages": "All origin/main..HEAD candidate author/committer identities and complete messages inspected; fleet identity, no co-author trailers.",
+  "controlled_before": {
+    "pass_count": 0,
+    "fail_count": 1,
+    "exact_failure": "Edit status expected count 0, received 1, 5000ms",
+    "native_retirement_status": 200
+  },
+  "controlled_after": {
+    "pass_count": 1,
+    "fail_count": 0,
+    "profiles": [
+      "verification-only",
+      "open-vocabulary"
+    ],
+    "duration_ms": 175664.404397
+  },
+  "candidate_build": {
+    "exit": 0,
+    "commit": "2bf63ae0f4a2da36656f9c0d00d384ce69ff78b0",
+    "output_sha256": "f58523f2f95b0cc74a181f9b02204c5635fc7aa9558c21d8dffd246fe23db0e9",
+    "same_output_as_main": true
+  },
+  "candidate_full_registration": {
+    "pass_count": 1,
+    "fail_count": 0,
+    "skipped": 0,
+    "duration_ms": 599269.219239,
+    "deadline_ms": 600000,
+    "exit": 0
+  }
+}

@@ -1,0 +1,76 @@
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:05:45.9239112Z #     ]
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:05:45.9239622Z #   },
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:05:45.9240317Z #   "others": []
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:05:45.9240906Z # }
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:05:46.0200511Z # Subtest: page outline follows headings and navigates long pages at 1440px
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:05:46.0203892Z not ok 4 - page outline follows headings and navigates long pages at 1440px
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:05:46.0204682Z   ---
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:05:46.0205058Z   duration_ms: 108939.928475
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:05:46.0205499Z   type: 'test'
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:05:46.0206442Z   location: '<hosted-checkout>/tests/qualification/ui-convergence/journey-shard.mjs:23:97'
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:05:46.0207453Z   failureType: 'testCodeFailure'
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:05:46.0207913Z   error: |-
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:05:46.0208381Z     expect(locator).toHaveCount(expected) failed
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:05:46.0208905Z     
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:05:46.0209470Z     Locator:  getByRole('dialog', { name: 'Edit status', exact: true })
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:05:46.0209952Z     Expected: 0
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:05:46.0210171Z     Received: 1
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:05:46.0210393Z     Timeout:  5000ms
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:05:46.0210808Z     
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:05:46.0211012Z     Call log:
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:05:46.0211679Z       - Expect "toHaveCount" getByRole('dialog', { name: 'Edit status', exact: true }) with timeout 5000ms
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:05:46.0212591Z       - waiting for getByRole('dialog', { name: 'Edit status', exact: true })
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:05:46.0213434Z         2 × locator resolved to 1 element
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:05:46.0214327Z           - unexpected value "1"
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:05:46.0214603Z     
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:05:46.0214814Z   code: 'ERR_TEST_FAILURE'
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:05:46.0215065Z   stack: |-
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:05:46.0215792Z     captureRawStack (<hosted-checkout>/node_modules/.pnpm/playwright-core@1.63.0/node_modules/playwright-core/lib/coreBundle.js:8588:17)
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:05:46.0216969Z     callMatcherAsStep (<hosted-checkout>/node_modules/.pnpm/playwright@1.63.0/node_modules/playwright/lib/matchers/expect.js:13310:57)
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:05:46.0218507Z     Object.toHaveCount (<hosted-checkout>/node_modules/.pnpm/playwright@1.63.0/node_modules/playwright/lib/matchers/expect.js:13302:23)
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:05:46.0219952Z     saveEntry (<hosted-checkout>/tests/qualification/ui-convergence/status-vocabulary-journey.mjs:44:26)
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:05:46.0221488Z     async statusVocabularyJourney (<hosted-checkout>/tests/qualification/ui-convergence/status-vocabulary-journey.mjs:77:7)
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:05:46.0222583Z     async settingsJourney (<hosted-checkout>/tests/qualification/ui-convergence/reading-journeys.mjs:100:20)
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:05:46.0223874Z     async withWorkspace.RER_DEMO (<hosted-checkout>/tests/qualification/ui-convergence/journeys.test.mjs:439:7)
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:05:46.0225097Z     async withWorkspace (<hosted-checkout>/tests/qualification/ui-convergence/browser-support.mjs:189:7)
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:05:46.0226117Z     async TestContext.<anonymous> (<hosted-checkout>/tests/qualification/ui-convergence/journeys.test.mjs:436:5)
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:05:46.0226726Z   ...
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:06:52.7155741Z # Subtest: BLOCK-010 — native content queries retain criteria and current-reader results at 390px
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:06:52.7160491Z ok 5 - BLOCK-010 — native content queries retain criteria and current-reader results at 390px
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:06:52.7161344Z   ---
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:06:52.7164567Z   duration_ms: 66696.92431
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:06:52.7176413Z   type: 'test'
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:06:52.7176802Z   ...
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:06:52.7783362Z 1..5
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:06:52.7784137Z # tests 5
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:06:52.7784495Z # suites 0
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:06:52.7784844Z # pass 4
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:06:52.7785229Z # fail 1
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:06:52.7785596Z # cancelled 0
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:06:52.7786020Z # skipped 0
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:06:52.7786366Z # todo 0
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:06:52.7786687Z # duration_ms 1017059.495915
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:06:52.7860728Z [33m(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:06:52.7862392Z   - import "./source-fixtures" without a file extension (scripts/import-scale/generate-server-dc.ts:2:91). Add the file extension
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:06:52.7864168Z   - import "./types" without a file extension (scripts/import-scale/generate-server-dc.ts:3:82). Add the file extension
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:06:52.7865173Z   - import "./source-fixtures" without a file extension (scripts/import-scale/generate-server-dc.ts:4:22). Add the file extension
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:06:52.7866555Z   - import "./csv" without a file extension (scripts/import-scale/source-fixtures.ts:4:46). Add the file extension
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:06:52.7868160Z Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.[39m
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:06:52.7868755Z 
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:06:52.7869601Z [1m[30m[46m RUN [49m[39m[22m [36mv4.1.11 [39m[90m/home/runner/work/run-slate/run-slate[39m
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:06:52.7870247Z 
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:06:52.7871204Z  [32m✓[39m tests/flagship/structured/structured.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 15217[2mms[22m[39m
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:06:52.7873200Z    [33m[2m✓[22m[39m structured records, computation, readers, templates, automation, policies and views retain durable semantics [33m 15216[2mms[22m[39m
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:06:52.7875464Z  [32m✓[39m tests/e2e/databases/record-templates.test.ts [2m([22m[2m2 tests[22m[2m)[22m[33m 1294[2mms[22m[39m
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:06:52.7878454Z    [33m[2m✓[22m[39m DB-015 — record templates fill fields and a body; a weekly schedule in its last saver's time zone creates exactly one record per occurrence across restarts, runs as its last saver and pauses with its reason when that saver loses access [33m 615[2mms[22m[39m
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:06:52.7880324Z    [33m[2m✓[22m[39m record templates show each database viewer only the page mention titles they can open [33m 677[2mms[22m[39m
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:06:52.7881401Z  [32m✓[39m tests/flagship/release-clauses/value/comparison-integrity.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 3803[2mms[22m[39m
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:06:52.7882574Z    [33m[2m✓[22m[39m FLAG-003 — comparison arms preserve equal inputs, current grants and attributable costs [33m 3802[2mms[22m[39m
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:06:52.7884072Z  [32m✓[39m tests/e2e/landing.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 951[2mms[22m[39m
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:06:52.7885047Z      [33m[2m✓[22m[39m installed lobby and public landing preserve owner configuration, navigation and privacy [33m 949[2mms[22m[39m
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:06:52.7886109Z  [32m✓[39m tests/qualification/authority/learned-provenance.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 4957[2mms[22m[39m
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:06:52.7887206Z    [33m[2m✓[22m[39m INQ-005 — learned provenance and published inquiry references preserve exact disclosed sources [33m 4956[2mms[22m[39m
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:06:52.7888175Z  [32m✓[39m tests/flagship/content/repair.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 4485[2mms[22m[39m
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:06:52.7889113Z    [33m[2m✓[22m[39m content structure, task attribution, privacy and activity retain exact revisions [33m 4483[2mms[22m[39m
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:06:52.7890069Z  [32m✓[39m tests/e2e/pages/starter-templates.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 1771[2mms[22m[39m
+verify (core)	Workers, public-door journeys and suite	2026-11-09T02:06:52.7891547Z    [33m[2m✓[22m[39m TMPL-007 — every starter template ships from the first sign-in, is found by category, previews, creates working pages and duplicates into an editable copy while the shipped one never changes [33m 1770[2mms[22m[39m

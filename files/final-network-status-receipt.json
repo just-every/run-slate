@@ -1,0 +1,80 @@
+[
+  {
+    "run": "candidate-proof-1440",
+    "artifact": {
+      "schema": 1,
+      "commit": "2bf63ae0f4a2da36656f9c0d00d384ce69ff78b0",
+      "tree": "8a8c23f0d72f6cf7181eb72338c48b1f132ae779",
+      "sourceSha256": "1e476500ee4cc87377026c38fe1d85a3b0770728dab42b5093221cc706446778",
+      "lockSha256": "5562dd3ef95d184c255ee60e0054b5a724f59146f837215c0037ee52f90b96e6",
+      "outputSha256": "f58523f2f95b0cc74a181f9b02204c5635fc7aa9558c21d8dffd246fe23db0e9"
+    },
+    "observed_http_status_counts": {
+      "200": 9
+    },
+    "coverage": "Available fixture diagnostics, not a complete request census."
+  },
+  {
+    "run": "candidate-proof-390",
+    "artifact": {
+      "schema": 1,
+      "commit": "2bf63ae0f4a2da36656f9c0d00d384ce69ff78b0",
+      "tree": "8a8c23f0d72f6cf7181eb72338c48b1f132ae779",
+      "sourceSha256": "1e476500ee4cc87377026c38fe1d85a3b0770728dab42b5093221cc706446778",
+      "lockSha256": "5562dd3ef95d184c255ee60e0054b5a724f59146f837215c0037ee52f90b96e6",
+      "outputSha256": "f58523f2f95b0cc74a181f9b02204c5635fc7aa9558c21d8dffd246fe23db0e9"
+    },
+    "observed_http_status_counts": {
+      "200": 9
+    },
+    "coverage": "Available fixture diagnostics, not a complete request census."
+  },
+  {
+    "run": "parent-repeat",
+    "artifact": {
+      "schema": 1,
+      "commit": "70a1ca379440899480c93f715fb7f7be094bdfc6",
+      "tree": "b09d0ca42b5bce5d56bc14522ae24ce5e5ec8bcb",
+      "sourceSha256": "ac2345f90a98873ce04cd9a66cf85f0b23804b38469fc525f7bf5f7540c44889",
+      "lockSha256": "6b3b8dbc2ffe8dbda0c1e30e4a1abd5e8eac11df7ec0c377641ba12f3603e780",
+      "outputSha256": "dd388e5989f0c916f7454b536f3be78d1a65192529efba9bb60ebd177f90991b"
+    },
+    "observed_http_status_counts": {
+      "200": 482,
+      "403": 1
+    },
+    "coverage": "Available fixture diagnostics, not a complete request census."
+  },
+  {
+    "run": "95a-repeat",
+    "artifact": {
+      "schema": 1,
+      "commit": "95a0372f6692b95607cedc7d1f9a0440dc9d3c38",
+      "tree": "ee73f4ba2447e6edf290c8619deb14d13091596e",
+      "sourceSha256": "f25855c841239fcce2222e7ff475678660b652732ce9b695f3be0bc8e78ddaac",
+      "lockSha256": "f516a977d4cded13f857d82c79f90e0c9897d2c5a6aafb606e81dacf28ea9306",
+      "outputSha256": "e797e13cd9b7663b492682f99184fdac92dfb66437d51966a3bc314a50e70a24"
+    },
+    "observed_http_status_counts": {
+      "200": 483,
+      "403": 1
+    },
+    "coverage": "Available fixture diagnostics, not a complete request census."
+  },
+  {
+    "run": "unpaced-repeat",
+    "artifact": {
+      "schema": 1,
+      "commit": "d2e67e449b239aacace820a458866cf81043ca96",
+      "tree": "0c7af6cfb6d1a61714d0fe7381a6230e90447ce5",
+      "sourceSha256": "9650bba3a27f4296d2ac890f169d98f052a454f7f66ce2e9e8abb8e258ecdd52",
+      "lockSha256": "b198792343257fd7a504d97cbb9a8bd5b4b95c71e70c426d7bbc04e7a24e2c5a",
+      "outputSha256": "2afa334e49074f144c647bdcd9084fc1047901db299a1dec33ccd48bb9a7e107"
+    },
+    "observed_http_status_counts": {
+      "200": 482,
+      "403": 1
+    },
+    "coverage": "Available fixture diagnostics, not a complete request census."
+  }
+]

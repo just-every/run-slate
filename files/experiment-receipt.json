@@ -1,0 +1,335 @@
+[
+  {
+    "name": "main-overlap",
+    "revision": "d2e67e44",
+    "mode": "original; overlapping batch",
+    "tests": [
+      [
+        "not ok",
+        "page outline follows headings and navigates long pages at 1440px"
+      ]
+    ],
+    "counts": {
+      "pass": 0,
+      "fail": 0,
+      "cancelled": 1,
+      "skipped": 0
+    },
+    "duration_ms": 660470.602789,
+    "test_duration_ms": 600009.360659,
+    "status_profiles_passed": [
+      "verification-only",
+      "open-vocabulary"
+    ],
+    "failure": [
+      "'test timed out after 600000ms'"
+    ],
+    "log": "main-overlap.log",
+    "log_sha256": "14f3e042f23369c43280802c7ea57a477523ee577ec3e2622d469bda7d386153",
+    "original_log_sha256": "000ee439671a7b67457e78af5767d909c7b8b17e0d079e99adda58e3a57e2ba6"
+  },
+  {
+    "name": "parent-overlap",
+    "revision": "70a1ca37",
+    "mode": "original; overlapping batch",
+    "tests": [
+      [
+        "not ok",
+        "page outline follows headings and navigates long pages at 1440px"
+      ]
+    ],
+    "counts": {
+      "pass": 0,
+      "fail": 0,
+      "cancelled": 1,
+      "skipped": 0
+    },
+    "duration_ms": 672986.591745,
+    "test_duration_ms": 600008.150045,
+    "status_profiles_passed": [
+      "verification-only",
+      "open-vocabulary"
+    ],
+    "failure": [
+      "'test timed out after 600000ms'"
+    ],
+    "log": "parent-overlap.log",
+    "log_sha256": "4d7e49c389e553f6c46f3fafebf014673d30a7295af67b52e630aa738390d083",
+    "original_log_sha256": "7013457c22fa006038f15844c013f8c89ef24e8cef784c64a8ce6ce9fe24fd88"
+  },
+  {
+    "name": "95a-invalid-setup",
+    "revision": "95a0372f",
+    "mode": "invalid; began before build receipt",
+    "tests": [
+      [
+        "not ok",
+        "page outline follows headings and navigates long pages at 1440px"
+      ]
+    ],
+    "counts": {
+      "pass": 0,
+      "fail": 1,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    "duration_ms": 57095.004089,
+    "test_duration_ms": 3640.71984,
+    "status_profiles_passed": [],
+    "failure": [
+      "\"ENOENT: no such file or directory, open '<checkout>/.cache/slate/build-source.json'\""
+    ],
+    "log": "95a-invalid-setup.log",
+    "log_sha256": "fc732cb81c1cce7a479f0538ee7cda8c393ae632fa51035b0052a2b1559a6537",
+    "original_log_sha256": "18a05f5837f2595803a82ec12fe693fff1d0ab74abcfe27ae1fca6eaec04764d"
+  },
+  {
+    "name": "95a-overlap",
+    "revision": "95a0372f",
+    "mode": "original; overlapping batch",
+    "tests": [
+      [
+        "not ok",
+        "page outline follows headings and navigates long pages at 1440px"
+      ]
+    ],
+    "counts": {
+      "pass": 0,
+      "fail": 0,
+      "cancelled": 1,
+      "skipped": 0
+    },
+    "duration_ms": 784789.236068,
+    "test_duration_ms": 600006.43439,
+    "status_profiles_passed": [
+      "verification-only",
+      "open-vocabulary"
+    ],
+    "failure": [
+      "'test timed out after 600000ms'"
+    ],
+    "log": "95a-overlap.log",
+    "log_sha256": "ad926c0250fc83b5f10f464fd8c189d21bea674710b8742d787c9414e1fea7df",
+    "original_log_sha256": "e026d0757ed68a629ad3a05b1a90e851810bb237d3aa6242fb36e2f0022164cb"
+  },
+  {
+    "name": "unpaced-overlap",
+    "revision": "d2e67e44",
+    "mode": "probe refill 0.001ms; overlapping batch",
+    "tests": [
+      [
+        "not ok",
+        "page outline follows headings and navigates long pages at 1440px"
+      ]
+    ],
+    "counts": {
+      "pass": 0,
+      "fail": 1,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    "duration_ms": 342845.329793,
+    "test_duration_ms": 253539.581159,
+    "status_profiles_passed": [],
+    "failure": [
+      "'Timeout 5000ms exceeded while waiting on the predicate'"
+    ],
+    "log": "unpaced-overlap.log",
+    "log_sha256": "57e6a18ba3075b6daac5b1decfe46936c3512e95de89d4e03eb237502ac7c134",
+    "original_log_sha256": "655d9ec7bad297cba73665c02d98ad2a5a76e073cfe03309de7deb154ee20f62"
+  },
+  {
+    "name": "delay-before",
+    "revision": "d2e67e44",
+    "mode": "original status journey; helper refill 0.001ms; real retirement response held 6000ms",
+    "tests": [
+      [
+        "not ok",
+        "retirement response under controlled six-second hosted delay"
+      ]
+    ],
+    "counts": {
+      "pass": 0,
+      "fail": 1,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    "duration_ms": 339771.720304,
+    "test_duration_ms": 241449.912276,
+    "status_profiles_passed": [],
+    "failure": [
+      "|-"
+    ],
+    "log": "delay-before.log",
+    "log_sha256": "607cbac18313e39c5def920b26eac902a750a575e52f01f45dcf70211de4e38d",
+    "original_log_sha256": "44527a30e97745d1655a4c607d61fcdc6c8d5ccc86afcb8318a307905441e3a6"
+  },
+  {
+    "name": "delay-after",
+    "revision": "d2e67e44 + candidate journey patch",
+    "mode": "changed status journey; helper refill 0.001ms; real retirement response held 6000ms",
+    "tests": [
+      [
+        "ok",
+        "retirement response under controlled six-second hosted delay"
+      ]
+    ],
+    "counts": {
+      "pass": 1,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    "duration_ms": 273422.080033,
+    "test_duration_ms": 175664.404397,
+    "status_profiles_passed": [
+      "verification-only",
+      "open-vocabulary"
+    ],
+    "failure": [],
+    "log": "delay-after.log",
+    "log_sha256": "1f7e3068a252af09480b0cbe8ed2c74eb773978e433bcc7adce6227617c4d59a",
+    "original_log_sha256": "1f7e3068a252af09480b0cbe8ed2c74eb773978e433bcc7adce6227617c4d59a"
+  },
+  {
+    "name": "candidate-full",
+    "revision": "2bf63ae0",
+    "mode": "candidate; isolated full registration",
+    "tests": [
+      [
+        "ok",
+        "page outline follows headings and navigates long pages at 1440px"
+      ]
+    ],
+    "counts": {
+      "pass": 1,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    "duration_ms": 625596.660388,
+    "test_duration_ms": 599269.219239,
+    "status_profiles_passed": [
+      "verification-only",
+      "open-vocabulary"
+    ],
+    "failure": [],
+    "log": "candidate-full.log",
+    "log_sha256": "f95ebe81e5f77f5936da601233fb819bd4a7598cca43c1e7444a6262dff00420",
+    "original_log_sha256": "f95ebe81e5f77f5936da601233fb819bd4a7598cca43c1e7444a6262dff00420"
+  },
+  {
+    "name": "main-original-repeat",
+    "revision": "d2e67e44",
+    "mode": "original; serial full registration",
+    "tests": [
+      [
+        "not ok",
+        "page outline follows headings and navigates long pages at 1440px"
+      ]
+    ],
+    "counts": {
+      "pass": 0,
+      "fail": 0,
+      "cancelled": 1,
+      "skipped": 0
+    },
+    "duration_ms": 680255.088559,
+    "test_duration_ms": 600001.019313,
+    "status_profiles_passed": [
+      "verification-only",
+      "open-vocabulary"
+    ],
+    "failure": [
+      "'test timed out after 600000ms'"
+    ],
+    "log": "main-original-repeat.log",
+    "log_sha256": "871a37ac3793394ac8b2a67cd598dca19bd176985e5503b95600f78fb67e9dd8",
+    "original_log_sha256": "9a2a16513984f1b2b3ea64264aa9bc7d8e22df417012a43e7cd43ffe25327682"
+  },
+  {
+    "name": "parent-repeat",
+    "revision": "70a1ca37",
+    "mode": "original; serial full registration",
+    "tests": [
+      [
+        "not ok",
+        "page outline follows headings and navigates long pages at 1440px"
+      ]
+    ],
+    "counts": {
+      "pass": 0,
+      "fail": 0,
+      "cancelled": 1,
+      "skipped": 0
+    },
+    "duration_ms": 648919.096027,
+    "test_duration_ms": 600002.52895,
+    "status_profiles_passed": [
+      "verification-only",
+      "open-vocabulary"
+    ],
+    "failure": [
+      "'test timed out after 600000ms'"
+    ],
+    "log": "parent-repeat.log",
+    "log_sha256": "d6bf53b738cbf64cd188f15fb9b7f249777174aba0d0c614b775c37a9956f492",
+    "original_log_sha256": "abc8b76d2dd22711dd895bfd5a7066e179763c403bea36515b6e3ced5b5bf689"
+  },
+  {
+    "name": "95a-repeat",
+    "revision": "95a0372f",
+    "mode": "original; serial full registration",
+    "tests": [
+      [
+        "not ok",
+        "page outline follows headings and navigates long pages at 1440px"
+      ]
+    ],
+    "counts": {
+      "pass": 0,
+      "fail": 0,
+      "cancelled": 1,
+      "skipped": 0
+    },
+    "duration_ms": 717847.083096,
+    "test_duration_ms": 600002.234457,
+    "status_profiles_passed": [
+      "verification-only",
+      "open-vocabulary"
+    ],
+    "failure": [
+      "'test timed out after 600000ms'"
+    ],
+    "log": "95a-repeat.log",
+    "log_sha256": "43b1e071ed98c22c170f16c15712378c5ba18c0d828b7daaf873b56430982606",
+    "original_log_sha256": "f7fed1a5cf6064d4d9eac1616aec9d5fd940677c36ca1223597528733406578e"
+  },
+  {
+    "name": "unpaced-repeat",
+    "revision": "d2e67e44",
+    "mode": "probe refill 0.001ms; serial full registration",
+    "tests": [
+      [
+        "ok",
+        "page outline follows headings and navigates long pages at 1440px"
+      ]
+    ],
+    "counts": {
+      "pass": 1,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    "duration_ms": 625195.54924,
+    "test_duration_ms": 599758.525196,
+    "status_profiles_passed": [
+      "verification-only",
+      "open-vocabulary"
+    ],
+    "failure": [],
+    "log": "unpaced-repeat.log",
+    "log_sha256": "305fddde9569d933f1b5d750a9f4429388c61ac279579f061ebce2f9b9760c53",
+    "original_log_sha256": "305fddde9569d933f1b5d750a9f4429388c61ac279579f061ebce2f9b9760c53"
+  }
+]

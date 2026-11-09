@@ -1,0 +1,53 @@
+[
+  {
+    "run": "main-overlap",
+    "artifact": {
+      "schema": 1,
+      "commit": "d2e67e449b239aacace820a458866cf81043ca96",
+      "tree": "0c7af6cfb6d1a61714d0fe7381a6230e90447ce5",
+      "sourceSha256": "9650bba3a27f4296d2ac890f169d98f052a454f7f66ce2e9e8abb8e258ecdd52",
+      "lockSha256": "b198792343257fd7a504d97cbb9a8bd5b4b95c71e70c426d7bbc04e7a24e2c5a",
+      "outputSha256": "f58523f2f95b0cc74a181f9b02204c5635fc7aa9558c21d8dffd246fe23db0e9"
+    },
+    "http_status_counts": {
+      "200": 133,
+      "403": 1
+    },
+    "note": "Available completed fixture diagnostic; incomplete journeys do not imply full network coverage."
+  },
+  {
+    "run": "parent-overlap",
+    "artifact": {
+      "schema": 1,
+      "commit": "70a1ca379440899480c93f715fb7f7be094bdfc6",
+      "tree": "b09d0ca42b5bce5d56bc14522ae24ce5e5ec8bcb",
+      "sourceSha256": "ac2345f90a98873ce04cd9a66cf85f0b23804b38469fc525f7bf5f7540c44889",
+      "lockSha256": "6b3b8dbc2ffe8dbda0c1e30e4a1abd5e8eac11df7ec0c377641ba12f3603e780",
+      "outputSha256": "dd388e5989f0c916f7454b536f3be78d1a65192529efba9bb60ebd177f90991b"
+    },
+    "http_status_counts": {
+      "200": 132,
+      "403": 1
+    },
+    "note": "Available completed fixture diagnostic; incomplete journeys do not imply full network coverage."
+  },
+  {
+    "run": "95a-overlap",
+    "network_receipt": "unavailable after timeout cleanup"
+  },
+  {
+    "run": "delay-after",
+    "artifact": {
+      "schema": 1,
+      "commit": "d2e67e449b239aacace820a458866cf81043ca96",
+      "tree": "0c7af6cfb6d1a61714d0fe7381a6230e90447ce5",
+      "sourceSha256": "9650bba3a27f4296d2ac890f169d98f052a454f7f66ce2e9e8abb8e258ecdd52",
+      "lockSha256": "b198792343257fd7a504d97cbb9a8bd5b4b95c71e70c426d7bbc04e7a24e2c5a",
+      "outputSha256": "f58523f2f95b0cc74a181f9b02204c5635fc7aa9558c21d8dffd246fe23db0e9"
+    },
+    "http_status_counts": {
+      "200": 76
+    },
+    "note": "Available completed fixture diagnostic; incomplete journeys do not imply full network coverage."
+  }
+]

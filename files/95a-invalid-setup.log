@@ -1,0 +1,27 @@
+TAP version 13
+# Subtest: page outline follows headings and navigates long pages at 1440px
+not ok 1 - page outline follows headings and navigates long pages at 1440px
+  ---
+  duration_ms: 3640.71984
+  type: 'test'
+  location: '<checkout>/tests/qualification/ui-convergence/journey-shard.mjs:23:97'
+  failureType: 'testCodeFailure'
+  error: "ENOENT: no such file or directory, open '<checkout>/.cache/slate/build-source.json'"
+  code: 'ENOENT'
+  stack: |-
+    async open (node:internal/fs/promises:641:25)
+    async readFile (node:internal/fs/promises:1245:14)
+    async withWorkspace (<checkout>/tests/qualification/ui-convergence/browser-support.mjs:220:35)
+    async TestContext.<anonymous> (<checkout>/tests/qualification/ui-convergence/journeys.test.mjs:433:5)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 57095.004089
