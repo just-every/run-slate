@@ -1,3 +1,5 @@
+import {routeJourneyApi} from './routed-journey-api.mjs';
+import {actorRequestPeaks} from './journey-api.mjs';
 import {decisionEditJourney} from './decision-edit-journey.mjs';
 import {decisionImmutabilityJourney} from './decision-immutability-journey.mjs';
 import {decisionLogJourney} from './decision-log-journey.mjs';
@@ -41,6 +43,7 @@ import { expect } from '@playwright/test';
 
 // Consecutive steps share their parent journey's workspace and registration.
 async function step(name, run) {
+  console.log('JOURNEY STEP', JSON.stringify({name, startMs: Math.round(performance.now())}));
   try { await run(); }
   catch (cause) {
     if (cause instanceof Error) { cause.message = `Step ${name} failed: ${cause.message}`; throw cause; }
@@ -89,9 +92,9 @@ for (const width of [390, 1440]) {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
       if(width===390)await transferJobsJourney(state);
-      const refused = await state.context.request.get(state.origin + '/api/ai/availability');
-      assert.equal(refused.status(), 403);
-      assert.equal((await refused.json()).code, 'FEATURE_DISABLED');
+      const refused = await call(state.context, state.origin, 'GET', '/api/ai/availability');
+      assert.equal(refused.status, 403);
+      assert.equal(refused.body.code, 'FEATURE_DISABLED');
       await expect(state.page.getByRole('button', { name: 'Ask', exact: true })).toHaveCount(0);
       await state.page.getByRole('button', { name: 'More', exact: true }).click();
       await expect(state.page.getByRole('menu').getByRole('menuitem', { name: 'Ask', exact: true })).toHaveCount(0);
@@ -102,7 +105,12 @@ for (const width of [390, 1440]) {
         assert.ok(pageId, 'Writing must complete before dependent journeys.');
         assert.ok(touch, 'Touch-member writing must complete before its dependent journeys.');
         await step('anchored comment, reset composer, reply and resolve; touch member comments and resolves', async () => {await commentJourney(state, pageId);await commentAuthorshipJourney(state, width);await touchCommentJourney(touch,touch.pageId);});
-        await step('invite existing member, persisted grant and canonical copied link; touch member publishes and shares', async () => {await shareJourney(state, pageId);await touchPublishShareJourney(touch,touch.pageId);});
+        await step('invite existing member, persisted grant and canonical copied link; touch member publishes and shares', async () => {
+          const restoreTransport = await routeJourneyApi(state.context, state.origin);
+          try { await shareJourney(state, pageId); }
+          finally { await restoreTransport(); }
+          await touchPublishShareJourney(touch,touch.pageId);
+        });
         await step('PAGE-007 populated Details and full-member ownership preserve grants under replay and edit-only refusal', async () => {await withSecondPerson(state,width,people=>pageDetailsJourney(state,people));});
         await step('query, highlighted results and opening exact page; touch Search, Inbox, My tasks and review queues', async () => {await searchJourney(state, pageId);await touchOperatorJourney(state,touch);});
         await step('published readers, editor indication, republish and lossless discard', () => withSecondPerson(state, width, people => unpublishedChangesJourney(state, people)));
@@ -140,6 +148,9 @@ for (const width of [390, 1440]) {
         await step('DEC-004 — populated native decision filters, current access and exact accepted navigation', () => decisionLogJourney(state, width));
         // Keep the exact log corpus before DEC-003 leaves retained lineage visible.
         await step('DEC-003 — immutable accepted snapshots, stale evidence and two-way lineage', () => withSecondPerson(state, width, people => decisionImmutabilityJourney(state, people)));
+        const ownerPeak = actorRequestPeaks(state.origin).find(row => row.actor === 'browser-owner').peak;
+        console.log(`OWNER PEAK after: ${ownerPeak}/min at ${width}px`);
+        assert.ok(ownerPeak <= 500, `Owner rolling-minute peak ${ownerPeak} exceeds the 500 request margin`);
       } finally {await touch?.close();}
     }, {}, { scheduled: true, slack: true });
   });

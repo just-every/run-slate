@@ -1,4 +1,4 @@
-import { api as journeyApi, registerActor, useActor } from './journey-api.mjs';
+import { api as journeyApi, registerActor, useActor, actorRequestPeaks } from './journey-api.mjs';
 import {transferControl} from '../../helpers/transfer-storage-gate.mjs';
 import {initializeEmbedEdge,readEmbedRequests} from '../../helpers/embed-edge.mjs';
 import { initializeWebhookEdge, setWebhookFailure } from '../../helpers/webhook-edge.mjs';
@@ -217,7 +217,7 @@ export async function withWorkspace(viewport, profile, run, overrides = {}, { sc
     } finally {
       try { await browser?.close(); }
       finally {
-        try { if (runtime) await stop(runtime.child); }
+        try { if (runtime) { console.log('ACTOR REQUEST PEAKS', JSON.stringify({width: viewport.width, actors: actorRequestPeaks(runtime.baseUrl)})); await stop(runtime.child); } }
         finally { await closeSamlIdp(state); await rm(state, { recursive: true, force: true }); }
       }
     }

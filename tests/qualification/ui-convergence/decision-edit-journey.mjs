@@ -1,4 +1,6 @@
 import assert from 'node:assert/strict';
+import { routeJourneyApi } from './routed-journey-api.mjs';
+import { actorRequestPeaks } from './journey-api.mjs';
 import {mkdir, readFile, writeFile} from 'node:fs/promises';
 import path from 'node:path';
 import {expect} from '@playwright/test';
@@ -11,7 +13,10 @@ export async function decisionEditJourney(state, width) {
   const {context, origin} = state;
   const read = route => ok(context, origin, 'GET', route);
   assert.deepEqual(await read('/api/profile'), {profile: 'core-wiki'});
-  await withSecondPerson(state, width, async ({bob}) => {
+  const restoreOwnerTransport = await routeJourneyApi(context, origin);
+  try { await withSecondPerson(state, width, async ({bob}) => {
+    const restoreReaderTransport = await routeJourneyApi(bob.context, origin);
+    try {
     const host = await restrictedPage(state, 'Proposal editing procedure', ['Retained underlying page content']);
     const editorGrant = await grant(context, origin, host.pageId, bob.id, 'edit');
     const owner = (await read('/api/members/current')).id;
@@ -30,7 +35,7 @@ export async function decisionEditJourney(state, width) {
     const activity = async () => (await read('/api/activity?action=decisions.save&limit=100')).items.filter(item => item.target.id === id);
     const stored = async () => ({decision: await read(route), history: await history(), activity: await activity()});
     const open = async () => {
-      await view.goto(origin + '/app/decisions/' + id, {waitUntil: 'networkidle'});
+      if (view.url() !== origin + '/app/decisions/' + id) await view.goto(origin + '/app/decisions/' + id, {waitUntil: 'networkidle'});
       await view.reload({waitUntil: 'networkidle'});
     };
     const proposal = async () => {
@@ -212,6 +217,11 @@ export async function decisionEditJourney(state, width) {
     await view.goto('about:blank');
     await state.page.goto('about:blank');
     await ok(context, origin, 'POST', route + '/remove', {operationKey: crypto.randomUUID(), expectedRevisionId: acceptedBefore.decision.revision_id});
-  });
+    } finally { await restoreReaderTransport(); }
+  }); } finally { await restoreOwnerTransport(); }
   await state.page.goto('about:blank');
+  for (const row of actorRequestPeaks(origin).filter(row => ['browser-owner', 'browser-reader'].includes(row.actor))) {
+    assert.ok(row.peak <= 500, `DEC-006 ${row.actor} rolling-minute peak ${row.peak} exceeds the 500 request margin`);
+  }
+  console.log(`PROBE DEC-006: native proposal controls and HTTP at ${width}px -> eight fields retain exact revisions, unchanged writes are no-ops, stale=409, view-only=404, accepted edits=409; actor peaks <=500/min`);
 }
