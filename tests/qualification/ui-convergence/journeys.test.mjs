@@ -1,5 +1,9 @@
 import {decisionLayerJourney} from './decision-layer-journey.mjs';
 
+import {routeJourneyApi} from './routed-journey-api.mjs';
+import {actorRequestPeaks} from './journey-api.mjs';
+import {decisionEditJourney} from './decision-edit-journey.mjs';
+import {decisionImmutabilityJourney} from './decision-immutability-journey.mjs';
 import {decisionLogJourney} from './decision-log-journey.mjs';
 import {automationRunLogJourney} from "./automation-run-log-journey.mjs";
 import {contentQueryJourney} from './content-query-journey.mjs';
@@ -41,6 +45,7 @@ import { expect } from '@playwright/test';
 
 // Consecutive steps share their parent journey's workspace and registration.
 async function step(name, run) {
+  console.log('JOURNEY STEP', JSON.stringify({name, startMs: Math.round(performance.now())}));
   try { await run(); }
   catch (cause) {
     if (cause instanceof Error) { cause.message = `Step ${name} failed: ${cause.message}`; throw cause; }
@@ -89,9 +94,9 @@ for (const width of [390, 1440]) {
     await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
       await setupWorkspace(state);
       if(width===390)await transferJobsJourney(state);
-      const refused = await state.context.request.get(state.origin + '/api/ai/availability');
-      assert.equal(refused.status(), 403);
-      assert.equal((await refused.json()).code, 'FEATURE_DISABLED');
+      const refused = await call(state.context, state.origin, 'GET', '/api/ai/availability');
+      assert.equal(refused.status, 403);
+      assert.equal(refused.body.code, 'FEATURE_DISABLED');
       await expect(state.page.getByRole('button', { name: 'Ask', exact: true })).toHaveCount(0);
       await state.page.getByRole('button', { name: 'More', exact: true }).click();
       await expect(state.page.getByRole('menu').getByRole('menuitem', { name: 'Ask', exact: true })).toHaveCount(0);
@@ -102,7 +107,12 @@ for (const width of [390, 1440]) {
         assert.ok(pageId, 'Writing must complete before dependent journeys.');
         assert.ok(touch, 'Touch-member writing must complete before its dependent journeys.');
         await step('anchored comment, reset composer, reply and resolve; touch member comments and resolves', async () => {await commentJourney(state, pageId);await commentAuthorshipJourney(state, width);await touchCommentJourney(touch,touch.pageId);});
-        await step('invite existing member, persisted grant and canonical copied link; touch member publishes and shares', async () => {await shareJourney(state, pageId);await touchPublishShareJourney(touch,touch.pageId);});
+        await step('invite existing member, persisted grant and canonical copied link; touch member publishes and shares', async () => {
+          const restoreTransport = await routeJourneyApi(state.context, state.origin);
+          try { await shareJourney(state, pageId); }
+          finally { await restoreTransport(); }
+          await touchPublishShareJourney(touch,touch.pageId);
+        });
         await step('PAGE-007 populated Details and full-member ownership preserve grants under replay and edit-only refusal', async () => {await withSecondPerson(state,width,people=>pageDetailsJourney(state,people));});
         await step('query, highlighted results and opening exact page; touch Search, Inbox, My tasks and review queues', async () => {await searchJourney(state, pageId);await touchOperatorJourney(state,touch);});
         await step('published readers, editor indication, republish and lossless discard', () => withSecondPerson(state, width, people => unpublishedChangesJourney(state, people)));
@@ -114,7 +124,6 @@ for (const width of [390, 1440]) {
         if (width === 390) {
           await withSecondPerson(state, width, people => step('REV-002 complete page histories and current readers on a phone', () => historyInventoryJourney(state, people)));
           await automationRunLogJourney(state,touch);
-          await step('DB-012 populated record fields, comments, history and parity', () => recordDetailJourney(state, width));
           await standaloneChartJourney(state,{proofOnly:true});
           await templateCaptureJourney(state);
           await templateGalleryJourney(state);
@@ -131,6 +140,13 @@ for (const width of [390, 1440]) {
           }
         }
         await step('DEC-004 — populated native decision filters, current access and exact accepted navigation', () => decisionLogJourney(state, width));
+        // Keep the exact log corpus before DEC-003 leaves retained lineage visible.
+        await step('DEC-003 — immutable accepted snapshots, stale evidence and two-way lineage', () => withSecondPerson(state, width, people => decisionImmutabilityJourney(state, people)));
+        const actors = actorRequestPeaks(state.origin);
+        console.log('CORE JOURNEY REQUEST BUDGET', JSON.stringify({width, windowMs: 60000, nativeLimit: 600, marginCeiling: 500, actors}));
+        const ownerPeak = actors.find(row => row.actor === 'browser-owner').peak;
+        console.log(`OWNER PEAK after: ${ownerPeak}/min at ${width}px`);
+        assert.ok(ownerPeak <= 500, `Owner rolling-minute peak ${ownerPeak} exceeds the 500 request margin`);
       } finally {await touch?.close();}
     }, {}, { scheduled: true, slack: true });
   });
@@ -186,18 +202,20 @@ for (const width of [1440]) {
   });
 }
 
-// Each independently granted level keeps every native assertion in its own
-// installation. The original sharing journey and these cases all retain the
-// existing 240-second deadline; no earlier traffic consumes their request window.
-for (const level of ['full', 'edit', 'comment', 'view']) {
-  test(`native ordinary page ${level} authority retains inventories and refuses revoked captures at 1440px`, { timeout: 240000 }, async t => {
+// The full matrix took 237.18s on hosted Ubuntu before runner variation pushed
+// it past 240s. Split its independent operation families into fresh installations;
+// both retain complete inventories, every replay and final revoked-capture check.
+// The original sharing journey and every case retain the 240-second deadline.
+for (const [level, section] of [['full', 'page'], ['full', 'discussion'], ['edit', 'all'], ['comment', 'all'], ['view', 'all']]) {
+  const operations = section === 'all' ? '' : section === 'page' ? ' for page changes' : ' for discussion and sharing';
+  test(`native ordinary page ${level} authority retains inventories and refuses revoked captures${operations} at 1440px`, { timeout: 240000 }, async t => {
     await withWorkspace({ width: 1440, height: 1000 }, 'core-wiki', async state => {
       const setup = performance.now();
       await setupWorkspace(state);
-      t.diagnostic(`Sharing ${level} setup: ${Math.round(performance.now() - setup)} ms`);
+      t.diagnostic(`Sharing ${level}/${section} setup: ${Math.round(performance.now() - setup)} ms`);
       const matrix = performance.now();
-      try { await permissionLevelsJourney(state, { levels: [level] }); }
-      finally { t.diagnostic(`Sharing ${level} matrix: ${Math.round(performance.now() - matrix)} ms`); }
+      try { await permissionLevelsJourney(state, { levels: [level], section }); }
+      finally { t.diagnostic(`Sharing ${level}/${section} matrix: ${Math.round(performance.now() - matrix)} ms`); }
     });
   });
 }
@@ -449,6 +467,39 @@ for (const width of [1440, 390]) {
       await setupWorkspace(state);
       await contentQueryJourney(state, width);
       await withSecondPerson(state,width,people=>step('DEC-001 populated decision layer and page invariance',()=>decisionLayerJourney(state,people)));
+    });
+  });
+}
+
+// DEC-006 already owns an independent workspace. Give each responsive branch
+// its own deadline so the core/touch journeys retain their established budgets.
+// Prior native runs took 232–327 seconds including setup; 420 allows margin.
+for (const width of [390, 1440]) {
+  test(`DEC-006 — native proposal edits retain exact revisions and refuse unchanged or unauthorized writes at ${width}px`, { timeout: 420000 }, async t => {
+    await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async proposal => {
+      const setup = performance.now();
+      await setupWorkspace(proposal);
+      t.diagnostic(`DEC-006 setup at ${width}px: ${Math.round(performance.now() - setup)} ms`);
+      const editing = performance.now();
+      try { await decisionEditJourney(proposal, width); }
+      finally { t.diagnostic(`DEC-006 editing at ${width}px: ${Math.round(performance.now() - editing)} ms`); }
+    });
+  });
+}
+
+// Record detail owns its request window instead of extending core/touch or
+// database round trips. Keep both responsive branches and all native assertions.
+// Native cloud runs took 280s (phone) and reached the desktop revocation phase
+// at 300s; these new registrations get 360s including setup and runner margin.
+for (const width of [390, 1440]) {
+  test(`DB-012 and DB-002 — populated record detail and actual relation records at ${width}px`, { timeout: 360000 }, async t => {
+    await withWorkspace({ width, height: width === 1440 ? 1000 : 844 }, 'core-wiki', async state => {
+      const setup = performance.now();
+      await setupWorkspace(state);
+      t.diagnostic(`Record detail setup at ${width}px: ${Math.round(performance.now() - setup)} ms`);
+      const detail = performance.now();
+      try { await recordDetailJourney(state, width); }
+      finally { t.diagnostic(`Record detail at ${width}px: ${Math.round(performance.now() - detail)} ms`); }
     });
   });
 }
