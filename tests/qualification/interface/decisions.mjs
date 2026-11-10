@@ -1,6 +1,5 @@
 import assert from 'node:assert/strict';
-export async function decisionChecks({page,context,runtime,id,check}){
- const read=async path=>await(await context.request.get(runtime.origin+path)).json();
+export async function decisionChecks({page,context,runtime,id,check,read=async path=>await(await context.request.get(runtime.origin+path)).json()}){
  const before=await read('/api/pages/'+id),member=await read('/api/members/current');
  await page.goto(runtime.origin+'/app/pages/'+id);await page.getByRole('button',{name:'More',exact:true}).click();await page.getByRole('menuitem',{name:'Add decision record',exact:true}).click();const dialog=page.getByRole('dialog');
  await dialog.getByLabel('Question',{exact:true}).fill('Which local option should we adopt?');await dialog.getByLabel('Options considered').fill('First\nSecond');await dialog.getByLabel('Proposed outcome').fill('First');await dialog.getByLabel('Rationale',{exact:true}).fill('Recorded local reasoning');await dialog.getByLabel('Decided date').fill('2026-09-30');await dialog.getByLabel('Next review',{exact:true}).fill('2099-01-01');await dialog.getByLabel('Add a page as evidence').selectOption(id);await dialog.getByRole('button',{name:'Add current revision',exact:true}).click();await dialog.getByText('1 exact reference retained.',{exact:true}).waitFor();await dialog.getByRole('button',{name:'Create proposed decision',exact:true}).click();await page.waitForURL(/\/app\/decisions\//);const decisionId=page.url().split('/').at(-1);
