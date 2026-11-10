@@ -1394,6 +1394,8 @@ Core · published · **partial** · Cites BASE-DATA-002, BASE-DATA-003, BASE-DAT
 1. Every link to it then resolves to a content-free tombstone (`LINK-002`), and activity entries survive with their references anonymized.
 2. Confirmed permanent deletion removes body, revisions, files, comments, analytics and grounding within the cascade deadline, leaving tombstones.
 
+ARCH-006 native page-subtree supporting behavior uses the existing full-access cascade boundary for both single permanent deletion and Empty trash. Each preview names the eligible pages; the mutation requires their exact identifiers and the unchanged fresh step-up, and leaves nonselected live, edit-only and inaccessible trash content untouched. The existing audit-content registration and archiveRetentionJourney callers read back erased bodies, every revision body, uploaded file metadata and bytes, comments, page_views analytics, retained content-free links and anonymized activity. AI grounding remains held under ADMIN-007 and shared company-policy prerequisites; broader LINK-002 record-kind outcomes and all existing retention, step-up and deletion holds remain unchanged. This supporting implementation does not promote any Status row.
+
 **Evidence.** `tests/qualification/erasure-metadata/atomic-custody.test.ts` — "Erasure ARCH-006 BASE-DATA-003 PORT-001 PORT-002: atomic page and member custody erasure survives cleanup failure, restore and re-export"
 **Gap.** Missing a public erasure journey executing allowed deletion and an unsafe refused deletion with readback of bodies, revisions, files, comments, analytics, grounding, tombstones and activity; the cited test exercises erasure services and import-custody recovery directly.
 
