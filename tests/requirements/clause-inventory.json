@@ -479,7 +479,7 @@
       "id": "BLOCK-008",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of BLOCK-008 — Media blocks. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "This root Workers inventory records the supporting flagship registration only. The default-profile media case and both responsive browser journeys execute under their existing separate Verify commands; their complete native media scope is specified in tests/requirements/cli-journey.md. Configured stock insertion remains unproved because the owner stock provider key is not held; complete clause acceptance and release are not claimed.",
       "supportingTests": [
         {
           "file": "tests/flagship/content/http.test.ts",
@@ -1070,7 +1070,7 @@
       "id": "DB-002",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of DB-002 — Field types and evaluation. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Acceptance 3 has supporting native HTTP and responsive relationRecordsJourney proof through existing Verify registrations. The complete field catalog, representations, conversions, formulas, rollups, dependency recomputation, cycles, limits, aggregation confidentiality and imported-definition restoration remain unproven; ADMIN-007 and shared company-policy prerequisites remain authoritative.",
       "supportingTests": [
         {
           "file": "tests/flagship/structured/structured.test.ts",
@@ -1087,6 +1087,10 @@
         {
           "file": "tests/flagship/structured/values.test.ts",
           "testName": "typed values, summaries, filters and formula validation preserve their boundaries"
+        },
+        {
+          "file": "tests/flagship/structured/http.test.ts",
+          "testName": "Worker HTTP rejects missing expired revoked and denied sessions and persists authorized input"
         }
       ]
     },
@@ -2008,7 +2012,7 @@
       "id": "DEC-003",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "Listed exact supporting regressions cover only particular mechanics of DEC-003 — An accepted decision is immutable. Full requirement-level UI, profile and runtime evidence remains unproven.",
+      "unmetReason": "Native core-wiki accepted snapshots, stale warnings, unchanged edit refusal, owner replacement preparation, current-citation acceptance and restricted replacement reads are exercised by the existing profile registration. The existing responsive core callers load decisionImmutabilityJourney for card and log warnings, full retained fields, native supersession and exact two-way links. CONTRACT.md retains main judgment pending independent candidate validation and guarded landing.",
       "supportingTests": [
         {
           "file": "tests/flagship/intelligence/authority.test.ts",
@@ -2034,7 +2038,7 @@
       "id": "DEC-006",
       "document": "CONTRACT.md",
       "status": "unproven",
-      "unmetReason": "No complete semantic journey is registered for DEC-006 — A proposed decision is editable. The original planned placeholder, if present, is not implementation evidence. The requirement remains open; lack of registration is not a claim that all its behavior is absent.",
+      "unmetReason": "The default-profile FLAG-001 registration invokes decisionEditJourney through native routes, reconciling all proposal fields with exact durable revision and activity rows, retained snapshots, unchanged resubmission and stale, view-only and accepted refusals. The existing core-wiki browser callers invoke decisionEditJourney at both responsive widths. CONTRACT.md remains the status source; exact-candidate Verify and guarded landing are separate.",
       "supportingTests": []
     },
     {
