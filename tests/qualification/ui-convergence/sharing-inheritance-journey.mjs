@@ -1,3 +1,4 @@
+import { useActor } from './journey-api.mjs';
 import assert from 'node:assert/strict';
 import { expect } from '@playwright/test';
 import { accessible } from './browser-support.mjs';
@@ -23,6 +24,7 @@ export async function inheritanceChainJourney({ page, context, origin, api, read
 
   const reader = await context.browser().newContext();
   await reader.addCookies([{ name: 'slate_session', value: readerCookie.split('=')[1], url: origin }]);
+  await useActor(reader, origin);
   const read = id => call(reader, origin, 'GET', `/api/pages/${id}`);
   const levelOf = async id => { const result = await read(id); return result.status === 200 ? result.body.permissions.level : result.status; };
   const ids = { root }, names = { [root]: 'Chain root' };
