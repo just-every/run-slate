@@ -134,7 +134,7 @@ export async function containerGrantsJourney(state,width) {
       await openAccess(bob.page,origin,space);
       await bob.page.getByRole('button',{name:'Grant access',exact:true}).click();
       const dialog=bob.page.getByRole('dialog',{name:'Space access grant',exact:true});
-      assert.deepEqual(await dialog.getByRole('combobox',{name:'Access',exact:true}).locator('option').evaluateAll(options=>options.map(option=>option.value)),['view','edit']);
+      await expect.poll(()=>dialog.getByRole('combobox',{name:'Access',exact:true}).locator('option').evaluateAll(options=>options.map(option=>option.value))).toEqual(['view','edit']);
       await dialog.getByRole('button',{name:'Close dialog',exact:true}).click();
       const before=await api(`/api/sharing/containers/${space}`);
       assert.equal((await call(bob.context,origin,'POST','/api/sharing',{operationKey:key(),targetKind:'container',targetId:space,principalKind:'group',principalId:group.id,level:'comment'})).status,400);

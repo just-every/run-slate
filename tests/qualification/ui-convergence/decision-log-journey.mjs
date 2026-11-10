@@ -16,7 +16,7 @@ export async function decisionLogJourney(state, width) {
   // weakening creation, proposal history, acceptance, reviews or removal.
   const handbook = (await api('/api/containers')).items.find(item => item.name === 'Handbook').id;
   const manual = await ok(context, origin, 'POST', '/api/pages', {operationKey: crypto.randomUUID(), containerId: handbook, title: 'Manual decision proof'});
-  await decisionChecks({page, context, runtime: {origin}, id: manual.value.pageId, check() {}});
+  await decisionChecks({page, context, runtime: {origin}, id: manual.value.pageId, read: route => api(route), check() {}});
   await page.goto('about:blank');
   await withSecondPerson(state, width, async ({bob}) => {
     const owner = (await api('/api/members/current')).id;
