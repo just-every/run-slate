@@ -1,8 +1,9 @@
+import { api, useActor } from './journey-api.mjs';
 import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
 import { mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
-import { expect, request } from '@playwright/test';
+import { expect } from '@playwright/test';
 import { root } from '../../e2e/runtime-harness.mjs';
 import { apiErrorDiagnostics } from './error-diagnostics.mjs';
 import { requestTimeline, timelineContext } from './request-timeline.mjs';
@@ -18,6 +19,7 @@ export async function withSecondPerson(state, width, run) {
   const viewport = { width, height: width === 1440 ? 1000 : 844 };
   const context = await state.context.browser().newContext({ viewport, permissions: ['clipboard-read', 'clipboard-write'], locale: 'en-US' });
   await context.addCookies([{ name: 'slate_session', value: state.readerCookie.split('=')[1], url: state.origin }]);
+  await useActor(context, state.origin);
   requestTimeline(context);
   const errors = [];
   const page = await context.newPage();
@@ -59,26 +61,7 @@ export async function withSecondPerson(state, width, run) {
 
 /** A mutation through the person's own session, as the browser would send it. */
 export async function call(context, origin, method, route, data) {
-  // Connection: close still lets Playwright select an already pooled socket.
-  // Own and dispose the transport for each call, retaining the person's current
-  // authentication without carrying idle connections across browser actions.
-  const transport = await request.newContext({ storageState: await context.storageState() });
-  const timeline = requestTimeline(context), observation = timeline.start(method, origin + route);
-  try {
-    const response = await transport.fetch(origin + route, { method, headers: { origin, 'content-type': 'application/json' }, data: data === undefined ? undefined : JSON.stringify(data), maxRetries: 0 });
-    timeline.answered(observation, response.status());
-    const text = await response.text();
-    let body;
-    try { body = text ? JSON.parse(text) : undefined; } catch { body = text; }
-    timeline.answered(observation, response.status(), body);
-    const retryAfter = response.headers()['retry-after'];
-    return { status: response.status(), body, ...(retryAfter === undefined ? {} : { retryAfter }) };
-  } catch (cause) {
-    if (observation.status === 'pending') timeline.failed(observation, cause);
-    throw cause;
-  } finally {
-    await transport.dispose();
-  }
+  return api(context, origin, method, route, data);
 }
 
 export async function ok(context, origin, method, route, data) {
