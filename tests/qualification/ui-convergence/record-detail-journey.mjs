@@ -4,9 +4,38 @@ import {randomUUID} from 'node:crypto';
 import {expect} from '@playwright/test';
 import {accessible} from './browser-evidence.mjs';
 import {call, grant, ok, withSecondPerson} from './two-people-support.mjs';
+import {routeJourneyApi} from './routed-journey-api.mjs';
+import {actorRequestPeaks} from './journey-api.mjs';
+
+async function withRecordReader(state, width, run) {
+  await withSecondPerson(state, width, async people => {
+    const restore = await routeJourneyApi(people.bob.context, state.origin);
+    try { await run(people); }
+    finally {
+      await restore();
+      await people.bob.page.goto('about:blank');
+    }
+  });
+}
 
 /** Populated native records, independent member sessions and retained snapshots. */
 export async function recordDetailJourney(state, width) {
+  // The unrelated first-run page has no assertions here; unmount its editor
+  // before the record proof so its collaboration polls do not spend this actor's budget.
+  await state.page.goto('about:blank');
+  const restore = await routeJourneyApi(state.context, state.origin);
+  try { await recordDetailContents(state, width); }
+  finally {
+    await restore();
+    await state.page.goto('about:blank');
+  }
+  const actors = actorRequestPeaks(state.origin);
+  console.log('RECORD DETAIL REQUEST BUDGET', JSON.stringify({width, windowMs: 60000, nativeLimit: 600, marginCeiling: 500, actors}));
+  const ownerPeak = actors.find(row => row.actor === 'browser-owner').peak;
+  assert.ok(ownerPeak <= 500, `Record detail owner rolling-minute peak ${ownerPeak} exceeds the 500 request margin`);
+}
+
+async function recordDetailContents(state, width) {
   const {context, origin, api} = state;
   const mutate = (method, route, data, actor = context) => ok(actor, origin, method, route, {operationKey: randomUUID(), ...data});
   const workspace = await api('/api/workspace');
@@ -63,7 +92,7 @@ export async function recordDetailJourney(state, width) {
     await expect(page.locator('.record-fields-list').getByRole('button', {name: 'Edit', exact: true})).toHaveCount(canEdit ? 2 : 0);
   };
   try {
-    await withSecondPerson(state, width, async ({bob}) => {
+    await withRecordReader(state, width, async ({bob}) => {
       await policies('record-is-page');
       await bob.page.goto(recordUrl, {waitUntil: 'networkidle'});
       await checkFields(bob.page, true, 7);
@@ -129,4 +158,178 @@ export async function recordDetailJourney(state, width) {
       console.log('PROBE DB-012 read-only: all six fields readable; native viewer PATCH -> 404 and unchanged record and history');
     });
   } finally { await policies(workspace.policies['record.page-parity.v1'] ?? 'record-is-page'); }
+  await relationRecordsJourney(state, width);
+}
+
+/** Native relation settings, persisted target identities and two readers' current grants. */
+export async function relationRecordsJourney(state, width) {
+  const {page, context, origin, api} = state;
+  const mutate = async (method, route, data) => (await ok(context, origin, method, route, {operationKey: randomUUID(), ...data})).value;
+  const container = (await api('/api/containers')).items.find(item => item.name === 'Handbook');
+  const source = await mutate('POST', '/api/databases', {containerId: container.id, title: 'Relation source'});
+  const target = await mutate('POST', '/api/databases', {containerId: container.id, title: 'Relation destinations'});
+  const base = `/api/databases/${source.id}`;
+  const targetBase = `/api/databases/${target.id}`;
+  const first = await mutate('POST', targetBase + '/records', {title: 'First linked target', values: {}});
+  const second = await mutate('POST', targetBase + '/records', {title: 'Second linked target', values: {}});
+  const record = await mutate('POST', base + '/records', {title: 'Source relation record', values: {}});
+  await grant(context, origin, source.pageId, 'browser-reader', 'edit');
+  await grant(context, origin, target.pageId, 'browser-reader', 'view');
+  await grant(context, origin, second.pageId, 'browser-owner', 'full');
+  const targetGrant = (await grant(context, origin, second.pageId, 'browser-reader', 'view')).value;
+  await mutate('PUT', `/api/sharing/pages/${second.pageId}/inheritance`, {expectedRevisionId: (await api(`/api/pages/${second.pageId}`)).page.revisionId, restricted: true});
+
+  // The relation's database is chosen through the real field configuration door.
+  await page.goto(`${origin}/app/databases/${source.id}`, {waitUntil: 'networkidle'});
+  await page.getByRole('button', {name: 'Fields', exact: true}).click();
+  await page.getByRole('menuitem', {name: 'Add field', exact: true}).click();
+  let settings = page.getByRole('dialog', {name: 'Field settings', exact: true});
+  await settings.getByRole('textbox', {name: 'Name', exact: true}).fill('Linked records');
+  await settings.getByRole('combobox', {name: 'Type', exact: true}).selectOption('relation');
+  await settings.getByRole('combobox', {name: 'Related database', exact: true}).selectOption(target.id);
+  await settings.getByRole('button', {name: 'Save field', exact: true}).click();
+  await expect(settings).not.toBeVisible();
+  const field = (await api(base)).fields.find(item => item.name === 'Linked records');
+  assert.equal(field.type, 'relation');
+  assert.equal(field.config.databaseId, target.id);
+  await page.reload({waitUntil: 'networkidle'});
+  await page.getByRole('button', {name: 'Fields', exact: true}).click();
+  await page.getByRole('menuitem', {name: field.name, exact: true}).click();
+  settings = page.getByRole('dialog', {name: 'Field settings', exact: true});
+  await expect(settings.getByRole('combobox', {name: 'Related database', exact: true})).toHaveValue(target.id);
+  await accessible(page, 'relation configured database');
+  await settings.getByRole('button', {name: 'Cancel', exact: true}).click();
+
+  await mutate('POST', base + '/views', {expectedRevisionId: (await api(base)).database.revision_id,
+    view: {id: randomUUID(), name: 'Relation table', layout: 'table', filters: [], sorts: [], groups: [],
+      calculations: {}, display: {visibleFieldIds: [field.id]}, position: 0}});
+  await page.reload({waitUntil: 'networkidle'});
+  const pencil = page.getByRole('button', {name: `Edit ${field.name}`, exact: true});
+  await pencil.focus();
+  await expect.poll(() => pencil.evaluate(element => getComputedStyle(element, '::after').opacity)).toBe('1');
+  await accessible(page, 'relation field keyboard tooltip');
+
+  const recordPath = base + '/records/' + record.pageId;
+  const recordUrl = origin + `/app/databases/${source.id}/records/${record.pageId}`;
+  const row = view => view.locator('.record-field').filter({has: view.locator('dt').getByText(field.name, {exact: true})});
+  const selected = [first.pageId, second.pageId];
+  await withRecordReader(state, width, async ({bob}) => {
+    const openPicker = async () => {
+      await row(bob.page).getByRole('button', {name: 'Edit', exact: true}).click();
+      const picker = bob.page.getByRole('dialog', {name: 'Choose Linked records', exact: true});
+      await expect(picker.getByRole('checkbox')).toHaveCount(2);
+      await expect(picker.getByRole('checkbox', {name: 'First linked target', exact: true})).toBeVisible();
+      await expect(picker.getByRole('checkbox', {name: 'Second linked target', exact: true})).toBeVisible();
+      await expect(picker).not.toContainText('Source relation record');
+      return picker;
+    };
+    const save = async picker => {
+      await picker.getByRole('button', {name: 'Save selection', exact: true}).click();
+      await expect(picker).not.toBeVisible();
+      await bob.page.reload({waitUntil: 'networkidle'});
+    };
+    await bob.page.goto(recordUrl, {waitUntil: 'networkidle'});
+    let picker = await openPicker();
+    await expect(picker).toContainText('0 selected');
+    await picker.getByRole('checkbox', {name: 'First linked target', exact: true}).check();
+    await save(picker);
+    assert.deepEqual((await ok(bob.context, origin, 'GET', recordPath)).values[field.id], [first.pageId]);
+    await expect(row(bob.page).getByRole('button', {name: 'First linked target', exact: true})).toBeVisible();
+    picker = await openPicker();
+    await expect(picker.getByRole('checkbox', {name: 'First linked target', exact: true})).toBeChecked();
+    await picker.getByRole('button', {name: 'Clear selection', exact: true}).click();
+    await save(picker);
+    assert.deepEqual((await api(recordPath)).values[field.id], []);
+    await expect(row(bob.page).getByRole('button', {name: 'First linked target', exact: true})).toHaveCount(0);
+    picker = await openPicker();
+    await picker.getByRole('checkbox', {name: 'First linked target', exact: true}).check();
+    if (width === 1440) {
+      await picker.getByRole('searchbox', {name: 'Find', exact: true}).fill('Second');
+      await expect(picker.getByRole('checkbox')).toHaveCount(1);
+      await expect(picker.getByRole('checkbox', {name: 'First linked target', exact: true})).toHaveCount(0);
+      await expect(picker).toContainText('1 selected');
+    }
+    await picker.getByRole('checkbox', {name: 'Second linked target', exact: true}).check();
+    if (width === 1440) {
+      await expect(picker).toContainText('2 selected');
+      await picker.getByRole('searchbox', {name: 'Find', exact: true}).fill('No matching target');
+      await expect(picker.getByRole('checkbox')).toHaveCount(0);
+      await expect(picker).toContainText('No accessible matches.');
+      await expect(picker).toContainText('2 selected');
+      await picker.getByRole('searchbox', {name: 'Find', exact: true}).fill('');
+      await expect(picker.getByRole('checkbox')).toHaveCount(2);
+      await expect(picker.getByRole('checkbox', {name: 'First linked target', exact: true})).toBeChecked();
+      await expect(picker.getByRole('checkbox', {name: 'Second linked target', exact: true})).toBeChecked();
+    }
+    await accessible(bob.page, 'relation multiple target picker');
+    await save(picker);
+    assert.deepEqual((await api(recordPath)).values[field.id], selected);
+    await expect(row(bob.page).getByRole('button', {name: 'First linked target', exact: true})).toBeVisible();
+    await expect(row(bob.page).getByRole('button', {name: 'Second linked target', exact: true})).toBeVisible();
+    await accessible(bob.page, 'relation retained multiple records');
+    const prior = await api(`/api/pages/${first.pageId}`);
+    await mutate('PATCH', `/api/pages/${first.pageId}`, {expectedRevisionId: prior.page.revisionId, properties: {title: 'Renamed linked target'}});
+    await bob.page.reload({waitUntil: 'networkidle'});
+    await expect(row(bob.page).getByRole('button', {name: 'First linked target', exact: true})).toHaveCount(0);
+    if (width === 1440) {
+      await row(bob.page).getByRole('button', {name: 'Edit', exact: true}).click();
+      picker = bob.page.getByRole('dialog', {name: 'Choose Linked records', exact: true});
+      await picker.getByRole('searchbox', {name: 'Find', exact: true}).fill('First linked target');
+      await expect(picker).toContainText('No accessible matches.');
+      await picker.getByRole('searchbox', {name: 'Find', exact: true}).fill('Renamed');
+      await expect(picker.getByRole('checkbox')).toHaveCount(1);
+      await expect(picker.getByRole('checkbox', {name: 'Renamed linked target', exact: true})).toBeChecked();
+      await expect(picker).toContainText('2 selected');
+      await picker.getByRole('button', {name: 'Cancel', exact: true}).click();
+    }
+    await row(bob.page).getByRole('button', {name: 'Renamed linked target', exact: true}).click();
+    await expect(bob.page).toHaveURL(origin + `/app/databases/${target.id}/records/${first.pageId}`);
+    await expect(bob.page.getByRole('heading', {name: 'Renamed linked target', exact: true})).toBeVisible();
+    assert.deepEqual((await api(recordPath)).values[field.id], selected);
+    await accessible(bob.page, 'relation follows retained renamed record');
+    console.log(`PROBE DB-002 3 ${width}: native relation configuration, empty and multiple selections, reload, rename and canonical target address passed`);
+
+    await page.goto(`${origin}/app/databases/${source.id}`, {waitUntil: 'networkidle'});
+    await page.getByRole('button', {name: 'Fields', exact: true}).click();
+    await page.getByRole('menuitem', {name: field.name, exact: true}).click();
+    settings = page.getByRole('dialog', {name: 'Field settings', exact: true});
+    await settings.getByRole('combobox', {name: 'Related database', exact: true}).selectOption(source.id);
+    const refusedSettings = page.waitForResponse(response => new URL(response.url()).pathname === base + '/fields' && response.request().method() === 'POST');
+    await settings.getByRole('button', {name: 'Save field', exact: true}).click();
+    assert.equal((await refusedSettings).status(), 409);
+    await expect(settings.getByRole('alert')).toContainText('Clear relation values');
+    assert.equal((await api(base)).fields.find(item => item.id === field.id).config.databaseId, target.id);
+    assert.deepEqual((await api(recordPath)).values[field.id], selected);
+    await settings.getByRole('button', {name: 'Cancel', exact: true}).click();
+
+    await grant(context, origin, second.pageId, bob.id, 'view', {id: targetGrant.id, revoke: true});
+    const retained = await api(recordPath), history = await api(`/api/revisions/${record.pageId}`);
+    assert.deepEqual(retained.values[field.id], selected);
+    const reader = await ok(bob.context, origin, 'GET', recordPath);
+    assert.deepEqual(reader.values[field.id], [first.pageId]);
+    assert.ok(!JSON.stringify(reader).includes(second.pageId), "The complete reader document omits the revoked target identity.");
+    const options = await ok(bob.context, origin, 'GET', `${base}/references/${field.id}`);
+    assert.deepEqual(options.items.map(item => item.id), [first.pageId]);
+    await bob.page.goto(recordUrl, {waitUntil: 'networkidle'});
+    await expect(row(bob.page).getByRole('button', {name: 'Renamed linked target', exact: true})).toBeVisible();
+    await expect(row(bob.page)).not.toContainText('Second linked target');
+    await accessible(bob.page, 'relation current reader after revocation');
+    await row(bob.page).getByRole('button', {name: 'Edit', exact: true}).click();
+    picker = bob.page.getByRole('dialog', {name: 'Choose Linked records', exact: true});
+    await expect(picker.getByRole('checkbox')).toHaveCount(1);
+    await expect(picker.getByRole('checkbox', {name: 'Renamed linked target', exact: true})).toBeChecked();
+    await expect(picker).toContainText('1 selected');
+    await expect(picker).not.toContainText('Second linked target');
+    await accessible(bob.page, 'relation reader safe picker after revocation');
+    await picker.getByRole('button', {name: 'Cancel', exact: true}).click();
+    const denied = await call(bob.context, origin, 'PATCH', recordPath, {operationKey: randomUUID(), expectedRevisionId: reader.revisionId, values: {[field.id]: selected}});
+    assert.equal(denied.status, 404);
+    assert.deepEqual(await api(recordPath), retained);
+    assert.deepEqual(await api(`/api/revisions/${record.pageId}`), history);
+    const inaccessible = origin + `/app/databases/${target.id}/records/${second.pageId}`;
+    await bob.page.goto(inaccessible, {waitUntil: 'networkidle'});
+    await expect(bob.page.getByRole('heading', {name: 'Access needed', exact: true})).toBeVisible();
+    await expect(bob.page.locator('main')).not.toContainText('Second linked target');
+    console.log(`PROBE DB-002 3 ${width}: revoked target removed from native values, labels and picker; retained owner identities unchanged; forbidden write and follow refused`);
+  });
 }

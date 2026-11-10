@@ -1,3 +1,4 @@
+import { api as journeyApi, idleActorBudget, registerActor, useActor } from './journey-api.mjs';
 import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
 import { mkdir, writeFile } from 'node:fs/promises';
@@ -103,24 +104,13 @@ export async function shareJourney(state, pageId) {
 
 /** Independent published pages keep level semantics separate from grant narrowing. */
 export async function permissionLevelsJourney(state, { extended = true, levels = ['full', 'edit', 'comment', 'view'], section = 'all' } = {}) {
-  const { context, origin } = state, width = state.page.viewportSize().width;
+  const { context, origin, api } = state, width = state.page.viewportSize().width;
   // The owner uses authenticated API probes throughout this matrix. Unmount
-  // their unrelated first page so its collaboration polling consumes no reads.
-  if (extended) await state.page.goto('about:blank');
-  // Complete diagnostic inventories are much more read-heavy than a person.
-  // Pace those reads while retaining real production limits and every assertion.
-  let nextRead = 0;
-  const api = async (...args) => {
-    // Reserve before awaiting, including all five parallel snapshot branches.
-    // The responsive matrix leaves its owner view open: 480 diagnostic
-    // reads/minute leave 120 requests for native browser activity. Retain
-    // the extended matrix's existing 572/minute bound with its owner idle.
-    const slot = Math.max(nextRead, Date.now());
-    nextRead = slot + (extended ? 105 : 125);
-    const delay = slot - Date.now();
-    if (delay > 0) await new Promise(resolve => setTimeout(resolve, delay));
-    return state.api(...args);
-  };
+  // their unrelated page in both matrices so invalidation fan-outs consume no reads.
+  await state.page.goto('about:blank');
+  const restoreBudget = extended ? await idleActorBudget(context, origin) : () => {};
+  // All probes, including snapshots and call()/ok(), share journey-api's
+  // per-actor dispatch queue; no inventory-specific transport or timer.
   const records = [], refusals = [];
   const configuration = await api('/api/sharing/configuration');
   assert.deepEqual(new Set(configuration.levels), new Set(['full', 'edit', 'comment', 'view']));
@@ -131,8 +121,10 @@ export async function permissionLevelsJourney(state, { extended = true, levels =
     recipient = (await api('/api/members')).items.find(item => item.id !== 'browser-owner' && item.id !== 'browser-reader' && item.role === 'member');
     assert.ok(recipient, 'A separately admitted ordinary member receives the new grant.');
     const recipientSession = await signInWithOutbox(origin, recipient.email);
+    registerActor(origin, recipientSession.cookie, recipient.id);
     recipientContext = await context.browser().newContext();
     await recipientContext.addCookies([{ name: 'slate_session', value: recipientSession.cookie.split('=')[1], url: origin }]);
+    await useActor(recipientContext, origin);
   }
   try { await withSecondPerson(state, width, async ({ bob }) => {
     const member = (await ok(bob.context, origin, 'GET', '/api/session')).member;
@@ -194,8 +186,8 @@ export async function permissionLevelsJourney(state, { extended = true, levels =
         return items.filter(item => item.target.id === pageId || item.context?.pageId === pageId);
       };
       const snapshot = async () => {
-        // The actor is idle during an inventory. Start the expensive paginated
-        // activity read first and overlap the four independent canonical reads.
+        // Enqueue every branch together, including each activity cursor page.
+        // The shared actor queue bounds dispatch across all five inventories.
         const [events, document, revisions, comments, grants] = await Promise.all([
           activity(), api(route), api(`/api/revisions/${pageId}`),
           api(commentsRoute), api(`/api/sharing/pages/${pageId}`),
@@ -446,7 +438,7 @@ export async function permissionLevelsJourney(state, { extended = true, levels =
       records.push({ level, pageId, blockId, readerGrant, final: await snapshot() });
       console.log(`PROBE SHARE-002 ${level}/${section}: ${extended ? 'native operation inventories, replays and revoked captures' : 'selected reads, title, body, comment and direct grants'}; ${refusals.filter(item => item.level === level).length} refused requests preserve inventories at ${width}px`);
     }
-  }); } finally { await recipientContext?.close(); }
+  }); } finally { restoreBudget(); await recipientContext?.close(); }
   const directory = path.join(root, '.artifacts/ui-convergence/permission-levels', String(width));
   await mkdir(directory, { recursive: true });
   await writeFile(path.join(directory, extended && levels.length === 1 ? `matrix-${levels[0]}${section === 'all' ? '' : `-${section}`}.json` : 'matrix.json'), JSON.stringify({ width, extended, section, configuration, records, refusals }, null, 2));
@@ -523,6 +515,7 @@ async function grantCorpusJourney({ page, context, origin, api, readerCookie }) 
 
   const reader = await context.browser().newContext();
   await reader.addCookies([{ name: 'slate_session', value: readerCookie.split('=')[1], url: origin }]);
+  await useActor(reader, origin);
   try {
     const before = await project();
     assert.equal((await call(reader, origin, 'GET', `/api/sharing/pages/${child}`)).status, 404);
@@ -550,8 +543,8 @@ async function grantCorpusJourney({ page, context, origin, api, readerCookie }) 
   await ok(context, origin, 'POST', '/api/sharing', { ...own[1], id: undefined, revokedAt: undefined });
   assert.ok((await project()).items.find(item => item.id === own[1].id).revokedAt, 'A replay cannot restore a revoked grant.');
   await inspect(own, [], 'revoked and expired direct grants remain inactive after replay');
-  const denied = await context.request.get(origin + `/api/pages/${child}`, { headers: { cookie: readerCookie } });
-  assert.equal(denied.status(), 404);
+  const denied = await journeyApi(context, origin, 'GET', `/api/pages/${child}`, undefined, { headers: { cookie: readerCookie } });
+  assert.equal(denied.status, 404);
 
   await panel.locator('.advanced-access > summary').click();
   await panel.getByRole('button', { name: 'Restore inherited access', exact: true }).click();
@@ -565,6 +558,6 @@ async function grantCorpusJourney({ page, context, origin, api, readerCookie }) 
   await mutate('/api/sharing', { ...general, revokedAt: undefined, revoke: true });
   containerRows.find(item => item.id === general.id).revokedAt = (await project()).inheritedItems.find(item => item.id === general.id).revokedAt;
   await inspect(own, [...ancestor, ...containerRows]);
-  const revoked = await context.request.get(origin + `/api/pages/${child}`, { headers: { cookie: readerCookie } });
-  assert.equal(revoked.status(), 404, 'Revoked and expired inherited grants disclose no page.');
+  const revoked = await journeyApi(context, origin, 'GET', `/api/pages/${child}`, undefined, { headers: { cookie: readerCookie } });
+  assert.equal(revoked.status, 404, 'Revoked and expired inherited grants disclose no page.');
 }
