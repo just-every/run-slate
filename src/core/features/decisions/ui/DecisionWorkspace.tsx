@@ -23,7 +23,7 @@ export function DecisionWorkspace({id}:{id?:string}) {
  <a href={`/app/pages/${selected.data.page_id}`}>Open underlying page</a>
  {selected.data.acceptedRevisionHref?<a href={selected.data.acceptedRevisionHref}>Open accepted revision</a>:null}
  <DecisionCard decision={selected.data} siblings={resource.data?.items??[]} readOnly={!!revision||!!selected.data.removed_at} reload={selected.reload}/>
- {!revision&&!selected.data.removed_at?<button onClick={()=>setRemove(true)}>Remove decision layer</button>:null}
+ {!revision&&!selected.data.removed_at&&selected.data.permissions.canEdit?<button onClick={()=>setRemove(true)}>Remove decision layer</button>:null}
  <DecisionHistory revision={selected.data.revision_id} id={id}/>
  {remove?<ActionDialog title="Remove decision layer?" action="Remove decision" onClose={()=>setRemove(false)} onSubmit={async()=>{await mutate(`/api/decisions/${id}/remove`,{operationKey:operationKey(),expectedRevisionId:selected.data!.revision_id});selected.reload();resource.reload();}}><p>The underlying page stays intact. The decision leaves active lists; its revisions and reviews remain available here.</p></ActionDialog>:null}
  </>:null}</RequestState></>:<>

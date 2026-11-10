@@ -106,8 +106,8 @@ export async function shareJourney(state, pageId) {
 export async function permissionLevelsJourney(state, { extended = true, levels = ['full', 'edit', 'comment', 'view'], section = 'all' } = {}) {
   const { context, origin, api } = state, width = state.page.viewportSize().width;
   // The owner uses authenticated API probes throughout this matrix. Unmount
-  // their unrelated first page so its collaboration polling consumes no reads.
-  if (extended) await state.page.goto('about:blank');
+  // their unrelated page in both matrices so invalidation fan-outs consume no reads.
+  await state.page.goto('about:blank');
   const restoreBudget = extended ? await idleActorBudget(context, origin) : () => {};
   // All probes, including snapshots and call()/ok(), share journey-api's
   // per-actor dispatch queue; no inventory-specific transport or timer.

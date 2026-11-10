@@ -5,6 +5,45 @@ import { request } from '@playwright/test';
 import { requestTimeline } from './request-timeline.mjs';
 
 const actors = new Map(), queues = new Map();
+const labels = new Map(), measuredContexts = new WeakSet(), measurements = new Map(), transportedBrowsers = new WeakSet();
+
+function countRequest(origin, ip, source, method, url) {
+  if (!new URL(url, origin).pathname.startsWith('/api/')) return;
+  const key = origin + '\n' + ip;
+  if (!measurements.has(key)) measurements.set(key, { times: [], peak: 0, total: 0, sources: {}, paths: {} });
+  const row = measurements.get(key), now = performance.now();
+  while (row.times.length && row.times[0] <= now - 60000) row.times.shift();
+  row.times.push(now);
+  if (row.times.length > row.peak) { row.peak = row.times.length; row.peakAtMs = Math.round(now); }
+  row.total++;
+  row.sources[source] = (row.sources[source] ?? 0) + 1;
+  const route = method + ' ' + new URL(url, origin).pathname;
+  row.paths[route] = (row.paths[route] ?? 0) + 1;
+}
+
+/** A routed browser is counted at actual api() dispatch, never twice at issuance. */
+export function browserUsesApiTransport(context, enabled) {
+  if (enabled) transportedBrowsers.add(context);
+  else transportedBrowsers.delete(context);
+}
+
+/** Count an existing page-level route that dispatches outside a context's JSON transport. */
+export async function countUnroutedBrowserRequest(context, origin, request) {
+  if (transportedBrowsers.has(context)) countRequest(origin,
+    request.headers()['cf-connecting-ip'] ?? await actor(context, origin), 'browser', request.method(), request.url());
+}
+
+/** Count legacy binary probes without changing their byte-preserving transport. */
+export async function countBinaryProbe(context, origin, method, route) {
+  countRequest(origin, await actor(context, origin), 'probe', method, origin + route);
+}
+
+/** Aggregate all contexts sharing an actor, including native page fan-outs. */
+export function actorRequestPeaks(origin) {
+  return [...measurements].filter(([key]) => key.startsWith(origin + '\n')).map(([key, row]) => ({
+    actor: labels.get(key) ?? 'unregistered', peak: row.peak, peakAtMs: row.peakAtMs, total: row.total, sources: row.sources, paths: row.paths,
+  }));
+}
 
 function queueFor(origin, ip) {
   const key = origin + '\n' + ip;
@@ -15,6 +54,7 @@ function queueFor(origin, ip) {
 /** Keep one person's native session on one synthetic documentation address. */
 export function registerActor(origin, cookie, memberId) {
   actors.set(origin + '\n' + cookie.split('=')[1], address(memberId));
+  labels.set(origin + '\n' + address(memberId), memberId);
 }
 
 function address(identity) {
@@ -34,6 +74,14 @@ async function actor(context, origin, headers = {}) {
 export async function useActor(context, origin) {
   const ip = await actor(context, origin);
   await context.setExtraHTTPHeaders({ 'cf-connecting-ip': ip });
+  if (!measuredContexts.has(context)) {
+    measuredContexts.add(context);
+    context.on('request', request => {
+      if (transportedBrowsers.has(context) || new URL(request.url()).origin !== origin) return;
+      // Read the request's actual actor header; a context can switch identities.
+      countRequest(origin, request.headers()['cf-connecting-ip'] ?? ip, 'browser', request.method(), request.url());
+    });
+  }
 }
 
 /** The extended matrix unmounts its owner; retain 100 requests of headroom even then. */
@@ -62,6 +110,7 @@ export async function api(context, origin, method, route, data, options = {}) {
     // local proxy. Retain real cookies and dispose it after this one request.
     const transport = await request.newContext({ storageState: await context.storageState() });
     await queue.budget.reserve();
+    countRequest(origin, ip, 'probe', method, origin + route);
     const timeline = requestTimeline(context), observation = timeline.start(method, origin + route);
     try {
       const response = await transport.fetch(origin + route, {
