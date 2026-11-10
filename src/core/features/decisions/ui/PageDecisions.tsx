@@ -17,6 +17,7 @@ export interface Decision {
   owner_member_id: string;
   state: string;
   removed_at?:string|null;
+  permissions: {canEdit:boolean};
   acceptedRevisionId?:string|null;
   acceptedRevisionHref?:string|null;
   revision_id: string;
@@ -92,6 +93,8 @@ export function DecisionCard({
   currentRevisionId?: string;
 }) {
   const flagship = useFlagshipEnabled();
+  const canEdit = !readOnly && decision.permissions.canEdit;
+  const members = useResource<{items:{id:string;displayName:string}[]}>('/api/members');
   const [pending, setPending] = useState(false),
     [error, setError] = useState<unknown>(),
     [supersedes, setSupersedes] = useState(
@@ -138,6 +141,11 @@ export function DecisionCard({
           accepting a new decision.
         </p>
       ) : null}
+      <dl aria-label="Decision details">
+        <dt>Owner</dt><dd>{members.data?.items.find(member=>member.id===decision.owner_member_id)?.displayName??'Former member'}</dd>
+        <dt>Decided date</dt><dd>{decision.decided_at?.slice(0,10)??'Not set'}</dd>
+        <dt>Next review</dt><dd>{decision.review_at?.slice(0,10)??'Not set'}</dd>
+      </dl>
       <details>
         <summary>Options & supporting sources</summary>
         <ul>
@@ -175,10 +183,10 @@ export function DecisionCard({
               />
             ))
         : null}
-      {!readOnly && decision.state === "proposed" ? (
+      {canEdit && decision.state === "proposed" ? (
         <DecisionProposal decision={decision} reload={reload} />
       ) : null}
-      {!readOnly && decision.state === "proposed" && decision.outcome ? (
+      {canEdit && decision.state === "proposed" && decision.outcome ? (
         <form
           className="detail-form"
           onSubmit={(event) => {
@@ -216,10 +224,10 @@ export function DecisionCard({
           </button>
         </form>
       ) : null}
-      {!readOnly && decision.state === "accepted" ? (
+      {canEdit && decision.state === "accepted" ? (
         <PrepareSuccessor id={decision.id} />
       ) : null}
-      {!readOnly && decision.state === "accepted" ? (
+      {canEdit && decision.state === "accepted" ? (
         <details>
           <summary>Record a review</summary>
           <form
