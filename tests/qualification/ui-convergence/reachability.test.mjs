@@ -1,3 +1,4 @@
+import './journey-api.test.mjs';
 import assert from 'node:assert/strict';
 import { mkdtemp, mkdir, writeFile, rm } from 'node:fs/promises';
 import path from 'node:path';
