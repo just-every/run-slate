@@ -102,7 +102,7 @@ export async function shareJourney(state, pageId) {
 }
 
 /** Independent published pages keep level semantics separate from grant narrowing. */
-export async function permissionLevelsJourney(state, { extended = true, levels = ['full', 'edit', 'comment', 'view'] } = {}) {
+export async function permissionLevelsJourney(state, { extended = true, levels = ['full', 'edit', 'comment', 'view'], section = 'all' } = {}) {
   const { context, origin } = state, width = state.page.viewportSize().width;
   // The owner uses authenticated API probes throughout this matrix. Unmount
   // their unrelated first page so its collaboration polling consumes no reads.
@@ -111,11 +111,12 @@ export async function permissionLevelsJourney(state, { extended = true, levels =
   // Pace those reads while retaining real production limits and every assertion.
   let nextRead = 0;
   const api = async (...args) => {
-    // Reserve the existing paced slot before awaiting it, including parallel
-    // inventory reads. At most 572 diagnostic reads/minute leave room under
-    // the unchanged 600-request production limit; the owner view is idle.
+    // Reserve before awaiting, including all five parallel snapshot branches.
+    // The responsive matrix leaves its owner view open: 480 diagnostic
+    // reads/minute leave 120 requests for native browser activity. Retain
+    // the extended matrix's existing 572/minute bound with its owner idle.
     const slot = Math.max(nextRead, Date.now());
-    nextRead = slot + (extended ? 105 : 0);
+    nextRead = slot + (extended ? 105 : 125);
     const delay = slot - Date.now();
     if (delay > 0) await new Promise(resolve => setTimeout(resolve, delay));
     return state.api(...args);
@@ -311,9 +312,9 @@ export async function permissionLevelsJourney(state, { extended = true, levels =
         await refuse('PATCH', `${route}/blocks/${blockId}`, { operationKey: randomUUID(), expectedRevisionId: current.blocks.find(block => block.id === blockId).revisionId, content: { text: [{ text: 'Refused member body' }] } });
       }
       await accessible(view, `${level} member page after reload`);
-      if (extended) await phase('page edits', () => permissionPageEditsMatrix({ state, bob, api, level, pageId, blockId, recipientId: recipient.id, snapshot, refuse, records }));
+      if (extended && section !== 'discussion') await phase('page edits', () => permissionPageEditsMatrix({ state, bob, api, level, pageId, blockId, recipientId: recipient.id, snapshot, refuse, records }));
 
-      if (extended) {
+      if (extended && section !== 'discussion') {
         await phase('lifecycle', () => permissionLifecycleMatrix({ state, bob, api, level, pageId, snapshot, refuse, records }));
         await phase('archive', () => permissionArchiveMatrix({ state, bob, api, level, pageId, snapshot, records, refusals }));
         const unrelated = await snapshot();
@@ -321,6 +322,7 @@ export async function permissionLevelsJourney(state, { extended = true, levels =
         assert.deepEqual(await snapshot(), unrelated, 'Erasing or retaining a separately granted page never changes the other page.');
         await view.goto(`${origin}/app/pages/${pageId}`, { waitUntil: 'networkidle' });
       }
+      if (section !== 'page') {
       await view.getByRole('button', { name: 'Comments', exact: true }).click();
       await expect(view.locator(`#comment-${ownerComment}`)).toContainText(`Owner context for ${level}.`);
       const composer = view.getByRole('textbox', { name: 'Comment text', exact: true });
@@ -416,6 +418,7 @@ export async function permissionLevelsJourney(state, { extended = true, levels =
         if (extended) await refuse('POST', '/api/sharing', { ...input, id: readerGrant, level, revoke: true, operationKey: randomUUID() });
       }
       await accessible(view, `${level} member sharing after reload`);
+      }
       if (extended) {
       const captures = records.filter(item => item.level === level && item.method);
       const retained = await snapshot();
@@ -441,12 +444,12 @@ export async function permissionLevelsJourney(state, { extended = true, levels =
       await accessible(view, `${level} revoked member cannot recover prior content`);
       }
       records.push({ level, pageId, blockId, readerGrant, final: await snapshot() });
-      console.log(`PROBE SHARE-002 ${level}: ${extended ? 'page edits, ownership, locks, metadata reads, discussion, reactions, grants and revoked captures' : 'selected reads, title, body, comment and direct grants'}; ${refusals.filter(item => item.level === level).length} refused requests preserve inventories at ${width}px`);
+      console.log(`PROBE SHARE-002 ${level}/${section}: ${extended ? 'native operation inventories, replays and revoked captures' : 'selected reads, title, body, comment and direct grants'}; ${refusals.filter(item => item.level === level).length} refused requests preserve inventories at ${width}px`);
     }
   }); } finally { await recipientContext?.close(); }
   const directory = path.join(root, '.artifacts/ui-convergence/permission-levels', String(width));
   await mkdir(directory, { recursive: true });
-  await writeFile(path.join(directory, extended && levels.length === 1 ? `matrix-${levels[0]}.json` : 'matrix.json'), JSON.stringify({ width, extended, configuration, records, refusals }, null, 2));
+  await writeFile(path.join(directory, extended && levels.length === 1 ? `matrix-${levels[0]}${section === 'all' ? '' : `-${section}`}.json` : 'matrix.json'), JSON.stringify({ width, extended, section, configuration, records, refusals }, null, 2));
 }
 
 /** Native grants, rather than seeded ACL rows, drive the loaded Share panel. */

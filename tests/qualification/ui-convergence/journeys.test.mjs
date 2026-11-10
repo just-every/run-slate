@@ -184,18 +184,20 @@ for (const width of [1440]) {
   });
 }
 
-// Each independently granted level keeps every native assertion in its own
-// installation. The original sharing journey and these cases all retain the
-// existing 240-second deadline; no earlier traffic consumes their request window.
-for (const level of ['full', 'edit', 'comment', 'view']) {
-  test(`native ordinary page ${level} authority retains inventories and refuses revoked captures at 1440px`, { timeout: 240000 }, async t => {
+// The full matrix took 237.18s on hosted Ubuntu before runner variation pushed
+// it past 240s. Split its independent operation families into fresh installations;
+// both retain complete inventories, every replay and final revoked-capture check.
+// The original sharing journey and every case retain the 240-second deadline.
+for (const [level, section] of [['full', 'page'], ['full', 'discussion'], ['edit', 'all'], ['comment', 'all'], ['view', 'all']]) {
+  const operations = section === 'all' ? '' : section === 'page' ? ' for page changes' : ' for discussion and sharing';
+  test(`native ordinary page ${level} authority retains inventories and refuses revoked captures${operations} at 1440px`, { timeout: 240000 }, async t => {
     await withWorkspace({ width: 1440, height: 1000 }, 'core-wiki', async state => {
       const setup = performance.now();
       await setupWorkspace(state);
-      t.diagnostic(`Sharing ${level} setup: ${Math.round(performance.now() - setup)} ms`);
+      t.diagnostic(`Sharing ${level}/${section} setup: ${Math.round(performance.now() - setup)} ms`);
       const matrix = performance.now();
-      try { await permissionLevelsJourney(state, { levels: [level] }); }
-      finally { t.diagnostic(`Sharing ${level} matrix: ${Math.round(performance.now() - matrix)} ms`); }
+      try { await permissionLevelsJourney(state, { levels: [level], section }); }
+      finally { t.diagnostic(`Sharing ${level}/${section} matrix: ${Math.round(performance.now() - matrix)} ms`); }
     });
   });
 }
