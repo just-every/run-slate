@@ -78,6 +78,13 @@ export async function resolveReferences(
   }
   const records: ReferenceLabel[] = [];
   for (const id of new Set(input.pageIds ?? [])) {
+    const record = await ctx.db
+      .prepare(
+        "SELECT r.page_id FROM database_records r JOIN databases d ON d.id=r.database_id WHERE r.page_id=? AND d.workspace_id=?",
+      )
+      .bind(id, ctx.actor.workspaceId)
+      .first();
+    if (!record) continue;
     try {
       const p = await readPage(ctx, id);
       records.push({ id, label: p.page.title, kind: "record" });
