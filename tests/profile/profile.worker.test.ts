@@ -1,4 +1,6 @@
 import {automationJourney} from './automation-journey';
+import {mediaBlocksJourney} from './media-blocks-journey';
+import {decisionEditJourney} from './decision-edit-journey';
 import {decisionLogJourney} from './decision-log-journey';
 import {pageLockJourney} from './page-lock-journey';
 import {bodyBlocksJourney} from './body-blocks-journey';
@@ -85,6 +87,10 @@ it("FLAG-001 — core wiki public doors retain native content while flagship rou
   await bodyBlocksJourney(api,containerId,cookie);
   await pageLockJourney(api,containerId,workspaceId,cookie);
 } },
+    { name: 'DEC-006 — native proposal edits retain snapshots and refuse unchanged, stale, view-only and accepted writes', run: async () => {
+      const {containerId,workspaceId,memberId,cookie} = await workspace();
+      await decisionEditJourney(createApi(),containerId,workspaceId,memberId,cookie);
+    } },
     { name: 'DEC-003 — accepted snapshots survive source edits and owner-authorized supersession in core wiki', run: async () => {
   const {cookie,containerId,memberId,workspaceId}=await workspace(), api=createApi();
   const {memberId:editorId}=await seedMember(workspaceId,{role:'member',displayName:'Citation editor',email:['synthetic-slate-editor','test.invalid'].join('@')});
@@ -167,6 +173,10 @@ it("FLAG-001 — core wiki public doors retain native content while flagship rou
     { name: 'AUTO-001 — native rules execute committed page and record events and scheduled related actions in the default profile', run: async () => {
       const {workspaceId,containerId,cookie} = await workspace();
       Object.assign(task.meta,{automationReceipt:await automationJourney(createApi(),containerId,workspaceId,cookie)});
+    } },
+    { name: 'BLOCK-008 — native media disposition matrix preserves declared types, sanitized bytes and page authority', run: async () => {
+      const {workspaceId,cookie}=await workspace();
+      await mediaBlocksJourney(createApi(),workspaceId,cookie);
     } },
     { name: 'FLAG-001 — old queued flagship work records failure and retries without dispatch or acknowledgement', run: async () => {
   for(const kind of ['intelligence.run','intelligence.finalize','federation.refresh']) {

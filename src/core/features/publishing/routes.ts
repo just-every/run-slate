@@ -17,6 +17,7 @@ import { publicDocumentHeaders, renderUnavailablePublicDocument } from './docume
 import { ApiProblem } from '../../app/problems';
 import { requirePageLevel } from '../sharing/current-access';
 import { mediaResponse } from '../media/service';
+import { snapshotDisplayAllowed } from '../media/references';
 async function authorizePublic(c: import('hono').Context<AppEnvironment>, p: Record<string, any>) {
     if (c.env.RER_DEMO === '1' && !c.get('member'))
         throw new ApiProblem(404, 'NOT_FOUND', 'This link is no longer available.');
@@ -54,7 +55,7 @@ export function createPublicPagesRoutes() {
         const blocks = JSON.parse(p.body_json), props = JSON.parse(p.properties_json);
         if (!(props.coverFileId === f.id || props.icon === `file:${f.id}` || blocks.some((b: any) => b.blockType === 'media' && (b.content.source?.fileId === f.id || b.content.source?.url === `/api/media/${f.id}`))))
             throw new ApiProblem(404, 'NOT_FOUND', 'Not found.');
-        const display = c.req.query('display'), inline = !!display && blocks.some((b: any) => b.id === display && b.blockType === 'media' && b.content.kind !== 'file' && (b.content.source?.fileId === f.id || b.content.source?.url === `/api/media/${f.id}`));
+        const inline = snapshotDisplayAllowed(props, blocks, f.id, f.content_type, c.req.query('display'));
         return mediaResponse(c.env.FILES, f, inline);
     }).get('/*', async (c) => { try { const p = await publicPage(c.env.DB, new URL(c.req.url).host, decodeURIComponent(new URL(c.req.url).pathname.slice(3)),c.req.query('revision')); await authorizePublic(c, p); if (!c.get('member'))
         await publicViewStatement(c.env.DB, { viewId: createUlid(), pageId: p.page_id, host: new URL(c.req.url).host, slug: p.slug, now: new Date().toISOString() }).run(); p.body_json=JSON.stringify(await projectPublicSynced(c.env.DB,p,JSON.parse(p.body_json))); const { links, titles } = await publicTargets(c.env.DB, p), shown = await publicHeader(c.env.DB, await publicQueries(c.env.DB, p), c.req.query('q')??'');
