@@ -1,3 +1,4 @@
+import { useActor } from './journey-api.mjs';
 import assert from 'node:assert/strict';
 import { expect } from '@playwright/test';
 import { accessible } from './browser-evidence.mjs';
@@ -37,6 +38,8 @@ export async function publicPageJourney(state, sourcePageId) {
   const anonymous = await context.browser().newContext({ viewport: page.viewportSize() });
   const reader = await context.browser().newContext();
   await reader.addCookies([{ name: 'slate_session', value: state.readerCookie.split('=')[1], url: origin }]);
+  await useActor(anonymous, origin);
+  await useActor(reader, origin);
   const publicPage = await anonymous.newPage();
   try {
     const openSettings = async (initial = false) => {
