@@ -1,7 +1,6 @@
 import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
 import { expect } from '@playwright/test';
-import { recordDetailJourney } from './record-detail-journey.mjs';
 
 /** Identity comes from the shared harness; all database setup and assertions use real public routes. */
 export async function databaseJourney(state) {
@@ -84,5 +83,4 @@ export async function databaseJourney(state) {
   const csv = Buffer.concat(chunks).toString('utf8');
   assert.equal(csv, '"Name","Notes"\r\n"Selected, ""quoted"" record","Fresh, ""quoted""\nsecond line"\r\n');
   assert.equal((await api(base + '/records/' + record.pageId)).values[keep.id], note);
-  await recordDetailJourney(state, page.viewportSize().width);
 }

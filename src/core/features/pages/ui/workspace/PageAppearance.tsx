@@ -15,7 +15,7 @@ export const galleries: Record<string, string> = {
 export function StoredIcon({ icon }: { icon: unknown }) {
   if (typeof icon !== "string" || !icon) return null;
   return icon.startsWith("file:") ? (
-    <img className="stored-page-icon" src={`/api/media/${encodeURIComponent(icon.slice(5))}?display=inline`} alt="Page icon" />
+    <img className="stored-page-icon" src={`/api/media/${encodeURIComponent(icon.slice(5))}?display=icon`} alt="Page icon" />
   ) : (
     <span className="stored-page-icon" aria-hidden="true">
       {icon}
@@ -31,7 +31,7 @@ export function PageAppearance({ document }: { document: DocumentView }) {
   return (
     <div className="page-appearance">
       {props?.coverFileId ? (
-        <img className="page-cover-image" src={`/api/media/${encodeURIComponent(props.coverFileId)}?display=inline`} alt="Page cover" />
+        <img className="page-cover-image" src={`/api/media/${encodeURIComponent(props.coverFileId)}?display=cover`} alt="Page cover" />
       ) : cover?.kind === "gallery" ? (
         <div className="page-cover-image" role="img" aria-label={`${cover.id} gallery cover`} style={{ background: galleries[cover.id] }} />
       ) : cover?.kind === "link" ? (
