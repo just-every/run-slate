@@ -32,7 +32,7 @@ export async function mediaBlocksJourney(api:ReturnType<typeof createApi>, works
   for(const [kind,type,bytes] of types) {
     const response=await upload(`synthetic-slate-${kind}`,type,bytes);
     expect(response.status,await response.clone().text()).toBe(200);
-    files.push({...((await response.json<any>()).value),kind,bytes,blockId:crypto.randomUUID()});
+    files.push({...((await response.json<any>()).value),kind,bytes,declaredType:type,blockId:crypto.randomUUID()});
   }
   const hiddenResponse=await upload('synthetic-slate-hidden','text/plain','synthetic-slate-hidden');
   expect(hiddenResponse.status).toBe(200);
@@ -68,12 +68,12 @@ export async function mediaBlocksJourney(api:ReturnType<typeof createApi>, works
         const response=await request(path,'GET',undefined,session);
         const inline=(display===f.blockId&&f.kind!=='file') || ((display==='icon'||display==='cover')&&f.kind==='image');
         const headers={status:response.status,type:response.headers.get('content-type'),disposition:response.headers.get('content-disposition'),nosniff:response.headers.get('x-content-type-options')};
-        expect(headers.status,path).toBe(200);expect(headers.type,path).toBe(f.contentType);
+        expect(headers.status,path).toBe(200);expect(headers.type,path).toBe(f.declaredType);
         expect(headers.disposition,path).toMatch(inline?/^inline;/:/^attachment;/);expect(headers.nosniff,path).toBe('nosniff');
         const bytes=new TextDecoder().decode(await response.arrayBuffer());
         if(f.kind==='image') {sanitizedSvg=bytes;expect(bytes).toContain('<rect');expect(bytes).toContain('href="#safe"');expect(bytes).not.toMatch(/<script|onload|onclick|outside\.invalid|<!ENTITY|<!DOCTYPE/);}
         else expect(bytes).toBe(f.bytes);
-        matrix.push({audience,kind:f.kind,display:display??'none',...headers});
+        matrix.push({audience,kind:f.kind,display:display??'none',declaredType:f.declaredType,...headers});
       }
     }
   }

@@ -34,7 +34,7 @@ test("FLAG-001 — core wiki defaults, route boundaries and controls require exp
   assert.match(flagship,/Ask AI/);assert.match(flagship,/Comment/);
 } },
     { name: 'FLAG-001 — manual decisions retain review and replacement controls while impact rehearsal is disabled', run: ()=>{
-  const decision:Decision={id:'decision',page_id:'page',question:'Question',outcome:'Outcome',rationale:'Reason',owner_member_id:'owner',state:'accepted',revision_id:'revision',review_at:null,decided_at:null,overdue:false,citationsCurrent:true,superseded_by_decision_id:null,content:{options:['Option'],citations:[{kind:'page',sourceId:'page',revisionId:'prior'}]}};
+  const decision:Decision={permissions:{canEdit:true},id:'decision',page_id:'page',question:'Question',outcome:'Outcome',rationale:'Reason',owner_member_id:'owner',state:'accepted',revision_id:'revision',review_at:null,decided_at:null,overdue:false,citationsCurrent:true,superseded_by_decision_id:null,content:{options:['Option'],citations:[{kind:'page',sourceId:'page',revisionId:'prior'}]}};
   const card=<DecisionCard decision={decision} siblings={[]} reload={()=>{}} currentRevisionId="current"/>;
   const core=renderToStaticMarkup(card);
   assert.match(core,/Record a review/);assert.match(core,/Prepare a replacement decision/);assert.doesNotMatch(core,/Rehearse the impact/);
