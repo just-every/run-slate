@@ -50,7 +50,6 @@ export function DecisionProposal({
         <label>
           Decision
           <textarea
-            required
             value={outcome}
             onChange={(event) => setOutcome(event.target.value)}
             placeholder="Which outcome should this decision record?"
@@ -60,7 +59,6 @@ export function DecisionProposal({
         <label>
           Why this choice?
           <textarea
-            required
             value={rationale}
             onChange={(event) => setRationale(event.target.value)}
           />

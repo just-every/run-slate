@@ -1,4 +1,4 @@
-import { api as journeyApi, registerActor, useActor } from './journey-api.mjs';
+import { api as journeyApi, registerActor, useActor, actorRequestPeaks } from './journey-api.mjs';
 import {transferControl} from '../../helpers/transfer-storage-gate.mjs';
 import {initializeEmbedEdge,readEmbedRequests} from '../../helpers/embed-edge.mjs';
 import { initializeWebhookEdge, setWebhookFailure } from '../../helpers/webhook-edge.mjs';
@@ -213,11 +213,12 @@ export async function withWorkspace(viewport, profile, run, overrides = {}, { sc
       await writeFile(path.join(scratchRoot, `${profile}-${viewport.width}-network.json`), JSON.stringify({
         fixture: 'Identity-only D1 records and native development outbox sessions; no spaces, pages, invitations or application responses are seeded.',
         artifact, viewport, profile, network, consoleErrors, modelRequests,
+        requestBudget: { windowMs: 60000, nativeLimit: 600, marginCeiling: 500, actors: runtime ? actorRequestPeaks(runtime.baseUrl) : [] },
       }, null, 2));
     } finally {
       try { await browser?.close(); }
       finally {
-        try { if (runtime) await stop(runtime.child); }
+        try { if (runtime) { console.log('ACTOR REQUEST PEAKS', JSON.stringify({width: viewport.width, actors: actorRequestPeaks(runtime.baseUrl)})); await stop(runtime.child); } }
         finally { await closeSamlIdp(state); await rm(state, { recursive: true, force: true }); }
       }
     }

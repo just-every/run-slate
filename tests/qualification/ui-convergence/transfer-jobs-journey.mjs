@@ -1,3 +1,4 @@
+import {countBinaryProbe} from './journey-api.mjs';
 import assert from 'node:assert/strict';
 import {mkdir,mkdtemp,readFile,rm,writeFile} from 'node:fs/promises';
 import {createHash,randomUUID} from 'node:crypto';
@@ -236,6 +237,7 @@ async function shown(state, job, expected) {
     const replay=await call(state.context,state.origin,'POST',jobPath(job.id)+'/run',{});
     assert.equal(replay.status,200);
     assert.deepEqual(replay.body,stored,'Replaying a failed job cannot turn it into a completion.');
+    await countBinaryProbe(state.context, state.origin, 'GET', `/api/exports/${job.id}/download`);
     const download=await state.context.request.get(state.origin+`/api/exports/${job.id}/download`);
     assert.notEqual(download.status(),200,'A failed transfer cannot be downloaded by guessing its path.');
   }
