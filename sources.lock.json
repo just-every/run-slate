@@ -5060,7 +5060,7 @@
       "executable": false
     },
     "scripts/operations-config.mjs": {
-      "sha256": "268363183b7eaaae2ac3400b0c55a8dfbb9b91873e3c206d97c27edc3161d9b7",
+      "sha256": "a5e37bf994919790fac7feb4b12c854193f2a6e6d99aee8e6852c18f2d5975ef",
       "executable": false
     },
     "scripts/publish-check.mjs": {
@@ -12540,7 +12540,7 @@
       "executable": false
     },
     "tests/typegen-operations.test.mjs": {
-      "sha256": "cefeb46abec620174142c680f6c38b5c138d8746328a671cf2ddbe53ab4d7e21",
+      "sha256": "1b1d1b2b658fb227da4f149ce35f8ff0cb11fbe0b9860f2a2e48a83a263558d0",
       "executable": false
     },
     "tests/typegen.test.mjs": {

@@ -1,21 +1,8 @@
 import { fileURLToPath } from 'node:url';
 import { checkOperationCommands } from './check-operation-commands.mjs';
 
-// Validate declared deploy-kit inputs locally; never contact providers or print values.
-export function validateConfiguration(env) {
+// Local configuration only (rer doctor runs this on a developer's computer): every declared operation names a package
+// command that exists. Deployment inputs are rer deploy's to check; a local checkout has none of them.
+export function validateConfiguration() {
   checkOperationCommands(fileURLToPath(new URL('../', import.meta.url)));
-  const required = ['CLOUDFLARE_ACCOUNT_ID', 'CLOUDFLARE_API_TOKEN', 'SLATE_SETUP_OWNER_EMAIL', 'SLATE_MAIL_PROVIDER', 'SLATE_MAIL_FROM', 'SLATE_SESSION_SECRET', 'SLATE_MAIL_API_KEY'];
-  const missing = required.filter(name => !env[name]?.trim());
-  if (missing.length) throw new Error(`Missing deployment inputs: ${missing.join(', ')}.`);
-  if (!/^[a-f0-9]{32}$/i.test(env.CLOUDFLARE_ACCOUNT_ID)) throw new Error('Invalid CLOUDFLARE_ACCOUNT_ID.');
-  if (!['rer', 'resend', 'sendgrid'].includes(env.SLATE_MAIL_PROVIDER)) throw new Error('Invalid SLATE_MAIL_PROVIDER.');
-  if (env.SLATE_MAIL_PROVIDER === 'rer') {
-    let relay;
-    try { relay = new URL(env.SLATE_MAIL_RELAY_URL); } catch { throw new Error('RER mail requires a valid SLATE_MAIL_RELAY_URL.'); }
-    if (relay.protocol !== 'https:' || relay.username || relay.password || relay.search || relay.hash) throw new Error('SLATE_MAIL_RELAY_URL must be an HTTPS URL without credentials, query or fragment.');
-  }
-  for (const name of ['SLATE_SETUP_OWNER_EMAIL', 'SLATE_MAIL_FROM']) {
-    if (!/^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+$/.test(env[name])) throw new Error(`Invalid ${name}.`);
-  }
-  if (env.SLATE_SESSION_SECRET.trim().length < 32) throw new Error('Invalid SLATE_SESSION_SECRET.');
 }
