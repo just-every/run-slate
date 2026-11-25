@@ -73,7 +73,7 @@ export interface RuntimeConfig {
   setupOwnerEmail?: string;
   /** One-time token for POST /auth/bootstrap; present only until the deployment claims its owner. */
   setupToken?: string;
-  mailProvider?: "rer" | "resend" | "sendgrid" | "development";
+  mailProvider?: "rer" | "resend" | "sendgrid" | "development" | "none";
   /** The app's name in every mail: sender name and subject (APP_NAME, else the owner's configured name, Slate). */
   appName: string;
   mailFrom?: string;
@@ -137,7 +137,8 @@ function readAppName(env: RuntimeBindings): string {
 }
 
 function missingDeploymentVariables(env: RuntimeBindings): string[] {
-  return requiredDeploymentVariables.filter((name) => !(name === "MAIL_API_KEY" && env.MAIL_PROVIDER === "development") && !env[name]?.trim());
+  // Development mail needs no key; mail off (MAIL_PROVIDER=none) needs neither a sender nor a key.
+  return requiredDeploymentVariables.filter((name) => !(name === "MAIL_API_KEY" && env.MAIL_PROVIDER === "development") && !(env.MAIL_PROVIDER === "none" && (name === "MAIL_API_KEY" || name === "MAIL_FROM")) && !env[name]?.trim());
 }
 
 function readBoolean(env: RuntimeBindings, name: "AI_ENABLED" | "LINK_PREVIEWS_ENABLED" | "SSO_ENABLED", defaultValue: boolean): boolean {
@@ -187,7 +188,7 @@ export function readRuntimeConfig(env: RuntimeBindings, isLoopback: boolean): Ru
   const missing = missingDeploymentVariables(env);
   if (missing.length) throw new RuntimeConfigurationError(`Missing required configuration: ${missing.join(", ")}.`);
   const mailProvider = env.MAIL_PROVIDER!.trim();
-  if (!["rer", "resend", "sendgrid", "development"].includes(mailProvider)) throw new RuntimeConfigurationError("MAIL_PROVIDER must be rer, resend, sendgrid or development.");
+  if (!["rer", "resend", "sendgrid", "development", "none"].includes(mailProvider)) throw new RuntimeConfigurationError("MAIL_PROVIDER must be rer, resend, sendgrid, development or none.");
   if (mailProvider === 'rer') {
     const relay = requireHttpUrl(env.MAIL_RELAY_URL ?? '', 'MAIL_RELAY_URL');
     if (relay.protocol !== 'https:' || relay.username || relay.password || relay.search || relay.hash || relay.href !== env.MAIL_RELAY_URL) throw new RuntimeConfigurationError('MAIL_RELAY_URL must be an exact HTTPS URL without credentials, query or fragment.');

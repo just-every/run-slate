@@ -106,5 +106,31 @@ try {
 }}
   ,
 {name:"POST /auth/bootstrap claims the setup owner once with the setup token and keeps it afterwards",before:async()=>{await resetDeployment();},run:ownerBootstrapCase}
+  ,
+{name:"a mail-off deployment (MAIL_PROVIDER=none) has no mail, and its owner signs in with the grant rer signin writes",before:async()=>{await resetDeployment();},run:async()=>{
+ // No sender, no key: mail off needs neither. The setup token still claims the first owner.
+ const {MAIL_FROM:_from,MAIL_API_KEY:_key,...rest}=live as unknown as Record<string,unknown>;
+ const off={...rest,MAIL_PROVIDER:'none'} as unknown as typeof env;
+ expect((await api.request(`${origin}/auth/bootstrap`,{method:'POST',headers:{'content-type':'application/json',origin},body:JSON.stringify({token:setupToken,displayName:'Owner',returnTo:'/'})},off)).status).toBe(303);
+ // The grant exactly as rer signin writes it: Base's own owner query over oa_operators and oa_bootstrap.
+ const token=base64url(crypto.getRandomValues(new Uint8Array(32))),digest=hex(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(`owner-signin\0${token}`))),now=Date.now();
+ await env.DB.prepare(`INSERT INTO oa_owner_signins(id,token_hash,operator_id,operator_version,created_at,expires_at)
+  SELECT ?,?,o.id,o.version,?,? FROM oa_operators o LEFT JOIN oa_bootstrap b ON b.claim_id=o.id WHERE o.role='owner' AND o.status='active'
+  ORDER BY b.claim_id IS NULL, o.created_at, o.id LIMIT 1`).bind(crypto.randomUUID(),digest,now,now+15*60_000).run();
+ // The production Worker honours it because mail is off; a Worker with mail on does not.
+ signInInstead(await open(token,live),'owner@slate.test');
+ expect((await open(token,off)).status).toBe(200);
+ const signedIn=await confirm(token,off);
+ expect(signedIn.status).toBe(303);expect(signedIn.headers.get('location')).toBe('/app');
+ const cookie=signedIn.headers.get('set-cookie')!.split(';',1)[0]!;
+ expect(await (await api.request(`${origin}/api/session`,{headers:{cookie}},off)).json()).toMatchObject({member:{email:'owner@slate.test',role:'owner'}});
+ // Every send is refused with mail_off: no sign-in link, and no invitation is queued.
+ expect(await (await api.request(`${origin}/api/auth/capabilities`,{},off)).json()).toMatchObject({mailDelivery:false,mailOff:true});
+ const magic=await api.request(`${origin}/api/auth/magic`,{method:'POST',headers:{origin,'content-type':'application/json'},body:JSON.stringify({email:'owner@slate.test',requestKey:crypto.randomUUID()})},off);
+ expect(magic.ok).toBe(false);
+ const invited=await api.request(`${origin}/api/invitations`,{method:'POST',headers:{origin,cookie,'content-type':'application/json'},body:JSON.stringify({operationKey:crypto.randomUUID(),email:'guest@slate.test',kind:'member'})},off);
+ expect(invited.status).toBe(503);expect(await invited.json()).toMatchObject({code:'mail_off'});
+ expect(await env.DB.prepare('SELECT count(*) n FROM mail_deliveries WHERE state!=?').bind('failed').first()).toEqual({n:0});
+}}
 ]);
 });

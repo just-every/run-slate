@@ -13,6 +13,13 @@ import { nativeSamlPolicy } from './saml/policy';
 export { OWNER_SIGNIN_PATH };
 
 /**
+ * A grant is honoured by a Managed preview, and by a deployment with mail off
+ * (MAIL_PROVIDER=none), whose owner has no emailed link: `rer signin` writes
+ * the grant with the deployment's own Cloudflare credentials.
+ */
+const grantHonoured = (env: AppBindings, config: RuntimeConfig) => isPreviewWorker(env) || config.mailProvider === 'none';
+
+/**
  * A live grant names the workspace's active owner at its current authority
  * version, is unconsumed and unexpired, and never runs longer than Base's
  * OWNER_SIGNIN_SECONDS from now whatever the writer's clock said.
@@ -44,15 +51,15 @@ async function signInInstead(db: D1Database, token: unknown): Promise<Response> 
  * RER writes one single-use grant into the preview's own database and opens
  * this path with its token. GET shows the confirmation and writes nothing; its
  * POST consumes the grant and issues the owner's native session in one batch.
- * Only a preview Worker honours a grant. A grant that cannot be used (missing,
- * used, expired, another member's, or opened on a Worker that is not a preview)
+ * Only a preview Worker or a mail-off deployment honours a grant. A grant that cannot be used (missing,
+ * used, expired, another member's, or opened on a Worker that is neither)
  * sends the person to Slate's sign-in page instead, never to an error body.
  */
 export async function previewOwnerSignIn(request: Request, env: AppBindings, config: RuntimeConfig, branding: { productName: string; accentColor: string; signInPath: string; theme: string }): Promise<Response> {
   const db = env.DB;
   if (request.method === 'GET' || request.method === 'HEAD') {
     const token = new URL(request.url).searchParams.get('token');
-    if (!isPreviewWorker(env) || !validToken(token)) return signInInstead(db, token);
+    if (!grantHonoured(env, config) || !validToken(token)) return signInInstead(db, token);
     const now = Date.now();
     const grant = await db.prepare(`SELECT g.expires_at AS expiresAt FROM oa_owner_signins g JOIN members m ON m.id=g.operator_id WHERE ${LIVE}`).bind(...await live(token, now)).first<{ expiresAt: number }>();
     if (!grant) return signInInstead(db, token);
@@ -61,7 +68,7 @@ export async function previewOwnerSignIn(request: Request, env: AppBindings, con
   requirePost(request, { origin: new URL(config.appUrl!).origin, local: config.localDevelopment });
   const token = (await request.formData()).get('token');
   const invalid = () => signInInstead(db, token);
-  if (!isPreviewWorker(env) || typeof token !== 'string' || !validToken(token)) return invalid();
+  if (!grantHonoured(env, config) || typeof token !== 'string' || !validToken(token)) return invalid();
   const now = Date.now(), args = await live(token, now);
   const owner = await db.prepare(`SELECT m.id FROM oa_owner_signins g JOIN members m ON m.id=g.operator_id WHERE ${LIVE}`).bind(...args).first<{ id: string }>();
   const store = slateSessions(db, config), person = owner && await store.member('id=?', owner.id);

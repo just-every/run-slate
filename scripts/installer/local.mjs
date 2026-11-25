@@ -29,6 +29,8 @@ export const hooks = {
 export const lifecycle = preparationLifecycle(localInstaller(hooks));
 export const commandAdapter = describeAdapter(lifecycle, {
   dev: developmentTarget, preview, verify: ['pnpm', ['run', 'verify:app']], deploy: deploy(lifecycle), portability,
+  // A deploy with MAIL_PROVIDER=none runs with mail off: the owner signs in with this command instead of an emailed link.
+  mailOffSignIn: 'rer signin',
   publicPages: ['/signin', '/docs', '/docs/install', '/docs/moving-in', '/docs/move-from-notion', '/docs/move-from-confluence', '/docs/trustworthy-handbook', '/docs/backup', '/docs/email-delivery', '/docs/cloudflare-footprint'],
   setup: { manifestFile: 'rer-setup.json' }, product: 'Slate',
   // Local-only persona sign-in; vite.config.ts loads the entry for `vite dev` alone.

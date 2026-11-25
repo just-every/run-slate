@@ -40,5 +40,7 @@ export function createMailer(options: MailerOptions): Mailer {
 
 export function identityMailer(config: RuntimeConfig, db: D1Database, from: string) {
   if (!config.mailProvider) throw new Error('MAIL_PROVIDER is required.');
+  // Mail off (MAIL_PROVIDER=none, rer's mail-off deploy): every send is refused, never routed elsewhere.
+  if (config.mailProvider === 'none') throw new MailDeliveryError('mail_off: outbound email is off for this deployment.', null, false);
   return createMailer({ provider: config.mailProvider, from, apiKey: config.mailApiKey, relayUrl: config.mailRelayUrl, db, localDevelopment: config.localDevelopment, appUrl: config.appUrl, demo: config.demo });
 }

@@ -114,12 +114,14 @@ export function SignInPage({ capabilities, requested = false, loginHint, ownerLi
         <div className="paper-body paper-body--narrow">
           <h1 className="paper-title">Your workspace is private.</h1>
           <p className="paper-lede">
-            Email sign-in is not configured for this deployment yet. Slate has not
-            sent an email.
+            {capabilities.mailOff
+              ? "Email is off for this deployment, so Slate sends no sign-in links."
+              : "Email sign-in is not configured for this deployment yet. Slate has not sent an email."}
           </p>
           <div className="paper-alert">
-            Configure Slate’s mail adapter to deliver magic links in a deployed
-            workspace.
+            {capabilities.mailOff
+              ? "The owner signs in with rer signin, run from the checkout that deployed this workspace."
+              : "Configure Slate’s mail adapter to deliver magic links in a deployed workspace."}
           </div>
 
           {capabilities.identityProviders.length ? (

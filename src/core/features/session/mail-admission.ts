@@ -8,7 +8,7 @@ export interface IdentityMailInput { workspaceId:string; email:string; kind:'sig
 export interface MailPayload { from:string; to:string; subject:string; text:string }
 export const mailScope=(workspaceId:string,id:string)=>`slate:identity-mail:${workspaceId}:${id}`;
 export const mailKey=(config:RuntimeConfig)=>sessionDigest(config.sessionSecret,'slate:identity-mail:encryption:v1');
-export function requireMailConfig(config:RuntimeConfig){if(!config.mailProvider||!config.mailFrom||(!config.mailApiKey&&!(config.mailProvider==='development'&&(config.localDevelopment||config.demo)))||(config.mailProvider==='rer'&&!config.mailRelayUrl)||!config.appUrl)throw new ApiProblem(503,'MAIL_UNAVAILABLE','APP_URL, MAIL_PROVIDER, MAIL_FROM and provider credentials must be configured; RER mail also requires MAIL_RELAY_URL.');}
+export function requireMailConfig(config:RuntimeConfig){if(config.mailProvider==='none')throw new ApiProblem(503,'mail_off','Outbound email is off for this deployment, so no invitation or sign-in link can be sent. The owner signs in with `rer signin`; turn mail on with `rer deploy --set-secret` to invite people.');if(!config.mailProvider||!config.mailFrom||(!config.mailApiKey&&!(config.mailProvider==='development'&&(config.localDevelopment||config.demo)))||(config.mailProvider==='rer'&&!config.mailRelayUrl)||!config.appUrl)throw new ApiProblem(503,'MAIL_UNAVAILABLE','APP_URL, MAIL_PROVIDER, MAIL_FROM and provider credentials must be configured; RER mail also requires MAIL_RELAY_URL.');}
 /** Returned statement MUST be committed atomically with its token and admission receipt. */
 export async function admitIdentityMail(db:D1Database,config:RuntimeConfig,input:IdentityMailInput,now:string){
  requireMailConfig(config);

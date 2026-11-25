@@ -9,6 +9,8 @@ export interface SignInIdentityProvider {
 
 export interface SignInCapabilities {
   mailDelivery: boolean;
+  /** Mail is off on purpose (MAIL_PROVIDER=none): the owner signs in with `rer signin`. */
+  mailOff?: boolean;
   identityProvider: boolean;
   identityProviders: SignInIdentityProvider[];
   /** Default route for consumers that offer a single provider shortcut. */
@@ -20,7 +22,8 @@ export function signInCapabilities(config: RuntimeConfig): SignInCapabilities {
     ? [{ name: new URL(config.identityProvider.issuer).hostname, start: '/auth/oidc/identity/start' }]
     : [];
   return {
-    mailDelivery: Boolean((config.mailApiKey || config.mailProvider === 'development') && config.mailFrom && config.appUrl),
+    mailDelivery: config.mailProvider !== 'none' && Boolean((config.mailApiKey || config.mailProvider === 'development') && config.mailFrom && config.appUrl),
+    ...(config.mailProvider === 'none' ? { mailOff: true } : {}),
     identityProvider: identityProviders.length > 0,
     identityProviders,
   };

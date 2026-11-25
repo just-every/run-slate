@@ -11,7 +11,8 @@ export interface SignInDelivery { requestDigest?: string; failure?: string }
  * sign-in screen and the owner's mail list keep reporting provider outcomes.
  */
 export function identityMailSender(db: D1Database, config: RuntimeConfig, delivery: SignInDelivery): MailSender | undefined {
-  if (!config.mailProvider) return undefined;
+  // No provider, or mail off (MAIL_PROVIDER=none): no sender, so Base reports email sign-in unavailable and sends nothing.
+  if (!config.mailProvider || config.mailProvider === 'none') return undefined;
   const sender = createMailSender(config.mailProvider === 'development'
     ? { provider: 'development', mode: 'development' }
     : { provider: config.mailProvider, mode: 'production', apiKey: config.mailApiKey, ...(config.mailProvider === 'rer' ? {relayUrl: config.mailRelayUrl} : {}) });
