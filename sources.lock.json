@@ -980,7 +980,7 @@
       "executable": false
     },
     "CHANGELOG.md": {
-      "sha256": "864cc1d6b36949f873398d622ec2217549c82e810cf12f27eabfebc1b2e1c1ae",
+      "sha256": "c8bcc734a7d51bf62da5b5efd2c5fbcbb5fc3c8643337a00cdc79e113b2a327f",
       "executable": false
     },
     "CLAUDE.md": {
@@ -4624,7 +4624,7 @@
       "executable": false
     },
     "package.json": {
-      "sha256": "35f8f7fe70e5780466ee8b03af819d500aeefc9c18e8c34fab6229a7980d0dea",
+      "sha256": "099193a91f8f8bb57d25e49ff6073c59d26e0af4b9a819b5a05b5ab0016d115c",
       "executable": false
     },
     "pnpm-lock.yaml": {
@@ -4692,7 +4692,7 @@
       "executable": false
     },
     "RELEASE.json": {
-      "sha256": "d8d8731dbf1964a4a6456a0af53a92ae2d80bbaacf8931c26830e671ec284aac",
+      "sha256": "b3141473e7748f0ce67c97c33ec5b33754b8ca17149741c95d81d3851294156a",
       "executable": false
     },
     "rer-project.json": {
@@ -5112,7 +5112,7 @@
       "executable": false
     },
     "seed.json": {
-      "sha256": "c5811bc959261515409024e89e3af09da8664e10ded4ff3841ebf6e5a410475b",
+      "sha256": "2bc4eb5f70ea9a8beb4988fe7c2865d5399b3c52927742a29931c317ce2fc793",
       "executable": false
     },
     "src/base/runtime/contract-docs.mjs": {

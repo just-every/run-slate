@@ -1,7 +1,7 @@
 {
   "id": "slate",
   "name": "Slate",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "maturity": "Core-wiki first-release candidate. Advanced flagship systems remain outside the first public release acceptance.",
   "category": "knowledge",
   "spine": {

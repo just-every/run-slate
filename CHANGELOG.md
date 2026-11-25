@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.4.1 — 2026-11-25
+
+Slate 0.4.1 supports hosted setup with mail off and owner sign-in through rer. It pins rer 0.2.113.
+
+Deploy with `MAIL_PROVIDER=none` to set up hosted Slate without a mail sender or API key. The setup owner signs in with `rer signin`. Email sign-in and invitations require a mail provider.
+
+This release also brings forward scheduled backups, provider folder imports, SAML sign-in, public API tokens and SCIM directory support. Availability follows the deployment profile and connected provider settings.
+
+Back up Slate 0.4.0 before updating in place. Adopt 0.4.1 with the pinned rer 0.2.113 and apply the 15 pending migrations through the normal upgrade runner. Preserve the existing migration ledger and already applied SQL. Confirm owner access and check existing records before resuming writes.
+
 ## 0.4.0 — 21 October 2026
 
 Slate 0.4.0 is a minor release over 0.3.0. It adds Word export and nightly verification rules, and keeps the first words typed into a new page. The product screenshot for this release is `.github/assets/release/slate-0.4.0-page-1440.png`.

@@ -1,327 +1,8 @@
 {
-  "version": "0.4.0",
-  "previousVersion": "0.3.0",
-  "date": "2026-10-21",
+  "version": "0.4.1",
+  "previousVersion": "0.4.0",
+  "date": "2026-11-25",
   "contractChanges": {
-    "BASE-ACCESS-002": {
-      "change": "changed",
-      "summary": "Otherwise-admissible protected API requests return 401 at session validation, while native documents and generated RPC preserve their identifiable session-denial protocols with no private product payload or requested mutation.",
-      "was": "A session expires after at most 30 days of inactivity; sign-out revokes that session. Every operator endpoint requires a valid session and returns 401 without one.",
-      "now": "A session expires after at most 30 days of inactivity; sign-out revokes that session. A valid session is required before an operator request reads private product data or performs its requested action. A protected operator document and each private generated server-function handler validate the session independently; a document gate does not authorize a function call. For an otherwise-admissible request that reaches session validation, a protected operator HTTP API returns 401 when the session is missing, expired, or revoked; a protected document returns its native sign-in response; and a generated transport may encode an identifiable session denial or sign-in redirect in its framework protocol, including a 200 serialized redirect. No such denial response exposes private product data or performs the requested mutation. Declared public exceptions remain governed by BASE-ACCESS-003, and host, method, Origin/CSRF, input, and runtime guards retain their normal order."
-    },
-    "BASE-SECRET-002": {
-      "change": "changed",
-      "summary": "Local setup persists the private loopback configuration required for native magic-link development; hosted mail requires an explicit provider selection and matching runtime binding.",
-      "was": "Missing required configuration fails at startup naming the variable. The product never runs in a degraded mode.",
-      "now": "Missing required configuration fails at startup naming the variable. The product never runs in a degraded mode. Local setup writes owner-only `.dev.vars` settings with `LOCAL_DEVELOPMENT=true`, an exact loopback `APP_URL`, `SETUP_OWNER_EMAIL`, a generated `SESSION_SECRET` and `MAIL_PROVIDER=development`; development mail is silently suppressed and no local email outbox is available. Hosted setup requires an explicit `SLATE_MAIL_PROVIDER` selection of `resend` or `sendgrid` and renders it as runtime `MAIL_PROVIDER`; there is no mail-provider default. Existing local state and already-rendered hosted `MAIL_PROVIDER` bindings are retained. Managed hosting assigns and hides MAIL_PROVIDER=rer, MAIL_FROM, MAIL_RELAY_URL and a generated private MAIL_API_KEY. The key is optional in the deployment declaration and required by the chosen provider; a hosted plan cannot omit working mail.",
-      "date": "2026-10-16"
-    },
-    "BLOCK-008": {
-      "change": "added",
-      "summary": "Media blocks are stored under BASE-INPUT-003 and served inline when the file is requested for display and with a download disposition for every other request, both with the declared content type and nosniff, and with access unchanged.",
-      "supersedes": "BASE-INPUT-003"
-    },
-    "IMP-003": {
-      "change": "changed",
-      "summary": "Explicit current principal mapping, closed unknown restrictions, recovery access and conservative edit-restriction disclosure.",
-      "was": "Slate imports a Confluence space export in its XML form, and single documents in the forms each editor exports: Word's `.docx`, and a Google Docs document downloaded as `.docx` or as zipped HTML, Google Docs having no file form of its own. Pages become pages with their tree, their labels (`PAGE-001`), their versions with their comments and ordinals where the export carries them, their status, and their published state; page and attachment links resolve to the imported records; and a page restricted in the export arrives with a container-scoped general grant, never a workspace-wide one (`SHARE-005`). The report names what did not map, including whiteboards, blogs, calendars and folders, and a folder is imported as a page with an empty body so its tree survives. Its test fixtures are a space export produced by Confluence itself and one document downloaded from each of Word and Google Docs, committed with the test; a fixture written by hand does not satisfy this clause.",
-      "now": "Slate imports a Confluence space export in whichever form the product emits — Confluence Cloud's CSV table export, where `content.csv` carries the tree and the version ledger and `bodycontent.csv` carries storage-format bodies, or the single `entities.xml` a Server or Data Center export writes — and single documents in the forms each editor exports: Word's `.docx`, and a Google Docs document downloaded as `.docx` or as zipped HTML, Google Docs having no file form of its own. Pages become pages with their tree, their labels (`PAGE-001`), their versions with their comments and ordinals where the export carries them, their status, and their published state; page and attachment links resolve to the imported records; and named user and group restrictions remain named grants only through explicit reviewed source-principal-ID mappings to existing active same-workspace members or groups. Mapping authority and current membership are validated at Apply and every batch; names and email addresses never activate or implicitly match accounts. Unmapped people remain inactive historical actors. Empty, unknown or unmapped restriction sets preserve restricted inheritance and importing-member recovery access, with unresolved restrictions named in the report. Source edit restrictions conservatively close native inheritance and disclose that conversion. No import publishes an anonymous page. A general grant is container-scoped, never workspace-wide (`SHARE-005`), and a personal container carries no general grant (`SHARE-004`). The report names what did not map, including whiteboards, blogs, calendars and folders, and a folder is imported as a page with an empty body so its tree survives. Its test fixtures are a space export produced by Confluence itself and one document downloaded from each of Word and Google Docs, committed with the test; a fixture written by hand does not satisfy this clause."
-    },
-    "AI-002": {
-      "change": "changed",
-      "summary": "Owner-authorized full flagship amendment; acceptance remains pending.",
-      "was": "Run lifecycle.** A member can start a selection edit, a page or comment summary, a difference summary, a workspace answer or an agent run. A run moves Queued → Running → Needs review → Completed. A member can cancel a Queued or Running run; a run in any non-terminal state becomes Failed on error, and a run that has been Running for 10 minutes becomes Failed; Completed, Cancelled and Failed are terminal. A run reaches Completed when a member accepts or discards its output, and discarding records the rejection.",
-      "now": "Run lifecycle.** A member can start selection edits, summaries, workspace answers, agent work and sustained inquiry. Runs move Queued → Running → Needs review or Paused → Running, then Completed, Failed or Cancelled. Each Running stage is bounded to ten minutes; exceeding it or encountering an error fails visibly. Scheduled waits and pauses persist their reason and progress and release execution. Any non-terminal run can be cancelled. Terminal runs never resume: continued work is a linked new run preserving earlier effects and reconciling ambiguity first. Proposal work completes on explicit acceptance or discard, recording rejection; granted work completes only after every required effect and output check is confirmed. A request created or uncertain effect is not completion."
-    },
-    "AI-003": {
-      "change": "changed",
-      "summary": "Owner-authorized full flagship amendment; acceptance remains pending.",
-      "was": "Review before mutation.** A run produces a proposal. Until a member accepts it, no page, block, record, comment, status, grant, container or state changes.",
-      "now": "Proposal or bounded delegation.** A run produces a proposal unless a current, named, bounded owner grant authorizes the exact effect, target, source scope, audience and conditions. Without that authority no product mutation occurs before member acceptance. Determinate maintenance within that authority commits directly as an attributable revision with sources, checks and receipt; it does not demand repeated ritual approval. Consequential business choices and out-of-grant effects remain pending for the accountable authority. No output approves itself."
-    },
-    "AI-005": {
-      "change": "changed",
-      "summary": "Owner-authorized full flagship amendment; acceptance remains pending.",
-      "was": "Acceptance.** Accepting a proposal applies only the changes the member selected and records the accepting member, those changes, the input record revisions, and the provider and model. The mutations and their activity entries commit together or not at all.",
-      "now": "Acceptance and granted mutation.** Accepting a proposal applies only selected changes and records accepting member, changes, input revisions, provider and model. Delegated mutation records the exact grant and issuing owner instead of inventing an accepting person. Local mutations, revisions, receipts and activity commit together or not at all. Remote effects retain durable intent and confirmed receipts, never a claim of cross-provider atomicity. Accepted business decisions stay explicit and immutable under DEC-003."
-    },
-    "AI-006": {
-      "change": "changed",
-      "summary": "Owner-authorized full flagship amendment; acceptance remains pending.",
-      "was": "Stale inputs.** A proposal whose input record has changed revision since the run started cannot be accepted until Slate shows the difference and the member either regenerates the run or accepts explicitly against the current revision.",
-      "now": "Current inputs before use.** Before acceptance, resume or effect, recheck source revisions, current source/requester/audience/destination access, applicability, authority and live operational state. Show material changes and the reason for proceeding. A member may regenerate or explicitly accept against current revisions; an agent may regenerate and rebase a determinate step within its unchanged valid grant. Changed business decisions, applicability, permissions or effect scope require the corresponding authority or review. Never silently commit stale content."
-    },
-    "AI-008": {
-      "change": "changed",
-      "summary": "Owner-authorized full flagship amendment; acceptance remains pending.",
-      "was": "Provider and output failure.** A provider error, a budget refusal (`AI-012`), a cancellation, or output that fails schema validation leaves the run Failed or Cancelled with the reason readable on the run, creates no product record or partial proposal, and leaves every manual action available.",
-      "now": "Failure preserves confirmed work.** Provider, budget, schema or output failure leaves a Failed run; cancellation leaves Cancelled, with readable reason and manual actions available. The failed or cancelled local stage creates no partial proposal or product mutation. Durable intent, audit and earlier completed stages and confirmed external receipts remain. Cancel unsent future work, reconcile dispatched ambiguity, and display completed effects and unresolved state. Compensation is a separate supported operation with its own valid grant; never assert an external rollback."
-    },
-    "AI-011": {
-      "change": "changed",
-      "summary": "Owner-authorized full flagship amendment; acceptance remains pending.",
-      "was": "No autonomous authority.** AI cannot publish or unpublish a page, change a grant or an external-access switch, set or renew a verification, archive, trash or permanently delete anything, empty the trash, invite or remove a member, change a policy value, or send data outside the deployment. Only a member action does these.",
-      "now": "No self-granted authority.** AI cannot grant itself authority, change membership, access grants, external-access switches or policy values, set or renew human verification, or accept a business decision for an unappointed owner. Publishing, unpublishing, archive, trash, deletion and external effects require either the responsible member action or an explicit bounded, revocable owner grant naming the exact effect, target or named update class, conditions, audience, expiry and budget. Missing, expired, narrowed, changed-target or revoked grants refuse the effect. A general goal, service credential, confidence or source text supplies no grant. Container vetoes, private drafts and source-audience rights cannot be overridden. Other products retain their stricter human-send and consent contracts."
-    },
-    "AI-012": {
-      "change": "changed",
-      "summary": "Owner-authorized full flagship amendment; acceptance remains pending.",
-      "was": "Budget.** Before a run is queued Slate reserves its maximum estimated cost — the configured model's rate for the run's maximum output — against the current calendar month, counting reservations held by unfinished runs. A run that would exceed the month's budget is refused before any provider request, and the unused part of a reservation is released when the run settles. AI cannot be turned on without a monthly budget greater than zero (`AI-001`), and no policy value, extension or agent raises, waives or defers the reservation.",
-      "now": "Durable budgets.** AI enablement requires an owner-set positive workspace calendar-month budget. Before queueing work, durably reserve its maximum estimated provider cost, including bounded input/output, retries and tool units at recorded rates, against that ceiling and all applicable skill, run and provider limits. Count unfinished and paused reservations; persist accounting across restart and concurrent admissions. Recheck changed prices and additional stages before dispatch. Refuse before any provider side effect when any limit is exhausted; record actual units/cost and release unused reservations on settlement. No model, policy, extension or agent raises, waives or defers an owner ceiling."
-    },
-    "AI-013": {
-      "change": "changed",
-      "summary": "Owner-authorized full flagship amendment; acceptance remains pending.",
-      "was": "A generated answer respects the reader.** Every answer, summary, chat reply and agent output is produced from pages the asking member may read at the moment it is produced, and says so on the result. A page whose grant is revoked, or which is archived, trashed or another member's draft, is excluded from the next answer with no re-index step, and no cache, embedding, transcript or stored proposal re-exposes it. This holds under every policy value and cannot be overridden.",
-      "now": "Requester and audience boundary.** Every generated answer, summary, chat reply and agent output uses only sources currently authorized for the asking member, owner policy and task scope. This includes external sources and investigators using broader service credentials. Background work declares an authorized output audience and destination before execution; every source must permit that audience and executing identity. Recheck every contributor before fan-in, generation, write, delivery, resume and later read of persisted output. Changed or uncertain ACLs, source/requester/audience/destination rights withhold or invalidate derived artifacts, including caches, embeddings, transcripts and proposals; no titles, counts, hints or citations disclose restricted facts. Revoked, archived, trashed and another member’s draft content is excluded without reindexing. Credentials supply capability, never disclosure authority. LIFE-002 and source deletion rules remain absolute under every policy."
-    },
-    "AI-014": {
-      "change": "changed",
-      "summary": "Owner-authorized full flagship amendment; acceptance remains pending.",
-      "was": "Agents.** An agent is a named record with instructions, a source scope and an owner. It runs under the access of the member who invoked it, never wider (`AI-013`), its writes are proposals under `AI-003`, and its runs appear in the usage record with the agent named. 1.0 carries the agent object; model choice, per-agent budgets and per-destination write levels do not ship.",
-      "now": "Scoped agents.** An agent is an auditable named record with instructions, owner, represented identity, exact source and effect scopes, audiences and destinations. Interactive access never exceeds current invoking-member access; background work follows AI-013. Writes follow AI-003 and AI-011. Owner policy bounds providers/models, skill/run/provider budgets and permitted effects; Slate routes automatically by measured task fit within it. Runs name actor, audience, agent, exact skill revision, provider/model and cost. No model selector or agent-management chore is required for ordinary work."
-    },
-    "AI-016": {
-      "change": "changed",
-      "summary": "Owner-authorized full flagship amendment; acceptance remains pending.",
-      "was": "Summaries.** A member can summarise a page, its comment threads, or the difference between two revisions. A summary names the revision it read and is offered as text to insert or copy, never written into the page without `AI-003`.",
-      "now": "Summaries.** A member can summarize a page, its comments or a difference between two revisions. The result names exact revisions and may be copied, proposed for insertion, or inserted directly when the member’s request explicitly authorizes that exact insertion or a valid bounded grant covers it. Current access, destination rights, revisions and atomic receipts still apply; an ordinary request to summarize does not authorize unrelated edits."
-    },
-    "NOTIF-001": {
-      "change": "changed",
-      "summary": "Owner-authorized full flagship amendment; acceptance remains pending.",
-      "was": "What notifies.** A member is notified in the app when they are mentioned, when someone comments or replies on a page they watch or authored, when a page they watch is published or republished, when a verification they own lapses (`STAT-004`), when they are granted access to a page or container, and when an AI run they started needs review or failed. Their own action never notifies them, and nothing notifies anyone about a record they may not read.",
-      "now": "Meaningful notifications.** A member is notified in the app when they are mentioned, when someone comments or replies on a page they watch or authored, when a page they watch is published or republished, when a verification they own lapses (`STAT-004`), when they are granted access to a page or container, and when an AI run they started needs review or failed. Deliver these notices when the triggering event occurs; overdue decision notices go to the decision owner under `DEC-005`. Route an unresolved policy/authority choice to its named owner when the choice blocks action, an actionable paused or failed run to its run owner when it pauses or fails, and a consequential experiment result to its accountable owner when the result is recorded and ready for action. Coalesce related granted maintenance into one concise Today outcome with inspectable changes; routine standing-authorized success and unchanged checks stay quiet and require no fresh approval. Never coalesce away direct mentions, access changes, lapsed human attestations, meaningful failures or required decisions. Own direct actions never notify their actor; delegated events retain the named recipient rules. Recheck recipient access and the authorized output audience at creation, delivery and read; never notify about unreadable records or disclose sources beyond their authorized audience. Preserve `NOTIF-002` inbox behavior, `NOTIF-003` optional link-only chat delivery and `MAIL-001` limited email use."
-    },
-    "SAVE-006": {
-      "change": "changed",
-      "summary": "Owner-authorized full flagship amendment; acceptance remains pending.",
-      "was": "Concurrent editing without co-editing.** Several members may edit different blocks of one page at the same time and each save succeeds; two edits to one block are resolved by `SAVE-003`, never merged. A page shows who else has it open as an avatar stack and nothing more: there are no shared cursors, no character-by-character streaming, and no automatic merge. An open page refreshes another member's committed blocks within 10 seconds, leaving the reader's own unsaved block untouched.",
-      "now": "Concurrent editing and optional co-editing.** Different blocks can be edited concurrently; revision conflicts retain SAVE-003 and unsent text. Committed blocks refresh within ten seconds without replacing a reader’s unsaved block. A page shows who has it open. Deployments may enable real live co-editing, shared cursors and presence with durable accepted operations, current ACL checks, revocation, reconnect recovery and attributable revision history. Co-editing never silently loses an accepted edit or converts unconfirmed local text into Saved. The full flagship acceptance exercises real co-editing; a deployment may keep it disabled."
-    },
-    "DB-002": {
-      "change": "changed",
-      "summary": "Owner-authorized full flagship amendment; acceptance remains pending.",
-      "was": "Field types.** A field is one of: text, number, checkbox, date, select, multi-select, status, person, file, URL, email, phone, place, relation to another database, rollup over a relation, formula, created and updated metadata, and identifier. Each has a defined empty value, a defined sort order and a defined import and export representation, and changing a field's type either converts every value or is rejected naming what would be lost. Rollup and formula are stored, imported, exported and displayed in 1.0 and are not evaluated: an imported rollup or formula field keeps its configuration and the values the export carried, shows on the field that it is not being recomputed, and is never presented as current. Evaluating them is a Notion-edition contribution on `database.field-type.v1`. Relation ships evaluated, because both incumbents have it and Confluence's Page, Jira and Other-Database fields land on it at import; neither incumbent's evidenced field list has a rollup or a formula.",
-      "now": "Field types and evaluation.** Fields support text, number, checkbox, date, select, multi-select, status, person, file, URL, email, phone, place, relation, rollup, formula, created/updated metadata and identifier. Each defines empty value, sort order and import/export representation. Type changes convert every value or reject with the loss named. Relations resolve actual records. Bounded formulas and rollups evaluate typed expressions with explicit null/error semantics, dependency tracking, cycle rejection and resource limits; no arbitrary code or network execution. Recompute affected dependencies after changes. Evaluation and aggregation use current reader-authorized records and never leak restricted values or counts. Preserve imported configuration and unsupported expressions with visible not-recomputed state, never fabricated current values; export and restore retain definitions and dependencies."
-    },
-    "WEB-001": {
-      "change": "changed",
-      "summary": "Owner-authorized full flagship amendment; acceptance remains pending.",
-      "was": "Anonymous access takes two acts.** A page is readable without signing in only when a member with `full` access on it publishes it (`WEB-002`) and only while its container allows it. Each of the container's three switches (`CONT-007`) vetoes its own act and no other. While public links are forbidden, publishing a page in that container is rejected and every existing public link on its pages stops resolving at once. While anonymous access is forbidden, a published page in that container resolves only for a signed-in member who may read it. While guests are forbidden, a guest invitation to that container or to a page in it is rejected and existing guest access to it ends under `SHARE-007`. Each veto is not gated by a plan or a role beyond container administration, is not a policy value, and no extension, automation or AI action may bypass it.",
-      "now": "Anonymous access takes two acts.** A page is readable without signing in only when a member with `full` access publishes it (`WEB-002`), directly or through an explicit bounded revocable owner grant for that exact page or named publication class under `AI-011` and only while its container allows it. Each of the container's three switches (`CONT-007`) vetoes its own act and no other. While public links are forbidden, publishing a page in that container is rejected and every existing public link on its pages stops resolving at once. While anonymous access is forbidden, a published page in that container resolves only for a signed-in member who may read it. While guests are forbidden, a guest invitation to that container or to a page in it is rejected and existing guest access to it ends under `SHARE-007`. Each veto is not gated by a plan or a role beyond container administration, is not a policy value, and no extension, automation or AI action may bypass it. Each delegated publication rechecks the grant, current full access, exact source-audience disclosure rights and target; standing authority avoids repeated approval but supplies no audience or veto bypass."
-    },
-    "SUG-001": {
-      "change": "added",
-      "summary": "Anchored suggestions",
-      "now": "Members with comment or edit access can propose a typed change as a separate record anchored to an exact page/block revision, inspect its diff and discuss it. A suggestion changes neither working page/block content nor published content before explicit acceptance under `SUG-002`. Preserve author, time, original text and exact revision; inaccessible anchors disclose no content. Direct granted maintenance remains a separate attributable revision path under `AI-003`/`AI-005`, not suggestion acceptance or a forced review queue."
-    },
-    "SUG-002": {
-      "change": "added",
-      "summary": "Resolve explicitly",
-      "now": "An authorized editor accepts selected suggestions atomically with a new revision/activity/receipt or rejects them with attribution. Recheck current access and revision; conflicting or lost anchors require explicit rebase/review, never silent application. Suggestion history survives reload and export."
-    },
-    "SOURCE-001": {
-      "change": "added",
-      "summary": "Connector contract",
-      "now": "Each connected source declares provider/tenant identity, owner, represented principals, scopes, supported effects, ACL mapping or named service identity, discovery coverage, cursor, last success/error, freshness and lag, deletion/revocation and retention guarantees. Unsupported guarantees are visibly unavailable. Multiple real document, collaboration/evidence and operational connector families are required."
-    },
-    "SOURCE-002": {
-      "change": "added",
-      "summary": "Exact passages",
-      "now": "Retain immutable source-native IDs, revision/hash, observed and source times, permitted originals or restorable references, extraction version and stable passage anchors. Citations open that exact revision or a content-free tombstone, never silently newest content."
-    },
-    "SOURCE-003": {
-      "change": "added",
-      "summary": "Scoped claims and authority",
-      "now": "Claims retain proposition, exact passages, kind, account/product/plan/audience/jurisdiction scope, effective/expiry interval, owner, verification, conflict and unknown state. Record named approving person or delegated office and applicable authority separately. Recency, popularity, model confidence and conversational evidence cannot create policy authority."
-    },
-    "SOURCE-004": {
-      "change": "added",
-      "summary": "Live observations",
-      "now": "Operational state is a typed response from its owning system with tenant/account identity, observation time and freshness. Documents cannot substitute for live entitlement or activation. Reconcile contradictions by scope, authority and effective dates; preserve unknown prices, expiry and unsupported facts."
-    },
-    "SOURCE-005": {
-      "change": "added",
-      "summary": "Revocation and deletion",
-      "now": "Source changes trace dependent claims, decisions, answers, skills and runs. Revoke access immediately at every use boundary, invalidate derived content and indexes, remove deleted material from exports and retain only permitted tombstones. Uncertain source ACLs fail closed. Partial indexing and lag remain visible."
-    },
-    "SOURCE-006": {
-      "change": "added",
-      "summary": "Credential lifecycle",
-      "now": "Credentials name issuer/owner, represented identity, scope/destinations, expiry and revocation. Disconnect blocks new dispatch, suspends queued/paused work, stops active work at a safe boundary and cancels unsent effects. Dispatched uncertainty remains unresolved until authorized read-back. Reconnect verifies identity, scopes, ACLs/deletions/revisions and each run/audience; old authority is never inherited automatically."
-    },
-    "SKILL-001": {
-      "change": "added",
-      "summary": "Versioned procedure",
-      "now": "Skills retain owner, immutable version, instructions, preconditions, context/source scope, allowed semantic tools and exact effects/targets, budgets, expected outputs/checks and escalation conditions. Runs pin exact versions; export SKILL.md and attachments as labelled snapshots, not live synchronization."
-    },
-    "SKILL-002": {
-      "change": "added",
-      "summary": "Evaluation and activation",
-      "now": "Draft → evaluated → active → superseded/retired lifecycle retains domain outcome and forbidden-effect evaluations, contradictions, stale inputs, outages, permission boundaries and prior accepted cases. Failed evaluation cannot activate. Activation requires owner action or exact recorded standing authority for evaluated routine refinement; it cannot widen sources/effects/audiences/budgets or change policy."
-    },
-    "SKILL-003": {
-      "change": "added",
-      "summary": "Version transitions",
-      "now": "Superseded/retired versions cannot start runs. Suspend queued/paused pinned runs and active work at boundaries by default; direct or applicable standing authority may cancel, continue the exact version or create a linked successor. Recheck all current sources/grants; stop and revocation override continuation. Preserve immutable history and receipts, reconcile ambiguity and never silently substitute versions. Notify subscribed external agents of changes."
-    },
-    "EFFECT-001": {
-      "change": "added",
-      "summary": "Durable effects",
-      "now": "Before external dispatch persist intent, exact semantic operation, principal/account/target, grant, source revisions and idempotency key. Distinguish prepared, dispatched, uncertain, confirmed, failed and cancelled. Reconcile lost responses by provider key or read-back; no blind repeat while uncertain and no success without receipt or verified state transition."
-    },
-    "EFFECT-002": {
-      "change": "added",
-      "summary": "Consent and product custody",
-      "now": "An inquiry causes no account/charge effect even if a tool grant exists. Paid SSO activation separately requires account-authorized consent, current price/interval/discount scope/expiry, applicable commercial approval, verified purchase/entitlement and exact activation grant. Distinguish request creation, customer setup pending and confirmed enabled. Article repair has independent publication authority. HappyToHelp owns conversations/replies and Orbit owns CRM/outreach, including their exact-human-send boundaries."
-    },
-    "EFFECT-003": {
-      "change": "added",
-      "summary": "Impact and maintenance",
-      "now": "Prepare read-only impact rehearsal before policy acceptance, identifying affected accounts/exceptions and dependent answers, procedures, skills and open work. Preserve immutable decisions; apply only determinate granted repairs, evaluate changed skills, invalidate stale answers and coalesce outcomes. Unaffected scoped exceptions stay scoped. Simulation is labelled read-only/isolated and never proof of live effects."
-    },
-    "AGENT-001": {
-      "change": "added",
-      "summary": "Semantic parity",
-      "now": "UI, API and MCP expose the same authorized reads, exact citations, proposals, granted effects, run status, pause/resume, stop and outcomes, with operation keys, current ACL/grant checks and receipts. External identities cannot bypass browser or product consent boundaries. Unsupported operations fail explicitly."
-    },
-    "AGENT-002": {
-      "change": "added",
-      "summary": "Portable owner interfaces",
-      "now": "Task/inquiry/experiment views derive from durable records, skill schemas and grants and preserve the accepted editor/tree/comments/history. Interface definitions are source-controlled or exportable. Owners can customize source/core/schema/UI/providers without losing data, skills, decisions, runs, interface definitions or migration history; no vendor kill switch or required proprietary hosted data account."
-    },
-    "INQ-001": {
-      "change": "added",
-      "summary": "Open questions",
-      "now": "An outcome request prepares an inquiry with decision context, rival hypotheses, discriminating observations, unresolved dependencies and independent investigations. Preserve useful interim findings, falsified hypotheses, uncertainty, next informative step and cost across bounded stages and durable waits. Members inspect/correct scope or stop work without designing schemas or coordinating agents."
-    },
-    "INQ-002": {
-      "change": "added",
-      "summary": "Reproducible reasoning",
-      "now": "Retain observations, assumptions, deductions and business choices separately, with population/applicability, counterexamples, failed hypotheses, executable analysis inputs/code/tool versions and results sufficient for independent replay. No private reasoning transcript is required. Checked logical propositions state bounds and checker versions; exact arithmetic/feasibility is not causal customer evidence."
-    },
-    "INQ-003": {
-      "change": "added",
-      "summary": "Bounded planning",
-      "now": "Prepare objectives, constraints, allocations, sensitivity and counterexamples from current evidence. Code checks arithmetic and invariants; retain assumptions and accepting owner. A feasible allocation is not proof of benefit. Methods and contextual interfaces are prepared from the request rather than assigned as setup chores."
-    },
-    "INQ-004": {
-      "change": "added",
-      "summary": "Routing and ambient discovery",
-      "now": "Typed semantic checks assess relevant permitted events for novelty, contradiction and impact and prepare consequential questions. Owner questions and scheduled frontier sweeps bypass ranking; shadow comparisons and sampled low-score audits measure missed important events. Routing follows measured fit within owner policy, never grants authority or fabricates a fallback after invalid output."
-    },
-    "INQ-005": {
-      "change": "added",
-      "summary": "Economical sustained work",
-      "now": "Deduplicate overlapping work only within an authorized audience and reuse revision-pinned context only after freshness/applicability/access checks. Budget compute and interruptions, keep meaningful progress inspectable and routine checks quiet. Stop branches with no useful information, exhausted budget or inaccessible evidence with reason/restart condition; independent authorized branches may continue."
-    },
-    "TRIAL-001": {
-      "change": "added",
-      "summary": "Predeclared comparison",
-      "now": "Before any trial effect, durably record eligibility, treatment/comparison assignment, baseline/instrumentation, forecast, expected and smallest meaningful effect, required precision, observation window, stopping conditions, guardrails, owner authority and exact effects. Prefer defensible randomization when feasible and disclose confounding otherwise. Changing a plan creates a revision, never retroactive predeclaration."
-    },
-    "TRIAL-002": {
-      "change": "added",
-      "summary": "Exposure and safety",
-      "now": "Only owning systems perform granted changes; retain attempted versus confirmed effects, receipts, actual exposure, missing observations and instrumentation changes. Guardrail breaches stop future effects and initiate only separately authorized supported recovery. Prospective windows must actually elapse; fixtures or simulated time are not prospective outcome evidence."
-    },
-    "TRIAL-003": {
-      "change": "added",
-      "summary": "Outcome classification",
-      "now": "At the declared window classify benefit, null, adverse or inconclusive against the predeclared comparison and guardrails, with uncertainty, applicability, selection bias and measurement quality. Null counts against a mechanism only with enough precision to rule out the meaningful effect; incomplete exposure or changed instrumentation may be inconclusive. Never substitute model agreement for empirical evidence."
-    },
-    "TRIAL-004": {
-      "change": "added",
-      "summary": "Reusable learning",
-      "now": "Every outcome revises explanations and methods while retaining original forecast, decision and failed hypotheses. Learned procedures/prompts/tests/code are versioned and evaluated before owner-authorized activation. No automatic model-weight tuning or cross-deployment sharing. Verify repeated-work savings without invalid assumption reuse."
-    },
-    "FLAG-001": {
-      "change": "changed",
-      "summary": "core-wiki launch amendment / release review authorizes the core-wiki launch profile; all full flagship requirements remain pending.",
-      "was": "All 191 inherited clauses with only recorded explicit amendments, all 22 baseline obligations, every value of the eight policies, all six USER-JOURNEYS.md journeys, full flagship and complete customer-activation inquiry → experiment → outcome → learning loop are required. No minimum subset, parser/component suite or self-report substitutes for full product acceptance.",
-      "now": "All 191 inherited clauses with only recorded explicit amendments, all 22 baseline obligations, every value of the eight policies, all six USER-JOURNEYS.md journeys, full flagship and complete customer-activation inquiry → experiment → outcome → learning loop are required. No minimum subset, parser/component suite or self-report substitutes for full product acceptance. core-wiki launch amendment authorizes a separately labelled core-wiki release with the default-disabled surfaces and retained obligations specified in the core-wiki launch amendment. This changes the launch gate only; it does not satisfy or waive full flagship acceptance."
-    },
-    "FLAG-002": {
-      "change": "added",
-      "summary": "Independent evidence",
-      "now": "Verify clean install, real browser/Worker journeys, customized owner copy, old-data migrations, restart/failure/revocation, complete export/restore, accessibility and load. Test genuine incumbent exports including Word; use real authorized document, evidence and operational providers for provider acceptance. Separate requirements, local implementation evidence, provider evidence and release/deployment evidence; no claim advances without independent semantic verification."
-    },
-    "FLAG-003": {
-      "change": "added",
-      "summary": "Value and held-out evaluation",
-      "now": "Compare identical accessible sources/tools against expert/current-tools and capable generic-agent baselines and owner-customized Slate. Freeze held-out cases separately from development and prevent future outcomes, later summaries/labels/indexes leaking past decision cutoff. Measure discoveries, falsification, missed-event recall, reproducibility, forecasts/interventions and every attempt’s cost/time/attention, setup, interruptions, failures and repair. Repeated quality-preserving useful outcomes, including null/adverse/inconclusive cases, are required; privacy/authority failures cannot trade for productivity."
-    },
-    "FLAG-004": {
-      "change": "added",
-      "summary": "Complete portable knowledge",
-      "now": "PORT-001/002/005/006 extend to source revisions/passages, claims/authority, skill versions/evaluations/grants, run stages/effect receipts, inquiries/analyses/trials/outcomes/learning and interface definitions with exact lineage. Retain credential metadata but exclude secrets/sessions and require fresh activation/authorization after restore. External state is reported, not recreated by assertion; exact public publishing and imported-actor restrictions remain."
-    },
-    "MAIL-002": {
-      "change": "changed",
-      "summary": "Managed relay mail uses Base rer; explicit throttling respects Retry-After, uncertainty stays held, and ordinary providers retain their policy.",
-      "was": "A send that fails is retried up to 3 times over 5 minutes. A send that still fails is recorded with the provider's error and shown to a person — on the sign-in screen for a sign-in link, in settings for an invitation — and is never reported as sent.",
-      "now": "A send that fails is retried up to 3 times over 5 minutes when the provider guarantees duplicate suppression for that exact request. With SendGrid, explicit rejection is shown for owner retry; ambiguous transport, expired dispatch ownership, or acceptance without a receipt is durably held for provider review with no automatic or explicit blind resend. A send that still fails or remains uncertain is recorded with a safe provider error and shown to a person — on the sign-in screen for a sign-in link, in settings for an invitation — and is never reported as sent. Managed hosting uses Base’s `rer` adapter with RER-assigned `MAIL_PROVIDER`, `MAIL_FROM`, `MAIL_RELAY_URL` and private `MAIL_API_KEY`; no provider account is needed. Relay HTTP 202 establishes acceptance without a provider message ID. Explicit relay throttling is queued within the existing three-attempt budget, no earlier than Retry-After; other relay rejections are visible failures. Ambiguous relay sends and expired dispatch ownership are held for review without blind resend. A provider receipt establishes acceptance, not inbox delivery.",
-      "date": "2026-10-16"
-    },
-    "HOME-001": {
-      "change": "changed",
-      "summary": "The public root becomes a static marketing landing page for the core-wiki product around the owner's identity, sign-in action and optional credit. It keeps every identity-plate protection: no workspace records or member identity, no metrics, testimonials or pricing, no cookies or tracking, same-origin resources only and request-time rendering. Its design was revised on 9 October 2026 to the owner's approved illustrated page: hero, open source and the MIT licence, pages, databases, search, sharing and publishing, history, the other core-wiki capabilities, moving in and a closing call to action. The same revision simplified the decoration: Slate's logo is two stacked cards, the landing no longer renders the buyer-configured mark and the decorative tick lines were dropped. A further revision (9 October 2026) removes the buyer-configured mark from the owner identity configuration: the landing, the sign-in page and the app's sidebar show Slate's card mark beside the owner's name, and the favicon is that mark served from the deployment's own origin (`/favicon.svg`, `/favicon-32.png`, `/favicon.ico`, `/apple-touch-icon.png`). Also revised 9 October 2026: \"Read the guide\" opens /docs, \"Deploy your own\" and \"Read the setup guide\" open /docs/install (first-party documentation, DOCS-001) with client-side navigation, and the header and footer gain a Docs link to /docs. Security consequence: none beyond four fixed same-origin static files, declared in `seed.json` `deploy.publicPaths`; no session, cookie or third-party resource is involved. Amended 13 October 2026 (owner decision, 12 October): an installed Slate answers / with the shared Lobby (Finish setup until first-run setup is finished, then Sign in) and Base's GET /setup/state, revealing only that state; the approved landing becomes the static run site's homepage at run-slate.com, its \"Deploy your own\" actions now \"Run Slate\" to /run and its sign-in links left out. Security consequence: one declared same-origin static file (/brand/band.svg) and the one claimed-or-unclaimed fact; no session, cookie, script or third-party resource.",
-      "was": "The public root path (`/`) is a static landing page for the product. Its header and footer carry the deployment owner's name beside Slate's card logo, the same card mark the sign-in page and the app show beside the owner's name and the deployment serves from its own origin as its favicon (an SVG with PNG fallbacks and an apple-touch icon), the name being the page's only top-level heading, and the footer shows the owner's one-line description; a sign-in action leads to `/signin`. The body is a fixed, owner-editable description of the product in one illustrated style: a hero that says what Slate is and offers the setup guide, then a section each for open source under the MIT licence, pages, databases, search that respects who is asking, sharing and publishing, revision history, the other core-wiki capabilities (comments, templates, verification, inbox, containers, backup and restore) and moving in from another wiki, and a closing call to action, with a Docs link in its header and footer that opens `/docs`, a \"Read the guide\" link that opens `/docs`, \"Deploy your own\" and \"Read the setup guide\" links that open `/docs/install` (all first-party pages, `DOCS-001`), and a link to the source repository. The root lists no workspace content and links only to those targets, the sign-in page, the source repository and, while the credit toggle is on, the credit. It describes only capabilities the default `core-wiki` profile ships. It may show a static “Powered by Slate · runeditrun.com” link when the buyer-configured credit toggle is on, which is its default. The landing exposes no workspace records or member identity and shows no metrics, testimonials, customer logos, plans or prices (it may say only that there is no per-seat pricing). It sets no cookies and runs no analytics or tracking; every font, style, script and image is served from the deployment's own origin and every illustration, with the sample names and pages in its drawings, is drawn inline, so it loads no third-party resource. It is rendered per request, stays readable without scripts and with reduced motion, and keeps its own fixed light palette in a dark-themed browser. Pages published to the anonymous web are served under the published-page prefix and are governed by `WEB-001` to `WEB-007`; the root never lists them.",
-      "now": "An installed Slate answers its public root path (`/`) with the shared Lobby (Base `lobbyResponse`): Slate's card mark and name, one line naming the owner's deployment, and one action, Finish setup (to `/setup`) until the owner has finished first-run setup (`WORK-013`) and Sign in (to `/signin`) after, over Slate's floor art; Base's `GET /setup/state` answers exactly `{\"state\":\"unclaimed\"}` or `{\"state\":\"claimed\"}` from the same reading. The Lobby and `/setup/state` reveal only that state: they read no other workspace record, member identity or session, set no cookie, run no script, load only same-origin files, answer another origin or Host with the ordinary `404`, are rendered per request and send `no-store`. The product's static landing page is the run site's homepage (`run-slate.com/`), written by `rer build --site` from the edition's own source and configuration with no installation data. Its header and footer carry the configured owner name beside Slate's card logo, the same card mark the sign-in page and the app show beside the owner's name and the deployment serves from its own origin as its favicon (an SVG with PNG fallbacks and an apple-touch icon), the name being the page's only top-level heading, and the footer shows the owner's one-line description. The body is a fixed, owner-editable description of the product in one illustrated style: a hero that says what Slate is, then a section each for open source under the MIT licence, pages, databases, search that respects who is asking, sharing and publishing, revision history, the other core-wiki capabilities (comments, templates, verification, inbox, containers, backup and restore) and moving in from another wiki, and a closing call to action. \"Run Slate\" in the hero and in the closing call to action opens the run site's Run page at `/run` (install rer, then clone the public source and start it with `rer dev`); a Docs link in its header and footer and a \"Read the guide\" link open `/docs`, and \"Read the setup guide\" opens `/docs/install` (the run site carries the same first-party pages as `DOCS-001`); and it links to the source repository. The landing links only to those targets, the source repository and, while the credit toggle is on, the credit, and never to an instance-only route (sign-in, setup, the app or its API). It describes only capabilities the default `core-wiki` profile ships. It may show a static “Powered by Slate · runeditrun.com” link when the buyer-configured credit toggle is on, which is its default. The landing exposes no workspace records or member identity and shows no metrics, testimonials, customer logos, plans or prices (it may say only that there is no per-seat pricing). It sets no cookies and runs no analytics or tracking; every font, style and image is served from the run site's own origin and every illustration, with the sample names and pages in its drawings, is drawn inline, so it loads no third-party resource. It stays readable without scripts and with reduced motion, and keeps its own fixed light palette in a dark-themed browser. Pages published to the anonymous web are served under the published-page prefix and are governed by `WEB-001` to `WEB-007`; the root never lists them.",
-      "date": "2026-10-13"
-    },
-    "DOCS-001": {
-      "change": "added",
-      "summary": "First-party public documentation at /docs and /docs/<slug>: the repository Markdown that docs/site.json publishes, rendered to HTML at build time by a Vite plugin into lazy page chunks inside the landing's own header, footer and type. A manifest is the only navigation and a coverage rule requires every Markdown file to be published or GitHub-only with a reason. Published pages describe only the default core-wiki profile. No cookies, tracking or third-party resources; unknown slugs are the branded 404.",
-      "now": "The public paths `/docs` and `/docs/<slug>` serve Slate's first-party documentation: the Markdown files that `docs/site.json` lists as published, in the sections and order it gives, which is the only navigation. The documentation Markdown is rendered to HTML at build time: a Vite plugin renders each page to static HTML when Vite loads it, in a build and in development, and never in the Worker or the browser: the emitted Worker and client bundles contain no Markdown or syntax-highlighting code, and each page is its own lazily loaded chunk that the Worker renders per request inside the landing's own header, footer, paper, ink and typeface. A page has its title as its one top-level heading (the landing's brand heading is not repeated), a section menu, an on-this-page list, previous and next links, tables in labelled scrollable regions and an Edit-on-GitHub link. Every Markdown file at the repository root, under `docs/` and as a top-level `<directory>/README.md` is either published or listed in the manifest as GitHub-only with a reason, and an unlisted file, a broken link or anchor, raw HTML, an image outside `docs/media/` or an absolute build-machine path fails verification or the build. Published pages describe only the default `core-wiki` profile, contain no maintainer-only material, and never advertise a flagship-only surface. The documentation reads no workspace record, member identity or session, sets no cookie, runs no analytics or tracking and loads only same-origin resources. An unknown, miscased or nested slug answers the branded `404`, a misconfigured deployment answers `/docs` with the same `503` as the landing, and `/docs` shares the landing's public-document rate limit.",
-      "date": "2026-10-09"
-    },
-    "WORK-013": {
-      "change": "changed",
-      "summary": "16 October 2026: managed owners open a ready default workspace.",
-      "was": "Every new deployment requires the naming wizard.",
-      "now": "RER bootstrap and signed owner claims atomically create the configured deployment workspace, General space and Welcome page. Owners use the declared login_hint sign-in without repeating the wizard. Renamed RER app-name transport and technical-field hiding require platform support.",
-      "securityConsequences": "Existing native single-use owner claim and mailbox proof remain required; existing workspaces cannot be replaced. Local first-run wizard remains available."
-    },
-    "BASE-ACCESS-001": {
-      "change": "changed",
-      "summary": "Base operator-auth email proofs over Slate's native accounts.",
-      "was": "Native email links (GET in v0.1.0, then POST confirmation over Slate's own token engine) created native sessions.",
-      "now": "Base issues one-use, one-hour email links; GET previews and a same-origin POST consumes the proof and issues a native 30-day session in one D1 batch that rechecks the member's status, email and authority version. Links sent before this release show the request-new-link page. Sensitive operations need a ten-minute Base email step-up in the asking session. Amendment of 16 October 2026: native workspace ZIP export accepts a signed-in local owner without email proof only with LOCAL_DEVELOPMENT=true and the runtime-validated exact loopback origin. Hosted export and installation archive HTTP export still require Base email step-up; restore and other sensitive operations retain their existing requirements.",
-      "date": "2026-10-16",
-      "affectedRequirements": [
-        "BASE-ACCESS-001",
-        "PORT-003",
-        "PORT-005"
-      ],
-      "securityConsequences": "The local ZIP export exception neither fabricates nor persists an email proof. Native session authentication, current owner authority, full workspace read coverage, origin checks and identity/ACL commit guards remain required; remote requests cannot enable local mode."
-    },
-    "WORK-015": {
-      "change": "changed",
-      "summary": "The incumbent identity provider moves to Base's pinned legacy-rs256 configuration.",
-      "was": "Slate discovered the configured issuer's endpoints at each sign-in and created 30-day native sessions for the member with the verified email.",
-      "now": "The same issuer, client and /api/auth/identity/callback, plus exact HTTPS authorization, token and JWKS endpoint pins and an independent transaction secret. The first sign-in binds the issuer/subject to the member with that verified mailbox and never moves it. Provider sessions last at most 24 hours."
-    },
-    "IMP-001": {
-      "change": "changed",
-      "summary": "Reviewed durable imports and complete canonical indexing; current authority and conflict-preserving recovery remain required.",
-      "was": "An import shows Queued, Running, Completed or Failed with counts of the records created, and produces a report naming every page, database, record, file and version created and every construct it did not map. It is idempotent by operation key (`SAVE-005`), reaches Completed only under `PORT-004`, and a failed import leaves no partially created tree: it is rolled back and can be retried. The source archive is retained with the job until a member deletes it, so nothing that failed to map is unrecoverable.",
-      "now": "An import is idempotent by operation key (`SAVE-005`), retains its exact supplied original, and names every physical page, database, record, file and version created and every construct it did not map. Notion workspace and Confluence space jobs first show a durable Preview with would-create counts, the complete paged loss report, reviewed principal mappings and measured canonical plan size; Preview creates no target tree. Explicit Apply uses that exact review and commits bounded batches with durable journals. Preparing, Running and Indexing progress survives reload and resumes from its committed checkpoint. Incomplete trees stay inaccessible through all native reads and mutations; the whole native tree becomes visible atomically. Completed requires `PORT-004`. Undo is available after partial or completed Apply: it removes independent unchanged creations, preserves native edits, additions and their required dependencies, and reports each retained conflict as `NATIVE_EDIT_CONFLICT`. Preparation can be cancelled without publishing a tree. Failed document imports roll back; interrupted reviewed space imports retain an inaccessible, resumable checkpoint. The original remains downloadable until explicitly deleted or invalidated by privacy erasure. Erasing any imported source under `ARCH-006` invalidates the indivisible retained original and all import recovery custody, makes retry, resume and Undo unavailable with a plain reason, and leaves unaffected native pages in place."
-    },
-    "PORT-004": {
-      "change": "changed",
-      "summary": "Reviewed durable imports and complete canonical indexing; current authority and conflict-preserving recovery remain required.",
-      "was": "An import is not Completed until search has been rebuilt over the imported records and they satisfy `SEARCH-001` to `SEARCH-006`.",
-      "now": "An import is not Completed until every imported page and record has its canonical search projection, no imported page has a pending dirty generation, and the records satisfy `SEARCH-001` to `SEARCH-006`. Bounded index rebuilds retain an explicit, resumable Indexing state. Completion is fenced by indexed-ID and dirty-generation readback before any first user search can trigger a lazy refresh."
-    },
-    "WORK-006": {
-      "change": "changed",
-      "summary": "16 October 2026 sd-slate-r12: align Slate invitation expiry with rer 0.2.25.",
-      "was": "An invitation is single-use, can be revoked before it is used, and can no longer be accepted 24 hours after it was sent; an expired invitation is retained, not deleted. Requesting an invitation returns the same response whether or not the address already belongs to a member.",
-      "now": "An invitation is single-use, can be revoked before it is used, and can no longer be accepted 7 days after it was sent; an expired invitation is retained, not deleted. Requesting an invitation returns the same response whether or not the address already belongs to a member.",
-      "securityConsequences": "New invitation links remain usable for seven days unless accepted or revoked sooner. Existing stored expiry times, guest grant expiry, single-use acceptance, revocation and authorization checks are preserved. Sign-in link and session lifetimes are unchanged."
-    },
     "NOTIF-003": {
       "change": "changed",
       "summary": "Slack destination channel and audience rules (scope-review-69 wording); tightens delivery; acceptance remains pending",
@@ -343,157 +24,69 @@
   "extensionPointChanges": [],
   "migrations": [
     {
-      "id": "0001_knowledge_foundation.sql",
-      "buyerSteps": "Preserve already-applied 0001 history and data. This original foundation migration remains unchanged. Apply later additive migrations through the actual edition commands only after independent old-data and recovery verification; migration presence alone is not acceptance."
+      "id": "0045_chat_destinations.sql",
+      "buyerSteps": "Back up first. Apply once through the normal upgrade runner in migration order, keeping previous entries in the migration ledger."
     },
     {
-      "id": "0002_core_runtime.sql",
-      "buyerSteps": "Additive flagship migration; preserve prior applied history and owner data. Independent old-data transition, restart and recovery evidence is pending root integration. Inspect the actual migration and operating commands before authorized application; listing here does not assert deployment."
+      "id": "0046_chat_delivery_policy.sql",
+      "buyerSteps": "Back up first. Apply once through the normal upgrade runner in migration order, keeping previous entries in the migration ledger."
     },
     {
-      "id": "0003_content_collaboration.sql",
-      "buyerSteps": "Additive flagship migration; preserve prior applied history and owner data. Independent old-data transition, restart and recovery evidence is pending root integration. Inspect the actual migration and operating commands before authorized application; listing here does not assert deployment."
+      "id": "0047_scheduled_backups.sql",
+      "buyerSteps": "Back up first. Apply once through the normal upgrade runner in migration order, keeping previous entries in the migration ledger."
     },
     {
-      "id": "0004_structured_work.sql",
-      "buyerSteps": "Additive flagship migration; preserve prior applied history and owner data. Independent old-data transition, restart and recovery evidence is pending root integration. Inspect the actual migration and operating commands before authorized application; listing here does not assert deployment."
+      "id": "0048_provider_folder_imports.sql",
+      "buyerSteps": "Back up first. Apply once through the normal upgrade runner in migration order, keeping previous entries in the migration ledger."
     },
     {
-      "id": "0005_discovery.sql",
-      "buyerSteps": "Additive flagship migration; preserve prior applied history and owner data. Independent old-data transition, restart and recovery evidence is pending root integration. Inspect the actual migration and operating commands before authorized application; listing here does not assert deployment."
+      "id": "0049_saml_single_sign_on.sql",
+      "buyerSteps": "Back up first. Apply once through the normal upgrade runner in migration order, keeping previous entries in the migration ledger."
     },
     {
-      "id": "0006_federation.sql",
-      "buyerSteps": "Additive flagship migration; preserve prior applied history and owner data. Independent old-data transition, restart and recovery evidence is pending root integration. Inspect the actual migration and operating commands before authorized application; listing here does not assert deployment."
+      "id": "0050_chat_held_acknowledgment.sql",
+      "buyerSteps": "Back up first. Apply once through the normal upgrade runner in migration order, keeping previous entries in the migration ledger."
     },
     {
-      "id": "0007_intelligence.sql",
-      "buyerSteps": "Additive flagship migration; preserve prior applied history and owner data. Independent old-data transition, restart and recovery evidence is pending root integration. Inspect the actual migration and operating commands before authorized application; listing here does not assert deployment."
+      "id": "0055_public_api_tokens.sql",
+      "buyerSteps": "Back up first. Apply once through the normal upgrade runner in migration order, keeping previous entries in the migration ledger."
     },
     {
-      "id": "0008_identity_mail_outbox.sql",
-      "buyerSteps": "Additive identity-mail custody and retry migration; preserve prior data and applied history. See docs/MAIL-DELIVERY.md. Migration presence and local tests do not establish provider delivery, live cron, inbox or release acceptance; independent old-data recovery and deployment verification remain required."
+      "id": "0056_webhook_subscriptions.sql",
+      "buyerSteps": "Back up first. Apply once through the normal upgrade runner in migration order, keeping previous entries in the migration ledger."
     },
     {
-      "id": "0018_development_mail_outbox.sql",
-      "buyerSteps": "Apply additively. Local-development storage only; hosted deployments never write it, and current Slate sends no development mail. It remains so older local installations can read and erase what they saved, and is excluded from archives."
+      "id": "0057_audit_stream.sql",
+      "buyerSteps": "Back up first. Apply once through the normal upgrade runner in migration order, keeping previous entries in the migration ledger."
     },
     {
-      "id": "0019_installation_portability.sql",
-      "buyerSteps": "Apply additively. Records installation archive state for rer export and rer import; no existing rows change."
+      "id": "0058_scim_directory.sql",
+      "buyerSteps": "Back up first. Apply once through the normal upgrade runner in migration order, keeping previous entries in the migration ledger."
     },
     {
-      "id": "0020_identity_adapter_preparation.sql",
-      "buyerSteps": "Apply additively. Existing member IDs, groups, guests and live sessions remain. Previously issued email links stop working; request new links. The empty binding table is adapter preparation, not a configured provider migration."
+      "id": "0059_member_profiles.sql",
+      "buyerSteps": "Back up first. Apply once through the normal upgrade runner in migration order, keeping previous entries in the migration ledger."
     },
     {
-      "id": "0021_search_fts.sql",
-      "buyerSteps": "Apply additively. Adds derived full-text search columns and rows; canonical content is unchanged and authorization stays in the access checks. The derived index rebuilds from canonical content."
+      "id": "0060_synced_static.sql",
+      "buyerSteps": "Back up first. Apply once through the normal upgrade runner in migration order, keeping previous entries in the migration ledger."
     },
     {
-      "id": "0022_native_identity_authority.sql",
-      "buyerSteps": "Apply additively. Existing members, roles, groups, guests and live sessions keep their rows and authority; pre-release sessions keep their 30-day native contract. Adds authority versions, email proofs, rate buckets and the provider policy generation."
+      "id": "0061_provider_embed_observations.sql",
+      "buyerSteps": "Back up first. Apply once through the normal upgrade runner in migration order, keeping previous entries in the migration ledger."
     },
     {
-      "id": "0023_identity_providers.sql",
-      "buyerSteps": "Apply additively (Base identity/oidc storage, byte-exact). With SSO_ENABLED=true, set IDENTITY_AUTHORIZATION_ENDPOINT, IDENTITY_TOKEN_ENDPOINT, IDENTITY_JWKS_URI (the exact values the issuer's discovery document publishes) and a new IDENTITY_TRANSACTION_SECRET of at least 32 characters before deploying; optional IDENTITY_TOKEN_AUTH_METHOD is client_secret_post (default) or client_secret_basic. See docs/release/identity-preparation.md."
+      "id": "0062_scim_portable_invitations.sql",
+      "buyerSteps": "Back up first. Apply once through the normal upgrade runner in migration order, keeping previous entries in the migration ledger."
     },
     {
-      "id": "0024_reviewed_imports.sql",
-      "buyerSteps": "Apply additively. Adds reviewed-import columns and import-kit custody tables; earlier imports keep their rows."
-    },
-    {
-      "id": "0025_import_generation.sql",
-      "buyerSteps": "Apply additively. Adds an import generation counter with a zero default."
-    },
-    {
-      "id": "0026_verification_review.sql",
-      "buyerSteps": "Apply additively. Indexes only, for the verification review list and lapse notices (STAT-003/STAT-004)."
-    },
-    {
-      "id": "0027_mention_titles_reindex.sql",
-      "buyerSteps": "Apply additively. Rebuilds derived search rows so mentioned page titles are no longer indexed (LINK-004); no canonical row changes."
-    },
-    {
-      "id": "0028_import_reversal_fences.sql",
-      "buyerSteps": "Apply additively. Adds import reversal fences and indexes from the pinned import kit."
-    },
-    {
-      "id": "0029_import_retirement.sql",
-      "buyerSteps": "Apply additively. Adds append-only import retirement and erasure journals from the pinned import kit."
-    },
-    {
-      "id": "0030_native_dependencies.sql",
-      "buyerSteps": "Apply additively. Adds the shared dependency-protocol tables; accounts, sessions and ownership remain native."
-    },
-    {
-      "id": "0031_import_preparation_progress.sql",
-      "buyerSteps": "Apply additively. Adds the import preparation progress schemas required by the pinned rer 0.2.22+ import kit."
-    },
-    {
-      "id": "0031_review_requests.sql",
-      "buyerSteps": "Apply additively. Adds accountable review requests with their history and delivery records; existing pages are unchanged."
-    },
-    {
-      "id": "0032_page_locks.sql",
-      "buyerSteps": "Apply additively. Adds nullable page lock columns; every existing page starts unlocked."
-    },
-    {
-      "id": "0032_work_items.sql",
-      "buyerSteps": "Apply additively. Adds task origins and durable reminders, recording the origin of task blocks that already exist; no existing row changes."
-    },
-    {
-      "id": "0033_following.sql",
-      "buyerSteps": "Apply additively. Adds page-watch enablement (default on, so existing watches stay active), carries a member's latest earlier stop-watching choice forward as a disabled watch, and adds space watches and watch edit sessions."
-    },
-    {
-      "id": "0034_preview_owner_signin.sql",
-      "buyerSteps": "Apply additively. Adds the single-use preview owner grant table and a read-only oa_operators view of the workspace's members."
-    },
-    {
-      "id": "0035_blog_posts.sql",
-      "buyerSteps": "Apply additively. Adds space blog posts and their import epoch triggers."
-    },
-    {
-      "id": "0036_space_hub.sql",
-      "buyerSteps": "Apply additively. Adds optional space home pages and the company hub; existing workspaces take the default hub."
-    },
-    {
-      "id": "0037_import_custody_replace.sql",
-      "buyerSteps": "Apply additively. Adds the import kit's custody replacement triggers; no stored row changes."
-    },
-    {
-      "id": "0038_import_door.sql",
-      "buyerSteps": "Apply additively. Adds the shared Base import door's tables (vendored; the door is not mounted in this release)."
-    },
-    {
-      "id": "0039_import_door_native_targets.sql",
-      "buyerSteps": "Apply additively. Adds the import door native target ledger and its epoch triggers."
-    },
-    {
-      "id": "0040_guest_policy.sql",
-      "buyerSteps": "Apply additively. Adds guest expiry and domain policy columns (no expiry and no domain limits by default) and their audit triggers."
-    },
-    {
-      "id": "0041_analytics_reports.sql",
-      "buyerSteps": "Apply additively. Adds the no-result search counters for workspace analytics."
-    },
-    {
-      "id": "0042_record_templates.sql",
-      "buyerSteps": "Apply additively. Adds database record templates and recurring record occurrences."
-    },
-    {
-      "id": "0043_portability_import_leases.sql",
-      "buyerSteps": "Apply additively. Installs rer's private import-lease bookkeeping table (CREATE TABLE IF NOT EXISTS, so an installation where rer already created it is unchanged); it never enters an archive."
-    },
-    {
-      "id": "0044_verification_rules.sql",
-      "buyerSteps": "Apply additively. Adds per-space verification rules (all off by default), their nightly run receipts and page flags (STAT-007); no existing row changes, and a backup made by 0.3.0 restores with these tables empty."
+      "id": "0063_owner_signin_bootstrap_view.sql",
+      "buyerSteps": "Apply with the upgrade runner. Adds the owner bootstrap lookup used by rer signin."
     }
   ],
   "breaking": false,
-  "publicReleaseNotes": "Slate 0.4.0: export a page, or a page with everything beneath it, to Word, with its comments if you choose; words typed into a new page before it finishes loading are now saved; and space owners can set nightly verification rules that flag or unverify pages, never verify them. On rer 0.2.73. Product screenshot: .github/assets/release/slate-0.4.0-page-1440.png",
-  "agentUpdateInstructions": "Slate 0.4.0 upgrades 0.3.0 in place. Back up first with rer export, keep @runeditrun/rer 0.2.73 as package.json pins it; then apply migration 0044 (verification rules); it is additive, so members, roles, groups, guests, pages, comments and live sessions keep every row. A backup made by 0.3.0 restores into 0.4.0 through rer import and Settings' workspace restore. The import door is vendored from Base and not mounted. Slate uses the default core-wiki scope in CONTRACT.md and ACCEPTANCE.md. Flagship is explicit development opt-in, not acceptance. Preserve all requirement IDs, baseline obligations, eight policy profiles, private drafts, current source/requester/audience rights, immutable decisions, grants, budgets and exact effect receipts. STAT-003/004 require a human to open the exact revision; automatic renewal is prohibited. Preserve applied migration history; verify forward transition and recovery before upgrading existing data. Source checks do not establish provider, deployment or complete flagship acceptance.",
+  "publicReleaseNotes": "Slate 0.4.1 supports hosted setup with mail off and owner sign-in through rer. It pins rer 0.2.113.\n\nDeploy with `MAIL_PROVIDER=none` to set up hosted Slate without a mail sender or API key. The setup owner signs in with `rer signin`. Email sign-in and invitations require a mail provider.\n\nThis release also brings forward scheduled backups, provider folder imports, SAML sign-in, public API tokens and SCIM directory support. Availability follows the deployment profile and connected provider settings.\n\nBack up Slate 0.4.0 before updating in place. Adopt 0.4.1 with the pinned rer 0.2.113 and apply the 15 pending migrations through the normal upgrade runner. Preserve the existing migration ledger and already applied SQL. Confirm owner access and check existing records before resuming writes.",
+  "agentUpdateInstructions": "Back up Slate 0.4.0 before updating in place. Adopt 0.4.1 with the pinned rer 0.2.113 and apply the 15 pending migrations through the normal upgrade runner. Preserve the existing migration ledger and already applied SQL. Confirm owner access and check existing records before resuming writes. Deploy with `MAIL_PROVIDER=none` to set up hosted Slate without a mail sender or API key. The setup owner signs in with `rer signin`. Email sign-in and invitations require a mail provider. Keep existing provider configuration where the workspace needs mail.",
   "launchProfile": {
     "default": "core-wiki",
     "binding": "SLATE_PROFILE",
