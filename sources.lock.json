@@ -2123,6 +2123,10 @@
       "sha256": "3ce68bcb9dd3b821f4314509c9104515ea91568be8c5d5fe1f3313ecf817644e",
       "executable": false
     },
+    "migrations/core/0063_owner_signin_bootstrap_view.sql": {
+      "sha256": "3084dd51a75d0246876cdc021a177713111b75b0521e9ea8270a2418cce67769",
+      "executable": false
+    },
     "modules/d1-transport/index.d.mts": {
       "sha256": "b1dcfba529210c9237fa257faa0da8c9062bef946961ba8edeb8af7e171611f3",
       "executable": false
