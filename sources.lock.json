@@ -936,7 +936,7 @@
       "executable": false
     },
     ".github/workflows/run-demo.yml": {
-      "sha256": "41365ec7c002e9451166313b085f9e64ed2e3ea002c27f3d5ead845bc9c302b2",
+      "sha256": "8bc045716ae59cb643898210282e9d36e9e8e2cfed16e48e54d464166f1b0536",
       "executable": false
     },
     ".github/workflows/run-site.yml": {
@@ -972,7 +972,7 @@
       "executable": false
     },
     "base-copies.json": {
-      "sha256": "0e1148dc29c9e8bef2a61f454116e32bdcb0c7cab1559d77ee273a340a45225e",
+      "sha256": "95812372fb457c71475d4f829f64a34d850ed46bb2390d4c2c72162452c0afd5",
       "executable": false
     },
     "BASELINE.md": {
@@ -992,7 +992,7 @@
       "executable": false
     },
     "DEMO.md": {
-      "sha256": "6d47c9e638fd9e012de4f65ad948d32e2b0afaed2fe381e15245d7fef1eae058",
+      "sha256": "8eba657dad4cab8ed3ea20ad8c603a1308a7ebe59463845df219cdbe4d3d912a",
       "executable": false
     },
     "deploy-demo.json": {

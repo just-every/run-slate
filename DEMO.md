@@ -24,7 +24,8 @@ minutes or 15 idle minutes, or on sign-out, and its storage is erased.
 The Run demo workflow uses the `run-demo` environment. Dispatch `test_only` for
 the separate test host with published Turnstile test keys. Dispatch `remove`
 with `test_only` to delete it and read back its removal. Production uses the
-environment's real Turnstile keys. Automatic deployment is not enabled here.
+environment's real Turnstile keys and deploys from the tag when a release is
+published.
 
 Hosted sign-in verifies Base's signed owner claim and uses Slate's native
 empty-workspace claim and session store. It cannot claim an existing workspace;

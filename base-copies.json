@@ -10,6 +10,15 @@
       },
       "modes": {
         ".github/workflows/run-demo.yml": "100644"
+      },
+      "adapted": {
+        ".github/workflows/run-demo.yml": "11f94fec479228d71ba6d7dd6ea7796c0d42c544"
+      },
+      "acknowledged": {
+        ".github/workflows/run-demo.yml": {
+          "sha256": "8bc045716ae59cb643898210282e9d36e9e8e2cfed16e48e54d464166f1b0536",
+          "mode": "100644"
+        }
       }
     },
     {
