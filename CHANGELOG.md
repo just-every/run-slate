@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.4.2 — 2026-11-26
+
+Fixes an error that could prevent the workspace from loading after sign-in on Cloudflare D1. Queries for review requests and page verifications now stay within D1’s SQL function argument limit.
+
+Back up with `rer export` before updating from 0.4.1. Upgrade in place with rer 0.2.113. This update uses the existing database schema and migration ledger. Sign in and confirm the workspace opens after upgrading.
+
 ## 0.4.1 — 2026-11-25
 
 Slate 0.4.1 supports hosted setup with mail off and owner sign-in through rer. It pins rer 0.2.113.

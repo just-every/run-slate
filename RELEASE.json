@@ -1,92 +1,13 @@
 {
-  "version": "0.4.1",
-  "previousVersion": "0.4.0",
-  "date": "2026-11-25",
-  "contractChanges": {
-    "NOTIF-003": {
-      "change": "changed",
-      "summary": "Slack destination channel and audience rules (scope-review-69 wording); tightens delivery; acceptance remains pending",
-      "was": "A workspace owner can connect one chat destination through `chat.notifier.v1` and choose which events reach it. A message carries the event, the actor, the page title and a link, never the page body, and the link still requires access. The connection shows its last delivery and its last failure, retries only transient transport failures, and stops sending the moment it is disconnected; its credential is encrypted with `CONNECTOR_CREDENTIALS_KEY`, returned by no API response, and destroyed on disconnect. A deployment with a chat destination connected and that variable missing fails at startup naming it (`BASE-SECRET-002`) rather than running with the connection off. An expired or revoked authorization marks the connection as needing attention, offers a reconnect action, and stops sending without deleting the connection, its event selection or its delivery history. Target (16 October 2026): `CHAT-001` extends this to any number of Slack, Microsoft Teams and Nook destinations with the same guarantees.",
-      "now": "A workspace owner can connect one chat destination through `chat.notifier.v1` and choose which events reach it. A message carries the event, the actor, the page title and a link, never the page body, and the link still requires access. The connection shows its last delivery and its last failure, retries only transient transport failures, and stops sending the moment it is disconnected; its credential is encrypted with `CONNECTOR_CREDENTIALS_KEY`, returned by no API response, and destroyed on disconnect. A deployment with a chat destination connected and that variable missing fails at startup naming it (`BASE-SECRET-002`) rather than running with the connection off. An expired or revoked authorization marks the connection as needing attention, offers a reconnect action, and stops sending without deleting the connection, its event selection or its delivery history. A Slack destination is one private channel that is not shared with another Slack workspace or organization. Every person in it, apart from deactivated Slack accounts, must have a Slack email that matches an active member of the workspace, and no bot other than the one sending the messages may be in it. Slate refuses to connect a channel that fails this, rechecks it before every send and sends nothing while it fails, and sends a message about an event only when every such person can read what the event links to immediately before sending. In the default `core-wiki` profile the workspace owner can connect a Slack destination by supplying a Slack bot token, with no `CONNECT-001` source connection needed; a destination authorized any other way, such as through a connected Slack source identity, meets every rule in this clause. Target (16 October 2026): `CHAT-001` extends this to any number of Slack, Microsoft Teams and Nook destinations with the same guarantees.",
-      "date": "2026-10-21",
-      "affectedRequirements": [
-        "NOTIF-003",
-        "CHAT-001"
-      ],
-      "securityConsequences": "Delivery is narrowed to verified private audiences: a Slack destination receives a message about an event only when it is a private, unshared channel with no bot but the sender, whose people (deactivated Slack accounts aside) all have a Slack email matching an active member and can read what the event links to immediately before sending. Nothing new is disclosed: a message still carries only the event, the actor, the page title and a link that still requires access. Connections that used to succeed can now be refused at connect, and a connected channel that fails the rules is sent nothing. CHAT-001 inherits these rules for every Slack destination, however it is authorized."
-    },
-    "CHAT-001": {
-      "was": "Workspace and container owners connect any number of channels in Slack, Microsoft Teams or [Nook](https://github.com/just-every/run-nook), each with its own event selection: published or updated pages, new comments, blog posts, review requests and lapsed verifications in the container. `NOTIF-003`'s guarantees apply to every destination: link-only messages, access-checked links, encrypted credentials returned by no API response and destroyed on disconnect, startup refusal naming `CONNECTOR_CREDENTIALS_KEY` when any destination is connected and that key is missing, delivery and failure state, transient-only retry, and stopping on disconnect. Expired or revoked authorization marks that destination as needing attention, offers reconnect and stops sending to it while retaining the destination, its event selection and its delivery history. Every Slack destination, however it is authorized, also meets `NOTIF-003`'s Slack channel and audience rules.",
-      "now": "Workspace and container owners connect any number of channels in Slack, Microsoft Teams or [Nook](https://github.com/just-every/run-nook), each with its own event selection: published or updated pages, new comments, blog posts, review requests and lapsed verifications in the container. `NOTIF-003`'s guarantees apply to every destination: link-only messages, access-checked links, encrypted credentials returned by no API response and destroyed on disconnect, startup refusal naming `CONNECTOR_CREDENTIALS_KEY` when any destination is connected and that key is missing, delivery and failure state, transient-only retry, and stopping on disconnect. Expired or revoked authorization marks that destination as needing attention, offers reconnect and stops sending to it while retaining the destination, its event selection and its delivery history. Every Slack destination, however it is authorized, also meets `NOTIF-003`'s Slack channel and audience rules. Every Teams and Nook destination meets the same rule in its provider's terms: a channel whose full roster Slate can read and only admitted members change (Teams private team or private channel, Nook private channel), not shared with another organization (`NOOK-031`), with no guest, external account or bot but Slate's, and every person an active Slate member by verified email who can read the linked record immediately before sending; Slate refuses it at connect, rechecks before every send and sends nothing while it fails. Slack connects as an OAuth app a workspace admin installs; Teams as an app package an Entra admin consents to with resource-specific channel permissions; Nook through `NOOK-080`. Slate honours each provider's rate limit and `Retry-After` without loss, and coalesces more than five events per destination per minute into one message. Later events on the same page within 24 hours reply in its first message's thread. Each destination chooses immediate or daily digest. When a page is deleted, moves beyond the channel's audience or its actor is erased (`WORK-007`), Slate edits every message it sent about it to \"Restricted Slate page\".",
-      "securityConsequences": "Audience verification fails closed; delivery is delayed to close its UTC minute or day, and sent titles are withdrawn through durable payload-free receipts. Admin installation, verified Teams mail and loss of remote edit authority remain open, so CHAT-001 stays partial."
-    }
-  },
+  "version": "0.4.2",
+  "previousVersion": "0.4.1",
+  "date": "2026-11-26",
+  "contractChanges": {},
   "extensionPointChanges": [],
-  "migrations": [
-    {
-      "id": "0045_chat_destinations.sql",
-      "buyerSteps": "Back up first. Apply once through the normal upgrade runner in migration order, keeping previous entries in the migration ledger."
-    },
-    {
-      "id": "0046_chat_delivery_policy.sql",
-      "buyerSteps": "Back up first. Apply once through the normal upgrade runner in migration order, keeping previous entries in the migration ledger."
-    },
-    {
-      "id": "0047_scheduled_backups.sql",
-      "buyerSteps": "Back up first. Apply once through the normal upgrade runner in migration order, keeping previous entries in the migration ledger."
-    },
-    {
-      "id": "0048_provider_folder_imports.sql",
-      "buyerSteps": "Back up first. Apply once through the normal upgrade runner in migration order, keeping previous entries in the migration ledger."
-    },
-    {
-      "id": "0049_saml_single_sign_on.sql",
-      "buyerSteps": "Back up first. Apply once through the normal upgrade runner in migration order, keeping previous entries in the migration ledger."
-    },
-    {
-      "id": "0050_chat_held_acknowledgment.sql",
-      "buyerSteps": "Back up first. Apply once through the normal upgrade runner in migration order, keeping previous entries in the migration ledger."
-    },
-    {
-      "id": "0055_public_api_tokens.sql",
-      "buyerSteps": "Back up first. Apply once through the normal upgrade runner in migration order, keeping previous entries in the migration ledger."
-    },
-    {
-      "id": "0056_webhook_subscriptions.sql",
-      "buyerSteps": "Back up first. Apply once through the normal upgrade runner in migration order, keeping previous entries in the migration ledger."
-    },
-    {
-      "id": "0057_audit_stream.sql",
-      "buyerSteps": "Back up first. Apply once through the normal upgrade runner in migration order, keeping previous entries in the migration ledger."
-    },
-    {
-      "id": "0058_scim_directory.sql",
-      "buyerSteps": "Back up first. Apply once through the normal upgrade runner in migration order, keeping previous entries in the migration ledger."
-    },
-    {
-      "id": "0059_member_profiles.sql",
-      "buyerSteps": "Back up first. Apply once through the normal upgrade runner in migration order, keeping previous entries in the migration ledger."
-    },
-    {
-      "id": "0060_synced_static.sql",
-      "buyerSteps": "Back up first. Apply once through the normal upgrade runner in migration order, keeping previous entries in the migration ledger."
-    },
-    {
-      "id": "0061_provider_embed_observations.sql",
-      "buyerSteps": "Back up first. Apply once through the normal upgrade runner in migration order, keeping previous entries in the migration ledger."
-    },
-    {
-      "id": "0062_scim_portable_invitations.sql",
-      "buyerSteps": "Back up first. Apply once through the normal upgrade runner in migration order, keeping previous entries in the migration ledger."
-    },
-    {
-      "id": "0063_owner_signin_bootstrap_view.sql",
-      "buyerSteps": "Apply with the upgrade runner. Adds the owner bootstrap lookup used by rer signin."
-    }
-  ],
+  "migrations": [],
   "breaking": false,
-  "publicReleaseNotes": "Slate 0.4.1 supports hosted setup with mail off and owner sign-in through rer. It pins rer 0.2.113.\n\nDeploy with `MAIL_PROVIDER=none` to set up hosted Slate without a mail sender or API key. The setup owner signs in with `rer signin`. Email sign-in and invitations require a mail provider.\n\nThis release also brings forward scheduled backups, provider folder imports, SAML sign-in, public API tokens and SCIM directory support. Availability follows the deployment profile and connected provider settings.\n\nBack up Slate 0.4.0 before updating in place. Adopt 0.4.1 with the pinned rer 0.2.113 and apply the 15 pending migrations through the normal upgrade runner. Preserve the existing migration ledger and already applied SQL. Confirm owner access and check existing records before resuming writes.",
-  "agentUpdateInstructions": "Back up Slate 0.4.0 before updating in place. Adopt 0.4.1 with the pinned rer 0.2.113 and apply the 15 pending migrations through the normal upgrade runner. Preserve the existing migration ledger and already applied SQL. Confirm owner access and check existing records before resuming writes. Deploy with `MAIL_PROVIDER=none` to set up hosted Slate without a mail sender or API key. The setup owner signs in with `rer signin`. Email sign-in and invitations require a mail provider. Keep existing provider configuration where the workspace needs mail.",
+  "publicReleaseNotes": "Fixes an error that could prevent the workspace from loading after sign-in on Cloudflare D1. Queries for review requests and page verifications now stay within D1’s SQL function argument limit.\n\nBack up with `rer export` before updating from 0.4.1. Upgrade in place with rer 0.2.113. This update uses the existing database schema and migration ledger. Sign in and confirm the workspace opens after upgrading.",
+  "agentUpdateInstructions": "Back up with `rer export` before updating from 0.4.1. Upgrade in place with rer 0.2.113. This update uses the existing database schema and migration ledger. Sign in and confirm the workspace opens after upgrading.",
   "launchProfile": {
     "default": "core-wiki",
     "binding": "SLATE_PROFILE",
