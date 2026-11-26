@@ -86,30 +86,32 @@ async function choose(view, origin, theme) {
 }
 
 async function operatorDestination(view, origin, route, inNavigation) {
-  if (route.startsWith('/app/settings/') && new URL(view.url()).pathname.startsWith('/app/settings/')) {
-    // Exercise the same native section links a member uses, retaining the
-    // document-door check without rebuilding the whole browser document.
-    const response = await view.context().request.get(origin + route);
-    const link = view.getByRole('navigation', { name: 'Settings sections', exact: true }).locator(`a[href="${route}"]`);
-    await link.click();
-    await expect(view).toHaveURL(origin + route);
-    await expect(link).toHaveAttribute('aria-current', 'page');
-    return response;
-  }
-  if (inNavigation) {
-    // Cover the persistent operator shell as well as each document door.
-    const response = await view.context().request.get(origin + route);
+  const inSettings = route.startsWith('/app/settings/') && new URL(view.url()).pathname.startsWith('/app/settings/');
+  if (!inSettings && !inNavigation) return view.goto(origin + route, { waitUntil: 'networkidle' });
+
+  // Check the document door as well as the native navigation link.
+  const response = await view.context().request.get(origin + route);
+  let link;
+  if (inSettings) {
+    link = view.getByRole('navigation', { name: 'Settings sections', exact: true }).locator(`a[href="${route}"]`);
+  } else {
     const trigger = view.getByRole('button', { name: 'Open navigation', exact: true });
     if (await trigger.isVisible()) await trigger.click();
-    const link = view.locator('nav[aria-label="Workspace navigation"]').locator(`a[href="${route}"]`);
+    link = view.locator('nav[aria-label="Workspace navigation"]').locator(`a[href="${route}"]`);
     await expect(link).toHaveCount(1);
-    await link.click();
-    await expect(view).toHaveURL(origin + route);
-    await expect(link).toHaveAttribute('aria-current', 'page');
-    await view.waitForLoadState('networkidle');
-    return response;
   }
-  return view.goto(origin + route, { waitUntil: 'networkidle' });
+  await link.click();
+  // The Settings index redirects to the Workspace section at both doors.
+  const destination = new URL(route === '/app/settings' ? '/app/settings/workspace' : route, origin);
+  assert.equal(response.url(), destination.href, `Document destination for ${route}.`);
+  await expect(view).toHaveURL(destination.href);
+  // The address and active link update before the route commits. The old
+  // shell can still close or replace the drawer after the next click opens it.
+  await view.waitForFunction(href => window.__TSR_ROUTER__?.state.resolvedLocation?.href === href,
+    destination.pathname + destination.search);
+  await expect(link).toHaveAttribute('aria-current', 'page');
+  if (!inSettings) await view.waitForLoadState('networkidle');
+  return response;
 }
 
 /** Native member preferences, new sign-ins and public exposure documents; no application response is faked. */

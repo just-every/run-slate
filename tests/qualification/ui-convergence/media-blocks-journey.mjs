@@ -121,7 +121,8 @@ export async function mediaBlocksJourney(state) {
     await page.getByRole('navigation',{name:'Space navigation'}).getByRole('button',{name:'Blog',exact:true}).click();
     const cover=page.getByRole('region',{name:'Blog',exact:true}).getByRole('article',{name:'Media field notes',exact:true}).locator('img.post-cover');
     await expect(cover).toBeVisible();
-    assert.equal(await cover.evaluate(image=>image.complete&&image.naturalWidth>0),true);
+    // The Blog tab mounts the cover after navigation, and CSS gives it a box before its image loads.
+    await expect.poll(()=>cover.evaluate(image=>image.complete&&image.naturalWidth>0),{message:'The uploaded blog cover finishes loading'}).toBe(true);
     const coverResponse=await context.request.get(origin+await cover.getAttribute('src'));
     assert.equal(coverResponse.status(),200);assert.match(coverResponse.headers()['content-disposition'],/^inline;/);
     matrix.push({audience:'blog',kind:'cover',status:coverResponse.status(),headers:coverResponse.headers()});

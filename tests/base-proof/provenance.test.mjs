@@ -28,8 +28,11 @@ function fixture(run) {
     for (const copy of record.copies) for (const local of Object.keys(copy.files)) {
       const filename = path.join(edition, local);
       const origin = copy.originPath + local.slice(copy.path.length);
+      const adaptation = copy.acknowledged?.[local];
+      const bytes = adaptation ? fs.readFileSync(path.join(root, local)) : objects.get(files.get(copy.revision).get(origin)).data;
+      const mode = adaptation?.mode ?? copy.modes?.[local];
       fs.mkdirSync(path.dirname(filename), {recursive: true});
-      fs.writeFileSync(filename, objects.get(files.get(copy.revision).get(origin)).data, { mode: copy.modes?.[local] === '100755' ? 0o755 : 0o644 });
+      fs.writeFileSync(filename, bytes, { mode: mode === '100755' ? 0o755 : 0o644 });
     }
     const writeRecord = value => fs.writeFileSync(path.join(edition, 'base-copies.json'), JSON.stringify(value));
     writeRecord(record);
