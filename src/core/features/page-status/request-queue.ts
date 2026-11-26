@@ -25,6 +25,7 @@ export async function reviewRequestQueue(ctx: FeatureContext, input: { view?: st
  const acl = accessSql(subject, ctx.now, false), after = input.cursor ? decode(input.cursor) : null, limit = Number.isFinite(input.limit) ? Math.min(100, Math.max(1, Math.trunc(input.limit!))) : 50;
  const ownAssignment = assignedSql('s', 'r').replaceAll('s.id', 's.member');
  const selected = input.pageId || input.id ? '1' : view === 'assigned' ? 'assigned' : 'requester_member_id=(SELECT member FROM subject)';
+ // D1 allows at most 32 arguments per function. json_set retains keys with SQL NULL values.
  const sql = `WITH RECURSIVE candidates AS MATERIALIZED (SELECT DISTINCT page_id FROM review_requests WHERE workspace_id=?),${acl.sql},
  listed AS (
  SELECT r.*,p.container_id,p.revision_id AS page_revision_id,p.working_revision_id,
@@ -46,13 +47,14 @@ export async function reviewRequestQueue(ctx: FeatureContext, input: { view?: st
  WHERE r.workspace_id=s.workspace AND p.deleted_at IS NULL AND p.trashed_at IS NULL AND p.archived_at IS NULL AND p.lifecycle<>'archived'
  ),readable AS MATERIALIZED (SELECT * FROM listed WHERE access_level>0),
  queue AS (SELECT * FROM readable WHERE (${selected}) AND (?='all' OR state=?) AND (? IS NULL OR page_id=?) AND (? IS NULL OR id=?))
- SELECT (SELECT json_group_array(json_object('id',q.id,'pageId',q.page_id,'title',q.title,'containerName',q.container_name,'requesterId',q.requester_member_id,'requesterName',q.requester_name,'assigneeKind',q.assignee_kind,'assigneeId',q.assignee_id,'assigneeName',q.assignee_name,
- 'assignmentGeneration',q.assignment_generation,'revisionId',q.revision_id,'requestedRevisionId',q.requested_revision_id,'date',q.due_date,'time',q.due_time,'timezone',q.timezone,'dueAt',q.due_at,'note',q.note,'state',q.state,
- 'pageRevisionId',q.page_revision_id,'workingRevisionId',q.working_revision_id,'statusKey',q.verify_status,'openedCurrent',q.opened,
- 'canVerify',q.assigned AND q.access_level>=3 AND q.verify_status IS NOT NULL,'canRequestChanges',q.assigned AND q.access_level>=2,
- 'canReassign',q.assigned OR q.access_level>=3 OR q.owner_member_id=(SELECT member FROM subject) OR q.requester_member_id=(SELECT member FROM subject),
- 'canCancel',q.access_level>=3 OR q.owner_member_id=(SELECT member FROM subject) OR q.requester_member_id=(SELECT member FROM subject),
- 'reviewerRemindedAt',q.reviewer_reminded,'ownerRemindedAt',q.owner_reminded,'dispatchPausedAt',q.dispatch_paused_at,'commentId',q.comment_id,'resolvedAt',q.resolved_at))
+ SELECT (SELECT json_group_array(json_set(
+ json_object('id',q.id,'pageId',q.page_id,'title',q.title,'containerName',q.container_name,'requesterId',q.requester_member_id,'requesterName',q.requester_name,'assigneeKind',q.assignee_kind,'assigneeId',q.assignee_id,'assigneeName',q.assignee_name,
+ 'assignmentGeneration',q.assignment_generation,'revisionId',q.revision_id,'requestedRevisionId',q.requested_revision_id,'date',q.due_date,'time',q.due_time,'timezone',q.timezone,'dueAt',q.due_at),
+ '$.note',q.note,'$.state',q.state,'$.pageRevisionId',q.page_revision_id,'$.workingRevisionId',q.working_revision_id,'$.statusKey',q.verify_status,'$.openedCurrent',q.opened,
+ '$.canVerify',q.assigned AND q.access_level>=3 AND q.verify_status IS NOT NULL,'$.canRequestChanges',q.assigned AND q.access_level>=2,
+ '$.canReassign',q.assigned OR q.access_level>=3 OR q.owner_member_id=(SELECT member FROM subject) OR q.requester_member_id=(SELECT member FROM subject),
+ '$.canCancel',q.access_level>=3 OR q.owner_member_id=(SELECT member FROM subject) OR q.requester_member_id=(SELECT member FROM subject),
+ '$.reviewerRemindedAt',q.reviewer_reminded,'$.ownerRemindedAt',q.owner_reminded,'$.dispatchPausedAt',q.dispatch_paused_at,'$.commentId',q.comment_id,'$.resolvedAt',q.resolved_at))
  FROM (SELECT * FROM queue WHERE ? IS NULL OR (due_at,id)>(?,?) ORDER BY due_at,id LIMIT ?) q) AS items,
  (SELECT COUNT(*) FROM queue) AS total,
  (SELECT COUNT(*) FROM readable WHERE state='pending' AND assigned) AS assigned_count,

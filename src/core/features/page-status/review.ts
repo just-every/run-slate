@@ -49,6 +49,7 @@ export async function reviewQueue(ctx: FeatureContext, input: { filter?: string;
   const selected = filter === 'mine' ? `owner_member_id=(SELECT member FROM subject) AND ${needsReview}` : filter === 'everyone' ? needsReview : 'NOT verifier_active';
   // Revisions after the attestation, limited to those the member's history shows (REV-002).
   const since = (authors: boolean) => `FROM page_revisions r${authors ? ' JOIN members em ON em.id=r.author_member_id' : ''} WHERE r.page_id=q.id AND r.created_at>q.verified_at AND r.deleted_at IS NULL AND (q.access_level>=3 OR EXISTS(SELECT 1 FROM content_published_revisions pv WHERE pv.page_id=r.page_id AND pv.revision_id=r.id))`;
+  // Keep each JSON function within D1's 32-argument limit.
   const sql = `WITH RECURSIVE candidates AS MATERIALIZED (
  SELECT p.id AS page_id,v.id AS verification_id FROM pages p JOIN page_verifications v ON v.id=${latestVerificationSql('p')}
  WHERE p.workspace_id=? AND p.deleted_at IS NULL AND p.trashed_at IS NULL AND p.archived_at IS NULL AND p.lifecycle<>'archived' AND p.status_key IS v.status_key
@@ -67,11 +68,12 @@ export async function reviewQueue(ctx: FeatureContext, input: { filter?: string;
  readable AS MATERIALIZED (SELECT *,CASE state WHEN 'lapsed' THEN 0 WHEN 'changed' THEN 1 WHEN 'expiring' THEN 2 ELSE 3 END AS rank,COALESCE(expires_at,'') AS due FROM listed WHERE access_level>0),
  queue AS (SELECT * FROM readable WHERE ${selected})
  SELECT
- (SELECT json_group_array(json_object('id',q.id,'title',q.title,'containerId',q.container_id,'containerName',q.container_name,'state',q.state,'verifierId',q.owner_member_id,'verifierName',q.verifier_name,'verifierActive',q.verifier_active,'verifiedAt',q.verified_at,'expiresAt',q.expires_at,
-  'verifiedRevisionId',q.verified_revision_id,'workingRevisionId',q.working_revision_id,'pageRevisionId',q.page_revision_id,'statusKey',q.status_key,'accessLevel',q.access_level,'rank',q.rank,'due',q.due,
-  'revisionsSince',(SELECT COUNT(*) ${since(false)}),
-  'editorsSince',json((SELECT json_group_array(name) FROM (SELECT DISTINCT em.display_name AS name ${since(true)} ORDER BY 1))),
-  'openedCurrent',EXISTS(SELECT 1 FROM content_page_opens o WHERE o.member_id=(SELECT member FROM subject) AND o.page_id=q.id AND o.revision_id=q.working_revision_id)))
+ (SELECT json_group_array(json_set(
+  json_object('id',q.id,'title',q.title,'containerId',q.container_id,'containerName',q.container_name,'state',q.state,'verifierId',q.owner_member_id,'verifierName',q.verifier_name,'verifierActive',q.verifier_active,'verifiedAt',q.verified_at,'expiresAt',q.expires_at,
+  'verifiedRevisionId',q.verified_revision_id,'workingRevisionId',q.working_revision_id,'pageRevisionId',q.page_revision_id,'statusKey',q.status_key,'accessLevel',q.access_level,'rank',q.rank),
+  '$.due',q.due,'$.revisionsSince',(SELECT COUNT(*) ${since(false)}),
+  '$.editorsSince',json((SELECT json_group_array(name) FROM (SELECT DISTINCT em.display_name AS name ${since(true)} ORDER BY 1))),
+  '$.openedCurrent',EXISTS(SELECT 1 FROM content_page_opens o WHERE o.member_id=(SELECT member FROM subject) AND o.page_id=q.id AND o.revision_id=q.working_revision_id)))
   FROM (SELECT * FROM queue q WHERE ? IS NULL OR (q.rank,q.due,q.id)>(?,?,?) ORDER BY q.rank,q.due,q.id LIMIT ?) q) AS items,
  (SELECT COUNT(*) FROM queue) AS total,
  (SELECT COUNT(*) FROM readable WHERE owner_member_id=(SELECT member FROM subject) AND ${needsReview}) AS mine,
